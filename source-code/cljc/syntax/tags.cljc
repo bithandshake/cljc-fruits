@@ -5,33 +5,61 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn tag-close-dex
+(defn open-tag-position
+  ; @param (string) n
+  ; @param (string) open-tag
+  ;
+  ; @example
+  ;  (open-tag-position "<div>My content</div>" "<div>")
+  ;  =>
+  ;  0
+  ;
+  ; @example
+  ;  (open-tag-position "<div><div></div></div>" "<div>")
+  ;  =>
+  ;  0
+  ;
+  ; @example
+  ;  (open-tag-position "</div> <div></div>" "<div>")
+  ;  =>
+  ;  7
+  ;
+  ; @return (integer)
+  ;  Returns with the position of the first occurence of the given open-tag in
+  ;  the string n.
+  [n open-tag]
+  (string/first-dex-of n open-tag))
+
+(defn close-tag-position
   ; @param (string) n
   ; @param (string) open-tag
   ; @param (string) close-tag
   ;
   ; @example
-  ;  (tag-close-dex "<div>My content</div>" "<div>" "</div>")
+  ;  (close-tag-position "<div>My content</div>" "<div>" "</div>")
   ;  =>
   ;  15
   ;
   ; @example
-  ;  (tag-close-dex "<div><div></div></div>" "<div>" "</div>")
+  ;  (close-tag-position "<div><div></div></div>" "<div>" "</div>")
   ;  =>
   ;  16
   ;
   ; @example
-  ;  (tag-close-dex "</div> <div></div>" "<div>" "</div>")
+  ;  (close-tag-position "</div> <div></div>" "<div>" "</div>")
   ;  =>
-  ;  0
+  ;  12
   ;
   ; @return (integer)
+  ;  Returns with the position of the close-pair of the first occurence of the
+  ;  given open-tag in the string n.
   [n open-tag close-tag]
-  (if (string/contains-part? n close-tag)
+  (if (and (string/contains-part? n  open-tag)
+           (string/contains-part? n close-tag))
       (letfn [(f [cursor]
                  (let [a               (string/part             n  0 cursor)
                        b               (string/part             n    cursor)
-                       open-tag-count  (string/count-occurences a  open-tag)
+                        open-tag-count (string/count-occurences a  open-tag)
                        close-tag-count (string/count-occurences a close-tag)]
                       ;(println)
                       ;(println (str "\"" a "\""))
@@ -43,73 +71,160 @@
                                (>= close-tag-count open-tag-count))
                           (do ;(println "result:" (string/last-dex-of a close-tag))
                               (string/last-dex-of a close-tag))
-                          (if-let [close-tag-dex (string/first-dex-of b close-tag)]
-                                  (do ;(println "close-tag-dex:" close-tag-dex)
-                                      (f (+ close-tag-dex (count close-tag) cursor)))))))]
-             (f 0))))
+                          (if-let [close-tag-position (string/first-dex-of b close-tag)]
+                                  (do ;(println "close-tag-position:" close-tag-position)
+                                      (f (+ close-tag-position (count close-tag) cursor)))))))]
+             (f (string/first-dex-of n open-tag)))))
 
-(defn brace-close-dex
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn open-brace-position
   ; @param (n)
   ;
   ; @example
-  ;  (brace-close-dex "{:a 0}")
-  ;  =>
-  ;  5
-  ;
-  ; @example
-  ;  (brace-close-dex "([] {:a {:b 0}}")
-  ;  =>
-  ;  14
-  ;
-  ; @example
-  ;  (brace-close-dex "} {}")
+  ;  (open-brace-position "{:a 0}")
   ;  =>
   ;  0
   ;
-  ; @return (integer)
-  [n]
-  (tag-close-dex n "{" "}"))
-
-(defn bracket-close-dex
-  ; @param (n)
-  ;
   ; @example
-  ;  (bracket-close-dex "[1 2]")
+  ;  (open-brace-position "([] {:a {:b 0}}")
   ;  =>
   ;  4
   ;
   ; @example
-  ;  (bracket-close-dex "({} [[0 1]])")
+  ;  (open-brace-position "} {}")
+  ;  =>
+  ;  2
+  ;
+  ; @return (integer)
+  ;  Returns with the position of the first occurence of the character "{"
+  ;  in the string n.
+  [n]
+  (open-tag-position n "{"))
+
+(defn close-brace-position
+  ; @param (n)
+  ;
+  ; @example
+  ;  (close-brace-position "{:a 0}")
+  ;  =>
+  ;  5
+  ;
+  ; @example
+  ;  (close-brace-position "([] {:a {:b 0}}")
+  ;  =>
+  ;  14
+  ;
+  ; @example
+  ;  (close-brace-position "} {}")
+  ;  =>
+  ;  3
+  ;
+  ; @return (integer)
+  ;  Returns with the position of the close-pair of the first occurence of the
+  ;  character "{" in the string n.
+  [n]
+  (close-tag-position n "{" "}"))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn open-bracket-position
+  ; @param (n)
+  ;
+  ; @example
+  ;  (open-bracket-position "[1 2]")
+  ;  =>
+  ;  0
+  ;
+  ; @example
+  ;  (open-bracket-position "({} [[0 1]])")
+  ;  =>
+  ;  4
+  ;
+  ; @example
+  ;  (open-bracket-position "] []")
+  ;  =>
+  ;  2
+  ;
+  ; @return (integer)
+  ;  Returns with the position of the first occurence of the character "["
+  ;  in the string n.
+  [n]
+  (open-tag-position n "["))
+
+(defn close-bracket-position
+  ; @param (n)
+  ;
+  ; @example
+  ;  (close-bracket-position "[1 2]")
+  ;  =>
+  ;  4
+  ;
+  ; @example
+  ;  (close-bracket-position "({} [[0 1]])")
   ;  =>
   ;  10
   ;
   ; @example
-  ;  (bracket-close-dex "] []")
+  ;  (close-bracket-position "] []")
   ;  =>
-  ;  0
+  ;  3
   ;
   ; @return (integer)
+  ;  Returns with the position of the close-pair of the first occurence of the
+  ;  character "[" in the string n.
   [n]
-  (tag-close-dex n "[" "]"))
+  (close-tag-position n "[" "]"))
 
-(defn paren-close-dex
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn open-paren-position
   ; @param (n)
   ;
   ; @example
-  ;  (paren-close-dex "(+ 1 2)")
+  ;  (open-paren-position "(+ 1 2)")
+  ;  =>
+  ;  0
+  ;
+  ; @example
+  ;  (open-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
+  ;  =>
+  ;  4
+  ;
+  ; @example
+  ;  (open-paren-position ") ()")
+  ;  =>
+  ;  2
+  ;
+  ; @return (integer)
+  ;  Returns with the position of the first occurence of the character "("
+  ;  in the string n.
+  [n]
+  (open-tag-position n "("))
+
+(defn close-paren-position
+  ; @param (n)
+  ;
+  ; @example
+  ;  (close-paren-position "(+ 1 2)")
   ;  =>
   ;  6
   ;
   ; @example
-  ;  (paren-close-dex "[{} (+ 1 (inc 2) (inc 3))]")
+  ;  (close-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
   ;  =>
   ;  24
   ;
   ; @example
-  ;  (paren-close-dex ") ()")
+  ;  (close-paren-position ") ()")
   ;  =>
-  ;  0
+  ;  3
   ;
   ; @return (integer)
+  ;  Returns with the position of the close-pair of the first occurence of the
+  ;  character "(" in the string n.
   [n]
-  (tag-close-dex n "(" ")"))
+  (close-tag-position n "(" ")"))

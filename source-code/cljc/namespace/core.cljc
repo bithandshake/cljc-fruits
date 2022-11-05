@@ -1,5 +1,5 @@
 
-(ns mid-fruits.namespace
+(ns namespace.core
     (:require [mid-fruits.keyword :as keyword]))
 
 ;; ----------------------------------------------------------------------------
