@@ -1,6 +1,7 @@
 
 (ns gestures.core
     (:require [mid-fruits.candy  :refer [return]]
+              [gestures.type     :as type]
               [loop.api          :refer [do-while]]
               [mid-fruits.mixed  :as mixed]
               [mid-fruits.string :as string]
@@ -37,7 +38,7 @@
 
   ([item-label concurent-labels]
    (letfn [(test-f [n] (not (vector/contains-item? concurent-labels n)))
-           (f      [n] (if (ordered-label? n)
+           (f      [n] (if (type/ordered-label? n)
                            (let [copy-dex      (string/after-last-occurence  n "#" {:return? false})
                                  label-base    (string/before-last-occurence n "#" {:return? true})
                                  next-copy-dex (mixed/update-whole-number copy-dex inc)]
