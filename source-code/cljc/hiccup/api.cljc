@@ -27,8 +27,8 @@
 (def unparse-css parse/unparse-css)
 
 ; hiccup.type
-(def hiccup?   core/hiccup?)
-(def tag-name? core/tag-name?)
+(def hiccup?   type/hiccup?)
+(def tag-name? type/tag-name?)
 
 ; hiccup.walk
 (def walk    walk/walk)

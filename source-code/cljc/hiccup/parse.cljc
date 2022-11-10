@@ -2,7 +2,8 @@
 (ns hiccup.parse
     (:require [mid-fruits.candy  :refer [return]]
               [mid-fruits.css    :as css]
-              [hiccup.attributes :as attributes]))
+              [hiccup.attributes :as attributes]
+              [hiccup.walk       :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -26,4 +27,4 @@
                       (if (map? style)
                           (attributes/set-style n (css/unparse style))
                           (return               n))))]
-         (walk n f)))
+         (walk/walk n f)))
