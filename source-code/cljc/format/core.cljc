@@ -2,6 +2,7 @@
 (ns format.core
     (:require [mid-fruits.candy  :refer [param return]]
               [mid-fruits.mixed  :as mixed]
+              [regex.api         :refer [re-match?]]
               [mid-fruits.string :as string]
               [mid-fruits.vector :as vector]))
 
@@ -52,12 +53,38 @@
   ;  =>
   ;  "007"
   ;
+  ; @example
+  ;  (leading-zeros 420 3)
+  ;  =>
+  ;  "420"
+  ;
   ; @return (string)
   [n length]
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str "0" x))
             (return x))))
+
+(defn remove-leading-zeros
+  ; @param (integer or string) n
+  ;
+  ; @example
+  ;  (remove-leading-zeros 42)
+  ;  =>
+  ;  "42"
+  ;
+  ; @example
+  ;  (remove-leading-zeros "0042")
+  ;  =>
+  ;  "42"
+  ;
+  ; @return (string)
+  [n]
+  (letfn [(f [n]
+             (if-not (= "0" (first n))
+                     (return n)
+                     (f (subs n 1))))]
+         (-> n str f)))
 
 (defn trailing-zeros
   ; @param (integer or string) n
@@ -146,17 +173,43 @@
   ;  =>
   ;  "1.2.20"
   ;
+  ; @example
+  ;  (inc-version "0.0.99")
+  ;  =>
+  ;  "0.1.00"
+  ;
+  ; @example
+  ;  (inc-version "9.9")
+  ;  =>
+  ;  "10.0"
+  ;
   ; @return (string)
   [n]
-  (letfn [(f [n x]
-             (if (:increased? x)
-                 (if (-> x :separators vector/nonempty?)
-                     (f (string/insert-part n "." (-> x :separators last))
-                        (update x :separators vector/pop-last-item))
-                     (return n))
-                 (if-let [separator (string/first-dex-of   n ".")]
-                         (f (string/remove-first-occurence n ".")
-                            (update x :separators conj separator))
-                         (f (leading-zeros (mixed/update-whole-number n inc) (count n))
-                            (assoc x :increased? true)))))]
-         (f n {:separators []})))
+  (letfn [(implode-f ; @param (string) n
+                     ; @param (integers in vector) separators
+                     ;  Az elválasztó-karakterek (".") pozíciói az n string-ben
+                     [n separators]
+                     (if (vector/nonempty? separators)
+                         (implode-f (string/insert-part n "." (last separators))
+                                    (vector/pop-last-item separators))
+                         (return n)))
+          (explode-f ; @param (string) n
+                     ; @param (integers in vector) separators
+                     ;  Az elválasztó-karakterek (".") pozíciói az n string-ben
+                     [n separators]
+                     (if-let [separator (string/first-dex-of n ".")]
+                             (explode-f (string/remove-first-occurence n ".")
+                                        (conj separators separator))
+                             (implode-f ; BUG#0080
+                                        ; A mixed/update-whole-number függvény a "008" string-et bit (?) típusként
+                                        ; értelmezné, ezért szükséges eltávolítani a kezdő nullákat az n string-ből!
+                                        (let [bugfix (remove-leading-zeros n)]
+                                             (leading-zeros (mixed/update-whole-number bugfix inc) (count n)))
+                                        ; Ha az n értéke a növelés előtt kizárólag
+                                        ; 9-es számjegyeket tartalmaz, akkor szükséges az elválasztó
+                                        ; karakterek pozícióit növelni, különben a "9.9" verziószám
+                                        ; a növelés után "10.0" helyett "1.00" lenne!
+                                        (if (re-match? n #"^[9]{1,}$")
+                                            (vector/->items separators inc)
+                                            (param          separators)))))]
+         (explode-f n [])))
