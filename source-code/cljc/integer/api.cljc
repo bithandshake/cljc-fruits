@@ -1,10 +1,9 @@
 
-(ns error.api
-    (:require [error.core :as core]))
+(ns integer.api
+    (:require [integer.core :as core]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; error.core
-(def try!   core/try!)
-(def throw! core/throw!)
+; integer.core
+(def to-keyword core/to-keyword)

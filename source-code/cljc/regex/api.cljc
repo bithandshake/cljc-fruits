@@ -1,10 +1,10 @@
 
-(ns error.api
-    (:require [error.core :as core]))
+(ns regex.api
+    (:require [regex.core :as core]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; error.core
-(def try!   core/try!)
-(def throw! core/throw!)
+; regex.core
+(def re-match?    core/re-match?)
+(def re-mismatch? core/re-mismatch?)
