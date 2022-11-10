@@ -16,8 +16,8 @@
   ;
   ; @return (*)
   [f & abc]
-  #?(:clj  (try (apply f abc) (catch Exception e (str e)))
-     :cljs (try (apply f abc) (catch :default  e (str e)))))
+  #?(:clj  (try (apply f abc) (catch Exception e (println e)))
+     :cljs (try (apply f abc) (catch :default  e (println e)))))
 
 (defn throw!
   ; @param (string) e
