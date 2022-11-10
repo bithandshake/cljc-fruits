@@ -3,22 +3,8 @@
     (:require [mid-fruits.candy  :refer [return]]
               [loop.api          :refer [do-while]]
               [mid-fruits.mixed  :as mixed]
-              [regex.api         :refer [re-match?]]
               [mid-fruits.string :as string]
               [mid-fruits.vector :as vector]))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn ordered-label?
-  ; @param (string) n
-  ;
-  ; @usage
-  ;  (ordered-label? "My item #3")
-  ;
-  ; @return (boolean)
-  [n]
-  (re-match? n #".*\#\d$"))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 
 (ns integer.api
-    (:require [integer.core :as core]))
+    (:require [integer.convert :as convert]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; integer.core
-(def to-keyword core/to-keyword)
+; integer.convert
+(def to-keyword convert/to-keyword)
