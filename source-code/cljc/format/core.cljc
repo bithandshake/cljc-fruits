@@ -1,6 +1,6 @@
 
 (ns format.core
-    (:require [mid-fruits.candy  :refer [param return]]
+    (:require [candy.api         :refer [param return]]
               [mid-fruits.mixed  :as mixed]
               [regex.api         :refer [re-match?]]
               [mid-fruits.string :as string]

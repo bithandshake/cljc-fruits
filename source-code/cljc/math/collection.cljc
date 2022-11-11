@@ -1,6 +1,6 @@
 
 (ns math.collection
-    (:require [mid-fruits.candy :refer [param return]]))
+    (:require [candy.api :refer [param return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

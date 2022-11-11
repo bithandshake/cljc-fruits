@@ -1,6 +1,6 @@
 
 (ns gestures.core
-    (:require [mid-fruits.candy  :refer [return]]
+    (:require [candy.api         :refer [return]]
               [gestures.type     :as type]
               [loop.api          :refer [do-while]]
               [mid-fruits.mixed  :as mixed]

@@ -1,6 +1,6 @@
 
 (ns hiccup.parse
-    (:require [mid-fruits.candy  :refer [return]]
+    (:require [candy.api         :refer [return]]
               [css.api           :as css]
               [hiccup.attributes :as attributes]
               [hiccup.walk       :as walk]))

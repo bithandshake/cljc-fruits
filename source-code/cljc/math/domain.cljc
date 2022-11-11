@@ -1,7 +1,7 @@
 
 (ns math.domain
-    (:require [mid-fruits.candy :refer [param return]]
-              [math.core        :as core]))
+    (:require [candy.api :refer [param return]]
+              [math.core :as core]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

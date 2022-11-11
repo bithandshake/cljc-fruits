@@ -1,6 +1,6 @@
 
 (ns hiccup.walk
-    (:require [mid-fruits.candy  :refer [return]]
+    (:require [candy.api         :refer [return]]
               [hiccup.type       :as type]
               [mid-fruits.random :as random]))
 

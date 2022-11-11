@@ -1,6 +1,6 @@
 
 (ns hiccup.attributes
-    (:require [mid-fruits.candy   :refer [return]]
+    (:require [candy.api          :refer [return]]
               [mid-fruits.keyword :as keyword]
               [mid-fruits.vector  :as vector]))
 
