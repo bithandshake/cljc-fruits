@@ -80,8 +80,10 @@
   ;
   ; @return (string)
   [n]
+  ; Java környezetben az egyelemű string típusa CHAR, ezért az első karakter
+  ; összehasonlítása előtt szükséges azt string típusra alakítani!
   (letfn [(f [n]
-             (if-not (= "0" (first n))
+             (if-not (= "0" (-> n first str))
                      (return n)
                      (f (subs n 1))))]
          (-> n str f)))
