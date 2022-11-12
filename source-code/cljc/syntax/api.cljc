@@ -1,9 +1,21 @@
 
 (ns syntax.api
-    (:require [syntax.tags :as tags]))
+    (:require [syntax.case :as case]
+              [syntax.core :as core]
+              [syntax.tags :as tags]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; syntax.case
+(def CamelCase  case/CamelCase)
+(def snake-case case/snake-case)
+
+; syntax.core
+(def paren   core/paren)
+(def bracket core/bracket)
+(def percent core/percent)
+(def quotes  core/quotes)
 
 ; syntax.tags
 (def open-tag-position      tags/open-tag-position)
