@@ -1,7 +1,7 @@
 
 (ns format.core
     (:require [candy.api         :refer [param return]]
-              [mid-fruits.mixed  :as mixed]
+              [mixed.api         :as mixed]
               [regex.api         :refer [re-match?]]
               [mid-fruits.string :as string]
               [mid-fruits.vector :as vector]))

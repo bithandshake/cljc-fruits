@@ -3,7 +3,7 @@
     (:require [candy.api         :refer [return]]
               [gestures.type     :as type]
               [loop.api          :refer [do-while]]
-              [mid-fruits.mixed  :as mixed]
+              [mixed.api         :as mixed]
               [mid-fruits.string :as string]
               [mid-fruits.vector :as vector]))
 

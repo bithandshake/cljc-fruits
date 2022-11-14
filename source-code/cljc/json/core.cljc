@@ -4,7 +4,7 @@
               [json.config        :as config]
               [mid-fruits.keyword :as keyword]
               [mid-fruits.map     :as map]
-              [mid-fruits.mixed   :as mixed]
+              [mixed.api          :as mixed]
               [mid-fruits.string  :as string]
               [syntax.api         :as syntax]
               [mid-fruits.vector  :as vector]))
