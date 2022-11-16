@@ -988,14 +988,15 @@ true
 ### percent
 
 ```
-@param (number) n
+@param (number) total
+@param (number) value
 ```
 
 ```
 @example
-(percent->angle 50)
+(percent 50 20)
 =>
-180
+40
 ```
 
 ```
@@ -1006,9 +1007,9 @@ true
 <summary>Source code</summary>
 
 ```
-(defn percent->angle
-  [n]
-  (* 360 (/ n 100)))
+(defn percent
+  [total value]
+  (/ value (/ total 100)))
 ```
 
 </details>

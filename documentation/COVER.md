@@ -22,7 +22,7 @@
 * [json.api](cljc/json/API.md) [cljc]
 * [logical.api](cljc/logical/API.md) [cljc]
 * [loop.api](cljc/loop/API.md) [cljc]
-* [lorem_ipsum.api](cljc/lorem_ipsum/API.md) [cljc]
+* [lorem-ipsum.api](cljc/lorem_ipsum/API.md) [cljc]
 * [math.api](cljc/math/API.md) [cljc]
 * [mixed.api](cljc/mixed/API.md) [cljc]
 * [namespace.api](cljc/namespace/API.md) [cljc]

@@ -363,6 +363,7 @@ false
 
 ```
 @param (*) n
+@param (map)(opt) options
 ```
 
 ```
@@ -390,6 +391,13 @@ false
 @example
 (parse-number "abCd12.1")
 =>
+nil
+```
+
+```
+@example
+(parse-number "abCd12.1" {:return? tru})
+=>
 "abCd12.1"
 ```
 
@@ -402,8 +410,11 @@ false
 
 ```
 (defn parse-number
-  [n]
-  (parse-rational-number n))
+  ([n]
+   (parse-number n {}))
+
+  ([n options]
+   (parse-rational-number n options)))
 ```
 
 </details>
@@ -426,6 +437,7 @@ false
 
 ```
 @param (*) n
+@param (map)(opt) options
 ```
 
 ```
@@ -453,6 +465,13 @@ false
 @example
 (parse-rational-number "abCd12.1")
 =>
+nil
+```
+
+```
+@example
+(parse-rational-number "abCd12.1" {:return? true})
+=>
 "abCd12.1"
 ```
 
@@ -465,10 +484,13 @@ false
 
 ```
 (defn parse-rational-number
-  [n]
-  (cond (number?               n) (return               n)
-        (type/rational-number? n) (reader/string->mixed n)
-        (some?                 n) (return               n)))
+  ([n]
+   (parse-rational-number n {}))
+
+  ([n {:keys [return?]}]
+   (cond (number?               n) (return               n)
+         (type/rational-number? n) (reader/string->mixed n)
+         return?                   (return               n))))
 ```
 
 </details>
@@ -491,6 +513,7 @@ false
 
 ```
 @param (*) n
+@param (map)(opt) options
 ```
 
 ```
@@ -511,6 +534,13 @@ false
 @example
 (parse-whole-number "abCd12")
 =>
+nil
+```
+
+```
+@example
+(parse-whole-number "abCd12" {:return? true})
+=>
 "abCd12"
 ```
 
@@ -523,10 +553,13 @@ false
 
 ```
 (defn parse-whole-number
-  [n]
-  (cond (integer?           n) (return               n)
-        (type/whole-number? n) (reader/string->mixed n)
-        (some?              n) (return               n)))
+  ([n]
+   (parse-whole-number n {}))
+
+  ([n {:keys [return?]}]
+   (cond (integer?           n) (return               n)
+         (type/whole-number? n) (reader/string->mixed n)
+         return?                (return               n))))
 ```
 
 </details>
