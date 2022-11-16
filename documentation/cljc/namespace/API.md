@@ -2,7 +2,7 @@
 # <strong>namespace.api</strong> namespace
 <p>Documentation of the <strong>namespace/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > namespace.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > namespace.api</strong>
 
 
 

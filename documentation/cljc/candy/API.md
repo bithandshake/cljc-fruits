@@ -2,7 +2,7 @@
 # <strong>candy.api</strong> namespace
 <p>Documentation of the <strong>candy/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > candy.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > candy.api</strong>
 
 
 

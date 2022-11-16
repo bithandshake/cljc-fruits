@@ -2,7 +2,7 @@
 # <strong>base64.api</strong> namespace
 <p>Documentation of the <strong>base64/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > base64.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > base64.api</strong>
 
 
 

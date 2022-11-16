@@ -2,7 +2,7 @@
 # <strong>geometry.api</strong> namespace
 <p>Documentation of the <strong>geometry/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > geometry.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > geometry.api</strong>
 
 
 

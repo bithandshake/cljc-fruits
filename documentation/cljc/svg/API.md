@@ -2,7 +2,7 @@
 # <strong>svg.api</strong> namespace
 <p>Documentation of the <strong>svg/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > svg.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > svg.api</strong>
 
 
 

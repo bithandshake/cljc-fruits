@@ -2,7 +2,7 @@
 # <strong>math.api</strong> namespace
 <p>Documentation of the <strong>math/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > math.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > math.api</strong>
 
 
 

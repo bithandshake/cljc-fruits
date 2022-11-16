@@ -2,7 +2,7 @@
 # <strong>eql.api</strong> namespace
 <p>Documentation of the <strong>eql/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > eql.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > eql.api</strong>
 
 
 

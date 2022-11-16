@@ -2,7 +2,7 @@
 # <strong>seqable.api</strong> namespace
 <p>Documentation of the <strong>seqable/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > seqable.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > seqable.api</strong>
 
 
 

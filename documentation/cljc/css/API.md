@@ -2,7 +2,7 @@
 # <strong>css.api</strong> namespace
 <p>Documentation of the <strong>css/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > css.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > css.api</strong>
 
 
 

@@ -2,7 +2,7 @@
 # <strong>logical.api</strong> namespace
 <p>Documentation of the <strong>logical/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > logical.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > logical.api</strong>
 
 
 

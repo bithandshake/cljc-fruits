@@ -11,7 +11,7 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ; (to-string [:div {:style {:color "red"}} "Hello World!"])
+  ; (get-attributes [:div {:style {:color "red"}} "Hello World!"])
   ; =>
   ; {:style {:color "red"}}
   ;
@@ -29,7 +29,7 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ; (to-style [:div {:style {:color "red"}} "Hello World!"])
+  ; (get-style [:div {:style {:color "red"}} "Hello World!"])
   ; =>
   ; {:color "red"}
   ;
@@ -42,7 +42,7 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ; (to-string [:div {:style {:color "red"}} "Hello World!"])
+  ; (set-style [:div {:style {:color "red"}} "Hello World!"])
   ; =>
   ; {:style {:color "red"}}
   ;

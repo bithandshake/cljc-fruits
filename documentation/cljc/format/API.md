@@ -2,7 +2,7 @@
 # <strong>format.api</strong> namespace
 <p>Documentation of the <strong>format/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > format.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > format.api</strong>
 
 
 

@@ -2,7 +2,7 @@
 # <strong>hash.api</strong> namespace
 <p>Documentation of the <strong>hash/api.cljc</strong> file</p>
 
-[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > hash.api
+<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > hash.api</strong>
 
 
 
