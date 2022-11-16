@@ -271,7 +271,7 @@
   ; @example
   ; (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
   ; =>
-  ; ""
+  ; nil
   ;
   ; @return (string)
   [uri]
@@ -288,7 +288,7 @@
   ; @example
   ; (uri->query-string "https://my-domain.com/my-path#my-fragment")
   ; =>
-  ; ""
+  ; nil
   ;
   ; @return (string)
   [uri]
@@ -300,7 +300,7 @@
   ;
   ; @example
   ; (query-params->query-string {:my-param "my-value" :your-param nil})
-  ;  =>
+  ; =>
   ; "my-param=my-value&your-param"
   ;
   ; @return (string)
@@ -314,7 +314,7 @@
   ;
   ; @example
   ; (query-string->query-params "my-param=my-value&your-param")
-  ;  =>
+  ; =>
   ; {:my-param "my-value" :your-param nil}
   ;
   ; @return (map)
@@ -328,12 +328,12 @@
   ;
   ; @example
   ; (uri->query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;  =>
+  ; =>
   ; {:my-param "my-value" :your-param nil}
   ;
   ; @example
   ; (uri->query-params "http://my-domain.com/my-path#my-fragment")
-  ;  =>
+  ; =>
   ; {}
   ;
   ; @return (map)

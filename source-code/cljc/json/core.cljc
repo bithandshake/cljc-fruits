@@ -60,6 +60,11 @@
   ; =>
   ; :my_namespace/key
   ;
+  ; @example
+  ; (underscore-key "my-namespace/key")
+  ; =>
+  ; "my_namespace/key"
+  ;
   ; @return (*)
   [n]
   (cond (string?  n) (string/replace-part n "-" "_")
@@ -73,6 +78,11 @@
   ; (hyphenize-key :my_namespace/key)
   ; =>
   ; :my-namespace/key
+  ;
+  ; @example
+  ; (hyphenize-key "my_namespace/key")
+  ; =>
+  ; "my-namespace/key"
   ;
   ; @return (*)
   [n]
@@ -91,6 +101,11 @@
   ; =>
   ; :myKey
   ;
+  ; @example
+  ; (CamelCase-key "my-key")
+  ; =>
+  ; "myKey"
+  ;
   ; @return (*)
   [n]
   (cond (string?  n) (syntax/CamelCase n)
@@ -104,6 +119,11 @@
   ; (snake-case-key :myKey)
   ; =>
   ; :my-key
+  ;
+  ; @example
+  ; (snake-case-key "myKey")
+  ; =>
+  ; "my-key"
   ;
   ; @return (*)
   [n]
@@ -233,6 +253,11 @@
   ; =>
   ; {:my_namespace/key :my-value}
   ;
+  ; @example
+  ; (underscore-keys {"my-namespace/key" :my-value})
+  ; =>
+  ; {"my_namespace/key" :my-value}
+  ;
   ; @return (*)
   [n]
   (cond (map?    n) (map/->>keys    n underscore-keys)
@@ -246,6 +271,11 @@
   ; (hyphenize-keys {:my_namespace/key :my-value})
   ; =>
   ; {:my-namespace/key :my-value}
+  ;
+  ; @example
+  ; (hyphenize-keys {"my_namespace/key" :my-value})
+  ; =>
+  ; {"my-namespace/key" :my-value}
   ;
   ; @return (*)
   [n]
@@ -264,6 +294,11 @@
   ; =>
   ; {:myKey :my-value}
   ;
+  ; @example
+  ; (CamelCase-keys {"my-key" :my-value})
+  ; =>
+  ; {"myKey" :my-value}
+  ;
   ; @return (*)
   [n]
   (cond (map?    n) (map/->>keys    n CamelCase-keys)
@@ -277,6 +312,11 @@
   ; (snake-case-keys {:myKey :my-value})
   ; =>
   ; {:my-key :my-value}
+  ;
+  ; @example
+  ; (snake-case-keys {"myKey" :my-value})
+  ; =>
+  ; {"my-key" :my-value}
   ;
   ; @return (*)
   [n]

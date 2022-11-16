@@ -1,6 +1,5 @@
 
 # fruits
-> "A piece of fruit a day keeps the compiler errors away." – Bit Handshake
 
 ### Overview
 ...

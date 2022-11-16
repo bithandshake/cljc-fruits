@@ -68,7 +68,10 @@ true
 ```
 
 ```
-@example=>
+@example
+(query-params->query-string {:my-param "my-value" :your-param nil})
+=>
+"my-param=my-value&your-param"
 ```
 
 ```
@@ -109,7 +112,10 @@ true
 ```
 
 ```
-@example=>
+@example
+(query-string->query-params "my-param=my-value&your-param")
+=>
+{:my-param "my-value" :your-param nil}
 ```
 
 ```
@@ -287,7 +293,7 @@ true
 @example
 (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
 =>
-""
+nil
 ```
 
 ```
@@ -679,11 +685,17 @@ nil
 ```
 
 ```
-@example=>
+@example
+(uri->query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+=>
+{:my-param "my-value" :your-param nil}
 ```
 
 ```
-@example=>
+@example
+(uri->query-params "http://my-domain.com/my-path#my-fragment")
+=>
+{}
 ```
 
 ```
@@ -733,7 +745,7 @@ nil
 @example
 (uri->query-string "https://my-domain.com/my-path#my-fragment")
 =>
-""
+nil
 ```
 
 ```

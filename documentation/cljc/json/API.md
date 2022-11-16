@@ -20,6 +20,13 @@
 ```
 
 ```
+@example
+(CamelCase-key "my-key")
+=>
+"myKey"
+```
+
+```
 @return (*)
 ```
 
@@ -61,6 +68,13 @@
 (CamelCase-keys {:my-key :my-value})
 =>
 {:myKey :my-value}
+```
+
+```
+@example
+(CamelCase-keys {"my-key" :my-value})
+=>
+{"myKey" :my-value}
 ```
 
 ```
@@ -108,6 +122,13 @@
 ```
 
 ```
+@example
+(hyphenize-key "my_namespace/key")
+=>
+"my-namespace/key"
+```
+
+```
 @return (*)
 ```
 
@@ -149,6 +170,13 @@
 (hyphenize-keys {:my_namespace/key :my-value})
 =>
 {:my-namespace/key :my-value}
+```
+
+```
+@example
+(hyphenize-keys {"my_namespace/key" :my-value})
+=>
+{"my-namespace/key" :my-value}
 ```
 
 ```
@@ -541,6 +569,13 @@
 ```
 
 ```
+@example
+(snake-case-key "myKey")
+=>
+"my-key"
+```
+
+```
 @return (*)
 ```
 
@@ -582,6 +617,13 @@
 (snake-case-keys {:myKey :my-value})
 =>
 {:my-key :my-value}
+```
+
+```
+@example
+(snake-case-keys {"myKey" :my-value})
+=>
+{"my-key" :my-value}
 ```
 
 ```
@@ -717,6 +759,13 @@
 ```
 
 ```
+@example
+(underscore-key "my-namespace/key")
+=>
+"my_namespace/key"
+```
+
+```
 @return (*)
 ```
 
@@ -758,6 +807,13 @@
 (underscore-keys {:my-namespace/key :my-value})
 =>
 {:my_namespace/key :my-value}
+```
+
+```
+@example
+(underscore-keys {"my-namespace/key" :my-value})
+=>
+{"my_namespace/key" :my-value}
 ```
 
 ```
