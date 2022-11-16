@@ -2,7 +2,7 @@
 # <strong>error.api</strong> namespace
 <p>Documentation of the <strong>error/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > error.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > error.api</strong>
 
 
 

@@ -2,7 +2,7 @@
 # <strong>href.api</strong> namespace
 <p>Documentation of the <strong>href/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > href.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > href.api</strong>
 
 
 

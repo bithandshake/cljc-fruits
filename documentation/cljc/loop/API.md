@@ -2,7 +2,7 @@
 # <strong>loop.api</strong> namespace
 <p>Documentation of the <strong>loop/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > loop.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > loop.api</strong>
 
 
 

@@ -2,7 +2,7 @@
 # <strong>integer.api</strong> namespace
 <p>Documentation of the <strong>integer/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > integer.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > integer.api</strong>
 
 
 

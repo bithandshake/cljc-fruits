@@ -2,7 +2,7 @@
 # <strong>uri.api</strong> namespace
 <p>Documentation of the <strong>uri/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > uri.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > uri.api</strong>
 
 
 

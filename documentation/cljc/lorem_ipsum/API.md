@@ -1,8 +1,8 @@
 
-# <strong>lorem_ipsum.api</strong> namespace
+# <strong>lorem-ipsum.api</strong> namespace
 <p>Documentation of the <strong>lorem_ipsum/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > lorem_ipsum.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > lorem-ipsum.api</strong>
 
 
 
@@ -21,9 +21,9 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [lorem_ipsum.api :as lorem_ipsum :refer [LONG]]))
+(ns my-namespace (:require [lorem-ipsum.api :as lorem-ipsum :refer [LONG]]))
 
-(lorem_ipsum/LONG)
+(lorem-ipsum/LONG)
 (LONG)
 ```
 
@@ -46,9 +46,9 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [lorem_ipsum.api :as lorem_ipsum :refer [SHORT]]))
+(ns my-namespace (:require [lorem-ipsum.api :as lorem-ipsum :refer [SHORT]]))
 
-(lorem_ipsum/SHORT)
+(lorem-ipsum/SHORT)
 (SHORT)
 ```
 

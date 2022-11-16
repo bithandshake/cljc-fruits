@@ -2,7 +2,7 @@
 # <strong>mixed.api</strong> namespace
 <p>Documentation of the <strong>mixed/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > mixed.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > mixed.api</strong>
 
 
 

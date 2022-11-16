@@ -2,7 +2,7 @@
 # <strong>gestures.api</strong> namespace
 <p>Documentation of the <strong>gestures/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > gestures.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > gestures.api</strong>
 
 
 

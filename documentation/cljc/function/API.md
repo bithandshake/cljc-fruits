@@ -2,7 +2,7 @@
 # <strong>function.api</strong> namespace
 <p>Documentation of the <strong>function/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > <strong>[DOCUMENTATION](../../COVER.md) > function.api</strong>
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > function.api</strong>
 
 
 
