@@ -8,9 +8,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (paren "420")
-  ;  =>
-  ;  "(420)"
+  ; (paren "420")
+  ; =>
+  ; "(420)"
   ;
   ; @return (string)
   [n]
@@ -20,9 +20,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (bracket "420")
-  ;  =>
-  ;  "[420]"
+  ; (bracket "420")
+  ; =>
+  ; "[420]"
   ;
   ; @return (string)
   [n]
@@ -32,9 +32,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (percent "99.999")
-  ;  =>
-  ;  "99.999%"
+  ; (percent "99.999")
+  ; =>
+  ; "99.999%"
   ;
   ; @return (string)
   [n]
@@ -44,9 +44,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (quotes "420")
-  ;  =>
-  ;  "\"420\""
+  ; (quotes "420")
+  ; =>
+  ; "\"420\""
   ;
   ; @return (string)
   [n]

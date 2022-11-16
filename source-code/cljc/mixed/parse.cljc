@@ -11,24 +11,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (parse-rational-number 12)
-  ;  =>
-  ;  12
+  ; (parse-rational-number 12)
+  ; =>
+  ; 12
   ;
   ; @example
-  ;  (parse-rational-number 12.1)
-  ;  =>
-  ;  12.1
+  ; (parse-rational-number 12.1)
+  ; =>
+  ; 12.1
   ;
   ; @example
-  ;  (parse-rational-number "12.1")
-  ;  =>
-  ;  12.1
+  ; (parse-rational-number "12.1")
+  ; =>
+  ; 12.1
   ;
   ; @example
-  ;  (parse-rational-number "abCd12.1")
-  ;  =>
-  ;  "abCd12.1"
+  ; (parse-rational-number "abCd12.1")
+  ; =>
+  ; "abCd12.1"
   ;
   ; @return (*)
   [n]
@@ -40,24 +40,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (parse-number 12)
-  ;  =>
-  ;  12
+  ; (parse-number 12)
+  ; =>
+  ; 12
   ;
   ; @example
-  ;  (parse-number 12.1)
-  ;  =>
-  ;  12.1
+  ; (parse-number 12.1)
+  ; =>
+  ; 12.1
   ;
   ; @example
-  ;  (parse-number "12.1")
-  ;  =>
-  ;  12.1
+  ; (parse-number "12.1")
+  ; =>
+  ; 12.1
   ;
   ; @example
-  ;  (parse-number "abCd12.1")
-  ;  =>
-  ;  "abCd12.1"
+  ; (parse-number "abCd12.1")
+  ; =>
+  ; "abCd12.1"
   ;
   ; @return (*)
   [n]
@@ -67,19 +67,19 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (parse-whole-number 12)
-  ;  =>
-  ;  12
+  ; (parse-whole-number 12)
+  ; =>
+  ; 12
   ;
   ; @example
-  ;  (parse-whole-number "12")
-  ;  =>
-  ;  12
+  ; (parse-whole-number "12")
+  ; =>
+  ; 12
   ;
   ; @example
-  ;  (parse-whole-number "abCd12")
-  ;  =>
-  ;  "abCd12"
+  ; (parse-whole-number "abCd12")
+  ; =>
+  ; "abCd12"
   ;
   ; @return (*)
   [n]

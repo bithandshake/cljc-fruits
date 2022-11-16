@@ -10,18 +10,18 @@
   ; @param (integer) max
   ;
   ; @example
-  ;  (next-dex 10 8 20)
-  ;  =>
-  ;  11
+  ; (next-dex 10 8 20)
+  ; =>
+  ; 11
   ;
   ; @example
-  ;  (next-dex 20 8 20)
-  ;  =>
-  ;  8
+  ; (next-dex 20 8 20)
+  ; =>
+  ; 8
   ;
   ; @return (integer)
-  ;  A dex utan kovetkezo index, ami nem lehet kisebb, mint min es nem lehet
-  ;  nagyobb, mint max
+  ; A dex utan kovetkezo index, ami nem lehet kisebb, mint min es nem lehet
+  ; nagyobb, mint max
   [dex min max]
   (cond (>= dex max) min
         (<  dex min) min
@@ -33,18 +33,18 @@
   ; @param (integer) max
   ;
   ; @example
-  ;  (prev-dex 10 8 20)
-  ;  =>
-  ;  9
+  ; (prev-dex 10 8 20)
+  ; =>
+  ; 9
   ;
   ; @example
-  ;  (prev-dex 8 8 20)
-  ;  =>
-  ;  20
+  ; (prev-dex 8 8 20)
+  ; =>
+  ; 20
   ;
   ; @return (integer)
-  ;  A dex elotti index, ami nem lehet kisebb, mint min es nem lehet nagyobb,
-  ;  mint max
+  ; A dex elotti index, ami nem lehet kisebb, mint min es nem lehet nagyobb,
+  ; mint max
   [dex min max]
   (cond (<= dex min) max
         (>  dex max) max
@@ -56,18 +56,18 @@
   ; @param (integer) max
   ;
   ; @example
-  ;  (prev-prev-dex 10 8 20)
-  ;  =>
-  ;  8
+  ; (prev-prev-dex 10 8 20)
+  ; =>
+  ; 8
   ;
   ; @example
-  ;  (prev-prev-dex 9 8 20)
-  ;  =>
-  ;  20
+  ; (prev-prev-dex 9 8 20)
+  ; =>
+  ; 20
   ;
   ; @return (integer)
-  ;  A dex elotti-elotti index, ami nem lehet kisebb, mint min es nem lehet
-  ;  nagyobb, mint max
+  ; A dex elotti-elotti index, ami nem lehet kisebb, mint min es nem lehet
+  ; nagyobb, mint max
   [dex min max]
   (cond (not (> max min)) min  ; Ha max nem nagyobb, mint min, akkor min
         (>  dex max) (dec max) ; Ha dex nagyobb, mint max, akkor max-1

@@ -9,7 +9,7 @@
   ; @param (string) n
   ;
   ; @usage
-  ;  (ordered-label? "My item #3")
+  ; (ordered-label? "My item #3")
   ;
   ; @return (boolean)
   [n]

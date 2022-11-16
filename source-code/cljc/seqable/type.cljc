@@ -8,14 +8,14 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (nonseqable? 420)
-  ;  =>
-  ;  true
+  ; (nonseqable? 420)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (nonseqable? "420")
-  ;  =>
-  ;  false
+  ; (nonseqable? "420")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
@@ -25,14 +25,14 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (nonempty? 420)
-  ;  =>
-  ;  false
+  ; (nonempty? 420)
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (nonempty? "420")
-  ;  =>
-  ;  true
+  ; (nonempty? "420")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]

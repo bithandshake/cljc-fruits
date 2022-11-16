@@ -10,14 +10,14 @@
   ; @param (regex pattern) pattern
   ;
   ; @example
-  ;  (re-match? "123" #"^[\d]{1,}$")
-  ;  =>
-  ;  true
+  ; (re-match? "123" #"^[\d]{1,}$")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (re-match? "abc" #"^[\d]{1,}$")
-  ;  =>
-  ;  false
+  ; (re-match? "abc" #"^[\d]{1,}$")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n pattern]
@@ -30,14 +30,14 @@
   ; @param (regex pattern) pattern
   ;
   ; @example
-  ;  (re-mismatch? "123" #"^[\d]{1,}$")
-  ;  =>
-  ;  false
+  ; (re-mismatch? "123" #"^[\d]{1,}$")
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (re-mismatch? "abc" #"^[\d]{1,}$")
-  ;  =>
-  ;  true
+  ; (re-mismatch? "abc" #"^[\d]{1,}$")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n pattern]
@@ -53,9 +53,9 @@
   ; @param (regex pattern) pattern
   ;
   ; @example
-  ;  (first-dex-of "abc 123" #"[\d]{1,}")
-  ;  =>
-  ;  4
+  ; (first-dex-of "abc 123" #"[\d]{1,}")
+  ; =>
+  ; 4
   ;
   ; @return (integer)
   [n pattern]
@@ -68,9 +68,9 @@
   ; @param (regex pattern) pattern
   ;
   ; @example
-  ;  (last-dex-of "abc 123 def 456" #"[\d]{1,}")
-  ;  =>
-  ;  12
+  ; (last-dex-of "abc 123 def 456" #"[\d]{1,}")
+  ; =>
+  ; 12
   ;
   ; @return (integer)
   [n pattern]
@@ -83,9 +83,9 @@
   ; @param (regex pattern) pattern
   ;
   ; @example
-  ;  (nth-dex-of "abc 123 def 456" #"[\d]{1,}" 2)
-  ;  =>
-  ;  12
+  ; (nth-dex-of "abc 123 def 456" #"[\d]{1,}" 2)
+  ; =>
+  ; 12
   ;
   ; @return (integer)
   [n pattern dex]

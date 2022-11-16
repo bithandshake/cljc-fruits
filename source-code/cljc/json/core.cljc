@@ -16,7 +16,7 @@
   ; @param (json) n
   ;
   ; @example (json->clj ...)
-  ;  {...}
+  ; {...}
   ;
   ; @return (map)
   [n]
@@ -29,9 +29,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (unkeywordize-key :my-namespace/key)
-  ;  =>
-  ;  "my-namespace/key"
+  ; (unkeywordize-key :my-namespace/key)
+  ; =>
+  ; "my-namespace/key"
   ;
   ; @return (*)
   [n]
@@ -41,9 +41,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (keywordize-key "my-namespace/key")
-  ;  =>
-  ;  :my-namespace/key
+  ; (keywordize-key "my-namespace/key")
+  ; =>
+  ; :my-namespace/key
   ;
   ; @return (*)
   [n]
@@ -56,9 +56,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (underscore-key :my-namespace/key)
-  ;  =>
-  ;  :my_namespace/key
+  ; (underscore-key :my-namespace/key)
+  ; =>
+  ; :my_namespace/key
   ;
   ; @return (*)
   [n]
@@ -70,9 +70,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (hyphenize-key :my_namespace/key)
-  ;  =>
-  ;  :my-namespace/key
+  ; (hyphenize-key :my_namespace/key)
+  ; =>
+  ; :my-namespace/key
   ;
   ; @return (*)
   [n]
@@ -87,9 +87,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (CamelCase-key :my-key)
-  ;  =>
-  ;  :myKey
+  ; (CamelCase-key :my-key)
+  ; =>
+  ; :myKey
   ;
   ; @return (*)
   [n]
@@ -101,9 +101,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (snake-case-key :myKey)
-  ;  =>
-  ;  :my-key
+  ; (snake-case-key :myKey)
+  ; =>
+  ; :my-key
   ;
   ; @return (*)
   [n]
@@ -118,9 +118,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (unkeywordized-value? "*:apple")
-  ;  =>
-  ;  true
+  ; (unkeywordized-value? "*:apple")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -133,9 +133,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (keywordize-value "*:my-value")
-  ;  =>
-  ;  :my-value
+  ; (keywordize-value "*:my-value")
+  ; =>
+  ; :my-value
   ;
   ; @return (*)
   [n]
@@ -147,9 +147,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (unkeywordize-value :my-value)
-  ;  =>
-  ;  "*:my-value"
+  ; (unkeywordize-value :my-value)
+  ; =>
+  ; "*:my-value"
   ;
   ; @return (*)
   [n]
@@ -164,9 +164,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (trim-value " My value ")
-  ;  =>
-  ;  "My value"
+  ; (trim-value " My value ")
+  ; =>
+  ; "My value"
   ;
   ; @return (*)
   [n]
@@ -181,9 +181,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (parse-number-value "89.420")
-  ;  =>
-  ;  89.420
+  ; (parse-number-value "89.420")
+  ; =>
+  ; 89.420
   ;
   ; @return (*)
   [n]
@@ -196,9 +196,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (unkeywordize-keys {:my-namespace/key :my-value})
-  ;  =>
-  ;  {"my-namespace/key" :my-value}
+  ; (unkeywordize-keys {:my-namespace/key :my-value})
+  ; =>
+  ; {"my-namespace/key" :my-value}
   ;
   ; @return (*)
   [n]
@@ -212,9 +212,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (keywordize-keys {"my-namespace/key" :my-value})
-  ;  =>
-  ;  {:my-namespace/key :my-value}
+  ; (keywordize-keys {"my-namespace/key" :my-value})
+  ; =>
+  ; {:my-namespace/key :my-value}
   ;
   ; @return (*)
   [n]
@@ -229,9 +229,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (underscore-keys {:my-namespace/key :my-value})
-  ;  =>
-  ;  {:my_namespace/key :my-value}
+  ; (underscore-keys {:my-namespace/key :my-value})
+  ; =>
+  ; {:my_namespace/key :my-value}
   ;
   ; @return (*)
   [n]
@@ -243,9 +243,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (hyphenize-keys {:my_namespace/key :my-value})
-  ;  =>
-  ;  {:my-namespace/key :my-value}
+  ; (hyphenize-keys {:my_namespace/key :my-value})
+  ; =>
+  ; {:my-namespace/key :my-value}
   ;
   ; @return (*)
   [n]
@@ -260,9 +260,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (CamelCase-keys {:my-key :my-value})
-  ;  =>
-  ;  {:myKey :my-value}
+  ; (CamelCase-keys {:my-key :my-value})
+  ; =>
+  ; {:myKey :my-value}
   ;
   ; @return (*)
   [n]
@@ -274,9 +274,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (snake-case-keys {:myKey :my-value})
-  ;  =>
-  ;  {:my-key :my-value}
+  ; (snake-case-keys {:myKey :my-value})
+  ; =>
+  ; {:my-key :my-value}
   ;
   ; @return (*)
   [n]
@@ -291,9 +291,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
-  ;  =>
-  ;  {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}}
+  ; (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
+  ; =>
+  ; {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}}
   ;
   ; @return (*)
   [n]
@@ -309,9 +309,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
-  ;  =>
-  ;  {:a :b :c [:d "e"] :f {:g "h" :i :j}}
+  ; (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
+  ; =>
+  ; {:a :b :c [:d "e"] :f {:g "h" :i :j}}
   ;
   ; @return (*)
   [n]
@@ -330,9 +330,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
-  ;  =>
-  ;  {:a "b" :c ["d" "e"] :f {:g "h"}}
+  ; (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
+  ; =>
+  ; {:a "b" :c ["d" "e"] :f {:g "h"}}
   ;
   ; @return (*)
   [n]
@@ -347,9 +347,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
-  ;  =>
-  ;  {:a 0 :c [1] :f {:g 2}}
+  ; (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
+  ; =>
+  ; {:a 0 :c [1] :f {:g 2}}
   ;
   ; @return (*)
   [n]
@@ -364,9 +364,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (remove-blank-values {:a "" :c [] :f {:g nil}})
-  ;  =>
-  ;  {}
+  ; (remove-blank-values {:a "" :c [] :f {:g nil}})
+  ; =>
+  ; {}
   ;
   ; @return (*)
   [n]
@@ -374,9 +374,9 @@
   ; meghívja önmagát addig, amíg már nem okoz újabb változást az n értékében,
   ; így biztosítva, hogy ne hagyjon maga után üres értékeket.
   ; Pl.: Ha az n térkép egyik értéke egy vektor, amiben egy üres térkép van,
-  ;      akkor a rekurzió első iterációjakor a vektor még nem üres,
-  ;      de az üres térkép eltávolítása után az azt tartalmazó vektor is üressé
-  ;      válik és ezért a következő iterációban már eltávolítható.
+  ;     akkor a rekurzió első iterációjakor a vektor még nem üres,
+  ;     de az üres térkép eltávolítása után az azt tartalmazó vektor is üressé
+  ;     válik és ezért a következő iterációban már eltávolítható.
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
               (if (=                 n result)

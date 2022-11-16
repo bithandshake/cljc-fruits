@@ -12,9 +12,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (read-str "{:a \"b\"}")
-  ;  =>
-  ;  {:a "b"}
+  ; (read-str "{:a \"b\"}")
+  ; =>
+  ; {:a "b"}
   ;
   ; @return (*)
   [n]
@@ -32,24 +32,24 @@
   ; @param (n) string
   ;
   ; @example
-  ;  (string->mixed "")
-  ;  =>
-  ;  nil
+  ; (string->mixed "")
+  ; =>
+  ; nil
   ;
   ; @example
-  ;  (string->mixed ":foo")
-  ;  =>
-  ;  :foo
+  ; (string->mixed ":foo")
+  ; =>
+  ; :foo
   ;
   ; @example
-  ;  (string->mixed "{:foo :bar}")
-  ;  =>
-  ;  {:foo :bar}
+  ; (string->mixed "{:foo :bar}")
+  ; =>
+  ; {:foo :bar}
   ;
   ; @example
-  ;  (string->mixed "[:foo]")
-  ;  =>
-  ;  [:foo]
+  ; (string->mixed "[:foo]")
+  ; =>
+  ; [:foo]
   ;
   ; @return (nil, keyword, map, number, string or vector)
   [n]
@@ -64,19 +64,19 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (string->map "foo")
-  ;  =>
-  ;  {:0 "foo"}
+  ; (string->map "foo")
+  ; =>
+  ; {:0 "foo"}
   ;
   ; @example
-  ;  (string->map nil)
-  ;  =>
-  ;  {}
+  ; (string->map nil)
+  ; =>
+  ; {}
   ;
   ; @example
-  ;  (string->map "{:foo :bar}")
-  ;  =>
-  ;  {:foo :bar}
+  ; (string->map "{:foo :bar}")
+  ; =>
+  ; {:foo :bar}
   ;
   ; @return (map)
   [n]

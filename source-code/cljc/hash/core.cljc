@@ -11,7 +11,7 @@
   ; @param (string) secret-key
   ;
   ; @usage
-  ;  (hmac-sha256 "My text" "my-secret-key")
+  ; (hmac-sha256 "My text" "my-secret-key")
   ;
   ; @return (hex string)
   [n secret-key]

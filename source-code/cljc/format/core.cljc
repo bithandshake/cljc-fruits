@@ -11,19 +11,19 @@
 
 (defn group-number
   ; @warning
-  ;  Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
-  ;  csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
+  ; Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
+  ; csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
   ;
-  ;  A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
-  ;  a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
-  ;  nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
+  ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
+  ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
+  ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
   ;
   ; @param (number or string) n
   ;
   ; @example
-  ;  (group-number 4200.5)
-  ;  =>
-  ;  "4 200.5"
+  ; (group-number 4200.5)
+  ; =>
+  ; "4 200.5"
   ;
   ; @return (string)
   [n]
@@ -49,14 +49,14 @@
   ; @param (integer) length
   ;
   ; @example
-  ;  (leading-zeros 7 3)
-  ;  =>
-  ;  "007"
+  ; (leading-zeros 7 3)
+  ; =>
+  ; "007"
   ;
   ; @example
-  ;  (leading-zeros 420 3)
-  ;  =>
-  ;  "420"
+  ; (leading-zeros 420 3)
+  ; =>
+  ; "420"
   ;
   ; @return (string)
   [n length]
@@ -69,14 +69,14 @@
   ; @param (integer or string) n
   ;
   ; @example
-  ;  (remove-leading-zeros 42)
-  ;  =>
-  ;  "42"
+  ; (remove-leading-zeros 42)
+  ; =>
+  ; "42"
   ;
   ; @example
-  ;  (remove-leading-zeros "0042")
-  ;  =>
-  ;  "42"
+  ; (remove-leading-zeros "0042")
+  ; =>
+  ; "42"
   ;
   ; @return (string)
   [n]
@@ -93,9 +93,9 @@
   ; @param (integer)(opt) length
   ;
   ; @example
-  ;  (trailing-zeros 7 3)
-  ;  =>
-  ;  "700"
+  ; (trailing-zeros 7 3)
+  ; =>
+  ; "700"
   ;
   ; @return (string)
   [n length]
@@ -107,22 +107,22 @@
 (defn decimals
   ; @param (integer or string) n
   ; @param (integer)(opt) length
-  ;  Default: 2
+  ; Default: 2
   ;
   ; @example
-  ;  (decimals nil 2)
-  ;  =>
-  ;  ""
+  ; (decimals nil 2)
+  ; =>
+  ; ""
   ;
   ; @example
-  ;  (decimals "1" 2)
-  ;  =>
-  ;  "1.00"
+  ; (decimals "1" 2)
+  ; =>
+  ; "1.00"
   ;
   ; @example
-  ;  (decimals "11.0000" 3)
-  ;  =>
-  ;  "11.000"
+  ; (decimals "11.0000" 3)
+  ; =>
+  ; "11.000"
   ;
   ; @return (string)
   ([n]
@@ -152,14 +152,14 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (round 1740)
-  ;  =>
-  ;  "2K"
+  ; (round 1740)
+  ; =>
+  ; "2K"
   ;
   ; @example
-  ;  (round 1000420)
-  ;  =>
-  ;  "1M"
+  ; (round 1000420)
+  ; =>
+  ; "1M"
   ;
   ; @return (string)
   [n]
@@ -171,25 +171,25 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (inc-version "1.2.19")
-  ;  =>
-  ;  "1.2.20"
+  ; (inc-version "1.2.19")
+  ; =>
+  ; "1.2.20"
   ;
   ; @example
-  ;  (inc-version "0.0.99")
-  ;  =>
-  ;  "0.1.00"
+  ; (inc-version "0.0.99")
+  ; =>
+  ; "0.1.00"
   ;
   ; @example
-  ;  (inc-version "9.9")
-  ;  =>
-  ;  "10.0"
+  ; (inc-version "9.9")
+  ; =>
+  ; "10.0"
   ;
   ; @return (string)
   [n]
   (letfn [(implode-f ; @param (string) n
                      ; @param (integers in vector) separators
-                     ;  Az elválasztó-karakterek (".") pozíciói az n string-ben
+                     ; Az elválasztó-karakterek (".") pozíciói az n string-ben
                      [n separators]
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
@@ -197,7 +197,7 @@
                          (return n)))
           (explode-f ; @param (string) n
                      ; @param (integers in vector) separators
-                     ;  Az elválasztó-karakterek (".") pozíciói az n string-ben
+                     ; Az elválasztó-karakterek (".") pozíciói az n string-ben
                      [n separators]
                      (if-let [separator (string/first-dex-of n ".")]
                              (explode-f (string/remove-first-occurence n ".")

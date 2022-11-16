@@ -11,14 +11,14 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->protocol "https://my-domain.com/my-path")
-  ;  =>
-  ;  "https"
+  ; (uri->protocol "https://my-domain.com/my-path")
+  ; =>
+  ; "https"
   ;
   ; @example
-  ;  (uri->protocol "my-domain.com/my-path")
-  ;  =>
-  ;  nil
+  ; (uri->protocol "my-domain.com/my-path")
+  ; =>
+  ; nil
   ;
   ; @return (string)
   [uri]
@@ -28,9 +28,9 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->tld "https://my-domain.com/my-path")
-  ;  =>
-  ;  "my-domain.com"
+  ; (uri->tld "https://my-domain.com/my-path")
+  ; =>
+  ; "my-domain.com"
   ;
   ; @return (string)
   [uri]
@@ -41,9 +41,9 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->tld "https://subdomain.my-domain.com/my-path")
-  ;  =>
-  ;  "subdomain"
+  ; (uri->tld "https://subdomain.my-domain.com/my-path")
+  ; =>
+  ; "subdomain"
   ;
   ; @return (string)
   [uri]
@@ -56,9 +56,9 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->tld "https://my-domain.com/my-path")
-  ;  =>
-  ;  "com"
+  ; (uri->tld "https://my-domain.com/my-path")
+  ; =>
+  ; "com"
   ;
   ; @return (string)
   [uri]
@@ -70,19 +70,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->tail "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;  =>
-  ;  "my-param=my-value&your-param#my-fragment"
+  ; (uri->tail "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; =>
+  ; "my-param=my-value&your-param#my-fragment"
   ;
   ; @example
-  ;  (uri->tail "https://my-domain.com/my-path#my-fragment")
-  ;  =>
-  ;  "my-fragment"
+  ; (uri->tail "https://my-domain.com/my-path#my-fragment")
+  ; =>
+  ; "my-fragment"
   ;
   ; @example
-  ;  (uri->tail "https://my-domain.com/my-path")
-  ;  =>
-  ;  nil
+  ; (uri->tail "https://my-domain.com/my-path")
+  ; =>
+  ; nil
   ;
   ; @return (string)
   [uri]
@@ -94,19 +94,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->parent-uri "/my-path/your-path")
-  ;  =>
-  ;  "/my-path"
+  ; (uri->parent-uri "/my-path/your-path")
+  ; =>
+  ; "/my-path"
   ;
   ; @example
-  ;  (uri->parent-uri "/my-path")
-  ;  =>
-  ;  "/"
+  ; (uri->parent-uri "/my-path")
+  ; =>
+  ; "/"
   ;
   ; @example
-  ;  (uri->parent-uri "/")
-  ;  =>
-  ;  "/"
+  ; (uri->parent-uri "/")
+  ; =>
+  ; "/"
   ;
   ; @return (string)
   [uri]
@@ -117,19 +117,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->local-uri "my-domain.com/my-path?my-param#my-fragment")
-  ;  =>
-  ;  "/my-path?my-param#my-fragment"
+  ; (uri->local-uri "my-domain.com/my-path?my-param#my-fragment")
+  ; =>
+  ; "/my-path?my-param#my-fragment"
   ;
   ; @example
-  ;  (uri->local-uri "/my-path")
-  ;  =>
-  ;  "/my-path"
+  ; (uri->local-uri "/my-path")
+  ; =>
+  ; "/my-path"
   ;
   ; @example
-  ;  (uri->local-uri "/")
-  ;  =>
-  ;  "/"
+  ; (uri->local-uri "/")
+  ; =>
+  ; "/"
   ;
   ; @return (string)
   [uri]
@@ -144,9 +144,9 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->trimmed-uri "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;  =>
-  ;  "my-domain.com/my-path"
+  ; (uri->trimmed-uri "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; =>
+  ; "my-domain.com/my-path"
   ;
   ; @return (string)
   [uri]
@@ -159,19 +159,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->path "https://my-domain.com/my-path?my-param=my-value&your-param")
-  ;  =>
-  ;  "/my-path"
+  ; (uri->path "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; =>
+  ; "/my-path"
   ;
   ; @example
-  ;  (uri->path "https://my-domain.com/?my-param=my-value&your-param")
-  ;  =>
-  ;  "/"
+  ; (uri->path "https://my-domain.com/?my-param=my-value&your-param")
+  ; =>
+  ; "/"
   ;
   ; @example
-  ;  (uri->path "https://my-domain.com?my-param=my-value&your-param")
-  ;  =>
-  ;  "/"
+  ; (uri->path "https://my-domain.com?my-param=my-value&your-param")
+  ; =>
+  ; "/"
   ;
   ; @return (string)
   [uri]
@@ -186,14 +186,14 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->trimmed-path "https://my-domain.com/my-path?my-param=my-value&your-param")
-  ;  =>
-  ;  "my-path"
+  ; (uri->trimmed-path "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; =>
+  ; "my-path"
   ;
   ; @example
-  ;  (uri->trimmed-path "https://my-domain.com/my-path/")
-  ;  =>
-  ;  "my-path"
+  ; (uri->trimmed-path "https://my-domain.com/my-path/")
+  ; =>
+  ; "my-path"
   ;
   ; @return (string)
   [uri]
@@ -205,19 +205,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->path-parts "https://my-domain.com/my-path?my-param=my-value&your-param")
-  ;  =>
-  ;  ["my-path"]
+  ; (uri->path-parts "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; =>
+  ; ["my-path"]
   ;
   ; @example
-  ;  (uri->path-parts "https://my-domain.com/my-path/your-path")
-  ;  =>
-  ;  ["my-path" "your-path"]
+  ; (uri->path-parts "https://my-domain.com/my-path/your-path")
+  ; =>
+  ; ["my-path" "your-path"]
   ;
   ; @example
-  ;  (uri->path-parts "https://my-domain.com/")
-  ;  =>
-  ;  []
+  ; (uri->path-parts "https://my-domain.com/")
+  ; =>
+  ; []
   ;
   ; @return (vector)
   [uri]
@@ -229,24 +229,24 @@
   ; @param (string) template
   ;
   ; @example
-  ;  (uri->path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
-  ;  =>
-  ;  {:a "my-path" :b "your-path"}
+  ; (uri->path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
+  ; =>
+  ; {:a "my-path" :b "your-path"}
   ;
   ; @example
-  ;  (uri->path-params "https://my-domain.com/my-path/your-path" "/:a/b")
-  ;  =>
-  ;  {:a "my-path"}
+  ; (uri->path-params "https://my-domain.com/my-path/your-path" "/:a/b")
+  ; =>
+  ; {:a "my-path"}
   ;
   ; @example
-  ;  (uri->path-params "/my-path/your-path" "/:a/:b")
-  ;  =>
-  ;  {:a "my-path" :b "your-path"}
+  ; (uri->path-params "/my-path/your-path" "/:a/:b")
+  ; =>
+  ; {:a "my-path" :b "your-path"}
   ;
   ; @example
-  ;  (uri->path-params "/my-path/your-path" "/a/b")
-  ;  =>
-  ;  {}
+  ; (uri->path-params "/my-path/your-path" "/a/b")
+  ; =>
+  ; {}
   ;
   ; @return (map)
   [uri template]
@@ -264,14 +264,14 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;  =>
-  ;  "my-fragment"
+  ; (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; =>
+  ; "my-fragment"
   ;
   ; @example
-  ;  (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
-  ;  =>
-  ;  ""
+  ; (uri->fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; =>
+  ; ""
   ;
   ; @return (string)
   [uri]
@@ -281,14 +281,14 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->query-string "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;  =>
-  ;  "my-param=my-value&your-param"
+  ; (uri->query-string "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; =>
+  ; "my-param=my-value&your-param"
   ;
   ; @example
-  ;  (uri->query-string "https://my-domain.com/my-path#my-fragment")
-  ;  =>
-  ;  ""
+  ; (uri->query-string "https://my-domain.com/my-path#my-fragment")
+  ; =>
+  ; ""
   ;
   ; @return (string)
   [uri]
@@ -299,9 +299,9 @@
   ; @param (map) query-params
   ;
   ; @example
-  ;  (query-params->query-string {:my-param "my-value" :your-param nil})
-  ;   =>
-  ;  "my-param=my-value&your-param"
+  ; (query-params->query-string {:my-param "my-value" :your-param nil})
+  ;  =>
+  ; "my-param=my-value&your-param"
   ;
   ; @return (string)
   [query-params]
@@ -313,9 +313,9 @@
   ; @param (string) query-string
   ;
   ; @example
-  ;  (query-string->query-params "my-param=my-value&your-param")
-  ;   =>
-  ;  {:my-param "my-value" :your-param nil}
+  ; (query-string->query-params "my-param=my-value&your-param")
+  ;  =>
+  ; {:my-param "my-value" :your-param nil}
   ;
   ; @return (map)
   [query-string]
@@ -327,14 +327,14 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (uri->query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-  ;   =>
-  ;  {:my-param "my-value" :your-param nil}
+  ; (uri->query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ;  =>
+  ; {:my-param "my-value" :your-param nil}
   ;
   ; @example
-  ;  (uri->query-params "http://my-domain.com/my-path#my-fragment")
-  ;   =>
-  ;  {}
+  ; (uri->query-params "http://my-domain.com/my-path#my-fragment")
+  ;  =>
+  ; {}
   ;
   ; @return (map)
   [uri]
@@ -345,9 +345,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (string->uri "my-domain.com/my path?my param")
-  ;  =>
-  ;  "my-domain.com/my%20path?my%20param"
+  ; (string->uri "my-domain.com/my path?my param")
+  ; =>
+  ; "my-domain.com/my%20path?my%20param"
   ;
   ; @return (string)
   [n]
@@ -358,9 +358,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (string->uri "my-domain.com/my path?my param")
-  ;  =>
-  ;  "my-domain.com%2Fmy%20path%3Fmy%20param"
+  ; (string->uri "my-domain.com/my path?my param")
+  ; =>
+  ; "my-domain.com%2Fmy%20path%3Fmy%20param"
   ;
   ; @return (string)
   [n]
@@ -372,24 +372,24 @@
   ; @param (string) query-string
   ;
   ; @example
-  ;  (uri<-query-param "my-domain.com/my-path" "my-param")
-  ;  =>
-  ;  "my-domain.com/my-path?my-param"
+  ; (uri<-query-param "my-domain.com/my-path" "my-param")
+  ; =>
+  ; "my-domain.com/my-path?my-param"
   ;
   ; @example
-  ;  (uri<-query-param "my-domain.com/my-path" "my-param=my-value")
-  ;  =>
-  ;  "my-domain.com/my-path?my-param=my-value"
+  ; (uri<-query-param "my-domain.com/my-path" "my-param=my-value")
+  ; =>
+  ; "my-domain.com/my-path?my-param=my-value"
   ;
   ; @example
-  ;  (uri<-query-param "my-domain.com/my-path#my-fragment" "my-param")
-  ;  =>
-  ;  "my-domain.com/my-path?my-param#my-fragment"
+  ; (uri<-query-param "my-domain.com/my-path#my-fragment" "my-param")
+  ; =>
+  ; "my-domain.com/my-path?my-param#my-fragment"
   ;
   ; @example
-  ;  (uri<-query-param "my-domain.com/my-path?my-param" "your-param=your-value")
-  ;  =>
-  ;  "my-domain.com/my-path?my-param&your-param=your-value"
+  ; (uri<-query-param "my-domain.com/my-path?my-param" "your-param=your-value")
+  ; =>
+  ; "my-domain.com/my-path?my-param&your-param=your-value"
   ;
   ; @return (string)
   [uri query-string]
@@ -407,9 +407,9 @@
   ; @param (string) template
   ;
   ; @example
-  ;  (path->match-template? "/my-path/my-value" "/my-path/:my-param")
-  ;  =>
-  ;  true
+  ; (path->match-template? "/my-path/my-value" "/my-path/:my-param")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [path template]
@@ -443,19 +443,19 @@
   ; @param (string) uri
   ;
   ; @example
-  ;  (valid-uri "my-domain.com")
-  ;  =>
-  ;  "https://my-domain.com"
+  ; (valid-uri "my-domain.com")
+  ; =>
+  ; "https://my-domain.com"
   ;
   ; @example
-  ;  (valid-uri "my-domain.com/")
-  ;  =>
-  ;  "https://my-domain.com"
+  ; (valid-uri "my-domain.com/")
+  ; =>
+  ; "https://my-domain.com"
   ;
   ; @example
-  ;  (valid-uri "http://my-domain.com")
-  ;  =>
-  ;  "http://my-domain.com"
+  ; (valid-uri "http://my-domain.com")
+  ; =>
+  ; "http://my-domain.com"
   ;
   ; @return (string)
   [uri]
@@ -468,19 +468,19 @@
   ; @param (string) path
   ;
   ; @example
-  ;  (valid-path "my-path")
-  ;  =>
-  ;  "/my-path"
+  ; (valid-path "my-path")
+  ; =>
+  ; "/my-path"
   ;
   ; @example
-  ;  (valid-path "/my-path")
-  ;  =>
-  ;  "/my-path"
+  ; (valid-path "/my-path")
+  ; =>
+  ; "/my-path"
   ;
   ; @example
-  ;  (valid-path "/my-path/")
-  ;  =>
-  ;  "/my-path"
+  ; (valid-path "/my-path/")
+  ; =>
+  ; "/my-path"
   ;
   ; @return (string)
   [path]   ; 1.

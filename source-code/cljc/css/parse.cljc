@@ -9,9 +9,9 @@
   ; @param (map) n
   ;
   ; @example
-  ;  (unparse {:opacity 1 :width "100%"})
-  ;  =>
-  ;  "opacity: 1; width: 100%;"
+  ; (unparse {:opacity 1 :width "100%"})
+  ; =>
+  ; "opacity: 1; width: 100%;"
   ;
   ; @return (string)
   [n]

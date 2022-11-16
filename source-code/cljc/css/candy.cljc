@@ -9,9 +9,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (calc "100% - 100px")
-  ;  =>
-  ;  "calc(100% - 100px)"
+  ; (calc "100% - 100px")
+  ; =>
+  ; "calc(100% - 100px)"
   ;
   ; @return (string)
   [n]
@@ -21,9 +21,9 @@
   ; @param (ms) n
   ;
   ; @example
-  ;  (ms 500)
-  ;  =>
-  ;  "500ms"
+  ; (ms 500)
+  ; =>
+  ; "500ms"
   ;
   ; @return (string)
   [n]
@@ -33,9 +33,9 @@
   ; @param (s) n
   ;
   ; @example
-  ;  (s 3)
-  ;  =>
-  ;  "3s"
+  ; (s 3)
+  ; =>
+  ; "3s"
   ;
   ; @return (string)
   [n]
@@ -45,9 +45,9 @@
   ; @param (percent) n
   ;
   ; @example
-  ;  (percent 100)
-  ;  =>
-  ;  "100%"
+  ; (percent 100)
+  ; =>
+  ; "100%"
   ;
   ; @return (string)
   [n]
@@ -57,9 +57,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (px "100")
-  ;  =>
-  ;  "100px"
+  ; (px "100")
+  ; =>
+  ; "100px"
   ;
   ; @return (string)
   [n]
@@ -69,9 +69,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (rotate "120")
-  ;  =>
-  ;  "rotate(120deg)"
+  ; (rotate "120")
+  ; =>
+  ; "rotate(120deg)"
   ;
   ; @return (string)
   [n]
@@ -81,9 +81,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (rotate-x "120")
-  ;  =>
-  ;  "rotateX(120deg)"
+  ; (rotate-x "120")
+  ; =>
+  ; "rotateX(120deg)"
   ;
   ; @return (string)
   [n]
@@ -93,9 +93,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (rotate-y "120")
-  ;  =>
-  ;  "rotateY(120deg)"
+  ; (rotate-y "120")
+  ; =>
+  ; "rotateY(120deg)"
   ;
   ; @return (string)
   [n]
@@ -105,9 +105,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (rotate-z "120")
-  ;  =>
-  ;  "rotateZ(120deg)"
+  ; (rotate-z "120")
+  ; =>
+  ; "rotateZ(120deg)"
   ;
   ; @return (string)
   [n]
@@ -117,9 +117,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (scale "1.1")
-  ;  =>
-  ;  "scale(1.1)"
+  ; (scale "1.1")
+  ; =>
+  ; "scale(1.1)"
   ;
   ; @return (string)
   [n]
@@ -130,14 +130,14 @@
   ; @param (string)(opt) suffix
   ;
   ; @example
-  ;  (translate "120" "px")
-  ;  =>
-  ;  "translate(120px)"
+  ; (translate "120" "px")
+  ; =>
+  ; "translate(120px)"
   ;
   ; @example
-  ;  (translate "120px")
-  ;  =>
-  ;  "translate(120px)"
+  ; (translate "120px")
+  ; =>
+  ; "translate(120px)"
   ;
   ; @return (string)
   [n & [suffix]]
@@ -148,14 +148,14 @@
   ; @param (string)(opt) suffix
   ;
   ; @example
-  ;  (translate-x "120" "px")
-  ;  =>
-  ;  "translateX(120px)"
+  ; (translate-x "120" "px")
+  ; =>
+  ; "translateX(120px)"
   ;
   ; @example
-  ;  (translate-x "120px")
-  ;  =>
-  ;  "translateX(120px)"
+  ; (translate-x "120px")
+  ; =>
+  ; "translateX(120px)"
   ;
   ; @return (string)
   [n & [suffix]]
@@ -166,14 +166,14 @@
   ; @param (string)(opt) suffix
   ;
   ; @example
-  ;  (translate-y "120" "px")
-  ;  =>
-  ;  "translateY(120px)"
+  ; (translate-y "120" "px")
+  ; =>
+  ; "translateY(120px)"
   ;
   ; @example
-  ;  (translate-y "120px")
-  ;  =>
-  ;  "translateY(120px)"
+  ; (translate-y "120px")
+  ; =>
+  ; "translateY(120px)"
   ;
   ; @return (string)
   [n & [suffix]]
@@ -184,14 +184,14 @@
   ; @param (string)(opt) suffix
   ;
   ; @example
-  ;  (translate-z "120" "px")
-  ;  =>
-  ;  "translateZ(120px)"
+  ; (translate-z "120" "px")
+  ; =>
+  ; "translateZ(120px)"
   ;
   ; @example
-  ;  (translate-z "120px")
-  ;  =>
-  ;  "translateZ(120px)"
+  ; (translate-z "120px")
+  ; =>
+  ; "translateZ(120px)"
   ;
   ; @return (string)
   [n & [suffix]]
@@ -201,9 +201,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (url "/my-file.ext")
-  ;  =>
-  ;  "url(/my-file.ext)"
+  ; (url "/my-file.ext")
+  ; =>
+  ; "url(/my-file.ext)"
   ;
   ; @return (string)
   [n]
@@ -212,12 +212,12 @@
 (defn value
   ; @param (string or integer) n
   ; @param (string) unit
-  ;  "%", "px", "rem", ...
+  ; "%", "px", "rem", ...
   ;
   ; @example
-  ;  (value 180 "%")
-  ;  =>
-  ;  "180%"
+  ; (value 180 "%")
+  ; =>
+  ; "180%"
   ;
   ; @return (string)
   [n unit]
@@ -227,9 +227,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (var "my-var")
-  ;  =>
-  ;  "var( --my-var )"
+  ; (var "my-var")
+  ; =>
+  ; "var( --my-var )"
   ;
   ; @return (string)
   [n]
@@ -239,9 +239,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (horizontal-padding "12px")
-  ;  =>
-  ;  "12px 0"
+  ; (horizontal-padding "12px")
+  ; =>
+  ; "12px 0"
   ;
   ; @return (string)
   [n]
@@ -251,9 +251,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (vertical-padding "12px")
-  ;  =>
-  ;  "0 12px"
+  ; (vertical-padding "12px")
+  ; =>
+  ; "0 12px"
   ;
   ; @return (string)
   [n]
@@ -263,9 +263,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (horizontal-margin "12px")
-  ;  =>
-  ;  "12px 0"
+  ; (horizontal-margin "12px")
+  ; =>
+  ; "12px 0"
   ;
   ; @return (string)
   [n]
@@ -275,9 +275,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (vertical-margin "12px")
-  ;  =>
-  ;  "0 12px"
+  ; (vertical-margin "12px")
+  ; =>
+  ; "0 12px"
   ;
   ; @return (string)
   [n]
@@ -288,9 +288,9 @@
   ; @param (list of strings) color-stops
   ;
   ; @example
-  ;  (linear-gradient "0deg" "red" "green" "blue")
-  ;  =>
-  ;  "linear-gradient(0deg, red, green, blue)"
+  ; (linear-gradient "0deg" "red" "green" "blue")
+  ; =>
+  ; "linear-gradient(0deg, red, green, blue)"
   ;
   ; @return (string)
   [direction & color-stops]

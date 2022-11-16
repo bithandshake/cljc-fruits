@@ -13,9 +13,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (to-string [{:a "a"}])
-  ;  =>
-  ;  "[{:a a}]"
+  ; (to-string [{:a "a"}])
+  ; =>
+  ; "[{:a a}]"
   ;
   ; @return (string)
   [n]
@@ -25,9 +25,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (to-data-url "My text file content")
-  ;  =>
-  ;  "data:text/plain;charset=utf-8,My text file content"
+  ; (to-data-url "My text file content")
+  ; =>
+  ; "data:text/plain;charset=utf-8,My text file content"
   ;
   ; @return (string)
   [n]
@@ -37,24 +37,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (to-vector [:a])
-  ;  =>
-  ;  [:a]
+  ; (to-vector [:a])
+  ; =>
+  ; [:a]
   ;
   ; @example
-  ;  (to-vector nil)
-  ;  =>
-  ;  []
+  ; (to-vector nil)
+  ; =>
+  ; []
   ;
   ; @example
-  ;  (to-vector {:a "a" :b "b"})
-  ;  =>
-  ;  ["a" "b"]
+  ; (to-vector {:a "a" :b "b"})
+  ; =>
+  ; ["a" "b"]
   ;
   ; @example
-  ;  (to-vector :x)
-  ;  =>
-  ;  [:x]
+  ; (to-vector :x)
+  ; =>
+  ; [:x]
   ;
   ; @return (vector)
   [n]
@@ -67,24 +67,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (to-map {:a})
-  ;  =>
-  ;  {:a}
+  ; (to-map {:a})
+  ; =>
+  ; {:a}
   ;
   ; @example
-  ;  (to-map nil)
-  ;  =>
-  ;  {}
+  ; (to-map nil)
+  ; =>
+  ; {}
   ;
   ; @example
-  ;  (to-map [:x :y :z])
-  ;  =>
-  ;  {0 :x 1 :y 2 :z}
+  ; (to-map [:x :y :z])
+  ; =>
+  ; {0 :x 1 :y 2 :z}
   ;
   ; @example
-  ;  (to-map :x)
-  ;  =>
-  ;  {0 :x}
+  ; (to-map :x)
+  ; =>
+  ; {0 :x}
   ;
   ; @return (map)
   [n]
@@ -97,29 +97,29 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (to-number 3)
-  ;  =>
-  ;  3
+  ; (to-number 3)
+  ; =>
+  ; 3
   ;
   ; @example
-  ;  (to-number nil)
-  ;  =>
-  ;  0
+  ; (to-number nil)
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (to-number "a")
-  ;  =>
-  ;  0
+  ; (to-number "a")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (to-number "-3")
-  ;  =>
-  ;  -3
+  ; (to-number "-3")
+  ; =>
+  ; -3
   ;
   ; @example
-  ;  (to-number "1.1")
-  ;  =>
-  ;  1.1
+  ; (to-number "1.1")
+  ; =>
+  ; 1.1
   ;
   ; @return (number)
   [n]

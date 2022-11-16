@@ -8,9 +8,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (document-link? {:directory/id "my-directory"})
-  ;  =>
-  ;  true
+  ; (document-link? {:directory/id "my-directory"})
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -23,9 +23,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (document-entity? [:directory/id "my-directory"])
-  ;  =>
-  ;  true
+  ; (document-entity? [:directory/id "my-directory"])
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]

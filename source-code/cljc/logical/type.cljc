@@ -8,9 +8,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (nonfalse? nil)
-  ;  =>
-  ;  true
+  ; (nonfalse? nil)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -20,9 +20,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (nontrue? nil)
-  ;  =>
-  ;  true
+  ; (nontrue? nil)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]

@@ -9,10 +9,10 @@
   ; @param (list of *) abc
   ;
   ; @usage
-  ;  (try! #(my-function "Apple"))
+  ; (try! #(my-function "Apple"))
   ;
   ; @usage
-  ;  (try! my-function "Apple")
+  ; (try! my-function "Apple")
   ;
   ; @return (*)
   [f & abc]
@@ -23,7 +23,7 @@
   ; @param (string) e
   ;
   ; @usage
-  ;  (throw! "Something went wrong ...")
+  ; (throw! "Something went wrong ...")
   ;
   ; @return (?)
   [e]

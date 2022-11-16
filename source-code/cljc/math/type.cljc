@@ -8,9 +8,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (negative? -4.20)
-  ;  =>
-  ;  true
+  ; (negative? -4.20)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -20,9 +20,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (positive? 4.20)
-  ;  =>
-  ;  true
+  ; (positive? 4.20)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -32,9 +32,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (nonnegative? 4.20)
-  ;  =>
-  ;  true
+  ; (nonnegative? 4.20)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]

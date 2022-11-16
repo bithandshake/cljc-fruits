@@ -9,9 +9,9 @@
   ; @param (string) email-address
   ;
   ; @example
-  ;  (email-address "Hello@my-site.com")
-  ;  =>
-  ;  "mailto:hello@my-site.com"
+  ; (email-address "Hello@my-site.com")
+  ; =>
+  ; "mailto:hello@my-site.com"
   ;
   ; @return (string)
   ([email-address]
@@ -30,9 +30,9 @@
   ; @param (string) phone-number
   ;
   ; @example
-  ;  (phone-number "+3630 / 123 - 4567")
-  ;  =>
-  ;  "tel:+36301234567"
+  ; (phone-number "+3630 / 123 - 4567")
+  ; =>
+  ; "tel:+36301234567"
   ;
   ; @return (string)
   [phone-number]
@@ -43,9 +43,9 @@
   ; @param (string) address
   ;
   ; @example
-  ;  (address "My City, My Address street 42.")
-  ;  =>
-  ;  "https://www.google.com/maps/search/?api=1&query=My%20City,%20My%20Address%20street%2042."
+  ; (address "My City, My Address street 42.")
+  ; =>
+  ; "https://www.google.com/maps/search/?api=1&query=My%20City,%20My%20Address%20street%2042."
   ;
   ; @return (string)
   [address]

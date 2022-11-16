@@ -8,9 +8,9 @@
   ; @param (integer) n
   ;
   ; @example
-  ;  (to-keyword 2)
-  ;  =>
-  ;  :2
+  ; (to-keyword 2)
+  ; =>
+  ; :2
   ;
   ; @return (keyword)
   [n]

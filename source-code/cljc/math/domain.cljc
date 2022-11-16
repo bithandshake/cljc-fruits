@@ -14,24 +14,24 @@
   ; @param (integer) domain
   ;
   ; @example
-  ;  (domain-inchoate 9 5)
-  ;  =>
-  ;  2
+  ; (domain-inchoate 9 5)
+  ; =>
+  ; 2
   ;
   ; @example
-  ;  (domain-inchoate 10 5)
-  ;  =>
-  ;  2
+  ; (domain-inchoate 10 5)
+  ; =>
+  ; 2
   ;
   ; @example
-  ;  (domain-inchoate 11 5)
-  ;  =>
-  ;  3
+  ; (domain-inchoate 11 5)
+  ; =>
+  ; 3
   ;
   ; @example
-  ;  (domain-inchoate 0 5)
-  ;  =>
-  ;  0
+  ; (domain-inchoate 0 5)
+  ; =>
+  ; 0
   ;
   ; @return (integer)
   [n domain]
@@ -47,24 +47,24 @@
   ; @param (integer) domain
   ;
   ; @example
-  ;  (domain-floor 9 5)
-  ;  =>
-  ;  6
+  ; (domain-floor 9 5)
+  ; =>
+  ; 6
   ;
   ; @example
-  ;  (domain-floor 10 5)
-  ;  =>
-  ;  6
+  ; (domain-floor 10 5)
+  ; =>
+  ; 6
   ;
   ; @example
-  ;  (domain-floor 11 5)
-  ;  =>
-  ;  11
+  ; (domain-floor 11 5)
+  ; =>
+  ; 11
   ;
   ; @example
-  ;  (domain-floor 0 5)
-  ;  =>
-  ;  -4
+  ; (domain-floor 0 5)
+  ; =>
+  ; -4
   ;
   ; @return (integer)
   [n domain]
@@ -80,24 +80,24 @@
   ; @param (integer) domain
   ;
   ; @example
-  ;  (domain-ceil 9 5)
-  ;  =>
-  ;  10
+  ; (domain-ceil 9 5)
+  ; =>
+  ; 10
   ;
   ; @example
-  ;  (domain-ceil 10 5)
-  ;  =>
-  ;  10
+  ; (domain-ceil 10 5)
+  ; =>
+  ; 10
   ;
   ; @example
-  ;  (domain-ceil 11 5)
-  ;  =>
-  ;  15
+  ; (domain-ceil 11 5)
+  ; =>
+  ; 15
   ;
   ; @example
-  ;  (domain-ceil 0 5)
-  ;  =>
-  ;  0
+  ; (domain-ceil 0 5)
+  ; =>
+  ; 0
   ;
   ; @return (integer)
   [n domain]
@@ -118,14 +118,14 @@
   ; @param (*)(opt) value-if-smaller
   ;
   ; @example
-  ;  (choose 4.20 42 "A" "B")
-  ;  =>
-  ;  "B"
+  ; (choose 4.20 42 "A" "B")
+  ; =>
+  ; "B"
   ;
   ; @example
-  ;  (choose 42 4.20 "A" "B")
-  ;  =>
-  ;  "A"
+  ; (choose 42 4.20 "A" "B")
+  ; =>
+  ; "A"
   ;
   ; @return (*)
   [n limit value-if-bigger & [value-if-smaller]]
@@ -142,24 +142,24 @@
   ; elerei a domain-to erteket addigra a fuggveny kimenete eleri a range-to erteket.
   ;
   ; @param (float, int) n
-  ;  Az A valtozo pillanatnyi erteke
+  ; Az A valtozo pillanatnyi erteke
   ; @param (vector) domain
-  ;  Az A valtozo ertelmezesi tartomanya
-  ;  XXX A domain-from mindig legyen kisebb, mint a domain-to!
-  ;  [(integer) domain-from
-  ;   (integer) domain-to
+  ; Az A valtozo ertelmezesi tartomanya
+  ; XXX A domain-from mindig legyen kisebb, mint a domain-to!
+  ; [(integer) domain-from
+  ;  (integer) domain-to
   ; @param (vector) range
-  ;  A B valtozo kimeneti tartomanya
-  ;  [(integer) range-from
-  ;   (integer) range-to]
+  ; A B valtozo kimeneti tartomanya
+  ; [(integer) range-from
+  ;  (integer) range-to]
   ;
   ; @example
-  ;  (calc 42 [10 50] [100 500])
-  ;  =>
-  ;  420
+  ; (calc 42 [10 50] [100 500])
+  ; =>
+  ; 420
   ;
   ; @return (*)
-  ;  A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
+  ; A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
   [n [domain-from domain-to] [range-from range-to]]
   (let [domain-length (- domain-to domain-from)
         domain-offset (- n domain-from)

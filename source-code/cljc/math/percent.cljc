@@ -8,9 +8,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (percent->angle 50)
-  ;  =>
-  ;  180
+  ; (percent->angle 50)
+  ; =>
+  ; 180
   ;
   ; @return (number)
   [n]
@@ -21,9 +21,9 @@
   ; @param (number) value
   ;
   ; @example
-  ;  (percent 50 20)
-  ;  =>
-  ;  40
+  ; (percent 50 20)
+  ; =>
+  ; 40
   ;
   ; @return (number)
   [total value]
@@ -36,9 +36,9 @@
   ; @param (number) percentage
   ;
   ; @example
-  ;  (percent 50 40)
-  ;  =>
-  ;  20
+  ; (percent 50 40)
+  ; =>
+  ; 20
   ;
   ; @return (number)
   [total percentage]
@@ -49,9 +49,9 @@
   ; @param (number) percentage
   ;
   ; @example
-  ;  (percent-rest 50 40)
-  ;  =>
-  ;  30
+  ; (percent-rest 50 40)
+  ; =>
+  ; 30
   ;
   ; @return (number)
   [total percentage]
@@ -62,9 +62,9 @@
   ; @param (number) percentage
   ;
   ; @example
-  ;  (percent-add 50 40)
-  ;  =>
-  ;  70
+  ; (percent-add 50 40)
+  ; =>
+  ; 70
   ;
   ; @return (number)
   [total percentage]

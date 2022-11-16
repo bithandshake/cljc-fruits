@@ -10,9 +10,9 @@
   ; @param (integer) n
   ;
   ; @example
-  ;  (power 2 3)
-  ;  =>
-  ;  8
+  ; (power 2 3)
+  ; =>
+  ; 8
   ;
   ; @return (number)
   [x n]
@@ -23,14 +23,14 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (floor 4.20)
-  ;  =>
-  ;  4
+  ; (floor 4.20)
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (floor 4.80)
-  ;  =>
-  ;  4
+  ; (floor 4.80)
+  ; =>
+  ; 4
   ;
   ; @return (integer)
   [n]
@@ -40,14 +40,14 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (ceil 4.20)
-  ;  5
-  ;  4
+  ; (ceil 4.20)
+  ; 5
+  ; 4
   ;
   ; @example
-  ;  (ceil 4.80)
-  ;  =>
-  ;  5
+  ; (ceil 4.80)
+  ; =>
+  ; 5
   ;
   ; @return (integer)
   [n]
@@ -58,19 +58,19 @@
   ; @param (integer) precision
   ;
   ; @example
-  ;  (round 4.20)
-  ;  =>
-  ;  4
+  ; (round 4.20)
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (round 4.80)
-  ;  =>
-  ;  5
+  ; (round 4.80)
+  ; =>
+  ; 5
   ;
   ; @example
-  ;  (round 420 100)
-  ;  =>
-  ;  400
+  ; (round 420 100)
+  ; =>
+  ; 400
   ;
   ; @return (integer)
   ([n]
@@ -86,9 +86,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (absolute -4.20)
-  ;  =>
-  ;  4.20
+  ; (absolute -4.20)
+  ; =>
+  ; 4.20
   ;
   ; @return (number)
   [n]
@@ -98,9 +98,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (negative 4.20)
-  ;  =>
-  ;  -4.20
+  ; (negative 4.20)
+  ; =>
+  ; -4.20
   ;
   ; @return (number)
   [n]
@@ -112,9 +112,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (positive -4.20)
-  ;  =>
-  ;  4.20
+  ; (positive -4.20)
+  ; =>
+  ; 4.20
   ;
   ; @return (number)
   [n]
@@ -127,7 +127,7 @@
   ; @param (number) b
   ;
   ; @usage
-  ;  (absolute-difference 4.20 42)
+  ; (absolute-difference 4.20 42)
   ;
   ; @return (number)
   [a b]
@@ -137,9 +137,9 @@
   ; @param (number) n
   ;
   ; @example
-  ;  (opposite 4.20)
-  ;  =>
-  ;  -4.20
+  ; (opposite 4.20)
+  ; =>
+  ; -4.20
   ;
   ; @return (number)
   [n]
@@ -151,9 +151,9 @@
   ; @param (number) max
   ;
   ; @example
-  ;  (between? 4.20 0 42)
-  ;  =>
-  ;  true
+  ; (between? 4.20 0 42)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n min max]
@@ -166,9 +166,9 @@
   ; @param (number) max
   ;
   ; @example
-  ;  (between! 4.20 0 42)
-  ;  =>
-  ;  4.20
+  ; (between! 4.20 0 42)
+  ; =>
+  ; 4.20
   ;
   ; @return (number)
   [n min max]

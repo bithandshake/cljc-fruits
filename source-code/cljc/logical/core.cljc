@@ -11,12 +11,12 @@
   ; @param (*) d
   ;
   ; @example
-  ;  (=? "A" "B" "equal" "not equal")
-  ;  =>
-  ;  "not equal"
+  ; (=? "A" "B" "equal" "not equal")
+  ; =>
+  ; "not equal"
   ;
   ; @return (*)
-  ;  Ha a egyenlő b, akkor c különben d
+  ; Ha a egyenlő b, akkor c különben d
   ([a b c]
    (when (= a b) c))
 
@@ -30,12 +30,12 @@
   ; @param (*) d
   ;
   ; @example
-  ;  (not=? "A" "B" "not equal" "equal")
-  ;  =>
-  ;  "not equal"
+  ; (not=? "A" "B" "not equal" "equal")
+  ; =>
+  ; "not equal"
   ;
   ; @return (*)
-  ;  Ha a nem egyenlő b, akkor c különben d
+  ; Ha a nem egyenlő b, akkor c különben d
   ([a b c]
    (when-not (= a b) c))
 
@@ -49,12 +49,12 @@
   ; @param (*) d
   ;
   ; @example
-  ;  (if-or true false "C" "D")
-  ;  =>
-  ;  "C"
+  ; (if-or true false "C" "D")
+  ; =>
+  ; "C"
   ;
   ; @return (*)
-  ;  Ha a vagy b igaz, akkor c különben d
+  ; Ha a vagy b igaz, akkor c különben d
   ([a b c]
    (when (or a b) c))
 
@@ -69,12 +69,12 @@
   ; @param (*) d
   ;
   ; @example
-  ;  (if-and true false "C" "D")
-  ;  =>
-  ;  "D"
+  ; (if-and true false "C" "D")
+  ; =>
+  ; "D"
   ;
   ; @return (*)
-  ;  Ha a és b igaz, akkor c különben d
+  ; Ha a és b igaz, akkor c különben d
   ([a b c]
    (when (and a b) c))
 
@@ -85,25 +85,25 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ;  (nor true false false)
-  ;  =>
-  ;  false
+  ; (nor true false false)
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (nor false false false)
-  ;  =>
-  ;  true
+  ; (nor false false false)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (nor false nil)
-  ;  =>
-  ;  true
+  ; (nor false nil)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [& abc]
   ; WARNING! Az összes paraméter kiértelése minden esetben megtörténik!
   ; Pl. (nor (my-f   ...)
-  ;           (your-f ...))
+  ;          (your-f ...))
   ; Az (your-f ...) függvény abban az esetben is lefut, ha az (my-f ...) függvény kimenete igaz!
   (not-any? boolean abc))
 
@@ -112,19 +112,19 @@
   ; @param (list of *) bcd
   ;
   ; @example
-  ;  (or= :a :b :c)
-  ;  =>
-  ;  false
+  ; (or= :a :b :c)
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (or= :a :b :a)
-  ;  =>
-  ;  true
+  ; (or= :a :b :a)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (or= :a :a)
-  ;  =>
-  ;  true
+  ; (or= :a :a)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [a & bcd]
@@ -136,19 +136,19 @@
   ; @param (*) b
   ;
   ; @example
-  ;  (swap "A" "A" "B")
-  ;  =>
-  ;  "B"
+  ; (swap "A" "A" "B")
+  ; =>
+  ; "B"
   ;
   ; @example
-  ;  (swap "B" "A" "B")
-  ;  =>
-  ;  "A"
+  ; (swap "B" "A" "B")
+  ; =>
+  ; "A"
   ;
   ; @example
-  ;  (swap "C" "A" "B")
-  ;  =>
-  ;  "C"
+  ; (swap "C" "A" "B")
+  ; =>
+  ; "C"
   ;
   ; @return (*)
   [x a b]

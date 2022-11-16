@@ -1,6 +1,12 @@
 
 # fruits
-  "A piece of fruit a day keeps the compiler errors away." – Bit Handshake
+> "A piece of fruit a day keeps the compiler errors away." – Bit Handshake
 
-# Documentation book is releasing soon ...
-  2023.01.01.
+### Overview
+...
+
+### Current version
+The <strong>fruits</strong> is releasing soon on Clojars!
+
+### Documentation
+The <strong>fruits</strong> documentation is [available here](documentation/COVER.md).

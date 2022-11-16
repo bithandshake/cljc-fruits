@@ -10,23 +10,23 @@
   ; @param (string) open-tag
   ;
   ; @example
-  ;  (open-tag-position "<div>My content</div>" "<div>")
-  ;  =>
-  ;  0
+  ; (open-tag-position "<div>My content</div>" "<div>")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (open-tag-position "<div><div></div></div>" "<div>")
-  ;  =>
-  ;  0
+  ; (open-tag-position "<div><div></div></div>" "<div>")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (open-tag-position "</div> <div></div>" "<div>")
-  ;  =>
-  ;  7
+  ; (open-tag-position "</div> <div></div>" "<div>")
+  ; =>
+  ; 7
   ;
   ; @return (integer)
-  ;  Returns with the position of the first occurence of the given open-tag in
-  ;  the string n.
+  ; Returns with the position of the first occurence of the given open-tag in
+  ; the string n.
   [n open-tag]
   (string/first-dex-of n open-tag))
 
@@ -36,23 +36,23 @@
   ; @param (string) close-tag
   ;
   ; @example
-  ;  (close-tag-position "<div>My content</div>" "<div>" "</div>")
-  ;  =>
-  ;  15
+  ; (close-tag-position "<div>My content</div>" "<div>" "</div>")
+  ; =>
+  ; 15
   ;
   ; @example
-  ;  (close-tag-position "<div><div></div></div>" "<div>" "</div>")
-  ;  =>
-  ;  16
+  ; (close-tag-position "<div><div></div></div>" "<div>" "</div>")
+  ; =>
+  ; 16
   ;
   ; @example
-  ;  (close-tag-position "</div> <div></div>" "<div>" "</div>")
-  ;  =>
-  ;  12
+  ; (close-tag-position "</div> <div></div>" "<div>" "</div>")
+  ; =>
+  ; 12
   ;
   ; @return (integer)
-  ;  Returns with the position of the close-pair of the first occurence of the
-  ;  given open-tag in the string n.
+  ; Returns with the position of the close-pair of the first occurence of the
+  ; given open-tag in the string n.
   [n open-tag close-tag]
   (if (and (string/contains-part? n  open-tag)
            (string/contains-part? n close-tag))
@@ -83,23 +83,23 @@
   ; @param (n)
   ;
   ; @example
-  ;  (open-brace-position "{:a 0}")
-  ;  =>
-  ;  0
+  ; (open-brace-position "{:a 0}")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (open-brace-position "([] {:a {:b 0}}")
-  ;  =>
-  ;  4
+  ; (open-brace-position "([] {:a {:b 0}}")
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (open-brace-position "} {}")
-  ;  =>
-  ;  2
+  ; (open-brace-position "} {}")
+  ; =>
+  ; 2
   ;
   ; @return (integer)
-  ;  Returns with the position of the first occurence of the character "{"
-  ;  in the string n.
+  ; Returns with the position of the first occurence of the character "{"
+  ; in the string n.
   [n]
   (open-tag-position n "{"))
 
@@ -107,23 +107,23 @@
   ; @param (n)
   ;
   ; @example
-  ;  (close-brace-position "{:a 0}")
-  ;  =>
-  ;  5
+  ; (close-brace-position "{:a 0}")
+  ; =>
+  ; 5
   ;
   ; @example
-  ;  (close-brace-position "([] {:a {:b 0}}")
-  ;  =>
-  ;  14
+  ; (close-brace-position "([] {:a {:b 0}}")
+  ; =>
+  ; 14
   ;
   ; @example
-  ;  (close-brace-position "} {}")
-  ;  =>
-  ;  3
+  ; (close-brace-position "} {}")
+  ; =>
+  ; 3
   ;
   ; @return (integer)
-  ;  Returns with the position of the close-pair of the first occurence of the
-  ;  character "{" in the string n.
+  ; Returns with the position of the close-pair of the first occurence of the
+  ; character "{" in the string n.
   [n]
   (close-tag-position n "{" "}"))
 
@@ -134,23 +134,23 @@
   ; @param (n)
   ;
   ; @example
-  ;  (open-bracket-position "[1 2]")
-  ;  =>
-  ;  0
+  ; (open-bracket-position "[1 2]")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (open-bracket-position "({} [[0 1]])")
-  ;  =>
-  ;  4
+  ; (open-bracket-position "({} [[0 1]])")
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (open-bracket-position "] []")
-  ;  =>
-  ;  2
+  ; (open-bracket-position "] []")
+  ; =>
+  ; 2
   ;
   ; @return (integer)
-  ;  Returns with the position of the first occurence of the character "["
-  ;  in the string n.
+  ; Returns with the position of the first occurence of the character "["
+  ; in the string n.
   [n]
   (open-tag-position n "["))
 
@@ -158,23 +158,23 @@
   ; @param (n)
   ;
   ; @example
-  ;  (close-bracket-position "[1 2]")
-  ;  =>
-  ;  4
+  ; (close-bracket-position "[1 2]")
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (close-bracket-position "({} [[0 1]])")
-  ;  =>
-  ;  10
+  ; (close-bracket-position "({} [[0 1]])")
+  ; =>
+  ; 10
   ;
   ; @example
-  ;  (close-bracket-position "] []")
-  ;  =>
-  ;  3
+  ; (close-bracket-position "] []")
+  ; =>
+  ; 3
   ;
   ; @return (integer)
-  ;  Returns with the position of the close-pair of the first occurence of the
-  ;  character "[" in the string n.
+  ; Returns with the position of the close-pair of the first occurence of the
+  ; character "[" in the string n.
   [n]
   (close-tag-position n "[" "]"))
 
@@ -185,23 +185,18 @@
   ; @param (n)
   ;
   ; @example
-  ;  (open-paren-position "(+ 1 2)")
-  ;  =>
-  ;  0
+  ; (open-paren-position "(+ 1 2)")
+  ; =>
+  ; 0
   ;
   ; @example
-  ;  (open-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
-  ;  =>
-  ;  4
-  ;
-  ; @example
-  ;  (open-paren-position ") ()")
-  ;  =>
-  ;  2
+  ; (open-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
+  ; =>
+  ; 4
   ;
   ; @return (integer)
-  ;  Returns with the position of the first occurence of the character "("
-  ;  in the string n.
+  ; Returns with the position of the first occurence of the character parenthesis
+  ; open character in the string n.
   [n]
   (open-tag-position n "("))
 
@@ -209,22 +204,17 @@
   ; @param (n)
   ;
   ; @example
-  ;  (close-paren-position "(+ 1 2)")
-  ;  =>
-  ;  6
+  ; (close-paren-position "(+ 1 2)")
+  ; =>
+  ; 6
   ;
   ; @example
-  ;  (close-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
-  ;  =>
-  ;  24
-  ;
-  ; @example
-  ;  (close-paren-position ") ()")
-  ;  =>
-  ;  3
+  ; (close-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
+  ; =>
+  ; 24
   ;
   ; @return (integer)
-  ;  Returns with the position of the close-pair of the first occurence of the
-  ;  character "(" in the string n.
+  ; Returns with the position of the close-pair of the first occurence of the
+  ; character parenthesis open character in the string n.
   [n]
   (close-tag-position n "(" ")"))

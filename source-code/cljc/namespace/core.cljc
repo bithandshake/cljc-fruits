@@ -9,7 +9,7 @@
   ; @param (namespaced keyword) sample
   ;
   ; @usage
-  ;  (detect ::this)
+  ; (detect ::this)
   ;
   ; @return (keyword)
   [sample]

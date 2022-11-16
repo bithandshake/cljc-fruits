@@ -8,14 +8,14 @@
 (defn run-code!
   ; @param (string) source-code
   ; @param (vectors in vector)(opt) env-vars
-  ;  [[(string) var-name
-  ;    (*) var-value]
-  ;   [...]]
+  ; [[(string) var-name
+  ;   (*) var-value]
+  ;  [...]]
   ;
   ; @usage
-  ;  (run-code! "(println (my-function my-var))"
-  ;             [["my-function" "my-namespace/my-function"]
-  ;              ["my-var"      :my-value]])
+  ; (run-code! "(println (my-function my-var))"
+  ;            [["my-function" "my-namespace/my-function"]
+  ;             ["my-var"      :my-value]])
   ([source-code]
    (run-code! source-code []))
 

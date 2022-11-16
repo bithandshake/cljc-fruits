@@ -11,9 +11,9 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ;  (to-string [:div {:style {:color "red"}} "Hello World!"])
-  ;  =>
-  ;  {:style {:color "red"}}
+  ; (to-string [:div {:style {:color "red"}} "Hello World!"])
+  ; =>
+  ; {:style {:color "red"}}
   ;
   ; @return (map)
   [n]
@@ -29,9 +29,9 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ;  (to-style [:div {:style {:color "red"}} "Hello World!"])
-  ;  =>
-  ;  {:color "red"}
+  ; (to-style [:div {:style {:color "red"}} "Hello World!"])
+  ; =>
+  ; {:color "red"}
   ;
   ; @return (map)
   [n]
@@ -42,9 +42,9 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ;  (to-string [:div {:style {:color "red"}} "Hello World!"])
-  ;  =>
-  ;  {:style {:color "red"}}
+  ; (to-string [:div {:style {:color "red"}} "Hello World!"])
+  ; =>
+  ; {:style {:color "red"}}
   ;
   ; @return (map)
   [n style]
@@ -60,9 +60,9 @@
   ; @param (list of keyword or keywords in vector)
   ;
   ; @example
-  ;  (join-class :my-class [:your-class] :our-class)
-  ;  =>
-  ;  [:my-class :your-class :our-class]
+  ; (join-class :my-class [:your-class] :our-class)
+  ; =>
+  ; [:my-class :your-class :our-class]
   ;
   ; @return (keywords in vector)
   [& xyz]
@@ -79,19 +79,19 @@
   ; @param (string)(opt) flag
   ;
   ; @example
-  ;  (value "my-namespace/my-value?")
-  ;  =>
-  ;  "my-namespace--my-value"
+  ; (value "my-namespace/my-value?")
+  ; =>
+  ; "my-namespace--my-value"
   ;
   ; @example
-  ;  (value :your-namespace/your-value!)
-  ;  =>
-  ;  "your-namespace--your-value"
+  ; (value :your-namespace/your-value!)
+  ; =>
+  ; "your-namespace--your-value"
   ;
   ; @example
-  ;  (value :our-namespace/our-value "420")
-  ;  =>
-  ;  "our-namespace--our-value--420"
+  ; (value :our-namespace/our-value "420")
+  ; =>
+  ; "our-namespace--our-value--420"
   ;
   ; @return (string)
   [n & [flag]]

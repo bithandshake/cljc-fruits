@@ -7,12 +7,12 @@
 (defn to-string
   ; @param (hiccup) n
   ; @param (string)(opt) delimiter
-  ;  Default: " "
+  ; Default: " "
   ;
   ; @example
-  ;  (to-string [:div "Hello" [:strong "World!"]])
-  ;  =>
-  ;  "Hello World!"
+  ; (to-string [:div "Hello" [:strong "World!"]])
+  ; =>
+  ; "Hello World!"
   ;
   ; @return (string)
   ([n]

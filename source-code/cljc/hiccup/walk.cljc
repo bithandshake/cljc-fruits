@@ -12,10 +12,10 @@
   ; @param (function) f
   ;
   ; @example
-  ;  (walk [:td [:p {:style {:color "red"}}]]
-  ;        #(conj % "420"))
-  ;  =>
-  ;  [:td [:p {:style {:color "red"}} "420"] "420"]
+  ; (walk [:td [:p {:style {:color "red"}}]]
+  ;       #(conj % "420"))
+  ; =>
+  ; [:td [:p {:style {:color "red"}} "420"] "420"]
   ;
   ; @return (hiccup)
   [n f]
@@ -29,10 +29,10 @@
   ; @param (hiccup) container
   ;
   ; @example
-  ;  (explode "ab" [:div])
-  ;  =>
-  ;  [:div [:span "a"]
-  ;        [:span "b"])
+  ; (explode "ab" [:div])
+  ; =>
+  ; [:div [:span "a"]
+  ;       [:span "b"]
   ;
   ; @return (nil or hiccup)
   [n container]

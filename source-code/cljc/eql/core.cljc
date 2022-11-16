@@ -9,14 +9,14 @@
   ; @param (keyword)(opt) namespace
   ;
   ; @example
-  ;  (id->document-link "my-directory")
-  ;  =>
-  ;  {:id "my-directory"}
+  ; (id->document-link "my-directory")
+  ; =>
+  ; {:id "my-directory"}
   ;
   ; @example
-  ;  (id->document-link "my-directory" :directory)
-  ;  =>
-  ;  {:directory/id "my-directory"}
+  ; (id->document-link "my-directory" :directory)
+  ; =>
+  ; {:directory/id "my-directory"}
   ;
   ; @return (map)
   ([id]           {:id id})
@@ -26,9 +26,9 @@
   ; @param (map) document-link
   ;
   ; @example
-  ;  (document-link->id {:directory/id "my-directory"})
-  ;  =>
-  ;  "my-directory"
+  ; (document-link->id {:directory/id "my-directory"})
+  ; =>
+  ; "my-directory"
   ;
   ; @return (string)
   [document-link]
@@ -42,14 +42,14 @@
   ; @param (keyword)(opt) namespace
   ;
   ; @example
-  ;  (id->document-entity "my-directory")
-  ;  =>
-  ;  [:id "my-directory"]
+  ; (id->document-entity "my-directory")
+  ; =>
+  ; [:id "my-directory"]
   ;
   ; @example
-  ;  (id->document-entity "my-directory" :directory)
-  ;  =>
-  ;  [:directory/id "my-directory"]
+  ; (id->document-entity "my-directory" :directory)
+  ; =>
+  ; [:directory/id "my-directory"]
   ;
   ; @return (vector)
   ([id]           [:id id])
@@ -59,9 +59,9 @@
   ; @param (vector) document-entity
   ;
   ; @example
-  ;  (document-entity->id [:directory/id "my-directory"])
-  ;  =>
-  ;  "my-directory"
+  ; (document-entity->id [:directory/id "my-directory"])
+  ; =>
+  ; "my-directory"
   ;
   ; @return (string)
   [document-entity]
@@ -74,9 +74,9 @@
   ; @param (string) id
   ;
   ; @example
-  ;  (id->placeholder "my-id")
-  ;  =>
-  ;  :>/my-id
+  ; (id->placeholder "my-id")
+  ; =>
+  ; :>/my-id
   ;
   ; @return (keyword)
   [id]
@@ -90,20 +90,20 @@
   ; @param (keyword, map, string or vector) query-parts
   ;
   ; @example
-  ;  (append-to-query nil :all-users)
-  ;  =>
-  ;  [:all-users]
+  ; (append-to-query nil :all-users)
+  ; =>
+  ; [:all-users]
   ;
   ; @example
-  ;  (append-to-query [] :all-users)
-  ;  =>
-  ;  [:all-users]
+  ; (append-to-query [] :all-users)
+  ; =>
+  ; [:all-users]
   ;
   ; @example
-  ;  (append-to-query [:all-users]
-  ;                   [:directory/id :my-directory])
-  ;  =>
-  ;  [:all-users [:directory/id :my-directory]]
+  ; (append-to-query [:all-users]
+  ;                  [:directory/id :my-directory])
+  ; =>
+  ; [:all-users [:directory/id :my-directory]]
   ;
   ; @return (vector)
   [query & query-parts]

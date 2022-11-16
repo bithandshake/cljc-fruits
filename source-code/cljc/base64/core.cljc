@@ -12,19 +12,19 @@
   ; @param (string) mime-type
   ;
   ; @example
-  ;  (wrap "..." "application/pdf")
-  ;  =>
-  ;  "data:application/pdf;base64,..."
+  ; (wrap "..." "application/pdf")
+  ; =>
+  ; "data:application/pdf;base64,..."
   ;
   ; @example
-  ;  (wrap "" "application/pdf")
-  ;  =>
-  ;  nil
+  ; (wrap "" "application/pdf")
+  ; =>
+  ; nil
   ;
   ; @example
-  ;  (wrap nil "application/pdf")
-  ;  =>
-  ;  nil
+  ; (wrap nil "application/pdf")
+  ; =>
+  ; nil
   ;
   ; @return (string)
   [base64 mime-type]
@@ -39,7 +39,7 @@
   ; @param (string) destination-filepath
   ;
   ; @usage
-  ;  (encode "my-document.pdf" "my-document.b64")
+  ; (encode "my-document.pdf" "my-document.b64")
   ;
   ; @return (string)
   [source-filepath destination-filepath]
@@ -56,7 +56,7 @@
   ; @param (string) mime-type
   ;
   ; @usage
-  ;  (to-blob "..." "application/pdf")
+  ; (to-blob "..." "application/pdf")
   ;
   ; @return (object)
   [base64 mime-type]

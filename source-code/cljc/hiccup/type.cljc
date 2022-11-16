@@ -17,9 +17,9 @@
   ; @param (keyword) tag-name
   ;
   ; @example
-  ;  (tag-name? [:div "Hello World!"] :div)
-  ;  =>
-  ;  true
+  ; (tag-name? [:div "Hello World!"] :div)
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n tag-name]

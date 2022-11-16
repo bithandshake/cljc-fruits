@@ -13,7 +13,7 @@
   ; @param (map) map
   ;
   ; @usage
-  ;  (reduce-kv-indexed (fn [o dex k v]) nil {})
+  ; (reduce-kv-indexed (fn [o dex k v]) nil {})
   ;
   ; @return (*)
   [f initial map]
@@ -31,7 +31,7 @@
   ; @param (collection) coll
   ;
   ; @usage
-  ;  (reduce-indexed (fn [o dex x]) nil [:a :b])
+  ; (reduce-indexed (fn [o dex x]) nil [:a :b])
   ;
   ; @return (*)
   [f initial coll]
@@ -46,21 +46,21 @@
   ; @param (collection) coll
   ;
   ; @usage
-  ;  (some-indexed (fn [dex x]) [...])
+  ; (some-indexed (fn [dex x]) [...])
   ;
   ; @example
-  ;  (some-indexed #(if (= 3    %1)
-  ;                     (return %2))
-  ;                 [:a :b :c :d :e])
-  ;  =>
-  ;  :d
+  ; (some-indexed #(if (= 3    %1)
+  ;                    (return %2))
+  ;                [:a :b :c :d :e])
+  ; =>
+  ; :d
   ;
   ; @example
-  ;  (some-indexed #(if (= :d   %2)
-  ;                     (return %1))
-  ;                 [:a :b :c :d :e])
-  ;  =>
-  ;  3
+  ; (some-indexed #(if (= :d   %2)
+  ;                    (return %1))
+  ;                [:a :b :c :d :e])
+  ; =>
+  ; 3
   ;
   ; @return (*)
   [test-f coll]
@@ -74,27 +74,27 @@
 (defn do-while
   ; @param (function) f
   ; @param (*) n
-  ;  Az f függvény első paramétere
+  ; Az f függvény első paramétere
   ; @param (function) test-f
-  ;  A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
+  ; A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
   ;
   ; @example
-  ;  (do-while (fn [{:keys [my-numbers x] :as n}]
-  ;                (if (vector/contains-item? my-numbers x))
-  ;                    (assoc  n :x (inc x))
-  ;                    (update n :my-numbers vector/conj-item x))
-  ;            {:my-numbers [0 1 2 4]
-  ;             :x 0}
-  ;            (fn [%] (= (count (:my-numbers %1)) 5))))
-  ;  =>
-  ;  {:my-numbers [0 1 2 4 3] :x 3}
+  ; (do-while (fn [{:keys [my-numbers x] :as n}]
+  ;               (if (vector/contains-item? my-numbers x)
+  ;                   (assoc  n :x (inc x))
+  ;                   (update n :my-numbers vector/conj-item x))
+  ;           {:my-numbers [0 1 2 4]
+  ;            :x 0}
+  ;           (fn [%] (= (count (:my-numbers %1)) 5)))
+  ; =>
+  ; {:my-numbers [0 1 2 4 3] :x 3}
   ;
   ; @example
-  ;  (do-while #(inc %)
-  ;             0
-  ;            #(> % 3))
-  ;  =>
-  ;  4
+  ; (do-while #(inc %)
+  ;            0
+  ;           #(> % 3))
+  ; =>
+  ; 4
   ;
   ; @return (*)
   [f n test-f]

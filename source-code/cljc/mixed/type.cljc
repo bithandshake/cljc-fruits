@@ -9,59 +9,59 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (nonempty? nil)
-  ;  =>
-  ;  false
+  ; (nonempty? nil)
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (nonempty? "")
-  ;  =>
-  ;  false
+  ; (nonempty? "")
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (nonempty? [])
-  ;  =>
-  ;  false
+  ; (nonempty? [])
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (nonempty? {})
-  ;  =>
-  ;  false
+  ; (nonempty? {})
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
   ; Az empty? függvényt csak a seqable értékeken lehetséges alkalmazni!
   ;
-  ; A) Ha az n értéke nem seqable, akkor igaz rá, hogy nonempty (keyword, integer, ...)
+  ; (A) Ha az n értéke nem seqable, akkor igaz rá, hogy nonempty (keyword, integer, ...)
   ;
-  ; B) Ha az n értéke seqable, akkor megvizsgálja, hogy üres-e (nil, map, string, vector, ...)
-  (or ; A)
+  ; (B) Ha az n értéke seqable, akkor megvizsgálja, hogy üres-e (nil, map, string, vector, ...)
+  (or ; (A)
       (-> n seqable? not)
-      ; B)
+      ; (B)
       (-> n empty?   not)))
 
 (defn blank?
   ; @param (*) n
   ;
   ; @example
-  ;  (blank? nil)
-  ;  =>
-  ;  true
+  ; (blank? nil)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (blank? "")
-  ;  =>
-  ;  true
+  ; (blank? "")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (blank? [])
-  ;  =>
-  ;  true
+  ; (blank? [])
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (=blank? {})
-  ;  =>
-  ;  true
+  ; (=blank? {})
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -77,34 +77,34 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (rational-number? 12)
-  ;  =>
-  ;  true
+  ; (rational-number? 12)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (rational-number? 12.1)
-  ;  =>
-  ;  true
+  ; (rational-number? 12.1)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (rational-number? "12")
-  ;  =>
-  ;  true
+  ; (rational-number? "12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (rational-number? "12.1")
-  ;  =>
-  ;  true
+  ; (rational-number? "12.1")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (rational-number? "+12.1")
-  ;  =>
-  ;  true
+  ; (rational-number? "+12.1")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (rational-number? "-12.1")
-  ;  =>
-  ;  true
+  ; (rational-number? "-12.1")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -116,24 +116,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (whole-number? 12)
-  ;  =>
-  ;  true
+  ; (whole-number? 12)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (whole-number? "12")
-  ;  =>
-  ;  true
+  ; (whole-number? "12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (whole-number? "+12")
-  ;  =>
-  ;  true
+  ; (whole-number? "+12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (whole-number? "-12")
-  ;  =>
-  ;  true
+  ; (whole-number? "-12")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]
@@ -144,24 +144,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (natural-whole-number? 12)
-  ;  =>
-  ;  true
+  ; (natural-whole-number? 12)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (natural-whole-number? "12")
-  ;  =>
-  ;  true
+  ; (natural-whole-number? "12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (natural-whole-number? "+12")
-  ;  =>
-  ;  true
+  ; (natural-whole-number? "+12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (natural-whole-number? "-12")
-  ;  =>
-  ;  false
+  ; (natural-whole-number? "-12")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
@@ -173,24 +173,24 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (positive-whole-number? 12)
-  ;  =>
-  ;  true
+  ; (positive-whole-number? 12)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (positive-whole-number? "12")
-  ;  =>
-  ;  true
+  ; (positive-whole-number? "12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (positive-whole-number? "+12")
-  ;  =>
-  ;  true
+  ; (positive-whole-number? "+12")
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (positive-whole-number? "0")
-  ;  =>
-  ;  false
+  ; (positive-whole-number? "0")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
@@ -203,19 +203,19 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (negative-whole-number? -12)
-  ;  =>
-  ;  true
+  ; (negative-whole-number? -12)
+  ; =>
+  ; true
   ;
   ; @example
-  ;  (negative-whole-number? "12")
-  ;  =>
-  ;  false
+  ; (negative-whole-number? "12")
+  ; =>
+  ; false
   ;
   ; @example
-  ;  (negative-whole-number? "-12")
-  ;  =>
-  ;  true
+  ; (negative-whole-number? "-12")
+  ; =>
+  ; true
   ;
   ; @return (boolean)
   [n]

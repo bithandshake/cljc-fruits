@@ -12,14 +12,14 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ;  (add-numbers 1 "3")
-  ;  =>
-  ;  4
+  ; (add-numbers 1 "3")
+  ; =>
+  ; 4
   ;
   ; @example
-  ;  (add-numbers 1 "3" "a")
-  ;  =>
-  ;  4
+  ; (add-numbers 1 "3" "a")
+  ; =>
+  ; 4
   ;
   ; @return (integer)
   [& abc]
@@ -31,14 +31,14 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ;  (multiply-numbers 1 "3")
-  ;  =>
-  ;  3
+  ; (multiply-numbers 1 "3")
+  ; =>
+  ; 3
   ;
   ; @example
-  ;  (multiply-numbers 1 "3" "a")
-  ;  =>
-  ;  0
+  ; (multiply-numbers 1 "3" "a")
+  ; =>
+  ; 0
   ;
   ; @return (integer)
   [& abc]
@@ -57,24 +57,24 @@
   ; @param (*)(opt) x
   ;
   ; @example
-  ;  (update-whole-number "12" inc)
-  ;  =>
-  ;  "13"
+  ; (update-whole-number "12" inc)
+  ; =>
+  ; "13"
   ;
   ; @example
-  ;  (update-whole-number "12" + 3)
-  ;  =>
-  ;  "15"
+  ; (update-whole-number "12" + 3)
+  ; =>
+  ; "15"
   ;
   ; @example
-  ;  (update-whole-number 12 + 3)
-  ;  =>
-  ;  15
+  ; (update-whole-number 12 + 3)
+  ; =>
+  ; 15
   ;
   ; @example
-  ;  (update-whole-number "abCd12" + 3)
-  ;  =>
-  ;  "abCd12"
+  ; (update-whole-number "abCd12" + 3)
+  ; =>
+  ; "abCd12"
   ;
   ; @return (integer or string)
   ([n f]

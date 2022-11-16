@@ -12,9 +12,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (snake-case "SnakeCase")
-  ;  =>
-  ;  "snake-case"
+  ; (snake-case "SnakeCase")
+  ; =>
+  ; "snake-case"
   ;
   ; @return (string)
   [n]
@@ -38,9 +38,9 @@
   ; @param (string) n
   ;
   ; @example
-  ;  (CamelCase "camel-case")
-  ;  =>
-  ;  "CamelCase"
+  ; (CamelCase "camel-case")
+  ; =>
+  ; "CamelCase"
   ;
   ; @return (string)
   [n])

@@ -9,19 +9,19 @@
   ; @param (collection) n
   ;
   ; @example
-  ;  (collection-minimum [100 14 3 55])
-  ;  =>
-  ;  3
+  ; (collection-minimum [100 14 3 55])
+  ; =>
+  ; 3
   ;
   ; @example
-  ;  (collection-minimum ["0" 1 "a" nil])
-  ;  =>
-  ;  1
+  ; (collection-minimum ["0" 1 "a" nil])
+  ; =>
+  ; 1
   ;
   ; @example
-  ;  (collection-minimum ["0" "a"])
-  ;  =>
-  ;  nil
+  ; (collection-minimum ["0" "a"])
+  ; =>
+  ; nil
   ;
   ; @return (nil or integer)
   [n]
@@ -31,19 +31,19 @@
   ; @param (collection) n
   ;
   ; @example
-  ;  (collection-maximum [100 14 3 55])
-  ;  =>
-  ;  100
+  ; (collection-maximum [100 14 3 55])
+  ; =>
+  ; 100
   ;
   ; @example
-  ;  (collection-maximum ["0" 1 "a" nil])
-  ;  =>
-  ;  1
+  ; (collection-maximum ["0" 1 "a" nil])
+  ; =>
+  ; 1
   ;
   ; @example
-  ;  (collection-maximum ["0" "a"])
-  ;  =>
-  ;  nil
+  ; (collection-maximum ["0" "a"])
+  ; =>
+  ; nil
   ;
   ; @return (nil or integer)
   [n]
@@ -53,9 +53,9 @@
   ; @param (list of number) xyz
   ;
   ; @example
-  ;  (minimum -4.20 2 0)
-  ;  =>
-  ;  2
+  ; (minimum -4.20 2 0)
+  ; =>
+  ; 2
   ;
   ; @return (number)
   [& xyz]
@@ -65,9 +65,9 @@
   ; @param (list of numbers) xyz
   ;
   ; @example
-  ;  (maximum -4.20 2 0)
-  ;  =>
-  ;  2
+  ; (maximum -4.20 2 0)
+  ; =>
+  ; 2
   ;
   ; @return (number)
   [& xyz]

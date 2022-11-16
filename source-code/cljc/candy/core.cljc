@@ -8,9 +8,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (param "x")
-  ;  =>
-  ;  "x"
+  ; (param "x")
+  ; =>
+  ; "x"
   ;
   ; @return (*)
   [n] n)
@@ -19,9 +19,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (return "x")
-  ;  =>
-  ;  "x"
+  ; (return "x")
+  ; =>
+  ; "x"
   ;
   ; @return (*)
   [n] n)
@@ -30,9 +30,9 @@
   ; @param (*) n
   ;
   ; @example
-  ;  (none "x")
-  ;  =>
-  ;  nil
+  ; (none "x")
+  ; =>
+  ; nil
   ;
   ; @return (nil)
   [_] nil)

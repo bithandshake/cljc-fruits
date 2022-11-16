@@ -9,9 +9,9 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ;  (content-length [:div "Hello World!"])
-  ;  =>
-  ;  12
+  ; (content-length [:div "Hello World!"])
+  ; =>
+  ; 12
   ;
   ; @return (integer)
   [n]

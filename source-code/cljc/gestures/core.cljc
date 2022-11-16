@@ -18,19 +18,19 @@
   ; @param (strings in vector)(opt) concurent-labels
   ;
   ; @example
-  ;  (item-label->copy-label "My item" ["Your item" "Their item"])
-  ;  =>
-  ;  "My item #2"
+  ; (item-label->copy-label "My item" ["Your item" "Their item"])
+  ; =>
+  ; "My item #2"
   ;
   ; @example
-  ;  (item-label->copy-label "My item" ["My item" "My item #2"])
-  ;  =>
-  ;  "My item #3"
+  ; (item-label->copy-label "My item" ["My item" "My item #2"])
+  ; =>
+  ; "My item #3"
   ;
   ; @example
-  ;  (item-label->copy-label "My item #2" ["Your item"])
-  ;  =>
-  ;  "My item #3"
+  ; (item-label->copy-label "My item #2" ["Your item"])
+  ; =>
+  ; "My item #3"
   ;
   ; @return (string)
   ([item-label]
@@ -52,17 +52,17 @@
 (defn resolve-variable
   ; @param (string) text
   ; @param (vectors in vector) variables
-  ;  [[(string) variable-value
-  ;    (list of strings) variable-names]
-  ;   [...]]}
+  ; [[(string) variable-value
+  ;   (list of strings) variable-names]
+  ;  [...]]}
   ;
   ; @example
-  ;  (resolve-variable "My favorite color: @color"
-  ;                    [["red" "@color"]])
+  ; (resolve-variable "My favorite color: @color"
+  ;                   [["red" "@color"]])
   ;
   ; @example
-  ;  (resolve-variable "My favorite color: @color"
-  ;                    [["red" "@color" "@szin"]])
+  ; (resolve-variable "My favorite color: @color"
+  ;                   [["red" "@color" "@szin"]])
   ;
   ; @return (string)
   [text variables]

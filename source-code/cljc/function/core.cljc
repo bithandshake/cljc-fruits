@@ -10,9 +10,9 @@
   ; @param (string) var-name
   ;
   ; @example
-  ;  (->js "vector.api/conj-item")
-  ;  =>
-  ;  "vector.api.conj_item"
+  ; (->js "vector.api/conj-item")
+  ; =>
+  ; "vector.api.conj_item"
   ;
   ; @return (string)
   [var-name]
@@ -24,9 +24,9 @@
   ; @param (list of *) args
   ;
   ; @example
-  ;  (invoke "vector.api/conj-item" [:a :b] :c)
-  ;  =>
-  ;  [:a :b :c]
+  ; (invoke "vector.api/conj-item" [:a :b] :c)
+  ; =>
+  ; [:a :b :c]
   [function-name & args])
 ;  #?(:cljs (let [evaled (js/eval (->js function-name))]
 ;                (apply evaled args)]

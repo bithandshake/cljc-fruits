@@ -12,14 +12,14 @@
   ; @param (hiccup) n
   ;
   ; @example
-  ;  (unparse-css [:td [:p {:style {:color "red"}}]])
-  ;  =>
-  ;  [:td [:p {:style "color: red;"}]]
+  ; (unparse-css [:td [:p {:style {:color "red"}}]])
+  ; =>
+  ; [:td [:p {:style "color: red;"}]]
   ;
   ; @example
-  ;  (unparse-css [:td [:p {:style "color: red;"}]])
-  ;  =>
-  ;  [:td [:p {:style "color: red;"}]]
+  ; (unparse-css [:td [:p {:style "color: red;"}]])
+  ; =>
+  ; [:td [:p {:style "color: red;"}]]
   ;
   ; @return (hiccup)
   [n]
