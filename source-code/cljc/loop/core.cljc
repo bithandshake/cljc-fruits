@@ -17,11 +17,10 @@
   ;
   ; @return (*)
   [f initial map]
-  (first (reduce-kv (fn [[o dex] k v]
-                        [(f o dex k v)
-                         (inc dex)])
-                    [initial 0]
-                    (param map))))
+  (letfn [(fi [[o dex] k v]
+              [(f o dex k v)
+               (inc dex)])]
+         (first (reduce-kv fi [initial 0] map))))
 
 (defn reduce-indexed
   ; Az f függvény harmadik paraméterként megkapja az aktuális ciklus számát
@@ -35,11 +34,10 @@
   ;
   ; @return (*)
   [f initial coll]
-  (first (reduce (fn [[o dex] x]
-                     [(f o dex x)
-                      (inc dex)])
-                 [initial 0]
-                 (param coll))))
+  (letfn [(fi [[o dex] x]
+              [(f o dex x)
+               (inc dex)])]
+         (first (reduce fi [initial 0] coll))))
 
 (defn some-indexed
   ; @param (function) test-f
@@ -64,12 +62,12 @@
   ;
   ; @return (*)
   [test-f coll]
-  (letfn [(some-indexed-f [test-f coll dex]
-                          (if-let [result (test-f dex (get coll dex))]
-                                  (return result)
-                                  (when-not (= dex (-> coll count dec))
-                                            (some-indexed-f test-f coll (inc dex)))))]
-         (some-indexed-f test-f coll 0)))
+  (letfn [(fi [test-f coll dex]
+              (if-let [result (test-f dex (get coll dex))]
+                      (return result)
+                      (when-not (= dex (-> coll count dec))
+                                (fi test-f coll (inc dex)))))]
+         (fi test-f coll 0)))
 
 (defn do-while
   ; @param (function) f
@@ -82,7 +80,7 @@
   ; (do-while (fn [{:keys [my-numbers x] :as n}]
   ;               (if (vector/contains-item? my-numbers x)
   ;                   (assoc  n :x (inc x))
-  ;                   (update n :my-numbers vector/conj-item x))
+  ;                   (update n :my-numbers vector/conj-item x)))
   ;           {:my-numbers [0 1 2 4]
   ;            :x 0}
   ;           (fn [%] (= (count (:my-numbers %1)) 5)))
@@ -99,6 +97,6 @@
   ; @return (*)
   [f n test-f]
   (let [result (f n)]
-       (if (test-f result)
-           (return result)
+       (if (test-f     result)
+           (return     result)
            (do-while f result test-f))))

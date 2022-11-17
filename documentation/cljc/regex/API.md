@@ -31,8 +31,8 @@
 (defn first-dex-of
   [n pattern]
   (when (string? n)
-        (let [match (re-find pattern n)]
-             (string/first-dex-of n match))))
+        (if-let [match (re-find pattern n)]
+                (string/first-dex-of n match))))
 ```
 
 </details>
@@ -76,8 +76,8 @@
 (defn last-dex-of
   [n pattern]
   (when (string? n)
-        (let [match (re-find pattern n)]
-             (string/last-dex-of n match))))
+        (if-let [match (re-find pattern n)]
+                (string/last-dex-of n match))))
 ```
 
 </details>

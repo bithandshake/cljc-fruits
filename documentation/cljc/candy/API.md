@@ -13,6 +13,11 @@
 ```
 
 ```
+@usage
+(none "x")
+```
+
+```
 @example
 (none "x")
 =>
@@ -54,6 +59,11 @@ nil
 ```
 
 ```
+@usage
+(param "x")
+```
+
+```
 @example
 (param "x")
 =>
@@ -92,6 +102,11 @@ nil
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(return "x")
 ```
 
 ```

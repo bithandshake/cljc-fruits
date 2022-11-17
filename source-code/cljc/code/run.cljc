@@ -1,6 +1,6 @@
 
 (ns code.run
-    (:require [mid-fruits.string :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -25,7 +25,7 @@
    ; beállítással szükséges létrehozni, ellenkező esetben a definiált változók nevei
    ; az összes névtér számára foglaltak lennének a clojure.core névtér által az egyes
    ; névterek wrap-reload általi újratöltésekor.
-   #?(:clj (if (string/nonempty? source-code)
+   #?(:clj (if (string/nonblank? source-code)
                (letfn [(environment-f [environment [var-name var-value]]
                                       (str environment "(def ^{:private true} "var-name" "var-value")\n"))]
                       (let [environment (reduce environment-f "" env-vars)

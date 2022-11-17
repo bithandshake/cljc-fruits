@@ -1,10 +1,10 @@
 
 (ns format.core
-    (:require [candy.api         :refer [param return]]
-              [mixed.api         :as mixed]
-              [regex.api         :refer [re-match?]]
-              [mid-fruits.string :as string]
-              [mid-fruits.vector :as vector]))
+    (:require [candy.api  :refer [param return]]
+              [mixed.api  :as mixed]
+              [regex.api  :refer [re-match?]]
+              [string.api :as string]
+              [vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -19,6 +19,9 @@
   ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
   ;
   ; @param (number or string) n
+  ;
+  ; @usage
+  ; (group-number 4200.5)
   ;
   ; @example
   ; (group-number 4200.5)
@@ -48,6 +51,9 @@
   ; @param (integer or string) n
   ; @param (integer) length
   ;
+  ; @usage
+  ; (leading-zeros "420" 5)
+  ;
   ; @example
   ; (leading-zeros 7 3)
   ; =>
@@ -67,6 +73,9 @@
 
 (defn remove-leading-zeros
   ; @param (integer or string) n
+  ;
+  ; @usage
+  ; (remove-leading-zeros "042")
   ;
   ; @example
   ; (remove-leading-zeros 42)
@@ -92,6 +101,9 @@
   ; @param (integer or string) n
   ; @param (integer)(opt) length
   ;
+  ; @usage
+  ; (trailing-zeros "420" 5)
+  ;
   ; @example
   ; (trailing-zeros 7 3)
   ; =>
@@ -108,6 +120,9 @@
   ; @param (integer or string) n
   ; @param (integer)(opt) length
   ; Default: 2
+  ;
+  ; @usage
+  ; (decimals "420" 2)
   ;
   ; @example
   ; (decimals nil 2)
@@ -151,6 +166,9 @@
 (defn round
   ; @param (number) n
   ;
+  ; @usage
+  ; (round 1234)
+  ;
   ; @example
   ; (round 1740)
   ; =>
@@ -169,6 +187,9 @@
 
 (defn inc-version
   ; @param (string) n
+  ;
+  ; @usage
+  ; (inc-version "0.0.1")
   ;
   ; @example
   ; (inc-version "1.2.19")
@@ -193,7 +214,7 @@
                      [n separators]
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
-                                    (vector/pop-last-item separators))
+                                    (vector/remove-last-item separators))
                          (return n)))
           (explode-f ; @param (string) n
                      ; @param (integers in vector) separators

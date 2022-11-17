@@ -142,7 +142,7 @@
              (letfn [(f [result variable-name]
                         (cond (nil?             variable-value) (return              result)
                               (number?          variable-value) (string/replace-part result variable-name variable-value)
-                              (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
+                              (string/nonblank? variable-value) (string/replace-part result variable-name variable-value)
                               :return result))]
                     (reduce f result variable-names)))]
          (reduce f text variables)))

@@ -91,11 +91,42 @@
 
 ### close-brace-position
 
+```
+@param (n) 
+```
+
+```
+@example
+(close-brace-position "{:a 0}")
+=>
+5
+```
+
+```
+@example
+(close-brace-position "([] {:a {:b 0}})")
+=>
+14
+```
+
+```
+@example
+(close-brace-position "} {}")
+=>
+3
+```
+
+```
+@return (integer)
+```
+
 <details>
 <summary>Source code</summary>
 
 ```
-
+(defn close-brace-position
+  [n]
+  (close-tag-position n "{" "}"))
 ```
 
 </details>
@@ -106,8 +137,8 @@
 ```
 (ns my-namespace (:require [syntax.api :as syntax :refer [close-brace-position]]))
 
-(syntax/close-brace-position)
-(close-brace-position)
+(syntax/close-brace-position ...)
+(close-brace-position        ...)
 ```
 
 </details>
@@ -291,11 +322,42 @@
 
 ### open-brace-position
 
+```
+@param (n) 
+```
+
+```
+@example
+(open-brace-position "{:a 0}")
+=>
+0
+```
+
+```
+@example
+(open-brace-position "([] {:a {:b 0}})")
+=>
+4
+```
+
+```
+@example
+(open-brace-position "} {}")
+=>
+2
+```
+
+```
+@return (integer)
+```
+
 <details>
 <summary>Source code</summary>
 
 ```
-
+(defn open-brace-position
+  [n]
+  (open-tag-position n "{"))
 ```
 
 </details>
@@ -306,8 +368,8 @@
 ```
 (ns my-namespace (:require [syntax.api :as syntax :refer [open-brace-position]]))
 
-(syntax/open-brace-position)
-(open-brace-position)
+(syntax/open-brace-position ...)
+(open-brace-position        ...)
 ```
 
 </details>
@@ -372,11 +434,35 @@
 
 ### open-paren-position
 
+```
+@param (n) 
+```
+
+```
+@example
+(open-paren-position "(+ 1 2)")
+=>
+0
+```
+
+```
+@example
+(open-paren-position "[{} (+ 1 (inc 2) (inc 3))]")
+=>
+4
+```
+
+```
+@return (integer)
+```
+
 <details>
 <summary>Source code</summary>
 
 ```
-
+(defn open-paren-position
+  [n]
+  ; páratlan zárójel(ek) vannak benne, ezért szükésges idetenni egy szmájlit :)
 ```
 
 </details>
@@ -387,8 +473,8 @@
 ```
 (ns my-namespace (:require [syntax.api :as syntax :refer [open-paren-position]]))
 
-(syntax/open-paren-position)
-(open-paren-position)
+(syntax/open-paren-position ...)
+(open-paren-position        ...)
 ```
 
 </details>

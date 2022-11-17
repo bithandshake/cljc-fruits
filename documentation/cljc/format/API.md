@@ -14,6 +14,11 @@
 ```
 
 ```
+@usage
+(decimals "420" 2)
+```
+
+```
 @example
 (decimals nil 2)
 =>
@@ -83,6 +88,11 @@
 ```
 
 ```
+@usage
+(group-number 4200.5)
+```
+
+```
 @example
 (group-number 4200.5)
 =>
@@ -133,6 +143,11 @@
 ```
 
 ```
+@usage
+(inc-version "0.0.1")
+```
+
+```
 @example
 (inc-version "1.2.19")
 =>
@@ -166,7 +181,7 @@
   (letfn [(implode-f                     [n separators]
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
-                                    (vector/pop-last-item separators))
+                                    (vector/remove-last-item separators))
                          (return n)))
           (explode-f                     [n separators]
                      (if-let [separator (string/first-dex-of n ".")]
@@ -201,6 +216,11 @@
 ```
 @param (integer or string) n
 @param (integer) length
+```
+
+```
+@usage
+(leading-zeros "420" 5)
 ```
 
 ```
@@ -253,6 +273,11 @@
 
 ```
 @param (integer or string) n
+```
+
+```
+@usage
+(remove-leading-zeros "042")
 ```
 
 ```
@@ -309,6 +334,11 @@
 ```
 
 ```
+@usage
+(round 1234)
+```
+
+```
 @example
 (round 1740)
 =>
@@ -358,6 +388,11 @@
 ```
 @param (integer or string) n
 @param (integer)(opt) length
+```
+
+```
+@usage
+(trailing-zeros "420" 5)
 ```
 
 ```

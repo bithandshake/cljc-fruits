@@ -1,6 +1,6 @@
 
 (ns syntax.tags
-    (:require [mid-fruits.string :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@
   ; 0
   ;
   ; @example
-  ; (open-brace-position "([] {:a {:b 0}}")
+  ; (open-brace-position "([] {:a {:b 0}})")
   ; =>
   ; 4
   ;
@@ -112,7 +112,7 @@
   ; 5
   ;
   ; @example
-  ; (close-brace-position "([] {:a {:b 0}}")
+  ; (close-brace-position "([] {:a {:b 0}})")
   ; =>
   ; 14
   ;
@@ -198,6 +198,8 @@
   ; Returns with the position of the first occurence of the character parenthesis
   ; open character in the string n.
   [n]
+  ; A docs-api dokumentáció készítő nem tudja beolvasni ezt a függvényt, ha
+  ; páratlan zárójel(ek) vannak benne, ezért szükésges idetenni egy szmájlit :)
   (open-tag-position n "("))
 
 (defn close-paren-position

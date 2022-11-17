@@ -1,10 +1,10 @@
 
 (ns mixed.convert
-    (:require [candy.api         :refer [return]]
-              [mid-fruits.map    :as map]
-              [mixed.type        :as type]
-              [reader.api        :as reader]
-              [mid-fruits.vector :as vector]))
+    (:require [candy.api  :refer [return]]
+              [map.api    :as map]
+              [mixed.type :as type]
+              [reader.api :as reader]
+              [vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

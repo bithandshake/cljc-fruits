@@ -105,6 +105,11 @@
 ```
 
 ```
+@usage
+(wrap "..." "application/pdf")
+```
+
+```
 @example
 (wrap "..." "application/pdf")
 =>
@@ -135,7 +140,7 @@ nil
 ```
 (defn wrap
   [base64 mime-type]
-  (if (string/nonempty? base64)
+  (if (string/nonblank? base64)
       (str "data:"mime-type";base64,"base64)))
 ```
 

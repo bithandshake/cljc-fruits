@@ -222,7 +222,7 @@
 ### join-class
 
 ```
-@param (list of keyword or keywords in vector) 
+@param (list of keyword or keywords in vector) xyz
 ```
 
 ```

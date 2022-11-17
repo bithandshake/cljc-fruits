@@ -1,8 +1,8 @@
 
 (ns hiccup.attributes
-    (:require [candy.api          :refer [return]]
-              [mid-fruits.keyword :as keyword]
-              [mid-fruits.vector  :as vector]))
+    (:require [candy.api   :refer [return]]
+              [keyword.api :as keyword]
+              [vector.api  :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -57,7 +57,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join-class
-  ; @param (list of keyword or keywords in vector)
+  ; @param (list of keyword or keywords in vector) xyz
   ;
   ; @example
   ; (join-class :my-class [:your-class] :our-class)

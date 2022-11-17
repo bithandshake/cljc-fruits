@@ -1,8 +1,8 @@
 
 (ns uri.core
-    (:require [candy.api         :refer [return]]
-              [reader.api        :as reader]
-              [mid-fruits.string :as string]))
+    (:require [candy.api  :refer [return]]
+              [reader.api :as reader]
+              [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -48,7 +48,7 @@
   ; @return (string)
   [uri]
   (let [domain (uri->domain uri)]
-       (if (and (string/nonempty?      domain)
+       (if (and (string/nonblank?      domain)
                 (string/min-occurence? domain "." 2))
            (string/before-first-occurence domain "."))))
 
@@ -63,7 +63,7 @@
   ; @return (string)
   [uri]
   (let [domain (uri->domain uri)]
-       (if (string/nonempty?            domain)
+       (if (string/nonblank?            domain)
            (string/after-last-occurence domain "." {:return? false}))))
 
 (defn uri->tail
@@ -134,7 +134,7 @@
   ; @return (string)
   [uri]
   (let [domain (uri->domain uri)]
-       (if (string/nonempty?                domain)
+       (if (string/nonblank?                domain)
            (string/after-last-occurence uri domain)
            (return                      uri))))
 
@@ -399,8 +399,8 @@
         query-string (-> query-string query-string->query-params query-params->query-string)]
        (str (-> uri (string/before-first-occurence "?" {:return? true})
                     (string/before-first-occurence "#" {:return? true}))
-            (if (string/nonempty? query-string) (str "?" query-string))
-            (if (string/nonempty? fragment)     (str "#" fragment)))))
+            (if (string/nonblank? query-string) (str "?" query-string))
+            (if (string/nonblank? fragment)     (str "#" fragment)))))
 
 (defn path->match-template?
   ; @param (string) path
@@ -417,8 +417,8 @@
         template-parts       (string/split template #"/")
         path-parts-count     (count path-parts)
         template-parts-count (count template-parts)]
-       (letfn [(f [dex] (cond ; Ha a dex nagyobb, mint a template-parts vektor elemeinek száma, ...
-                              (= dex template-parts-count)
+                              ; Ha a dex nagyobb, mint a template-parts vektor elemeinek száma, ...
+       (letfn [(f [dex] (cond (= dex template-parts-count)
                               ; ... akkor a path-parts és template-parts vektorok elemeinek
                               ; összeillesztése sikeres volt.
                               (return true)
@@ -432,8 +432,8 @@
                                  (get template-parts dex))
                               ; ... akkor átlép a következő iterációba.
                               (f (inc dex))))]
-              (boolean (if ; Ha a path-parts és template-parts vektorok elemeinek száma megegyezik ...
-                           (= path-parts-count template-parts-count)
+                           ; Ha a path-parts és template-parts vektorok elemeinek száma megegyezik ...
+              (boolean (if (= path-parts-count template-parts-count)
                            (f 0))))))
 
 ;; ----------------------------------------------------------------------------
@@ -460,7 +460,7 @@
   ; @return (string)
   [uri]
   (let [protocol (uri->protocol uri)]
-       (if (string/nonempty? protocol)
+       (if (string/nonblank? protocol)
            (string/not-ends-with! uri "/")
            (str protocol "https://" (string/not-ends-with! uri "/")))))
 
@@ -483,7 +483,8 @@
   ; "/my-path"
   ;
   ; @return (string)
-  [path]   ; 1.
+  [path]
+           ; 1.
   (-> path (string/not-ends-with! "/")
            ; 2.
            (string/starts-with!   "/")))

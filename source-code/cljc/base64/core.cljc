@@ -2,7 +2,7 @@
 (ns base64.core
     (:require #?(:clj [clojure.data.codec.base64 :as base64])
               #?(:clj [io.api                    :as io])
-              [mid-fruits.string :as string]))
+              [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -10,6 +10,9 @@
 (defn wrap
   ; @param (string) base64
   ; @param (string) mime-type
+  ;
+  ; @usage
+  ; (wrap "..." "application/pdf")
   ;
   ; @example
   ; (wrap "..." "application/pdf")
@@ -28,7 +31,7 @@
   ;
   ; @return (string)
   [base64 mime-type]
-  (if (string/nonempty? base64)
+  (if (string/nonblank? base64)
       (str "data:"mime-type";base64,"base64)))
 
 ;; ----------------------------------------------------------------------------

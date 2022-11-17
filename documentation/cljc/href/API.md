@@ -122,7 +122,7 @@
 ```
 (defn phone-number
   [phone-number]
-  (if (string/nonempty? phone-number)
+  (if (string/nonblank? phone-number)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 ```
 

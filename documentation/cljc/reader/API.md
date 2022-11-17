@@ -188,7 +188,7 @@ nil
 ```
 (defn string->mixed
   [n]
-  (if (string/nonempty? n)
+  (if (string/nonblank? n)
       (let [x (read-str n)]
            (if (some #(% x) [keyword? map? vector? number?])
                (return x)

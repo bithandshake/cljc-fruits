@@ -157,6 +157,11 @@
 ```
 
 ```
+@usage
+(nonfalse? nil)
+```
+
+```
 @example
 (nonfalse? nil)
 =>
@@ -196,6 +201,11 @@ true
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(nontrue? :x)
 ```
 
 ```

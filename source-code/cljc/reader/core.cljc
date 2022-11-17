@@ -2,8 +2,8 @@
 (ns reader.core
     (:require #?(:cljs [cljs.reader :as reader])
               #?(:clj  [clojure.edn :as edn])
-              [candy.api         :refer [return]]
-              [mid-fruits.string :as string]))
+              [candy.api  :refer [return]]
+              [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -53,7 +53,7 @@
   ;
   ; @return (nil, keyword, map, number, string or vector)
   [n]
-  (if (string/nonempty? n)
+  (if (string/nonblank? n)
       (let [x (read-str n)]
            (if (some #(% x) [keyword? map? vector? number?])
                (return x)

@@ -131,10 +131,10 @@ true
 ```
 (defn document-entity?
   [n]
-  (boolean (and      (vector? n)
-                (= 2 (count   n))
-                (keyword? (first  n))
-                (string?  (second n)))))
+  (and (-> n vector?)
+       (-> n count (= 2))
+       (-> n first keyword?)
+       (-> n second string?)))
 ```
 
 </details>
@@ -218,8 +218,7 @@ true
 ```
 (defn document-link?
   [n]
-  (and      (map?  n)
-       (= 1 (count n))
+  (and (-> n map?)
        (-> n keys first keyword?)
        (-> n vals first string?)))
 ```

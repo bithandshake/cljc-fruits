@@ -6,31 +6,6 @@
 
 
 
-### PI
-
-<details>
-<summary>Source code</summary>
-
-```
-
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [math.api :as math :refer [PI]]))
-
-(math/PI)
-(PI)
-```
-
-</details>
-
----
-
 ### absolute
 
 ```

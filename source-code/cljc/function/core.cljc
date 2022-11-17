@@ -1,7 +1,6 @@
 
 (ns function.core
-    (:require [candy.api         :refer [param]]
-              [mid-fruits.string :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

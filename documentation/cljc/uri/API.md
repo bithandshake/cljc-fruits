@@ -34,14 +34,14 @@ true
         template-parts       (string/split template #"/")
         path-parts-count     (count path-parts)
         template-parts-count (count template-parts)]
-       (letfn [(f [dex] (cond                              (= dex template-parts-count)
+       (letfn [(f [dex] (cond (= dex template-parts-count)
                               (return true)
                               (= ":" (str (get-in template-parts [dex 0])))
                               (f (inc dex))
                               (= (get path-parts     dex)
                                  (get template-parts dex))
                               (f (inc dex))))]
-              (boolean (if                           (= path-parts-count template-parts-count)
+              (boolean (if (= path-parts-count template-parts-count)
                            (f 0))))))
 ```
 
@@ -363,7 +363,7 @@ nil
 (defn uri->local-uri
   [uri]
   (let [domain (uri->domain uri)]
-       (if (string/nonempty?                domain)
+       (if (string/nonblank?                domain)
            (string/after-last-occurence uri domain)
            (return                      uri))))
 ```
@@ -802,7 +802,7 @@ nil
 (defn uri->subdomain
   [uri]
   (let [domain (uri->domain uri)]
-       (if (and (string/nonempty?      domain)
+       (if (and (string/nonblank?      domain)
                 (string/min-occurence? domain "." 2))
            (string/before-first-occurence domain "."))))
 ```
@@ -905,7 +905,7 @@ nil
 (defn uri->tld
   [uri]
   (let [domain (uri->domain uri)]
-       (if (string/nonempty?            domain)
+       (if (string/nonblank?            domain)
            (string/after-last-occurence domain "." {:return? false}))))
 ```
 
@@ -1071,8 +1071,8 @@ nil
         query-string (-> query-string query-string->query-params query-params->query-string)]
        (str (-> uri (string/before-first-occurence "?" {:return? true})
                     (string/before-first-occurence "#" {:return? true}))
-            (if (string/nonempty? query-string) (str "?" query-string))
-            (if (string/nonempty? fragment)     (str "#" fragment)))))
+            (if (string/nonblank? query-string) (str "?" query-string))
+            (if (string/nonblank? fragment)     (str "#" fragment)))))
 ```
 
 </details>
@@ -1127,7 +1127,8 @@ nil
 
 ```
 (defn valid-path
-  [path]  (-> path (string/not-ends-with! "/")
+  [path]
+  (-> path (string/not-ends-with! "/")
            (string/starts-with!   "/")))
 ```
 
@@ -1185,7 +1186,7 @@ nil
 (defn valid-uri
   [uri]
   (let [protocol (uri->protocol uri)]
-       (if (string/nonempty? protocol)
+       (if (string/nonblank? protocol)
            (string/not-ends-with! uri "/")
            (str protocol "https://" (string/not-ends-with! uri "/")))))
 ```

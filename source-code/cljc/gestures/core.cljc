@@ -1,11 +1,11 @@
 
 (ns gestures.core
-    (:require [candy.api         :refer [return]]
-              [gestures.type     :as type]
-              [loop.api          :refer [do-while]]
-              [mixed.api         :as mixed]
-              [mid-fruits.string :as string]
-              [mid-fruits.vector :as vector]))
+    (:require [candy.api     :refer [return]]
+              [gestures.type :as type]
+              [loop.api      :refer [do-while]]
+              [mixed.api     :as mixed]
+              [string.api    :as string]
+              [vector.api    :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -70,7 +70,7 @@
              (letfn [(f [result variable-name]
                         (cond (nil?             variable-value) (return              result)
                               (number?          variable-value) (string/replace-part result variable-name variable-value)
-                              (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
+                              (string/nonblank? variable-value) (string/replace-part result variable-name variable-value)
                               :return result))]
                     (reduce f result variable-names)))]
          (reduce f text variables)))

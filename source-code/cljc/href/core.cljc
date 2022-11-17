@@ -1,6 +1,6 @@
 
 (ns href.core
-    (:require [mid-fruits.string :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -36,7 +36,7 @@
   ;
   ; @return (string)
   [phone-number]
-  (if (string/nonempty? phone-number)
+  (if (string/nonblank? phone-number)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 
 (defn address

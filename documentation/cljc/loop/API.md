@@ -8,11 +8,48 @@
 
 ### do-while
 
+```
+@param (function) f
+@param (*) n
+@param (function) test-f
+```
+
+```
+@example
+(do-while (fn [{:keys [my-numbers x] :as n}]
+              (if (vector/contains-item? my-numbers x)
+                  (assoc  n :x (inc x))
+                  (update n :my-numbers vector/conj-item x)))
+          {:my-numbers [0 1 2 4]
+           :x 0}
+          (fn [%] (= (count (:my-numbers %1)) 5)))
+=>
+{:my-numbers [0 1 2 4 3] :x 3}
+```
+
+```
+@example
+(do-while #(inc %)
+           0
+          #(> % 3))
+=>
+4
+```
+
+```
+@return (*)
+```
+
 <details>
 <summary>Source code</summary>
 
 ```
-
+(defn do-while
+  [f n test-f]
+  (let [result (f n)]
+       (if (test-f     result)
+           (return     result)
+           (do-while f result test-f))))
 ```
 
 </details>
@@ -23,8 +60,8 @@
 ```
 (ns my-namespace (:require [loop.api :as loop :refer [do-while]]))
 
-(loop/do-while)
-(do-while)
+(loop/do-while ...)
+(do-while      ...)
 ```
 
 </details>
@@ -54,11 +91,10 @@
 ```
 (defn reduce-indexed
   [f initial coll]
-  (first (reduce (fn [[o dex] x]
-                     [(f o dex x)
-                      (inc dex)])
-                 [initial 0]
-                 (param coll))))
+  (letfn [(fi [[o dex] x]
+              [(f o dex x)
+               (inc dex)])]
+         (first (reduce fi [initial 0] coll))))
 ```
 
 </details>
@@ -100,11 +136,10 @@
 ```
 (defn reduce-kv-indexed
   [f initial map]
-  (first (reduce-kv (fn [[o dex] k v]
-                        [(f o dex k v)
-                         (inc dex)])
-                    [initial 0]
-                    (param map))))
+  (letfn [(fi [[o dex] k v]
+              [(f o dex k v)
+               (inc dex)])]
+         (first (reduce-kv fi [initial 0] map))))
 ```
 
 </details>
@@ -163,12 +198,12 @@
 ```
 (defn some-indexed
   [test-f coll]
-  (letfn [(some-indexed-f [test-f coll dex]
-                          (if-let [result (test-f dex (get coll dex))]
-                                  (return result)
-                                  (when-not (= dex (-> coll count dec))
-                                            (some-indexed-f test-f coll (inc dex)))))]
-         (some-indexed-f test-f coll 0)))
+  (letfn [(fi [test-f coll dex]
+              (if-let [result (test-f dex (get coll dex))]
+                      (return result)
+                      (when-not (= dex (-> coll count dec))
+                                (fi test-f coll (inc dex)))))]
+         (fi test-f coll 0)))
 ```
 
 </details>

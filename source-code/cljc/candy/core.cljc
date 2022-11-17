@@ -7,6 +7,9 @@
 (defn param
   ; @param (*) n
   ;
+  ; @usage
+  ; (param "x")
+  ;
   ; @example
   ; (param "x")
   ; =>
@@ -18,6 +21,9 @@
 (defn return
   ; @param (*) n
   ;
+  ; @usage
+  ; (return "x")
+  ;
   ; @example
   ; (return "x")
   ; =>
@@ -28,6 +34,9 @@
 
 (defn none
   ; @param (*) n
+  ;
+  ; @usage
+  ; (none "x")
   ;
   ; @example
   ; (none "x")
