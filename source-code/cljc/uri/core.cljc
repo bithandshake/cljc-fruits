@@ -292,8 +292,14 @@
   ;
   ; @return (string)
   [uri]
+  ; BUG#5510
+  ; Ha az első keresés nem talál "?" karaktert az uri stringben, akkor a visszatérési
+  ; értéke nil, amiben a második keresés nem fog találni "#" karaktert (a nil értékben)
+  ; viszont a második keresés {:return? true} beállítása a nil bemenetet stringesítve
+  ; adja vissza (""), ezért szükséges a use-nil függvény alkalmazása!
   (-> uri (string/after-first-occurence  "?" {:return? false})
-          (string/before-first-occurence "#" {:return? true})))
+          (string/before-first-occurence "#" {:return? true})
+          (string/use-nil)))
 
 (defn query-params->query-string
   ; @param (map) query-params
@@ -394,7 +400,7 @@
   ; @return (string)
   [uri query-string]
   (let [fragment     (uri->fragment uri)
-        query-string (if-let [x (uri->query-string uri)] (str x "&" query-string) query-string)
+        query-string (if-let [% (uri->query-string uri)] (str % "&" query-string) query-string)
         ; Szükséges eltávolítani a duplikációkat!
         query-string (-> query-string query-string->query-params query-params->query-string)]
        (str (-> uri (string/before-first-occurence "?" {:return? true})

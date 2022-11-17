@@ -127,13 +127,18 @@
   ; =>
   ; "One Flew O ..."
   ;
+  ; @example
+  ; (max-length nil 10)
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   [n limit & [suffix]]
   (let [n (str n)]
        (if (and (-> n empty? not)
                 (-> limit integer?)
                 (<  limit (count n)))
-           (str (subs  n 0 limit) suffix)
+           (str (subs n 0 limit) suffix)
            (return n))))
 
 ;; ----------------------------------------------------------------------------
@@ -169,13 +174,23 @@
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
   ;
+  ; @example
+  ; (before-first-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (before-first-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   ([n x]
    (before-first-occurence n x {:return? false}))
 
   ([n x {:keys [return?]}]
-   (let [n   (str n)
-         x   (str x)]
+   (let [n (str n)
+         x (str x)]
         (if-let [dex (clojure.string/index-of n x)]
                 (subs n 0 dex)
                 (if return? n)))))
@@ -209,6 +224,16 @@
   ;                        {:return? true})
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
+  ;
+  ; @example
+  ; (before-last-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (before-last-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n x]
@@ -251,6 +276,16 @@
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
   ;
+  ; @example
+  ; (after-first-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (after-first-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   ([n x]
    (after-first-occurence n x {:return? false}))
@@ -291,6 +326,16 @@
   ;                       {:return? true})
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
+  ;
+  ; @example
+  ; (after-last-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (after-last-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n x]
@@ -333,6 +378,16 @@
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
   ;
+  ; @example
+  ; (from-first-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (from-first-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   ([n x]
    (from-first-occurence n x {:return? false}))
@@ -373,6 +428,16 @@
   ;                      {:return? true})
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
+  ;
+  ; @example
+  ; (from-last-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (from-last-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n x]
@@ -415,6 +480,16 @@
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
   ;
+  ; @example
+  ; (to-first-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (to-first-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   ([n x]
    (to-first-occurence n x {:return? false}))
@@ -455,6 +530,16 @@
   ;                    {:return? true})
   ; =>
   ; "With insomnia, you're never really awake; but you're never really asleep."
+  ;
+  ; @example
+  ; (to-last-occurence nil "abc")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (to-last-occurence nil "abc" {:return? true})
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n x]
@@ -529,9 +614,6 @@
   ; @param (*) n
   ; @param (*) x
   ; @param (*) y
-  ; @param (map) options
-  ; {:return? (boolean)(opt)
-  ;   Default: false}
   ;
   ; @usage
   ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."

@@ -149,9 +149,10 @@
   ;
   ; @return (strings in vector)
   [n delimiter]
-  (cond (-> n str empty?)    []
-        (-> delimiter some?) (clojure.string/split n delimiter)
-        :return              [(str n)]))
+  (let [n (str n)]
+       (cond (-> n empty?)        []
+             (-> delimiter some?) (clojure.string/split n delimiter)
+             :return              [n])))
 
 (defn prefix
   ; @param (*) n

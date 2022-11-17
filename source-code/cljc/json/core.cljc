@@ -207,7 +207,7 @@
   ;
   ; @return (*)
   [n]
-  (mixed/parse-number n))
+  (mixed/parse-number n {:return? true}))
 
 ;; -- Keywordize / unkeywordize keys ------------------------------------------
 ;; ----------------------------------------------------------------------------

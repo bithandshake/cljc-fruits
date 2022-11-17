@@ -74,7 +74,7 @@
   ; nil
   ;
   ; @example
-  ; (parse-number "abCd12.1" {:return? tru})
+  ; (parse-number "abCd12.1" {:return? true})
   ; =>
   ; "abCd12.1"
   ;
@@ -117,5 +117,5 @@
 
   ([n {:keys [return?]}]
    (cond (integer?           n) (return               n)
-         (type/whole-number? n) (reader/string->mixed n)
+         (type/whole-number? n) (return               n)
          return?                (return               n))))
