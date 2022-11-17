@@ -111,6 +111,20 @@ nil
 ```
 
 ```
+@example
+(after-first-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(after-first-occurence nil "abc" {:return? true})
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -185,6 +199,20 @@ nil
                       {:return? true})
 =>
 "With insomnia, you're never really awake; but you're never really asleep."
+```
+
+```
+@example
+(after-last-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(after-last-occurence nil "abc" {:return? true})
+=>
+""
 ```
 
 ```
@@ -265,6 +293,20 @@ nil
 ```
 
 ```
+@example
+(before-first-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(before-first-occurence nil "abc" {:return? true})
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -277,8 +319,8 @@ nil
    (before-first-occurence n x {:return? false}))
 
   ([n x {:keys [return?]}]
-   (let [n   (str n)
-         x   (str x)]
+   (let [n (str n)
+         x (str x)]
         (if-let [dex (clojure.string/index-of n x)]
                 (subs n 0 dex)
                 (if return? n)))))
@@ -342,6 +384,20 @@ nil
 ```
 
 ```
+@example
+(before-last-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(before-last-occurence nil "abc" {:return? true})
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -383,9 +439,6 @@ nil
 @param (*) n
 @param (*) x
 @param (*) y
-@param (map) options
-{:return? (boolean)(opt)
-  Default: false}
 ```
 
 ```
@@ -1183,6 +1236,20 @@ nil
 ```
 
 ```
+@example
+(from-first-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(from-first-occurence nil "abc" {:return? true})
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -1257,6 +1324,20 @@ nil
                      {:return? true})
 =>
 "With insomnia, you're never really awake; but you're never really asleep."
+```
+
+```
+@example
+(from-last-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(from-last-occurence nil "abc" {:return? true})
+=>
+""
 ```
 
 ```
@@ -1752,6 +1833,13 @@ true
 ```
 
 ```
+@example
+(max-length nil 10)
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -1765,7 +1853,7 @@ true
        (if (and (-> n empty? not)
                 (-> limit integer?)
                 (<  limit (count n)))
-           (str (subs  n 0 limit) suffix)
+           (str (subs n 0 limit) suffix)
            (return n))))
 ```
 
@@ -3194,9 +3282,10 @@ true
 ```
 (defn split
   [n delimiter]
-  (cond (-> n str empty?)    []
-        (-> delimiter some?) (clojure.string/split n delimiter)
-        :return              [(str n)]))
+  (let [n (str n)]
+       (cond (-> n empty?)        []
+             (-> delimiter some?) (clojure.string/split n delimiter)
+             :return              [n])))
 ```
 
 </details>
@@ -3464,6 +3553,20 @@ nil
 ```
 
 ```
+@example
+(to-first-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(to-first-occurence nil "abc" {:return? true})
+=>
+""
+```
+
+```
 @return (string)
 ```
 
@@ -3588,6 +3691,20 @@ nil
                    {:return? true})
 =>
 "With insomnia, you're never really awake; but you're never really asleep."
+```
+
+```
+@example
+(to-last-occurence nil "abc")
+=>
+nil
+```
+
+```
+@example
+(to-last-occurence nil "abc" {:return? true})
+=>
+""
 ```
 
 ```

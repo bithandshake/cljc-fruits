@@ -759,7 +759,8 @@ nil
 (defn uri->query-string
   [uri]
   (-> uri (string/after-first-occurence  "?" {:return? false})
-          (string/before-first-occurence "#" {:return? true})))
+          (string/before-first-occurence "#" {:return? true})
+          (string/use-nil)))
 ```
 
 </details>
@@ -1067,7 +1068,7 @@ nil
 (defn uri<-query-string
   [uri query-string]
   (let [fragment     (uri->fragment uri)
-        query-string (if-let [x (uri->query-string uri)] (str x "&" query-string) query-string)
+        query-string (if-let [% (uri->query-string uri)] (str % "&" query-string) query-string)
         query-string (-> query-string query-string->query-params query-params->query-string)]
        (str (-> uri (string/before-first-occurence "?" {:return? true})
                     (string/before-first-occurence "#" {:return? true}))
