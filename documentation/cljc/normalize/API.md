@@ -11,6 +11,7 @@
 ```
 @param (*) n
 @param (string)(opt) exceptions
+Default: "-"
 ```
 
 ```

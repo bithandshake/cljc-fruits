@@ -843,6 +843,7 @@
 ```
 @param (string or integer) n
 @param (string) unit
+"%", "px", "rem", ...
 ```
 
 ```

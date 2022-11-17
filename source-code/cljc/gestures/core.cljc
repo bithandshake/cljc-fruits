@@ -57,12 +57,16 @@
   ;  [...]]}
   ;
   ; @example
-  ; (resolve-variable "My favorite color: @color"
+  ; (resolve-variable "My favorite color is @color."
   ;                   [["red" "@color"]])
+  ; =>
+  ; "My favorite color is red."
   ;
   ; @example
-  ; (resolve-variable "My favorite color: @color"
+  ; (resolve-variable "My favorite color is @color."
   ;                   [["red" "@color" "@szin"]])
+  ; =>
+  ; "My favorite color is red."
   ;
   ; @return (string)
   [text variables]

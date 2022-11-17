@@ -24,6 +24,7 @@
 
 ```
 @return (*)
+If a is equal b, returns c, else returns d.
 ```
 
 <details>
@@ -72,6 +73,7 @@
 
 ```
 @return (*)
+If a and b is true, returns c, else returns d.
 ```
 
 <details>
@@ -120,6 +122,7 @@
 
 ```
 @return (*)
+If a or b is true, returns c, else returns d.
 ```
 
 <details>
@@ -273,6 +276,7 @@ true
 
 ```
 @return (boolean)
+Returns true if all the parameters are false after convert them to boolean type.
 ```
 
 <details>
@@ -318,6 +322,7 @@ true
 
 ```
 @return (*)
+If a is NOT equal b, returns c, else returns d.
 ```
 
 <details>
@@ -378,6 +383,7 @@ true
 
 ```
 @return (boolean)
+Returns true if a is equal to any other parameter, false otherwise.
 ```
 
 <details>
@@ -436,6 +442,7 @@ true
 
 ```
 @return (*)
+Returns b if x is equal to a, returns a if x is equal to b, returns x otherwise.
 ```
 
 <details>

@@ -11,6 +11,7 @@
 ```
 @param (integer or string) n
 @param (integer)(opt) length
+Default: 2
 ```
 
 ```

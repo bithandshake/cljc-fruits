@@ -118,14 +118,25 @@
 ```
 @param (string) text
 @param (vectors in vector) variables
+[[(string) variable-value
+  (list of strings) variable-names]
+ [...]]}
 ```
 
 ```
-@example=>
+@example
+(resolve-variable "My favorite color is @color."
+                  [["red" "@color"]])
+=>
+"My favorite color is red."
 ```
 
 ```
-@example=>
+@example
+(resolve-variable "My favorite color is @color."
+                  [["red" "@color" "@szin"]])
+=>
+"My favorite color is red."
 ```
 
 ```

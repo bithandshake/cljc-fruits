@@ -184,8 +184,16 @@ true
 
 ```
 @param (float, int) n
+Az A valtozo pillanatnyi erteke
 @param (vector) domain
+Az A valtozo ertelmezesi tartomanya
+XXX A domain-from mindig legyen kisebb, mint a domain-to!
+[(integer) domain-from
+ (integer) domain-to
 @param (vector) range
+A B valtozo kimeneti tartomanya
+[(integer) range-from
+ (integer) range-to]
 ```
 
 ```
@@ -197,6 +205,7 @@ true
 
 ```
 @return (*)
+A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 ```
 
 <details>

@@ -94,6 +94,9 @@
 
 ```
 @param (map) attributes
+{:height (px)
+ :style (map)(opt)
+ :width (px)}
 ```
 
 ```
@@ -107,6 +110,11 @@
 
 ```
 @return (map)
+{:style (map)
+  {:height (string)
+   :width (string)}
+ :view-box (string)
+ :xmlns (string)}
 ```
 
 <details>

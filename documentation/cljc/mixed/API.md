@@ -364,6 +364,8 @@ false
 ```
 @param (*) n
 @param (map)(opt) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -438,6 +440,8 @@ nil
 ```
 @param (*) n
 @param (map)(opt) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -514,6 +518,8 @@ nil
 ```
 @param (*) n
 @param (map)(opt) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```

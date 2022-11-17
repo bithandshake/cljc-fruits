@@ -3325,6 +3325,7 @@ true
 
 ```
 @return (boolean)
+Is n a nonempty vector?
 ```
 
 <details>

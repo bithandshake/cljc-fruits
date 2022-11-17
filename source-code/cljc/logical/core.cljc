@@ -16,7 +16,7 @@
   ; "not equal"
   ;
   ; @return (*)
-  ; Ha a egyenlő b, akkor c különben d
+  ; If a is equal b, returns c, else returns d.
   ([a b c]
    (when (= a b) c))
 
@@ -35,7 +35,7 @@
   ; "not equal"
   ;
   ; @return (*)
-  ; Ha a nem egyenlő b, akkor c különben d
+  ; If a is NOT equal b, returns c, else returns d.
   ([a b c]
    (when-not (= a b) c))
 
@@ -54,7 +54,7 @@
   ; "C"
   ;
   ; @return (*)
-  ; Ha a vagy b igaz, akkor c különben d
+  ; If a or b is true, returns c, else returns d.
   ([a b c]
    (when (or a b) c))
 
@@ -74,7 +74,7 @@
   ; "D"
   ;
   ; @return (*)
-  ; Ha a és b igaz, akkor c különben d
+  ; If a and b is true, returns c, else returns d.
   ([a b c]
    (when (and a b) c))
 
@@ -100,6 +100,7 @@
   ; true
   ;
   ; @return (boolean)
+  ; Returns true if all the parameters are false after convert them to boolean type.
   [& abc]
   ; WARNING! Az összes paraméter kiértelése minden esetben megtörténik!
   ; Pl. (nor (my-f   ...)
@@ -127,6 +128,7 @@
   ; true
   ;
   ; @return (boolean)
+  ; Returns true if a is equal to any other parameter, false otherwise.
   [a & bcd]
   (boolean (some #(= a %) bcd)))
 
@@ -151,6 +153,7 @@
   ; "C"
   ;
   ; @return (*)
+  ; Returns b if x is equal to a, returns a if x is equal to b, returns x otherwise.
   [x a b]
   (cond (= x a) b
         (= x b) a

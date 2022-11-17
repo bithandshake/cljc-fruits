@@ -1252,6 +1252,7 @@ true
 
 ```
 @return (map)
+Things only in a
 ```
 
 <details>
@@ -2016,6 +2017,8 @@ nil
 @param (map) ns
 @param (map) pattern
 @param (map)(opt) options
+{:strict-matching? (boolean)(opt)
+  Default: false}
 ```
 
 ```

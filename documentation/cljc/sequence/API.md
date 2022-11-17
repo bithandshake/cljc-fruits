@@ -30,6 +30,8 @@
 
 ```
 @return (integer)
+A dex utan kovetkezo index, ami nem lehet kisebb, mint min es nem lehet
+nagyobb, mint max
 ```
 
 <details>
@@ -83,6 +85,8 @@
 
 ```
 @return (integer)
+A dex elotti index, ami nem lehet kisebb, mint min es nem lehet nagyobb,
+mint max
 ```
 
 <details>
@@ -136,6 +140,8 @@
 
 ```
 @return (integer)
+A dex elotti-elotti index, ami nem lehet kisebb, mint min es nem lehet
+nagyobb, mint max
 ```
 
 <details>

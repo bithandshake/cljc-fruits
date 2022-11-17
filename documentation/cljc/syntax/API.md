@@ -118,6 +118,8 @@
 
 ```
 @return (integer)
+Returns with the position of the close-pair of the first occurence of the
+character "{" in the string n.
 ```
 
 <details>
@@ -174,6 +176,8 @@
 
 ```
 @return (integer)
+Returns with the position of the close-pair of the first occurence of the
+character "[" in the string n.
 ```
 
 <details>
@@ -223,6 +227,8 @@
 
 ```
 @return (integer)
+Returns with the position of the close-pair of the first occurence of the
+character parenthesis open character in the string n.
 ```
 
 <details>
@@ -281,6 +287,8 @@
 
 ```
 @return (integer)
+Returns with the position of the close-pair of the first occurence of the
+given open-tag in the string n.
 ```
 
 <details>
@@ -349,6 +357,8 @@
 
 ```
 @return (integer)
+Returns with the position of the first occurence of the character "{"
+in the string n.
 ```
 
 <details>
@@ -405,6 +415,8 @@
 
 ```
 @return (integer)
+Returns with the position of the first occurence of the character "["
+in the string n.
 ```
 
 <details>
@@ -454,6 +466,8 @@
 
 ```
 @return (integer)
+Returns with the position of the first occurence of the character parenthesis
+open character in the string n.
 ```
 
 <details>
@@ -511,6 +525,8 @@
 
 ```
 @return (integer)
+Returns with the position of the first occurence of the given open-tag in
+the string n.
 ```
 
 <details>

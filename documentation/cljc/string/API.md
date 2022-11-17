@@ -75,6 +75,8 @@ true
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -150,6 +152,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -225,6 +229,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -300,6 +306,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -376,6 +384,8 @@ nil
 @param (*) x
 @param (*) y
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -787,6 +797,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:separate-matches? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -871,6 +883,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -932,6 +946,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -1131,6 +1147,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -1206,6 +1224,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -1388,6 +1408,8 @@ nil
 @param (collection) coll
 @param (*) separator
 @param (map)(opt) options
+{:join-empty? (boolean)(opt)
+  Default: true}
 ```
 
 ```
@@ -1707,6 +1729,7 @@ true
 ```
 @param (*) n
 @param (integer) limit
+@param (*)(opt) suffix
 ```
 
 ```
@@ -1824,6 +1847,8 @@ false
 @param (*) n
 @param (integer) limit
 @param (map)(opt) options
+{:reverse? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -1895,6 +1920,8 @@ false
 @param (*) x
 @param (integer) max
 @param (map)(opt) options
+{:separate-matches? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -2026,6 +2053,8 @@ false
 @param (*) x
 @param (integer) min
 @param (map)(opt) options
+{:separate-matches? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -2206,6 +2235,8 @@ true
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -2267,6 +2298,8 @@ true
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -2331,6 +2364,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -2400,6 +2435,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -2464,6 +2501,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -2670,6 +2709,8 @@ false
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -3180,6 +3221,8 @@ true
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -3244,6 +3287,8 @@ true
 @param (*) n
 @param (*) x
 @param (map)(opt) options
+{:case-sensitive? (boolean)
+  Default: true}
 ```
 
 ```
@@ -3383,6 +3428,8 @@ false
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```
@@ -3508,6 +3555,8 @@ nil
 @param (*) n
 @param (*) x
 @param (map) options
+{:return? (boolean)(opt)
+  Default: false}
 ```
 
 ```

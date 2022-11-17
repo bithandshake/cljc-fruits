@@ -61,6 +61,10 @@
   ;  :status  404}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [error-message] :as response-props}]
   (response-wrap (merge {:body   error-message
                          :status 500}
@@ -80,6 +84,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
                          :mime-type "text/html"}
@@ -100,6 +108,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
                          :mime-type "application/json"}
@@ -119,6 +131,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body (str body)}
                         (select-keys response-props [:session :status]))))
@@ -150,6 +166,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body filename] :as response-props}]
   (response-wrap (merge {:body body
                          ; Az attachment beállítás használatával a böngésző akkor is felkínálja mentésre,
@@ -172,6 +192,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
                          :mime-type "application/xml"}
@@ -191,6 +215,10 @@
   ;  :status  200}
   ;
   ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
                          :mime-type "text/plain"}

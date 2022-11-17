@@ -112,6 +112,7 @@
 (defn max-length
   ; @param (*) n
   ; @param (integer) limit
+  ; @param (*)(opt) suffix
   ;
   ; @usage
   ; (max-length "One Flew Over the Cuckoo's Nest" 5)

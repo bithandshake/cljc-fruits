@@ -357,6 +357,7 @@ true
 ```
 @param (hiccup) n
 @param (string)(opt) delimiter
+Default: " "
 ```
 
 ```

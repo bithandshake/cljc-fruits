@@ -10,6 +10,9 @@
 
 ```
 @param (map) response-props
+{:body (string)
+ :session (map)(opt)
+ :status (integer)(opt)}
 ```
 
 ```
@@ -23,6 +26,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -56,6 +63,10 @@
 
 ```
 @param (map) response-props
+{:body (string)
+ :session (map)(opt)
+ :status (integer)(opt)}
+
 ```
 
 ```
@@ -69,6 +80,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -103,6 +118,9 @@
 
 ```
 @param (map) response-props
+{:body (map)
+ :session (map)(opt)
+ :status (integer)(opt)}
 ```
 
 ```
@@ -116,6 +134,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -148,6 +170,11 @@
 
 ```
 @param (map) response-props
+{:body (java.io.File object)
+ :filename (string)(opt)
+ :mime-type (string)
+ :session (map)(opt)
+ :status (integer)(opt)}
 ```
 
 ```
@@ -174,6 +201,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -206,6 +237,7 @@
 
 ```
 @param (map) request
+{:cookies (map)}
 @param (string) cookie-id
 ```
 
@@ -242,6 +274,7 @@
 
 ```
 @param (map) request
+{:cookies (map)}
 ```
 
 ```
@@ -277,6 +310,7 @@
 
 ```
 @param (map) request
+{:form-params (map)}
 @param (string) element-name
 ```
 
@@ -313,6 +347,7 @@
 
 ```
 @param (map) request
+{:form-params (map)}
 ```
 
 ```
@@ -348,6 +383,7 @@
 
 ```
 @param (map) request
+{:multipart-params (map)}
 @param (keyword) param-key
 ```
 
@@ -384,6 +420,7 @@
 
 ```
 @param (map) request
+{:multipart-params (map)}
 ```
 
 ```
@@ -455,6 +492,7 @@
 
 ```
 @param (map) request
+{:params (map)}
 ```
 
 ```
@@ -526,6 +564,7 @@
 
 ```
 @param (map) request
+{:path-params (map)}
 ```
 
 ```
@@ -561,6 +600,7 @@
 
 ```
 @param (map) request
+{:query-string (string)}
 ```
 
 ```
@@ -596,6 +636,7 @@
 
 ```
 @param (map) request
+{:uri (string)}
 ```
 
 ```
@@ -631,6 +672,7 @@
 
 ```
 @param (map) request
+{:uri (string)}
 ```
 
 ```
@@ -666,6 +708,7 @@
 
 ```
 @param (map) request
+{:session (map)}
 ```
 
 ```
@@ -773,6 +816,7 @@
 
 ```
 @param (map) request
+{:transit-params (map)}
 ```
 
 ```
@@ -808,6 +852,8 @@
 
 ```
 @param (map) request
+{:server-name (string)
+ :uri (string)}
 ```
 
 ```
@@ -843,6 +889,13 @@
 
 ```
 @param (map) response-props
+{:body (string)
+ :headers (map)(opt)
+ :mime-type (string)(opt)
+  Default: "text/plain"
+ :session (map)(opt)
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -868,6 +921,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -901,6 +958,9 @@
 
 ```
 @param (map) response-props
+{:body (string)
+ :session (map)(opt)
+ :status (integer)(opt)}
 ```
 
 ```
@@ -914,6 +974,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>
@@ -947,6 +1011,9 @@
 
 ```
 @param (map) response-props
+{:body (string)
+ :session (map)(opt)
+ :status (integer)(opt)}
 ```
 
 ```
@@ -960,6 +1027,10 @@
 
 ```
 @return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
 ```
 
 <details>

@@ -11,7 +11,9 @@
 ```
 @param (function) f
 @param (*) n
+Az f függvény első paramétere
 @param (function) test-f
+A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 ```
 
 ```
