@@ -1,6 +1,8 @@
 
 (ns vector.sort
-    (:require [candy.api :refer [return]]))
+    (:require [candy.api  :refer [return]]
+              [vector.dex :as dex]
+              [vector.nth :as nth]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -109,6 +111,54 @@
 
   ([n comparator-f value-f]
    (vec (sort-by value-f comparator-f n))))
+
+(defn sort-items-by-dexes
+  ; @param (vector) n
+  ; @param (integers in vector) dexes
+  ;
+  ; @usage
+  ; (sort-items-by-dexes [:a :b :c] [2 0 1])
+  ; =>
+  ; [:c :a :b]
+  ;
+  ; @usage
+  ; (sort-items-by-dexes [:a :b :c] [2 0])
+  ; =>
+  ; [:c :a]
+  ;
+  ; @return (vector)
+  [n dexes]
+  (when (and (vector? n)
+             (vector? dexes))
+        (letfn [(f [result dex]
+                   (if-let [item (nth/nth-item n dex)]
+                           (conj   result item)
+                           (return result)))]
+               (reduce f [] dexes))))
+
+(defn sorted-dexes
+  ; @param (vector) a
+  ; @param (vector) b
+  ;
+  ; @usage
+  ; (sorted-dexes [:a :b :c] [:c :a :b])
+  ; =>
+  ; [2 0 1]
+  ;
+  ; @usage
+  ; (sorted-dexes [:a :b :c] [:c :a])
+  ; =>
+  ; [2 0]
+  ;
+  ; @return (integers in vector)
+  [a b]
+  (when (and (vector? a)
+             (vector? b))
+        (letfn [(f [dexes x]
+                   (if-let [ordered-dex (dex/item-first-dex a x)]
+                           (conj   dexes ordered-dex)
+                           (return dexes)))]
+               (reduce f [] b))))
 
 (defn compared-items-sorted?
   ; @param (vector) a

@@ -124,6 +124,8 @@
 (def sort-items             sort/sort-items)
 (def items-sorted?          sort/items-sorted?)
 (def sort-items-by          sort/sort-items-by)
+(def sort-items-by-dexes    sort/sort-items-by-dexes)
+(def sorted-dexes           sort/sorted-dexes)
 (def compared-items-sorted? sort/compared-items-sorted?)
 
 ; vector.type
