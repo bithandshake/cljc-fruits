@@ -20,6 +20,8 @@
 (def PI config/PI)
 
 ; math.core
+(def avarage             core/avarage)
+(def circum              core/circum)
 (def power               core/power)
 (def floor               core/floor)
 (def ceil                core/ceil)

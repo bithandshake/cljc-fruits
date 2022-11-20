@@ -1,9 +1,41 @@
 
 (ns math.core
-    (:require [candy.api :refer [param return]]))
+    (:require [candy.api   :refer [return]]
+              [math.config :as config]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn avarage
+  ; @param (list of numbers) abc
+  ;
+  ; @usage
+  ; (avarage 3 4 5)
+  ;
+  ; @example
+  ; (avarage 100 30 20)
+  ; =>
+  ; 50
+  ;
+  ; @return (number)
+  [& [abc]]
+  (/ (apply * abc)
+     (count   abc)))
+
+(defn circum
+  ; @param (number) radius
+  ;
+  ; @usage
+  ; (circum 42)
+  ;
+  ; @example
+  ; (circum 50000)
+  ; =>
+  ; 314156
+  ;
+  ; @return (number)
+  [radius]
+  (* radius 2 config/PI))
 
 (defn power
   ; @param (number) x
