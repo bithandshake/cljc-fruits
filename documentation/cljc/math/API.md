@@ -89,6 +89,54 @@
 
 ---
 
+### avarage
+
+```
+@param (list of numbers) abc
+```
+
+```
+@usage
+(avarage 3 4 5)
+```
+
+```
+@example
+(avarage 100 30 20)
+=>
+50
+```
+
+```
+@return (number)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn avarage
+  [& [abc]]
+  (/ (apply * abc)
+     (count   abc)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [math.api :as math :refer [avarage]]))
+
+(math/avarage ...)
+(avarage      ...)
+```
+
+</details>
+
+---
+
 ### between!
 
 ```
@@ -343,6 +391,53 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 
 (math/choose ...)
 (choose      ...)
+```
+
+</details>
+
+---
+
+### circum
+
+```
+@param (number) radius
+```
+
+```
+@usage
+(circum 42)
+```
+
+```
+@example
+(circum 50000)
+=>
+314156
+```
+
+```
+@return (number)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn circum
+  [radius]
+  (* radius 2 config/PI))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [math.api :as math :refer [circum]]))
+
+(math/circum ...)
+(circum      ...)
 ```
 
 </details>

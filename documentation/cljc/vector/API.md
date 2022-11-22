@@ -4614,6 +4614,118 @@ false
 
 ---
 
+### sort-items-by-dexes
+
+```
+@param (vector) n
+@param (integers in vector) dexes
+```
+
+```
+@usage
+(sort-items-by-dexes [:a :b :c] [2 0 1])
+=>
+[:c :a :b]
+```
+
+```
+@usage
+(sort-items-by-dexes [:a :b :c] [2 0])
+=>
+[:c :a]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn sort-items-by-dexes
+  [n dexes]
+  (when (and (vector? n)
+             (vector? dexes))
+        (letfn [(f [result dex]
+                   (if-let [item (nth/nth-item n dex)]
+                           (conj   result item)
+                           (return result)))]
+               (reduce f [] dexes))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :as vector :refer [sort-items-by-dexes]]))
+
+(vector/sort-items-by-dexes ...)
+(sort-items-by-dexes        ...)
+```
+
+</details>
+
+---
+
+### sorted-dexes
+
+```
+@param (vector) a
+@param (vector) b
+```
+
+```
+@usage
+(sorted-dexes [:a :b :c] [:c :a :b])
+=>
+[2 0 1]
+```
+
+```
+@usage
+(sorted-dexes [:a :b :c] [:c :a])
+=>
+[2 0]
+```
+
+```
+@return (integers in vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn sorted-dexes
+  [a b]
+  (when (and (vector? a)
+             (vector? b))
+        (letfn [(f [dexes x]
+                   (if-let [ordered-dex (dex/item-first-dex a x)]
+                           (conj   dexes ordered-dex)
+                           (return dexes)))]
+               (reduce f [] b))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :as vector :refer [sorted-dexes]]))
+
+(vector/sorted-dexes ...)
+(sorted-dexes        ...)
+```
+
+</details>
+
+---
+
 ### to-map
 
 ```
