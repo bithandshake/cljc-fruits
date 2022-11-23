@@ -48,12 +48,12 @@
 
 (defn error-wrap
   ; @param (map) response-props
-  ; {:error-message (string or keyword)
+  ; {:error-message (string)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)}
   ;
   ; @example
-  ; (error-wrap {:error-message "File not found"
+  ; (error-wrap {:error-message ":file-not-found"
   ;              :status        404}
   ; =>
   ; {:body    ":file-not-found"
