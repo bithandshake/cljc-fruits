@@ -22,8 +22,8 @@
   ; @return (boolean)
   [n pattern]
   (and (string? n)
-       (some? ; Returns the match, if any, of string to pattern ...
-              (re-matches pattern n))))
+              ; Returns the match, if any, of string to pattern ...
+       (some? (re-matches pattern n))))
 
 (defn re-mismatch?
   ; @param (string) n
@@ -42,8 +42,8 @@
   ; @return (boolean)
   [n pattern]
   (or (not (string? n))
-      (nil? ; Returns the match, if any, of string to pattern ...
-            (re-matches pattern n))))
+            ; Returns the match, if any, of string to pattern ...
+      (nil? (re-matches pattern n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

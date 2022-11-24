@@ -180,7 +180,7 @@ false
 (defn re-match?
   [n pattern]
   (and (string? n)
-       (some?              (re-matches pattern n))))
+       (some? (re-matches pattern n))))
 ```
 
 </details>
@@ -231,7 +231,7 @@ true
 (defn re-mismatch?
   [n pattern]
   (or (not (string? n))
-      (nil?            (re-matches pattern n))))
+      (nil? (re-matches pattern n))))
 ```
 
 </details>
