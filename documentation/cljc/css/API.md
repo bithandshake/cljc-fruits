@@ -13,6 +13,11 @@
 ```
 
 ```
+@usage
+(calc "100% - 100px")
+```
+
+```
 @example
 (calc "100% - 100px")
 =>
@@ -55,10 +60,15 @@
 ```
 
 ```
+@usage
+(horizontal-margin "420px")
+```
+
+```
 @example
-(horizontal-margin "12px")
+(horizontal-margin "420px")
 =>
-"12px 0"
+"420px 0"
 ```
 
 ```
@@ -97,10 +107,15 @@
 ```
 
 ```
+@usage
+(horizontal-padding "420px")
+```
+
+```
 @example
-(horizontal-padding "12px")
+(horizontal-padding "420px")
 =>
-"12px 0"
+"420px 0"
 ```
 
 ```
@@ -183,10 +198,15 @@
 ```
 
 ```
+@usage
+(ms 420)
+```
+
+```
 @example
-(ms 500)
+(ms 420)
 =>
-"500ms"
+"420ms"
 ```
 
 ```
@@ -225,10 +245,15 @@
 ```
 
 ```
+@usage
+(percent 420)
+```
+
+```
 @example
-(percent 100)
+(percent 420)
 =>
-"100%"
+"420%"
 ```
 
 ```
@@ -263,14 +288,19 @@
 ### px
 
 ```
-@param (string) n
+@param (px) n
+```
+
+```
+@usage
+(px 420)
 ```
 
 ```
 @example
-(px "100")
+(px "420")
 =>
-"100px"
+"420px"
 ```
 
 ```
@@ -305,14 +335,19 @@
 ### rotate
 
 ```
-@param (string) n
+@param (deg) n
+```
+
+```
+@usage
+(rotate 420)
 ```
 
 ```
 @example
-(rotate "120")
+(rotate 420)
 =>
-"rotate(120deg)"
+"rotate(420deg)"
 ```
 
 ```
@@ -347,14 +382,19 @@
 ### rotate-x
 
 ```
-@param (string) n
+@param (deg) n
+```
+
+```
+@usage
+(rotate-x 420)
 ```
 
 ```
 @example
-(rotate-x "120")
+(rotate-x 420)
 =>
-"rotateX(120deg)"
+"rotateX(420deg)"
 ```
 
 ```
@@ -389,14 +429,19 @@
 ### rotate-y
 
 ```
-@param (string) n
+@param (deg) n
+```
+
+```
+@usage
+(rotate-y 420)
 ```
 
 ```
 @example
-(rotate-y "120")
+(rotate-y 420)
 =>
-"rotateY(120deg)"
+"rotateY(420deg)"
 ```
 
 ```
@@ -431,14 +476,19 @@
 ### rotate-z
 
 ```
-@param (string) n
+@param (deg) n
+```
+
+```
+@usage
+(rotate-z 420)
 ```
 
 ```
 @example
-(rotate-z "120")
+(rotate-z 420)
 =>
-"rotateZ(120deg)"
+"rotateZ(420deg)"
 ```
 
 ```
@@ -477,10 +527,15 @@
 ```
 
 ```
+@usage
+(s 420)
+```
+
+```
 @example
-(s 3)
+(s 420)
 =>
-"3s"
+"420s"
 ```
 
 ```
@@ -515,12 +570,17 @@
 ### scale
 
 ```
-@param (string) n
+@param (number or string) n
+```
+
+```
+@usage
+(scale 1.1)
 ```
 
 ```
 @example
-(scale "1.1")
+(scale 1.1)
 =>
 "scale(1.1)"
 ```
@@ -557,22 +617,27 @@
 ### translate
 
 ```
-@param (string) n
+@param (number or string) n
 @param (string)(opt) suffix
 ```
 
 ```
-@example
-(translate "120" "px")
-=>
-"translate(120px)"
+@usage
+(translate 420 "px")
 ```
 
 ```
 @example
-(translate "120px")
+(translate 420 "px")
 =>
-"translate(120px)"
+"translate(420px)"
+```
+
+```
+@example
+(translate "420px")
+=>
+"translate(420px)"
 ```
 
 ```
@@ -607,20 +672,25 @@
 ### translate-x
 
 ```
-@param (string) n
+@param (number or string) n
 @param (string)(opt) suffix
 ```
 
 ```
-@example
-(translate-x "120" "px")
-=>
-"translateX(120px)"
+@usage
+(translate-x 420 "px")
 ```
 
 ```
 @example
-(translate-x "120px")
+(translate-x 420 "px")
+=>
+"translateX(420px)"
+```
+
+```
+@example
+(translate-x "420px")
 =>
 "translateX(120px)"
 ```
@@ -657,22 +727,27 @@
 ### translate-y
 
 ```
-@param (string) n
+@param (number or string) n
 @param (string)(opt) suffix
 ```
 
 ```
-@example
-(translate-y "120" "px")
-=>
-"translateY(120px)"
+@usage
+(translate-y 420 "px")
 ```
 
 ```
 @example
-(translate-y "120px")
+(translate-y 420 "px")
 =>
-"translateY(120px)"
+"translateY(420px)"
+```
+
+```
+@example
+(translate-y "420px")
+=>
+"translateY(420px)"
 ```
 
 ```
@@ -707,22 +782,27 @@
 ### translate-z
 
 ```
-@param (string) n
+@param (number or string) n
 @param (string)(opt) suffix
 ```
 
 ```
-@example
-(translate-z "120" "px")
-=>
-"translateZ(120px)"
+@usage
+(translate-z 420 "px")
 ```
 
 ```
 @example
-(translate-z "120px")
+(translate-z 420 "px")
 =>
-"translateZ(120px)"
+"translateZ(420px)"
+```
+
+```
+@example
+(translate-z "420px")
+=>
+"translateZ(420px)"
 ```
 
 ```
@@ -803,10 +883,15 @@
 ```
 
 ```
+@usage
+(url "/my-style.css")
+```
+
+```
 @example
-(url "/my-file.ext")
+(url "/my-style.ext")
 =>
-"url(/my-file.ext)"
+"url(/my-style.ext)"
 ```
 
 ```
@@ -841,16 +926,21 @@
 ### value
 
 ```
-@param (string or integer) n
+@param (number or string) n
 @param (string) unit
 "%", "px", "rem", ...
 ```
 
 ```
+@usage
+(value 420 "px")
+```
+
+```
 @example
-(value 180 "%")
+(value 420 "px")
 =>
-"180%"
+"180px"
 ```
 
 ```
@@ -885,12 +975,24 @@
 ### var
 
 ```
-@param (string) n
+@param (keyword or string) n
+```
+
+```
+@usage
+(var "my-var")
 ```
 
 ```
 @example
 (var "my-var")
+=>
+"var( --my-var )"
+```
+
+```
+@example
+(var :my-var)
 =>
 "var( --my-var )"
 ```
@@ -905,7 +1007,8 @@
 ```
 (defn var
   [n]
-  (str "var( --" n " )"))
+  (cond (string?  n) (str "var( --"       n  " )")
+        (keyword? n) (str "var( --" (name n) " )")))
 ```
 
 </details>
@@ -924,6 +1027,61 @@
 
 ---
 
+### var-key
+
+```
+@param (keyword or string) n
+```
+
+```
+@usage
+(var-key "my-key")
+```
+
+```
+@example
+(var-key "my-key")
+=>
+"--my-key"
+```
+
+```
+@example
+(var-key :my-key)
+=>
+"--my-key"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn var-key
+  [n]
+  (cond (string?  n) (str "--"       n)
+        (keyword? n) (str "--" (name n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [css.api :as css :refer [var-key]]))
+
+(css/var-key ...)
+(var-key     ...)
+```
+
+</details>
+
+---
+
 ### vertical-margin
 
 ```
@@ -931,10 +1089,15 @@
 ```
 
 ```
+@usage
+(vertical-margin "420px")
+```
+
+```
 @example
-(vertical-margin "12px")
+(vertical-margin "420px")
 =>
-"0 12px"
+"0 420px"
 ```
 
 ```
@@ -973,10 +1136,15 @@
 ```
 
 ```
+@usage
+(vertical-padding "420px")
+```
+
+```
 @example
-(vertical-padding "12px")
+(vertical-padding "420px")
 =>
-"0 12px"
+"0 420px"
 ```
 
 ```

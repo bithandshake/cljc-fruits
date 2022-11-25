@@ -24,6 +24,7 @@
 (def url                candy/url)
 (def value              candy/value)
 (def var                candy/var)
+(def var-key            candy/var-key)
 (def horizontal-padding candy/horizontal-padding)
 (def vertical-padding   candy/vertical-padding)
 (def horizontal-margin  candy/horizontal-margin)
