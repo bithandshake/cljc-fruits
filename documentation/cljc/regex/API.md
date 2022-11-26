@@ -105,7 +105,7 @@
 
 ```
 @example
-(nth-dex-of "abc 123 def 456" #"[\d]{1,}" 2)
+(nth-dex-of "abc 123 def 456" #"[\d]{3,}" 1)
 =>
 12
 ```
@@ -121,15 +121,15 @@
 (defn nth-dex-of
   [n pattern dex]
   (when (and (string? n)
-             (>= dex 1))
-        (letfn [(f [cursor lap]
+             (>= dex 0))
+        (letfn [(f [cursor skip]
                    (if-let [first-dex (-> n (string/part  cursor)
                                             (first-dex-of pattern))]
-                           (if (= lap dex)
+                           (if (= skip dex)
                                (+ cursor first-dex)
                                (f (+ first-dex cursor 1)
-                                  (inc lap)))))]
-               (f 0 1))))
+                                  (inc skip)))))]
+               (f 0 0))))
 ```
 
 </details>

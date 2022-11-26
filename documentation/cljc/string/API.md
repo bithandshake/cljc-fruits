@@ -2668,7 +2668,7 @@ false
 
 ```
 @example
-(nth-dex-of "abc abc abc" "a" 2)
+(nth-dex-of "abc abc abc" "a" 1)
 =>
 4
 ```
@@ -2685,15 +2685,15 @@ false
   [n x dex]
   (let [n (str n)
         x (str x)]
-       (when (>= dex 1)
-             (letfn [(f [cursor lap]
+       (when (>= dex 0)
+             (letfn [(f [cursor skip]
                         (if-let [first-dex (-> n (subs cursor)
                                                  (clojure.string/index-of x))]
-                                (if (= lap dex)
+                                (if (= skip dex)
                                     (+ cursor first-dex)
                                     (f (+ first-dex cursor 1)
-                                       (inc lap)))))]
-                    (f 0 1)))))
+                                       (inc skip)))))]
+                    (f 0 0)))))
 ```
 
 </details>
