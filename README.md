@@ -1,11 +1,11 @@
 
-# fruits
+# cljc-fruits
 
 ### Overview
 ...
 
 ### Current version
-The <strong>fruits</strong> is releasing soon on Clojars!
+The <strong>cljc-fruits</strong> is releasing soon on Clojars!
 
 ### Documentation
-The <strong>fruits</strong> documentation is [available here](documentation/COVER.md).
+The <strong>cljc-fruits</strong> documentation is [available here](documentation/COVER.md).
