@@ -1,6 +1,6 @@
 
 (ns pretty.print
-    (:require [candy.api  :refer [param return]]
+    (:require [candy.api  :refer [return]]
               [loop.api   :refer [reduce-indexed reduce-kv-indexed]]
               [string.api :as string]
               [vector.api :as vector]))
@@ -210,15 +210,14 @@
              ;
              ; @return (string)
              [n {:keys [depth wrap-items?]}]
-             (map-wrap (reduce-kv-indexed (fn [o dex k v]
-                                              (append-map-kv o (mixed->string k {:depth 0})
-                                                               (mixed->string v {:depth       (inc depth)
-                                                                                 :wrap-items? (mixed->wrap-items? v)})
-                                                               {:depth       depth
-                                                                :first-item? (= dex 0)
-                                                                :wrap-items? wrap-items?}))
-                                         (param nil)
-                                         (param n))))
+             (letfn [(f [o dex k v]
+                        (append-map-kv o (mixed->string k {:depth 0})
+                                         (mixed->string v {:depth       (inc depth)
+                                                           :wrap-items? (mixed->wrap-items? v)})
+                                         {:depth       depth
+                                          :first-item? (= dex 0)
+                                          :wrap-items? wrap-items?}))]
+                    (map-wrap (reduce-kv-indexed f nil n))))
 
            (map->ordered-string
              ; @param (map) n
@@ -229,16 +228,15 @@
              ; @return (string)
              [n {:keys [depth wrap-items?]}]
              (let [ordered-keys (vector/abc-items (keys n))]
-                  (map-wrap (reduce-indexed (fn [o dex k]
-                                                (let [v (get n k)]
-                                                     (append-map-kv o (mixed->string k {:depth 0})
-                                                                      (mixed->string v {:depth       (inc depth)
-                                                                                        :wrap-items? (mixed->wrap-items? v)})
-                                                                      {:depth       depth
-                                                                       :first-item? (= 0 dex)
-                                                                       :wrap-items? wrap-items?})))
-                                           (param nil)
-                                           (param ordered-keys)))))
+                  (letfn [(f [o dex k]
+                             (let [v (get n k)]
+                                  (append-map-kv o (mixed->string k {:depth 0})
+                                                   (mixed->string v {:depth       (inc depth)
+                                                                     :wrap-items? (mixed->wrap-items? v)})
+                                                   {:depth       depth
+                                                    :first-item? (= 0 dex)
+                                                    :wrap-items? wrap-items?})))]
+                         (map-wrap (reduce-indexed f nil ordered-keys)))))
 
            (vector->string
              ; @param (vector) n
@@ -248,14 +246,13 @@
              ;
              ; @return (string)
              [n {:keys [depth wrap-items?]}]
-             (vector-wrap (reduce-indexed (fn [o dex x]
-                                              (append-vector-v o (mixed->string x {:depth       (inc depth)
-                                                                                   :wrap-items? (mixed->wrap-items? x)})
-                                                                 {:depth       depth
-                                                                  :first-item? (= dex 0)
-                                                                  :wrap-items? wrap-items?}))
-                                         (param nil)
-                                         (param n))))
+             (letfn [(f [o dex x]
+                        (append-vector-v o (mixed->string x {:depth       (inc depth)
+                                                             :wrap-items? (mixed->wrap-items? x)})
+                                           {:depth       depth
+                                            :first-item? (= dex 0)
+                                            :wrap-items? wrap-items?}))]
+                    (vector-wrap (reduce-indexed f nil n))))
 
            (mixed->string
              ; @param (*) n
@@ -277,5 +274,4 @@
                    :return             (str                 n)))]
 
          ; mixed->string
-         (remove-unnecessary-breaks (mixed->string n {:depth       (param 0)
-                                                      :wrap-items? (mixed->wrap-items? n)})))))
+         (remove-unnecessary-breaks (mixed->string n {:depth 0 :wrap-items? (mixed->wrap-items? n)})))))

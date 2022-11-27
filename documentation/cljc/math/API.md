@@ -235,7 +235,6 @@ true
 Az A valtozo pillanatnyi erteke
 @param (vector) domain
 Az A valtozo ertelmezesi tartomanya
-XXX A domain-from mindig legyen kisebb, mint a domain-to!
 [(integer) domain-from
  (integer) domain-to
 @param (vector) range
@@ -261,8 +260,12 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 
 ```
 (defn calc
-  [n [domain-from domain-to] [range-from range-to]]
-  (let [domain-length (- domain-to domain-from)
+  [n [domain-from domain-to :as domain] [range-from range-to :as range]]
+  (let [domain-from   (min (first domain) (second domain))
+        domain-to     (max (first domain) (second domain))
+        range-from    (min (first range)  (second range))
+        range-to      (max (first range)  (second range))
+        domain-length (- domain-to domain-from)
         domain-offset (- n domain-from)
         range-length  (- range-to range-from)
         range-offset  (core/absolute range-from)
@@ -271,8 +274,7 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
            (return range-from)
            (if (> n domain-to)
                (return range-to)
-               (+ (param range-from)
-                  (* domain-offset ratio))))))
+               (+ range-from (* domain-offset ratio))))))
 ```
 
 </details>
@@ -701,6 +703,13 @@ nil
 
 ```
 @example
+(domain-inchoate 0 5)
+=>
+0
+```
+
+```
+@example
 (domain-inchoate 9 5)
 =>
 2
@@ -721,13 +730,6 @@ nil
 ```
 
 ```
-@example
-(domain-inchoate 0 5)
-=>
-0
-```
-
-```
 @return (integer)
 ```
 
@@ -739,7 +741,7 @@ nil
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (=      rem 0)
            (return quot)
            (inc    quot))))
 ```

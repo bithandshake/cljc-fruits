@@ -1,6 +1,6 @@
 
-# <strong>fruits</strong>
-<p>Documentation of the <strong>fruits</strong> Clojure / ClojureScript library</p>
+# <strong>cljc-fruits</strong>
+<p>Documentation of the <strong>cljc-fruits</strong> Clojure / ClojureScript library</p>
 
 <strong>[README](../README.md) > DOCUMENTATION</strong>
 
@@ -19,7 +19,6 @@
 * [hash.api](cljc/hash/API.md) [cljc]
 * [hiccup.api](cljc/hiccup/API.md) [cljc]
 * [href.api](cljc/href/API.md) [cljc]
-* [html.api](cljc/html/API.md) [cljc]
 * [http.api](cljc/http/API.md) [cljc]
 * [integer.api](cljc/integer/API.md) [cljc]
 * [json.api](cljc/json/API.md) [cljc]

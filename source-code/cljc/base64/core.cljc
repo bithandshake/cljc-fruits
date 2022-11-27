@@ -1,7 +1,7 @@
 
 (ns base64.core
     (:require #?(:clj [clojure.data.codec.base64 :as base64])
-              #?(:clj [io.api                    :as io])
+              #?(:clj [clojure.java.io           :as io])
               [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------

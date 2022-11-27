@@ -1,6 +1,6 @@
 
 (ns math.domain
-    (:require [candy.api :refer [param return]]
+    (:require [candy.api :refer [return]]
               [math.core :as core]))
 
 ;; ----------------------------------------------------------------------------
@@ -12,6 +12,11 @@
 (defn domain-inchoate
   ; @param (integer) n
   ; @param (integer) domain
+  ;
+  ; @example
+  ; (domain-inchoate 0 5)
+  ; =>
+  ; 0
   ;
   ; @example
   ; (domain-inchoate 9 5)
@@ -28,17 +33,12 @@
   ; =>
   ; 3
   ;
-  ; @example
-  ; (domain-inchoate 0 5)
-  ; =>
-  ; 0
-  ;
   ; @return (integer)
   [n domain]
   ; Az n értéke hányadik domain tartományban helyezkedik el
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (=      rem 0)
            (return quot)
            (inc    quot))))
 
@@ -68,7 +68,7 @@
   ;
   ; @return (integer)
   [n domain]
-  ; Az n értékéhez tartozó tartomány kezdő értéke
+  ; The first whole value of the nth domain which contains the value n.
   (let [quot (quot n domain)
         rem  (rem  n domain)]
        (if (= rem 0)
@@ -101,7 +101,7 @@
   ;
   ; @return (integer)
   [n domain]
-  ; Az n értékéhez tartozó tartomány záró értéke
+  ; The last whole value of the nth domain which contains the value n.
   (let [quot (quot n domain)
         rem  (rem  n domain)]
        (if (= rem 0)
@@ -145,7 +145,6 @@
   ; Az A valtozo pillanatnyi erteke
   ; @param (vector) domain
   ; Az A valtozo ertelmezesi tartomanya
-  ; XXX A domain-from mindig legyen kisebb, mint a domain-to!
   ; [(integer) domain-from
   ;  (integer) domain-to
   ; @param (vector) range
@@ -160,8 +159,12 @@
   ;
   ; @return (*)
   ; A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
-  [n [domain-from domain-to] [range-from range-to]]
-  (let [domain-length (- domain-to domain-from)
+  [n [domain-from domain-to :as domain] [range-from range-to :as range]]
+  (let [domain-from   (min (first domain) (second domain))
+        domain-to     (max (first domain) (second domain))
+        range-from    (min (first range)  (second range))
+        range-to      (max (first range)  (second range))
+        domain-length (- domain-to domain-from)
         domain-offset (- n domain-from)
         range-length  (- range-to range-from)
         range-offset  (core/absolute range-from)
@@ -170,5 +173,4 @@
            (return range-from)
            (if (> n domain-to)
                (return range-to)
-               (+ (param range-from)
-                  (* domain-offset ratio))))))
+               (+ range-from (* domain-offset ratio))))))

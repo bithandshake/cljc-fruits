@@ -6,47 +6,6 @@
 
 
 
-### element-attributes
-
-```
-@param (map) attributes
-```
-
-```
-@usage
-(element-attributes {...})
-```
-
-```
-@return (map)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn element-attributes
-  [attributes]
-  (merge {}
-         (param attributes)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [svg.api :as svg :refer [element-attributes]]))
-
-(svg/element-attributes ...)
-(element-attributes     ...)
-```
-
-</details>
-
----
-
 ### view-box
 
 ```

@@ -1,6 +1,5 @@
 
-(ns svg.core
-    (:require [candy.api :refer [param]]))
+(ns svg.core)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -17,17 +16,6 @@
   ; @return (string)
   [width height]
   (str "0 0 " width " " height))
-
-(defn element-attributes
-  ; @param (map) attributes
-  ;
-  ; @usage
-  ; (element-attributes {...})
-  ;
-  ; @return (map)
-  [attributes]
-  (merge {}
-         (param attributes)))
 
 (defn wrapper-attributes
   ; @param (map) attributes
