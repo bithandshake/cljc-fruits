@@ -6,7 +6,7 @@
 
 
 
-### CamelCase
+### ToCamelCase
 
 ```
 @param (string) n
@@ -14,7 +14,7 @@
 
 ```
 @example
-(CamelCase "camel-case")
+(ToCamelCase "camel-case")
 =>
 "CamelCase"
 ```
@@ -27,7 +27,7 @@
 <summary>Source code</summary>
 
 ```
-(defn CamelCase
+(defn ToCamelCase
   [n])
 ```
 
@@ -37,10 +37,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [CamelCase]]))
+(ns my-namespace (:require [syntax.api :as syntax :refer [ToCamelCase]]))
 
-(syntax/CamelCase ...)
-(CamelCase        ...)
+(syntax/ToCamelCase ...)
+(ToCamelCase        ...)
 ```
 
 </details>
@@ -680,7 +680,7 @@ the string n.
 
 ---
 
-### snake-case
+### to-snake-case
 
 ```
 @param (string) n
@@ -688,7 +688,7 @@ the string n.
 
 ```
 @example
-(snake-case "SnakeCase")
+(to-snake-case "SnakeCase")
 =>
 "snake-case"
 ```
@@ -701,17 +701,17 @@ the string n.
 <summary>Source code</summary>
 
 ```
-(defn snake-case
+(defn to-snake-case
   [n]
   (let [count (count n)]
        (letfn [(f [result cursor]
                   (if (= count cursor)
                       (return result)
                       (let [char (subs n cursor (inc cursor))]
-                           (if (= char (string/uppercase char))
+                           (if (= char (string/to-uppercase char))
                                (f (str (subs n 0 cursor)
                                        (if (not= cursor 0) "-")
-                                       (string/lowercase char)
+                                       (string/to-lowercase char)
                                        (subs n (inc cursor)))
                                   (inc cursor))
                                (f result (inc cursor))))))]
@@ -724,10 +724,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [snake-case]]))
+(ns my-namespace (:require [syntax.api :as syntax :refer [to-snake-case]]))
 
-(syntax/snake-case ...)
-(snake-case        ...)
+(syntax/to-snake-case ...)
+(to-snake-case        ...)
 ```
 
 </details>

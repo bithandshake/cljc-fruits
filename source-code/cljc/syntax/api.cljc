@@ -1,15 +1,15 @@
 
 (ns syntax.api
-    (:require [syntax.case :as case]
-              [syntax.core :as core]
-              [syntax.tags :as tags]))
+    (:require [syntax.convert :as convert]
+              [syntax.core    :as core]
+              [syntax.tags    :as tags]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; syntax.case
-(def CamelCase  case/CamelCase)
-(def snake-case case/snake-case)
+; syntax.convert
+(def to-snake-case convert/to-snake-case)
+(def ToCamelCase   convert/ToCamelCase)
 
 ; syntax.core
 (def paren   core/paren)

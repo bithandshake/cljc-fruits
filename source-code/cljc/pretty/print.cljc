@@ -100,7 +100,7 @@
   ;  :wrap-items? (boolean)}
   ;
   ; @example
-  ; TODO ...
+  ; TODO
   ;
   ; @return (string)
   [o v {:keys [depth first-item? wrap-items?]}]
@@ -118,7 +118,7 @@
   ;  :wrap-items? (boolean)}
   ;
   ; @example
-  ; TODO ...
+  ; TODO
   ;
   ; @return (string)
   [o k v {:keys [depth first-item? wrap-items?]}]

@@ -6,10 +6,455 @@
 
 
 
+### after-first-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(after-first-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(after-first-occurence "abc123def" #"\d")
+=>
+"23def"
+```
+
+```
+@example
+(after-first-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(after-first-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(after-first-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(after-first-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn after-first-occurence
+  ([n x]
+   (after-first-occurence n x {}))
+
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [match (re-find x n)]
+                (let [dex (clojure.string/index-of n match)]
+                     (subs n (+ dex (count match))))
+                (if return? n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [after-first-occurence]]))
+
+(regex/after-first-occurence ...)
+(after-first-occurence       ...)
+```
+
+</details>
+
+---
+
+### after-last-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(after-last-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(after-last-occurence "abc123def" #"\d")
+=>
+"def"
+```
+
+```
+@example
+(after-last-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(after-last-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(after-last-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(after-last-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn after-last-occurence
+  ([n x]
+   (after-last-occurence n x {}))
+
+  ([n x {:keys [return?]}]))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [after-last-occurence]]))
+
+(regex/after-last-occurence ...)
+(after-last-occurence       ...)
+```
+
+</details>
+
+---
+
+### before-first-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(before-first-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(before-first-occurence "abc123def" #"\d")
+=>
+"abc"
+```
+
+```
+@example
+(before-first-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(before-first-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(before-first-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(before-first-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn before-first-occurence
+  ([n x]
+   (before-first-occurence n x {}))
+
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [match (re-find x n)]
+                (let [dex (clojure.string/index-of n match)]
+                     (subs n 0 dex))
+                (if return? n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [before-first-occurence]]))
+
+(regex/before-first-occurence ...)
+(before-first-occurence       ...)
+```
+
+</details>
+
+---
+
+### before-last-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(before-last-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(before-last-occurence "abc123def" #"\d")
+=>
+"abc12"
+```
+
+```
+@example
+(before-last-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(before-last-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(before-last-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(before-last-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn before-last-occurence
+  ([n x]
+   (before-last-occurence n x {}))
+
+  ([n x {:keys [return?]}]))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [before-last-occurence]]))
+
+(regex/before-last-occurence ...)
+(before-last-occurence       ...)
+```
+
+</details>
+
+---
+
+### between-occurences
+
+```
+@param (*) n
+@param (regex) x
+@param (regex) y
+```
+
+```
+@usage
+(between-occurences "abc123def" #"a" #"f")
+```
+
+```
+@example
+(between-occurences "abc123def" #"a" #"f")
+=>
+"bc123de"
+```
+
+```
+@example
+(between-occurences "abc123def" #"a" #"x")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn between-occurences
+  [n x y]
+  (-> n (after-first-occurence x {:return? false})
+        (before-last-occurence y {:return? false})))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [between-occurences]]))
+
+(regex/between-occurences ...)
+(between-occurences       ...)
+```
+
+</details>
+
+---
+
+### ends-with?
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(ends-with? "The things you used to own, now they own you." #"\.")
+```
+
+```
+@example
+(ends-with? "The things you used to own, now they own you." #"\.")
+=>
+true
+```
+
+```
+@example
+(ends-with? "The things you used to own, now they own you." #"!")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn ends-with?
+  [n x])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [ends-with?]]))
+
+(regex/ends-with? ...)
+(ends-with?       ...)
+```
+
+</details>
+
+---
+
 ### first-dex-of
 
 ```
-@param (string) n
+@param (*) n
 @param (regex pattern) pattern
 ```
 
@@ -30,9 +475,9 @@
 ```
 (defn first-dex-of
   [n pattern]
-  (when (string? n)
-        (if-let [match (re-find pattern n)]
-                (string/first-dex-of n match))))
+  (let [n (str n)]
+       (if-let [match (re-find pattern n)]
+               (string/first-dex-of n match))))
 ```
 
 </details>
@@ -51,10 +496,177 @@
 
 ---
 
+### from-first-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(from-first-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(from-first-occurence "abc123def" #"\d")
+=>
+"123def"
+```
+
+```
+@example
+(from-first-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(from-first-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(from-first-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(from-first-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn from-first-occurence
+  ([n x]
+   (from-first-occurence n x {}))
+
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [match (re-find x n)]
+                (let [dex (clojure.string/index-of n match)]
+                     (subs n dex))
+                (if return? n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [from-first-occurence]]))
+
+(regex/from-first-occurence ...)
+(from-first-occurence       ...)
+```
+
+</details>
+
+---
+
+### from-last-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(from-last-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(from-last-occurence "abc123def" #"\d")
+=>
+"def"
+```
+
+```
+@example
+(from-last-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(from-last-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(from-last-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(from-last-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn from-last-occurence
+  ([n x]
+   (from-last-occurence n x {}))
+
+  ([n x {:keys [return?]}]))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [from-last-occurence]]))
+
+(regex/from-last-occurence ...)
+(from-last-occurence       ...)
+```
+
+</details>
+
+---
+
 ### last-dex-of
 
 ```
-@param (string) n
+@param (*) n
 @param (regex pattern) pattern
 ```
 
@@ -75,9 +687,9 @@
 ```
 (defn last-dex-of
   [n pattern]
-  (when (string? n)
-        (if-let [match (re-find pattern n)]
-                (string/last-dex-of n match))))
+  (let [n (str n)]
+       (if-let [match (re-find pattern n)]
+               (string/last-dex-of n match))))
 ```
 
 </details>
@@ -96,10 +708,236 @@
 
 ---
 
+### not-ends-with!
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(not-ends-with! "The things you used to own, now they own you." #"\.")
+```
+
+```
+@example
+(not-ends-with! "The things you used to own, now they own you" #"\.")
+=>
+"The things you used to own, now they own you"
+```
+
+```
+@example
+(not-ends-with! "The things you used to own, now they own you." #"\.")
+=>
+"The things you used to own, now they own you"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn not-ends-with!
+  [n x])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [not-ends-with!]]))
+
+(regex/not-ends-with! ...)
+(not-ends-with!       ...)
+```
+
+</details>
+
+---
+
+### not-ends-with?
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(not-ends-with? "The things you used to own, now they own you." #"\.")
+```
+
+```
+@example
+(not-ends-with? "The things you used to own, now they own you." #"!")
+=>
+true
+```
+
+```
+@example
+(not-ends-with? "The things you used to own, now they own you." #"\.")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn not-ends-with?
+  [n x]
+  (let [ends-with? (ends-with? n x)]
+       (not ends-with?)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [not-ends-with?]]))
+
+(regex/not-ends-with? ...)
+(not-ends-with?       ...)
+```
+
+</details>
+
+---
+
+### not-starts-with!
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(not-starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
+                 #"[a-z]")
+```
+
+```
+@example
+(not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
+                 #"[a-z]")
+=>
+"n a long enough time line, the survival rate for everyone drops to zero."
+```
+
+```
+@example
+(not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
+                 #"[/d]")
+=>
+"On a long enough time line, the survival rate for everyone drops to zero."
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn not-starts-with!
+  [n x])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [not-starts-with!]]))
+
+(regex/not-starts-with! ...)
+(not-starts-with!       ...)
+```
+
+</details>
+
+---
+
+### not-starts-with?
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+                 #"[\d]")
+```
+
+```
+@example
+(not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+                  "[\d]")
+=>
+true
+```
+
+```
+@example
+(not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+                  "[a-z]")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn not-starts-with?
+  [n x]
+  (let [starts-with? (starts-with? n x)]
+       (not starts-with?)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [not-starts-with?]]))
+
+(regex/not-starts-with? ...)
+(not-starts-with?       ...)
+```
+
+</details>
+
+---
+
 ### nth-dex-of
 
 ```
-@param (string) n
+@param (*) n
 @param (regex pattern) pattern
 ```
 
@@ -120,8 +958,8 @@
 ```
 (defn nth-dex-of
   [n pattern dex]
-  (when (and (string? n)
-             (>= dex 0))
+  (let [n (str n)])
+  (when (>= dex 0)
         (letfn [(f [cursor skip]
                    (if-let [first-dex (-> n (string/part  cursor)
                                             (first-dex-of pattern))]
@@ -151,7 +989,7 @@
 ### re-match?
 
 ```
-@param (string) n
+@param (*) n
 @param (regex pattern) pattern
 ```
 
@@ -179,7 +1017,7 @@ false
 ```
 (defn re-match?
   [n pattern]
-  (and (string? n)
+  (let [n (str n)]
        (some? (re-matches pattern n))))
 ```
 
@@ -202,7 +1040,7 @@ false
 ### re-mismatch?
 
 ```
-@param (string) n
+@param (*) n
 @param (regex pattern) pattern
 ```
 
@@ -230,8 +1068,8 @@ true
 ```
 (defn re-mismatch?
   [n pattern]
-  (or (not (string? n))
-      (nil? (re-matches pattern n))))
+  (let [n (str n)]
+       (nil? (re-matches pattern n))))
 ```
 
 </details>
@@ -244,6 +1082,353 @@ true
 
 (regex/re-mismatch? ...)
 (re-mismatch?       ...)
+```
+
+</details>
+
+---
+
+### remove-first-occurence
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(remove-first-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(remove-first-occurence "abc123def" #"\d")
+=>
+"abc23def"
+```
+
+```
+@example
+(remove-first-occurence "abcdef" #"\d")
+=>
+"abcdef"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-first-occurence
+  [n x]
+  (let [n (str n)]
+       (if-let [match (re-find x n)]
+               (let [dex (clojure.string/index-of n match)]
+                    (str (subs n 0 dex)
+                         (subs n (+ dex (count match)))))
+               (return n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [remove-first-occurence]]))
+
+(regex/remove-first-occurence ...)
+(remove-first-occurence       ...)
+```
+
+</details>
+
+---
+
+### remove-last-occurence
+
+```
+@param (*) n
+@param (*) x
+```
+
+```
+@usage
+(remove-last-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(remove-last-occurence "abc123def" #"\d")
+=>
+"abc12def"
+```
+
+```
+@example
+(remove-last-occurence "abcdef" #"\d")
+=>
+"abcdef"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-last-occurence
+  [n x]
+  (let [n (str n)]
+       (if-let [match (re-find x n)]
+               (let [dex (clojure.string/index-of n match)]
+                    (str (subs n 0 dex)
+                         (subs n (+ dex (count match)))))
+               (return n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [remove-last-occurence]]))
+
+(regex/remove-last-occurence ...)
+(remove-last-occurence       ...)
+```
+
+</details>
+
+---
+
+### starts-with?
+
+```
+@param (*) n
+@param (regex) x
+```
+
+```
+@usage
+(starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+             #"[a-z]")
+```
+
+```
+@example
+(starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+             #"[a-z]")
+=>
+true
+```
+
+```
+@example
+(starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+             #"[\d]")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn starts-with?
+  [n x]
+  (let [n (str n)]
+       (if-let [match (re-find x n)]
+               (clojure.string/starts-with? n match))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [starts-with?]]))
+
+(regex/starts-with? ...)
+(starts-with?       ...)
+```
+
+</details>
+
+---
+
+### to-first-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(to-first-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(to-first-occurence "abc123def" #"\d")
+=>
+"abc1"
+```
+
+```
+@example
+(to-first-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(to-first-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(to-first-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(to-first-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-first-occurence
+  ([n x]
+   (to-first-occurence n x {}))
+
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [match (re-find x n)]
+                (let [dex (clojure.string/index-of n match)]
+                     (subs n 0 (+ dex (count match))))
+                (if return? n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [to-first-occurence]]))
+
+(regex/to-first-occurence ...)
+(to-first-occurence       ...)
+```
+
+</details>
+
+---
+
+### to-last-occurence
+
+```
+@param (*) n
+@param (regex) x
+@param (map) options
+{:return? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(to-last-occurence "abc123def" #"\d")
+```
+
+```
+@example
+(to-last-occurence "abc123def" #"\d")
+=>
+"abc123"
+```
+
+```
+@example
+(to-last-occurence "abcdef" #"\d")
+=>
+nil
+```
+
+```
+@example
+(to-last-occurence "abcdef" #"\d" {:return? true})
+=>
+"abcdef"
+```
+
+```
+@example
+(to-last-occurence nil #"\d")
+=>
+nil
+```
+
+```
+@example
+(to-last-occurence nil "\d" {:return? true})
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-last-occurence
+  ([n x]
+   (to-last-occurence n x {}))
+
+  ([n x {:keys [return?]}]))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :as regex :refer [to-last-occurence]]))
+
+(regex/to-last-occurence ...)
+(to-last-occurence       ...)
 ```
 
 </details>

@@ -15,14 +15,14 @@
   ;
   ; @return (string)
   ([email-address]
-   (str "mailto:" (string/lowercase email-address)))
+   (str "mailto:" (string/to-lowercase email-address)))
 
   ([email-address subject]
-   (str "mailto:"   (string/lowercase email-address)
+   (str "mailto:"   (string/to-lowercase email-address)
         "?subject=" subject))
 
   ([email-address subject body]
-   (str "mailto:"   (string/lowercase email-address)
+   (str "mailto:"   (string/to-lowercase email-address)
         "?subject=" subject
         "&body="    body)))
 

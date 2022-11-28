@@ -1,18 +1,16 @@
 
-(ns syntax.case
+(ns syntax.convert
     (:require [candy.api  :refer [return]]
               [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn snake-case
-  ; WARNING! INCOMPLETE! DO NOT USE!
-  ;
+(defn to-snake-case
   ; @param (string) n
   ;
   ; @example
-  ; (snake-case "SnakeCase")
+  ; (to-snake-case "SnakeCase")
   ; =>
   ; "snake-case"
   ;
@@ -23,22 +21,22 @@
                   (if (= count cursor)
                       (return result)
                       (let [char (subs n cursor (inc cursor))]
-                           (if (= char (string/uppercase char))
+                           (if (= char (string/to-uppercase char))
                                (f (str (subs n 0 cursor)
                                        (if (not= cursor 0) "-")
-                                       (string/lowercase char)
+                                       (string/to-lowercase char)
                                        (subs n (inc cursor)))
                                   (inc cursor))
                                (f result (inc cursor))))))]
               (f n 0))))
 
-(defn CamelCase
+(defn ToCamelCase
   ; WARNING! INCOMPLETE! DO NOT USE!
   ;
   ; @param (string) n
   ;
   ; @example
-  ; (CamelCase "camel-case")
+  ; (ToCamelCase "camel-case")
   ; =>
   ; "CamelCase"
   ;

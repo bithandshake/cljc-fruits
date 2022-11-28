@@ -186,7 +186,7 @@
   ;
   ; @return (string)
   ([n x]
-   (before-first-occurence n x {:return? false}))
+   (before-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -237,7 +237,7 @@
   ;
   ; @return (string)
   ([n x]
-   (before-last-occurence n x {:return? false}))
+   (before-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -288,7 +288,7 @@
   ;
   ; @return (string)
   ([n x]
-   (after-first-occurence n x {:return? false}))
+   (after-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -339,7 +339,7 @@
   ;
   ; @return (string)
   ([n x]
-   (after-last-occurence n x {:return? false}))
+   (after-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -390,7 +390,7 @@
   ;
   ; @return (string)
   ([n x]
-   (from-first-occurence n x {:return? false}))
+   (from-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -441,7 +441,7 @@
   ;
   ; @return (string)
   ([n x]
-   (from-last-occurence n x {:return? false}))
+   (from-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -492,7 +492,7 @@
   ;
   ; @return (string)
   ([n x]
-   (to-first-occurence n x {:return? false}))
+   (to-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -543,7 +543,7 @@
   ;
   ; @return (string)
   ([n x]
-   (to-last-occurence n x {:return? false}))
+   (to-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)

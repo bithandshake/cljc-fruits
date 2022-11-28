@@ -64,7 +64,7 @@
   ;
   ; @return (string)
   ([n limit]
-   (max-lines n limit {:reverse? false}))
+   (max-lines n limit {}))
 
   ([n limit {:keys [reverse?]}]
    (let [n     (str        n)

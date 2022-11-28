@@ -108,7 +108,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (syntax/CamelCase n)
+  (cond (string?  n) (syntax/ToCamelCase n)
         (keyword? n) (-> n name CamelCase-key keyword)
         :return   n))
 
@@ -127,7 +127,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (syntax/snake-case n)
+  (cond (string?  n) (syntax/to-snake-case n)
         (keyword? n) (-> n name snake-case-key keyword)
         :return   n))
 
@@ -290,7 +290,7 @@
   ; @param (*) n
   ;
   ; @example
-  ; (CamelCase-keys {:my-key :my-value})
+  ; (Case-keys {:my-key :my-value})
   ; =>
   ; {:myKey :my-value}
   ;

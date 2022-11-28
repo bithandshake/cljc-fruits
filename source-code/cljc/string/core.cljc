@@ -104,12 +104,11 @@
   ([coll separator]
    (join coll separator {}))
 
-  ([coll separator {:keys [join-empty?]}]
+  ([coll separator {:keys [join-empty?] :or {join-empty? true}}]
    (let [last-dex (-> coll count dec)]
         (letfn [(separate?      [dex]  (and (not= dex last-dex)
                                             (-> (nth coll (inc dex)) str empty? not)))
-                (join?          [part] (or (-> join-empty? false? not)
-                                           (-> part str empty? not)))
+                (join?          [part] (or join-empty? (-> part str empty? not)))
                 (f [result dex part] (if (join? part)
                                          (if (separate? dex)
                                              (str result part separator)
@@ -212,6 +211,38 @@
            (return n)
            (str    n suffix))))
 
+(defn prepend
+  ; @param (*) n
+  ; @param (*) x
+  ;
+  ; @usage
+  ; (prepend "my-domain.com" "https://")
+  ;
+  ; @example
+  ; (prepend "my-domain.com" "https://")
+  ; =>
+  ; "https://my-domain.com"
+  ;
+  ; @return (string)
+  [n x]
+  (prefix n x))
+
+(defn append
+  ; @param (*) n
+  ; @param (*) x
+  ;
+  ; @usage
+  ; (append "https://" "my-domain.com")
+  ;
+  ; @example
+  ; (append "https://" "my-domain.com")
+  ; =>
+  ; "https://my-domain.com"
+  ;
+  ; @return (string)
+  [n x]
+  (suffix n x))
+  
 (defn insert-part
   ; @param (*) n
   ; @param (*) x
@@ -392,9 +423,9 @@
   ;
   ; @return (boolean)
   ([n x]
-   (ends-with? n x {:case-sensitive? true}))
+   (ends-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (if case-sensitive? (clojure.string/ends-with? n x)
@@ -453,7 +484,7 @@
   ;
   ; @return (string)
   ([n x]
-   (ends-with! n x {:case-sensitive? true}))
+   (ends-with! n x {}))
 
   ([n x options]
    (if (ends-with? n x options)
@@ -480,9 +511,14 @@
   ; =>
   ; "The things you used to own, now they own you"
   ;
+  ; @example
+  ; (not-ends-with! nil ".")
+  ; =>
+  ; nil
+  ;
   ; @return (string)
   ([n x]
-   (not-ends-with! n x {:case-sensitive? true}))
+   (not-ends-with! n x {}))
 
   ([n x options]
    (if (ends-with?                n x options)
@@ -520,9 +556,9 @@
   ;
   ; @return (boolean)
   ([n x]
-   (starts-with? n x {:case-sensitive? true}))
+   (starts-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (if case-sensitive? (clojure.string/starts-with? n x)
@@ -588,7 +624,7 @@
   ;
   ; @return (string)
   ([n x]
-   (starts-with! n x {:case-sensitive? true}))
+   (starts-with! n x {}))
 
   ([n x options]
    (if (starts-with? n x options)
@@ -618,9 +654,14 @@
   ; =>
   ; " long enough time line, the survival rate for everyone drops to zero."
   ;
+  ; @example
+  ; (not-starts-with! nil ".")
+  ; =>
+  ; nil
+  ;
   ; @return (string)
   ([n x]
-   (not-starts-with! n x {:case-sensitive? true}))
+   (not-starts-with! n x {}))
 
   ([n x options]
    (if (starts-with?              n x options)
@@ -656,9 +697,9 @@
   ;
   ; @return (boolean)
   ([n x]
-   (pass-with? n x {:case-sensitive? true}))
+   (pass-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (or (= n x)
@@ -695,7 +736,7 @@
   ;
   ; @return (boolean)
   ([n x]
-   (not-pass-with? n x {:case-sensitive? true}))
+   (not-pass-with? n x {}))
 
   ([n x options]
    (let [pass-with? (pass-with? n x options)]

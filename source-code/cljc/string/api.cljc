@@ -1,14 +1,13 @@
 
 (ns string.api
-    (:require [string.check     :as check]
-              [string.config    :as config]
-              [string.convert   :as convert]
-              [string.core      :as core]
-              [string.cut       :as cut]
-              [string.dex       :as dex]
-              [string.lines     :as lines]
-              [string.replace   :as replace]
-              [string.transform :as transform]))
+    (:require [string.check   :as check]
+              [string.config  :as config]
+              [string.convert :as convert]
+              [string.core    :as core]
+              [string.cut     :as cut]
+              [string.dex     :as dex]
+              [string.lines   :as lines]
+              [string.replace :as replace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -31,7 +30,10 @@
 (def WHITE-SPACE  config/WHITE-SPACE)
 
 ; string.convert
-(def to-integer convert/to-integer)
+(def to-integer     convert/to-integer)
+(def to-capitalized convert/to-capitalized)
+(def to-uppercase   convert/to-uppercase)
+(def to-lowercase   convert/to-lowercase)
 
 ; string.core
 (def length            core/length)
@@ -41,6 +43,8 @@
 (def split             core/split)
 (def prefix            core/prefix)
 (def suffix            core/suffix)
+(def prepend           core/prepend)
+(def append            core/append)
 (def insert-part       core/insert-part)
 (def count-occurences  core/count-occurences)
 (def min-occurence?    core/min-occurence?)
@@ -90,8 +94,3 @@
 (def use-replacement  replace/use-replacement)
 (def use-nil          replace/use-nil)
 (def use-placeholder  replace/use-placeholder)
-
-; string.transform
-(def capitalize transform/capitalize)
-(def uppercase  transform/uppercase)
-(def lowercase  transform/lowercase)

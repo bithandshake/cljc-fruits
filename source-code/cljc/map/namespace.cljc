@@ -130,7 +130,7 @@
   ;
   ; @return (map)
   [n key value])
-  ; TODO ...
+  ; TODO
 
 (defn get-ns
   ; @param (map) n

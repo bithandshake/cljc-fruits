@@ -134,7 +134,7 @@ nil
 ```
 (defn after-first-occurence
   ([n x]
-   (after-first-occurence n x {:return? false}))
+   (after-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -225,7 +225,7 @@ nil
 ```
 (defn after-last-occurence
   ([n x]
-   (after-last-occurence n x {:return? false}))
+   (after-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -245,6 +245,54 @@ nil
 
 (string/after-last-occurence ...)
 (after-last-occurence        ...)
+```
+
+</details>
+
+---
+
+### append
+
+```
+@param (*) n
+@param (*) x
+```
+
+```
+@usage
+(append "https://" "my-domain.com")
+```
+
+```
+@example
+(append "https://" "my-domain.com")
+=>
+"https://my-domain.com"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn append
+  [n x]
+  (suffix n x))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [append]]))
+
+(string/append ...)
+(append        ...)
 ```
 
 </details>
@@ -316,7 +364,7 @@ nil
 ```
 (defn before-first-occurence
   ([n x]
-   (before-first-occurence n x {:return? false}))
+   (before-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -407,7 +455,7 @@ nil
 ```
 (defn before-last-occurence
   ([n x]
-   (before-last-occurence n x {:return? false}))
+   (before-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -557,53 +605,6 @@ true
 
 (string/blank? ...)
 (blank?        ...)
-```
-
-</details>
-
----
-
-### capitalize
-
-```
-@param (*) n
-```
-
-```
-@usage
-(capitalize "abc")
-```
-
-```
-@example
-(capitalize "abc")
-=>
-"Abc"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn capitalize
-  [n]
-  (-> n str clojure.string/capitalize))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :as string :refer [capitalize]]))
-
-(string/capitalize ...)
-(capitalize        ...)
 ```
 
 </details>
@@ -969,7 +970,7 @@ false
 ```
 (defn ends-with!
   ([n x]
-   (ends-with! n x {:case-sensitive? true}))
+   (ends-with! n x {}))
 
   ([n x options]
    (if (ends-with? n x options)
@@ -1039,9 +1040,9 @@ false
 ```
 (defn ends-with?
   ([n x]
-   (ends-with? n x {:case-sensitive? true}))
+   (ends-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (if case-sensitive? (clojure.string/ends-with? n x)
@@ -1259,7 +1260,7 @@ nil
 ```
 (defn from-first-occurence
   ([n x]
-   (from-first-occurence n x {:return? false}))
+   (from-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -1350,7 +1351,7 @@ nil
 ```
 (defn from-last-occurence
   ([n x]
-   (from-last-occurence n x {:return? false}))
+   (from-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -1531,12 +1532,11 @@ nil
   ([coll separator]
    (join coll separator {}))
 
-  ([coll separator {:keys [join-empty?]}]
+  ([coll separator {:keys [join-empty?] :or {join-empty? true}}]
    (let [last-dex (-> coll count dec)]
         (letfn [(separate?      [dex]  (and (not= dex last-dex)
                                             (-> (nth coll (inc dex)) str empty? not)))
-                (join?          [part] (or (-> join-empty? false? not)
-                                           (-> part str empty? not)))
+                (join?          [part] (or join-empty? (-> part str empty? not)))
                 (f [result dex part] (if (join? part)
                                          (if (separate? dex)
                                              (str result part separator)
@@ -1758,53 +1758,6 @@ true
 
 ---
 
-### lowercase
-
-```
-@param (*) n
-```
-
-```
-@usage
-(lowercase "ABC")
-```
-
-```
-@example
-(lowercase "ABC")
-=>
-"abc"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn lowercase
-  [n]
-  (-> n str clojure.string/lower-case))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :as string :refer [lowercase]]))
-
-(string/lowercase ...)
-(lowercase        ...)
-```
-
-</details>
-
----
-
 ### max-length
 
 ```
@@ -1968,7 +1921,7 @@ false
 ```
 (defn max-lines
   ([n limit]
-   (max-lines n limit {:reverse? false}))
+   (max-lines n limit {}))
 
   ([n limit {:keys [reverse?]}]
    (let [n     (str        n)
@@ -2347,6 +2300,13 @@ true
 ```
 
 ```
+@example
+(not-ends-with! nil ".")
+=>
+nil
+```
+
+```
 @return (string)
 ```
 
@@ -2356,7 +2316,7 @@ true
 ```
 (defn not-ends-with!
   ([n x]
-   (not-ends-with! n x {:case-sensitive? true}))
+   (not-ends-with! n x {}))
 
   ([n x options]
    (if (ends-with?                n x options)
@@ -2494,7 +2454,7 @@ false
 ```
 (defn not-pass-with?
   ([n x]
-   (not-pass-with? n x {:case-sensitive? true}))
+   (not-pass-with? n x {}))
 
   ([n x options]
    (let [pass-with? (pass-with? n x options)]
@@ -2550,6 +2510,13 @@ false
 ```
 
 ```
+@example
+(not-starts-with! nil ".")
+=>
+nil
+```
+
+```
 @return (string)
 ```
 
@@ -2559,7 +2526,7 @@ false
 ```
 (defn not-starts-with!
   ([n x]
-   (not-starts-with! n x {:case-sensitive? true}))
+   (not-starts-with! n x {}))
 
   ([n x options]
    (if (starts-with?              n x options)
@@ -2839,9 +2806,9 @@ true
 ```
 (defn pass-with?
   ([n x]
-   (pass-with? n x {:case-sensitive? true}))
+   (pass-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (or (= n x)
@@ -2925,6 +2892,54 @@ true
 
 (string/prefix ...)
 (prefix        ...)
+```
+
+</details>
+
+---
+
+### prepend
+
+```
+@param (*) n
+@param (*) x
+```
+
+```
+@usage
+(prepend "my-domain.com" "https://")
+```
+
+```
+@example
+(prepend "my-domain.com" "https://")
+=>
+"https://my-domain.com"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn prepend
+  [n x]
+  (prefix n x))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [prepend]]))
+
+(string/prepend ...)
+(prepend        ...)
 ```
 
 </details>
@@ -3346,7 +3361,7 @@ true
 ```
 (defn starts-with!
   ([n x]
-   (starts-with! n x {:case-sensitive? true}))
+   (starts-with! n x {}))
 
   ([n x options]
    (if (starts-with? n x options)
@@ -3420,9 +3435,9 @@ false
 ```
 (defn starts-with?
   ([n x]
-   (starts-with? n x {:case-sensitive? true}))
+   (starts-with? n x {}))
 
-  ([n x {:keys [case-sensitive?]}]
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
         (if case-sensitive? (clojure.string/starts-with? n x)
@@ -3511,6 +3526,53 @@ false
 
 ---
 
+### to-capitalized
+
+```
+@param (*) n
+```
+
+```
+@usage
+(to-capitalized "abc")
+```
+
+```
+@example
+(to-capitalized "abc")
+=>
+"Abc"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-capitalized
+  [n]
+  (-> n str clojure.string/capitalize))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [to-capitalized]]))
+
+(string/to-capitalized ...)
+(to-capitalized        ...)
+```
+
+</details>
+
+---
+
 ### to-first-occurence
 
 ```
@@ -3576,7 +3638,7 @@ nil
 ```
 (defn to-first-occurence
   ([n x]
-   (to-first-occurence n x {:return? false}))
+   (to-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -3616,6 +3678,13 @@ nil
 ```
 @example
 (to-integer "420")
+=>
+420
+```
+
+```
+@example
+(to-integer 420)
 =>
 420
 ```
@@ -3717,7 +3786,7 @@ nil
 ```
 (defn to-last-occurence
   ([n x]
-   (to-last-occurence n x {:return? false}))
+   (to-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
@@ -3737,6 +3806,100 @@ nil
 
 (string/to-last-occurence ...)
 (to-last-occurence        ...)
+```
+
+</details>
+
+---
+
+### to-lowercase
+
+```
+@param (*) n
+```
+
+```
+@usage
+(to-lowercase "ABC")
+```
+
+```
+@example
+(to-lowercase "ABC")
+=>
+"abc"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-lowercase
+  [n]
+  (-> n str clojure.string/lower-case))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [to-lowercase]]))
+
+(string/to-lowercase ...)
+(to-lowercase        ...)
+```
+
+</details>
+
+---
+
+### to-uppercase
+
+```
+@param (*) n
+```
+
+```
+@usage
+(to-uppercase "abc")
+```
+
+```
+@example
+(to-uppercase "abc")
+=>
+"ABC"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-uppercase
+  [n]
+  (-> n str clojure.string/upper-case))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [to-uppercase]]))
+
+(string/to-uppercase ...)
+(to-uppercase        ...)
 ```
 
 </details>
@@ -3784,53 +3947,6 @@ nil
 
 (string/trim ...)
 (trim        ...)
-```
-
-</details>
-
----
-
-### uppercase
-
-```
-@param (*) n
-```
-
-```
-@usage
-(uppercase "abc")
-```
-
-```
-@example
-(uppercase "abc")
-=>
-"ABC"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn uppercase
-  [n]
-  (-> n str clojure.string/upper-case))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :as string :refer [uppercase]]))
-
-(string/uppercase ...)
-(uppercase        ...)
 ```
 
 </details>

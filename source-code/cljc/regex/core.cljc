@@ -1,12 +1,12 @@
 
 (ns regex.core
-    (:require [string.api :as string]))
+    (:require [clojure.string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn re-match?
-  ; @param (string) n
+  ; @param (*) n
   ; @param (regex pattern) pattern
   ;
   ; @example
@@ -21,12 +21,12 @@
   ;
   ; @return (boolean)
   [n pattern]
-  (and (string? n)
-              ; Returns the match, if any, of string to pattern ...
+  ; Returns the match, if any, of string to pattern ...
+  (let [n (str n)]
        (some? (re-matches pattern n))))
 
 (defn re-mismatch?
-  ; @param (string) n
+  ; @param (*) n
   ; @param (regex pattern) pattern
   ;
   ; @example
@@ -41,61 +41,148 @@
   ;
   ; @return (boolean)
   [n pattern]
-  (or (not (string? n))
-            ; Returns the match, if any, of string to pattern ...
-      (nil? (re-matches pattern n))))
+  ; Returns the match, if any, of string to pattern ...
+  (let [n (str n)]
+       (nil? (re-matches pattern n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn first-dex-of
-  ; @param (string) n
-  ; @param (regex pattern) pattern
+(defn ends-with?
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (ends-with? "The things you used to own, now they own you." #"\.")
   ;
   ; @example
-  ; (first-dex-of "abc 123" #"[\d]{1,}")
+  ; (ends-with? "The things you used to own, now they own you." #"\.")
   ; =>
-  ; 4
+  ; true
   ;
-  ; @return (integer)
-  [n pattern]
-  (when (string? n)
-        (if-let [match (re-find pattern n)]
-                (string/first-dex-of n match))))
+  ; @example
+  ; (ends-with? "The things you used to own, now they own you." #"!")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n x])
+  ; TODO
 
-(defn last-dex-of
-  ; @param (string) n
-  ; @param (regex pattern) pattern
+(defn not-ends-with?
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (not-ends-with? "The things you used to own, now they own you." #"\.")
   ;
   ; @example
-  ; (last-dex-of "abc 123 def 456" #"[\d]{1,}")
+  ; (not-ends-with? "The things you used to own, now they own you." #"!")
   ; =>
-  ; 12
+  ; true
   ;
-  ; @return (integer)
-  [n pattern]
-  (when (string? n)
-        (if-let [match (re-find pattern n)]
-                (string/last-dex-of n match))))
+  ; @example
+  ; (not-ends-with? "The things you used to own, now they own you." #"\.")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n x]
+  (let [ends-with? (ends-with? n x)]
+       (not ends-with?)))
 
-(defn nth-dex-of
-  ; @param (string) n
-  ; @param (regex pattern) pattern
+(defn not-ends-with!
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (not-ends-with! "The things you used to own, now they own you." #"\.")
   ;
   ; @example
-  ; (nth-dex-of "abc 123 def 456" #"[\d]{3,}" 1)
+  ; (not-ends-with! "The things you used to own, now they own you" #"\.")
   ; =>
-  ; 12
+  ; "The things you used to own, now they own you"
   ;
-  ; @return (integer)
-  [n pattern dex]
-  (when (and (string? n)
-             (>= dex 0))
-        (letfn [(f [cursor skip]
-                   (if-let [first-dex (-> n (string/part  cursor)
-                                            (first-dex-of pattern))]
-                           (if (= skip dex)
-                               (+ cursor first-dex)
-                               (f (+ first-dex cursor 1)
-                                  (inc skip)))))]
-               (f 0 0))))
+  ; @example
+  ; (not-ends-with! "The things you used to own, now they own you." #"\.")
+  ; =>
+  ; "The things you used to own, now they own you"
+  ;
+  ; @return (string)
+  [n x])
+  ; TODO
+
+(defn starts-with?
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;              #"[a-z]")
+  ;
+  ; @example
+  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;              #"[a-z]")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;              #"[\d]")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n x]
+  (let [n (str n)]
+       (if-let [match (re-find x n)]
+               (clojure.string/starts-with? n match))))
+
+(defn not-starts-with?
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;                  #"[\d]")
+  ;
+  ; @example
+  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;                   "[\d]")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
+  ;                   "[a-z]")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n x]
+  (let [starts-with? (starts-with? n x)]
+       (not starts-with?)))
+
+(defn not-starts-with!
+  ; @param (*) n
+  ; @param (regex) x
+  ;
+  ; @usage
+  ; (not-starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
+  ;                  #"[a-z]")
+  ;
+  ; @example
+  ; (not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
+  ;                  #"[a-z]")
+  ; =>
+  ; "n a long enough time line, the survival rate for everyone drops to zero."
+  ;
+  ; @example
+  ; (not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
+  ;                  #"[/d]")
+  ; =>
+  ; "On a long enough time line, the survival rate for everyone drops to zero."
+  ;
+  ; @return (string)
+  [n x])
+  ; TODO
