@@ -85,6 +85,11 @@
   ; =>
   ; "abc abc"
   ;
+  ; @example
+  ; (remove-part "///" "//")
+  ; =>
+  ; ""
+  ;
   ; @return (string)
   [n x]
   (clojure.string/replace (str n) x ""))

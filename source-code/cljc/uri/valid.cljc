@@ -1,6 +1,7 @@
 
 (ns uri.valid
-    (:require [string.api  :as string]
+    (:require [candy.api   :refer [return]]
+              [string.api  :as string]
               [uri.convert :as convert]))
 
 ;; ----------------------------------------------------------------------------
@@ -102,6 +103,9 @@
 (defn valid-path
   ; @param (string) n
   ;
+  ; @usage
+  ; (valid-path "/my-path")
+  ;
   ; @example
   ; (valid-path "my-path")
   ; =>
@@ -120,9 +124,8 @@
   ; @return (string)
   [n]
   ; The valid-path function ...
-  ; ... converts the n string to a lowercase string.
-  ; ... removes the trailing slash (if necessary).
-  ; ... prepends the leading slash (if necessary) (it must be after the trailing slash removing!).
-  (-> n (string/to-lowercase)
-        (string/not-ends-with! "/")
-        (string/starts-with!   "/")))
+  ; ... takes the path from the given n string.
+  ; ... if given string not contains path, returns with the root path ("/").
+  (if-let [path (convert/to-path n)]
+          (return path)
+          (return "/")))

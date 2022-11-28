@@ -251,6 +251,7 @@
   ; ... converts the domain string to lowercase because the function's result
   ;     must be a lowercase string and it may be used.
   ; ... prepends the given domain (if necessary).
+  ; ... provides the slash after the prepended domain (if necessary).
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol part (if necessary).
   (let [n      (string/to-lowercase n)
@@ -258,7 +259,8 @@
        (if-let [absolute? (to-domain n)]
                (-> n (string/not-ends-with! "/")
                      (string/starts-with!   "https://"))
-               (-> n (string/prepend        domain)
+               (-> n (string/starts-with!   "/")
+                     (string/prepend        domain)
                      (string/not-ends-with! "/")
                      (string/starts-with!   "https://")))))
 

@@ -314,7 +314,8 @@ true
        (if-let [absolute? (to-domain n)]
                (-> n (string/not-ends-with! "/")
                      (string/starts-with!   "https://"))
-               (-> n (string/prepend        domain)
+               (-> n (string/starts-with!   "/")
+                     (string/prepend        domain)
                      (string/not-ends-with! "/")
                      (string/starts-with!   "https://")))))
 ```
@@ -1359,6 +1360,11 @@ nil
 ```
 
 ```
+@usage
+(valid-path "/my-path")
+```
+
+```
 @example
 (valid-path "my-path")
 =>
@@ -1389,9 +1395,9 @@ nil
 ```
 (defn valid-path
   [n]
-  (-> n (string/to-lowercase)
-        (string/not-ends-with! "/")
-        (string/starts-with!   "/")))
+  (if-let [path (convert/to-path n)]
+          (return path)
+          (return "/")))
 ```
 
 </details>
