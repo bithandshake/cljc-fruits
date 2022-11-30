@@ -61,7 +61,6 @@
   ([a b c d]
    (if (or a b) c d)))
 
-
 (defn if-and
   ; @param (*) a
   ; @param (*) b
@@ -102,10 +101,6 @@
   ; @return (boolean)
   ; Returns true if all the parameters are false after convert them to boolean type.
   [& abc]
-  ; WARNING! Az összes paraméter kiértelése minden esetben megtörténik!
-  ; Pl. (nor (my-f   ...)
-  ;          (your-f ...))
-  ; Az (your-f ...) függvény abban az esetben is lefut, ha az (my-f ...) függvény kimenete igaz!
   (not-any? boolean abc))
 
 (defn or=
