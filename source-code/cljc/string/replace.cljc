@@ -59,6 +59,10 @@
 (defn use-replacements
   ; @param (*) n
   ; @param (vector) replacements
+  ; @param (map)(opt) options
+  ;  {:ignore? (boolean)(opt)
+  ;    The function returns nil if any of the replacements is nil or empty.
+  ;    Default: true}
   ;
   ; @usage
   ; (use-replacements "Hi, my name is %" ["John"])
@@ -79,41 +83,49 @@
   ; ""
   ;
   ; @return (string)
-  [n replacements]
-  ; XXX#4509
-  ;
-  ; A behelyettesíthetőséget jelző karakter abban az esetben van számmal jelölve,
-  ; (pl. %1, %2, ...) ha a szöveg több behelyettesítést fogad.
-  ;
-  ; Hasonlóan az anoním függvények paramétereinek elnevezéséhez, ahol az EGY
-  ; paramétert fogadó függvények egyetlen paraméterének neve egy számmal NEM
-  ; megkülönböztett % karakter és a TÖBB paramétert fogadó függvények paramétereinek
-  ; nevei pedig számokkal megkülönböztetett %1, %2, ... elnevezések!
-  ;
-  ; Abban az esetben, ha valamelyik behelyettesítő kifejezés értéke üres (nil, "")
-  ; a függvény visszatérési értéke egy üres string ("")!
-  ; Emiatt nem szükséges máshol kezelni, hogy ne jelenjenek meg a hiányos feliratok,
-  ; mert ez a use-replacements függvényben kezelve van!
-  (let [n (str n)]
-       (when (vector? replacements)
+  ([n replacements]
+   (use-replacements n replacements {}))
+
+  ([n replacements {:keys [ignore?] :or {ignore? true}}]
+   ; XXX#4509
+   ;
+   ; A behelyettesíthetőséget jelző karakter abban az esetben van számmal jelölve,
+   ; (pl. %1, %2, ...) ha a szöveg több behelyettesítést fogad.
+   ;
+   ; Hasonlóan az anoním függvények paramétereinek elnevezéséhez, ahol az EGY
+   ; paramétert fogadó függvények egyetlen paraméterének neve egy számmal NEM
+   ; megkülönböztett % karakter és a TÖBB paramétert fogadó függvények paramétereinek
+   ; nevei pedig számokkal megkülönböztetett %1, %2, ... elnevezések!
+   ;
+   ; Abban az esetben, ha valamelyik behelyettesítő kifejezés értéke üres (nil, "")
+   ; a függvény visszatérési értéke egy üres string ("")!
+   ; Emiatt nem szükséges máshol kezelni, hogy ne jelenjenek meg a hiányos feliratok,
+   ; mert ez a use-replacements függvényben kezelve van!
+   (let [n (str n)]
+        (when (vector? replacements)
+                      ; ...
+              (letfn [(f? [] (= 1 (count replacements)))
+                      ; ...
+                      (f1 [n marker replacement]
+                          ; The replacement's value could be any type!
+                          (if (or (-> replacement str empty? not)
+                                  (not ignore?))
+                              (clojure.string/replace n marker replacement)))
+                      ; ...
+                      (f2 [n dex replacement]
+                          (let [marker (str "%" (inc dex))]
+                               (f1 n marker replacement)))]
                      ; ...
-             (letfn [(f? [] (= 1 (count replacements)))
-                     ; ...
-                     (f1 [n marker replacement]
-                         ; A replacement értéke number és string típus is lehet!
-                         (if-not (-> replacement str empty?)
-                                 (clojure.string/replace n marker replacement)))
-                     ; ...
-                     (f2 [n dex replacement]
-                         (let [marker (str "%" (inc dex))]
-                              (f1 n marker replacement)))]
-                    ; ...
-                    (if (f?) (f1 n "%" (first replacements))
-                             (reduce-kv f2 n replacements))))))
+                     (if (f?) (f1 n "%" (first replacements))
+                              (reduce-kv f2 n replacements)))))))
 
 (defn use-replacement
   ; @param (*) n
   ; @param (*) replacement
+  ; @param (map)(opt) options
+  ;  {:ignore? (boolean)(opt)
+  ;    The function returns nil if the replacement is nil or empty.
+  ;    Default: true}
   ;
   ; @usage
   ; (use-replacement "Hi, my name is %" "John")
@@ -124,9 +136,15 @@
   ; "Hi, my name is John"
   ;
   ; @return (string)
-  [n replacement]
-  (clojure.string/replace (str n) "%"
-                          (str replacement)))
+  ([n replacement]
+   (use-replacement n replacement {}))
+
+  ([n replacement {:keys [ignore?] :or {ignore? true}}]
+   ; The replacement's value could be any type!
+   (if (or (-> replacement str empty? not)
+           (not ignore?))
+       (clojure.string/replace (str n) "%"
+                               (str replacement)))))
 
 (defn use-nil
   ; @param (*) n

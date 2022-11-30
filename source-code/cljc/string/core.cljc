@@ -155,7 +155,8 @@
 
 (defn prefix
   ; @param (*) n
-  ; @param (*) prefix
+  ; @param (*) x
+  ; @param (*)(opt) separator
   ;
   ; @usage
   ; (prefix "420" "$")
@@ -176,15 +177,19 @@
   ; ""
   ;
   ; @return (string)
-  [n prefix]
-  (let [n (str n)]
-       (if (empty?     n)
-           (return     n)
-           (str prefix n))))
+  ([n x]
+   (prefix n x nil))
+
+  ([n x separator]
+   (let [n (str n)]
+        (if (empty?               n)
+            (return               n)
+            (str prefix separator n)))))
 
 (defn suffix
   ; @param (*) n
-  ; @param (*) suffix
+  ; @param (*) x
+  ; @param (*)(opt) separator
   ;
   ; @usage
   ; (suffix "420" "px")
@@ -205,15 +210,19 @@
   ; ""
   ;
   ; @return (string)
-  [n suffix]
-  (let [n (str n)]
-       (if (empty? n)
-           (return n)
-           (str    n suffix))))
+  ([n x]
+   (suffix n x nil))
+
+  ([n x separator]
+   (let [n (str n)]
+        (if (empty? n)
+            (return n)
+            (str    n separator x)))))
 
 (defn prepend
   ; @param (*) n
   ; @param (*) x
+  ; @param (*)(opt) separator
   ;
   ; @usage
   ; (prepend "my-domain.com" "https://")
@@ -224,12 +233,16 @@
   ; "https://my-domain.com"
   ;
   ; @return (string)
-  [n x]
-  (prefix n x))
+  ([n x]
+   (prepend n x nil))
+
+  ([n x separator]
+   (prefix n x)))
 
 (defn append
   ; @param (*) n
   ; @param (*) x
+  ; @param (*)(opt) separator
   ;
   ; @usage
   ; (append "https://" "my-domain.com")
@@ -240,9 +253,12 @@
   ; "https://my-domain.com"
   ;
   ; @return (string)
-  [n x]
-  (suffix n x))
-  
+  ([n x]
+   (append n x nil))
+
+  ([n x separator]
+   (suffix n x)))
+
 (defn insert-part
   ; @param (*) n
   ; @param (*) x
