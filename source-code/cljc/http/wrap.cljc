@@ -46,11 +46,35 @@
 ;; -- Specific wrappers -------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn redirect-wrap
+  ; @param (map) response-props
+  ; {:location (string)
+  ;  :session (map)(opt)
+  ;  :status (integer)(opt)
+  ;   Default: 302}
+  ;
+  ; @example
+  ; (redirect-wrap {:location "/my-page"
+  ;                 :status   303}
+  ; =>
+  ; {:headers {"Content-Type" "text/plain"}
+  ;  :status  303}
+  ;
+  ; @return (map)
+  ; {:headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
+  [{:keys [error-message] :as response-props}]
+  (response-wrap (merge {:body   error-message
+                         :status 302}
+                        (select-keys response-props [:session :status]))))
+
 (defn error-wrap
   ; @param (map) response-props
   ; {:error-message (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 500}
   ;
   ; @example
   ; (error-wrap {:error-message ":file-not-found"
