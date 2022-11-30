@@ -57,16 +57,17 @@
   ; (redirect-wrap {:location "/my-page"
   ;                 :status   303}
   ; =>
-  ; {:headers {"Content-Type" "text/plain"}
+  ; {:headers {"Content-Type" "text/plain"
+  ;            "Location"     "/my-page"}
   ;  :status  303}
   ;
   ; @return (map)
   ; {:headers (map)
   ;  :session (map)
   ;  :status (integer)}
-  [{:keys [error-message] :as response-props}]
-  (response-wrap (merge {:body   error-message
-                         :status 302}
+  [{:keys [location] :as response-props}]
+  (response-wrap (merge {:status  302
+                         :headers {"Location" location}}
                         (select-keys response-props [:session :status]))))
 
 (defn error-wrap
