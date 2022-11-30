@@ -5,7 +5,10 @@
 
 ### Overview
 
-...
+The <strong>cljc-fruits</strong> is a set of at least 500 Clojure/ClojureScript
+utility functions which helps you to develop fast and easy. For example, by using
+this library, you don't have to thinking about how to move an item in a vector
+to a specific position or how to find the 42th occurrence of an expression in a string.
 
 ### deps.edn
 
