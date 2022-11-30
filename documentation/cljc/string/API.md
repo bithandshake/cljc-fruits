@@ -256,6 +256,7 @@ nil
 ```
 @param (*) n
 @param (*) x
+@param (*)(opt) separator
 ```
 
 ```
@@ -279,8 +280,11 @@ nil
 
 ```
 (defn append
-  [n x]
-  (suffix n x))
+  ([n x]
+   (append n x nil))
+
+  ([n x separator]
+   (suffix n x)))
 ```
 
 </details>
@@ -2837,7 +2841,8 @@ true
 
 ```
 @param (*) n
-@param (*) prefix
+@param (*) x
+@param (*)(opt) separator
 ```
 
 ```
@@ -2875,11 +2880,14 @@ true
 
 ```
 (defn prefix
-  [n prefix]
-  (let [n (str n)]
-       (if (empty?     n)
-           (return     n)
-           (str prefix n))))
+  ([n x]
+   (prefix n x nil))
+
+  ([n x separator]
+   (let [n (str n)]
+        (if (empty?               n)
+            (return               n)
+            (str prefix separator n)))))
 ```
 
 </details>
@@ -2903,6 +2911,7 @@ true
 ```
 @param (*) n
 @param (*) x
+@param (*)(opt) separator
 ```
 
 ```
@@ -2926,8 +2935,11 @@ true
 
 ```
 (defn prepend
-  [n x]
-  (prefix n x))
+  ([n x]
+   (prepend n x nil))
+
+  ([n x separator]
+   (prefix n x)))
 ```
 
 </details>
@@ -3497,7 +3509,8 @@ false
 
 ```
 @param (*) n
-@param (*) suffix
+@param (*) x
+@param (*)(opt) separator
 ```
 
 ```
@@ -3535,11 +3548,14 @@ false
 
 ```
 (defn suffix
-  [n suffix]
-  (let [n (str n)]
-       (if (empty? n)
-           (return n)
-           (str    n suffix))))
+  ([n x]
+   (suffix n x nil))
+
+  ([n x separator]
+   (let [n (str n)]
+        (if (empty? n)
+            (return n)
+            (str    n separator x)))))
 ```
 
 </details>
@@ -4103,6 +4119,10 @@ nil
 ```
 @param (*) n
 @param (*) replacement
+@param (map)(opt) options
+ {:ignore? (boolean)(opt)
+   The function returns nil if the replacement is nil or empty.
+   Default: true}
 ```
 
 ```
@@ -4126,9 +4146,14 @@ nil
 
 ```
 (defn use-replacement
-  [n replacement]
-  (clojure.string/replace (str n) "%"
-                          (str replacement)))
+  ([n replacement]
+   (use-replacement n replacement {}))
+
+  ([n replacement {:keys [ignore?] :or {ignore? true}}]
+   (if (or (-> replacement str empty? not)
+           (not ignore?))
+       (clojure.string/replace (str n) "%"
+                               (str replacement)))))
 ```
 
 </details>
@@ -4152,6 +4177,10 @@ nil
 ```
 @param (*) n
 @param (vector) replacements
+@param (map)(opt) options
+ {:ignore? (boolean)(opt)
+   The function returns nil if any of the replacements is nil or empty.
+   Default: true}
 ```
 
 ```
@@ -4189,18 +4218,22 @@ nil
 
 ```
 (defn use-replacements
-  [n replacements]
-  (let [n (str n)]
-       (when (vector? replacements)
-             (letfn [(f? [] (= 1 (count replacements)))
-                     (f1 [n marker replacement]
-                         (if-not (-> replacement str empty?)
-                                 (clojure.string/replace n marker replacement)))
-                     (f2 [n dex replacement]
-                         (let [marker (str "%" (inc dex))]
-                              (f1 n marker replacement)))]
-                    (if (f?) (f1 n "%" (first replacements))
-                             (reduce-kv f2 n replacements))))))
+  ([n replacements]
+   (use-replacements n replacements {}))
+
+  ([n replacements {:keys [ignore?] :or {ignore? true}}]
+   (let [n (str n)]
+        (when (vector? replacements)
+              (letfn [(f? [] (= 1 (count replacements)))
+                      (f1 [n marker replacement]
+                          (if (or (-> replacement str empty? not)
+                                  (not ignore?))
+                              (clojure.string/replace n marker replacement)))
+                      (f2 [n dex replacement]
+                          (let [marker (str "%" (inc dex))]
+                               (f1 n marker replacement)))]
+                     (if (f?) (f1 n "%" (first replacements))
+                              (reduce-kv f2 n replacements)))))))
 ```
 
 </details>
