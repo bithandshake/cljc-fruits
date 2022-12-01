@@ -85,7 +85,7 @@
 
 ; string.lines
 (def remove-newlines lines/remove-newlines)
-(def count-newlines  lines/count-newlines)
+(def line-count      lines/line-count)
 (def max-lines       lines/max-lines)
 
 ; string.replace

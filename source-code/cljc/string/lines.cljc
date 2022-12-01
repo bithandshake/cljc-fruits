@@ -22,19 +22,19 @@
   [n]
   (clojure.string/replace (str n) \newline ""))
 
-(defn count-newlines
+(defn line-count
   ; @param (*) n
   ;
   ; @usage
-  ; (count-newlines "abc\n")
+  ; (line-count "abc\n")
   ;
   ; @example
-  ; (count-newlines "abc\n")
+  ; (line-count "abc\n")
   ; =>
   ; 1
   ;
   ; @example
-  ; (count-newlines "abc")
+  ; (line-count "abc")
   ; =>
   ; 0
   ;
