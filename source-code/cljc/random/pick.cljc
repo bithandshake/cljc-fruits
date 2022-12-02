@@ -22,4 +22,5 @@
   ;
   ; @return (*)
   [n]
+  ; Alternative: rand-nth
   (nth n (-> n count rand-int)))

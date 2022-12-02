@@ -795,60 +795,6 @@ false
 
 ---
 
-### count-newlines
-
-```
-@param (*) n
-```
-
-```
-@usage
-(count-newlines "abc\n")
-```
-
-```
-@example
-(count-newlines "abc\n")
-=>
-1
-```
-
-```
-@example
-(count-newlines "abc")
-=>
-0
-```
-
-```
-@return (integer)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn count-newlines
-  [n]
-  (get (-> n str frequencies) \newline))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :as string :refer [count-newlines]]))
-
-(string/count-newlines ...)
-(count-newlines        ...)
-```
-
-</details>
-
----
-
 ### count-occurences
 
 ```
@@ -1756,6 +1702,60 @@ true
 
 (string/length? ...)
 (length?        ...)
+```
+
+</details>
+
+---
+
+### line-count
+
+```
+@param (*) n
+```
+
+```
+@usage
+(line-count "abc\n")
+```
+
+```
+@example
+(line-count "abc\n")
+=>
+1
+```
+
+```
+@example
+(line-count "abc")
+=>
+0
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn line-count
+  [n]
+  (get (-> n str frequencies) \newline))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :as string :refer [line-count]]))
+
+(string/line-count ...)
+(line-count        ...)
 ```
 
 </details>
