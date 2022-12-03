@@ -1,10 +1,7 @@
 
 # <strong>base64.api</strong> namespace
-<p>Documentation of the <strong>base64/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > base64.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/base64/api.cljc
 
 ### encode
 
@@ -40,10 +37,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [base64.api :as base64 :refer [encode]]))
+(ns my-namespace (:require [base64.api :refer [encode]]))
 
-(base64/encode ...)
-(encode        ...)
+(base64.api/encode ...)
+(encode            ...)
 ```
 
 </details>
@@ -87,10 +84,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [base64.api :as base64 :refer [to-blob]]))
+(ns my-namespace (:require [base64.api :refer [to-blob]]))
 
-(base64/to-blob ...)
-(to-blob        ...)
+(base64.api/to-blob ...)
+(to-blob            ...)
 ```
 
 </details>
@@ -150,10 +147,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [base64.api :as base64 :refer [wrap]]))
+(ns my-namespace (:require [base64.api :refer [wrap]]))
 
-(base64/wrap ...)
-(wrap        ...)
+(base64.api/wrap ...)
+(wrap            ...)
 ```
 
 </details>

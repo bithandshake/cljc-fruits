@@ -1,10 +1,7 @@
 
 # <strong>integer.api</strong> namespace
-<p>Documentation of the <strong>integer/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > integer.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/integer/api.cljc
 
 ### to-keyword
 
@@ -38,10 +35,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [integer.api :as integer :refer [to-keyword]]))
+(ns my-namespace (:require [integer.api :refer [to-keyword]]))
 
-(integer/to-keyword ...)
-(to-keyword         ...)
+(integer.api/to-keyword ...)
+(to-keyword             ...)
 ```
 
 </details>

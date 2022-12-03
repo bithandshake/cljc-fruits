@@ -1,10 +1,7 @@
 
 # <strong>blob.api</strong> namespace
-<p>Documentation of the <strong>blob/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > blob.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/blob/api.cljc
 
 ### to-object-url
 
@@ -36,10 +33,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [blob.api :as blob :refer [to-object-url]]))
+(ns my-namespace (:require [blob.api :refer [to-object-url]]))
 
-(blob/to-object-url ...)
-(to-object-url      ...)
+(blob.api/to-object-url ...)
+(to-object-url          ...)
 ```
 
 </details>

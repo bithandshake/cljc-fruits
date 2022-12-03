@@ -1,10 +1,7 @@
 
 # <strong>pretty.api</strong> namespace
-<p>Documentation of the <strong>pretty/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > pretty.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/pretty/api.cljc
 
 ### mixed->string
 
@@ -95,10 +92,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [pretty.api :as pretty :refer [mixed->string]]))
+(ns my-namespace (:require [pretty.api :refer [mixed->string]]))
 
-(pretty/mixed->string ...)
-(mixed->string        ...)
+(pretty.api/mixed->string ...)
+(mixed->string            ...)
 ```
 
 </details>

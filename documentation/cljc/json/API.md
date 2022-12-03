@@ -1,10 +1,7 @@
 
 # <strong>json.api</strong> namespace
-<p>Documentation of the <strong>json/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > json.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/json/api.cljc
 
 ### CamelCase-key
 
@@ -47,10 +44,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [CamelCase-key]]))
+(ns my-namespace (:require [json.api :refer [CamelCase-key]]))
 
-(json/CamelCase-key ...)
-(CamelCase-key      ...)
+(json.api/CamelCase-key ...)
+(CamelCase-key          ...)
 ```
 
 </details>
@@ -98,10 +95,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [CamelCase-keys]]))
+(ns my-namespace (:require [json.api :refer [CamelCase-keys]]))
 
-(json/CamelCase-keys ...)
-(CamelCase-keys      ...)
+(json.api/CamelCase-keys ...)
+(CamelCase-keys          ...)
 ```
 
 </details>
@@ -149,10 +146,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [hyphenize-key]]))
+(ns my-namespace (:require [json.api :refer [hyphenize-key]]))
 
-(json/hyphenize-key ...)
-(hyphenize-key      ...)
+(json.api/hyphenize-key ...)
+(hyphenize-key          ...)
 ```
 
 </details>
@@ -200,10 +197,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [hyphenize-keys]]))
+(ns my-namespace (:require [json.api :refer [hyphenize-keys]]))
 
-(json/hyphenize-keys ...)
-(hyphenize-keys      ...)
+(json.api/hyphenize-keys ...)
+(hyphenize-keys          ...)
 ```
 
 </details>
@@ -239,10 +236,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [json->clj]]))
+(ns my-namespace (:require [json.api :refer [json->clj]]))
 
-(json/json->clj ...)
-(json->clj      ...)
+(json.api/json->clj ...)
+(json->clj          ...)
 ```
 
 </details>
@@ -281,10 +278,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [keywordize-key]]))
+(ns my-namespace (:require [json.api :refer [keywordize-key]]))
 
-(json/keywordize-key ...)
-(keywordize-key      ...)
+(json.api/keywordize-key ...)
+(keywordize-key          ...)
 ```
 
 </details>
@@ -325,10 +322,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [keywordize-keys]]))
+(ns my-namespace (:require [json.api :refer [keywordize-keys]]))
 
-(json/keywordize-keys ...)
-(keywordize-keys      ...)
+(json.api/keywordize-keys ...)
+(keywordize-keys          ...)
 ```
 
 </details>
@@ -369,10 +366,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [keywordize-value]]))
+(ns my-namespace (:require [json.api :refer [keywordize-value]]))
 
-(json/keywordize-value ...)
-(keywordize-value      ...)
+(json.api/keywordize-value ...)
+(keywordize-value          ...)
 ```
 
 </details>
@@ -413,10 +410,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [keywordize-values]]))
+(ns my-namespace (:require [json.api :refer [keywordize-values]]))
 
-(json/keywordize-values ...)
-(keywordize-values      ...)
+(json.api/keywordize-values ...)
+(keywordize-values          ...)
 ```
 
 </details>
@@ -455,10 +452,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [parse-number-value]]))
+(ns my-namespace (:require [json.api :refer [parse-number-value]]))
 
-(json/parse-number-value ...)
-(parse-number-value      ...)
+(json.api/parse-number-value ...)
+(parse-number-value          ...)
 ```
 
 </details>
@@ -499,10 +496,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [parse-number-values]]))
+(ns my-namespace (:require [json.api :refer [parse-number-values]]))
 
-(json/parse-number-values ...)
-(parse-number-values      ...)
+(json.api/parse-number-values ...)
+(parse-number-values          ...)
 ```
 
 </details>
@@ -545,10 +542,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [remove-blank-values]]))
+(ns my-namespace (:require [json.api :refer [remove-blank-values]]))
 
-(json/remove-blank-values ...)
-(remove-blank-values      ...)
+(json.api/remove-blank-values ...)
+(remove-blank-values          ...)
 ```
 
 </details>
@@ -596,10 +593,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [snake-case-key]]))
+(ns my-namespace (:require [json.api :refer [snake-case-key]]))
 
-(json/snake-case-key ...)
-(snake-case-key      ...)
+(json.api/snake-case-key ...)
+(snake-case-key          ...)
 ```
 
 </details>
@@ -647,10 +644,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [snake-case-keys]]))
+(ns my-namespace (:require [json.api :refer [snake-case-keys]]))
 
-(json/snake-case-keys ...)
-(snake-case-keys      ...)
+(json.api/snake-case-keys ...)
+(snake-case-keys          ...)
 ```
 
 </details>
@@ -691,10 +688,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [trim-value]]))
+(ns my-namespace (:require [json.api :refer [trim-value]]))
 
-(json/trim-value ...)
-(trim-value      ...)
+(json.api/trim-value ...)
+(trim-value          ...)
 ```
 
 </details>
@@ -735,10 +732,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [trim-values]]))
+(ns my-namespace (:require [json.api :refer [trim-values]]))
 
-(json/trim-values ...)
-(trim-values      ...)
+(json.api/trim-values ...)
+(trim-values          ...)
 ```
 
 </details>
@@ -786,10 +783,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [underscore-key]]))
+(ns my-namespace (:require [json.api :refer [underscore-key]]))
 
-(json/underscore-key ...)
-(underscore-key      ...)
+(json.api/underscore-key ...)
+(underscore-key          ...)
 ```
 
 </details>
@@ -837,10 +834,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [underscore-keys]]))
+(ns my-namespace (:require [json.api :refer [underscore-keys]]))
 
-(json/underscore-keys ...)
-(underscore-keys      ...)
+(json.api/underscore-keys ...)
+(underscore-keys          ...)
 ```
 
 </details>
@@ -879,10 +876,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [unkeywordize-key]]))
+(ns my-namespace (:require [json.api :refer [unkeywordize-key]]))
 
-(json/unkeywordize-key ...)
-(unkeywordize-key      ...)
+(json.api/unkeywordize-key ...)
+(unkeywordize-key          ...)
 ```
 
 </details>
@@ -923,10 +920,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [unkeywordize-keys]]))
+(ns my-namespace (:require [json.api :refer [unkeywordize-keys]]))
 
-(json/unkeywordize-keys ...)
-(unkeywordize-keys      ...)
+(json.api/unkeywordize-keys ...)
+(unkeywordize-keys          ...)
 ```
 
 </details>
@@ -967,10 +964,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [unkeywordize-value]]))
+(ns my-namespace (:require [json.api :refer [unkeywordize-value]]))
 
-(json/unkeywordize-value ...)
-(unkeywordize-value      ...)
+(json.api/unkeywordize-value ...)
+(unkeywordize-value          ...)
 ```
 
 </details>
@@ -1011,10 +1008,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [unkeywordize-values]]))
+(ns my-namespace (:require [json.api :refer [unkeywordize-values]]))
 
-(json/unkeywordize-values ...)
-(unkeywordize-values      ...)
+(json.api/unkeywordize-values ...)
+(unkeywordize-values          ...)
 ```
 
 </details>
@@ -1056,10 +1053,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [json.api :as json :refer [unkeywordized-value?]]))
+(ns my-namespace (:require [json.api :refer [unkeywordized-value?]]))
 
-(json/unkeywordized-value? ...)
-(unkeywordized-value?      ...)
+(json.api/unkeywordized-value? ...)
+(unkeywordized-value?          ...)
 ```
 
 </details>

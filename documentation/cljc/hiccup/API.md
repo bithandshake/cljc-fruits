@@ -1,10 +1,7 @@
 
 # <strong>hiccup.api</strong> namespace
-<p>Documentation of the <strong>hiccup/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > hiccup.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/hiccup/api.cljc
 
 ### content-length
 
@@ -38,10 +35,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [content-length]]))
+(ns my-namespace (:require [hiccup.api :refer [content-length]]))
 
-(hiccup/content-length ...)
-(content-length        ...)
+(hiccup.api/content-length ...)
+(content-length            ...)
 ```
 
 </details>
@@ -85,10 +82,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [explode]]))
+(ns my-namespace (:require [hiccup.api :refer [explode]]))
 
-(hiccup/explode ...)
-(explode        ...)
+(hiccup.api/explode ...)
+(explode            ...)
 ```
 
 </details>
@@ -130,10 +127,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [get-attributes]]))
+(ns my-namespace (:require [hiccup.api :refer [get-attributes]]))
 
-(hiccup/get-attributes ...)
-(get-attributes        ...)
+(hiccup.api/get-attributes ...)
+(get-attributes            ...)
 ```
 
 </details>
@@ -173,10 +170,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [get-style]]))
+(ns my-namespace (:require [hiccup.api :refer [get-style]]))
 
-(hiccup/get-style ...)
-(get-style        ...)
+(hiccup.api/get-style ...)
+(get-style            ...)
 ```
 
 </details>
@@ -209,10 +206,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [hiccup?]]))
+(ns my-namespace (:require [hiccup.api :refer [hiccup?]]))
 
-(hiccup/hiccup? ...)
-(hiccup?        ...)
+(hiccup.api/hiccup? ...)
+(hiccup?            ...)
 ```
 
 </details>
@@ -254,10 +251,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [join-class]]))
+(ns my-namespace (:require [hiccup.api :refer [join-class]]))
 
-(hiccup/join-class ...)
-(join-class        ...)
+(hiccup.api/join-class ...)
+(join-class            ...)
 ```
 
 </details>
@@ -299,10 +296,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [set-style]]))
+(ns my-namespace (:require [hiccup.api :refer [set-style]]))
 
-(hiccup/set-style ...)
-(set-style        ...)
+(hiccup.api/set-style ...)
+(set-style            ...)
 ```
 
 </details>
@@ -342,10 +339,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [tag-name?]]))
+(ns my-namespace (:require [hiccup.api :refer [tag-name?]]))
 
-(hiccup/tag-name? ...)
-(tag-name?        ...)
+(hiccup.api/tag-name? ...)
+(tag-name?            ...)
 ```
 
 </details>
@@ -393,10 +390,10 @@ Default: " "
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [to-string]]))
+(ns my-namespace (:require [hiccup.api :refer [to-string]]))
 
-(hiccup/to-string ...)
-(to-string        ...)
+(hiccup.api/to-string ...)
+(to-string            ...)
 ```
 
 </details>
@@ -446,10 +443,10 @@ Default: " "
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [unparse-css]]))
+(ns my-namespace (:require [hiccup.api :refer [unparse-css]]))
 
-(hiccup/unparse-css ...)
-(unparse-css        ...)
+(hiccup.api/unparse-css ...)
+(unparse-css            ...)
 ```
 
 </details>
@@ -512,10 +509,10 @@ Default: " "
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [value]]))
+(ns my-namespace (:require [hiccup.api :refer [value]]))
 
-(hiccup/value ...)
-(value        ...)
+(hiccup.api/value ...)
+(value            ...)
 ```
 
 </details>
@@ -559,10 +556,10 @@ Default: " "
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hiccup.api :as hiccup :refer [walk]]))
+(ns my-namespace (:require [hiccup.api :refer [walk]]))
 
-(hiccup/walk ...)
-(walk        ...)
+(hiccup.api/walk ...)
+(walk            ...)
 ```
 
 </details>

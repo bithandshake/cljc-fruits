@@ -1,10 +1,7 @@
 
 # <strong>seqable.api</strong> namespace
-<p>Documentation of the <strong>seqable/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > seqable.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/seqable/api.cljc
 
 ### nonempty?
 
@@ -46,10 +43,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [seqable.api :as seqable :refer [nonempty?]]))
+(ns my-namespace (:require [seqable.api :refer [nonempty?]]))
 
-(seqable/nonempty? ...)
-(nonempty?         ...)
+(seqable.api/nonempty? ...)
+(nonempty?             ...)
 ```
 
 </details>
@@ -95,10 +92,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [seqable.api :as seqable :refer [nonseqable?]]))
+(ns my-namespace (:require [seqable.api :refer [nonseqable?]]))
 
-(seqable/nonseqable? ...)
-(nonseqable?         ...)
+(seqable.api/nonseqable? ...)
+(nonseqable?             ...)
 ```
 
 </details>

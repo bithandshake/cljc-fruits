@@ -1,10 +1,7 @@
 
 # <strong>function.api</strong> namespace
-<p>Documentation of the <strong>function/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > function.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/function/api.cljc
 
 ### ->js
 
@@ -39,10 +36,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [function.api :as function :refer [->js]]))
+(ns my-namespace (:require [function.api :refer [->js]]))
 
-(function/->js ...)
-(->js          ...)
+(function.api/->js ...)
+(->js              ...)
 ```
 
 </details>
@@ -77,10 +74,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [function.api :as function :refer [invoke]]))
+(ns my-namespace (:require [function.api :refer [invoke]]))
 
-(function/invoke ...)
-(invoke          ...)
+(function.api/invoke ...)
+(invoke              ...)
 ```
 
 </details>

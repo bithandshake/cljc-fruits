@@ -1,10 +1,7 @@
 
 # <strong>href.api</strong> namespace
-<p>Documentation of the <strong>href/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > href.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/href/api.cljc
 
 ### address
 
@@ -38,10 +35,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [href.api :as href :refer [address]]))
+(ns my-namespace (:require [href.api :refer [address]]))
 
-(href/address ...)
-(address      ...)
+(href.api/address ...)
+(address          ...)
 ```
 
 </details>
@@ -89,10 +86,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [href.api :as href :refer [email-address]]))
+(ns my-namespace (:require [href.api :refer [email-address]]))
 
-(href/email-address ...)
-(email-address      ...)
+(href.api/email-address ...)
+(email-address          ...)
 ```
 
 </details>
@@ -132,10 +129,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [href.api :as href :refer [phone-number]]))
+(ns my-namespace (:require [href.api :refer [phone-number]]))
 
-(href/phone-number ...)
-(phone-number      ...)
+(href.api/phone-number ...)
+(phone-number          ...)
 ```
 
 </details>

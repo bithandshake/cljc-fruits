@@ -1,10 +1,7 @@
 
 # <strong>candy.api</strong> namespace
-<p>Documentation of the <strong>candy/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > candy.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/candy/api.cljc
 
 ### none
 
@@ -42,10 +39,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :as candy :refer [none]]))
+(ns my-namespace (:require [candy.api :refer [none]]))
 
-(candy/none ...)
-(none       ...)
+(candy.api/none ...)
+(none           ...)
 ```
 
 </details>
@@ -88,10 +85,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :as candy :refer [param]]))
+(ns my-namespace (:require [candy.api :refer [param]]))
 
-(candy/param ...)
-(param       ...)
+(candy.api/param ...)
+(param           ...)
 ```
 
 </details>
@@ -134,10 +131,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :as candy :refer [return]]))
+(ns my-namespace (:require [candy.api :refer [return]]))
 
-(candy/return ...)
-(return       ...)
+(candy.api/return ...)
+(return           ...)
 ```
 
 </details>

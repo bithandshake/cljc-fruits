@@ -1,10 +1,7 @@
 
 # <strong>random.api</strong> namespace
-<p>Documentation of the <strong>random/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > random.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/random/api.cljc
 
 ### generate-boolean
 
@@ -39,10 +36,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-boolean]]))
+(ns my-namespace (:require [random.api :refer [generate-boolean]]))
 
-(random/generate-boolean ...)
-(generate-boolean        ...)
+(random.api/generate-boolean ...)
+(generate-boolean            ...)
 ```
 
 </details>
@@ -96,10 +93,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-keyword]]))
+(ns my-namespace (:require [random.api :refer [generate-keyword]]))
 
-(random/generate-keyword ...)
-(generate-keyword        ...)
+(random.api/generate-keyword ...)
+(generate-keyword            ...)
 ```
 
 </details>
@@ -139,9 +136,9 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-namespaced-keyword]]))
+(ns my-namespace (:require [random.api :refer [generate-namespaced-keyword]]))
 
-(random/generate-namespaced-keyword)
+(random.api/generate-namespaced-keyword)
 (generate-namespaced-keyword)
 ```
 
@@ -186,10 +183,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-number]]))
+(ns my-namespace (:require [random.api :refer [generate-number]]))
 
-(random/generate-number ...)
-(generate-number        ...)
+(random.api/generate-number ...)
+(generate-number            ...)
 ```
 
 </details>
@@ -229,9 +226,9 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-react-key]]))
+(ns my-namespace (:require [random.api :refer [generate-react-key]]))
 
-(random/generate-react-key)
+(random.api/generate-react-key)
 (generate-react-key)
 ```
 
@@ -272,9 +269,9 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-string]]))
+(ns my-namespace (:require [random.api :refer [generate-string]]))
 
-(random/generate-string)
+(random.api/generate-string)
 (generate-string)
 ```
 
@@ -316,9 +313,9 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [random.api :as random :refer [generate-uuid]]))
+(ns my-namespace (:require [random.api :refer [generate-uuid]]))
 
-(random/generate-uuid)
+(random.api/generate-uuid)
 (generate-uuid)
 ```
 

@@ -1,10 +1,7 @@
 
 # <strong>uri.api</strong> namespace
-<p>Documentation of the <strong>uri/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > uri.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/uri/api.cljc
 
 ### domain?
 
@@ -92,10 +89,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [domain?]]))
+(ns my-namespace (:require [uri.api :refer [domain?]]))
 
-(uri/domain? ...)
-(domain?     ...)
+(uri.api/domain? ...)
+(domain?         ...)
 ```
 
 </details>
@@ -154,10 +151,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [match-template?]]))
+(ns my-namespace (:require [uri.api :refer [match-template?]]))
 
-(uri/match-template? ...)
-(match-template?     ...)
+(uri.api/match-template? ...)
+(match-template?         ...)
 ```
 
 </details>
@@ -213,10 +210,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [query-params->query-string]]))
+(ns my-namespace (:require [uri.api :refer [query-params->query-string]]))
 
-(uri/query-params->query-string ...)
-(query-params->query-string     ...)
+(uri.api/query-params->query-string ...)
+(query-params->query-string         ...)
 ```
 
 </details>
@@ -263,10 +260,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [query-string->query-params]]))
+(ns my-namespace (:require [uri.api :refer [query-string->query-params]]))
 
-(uri/query-string->query-params ...)
-(query-string->query-params     ...)
+(uri.api/query-string->query-params ...)
+(query-string->query-params         ...)
 ```
 
 </details>
@@ -326,10 +323,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-absolute]]))
+(ns my-namespace (:require [uri.api :refer [to-absolute]]))
 
-(uri/to-absolute ...)
-(to-absolute     ...)
+(uri.api/to-absolute ...)
+(to-absolute         ...)
 ```
 
 </details>
@@ -377,10 +374,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-domain]]))
+(ns my-namespace (:require [uri.api :refer [to-domain]]))
 
-(uri/to-domain ...)
-(to-domain     ...)
+(uri.api/to-domain ...)
+(to-domain         ...)
 ```
 
 </details>
@@ -438,10 +435,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-encoded]]))
+(ns my-namespace (:require [uri.api :refer [to-encoded]]))
 
-(uri/to-encoded ...)
-(to-encoded     ...)
+(uri.api/to-encoded ...)
+(to-encoded         ...)
 ```
 
 </details>
@@ -500,10 +497,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-fragment]]))
+(ns my-namespace (:require [uri.api :refer [to-fragment]]))
 
-(uri/to-fragment ...)
-(to-fragment     ...)
+(uri.api/to-fragment ...)
+(to-fragment         ...)
 ```
 
 </details>
@@ -588,10 +585,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-parent]]))
+(ns my-namespace (:require [uri.api :refer [to-parent]]))
 
-(uri/to-parent ...)
-(to-parent     ...)
+(uri.api/to-parent ...)
+(to-parent         ...)
 ```
 
 </details>
@@ -665,10 +662,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-path]]))
+(ns my-namespace (:require [uri.api :refer [to-path]]))
 
-(uri/to-path ...)
-(to-path     ...)
+(uri.api/to-path ...)
+(to-path         ...)
 ```
 
 </details>
@@ -746,10 +743,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-path-params]]))
+(ns my-namespace (:require [uri.api :refer [to-path-params]]))
 
-(uri/to-path-params ...)
-(to-path-params     ...)
+(uri.api/to-path-params ...)
+(to-path-params         ...)
 ```
 
 </details>
@@ -804,10 +801,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-protocol]]))
+(ns my-namespace (:require [uri.api :refer [to-protocol]]))
 
-(uri/to-protocol ...)
-(to-protocol     ...)
+(uri.api/to-protocol ...)
+(to-protocol         ...)
 ```
 
 </details>
@@ -866,10 +863,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-query-params]]))
+(ns my-namespace (:require [uri.api :refer [to-query-params]]))
 
-(uri/to-query-params ...)
-(to-query-params     ...)
+(uri.api/to-query-params ...)
+(to-query-params         ...)
 ```
 
 </details>
@@ -930,10 +927,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-query-string]]))
+(ns my-namespace (:require [uri.api :refer [to-query-string]]))
 
-(uri/to-query-string ...)
-(to-query-string     ...)
+(uri.api/to-query-string ...)
+(to-query-string         ...)
 ```
 
 </details>
@@ -1011,10 +1008,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-relative]]))
+(ns my-namespace (:require [uri.api :refer [to-relative]]))
 
-(uri/to-relative ...)
-(to-relative     ...)
+(uri.api/to-relative ...)
+(to-relative         ...)
 ```
 
 </details>
@@ -1069,10 +1066,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-subdomain]]))
+(ns my-namespace (:require [uri.api :refer [to-subdomain]]))
 
-(uri/to-subdomain ...)
-(to-subdomain     ...)
+(uri.api/to-subdomain ...)
+(to-subdomain         ...)
 ```
 
 </details>
@@ -1134,10 +1131,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-tail]]))
+(ns my-namespace (:require [uri.api :refer [to-tail]]))
 
-(uri/to-tail ...)
-(to-tail     ...)
+(uri.api/to-tail ...)
+(to-tail         ...)
 ```
 
 </details>
@@ -1182,10 +1179,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [to-tld]]))
+(ns my-namespace (:require [uri.api :refer [to-tld]]))
 
-(uri/to-tld ...)
-(to-tld     ...)
+(uri.api/to-tld ...)
+(to-tld         ...)
 ```
 
 </details>
@@ -1258,10 +1255,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [use-query-string]]))
+(ns my-namespace (:require [uri.api :refer [use-query-string]]))
 
-(uri/use-query-string ...)
-(use-query-string     ...)
+(uri.api/use-query-string ...)
+(use-query-string         ...)
 ```
 
 </details>
@@ -1343,10 +1340,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [valid-domain]]))
+(ns my-namespace (:require [uri.api :refer [valid-domain]]))
 
-(uri/valid-domain ...)
-(valid-domain     ...)
+(uri.api/valid-domain ...)
+(valid-domain         ...)
 ```
 
 </details>
@@ -1406,10 +1403,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [valid-path]]))
+(ns my-namespace (:require [uri.api :refer [valid-path]]))
 
-(uri/valid-path ...)
-(valid-path     ...)
+(uri.api/valid-path ...)
+(valid-path         ...)
 ```
 
 </details>
@@ -1480,10 +1477,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :as uri :refer [valid-uri]]))
+(ns my-namespace (:require [uri.api :refer [valid-uri]]))
 
-(uri/valid-uri ...)
-(valid-uri     ...)
+(uri.api/valid-uri ...)
+(valid-uri         ...)
 ```
 
 </details>

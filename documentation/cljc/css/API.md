@@ -1,10 +1,7 @@
 
 # <strong>css.api</strong> namespace
-<p>Documentation of the <strong>css/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > css.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/css/api.cljc
 
 ### calc
 
@@ -43,10 +40,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [calc]]))
+(ns my-namespace (:require [css.api :refer [calc]]))
 
-(css/calc ...)
-(calc     ...)
+(css.api/calc ...)
+(calc         ...)
 ```
 
 </details>
@@ -90,10 +87,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [horizontal-margin]]))
+(ns my-namespace (:require [css.api :refer [horizontal-margin]]))
 
-(css/horizontal-margin ...)
-(horizontal-margin     ...)
+(css.api/horizontal-margin ...)
+(horizontal-margin         ...)
 ```
 
 </details>
@@ -137,10 +134,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [horizontal-padding]]))
+(ns my-namespace (:require [css.api :refer [horizontal-padding]]))
 
-(css/horizontal-padding ...)
-(horizontal-padding     ...)
+(css.api/horizontal-padding ...)
+(horizontal-padding         ...)
 ```
 
 </details>
@@ -181,10 +178,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [linear-gradient]]))
+(ns my-namespace (:require [css.api :refer [linear-gradient]]))
 
-(css/linear-gradient ...)
-(linear-gradient     ...)
+(css.api/linear-gradient ...)
+(linear-gradient         ...)
 ```
 
 </details>
@@ -228,10 +225,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [ms]]))
+(ns my-namespace (:require [css.api :refer [ms]]))
 
-(css/ms ...)
-(ms     ...)
+(css.api/ms ...)
+(ms         ...)
 ```
 
 </details>
@@ -275,10 +272,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [percent]]))
+(ns my-namespace (:require [css.api :refer [percent]]))
 
-(css/percent ...)
-(percent     ...)
+(css.api/percent ...)
+(percent         ...)
 ```
 
 </details>
@@ -322,10 +319,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [px]]))
+(ns my-namespace (:require [css.api :refer [px]]))
 
-(css/px ...)
-(px     ...)
+(css.api/px ...)
+(px         ...)
 ```
 
 </details>
@@ -369,10 +366,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [rotate]]))
+(ns my-namespace (:require [css.api :refer [rotate]]))
 
-(css/rotate ...)
-(rotate     ...)
+(css.api/rotate ...)
+(rotate         ...)
 ```
 
 </details>
@@ -416,10 +413,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [rotate-x]]))
+(ns my-namespace (:require [css.api :refer [rotate-x]]))
 
-(css/rotate-x ...)
-(rotate-x     ...)
+(css.api/rotate-x ...)
+(rotate-x         ...)
 ```
 
 </details>
@@ -463,10 +460,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [rotate-y]]))
+(ns my-namespace (:require [css.api :refer [rotate-y]]))
 
-(css/rotate-y ...)
-(rotate-y     ...)
+(css.api/rotate-y ...)
+(rotate-y         ...)
 ```
 
 </details>
@@ -510,10 +507,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [rotate-z]]))
+(ns my-namespace (:require [css.api :refer [rotate-z]]))
 
-(css/rotate-z ...)
-(rotate-z     ...)
+(css.api/rotate-z ...)
+(rotate-z         ...)
 ```
 
 </details>
@@ -557,10 +554,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [s]]))
+(ns my-namespace (:require [css.api :refer [s]]))
 
-(css/s ...)
-(s     ...)
+(css.api/s ...)
+(s         ...)
 ```
 
 </details>
@@ -604,10 +601,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [scale]]))
+(ns my-namespace (:require [css.api :refer [scale]]))
 
-(css/scale ...)
-(scale     ...)
+(css.api/scale ...)
+(scale         ...)
 ```
 
 </details>
@@ -659,10 +656,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [translate]]))
+(ns my-namespace (:require [css.api :refer [translate]]))
 
-(css/translate ...)
-(translate     ...)
+(css.api/translate ...)
+(translate         ...)
 ```
 
 </details>
@@ -714,10 +711,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [translate-x]]))
+(ns my-namespace (:require [css.api :refer [translate-x]]))
 
-(css/translate-x ...)
-(translate-x     ...)
+(css.api/translate-x ...)
+(translate-x         ...)
 ```
 
 </details>
@@ -769,10 +766,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [translate-y]]))
+(ns my-namespace (:require [css.api :refer [translate-y]]))
 
-(css/translate-y ...)
-(translate-y     ...)
+(css.api/translate-y ...)
+(translate-y         ...)
 ```
 
 </details>
@@ -824,10 +821,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [translate-z]]))
+(ns my-namespace (:require [css.api :refer [translate-z]]))
 
-(css/translate-z ...)
-(translate-z     ...)
+(css.api/translate-z ...)
+(translate-z         ...)
 ```
 
 </details>
@@ -866,10 +863,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [unparse]]))
+(ns my-namespace (:require [css.api :refer [unparse]]))
 
-(css/unparse ...)
-(unparse     ...)
+(css.api/unparse ...)
+(unparse         ...)
 ```
 
 </details>
@@ -913,10 +910,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [url]]))
+(ns my-namespace (:require [css.api :refer [url]]))
 
-(css/url ...)
-(url     ...)
+(css.api/url ...)
+(url         ...)
 ```
 
 </details>
@@ -962,10 +959,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [value]]))
+(ns my-namespace (:require [css.api :refer [value]]))
 
-(css/value ...)
-(value     ...)
+(css.api/value ...)
+(value         ...)
 ```
 
 </details>
@@ -1017,10 +1014,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [var]]))
+(ns my-namespace (:require [css.api :refer [var]]))
 
-(css/var ...)
-(var     ...)
+(css.api/var ...)
+(var         ...)
 ```
 
 </details>
@@ -1072,10 +1069,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [var-key]]))
+(ns my-namespace (:require [css.api :refer [var-key]]))
 
-(css/var-key ...)
-(var-key     ...)
+(css.api/var-key ...)
+(var-key         ...)
 ```
 
 </details>
@@ -1119,10 +1116,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [vertical-margin]]))
+(ns my-namespace (:require [css.api :refer [vertical-margin]]))
 
-(css/vertical-margin ...)
-(vertical-margin     ...)
+(css.api/vertical-margin ...)
+(vertical-margin         ...)
 ```
 
 </details>
@@ -1166,10 +1163,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [css.api :as css :refer [vertical-padding]]))
+(ns my-namespace (:require [css.api :refer [vertical-padding]]))
 
-(css/vertical-padding ...)
-(vertical-padding     ...)
+(css.api/vertical-padding ...)
+(vertical-padding         ...)
 ```
 
 </details>

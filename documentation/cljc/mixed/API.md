@@ -1,10 +1,7 @@
 
 # <strong>mixed.api</strong> namespace
-<p>Documentation of the <strong>mixed/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > mixed.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/mixed/api.cljc
 
 ### add-numbers
 
@@ -47,10 +44,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [add-numbers]]))
+(ns my-namespace (:require [mixed.api :refer [add-numbers]]))
 
-(mixed/add-numbers ...)
-(add-numbers       ...)
+(mixed.api/add-numbers ...)
+(add-numbers           ...)
 ```
 
 </details>
@@ -111,10 +108,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [blank?]]))
+(ns my-namespace (:require [mixed.api :refer [blank?]]))
 
-(mixed/blank? ...)
-(blank?       ...)
+(mixed.api/blank? ...)
+(blank?           ...)
 ```
 
 </details>
@@ -162,10 +159,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [multiply-numbers]]))
+(ns my-namespace (:require [mixed.api :refer [multiply-numbers]]))
 
-(mixed/multiply-numbers ...)
-(multiply-numbers       ...)
+(mixed.api/multiply-numbers ...)
+(multiply-numbers           ...)
 ```
 
 </details>
@@ -227,10 +224,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [natural-whole-number?]]))
+(ns my-namespace (:require [mixed.api :refer [natural-whole-number?]]))
 
-(mixed/natural-whole-number? ...)
-(natural-whole-number?       ...)
+(mixed.api/natural-whole-number? ...)
+(natural-whole-number?           ...)
 ```
 
 </details>
@@ -285,10 +282,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [negative-whole-number?]]))
+(ns my-namespace (:require [mixed.api :refer [negative-whole-number?]]))
 
-(mixed/negative-whole-number? ...)
-(negative-whole-number?       ...)
+(mixed.api/negative-whole-number? ...)
+(negative-whole-number?           ...)
 ```
 
 </details>
@@ -349,10 +346,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [nonempty?]]))
+(ns my-namespace (:require [mixed.api :refer [nonempty?]]))
 
-(mixed/nonempty? ...)
-(nonempty?       ...)
+(mixed.api/nonempty? ...)
+(nonempty?           ...)
 ```
 
 </details>
@@ -425,10 +422,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [parse-number]]))
+(ns my-namespace (:require [mixed.api :refer [parse-number]]))
 
-(mixed/parse-number ...)
-(parse-number       ...)
+(mixed.api/parse-number ...)
+(parse-number           ...)
 ```
 
 </details>
@@ -503,10 +500,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [parse-rational-number]]))
+(ns my-namespace (:require [mixed.api :refer [parse-rational-number]]))
 
-(mixed/parse-rational-number ...)
-(parse-rational-number       ...)
+(mixed.api/parse-rational-number ...)
+(parse-rational-number           ...)
 ```
 
 </details>
@@ -574,10 +571,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [parse-whole-number]]))
+(ns my-namespace (:require [mixed.api :refer [parse-whole-number]]))
 
-(mixed/parse-whole-number ...)
-(parse-whole-number       ...)
+(mixed.api/parse-whole-number ...)
+(parse-whole-number           ...)
 ```
 
 </details>
@@ -640,10 +637,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [positive-whole-number?]]))
+(ns my-namespace (:require [mixed.api :refer [positive-whole-number?]]))
 
-(mixed/positive-whole-number? ...)
-(positive-whole-number?       ...)
+(mixed.api/positive-whole-number? ...)
+(positive-whole-number?           ...)
 ```
 
 </details>
@@ -719,10 +716,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [rational-number?]]))
+(ns my-namespace (:require [mixed.api :refer [rational-number?]]))
 
-(mixed/rational-number? ...)
-(rational-number?       ...)
+(mixed.api/rational-number? ...)
+(rational-number?           ...)
 ```
 
 </details>
@@ -761,10 +758,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [to-data-url]]))
+(ns my-namespace (:require [mixed.api :refer [to-data-url]]))
 
-(mixed/to-data-url ...)
-(to-data-url       ...)
+(mixed.api/to-data-url ...)
+(to-data-url           ...)
 ```
 
 </details>
@@ -827,10 +824,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [to-map]]))
+(ns my-namespace (:require [mixed.api :refer [to-map]]))
 
-(mixed/to-map ...)
-(to-map       ...)
+(mixed.api/to-map ...)
+(to-map           ...)
 ```
 
 </details>
@@ -901,10 +898,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [to-number]]))
+(ns my-namespace (:require [mixed.api :refer [to-number]]))
 
-(mixed/to-number ...)
-(to-number       ...)
+(mixed.api/to-number ...)
+(to-number           ...)
 ```
 
 </details>
@@ -943,10 +940,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [to-string]]))
+(ns my-namespace (:require [mixed.api :refer [to-string]]))
 
-(mixed/to-string ...)
-(to-string       ...)
+(mixed.api/to-string ...)
+(to-string           ...)
 ```
 
 </details>
@@ -1009,10 +1006,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [to-vector]]))
+(ns my-namespace (:require [mixed.api :refer [to-vector]]))
 
-(mixed/to-vector ...)
-(to-vector       ...)
+(mixed.api/to-vector ...)
+(to-vector           ...)
 ```
 
 </details>
@@ -1082,10 +1079,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [update-whole-number]]))
+(ns my-namespace (:require [mixed.api :refer [update-whole-number]]))
 
-(mixed/update-whole-number ...)
-(update-whole-number       ...)
+(mixed.api/update-whole-number ...)
+(update-whole-number           ...)
 ```
 
 </details>
@@ -1146,10 +1143,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :as mixed :refer [whole-number?]]))
+(ns my-namespace (:require [mixed.api :refer [whole-number?]]))
 
-(mixed/whole-number? ...)
-(whole-number?       ...)
+(mixed.api/whole-number? ...)
+(whole-number?           ...)
 ```
 
 </details>

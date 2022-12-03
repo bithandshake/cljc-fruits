@@ -1,10 +1,7 @@
 
 # <strong>reader.api</strong> namespace
-<p>Documentation of the <strong>reader/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > reader.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/reader/api.cljc
 
 ### mixed->string
 
@@ -31,10 +28,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [reader.api :as reader :refer [mixed->string]]))
+(ns my-namespace (:require [reader.api :refer [mixed->string]]))
 
-(reader/mixed->string ...)
-(mixed->string        ...)
+(reader.api/mixed->string ...)
+(mixed->string            ...)
 ```
 
 </details>
@@ -74,10 +71,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [reader.api :as reader :refer [read-str]]))
+(ns my-namespace (:require [reader.api :refer [read-str]]))
 
-(reader/read-str ...)
-(read-str        ...)
+(reader.api/read-str ...)
+(read-str            ...)
 ```
 
 </details>
@@ -134,10 +131,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [reader.api :as reader :refer [string->map]]))
+(ns my-namespace (:require [reader.api :refer [string->map]]))
 
-(reader/string->map ...)
-(string->map        ...)
+(reader.api/string->map ...)
+(string->map            ...)
 ```
 
 </details>
@@ -201,10 +198,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [reader.api :as reader :refer [string->mixed]]))
+(ns my-namespace (:require [reader.api :refer [string->mixed]]))
 
-(reader/string->mixed ...)
-(string->mixed        ...)
+(reader.api/string->mixed ...)
+(string->mixed            ...)
 ```
 
 </details>

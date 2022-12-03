@@ -1,10 +1,7 @@
 
 # <strong>loop.api</strong> namespace
-<p>Documentation of the <strong>loop/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > loop.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/loop/api.cljc
 
 ### do-while
 
@@ -60,10 +57,10 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [loop.api :as loop :refer [do-while]]))
+(ns my-namespace (:require [loop.api :refer [do-while]]))
 
-(loop/do-while ...)
-(do-while      ...)
+(loop.api/do-while ...)
+(do-while          ...)
 ```
 
 </details>
@@ -105,10 +102,10 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [loop.api :as loop :refer [reduce-indexed]]))
+(ns my-namespace (:require [loop.api :refer [reduce-indexed]]))
 
-(loop/reduce-indexed ...)
-(reduce-indexed      ...)
+(loop.api/reduce-indexed ...)
+(reduce-indexed          ...)
 ```
 
 </details>
@@ -150,10 +147,10 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [loop.api :as loop :refer [reduce-kv-indexed]]))
+(ns my-namespace (:require [loop.api :refer [reduce-kv-indexed]]))
 
-(loop/reduce-kv-indexed ...)
-(reduce-kv-indexed      ...)
+(loop.api/reduce-kv-indexed ...)
+(reduce-kv-indexed          ...)
 ```
 
 </details>
@@ -214,10 +211,10 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [loop.api :as loop :refer [some-indexed]]))
+(ns my-namespace (:require [loop.api :refer [some-indexed]]))
 
-(loop/some-indexed ...)
-(some-indexed      ...)
+(loop.api/some-indexed ...)
+(some-indexed          ...)
 ```
 
 </details>

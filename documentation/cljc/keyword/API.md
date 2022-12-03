@@ -1,10 +1,7 @@
 
 # <strong>keyword.api</strong> namespace
-<p>Documentation of the <strong>keyword/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > keyword.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/keyword/api.cljc
 
 ### add-namespace
 
@@ -54,10 +51,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [add-namespace]]))
+(ns my-namespace (:require [keyword.api :refer [add-namespace]]))
 
-(keyword/add-namespace ...)
-(add-namespace         ...)
+(keyword.api/add-namespace ...)
+(add-namespace             ...)
 ```
 
 </details>
@@ -119,10 +116,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [append]]))
+(ns my-namespace (:require [keyword.api :refer [append]]))
 
-(keyword/append ...)
-(append         ...)
+(keyword.api/append ...)
+(append             ...)
 ```
 
 </details>
@@ -174,10 +171,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [get-name]]))
+(ns my-namespace (:require [keyword.api :refer [get-name]]))
 
-(keyword/get-name ...)
-(get-name         ...)
+(keyword.api/get-name ...)
+(get-name             ...)
 ```
 
 </details>
@@ -230,10 +227,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [get-namespace]]))
+(ns my-namespace (:require [keyword.api :refer [get-namespace]]))
 
-(keyword/get-namespace ...)
-(get-namespace         ...)
+(keyword.api/get-namespace ...)
+(get-namespace             ...)
 ```
 
 </details>
@@ -286,10 +283,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [join]]))
+(ns my-namespace (:require [keyword.api :refer [join]]))
 
-(keyword/join ...)
-(join         ...)
+(keyword.api/join ...)
+(join             ...)
 ```
 
 </details>
@@ -341,10 +338,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [namespaced?]]))
+(ns my-namespace (:require [keyword.api :refer [namespaced?]]))
 
-(keyword/namespaced? ...)
-(namespaced?         ...)
+(keyword.api/namespaced? ...)
+(namespaced?             ...)
 ```
 
 </details>
@@ -392,10 +389,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [keyword.api :as keyword :refer [to-string]]))
+(ns my-namespace (:require [keyword.api :refer [to-string]]))
 
-(keyword/to-string ...)
-(to-string         ...)
+(keyword.api/to-string ...)
+(to-string             ...)
 ```
 
 </details>

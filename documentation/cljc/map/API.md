@@ -1,10 +1,7 @@
 
 # <strong>map.api</strong> namespace
-<p>Documentation of the <strong>map/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > map.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/map/api.cljc
 
 ### ->>keys
 
@@ -47,10 +44,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->>keys]]))
+(ns my-namespace (:require [map.api :refer [->>keys]]))
 
-(map/->>keys ...)
-(->>keys     ...)
+(map.api/->>keys ...)
+(->>keys         ...)
 ```
 
 </details>
@@ -104,10 +101,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->>kv]]))
+(ns my-namespace (:require [map.api :refer [->>kv]]))
 
-(map/->>kv ...)
-(->>kv     ...)
+(map.api/->>kv ...)
+(->>kv         ...)
 ```
 
 </details>
@@ -147,10 +144,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->>remove-keys-by]]))
+(ns my-namespace (:require [map.api :refer [->>remove-keys-by]]))
 
-(map/->>remove-keys-by ...)
-(->>remove-keys-by     ...)
+(map.api/->>remove-keys-by ...)
+(->>remove-keys-by         ...)
 ```
 
 </details>
@@ -202,10 +199,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->>remove-values-by]]))
+(ns my-namespace (:require [map.api :refer [->>remove-values-by]]))
 
-(map/->>remove-values-by ...)
-(->>remove-values-by     ...)
+(map.api/->>remove-values-by ...)
+(->>remove-values-by         ...)
 ```
 
 </details>
@@ -253,10 +250,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->>values]]))
+(ns my-namespace (:require [map.api :refer [->>values]]))
 
-(map/->>values ...)
-(->>values     ...)
+(map.api/->>values ...)
+(->>values         ...)
 ```
 
 </details>
@@ -302,10 +299,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->keys]]))
+(ns my-namespace (:require [map.api :refer [->keys]]))
 
-(map/->keys ...)
-(->keys     ...)
+(map.api/->keys ...)
+(->keys         ...)
 ```
 
 </details>
@@ -352,10 +349,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->kv]]))
+(ns my-namespace (:require [map.api :refer [->kv]]))
 
-(map/->kv ...)
-(->kv     ...)
+(map.api/->kv ...)
+(->kv         ...)
 ```
 
 </details>
@@ -401,10 +398,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->remove-keys-by]]))
+(ns my-namespace (:require [map.api :refer [->remove-keys-by]]))
 
-(map/->remove-keys-by ...)
-(->remove-keys-by     ...)
+(map.api/->remove-keys-by ...)
+(->remove-keys-by         ...)
 ```
 
 </details>
@@ -445,10 +442,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->remove-values-by]]))
+(ns my-namespace (:require [map.api :refer [->remove-values-by]]))
 
-(map/->remove-values-by ...)
-(->remove-values-by     ...)
+(map.api/->remove-values-by ...)
+(->remove-values-by         ...)
 ```
 
 </details>
@@ -488,10 +485,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [->values]]))
+(ns my-namespace (:require [map.api :refer [->values]]))
 
-(map/->values ...)
-(->values     ...)
+(map.api/->values ...)
+(->values         ...)
 ```
 
 </details>
@@ -547,10 +544,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [add-namespace]]))
+(ns my-namespace (:require [map.api :refer [add-namespace]]))
 
-(map/add-namespace ...)
-(add-namespace     ...)
+(map.api/add-namespace ...)
+(add-namespace         ...)
 ```
 
 </details>
@@ -608,10 +605,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [all-values-match?]]))
+(ns my-namespace (:require [map.api :refer [all-values-match?]]))
 
-(map/all-values-match? ...)
-(all-values-match?     ...)
+(map.api/all-values-match? ...)
+(all-values-match?         ...)
 ```
 
 </details>
@@ -664,10 +661,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [any-key-match?]]))
+(ns my-namespace (:require [map.api :refer [any-key-match?]]))
 
-(map/any-key-match? ...)
-(any-key-match?     ...)
+(map.api/any-key-match? ...)
+(any-key-match?         ...)
 ```
 
 </details>
@@ -720,10 +717,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [any-value-match?]]))
+(ns my-namespace (:require [map.api :refer [any-value-match?]]))
 
-(map/any-value-match? ...)
-(any-value-match?     ...)
+(map.api/any-value-match? ...)
+(any-value-match?         ...)
 ```
 
 </details>
@@ -776,10 +773,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [assoc-in-or]]))
+(ns my-namespace (:require [map.api :refer [assoc-in-or]]))
 
-(map/assoc-in-or ...)
-(assoc-in-or     ...)
+(map.api/assoc-in-or ...)
+(assoc-in-or         ...)
 ```
 
 </details>
@@ -833,10 +830,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [assoc-in-some]]))
+(ns my-namespace (:require [map.api :refer [assoc-in-some]]))
 
-(map/assoc-in-some ...)
-(assoc-in-some     ...)
+(map.api/assoc-in-some ...)
+(assoc-in-some         ...)
 ```
 
 </details>
@@ -876,10 +873,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [assoc-ns]]))
+(ns my-namespace (:require [map.api :refer [assoc-ns]]))
 
-(map/assoc-ns ...)
-(assoc-ns     ...)
+(map.api/assoc-ns ...)
+(assoc-ns         ...)
 ```
 
 </details>
@@ -932,10 +929,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [assoc-or]]))
+(ns my-namespace (:require [map.api :refer [assoc-or]]))
 
-(map/assoc-or ...)
-(assoc-or     ...)
+(map.api/assoc-or ...)
+(assoc-or         ...)
 ```
 
 </details>
@@ -989,10 +986,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [assoc-some]]))
+(ns my-namespace (:require [map.api :refer [assoc-some]]))
 
-(map/assoc-some ...)
-(assoc-some     ...)
+(map.api/assoc-some ...)
+(assoc-some         ...)
 ```
 
 </details>
@@ -1044,10 +1041,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [contains-key?]]))
+(ns my-namespace (:require [map.api :refer [contains-key?]]))
 
-(map/contains-key? ...)
-(contains-key?     ...)
+(map.api/contains-key? ...)
+(contains-key?         ...)
 ```
 
 </details>
@@ -1107,10 +1104,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [contains-of-keys?]]))
+(ns my-namespace (:require [map.api :refer [contains-of-keys?]]))
 
-(map/contains-of-keys? ...)
-(contains-of-keys?     ...)
+(map.api/contains-of-keys? ...)
+(contains-of-keys?         ...)
 ```
 
 </details>
@@ -1168,10 +1165,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [contains-value?]]))
+(ns my-namespace (:require [map.api :refer [contains-value?]]))
 
-(map/contains-value? ...)
-(contains-value?     ...)
+(map.api/contains-value? ...)
+(contains-value?         ...)
 ```
 
 </details>
@@ -1221,10 +1218,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [deep-merge]]))
+(ns my-namespace (:require [map.api :refer [deep-merge]]))
 
-(map/deep-merge ...)
-(deep-merge     ...)
+(map.api/deep-merge ...)
+(deep-merge         ...)
 ```
 
 </details>
@@ -1270,10 +1267,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [difference]]))
+(ns my-namespace (:require [map.api :refer [difference]]))
 
-(map/difference ...)
-(difference     ...)
+(map.api/difference ...)
+(difference         ...)
 ```
 
 </details>
@@ -1324,10 +1321,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [dissoc-in]]))
+(ns my-namespace (:require [map.api :refer [dissoc-in]]))
 
-(map/dissoc-in ...)
-(dissoc-in     ...)
+(map.api/dissoc-in ...)
+(dissoc-in         ...)
 ```
 
 </details>
@@ -1372,10 +1369,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [dissoc-items]]))
+(ns my-namespace (:require [map.api :refer [dissoc-items]]))
 
-(map/dissoc-items ...)
-(dissoc-items     ...)
+(map.api/dissoc-items ...)
+(dissoc-items         ...)
 ```
 
 </details>
@@ -1421,10 +1418,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [filter-values]]))
+(ns my-namespace (:require [map.api :refer [filter-values]]))
 
-(map/filter-values ...)
-(filter-values     ...)
+(map.api/filter-values ...)
+(filter-values         ...)
 ```
 
 </details>
@@ -1472,10 +1469,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [filter-values-by]]))
+(ns my-namespace (:require [map.api :refer [filter-values-by]]))
 
-(map/filter-values-by ...)
-(filter-values-by     ...)
+(map.api/filter-values-by ...)
+(filter-values-by         ...)
 ```
 
 </details>
@@ -1519,10 +1516,10 @@ Things only in a
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-first-key]]))
+(ns my-namespace (:require [map.api :refer [get-first-key]]))
 
-(map/get-first-key ...)
-(get-first-key     ...)
+(map.api/get-first-key ...)
+(get-first-key         ...)
 ```
 
 </details>
@@ -1575,10 +1572,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-first-match-key]]))
+(ns my-namespace (:require [map.api :refer [get-first-match-key]]))
 
-(map/get-first-match-key ...)
-(get-first-match-key     ...)
+(map.api/get-first-match-key ...)
+(get-first-match-key         ...)
 ```
 
 </details>
@@ -1638,10 +1635,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-first-match-value]]))
+(ns my-namespace (:require [map.api :refer [get-first-match-value]]))
 
-(map/get-first-match-value ...)
-(get-first-match-value     ...)
+(map.api/get-first-match-value ...)
+(get-first-match-value         ...)
 ```
 
 </details>
@@ -1685,10 +1682,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-first-value]]))
+(ns my-namespace (:require [map.api :refer [get-first-value]]))
 
-(map/get-first-value ...)
-(get-first-value     ...)
+(map.api/get-first-value ...)
+(get-first-value         ...)
 ```
 
 </details>
@@ -1732,10 +1729,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-keys]]))
+(ns my-namespace (:require [map.api :refer [get-keys]]))
 
-(map/get-keys ...)
-(get-keys     ...)
+(map.api/get-keys ...)
+(get-keys         ...)
 ```
 
 </details>
@@ -1781,10 +1778,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-keys-by]]))
+(ns my-namespace (:require [map.api :refer [get-keys-by]]))
 
-(map/get-keys-by ...)
-(get-keys-by     ...)
+(map.api/get-keys-by ...)
+(get-keys-by         ...)
 ```
 
 </details>
@@ -1859,10 +1856,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-namespace]]))
+(ns my-namespace (:require [map.api :refer [get-namespace]]))
 
-(map/get-namespace ...)
-(get-namespace     ...)
+(map.api/get-namespace ...)
+(get-namespace         ...)
 ```
 
 </details>
@@ -1904,10 +1901,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-ns]]))
+(ns my-namespace (:require [map.api :refer [get-ns]]))
 
-(map/get-ns ...)
-(get-ns     ...)
+(map.api/get-ns ...)
+(get-ns         ...)
 ```
 
 </details>
@@ -1951,10 +1948,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [get-values]]))
+(ns my-namespace (:require [map.api :refer [get-values]]))
 
-(map/get-values ...)
-(get-values     ...)
+(map.api/get-values ...)
+(get-values         ...)
 ```
 
 </details>
@@ -2001,10 +1998,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [inject-in]]))
+(ns my-namespace (:require [map.api :refer [inject-in]]))
 
-(map/inject-in ...)
-(inject-in     ...)
+(map.api/inject-in ...)
+(inject-in         ...)
 ```
 
 </details>
@@ -2084,10 +2081,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [match-pattern?]]))
+(ns my-namespace (:require [map.api :refer [match-pattern?]]))
 
-(map/match-pattern? ...)
-(match-pattern?     ...)
+(map.api/match-pattern? ...)
+(match-pattern?         ...)
 ```
 
 </details>
@@ -2138,10 +2135,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [namespaced?]]))
+(ns my-namespace (:require [map.api :refer [namespaced?]]))
 
-(map/namespaced? ...)
-(namespaced?     ...)
+(map.api/namespaced? ...)
+(namespaced?         ...)
 ```
 
 </details>
@@ -2200,10 +2197,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [nonempty?]]))
+(ns my-namespace (:require [map.api :refer [nonempty?]]))
 
-(map/nonempty? ...)
-(nonempty?     ...)
+(map.api/nonempty? ...)
+(nonempty?         ...)
 ```
 
 </details>
@@ -2258,10 +2255,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [rekey-item]]))
+(ns my-namespace (:require [map.api :refer [rekey-item]]))
 
-(map/rekey-item ...)
-(rekey-item     ...)
+(map.api/rekey-item ...)
+(rekey-item         ...)
 ```
 
 </details>
@@ -2309,10 +2306,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [rekey-items]]))
+(ns my-namespace (:require [map.api :refer [rekey-items]]))
 
-(map/rekey-items ...)
-(rekey-items     ...)
+(map.api/rekey-items ...)
+(rekey-items         ...)
 ```
 
 </details>
@@ -2357,10 +2354,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [remove-keys]]))
+(ns my-namespace (:require [map.api :refer [remove-keys]]))
 
-(map/remove-keys ...)
-(remove-keys     ...)
+(map.api/remove-keys ...)
+(remove-keys         ...)
 ```
 
 </details>
@@ -2409,10 +2406,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [remove-keys-by]]))
+(ns my-namespace (:require [map.api :refer [remove-keys-by]]))
 
-(map/remove-keys-by ...)
-(remove-keys-by     ...)
+(map.api/remove-keys-by ...)
+(remove-keys-by         ...)
 ```
 
 </details>
@@ -2467,10 +2464,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [remove-namespace]]))
+(ns my-namespace (:require [map.api :refer [remove-namespace]]))
 
-(map/remove-namespace ...)
-(remove-namespace     ...)
+(map.api/remove-namespace ...)
+(remove-namespace         ...)
 ```
 
 </details>
@@ -2514,10 +2511,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [remove-values]]))
+(ns my-namespace (:require [map.api :refer [remove-values]]))
 
-(map/remove-values ...)
-(remove-values     ...)
+(map.api/remove-values ...)
+(remove-values         ...)
 ```
 
 </details>
@@ -2571,10 +2568,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [remove-values-by]]))
+(ns my-namespace (:require [map.api :refer [remove-values-by]]))
 
-(map/remove-values-by ...)
-(remove-values-by     ...)
+(map.api/remove-values-by ...)
+(remove-values-by         ...)
 ```
 
 </details>
@@ -2625,10 +2622,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [reversed-merge]]))
+(ns my-namespace (:require [map.api :refer [reversed-merge]]))
 
-(map/reversed-merge ...)
-(reversed-merge     ...)
+(map.api/reversed-merge ...)
+(reversed-merge         ...)
 ```
 
 </details>
@@ -2673,10 +2670,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [swap]]))
+(ns my-namespace (:require [map.api :refer [swap]]))
 
-(map/swap ...)
-(swap     ...)
+(map.api/swap ...)
+(swap         ...)
 ```
 
 </details>
@@ -2738,10 +2735,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [toggle]]))
+(ns my-namespace (:require [map.api :refer [toggle]]))
 
-(map/toggle ...)
-(toggle     ...)
+(map.api/toggle ...)
+(toggle         ...)
 ```
 
 </details>
@@ -2803,10 +2800,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [toggle-in]]))
+(ns my-namespace (:require [map.api :refer [toggle-in]]))
 
-(map/toggle-in ...)
-(toggle-in     ...)
+(map.api/toggle-in ...)
+(toggle-in         ...)
 ```
 
 </details>
@@ -2861,10 +2858,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [update-in-some]]))
+(ns my-namespace (:require [map.api :refer [update-in-some]]))
 
-(map/update-in-some ...)
-(update-in-some     ...)
+(map.api/update-in-some ...)
+(update-in-some         ...)
 ```
 
 </details>
@@ -2919,10 +2916,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [update-some]]))
+(ns my-namespace (:require [map.api :refer [update-some]]))
 
-(map/update-some ...)
-(update-some     ...)
+(map.api/update-some ...)
+(update-some         ...)
 ```
 
 </details>
@@ -2971,10 +2968,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [map.api :as map :refer [values-equal?]]))
+(ns my-namespace (:require [map.api :refer [values-equal?]]))
 
-(map/values-equal? ...)
-(values-equal?     ...)
+(map.api/values-equal? ...)
+(values-equal?         ...)
 ```
 
 </details>

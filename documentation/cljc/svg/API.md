@@ -1,10 +1,7 @@
 
 # <strong>svg.api</strong> namespace
-<p>Documentation of the <strong>svg/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > svg.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/svg/api.cljc
 
 ### view-box
 
@@ -39,10 +36,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [svg.api :as svg :refer [view-box]]))
+(ns my-namespace (:require [svg.api :refer [view-box]]))
 
-(svg/view-box ...)
-(view-box     ...)
+(svg.api/view-box ...)
+(view-box         ...)
 ```
 
 </details>
@@ -94,10 +91,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [svg.api :as svg :refer [wrapper-attributes]]))
+(ns my-namespace (:require [svg.api :refer [wrapper-attributes]]))
 
-(svg/wrapper-attributes ...)
-(wrapper-attributes     ...)
+(svg.api/wrapper-attributes ...)
+(wrapper-attributes         ...)
 ```
 
 </details>

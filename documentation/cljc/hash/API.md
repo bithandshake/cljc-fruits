@@ -1,10 +1,7 @@
 
 # <strong>hash.api</strong> namespace
-<p>Documentation of the <strong>hash/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > hash.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/hash/api.cljc
 
 ### hmac-sha256
 
@@ -38,10 +35,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [hash.api :as hash :refer [hmac-sha256]]))
+(ns my-namespace (:require [hash.api :refer [hmac-sha256]]))
 
-(hash/hmac-sha256 ...)
-(hmac-sha256      ...)
+(hash.api/hmac-sha256 ...)
+(hmac-sha256          ...)
 ```
 
 </details>

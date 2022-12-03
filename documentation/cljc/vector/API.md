@@ -1,10 +1,7 @@
 
 # <strong>vector.api</strong> namespace
-<p>Documentation of the <strong>vector/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > vector.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/vector/api.cljc
 
 ### ->>items
 
@@ -47,10 +44,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [->>items]]))
+(ns my-namespace (:require [vector.api :refer [->>items]]))
 
-(vector/->>items ...)
-(->>items        ...)
+(vector.api/->>items ...)
+(->>items            ...)
 ```
 
 </details>
@@ -96,10 +93,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [->items]]))
+(ns my-namespace (:require [vector.api :refer [->items]]))
 
-(vector/->items ...)
-(->items        ...)
+(vector.api/->items ...)
+(->items            ...)
 ```
 
 </details>
@@ -149,10 +146,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [abc-items]]))
+(ns my-namespace (:require [vector.api :refer [abc-items]]))
 
-(vector/abc-items ...)
-(abc-items        ...)
+(vector.api/abc-items ...)
+(abc-items            ...)
 ```
 
 </details>
@@ -204,10 +201,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [all-items-match?]]))
+(ns my-namespace (:require [vector.api :refer [all-items-match?]]))
 
-(vector/all-items-match? ...)
-(all-items-match?        ...)
+(vector.api/all-items-match? ...)
+(all-items-match?            ...)
 ```
 
 </details>
@@ -259,10 +256,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [any-item-match?]]))
+(ns my-namespace (:require [vector.api :refer [any-item-match?]]))
 
-(vector/any-item-match? ...)
-(any-item-match?        ...)
+(vector.api/any-item-match? ...)
+(any-item-match?            ...)
 ```
 
 </details>
@@ -312,10 +309,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [change-item]]))
+(ns my-namespace (:require [vector.api :refer [change-item]]))
 
-(vector/change-item ...)
-(change-item        ...)
+(vector.api/change-item ...)
+(change-item            ...)
 ```
 
 </details>
@@ -406,10 +403,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [compared-items-sorted?]]))
+(ns my-namespace (:require [vector.api :refer [compared-items-sorted?]]))
 
-(vector/compared-items-sorted? ...)
-(compared-items-sorted?        ...)
+(vector.api/compared-items-sorted? ...)
+(compared-items-sorted?            ...)
 ```
 
 </details>
@@ -453,10 +450,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [concat-items]]))
+(ns my-namespace (:require [vector.api :refer [concat-items]]))
 
-(vector/concat-items ...)
-(concat-items        ...)
+(vector.api/concat-items ...)
+(concat-items            ...)
 ```
 
 </details>
@@ -500,10 +497,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [concat-items-once]]))
+(ns my-namespace (:require [vector.api :refer [concat-items-once]]))
 
-(vector/concat-items-once ...)
-(concat-items-once        ...)
+(vector.api/concat-items-once ...)
+(concat-items-once            ...)
 ```
 
 </details>
@@ -555,10 +552,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [conj-item]]))
+(ns my-namespace (:require [vector.api :refer [conj-item]]))
 
-(vector/conj-item ...)
-(conj-item        ...)
+(vector.api/conj-item ...)
+(conj-item            ...)
 ```
 
 </details>
@@ -612,10 +609,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [conj-item-once]]))
+(ns my-namespace (:require [vector.api :refer [conj-item-once]]))
 
-(vector/conj-item-once ...)
-(conj-item-once        ...)
+(vector.api/conj-item-once ...)
+(conj-item-once            ...)
 ```
 
 </details>
@@ -668,10 +665,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [conj-some]]))
+(ns my-namespace (:require [vector.api :refer [conj-some]]))
 
-(vector/conj-some ...)
-(conj-some        ...)
+(vector.api/conj-some ...)
+(conj-some            ...)
 ```
 
 </details>
@@ -716,10 +713,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [cons-item]]))
+(ns my-namespace (:require [vector.api :refer [cons-item]]))
 
-(vector/cons-item ...)
-(cons-item        ...)
+(vector.api/cons-item ...)
+(cons-item            ...)
 ```
 
 </details>
@@ -773,10 +770,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [cons-item-once]]))
+(ns my-namespace (:require [vector.api :refer [cons-item-once]]))
 
-(vector/cons-item-once ...)
-(cons-item-once        ...)
+(vector.api/cons-item-once ...)
+(cons-item-once            ...)
 ```
 
 </details>
@@ -829,10 +826,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [contains-item?]]))
+(ns my-namespace (:require [vector.api :refer [contains-item?]]))
 
-(vector/contains-item? ...)
-(contains-item?        ...)
+(vector.api/contains-item? ...)
+(contains-item?            ...)
 ```
 
 </details>
@@ -886,10 +883,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [contains-similars?]]))
+(ns my-namespace (:require [vector.api :refer [contains-similars?]]))
 
-(vector/contains-similars? ...)
-(contains-similars?        ...)
+(vector.api/contains-similars? ...)
+(contains-similars?            ...)
 ```
 
 </details>
@@ -950,10 +947,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [count!]]))
+(ns my-namespace (:require [vector.api :refer [count!]]))
 
-(vector/count! ...)
-(count!        ...)
+(vector.api/count! ...)
+(count!            ...)
 ```
 
 </details>
@@ -1001,10 +998,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [count?]]))
+(ns my-namespace (:require [vector.api :refer [count?]]))
 
-(vector/count? ...)
-(count?        ...)
+(vector.api/count? ...)
+(count?            ...)
 ```
 
 </details>
@@ -1058,10 +1055,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dec-dex]]))
+(ns my-namespace (:require [vector.api :refer [dec-dex]]))
 
-(vector/dec-dex ...)
-(dec-dex        ...)
+(vector.api/dec-dex ...)
+(dec-dex            ...)
 ```
 
 </details>
@@ -1105,10 +1102,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dex-first?]]))
+(ns my-namespace (:require [vector.api :refer [dex-first?]]))
 
-(vector/dex-first? ...)
-(dex-first?        ...)
+(vector.api/dex-first? ...)
+(dex-first?            ...)
 ```
 
 </details>
@@ -1161,10 +1158,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dex-in-bounds?]]))
+(ns my-namespace (:require [vector.api :refer [dex-in-bounds?]]))
 
-(vector/dex-in-bounds? ...)
-(dex-in-bounds?        ...)
+(vector.api/dex-in-bounds? ...)
+(dex-in-bounds?            ...)
 ```
 
 </details>
@@ -1210,10 +1207,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dex-last?]]))
+(ns my-namespace (:require [vector.api :refer [dex-last?]]))
 
-(vector/dex-last? ...)
-(dex-last?        ...)
+(vector.api/dex-last? ...)
+(dex-last?            ...)
 ```
 
 </details>
@@ -1266,10 +1263,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dex-out-of-bounds?]]))
+(ns my-namespace (:require [vector.api :refer [dex-out-of-bounds?]]))
 
-(vector/dex-out-of-bounds? ...)
-(dex-out-of-bounds?        ...)
+(vector.api/dex-out-of-bounds? ...)
+(dex-out-of-bounds?            ...)
 ```
 
 </details>
@@ -1313,10 +1310,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [dex-range]]))
+(ns my-namespace (:require [vector.api :refer [dex-range]]))
 
-(vector/dex-range ...)
-(dex-range        ...)
+(vector.api/dex-range ...)
+(dex-range            ...)
 ```
 
 </details>
@@ -1361,10 +1358,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [difference]]))
+(ns my-namespace (:require [vector.api :refer [difference]]))
 
-(vector/difference ...)
-(difference        ...)
+(vector.api/difference ...)
+(difference            ...)
 ```
 
 </details>
@@ -1413,10 +1410,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [duplicate-nth-item]]))
+(ns my-namespace (:require [vector.api :refer [duplicate-nth-item]]))
 
-(vector/duplicate-nth-item ...)
-(duplicate-nth-item        ...)
+(vector.api/duplicate-nth-item ...)
+(duplicate-nth-item            ...)
 ```
 
 </details>
@@ -1460,10 +1457,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [duplicate-nth-items]]))
+(ns my-namespace (:require [vector.api :refer [duplicate-nth-items]]))
 
-(vector/duplicate-nth-items ...)
-(duplicate-nth-items        ...)
+(vector.api/duplicate-nth-items ...)
+(duplicate-nth-items            ...)
 ```
 
 </details>
@@ -1508,10 +1505,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [filter-items-by]]))
+(ns my-namespace (:require [vector.api :refer [filter-items-by]]))
 
-(vector/filter-items-by ...)
-(filter-items-by        ...)
+(vector.api/filter-items-by ...)
+(filter-items-by            ...)
 ```
 
 </details>
@@ -1556,10 +1553,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [filtered-count]]))
+(ns my-namespace (:require [vector.api :refer [filtered-count]]))
 
-(vector/filtered-count ...)
-(filtered-count        ...)
+(vector.api/filtered-count ...)
+(filtered-count            ...)
 ```
 
 </details>
@@ -1605,10 +1602,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [filtered-count?]]))
+(ns my-namespace (:require [vector.api :refer [filtered-count?]]))
 
-(vector/filtered-count? ...)
-(filtered-count?        ...)
+(vector.api/filtered-count? ...)
+(filtered-count?            ...)
 ```
 
 </details>
@@ -1657,10 +1654,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [first-filtered]]))
+(ns my-namespace (:require [vector.api :refer [first-filtered]]))
 
-(vector/first-filtered ...)
-(first-filtered        ...)
+(vector.api/first-filtered ...)
+(first-filtered            ...)
 ```
 
 </details>
@@ -1704,10 +1701,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [first-item]]))
+(ns my-namespace (:require [vector.api :refer [first-item]]))
 
-(vector/first-item ...)
-(first-item        ...)
+(vector.api/first-item ...)
+(first-item            ...)
 ```
 
 </details>
@@ -1755,10 +1752,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [first-items]]))
+(ns my-namespace (:require [vector.api :refer [first-items]]))
 
-(vector/first-items ...)
-(first-items        ...)
+(vector.api/first-items ...)
+(first-items            ...)
 ```
 
 </details>
@@ -1810,10 +1807,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [get-first-match-item]]))
+(ns my-namespace (:require [vector.api :refer [get-first-match-item]]))
 
-(vector/get-first-match-item ...)
-(get-first-match-item        ...)
+(vector.api/get-first-match-item ...)
+(get-first-match-item            ...)
 ```
 
 </details>
@@ -1866,10 +1863,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [get-first-match-item-dex]]))
+(ns my-namespace (:require [vector.api :refer [get-first-match-item-dex]]))
 
-(vector/get-first-match-item-dex ...)
-(get-first-match-item-dex        ...)
+(vector.api/get-first-match-item-dex ...)
+(get-first-match-item-dex            ...)
 ```
 
 </details>
@@ -1923,10 +1920,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [inc-dex]]))
+(ns my-namespace (:require [vector.api :refer [inc-dex]]))
 
-(vector/inc-dex ...)
-(inc-dex        ...)
+(vector.api/inc-dex ...)
+(inc-dex            ...)
 ```
 
 </details>
@@ -2000,10 +1997,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [inject-item]]))
+(ns my-namespace (:require [vector.api :refer [inject-item]]))
 
-(vector/inject-item ...)
-(inject-item        ...)
+(vector.api/inject-item ...)
+(inject-item            ...)
 ```
 
 </details>
@@ -2062,10 +2059,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [item-dex?]]))
+(ns my-namespace (:require [vector.api :refer [item-dex?]]))
 
-(vector/item-dex? ...)
-(item-dex?        ...)
+(vector.api/item-dex? ...)
+(item-dex?            ...)
 ```
 
 </details>
@@ -2107,10 +2104,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [item-first-dex]]))
+(ns my-namespace (:require [vector.api :refer [item-first-dex]]))
 
-(vector/item-first-dex ...)
-(item-first-dex        ...)
+(vector.api/item-first-dex ...)
+(item-first-dex            ...)
 ```
 
 </details>
@@ -2155,10 +2152,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [item-first?]]))
+(ns my-namespace (:require [vector.api :refer [item-first?]]))
 
-(vector/item-first? ...)
-(item-first?        ...)
+(vector.api/item-first? ...)
+(item-first?            ...)
 ```
 
 </details>
@@ -2205,10 +2202,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [item-last-dex]]))
+(ns my-namespace (:require [vector.api :refer [item-last-dex]]))
 
-(vector/item-last-dex ...)
-(item-last-dex        ...)
+(vector.api/item-last-dex ...)
+(item-last-dex            ...)
 ```
 
 </details>
@@ -2253,10 +2250,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [item-last?]]))
+(ns my-namespace (:require [vector.api :refer [item-last?]]))
 
-(vector/item-last? ...)
-(item-last?        ...)
+(vector.api/item-last? ...)
+(item-last?            ...)
 ```
 
 </details>
@@ -2309,10 +2306,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [items-after-first-occurence]]))
+(ns my-namespace (:require [vector.api :refer [items-after-first-occurence]]))
 
-(vector/items-after-first-occurence ...)
-(items-after-first-occurence        ...)
+(vector.api/items-after-first-occurence ...)
+(items-after-first-occurence            ...)
 ```
 
 </details>
@@ -2359,10 +2356,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [items-before-first-occurence]]))
+(ns my-namespace (:require [vector.api :refer [items-before-first-occurence]]))
 
-(vector/items-before-first-occurence ...)
-(items-before-first-occurence        ...)
+(vector.api/items-before-first-occurence ...)
+(items-before-first-occurence            ...)
 ```
 
 </details>
@@ -2414,10 +2411,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [items-sorted?]]))
+(ns my-namespace (:require [vector.api :refer [items-sorted?]]))
 
-(vector/items-sorted? ...)
-(items-sorted?        ...)
+(vector.api/items-sorted? ...)
+(items-sorted?            ...)
 ```
 
 </details>
@@ -2466,10 +2463,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [keep-items]]))
+(ns my-namespace (:require [vector.api :refer [keep-items]]))
 
-(vector/keep-items ...)
-(keep-items        ...)
+(vector.api/keep-items ...)
+(keep-items            ...)
 ```
 
 </details>
@@ -2514,10 +2511,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [last-dex]]))
+(ns my-namespace (:require [vector.api :refer [last-dex]]))
 
-(vector/last-dex ...)
-(last-dex        ...)
+(vector.api/last-dex ...)
+(last-dex            ...)
 ```
 
 </details>
@@ -2566,10 +2563,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [last-filtered]]))
+(ns my-namespace (:require [vector.api :refer [last-filtered]]))
 
-(vector/last-filtered ...)
-(last-filtered        ...)
+(vector.api/last-filtered ...)
+(last-filtered            ...)
 ```
 
 </details>
@@ -2613,10 +2610,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [last-item]]))
+(ns my-namespace (:require [vector.api :refer [last-item]]))
 
-(vector/last-item ...)
-(last-item        ...)
+(vector.api/last-item ...)
+(last-item            ...)
 ```
 
 </details>
@@ -2664,10 +2661,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [last-items]]))
+(ns my-namespace (:require [vector.api :refer [last-items]]))
 
-(vector/last-items ...)
-(last-items        ...)
+(vector.api/last-items ...)
+(last-items            ...)
 ```
 
 </details>
@@ -2722,10 +2719,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [longer?]]))
+(ns my-namespace (:require [vector.api :refer [longer?]]))
 
-(vector/longer? ...)
-(longer?        ...)
+(vector.api/longer? ...)
+(longer?            ...)
 ```
 
 </details>
@@ -2797,10 +2794,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [match-dex]]))
+(ns my-namespace (:require [vector.api :refer [match-dex]]))
 
-(vector/match-dex ...)
-(match-dex        ...)
+(vector.api/match-dex ...)
+(match-dex            ...)
 ```
 
 </details>
@@ -2853,10 +2850,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [max?]]))
+(ns my-namespace (:require [vector.api :refer [max?]]))
 
-(vector/max? ...)
-(max?        ...)
+(vector.api/max? ...)
+(max?            ...)
 ```
 
 </details>
@@ -2909,10 +2906,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [min?]]))
+(ns my-namespace (:require [vector.api :refer [min?]]))
 
-(vector/min? ...)
-(min?        ...)
+(vector.api/min? ...)
+(min?            ...)
 ```
 
 </details>
@@ -2974,10 +2971,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [move-first-occurence]]))
+(ns my-namespace (:require [vector.api :refer [move-first-occurence]]))
 
-(vector/move-first-occurence ...)
-(move-first-occurence        ...)
+(vector.api/move-first-occurence ...)
+(move-first-occurence            ...)
 ```
 
 </details>
@@ -3048,10 +3045,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [move-item]]))
+(ns my-namespace (:require [vector.api :refer [move-item]]))
 
-(vector/move-item ...)
-(move-item        ...)
+(vector.api/move-item ...)
+(move-item            ...)
 ```
 
 </details>
@@ -3108,10 +3105,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [move-item-to-first]]))
+(ns my-namespace (:require [vector.api :refer [move-item-to-first]]))
 
-(vector/move-item-to-first ...)
-(move-item-to-first        ...)
+(vector.api/move-item-to-first ...)
+(move-item-to-first            ...)
 ```
 
 </details>
@@ -3163,10 +3160,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [move-item-to-last]]))
+(ns my-namespace (:require [vector.api :refer [move-item-to-last]]))
 
-(vector/move-item-to-last ...)
-(move-item-to-last        ...)
+(vector.api/move-item-to-last ...)
+(move-item-to-last            ...)
 ```
 
 </details>
@@ -3227,10 +3224,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [next-dex]]))
+(ns my-namespace (:require [vector.api :refer [next-dex]]))
 
-(vector/next-dex ...)
-(next-dex        ...)
+(vector.api/next-dex ...)
+(next-dex            ...)
 ```
 
 </details>
@@ -3288,10 +3285,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [next-item]]))
+(ns my-namespace (:require [vector.api :refer [next-item]]))
 
-(vector/next-item ...)
-(next-item        ...)
+(vector.api/next-item ...)
+(next-item            ...)
 ```
 
 </details>
@@ -3344,10 +3341,10 @@ Is n a nonempty vector?
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [nonempty?]]))
+(ns my-namespace (:require [vector.api :refer [nonempty?]]))
 
-(vector/nonempty? ...)
-(nonempty?        ...)
+(vector.api/nonempty? ...)
+(nonempty?            ...)
 ```
 
 </details>
@@ -3400,10 +3397,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [not-contains-item?]]))
+(ns my-namespace (:require [vector.api :refer [not-contains-item?]]))
 
-(vector/not-contains-item? ...)
-(not-contains-item?        ...)
+(vector.api/not-contains-item? ...)
+(not-contains-item?            ...)
 ```
 
 </details>
@@ -3462,10 +3459,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [nth-filtered]]))
+(ns my-namespace (:require [vector.api :refer [nth-filtered]]))
 
-(vector/nth-filtered ...)
-(nth-filtered        ...)
+(vector.api/nth-filtered ...)
+(nth-filtered            ...)
 ```
 
 </details>
@@ -3512,10 +3509,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [nth-item]]))
+(ns my-namespace (:require [vector.api :refer [nth-item]]))
 
-(vector/nth-item ...)
-(nth-item        ...)
+(vector.api/nth-item ...)
+(nth-item            ...)
 ```
 
 </details>
@@ -3571,10 +3568,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [prev-dex]]))
+(ns my-namespace (:require [vector.api :refer [prev-dex]]))
 
-(vector/prev-dex ...)
-(prev-dex        ...)
+(vector.api/prev-dex ...)
+(prev-dex            ...)
 ```
 
 </details>
@@ -3637,10 +3634,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [prev-item]]))
+(ns my-namespace (:require [vector.api :refer [prev-item]]))
 
-(vector/prev-item ...)
-(prev-item        ...)
+(vector.api/prev-item ...)
+(prev-item            ...)
 ```
 
 </details>
@@ -3707,10 +3704,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [ranged-items]]))
+(ns my-namespace (:require [vector.api :refer [ranged-items]]))
 
-(vector/ranged-items ...)
-(ranged-items        ...)
+(vector.api/ranged-items ...)
+(ranged-items            ...)
 ```
 
 </details>
@@ -3758,10 +3755,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-duplicates]]))
+(ns my-namespace (:require [vector.api :refer [remove-duplicates]]))
 
-(vector/remove-duplicates ...)
-(remove-duplicates        ...)
+(vector.api/remove-duplicates ...)
+(remove-duplicates            ...)
 ```
 
 </details>
@@ -3805,10 +3802,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-first-item]]))
+(ns my-namespace (:require [vector.api :refer [remove-first-item]]))
 
-(vector/remove-first-item ...)
-(remove-first-item        ...)
+(vector.api/remove-first-item ...)
+(remove-first-item            ...)
 ```
 
 </details>
@@ -3857,10 +3854,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-first-occurence]]))
+(ns my-namespace (:require [vector.api :refer [remove-first-occurence]]))
 
-(vector/remove-first-occurence ...)
-(remove-first-occurence        ...)
+(vector.api/remove-first-occurence ...)
+(remove-first-occurence            ...)
 ```
 
 </details>
@@ -3913,10 +3910,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-item]]))
+(ns my-namespace (:require [vector.api :refer [remove-item]]))
 
-(vector/remove-item ...)
-(remove-item        ...)
+(vector.api/remove-item ...)
+(remove-item            ...)
 ```
 
 </details>
@@ -3980,10 +3977,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-item-once]]))
+(ns my-namespace (:require [vector.api :refer [remove-item-once]]))
 
-(vector/remove-item-once ...)
-(remove-item-once        ...)
+(vector.api/remove-item-once ...)
+(remove-item-once            ...)
 ```
 
 </details>
@@ -4039,10 +4036,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-items]]))
+(ns my-namespace (:require [vector.api :refer [remove-items]]))
 
-(vector/remove-items ...)
-(remove-items        ...)
+(vector.api/remove-items ...)
+(remove-items            ...)
 ```
 
 </details>
@@ -4091,10 +4088,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-items-by]]))
+(ns my-namespace (:require [vector.api :refer [remove-items-by]]))
 
-(vector/remove-items-by ...)
-(remove-items-by        ...)
+(vector.api/remove-items-by ...)
+(remove-items-by            ...)
 ```
 
 </details>
@@ -4136,10 +4133,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-items-kv]]))
+(ns my-namespace (:require [vector.api :refer [remove-items-kv]]))
 
-(vector/remove-items-kv ...)
-(remove-items-kv        ...)
+(vector.api/remove-items-kv ...)
+(remove-items-kv            ...)
 ```
 
 </details>
@@ -4183,10 +4180,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-last-item]]))
+(ns my-namespace (:require [vector.api :refer [remove-last-item]]))
 
-(vector/remove-last-item ...)
-(remove-last-item        ...)
+(vector.api/remove-last-item ...)
+(remove-last-item            ...)
 ```
 
 </details>
@@ -4234,10 +4231,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-nth-item]]))
+(ns my-namespace (:require [vector.api :refer [remove-nth-item]]))
 
-(vector/remove-nth-item ...)
-(remove-nth-item        ...)
+(vector.api/remove-nth-item ...)
+(remove-nth-item            ...)
 ```
 
 </details>
@@ -4286,10 +4283,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [remove-nth-items]]))
+(ns my-namespace (:require [vector.api :refer [remove-nth-items]]))
 
-(vector/remove-nth-items ...)
-(remove-nth-items        ...)
+(vector.api/remove-nth-items ...)
+(remove-nth-items            ...)
 ```
 
 </details>
@@ -4334,10 +4331,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [repeat-item]]))
+(ns my-namespace (:require [vector.api :refer [repeat-item]]))
 
-(vector/repeat-item ...)
-(repeat-item        ...)
+(vector.api/repeat-item ...)
+(repeat-item            ...)
 ```
 
 </details>
@@ -4395,10 +4392,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [replace-nth-item]]))
+(ns my-namespace (:require [vector.api :refer [replace-nth-item]]))
 
-(vector/replace-nth-item ...)
-(replace-nth-item        ...)
+(vector.api/replace-nth-item ...)
+(replace-nth-item            ...)
 ```
 
 </details>
@@ -4442,10 +4439,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [reverse-items]]))
+(ns my-namespace (:require [vector.api :refer [reverse-items]]))
 
-(vector/reverse-items ...)
-(reverse-items        ...)
+(vector.api/reverse-items ...)
+(reverse-items            ...)
 ```
 
 </details>
@@ -4494,10 +4491,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [similars]]))
+(ns my-namespace (:require [vector.api :refer [similars]]))
 
-(vector/similars ...)
-(similars        ...)
+(vector.api/similars ...)
+(similars            ...)
 ```
 
 </details>
@@ -4545,10 +4542,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [sort-items]]))
+(ns my-namespace (:require [vector.api :refer [sort-items]]))
 
-(vector/sort-items ...)
-(sort-items        ...)
+(vector.api/sort-items ...)
+(sort-items            ...)
 ```
 
 </details>
@@ -4604,10 +4601,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [sort-items-by]]))
+(ns my-namespace (:require [vector.api :refer [sort-items-by]]))
 
-(vector/sort-items-by ...)
-(sort-items-by        ...)
+(vector.api/sort-items-by ...)
+(sort-items-by            ...)
 ```
 
 </details>
@@ -4660,10 +4657,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [sort-items-by-dexes]]))
+(ns my-namespace (:require [vector.api :refer [sort-items-by-dexes]]))
 
-(vector/sort-items-by-dexes ...)
-(sort-items-by-dexes        ...)
+(vector.api/sort-items-by-dexes ...)
+(sort-items-by-dexes            ...)
 ```
 
 </details>
@@ -4716,10 +4713,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [sorted-dexes]]))
+(ns my-namespace (:require [vector.api :refer [sorted-dexes]]))
 
-(vector/sorted-dexes ...)
-(sorted-dexes        ...)
+(vector.api/sorted-dexes ...)
+(sorted-dexes            ...)
 ```
 
 </details>
@@ -4764,10 +4761,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [to-map]]))
+(ns my-namespace (:require [vector.api :refer [to-map]]))
 
-(vector/to-map ...)
-(to-map        ...)
+(vector.api/to-map ...)
+(to-map            ...)
 ```
 
 </details>
@@ -4821,10 +4818,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [toggle-item]]))
+(ns my-namespace (:require [vector.api :refer [toggle-item]]))
 
-(vector/toggle-item ...)
-(toggle-item        ...)
+(vector.api/toggle-item ...)
+(toggle-item            ...)
 ```
 
 </details>
@@ -4869,10 +4866,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :as vector :refer [trim]]))
+(ns my-namespace (:require [vector.api :refer [trim]]))
 
-(vector/trim ...)
-(trim        ...)
+(vector.api/trim ...)
+(trim            ...)
 ```
 
 </details>

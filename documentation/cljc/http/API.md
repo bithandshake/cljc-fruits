@@ -1,10 +1,7 @@
 
 # <strong>http.api</strong> namespace
-<p>Documentation of the <strong>http/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > http.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/http/api.cljc
 
 ### html-wrap
 
@@ -49,10 +46,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [html-wrap]]))
+(ns my-namespace (:require [http.api :refer [html-wrap]]))
 
-(http/html-wrap ...)
-(html-wrap      ...)
+(http.api/html-wrap ...)
+(html-wrap          ...)
 ```
 
 </details>
@@ -104,10 +101,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [json-wrap]]))
+(ns my-namespace (:require [http.api :refer [json-wrap]]))
 
-(http/json-wrap ...)
-(json-wrap      ...)
+(http.api/json-wrap ...)
+(json-wrap          ...)
 ```
 
 </details>
@@ -156,10 +153,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [map-wrap]]))
+(ns my-namespace (:require [http.api :refer [map-wrap]]))
 
-(http/map-wrap ...)
-(map-wrap      ...)
+(http.api/map-wrap ...)
+(map-wrap          ...)
 ```
 
 </details>
@@ -223,10 +220,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [media-wrap]]))
+(ns my-namespace (:require [http.api :refer [media-wrap]]))
 
-(http/media-wrap ...)
-(media-wrap      ...)
+(http.api/media-wrap ...)
+(media-wrap          ...)
 ```
 
 </details>
@@ -260,10 +257,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->cookie]]))
+(ns my-namespace (:require [http.api :refer [request->cookie]]))
 
-(http/request->cookie ...)
-(request->cookie      ...)
+(http.api/request->cookie ...)
+(request->cookie          ...)
 ```
 
 </details>
@@ -296,10 +293,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->cookies]]))
+(ns my-namespace (:require [http.api :refer [request->cookies]]))
 
-(http/request->cookies ...)
-(request->cookies      ...)
+(http.api/request->cookies ...)
+(request->cookies          ...)
 ```
 
 </details>
@@ -333,10 +330,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->form-param]]))
+(ns my-namespace (:require [http.api :refer [request->form-param]]))
 
-(http/request->form-param ...)
-(request->form-param      ...)
+(http.api/request->form-param ...)
+(request->form-param          ...)
 ```
 
 </details>
@@ -369,10 +366,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->form-params]]))
+(ns my-namespace (:require [http.api :refer [request->form-params]]))
 
-(http/request->form-params ...)
-(request->form-params      ...)
+(http.api/request->form-params ...)
+(request->form-params          ...)
 ```
 
 </details>
@@ -406,10 +403,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->multipart-param]]))
+(ns my-namespace (:require [http.api :refer [request->multipart-param]]))
 
-(http/request->multipart-param ...)
-(request->multipart-param      ...)
+(http.api/request->multipart-param ...)
+(request->multipart-param          ...)
 ```
 
 </details>
@@ -442,10 +439,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->multipart-params]]))
+(ns my-namespace (:require [http.api :refer [request->multipart-params]]))
 
-(http/request->multipart-params ...)
-(request->multipart-params      ...)
+(http.api/request->multipart-params ...)
+(request->multipart-params          ...)
 ```
 
 </details>
@@ -478,10 +475,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->param]]))
+(ns my-namespace (:require [http.api :refer [request->param]]))
 
-(http/request->param ...)
-(request->param      ...)
+(http.api/request->param ...)
+(request->param          ...)
 ```
 
 </details>
@@ -514,10 +511,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->params]]))
+(ns my-namespace (:require [http.api :refer [request->params]]))
 
-(http/request->params ...)
-(request->params      ...)
+(http.api/request->params ...)
+(request->params          ...)
 ```
 
 </details>
@@ -550,10 +547,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->path-param]]))
+(ns my-namespace (:require [http.api :refer [request->path-param]]))
 
-(http/request->path-param ...)
-(request->path-param      ...)
+(http.api/request->path-param ...)
+(request->path-param          ...)
 ```
 
 </details>
@@ -586,10 +583,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->path-params]]))
+(ns my-namespace (:require [http.api :refer [request->path-params]]))
 
-(http/request->path-params ...)
-(request->path-params      ...)
+(http.api/request->path-params ...)
+(request->path-params          ...)
 ```
 
 </details>
@@ -622,10 +619,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->query-string]]))
+(ns my-namespace (:require [http.api :refer [request->query-string]]))
 
-(http/request->query-string ...)
-(request->query-string      ...)
+(http.api/request->query-string ...)
+(request->query-string          ...)
 ```
 
 </details>
@@ -658,10 +655,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->route-path]]))
+(ns my-namespace (:require [http.api :refer [request->route-path]]))
 
-(http/request->route-path ...)
-(request->route-path      ...)
+(http.api/request->route-path ...)
+(request->route-path          ...)
 ```
 
 </details>
@@ -694,10 +691,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->route-path]]))
+(ns my-namespace (:require [http.api :refer [request->route-path]]))
 
-(http/request->route-path ...)
-(request->route-path      ...)
+(http.api/request->route-path ...)
+(request->route-path          ...)
 ```
 
 </details>
@@ -730,10 +727,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->session]]))
+(ns my-namespace (:require [http.api :refer [request->session]]))
 
-(http/request->session ...)
-(request->session      ...)
+(http.api/request->session ...)
+(request->session          ...)
 ```
 
 </details>
@@ -766,10 +763,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->session-param]]))
+(ns my-namespace (:require [http.api :refer [request->session-param]]))
 
-(http/request->session-param ...)
-(request->session-param      ...)
+(http.api/request->session-param ...)
+(request->session-param          ...)
 ```
 
 </details>
@@ -802,10 +799,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->transit-param]]))
+(ns my-namespace (:require [http.api :refer [request->transit-param]]))
 
-(http/request->transit-param ...)
-(request->transit-param      ...)
+(http.api/request->transit-param ...)
+(request->transit-param          ...)
 ```
 
 </details>
@@ -838,10 +835,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->transit-params]]))
+(ns my-namespace (:require [http.api :refer [request->transit-params]]))
 
-(http/request->transit-params ...)
-(request->transit-params      ...)
+(http.api/request->transit-params ...)
+(request->transit-params          ...)
 ```
 
 </details>
@@ -875,10 +872,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [request->uri]]))
+(ns my-namespace (:require [http.api :refer [request->uri]]))
 
-(http/request->uri ...)
-(request->uri      ...)
+(http.api/request->uri ...)
+(request->uri          ...)
 ```
 
 </details>
@@ -944,10 +941,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [response-wrap]]))
+(ns my-namespace (:require [http.api :refer [response-wrap]]))
 
-(http/response-wrap ...)
-(response-wrap      ...)
+(http.api/response-wrap ...)
+(response-wrap          ...)
 ```
 
 </details>
@@ -997,10 +994,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [text-wrap]]))
+(ns my-namespace (:require [http.api :refer [text-wrap]]))
 
-(http/text-wrap ...)
-(text-wrap      ...)
+(http.api/text-wrap ...)
+(text-wrap          ...)
 ```
 
 </details>
@@ -1050,10 +1047,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :as http :refer [xml-wrap]]))
+(ns my-namespace (:require [http.api :refer [xml-wrap]]))
 
-(http/xml-wrap ...)
-(xml-wrap      ...)
+(http.api/xml-wrap ...)
+(xml-wrap          ...)
 ```
 
 </details>

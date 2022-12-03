@@ -1,14 +1,18 @@
 
 # <strong>cljc-fruits</strong>
+
 <p>Documentation of the <strong>cljc-fruits</strong> Clojure / ClojureScript library</p>
 
 <strong>[README](../README.md) > DOCUMENTATION</strong>
 
-### Public namespaces
+### Clojure namespaces
+
+
+### Isomorphic namespaces
+
 * [base64.api](cljc/base64/API.md) [cljc]
 * [blob.api](cljc/blob/API.md) [cljc]
 * [candy.api](cljc/candy/API.md) [cljc]
-* [code.api](cljc/code/API.md) [cljc]
 * [css.api](cljc/css/API.md) [cljc]
 * [eql.api](cljc/eql/API.md) [cljc]
 * [error.api](cljc/error/API.md) [cljc]
@@ -25,12 +29,10 @@
 * [keyword.api](cljc/keyword/API.md) [cljc]
 * [logical.api](cljc/logical/API.md) [cljc]
 * [loop.api](cljc/loop/API.md) [cljc]
-* [lorem-ipsum.api](cljc/lorem_ipsum/API.md) [cljc]
 * [map.api](cljc/map/API.md) [cljc]
 * [math.api](cljc/math/API.md) [cljc]
 * [mixed.api](cljc/mixed/API.md) [cljc]
 * [namespace.api](cljc/namespace/API.md) [cljc]
-* [nato.api](cljc/nato/API.md) [cljc]
 * [normalize.api](cljc/normalize/API.md) [cljc]
 * [pretty.api](cljc/pretty/API.md) [cljc]
 * [random.api](cljc/random/API.md) [cljc]
@@ -43,6 +45,9 @@
 * [syntax.api](cljc/syntax/API.md) [cljc]
 * [uri.api](cljc/uri/API.md) [cljc]
 * [vector.api](cljc/vector/API.md) [cljc]
+
+### ClojureScript namespaces
+
 
 ---
 

@@ -1,10 +1,7 @@
 
 # <strong>string.api</strong> namespace
-<p>Documentation of the <strong>string/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > string.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/string/api.cljc
 
 ### abc?
 
@@ -59,10 +56,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [abc?]]))
+(ns my-namespace (:require [string.api :refer [abc?]]))
 
-(string/abc? ...)
-(abc?        ...)
+(string.api/abc? ...)
+(abc?            ...)
 ```
 
 </details>
@@ -150,10 +147,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [after-first-occurence]]))
+(ns my-namespace (:require [string.api :refer [after-first-occurence]]))
 
-(string/after-first-occurence ...)
-(after-first-occurence        ...)
+(string.api/after-first-occurence ...)
+(after-first-occurence            ...)
 ```
 
 </details>
@@ -241,10 +238,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [after-last-occurence]]))
+(ns my-namespace (:require [string.api :refer [after-last-occurence]]))
 
-(string/after-last-occurence ...)
-(after-last-occurence        ...)
+(string.api/after-last-occurence ...)
+(after-last-occurence            ...)
 ```
 
 </details>
@@ -293,10 +290,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [append]]))
+(ns my-namespace (:require [string.api :refer [append]]))
 
-(string/append ...)
-(append        ...)
+(string.api/append ...)
+(append            ...)
 ```
 
 </details>
@@ -384,10 +381,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [before-first-occurence]]))
+(ns my-namespace (:require [string.api :refer [before-first-occurence]]))
 
-(string/before-first-occurence ...)
-(before-first-occurence        ...)
+(string.api/before-first-occurence ...)
+(before-first-occurence            ...)
 ```
 
 </details>
@@ -475,10 +472,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [before-last-occurence]]))
+(ns my-namespace (:require [string.api :refer [before-last-occurence]]))
 
-(string/before-last-occurence ...)
-(before-last-occurence        ...)
+(string.api/before-last-occurence ...)
+(before-last-occurence            ...)
 ```
 
 </details>
@@ -551,10 +548,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [between-occurences]]))
+(ns my-namespace (:require [string.api :refer [between-occurences]]))
 
-(string/between-occurences ...)
-(between-occurences        ...)
+(string.api/between-occurences ...)
+(between-occurences            ...)
 ```
 
 </details>
@@ -605,10 +602,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [blank?]]))
+(ns my-namespace (:require [string.api :refer [blank?]]))
 
-(string/blank? ...)
-(blank?        ...)
+(string.api/blank? ...)
+(blank?            ...)
 ```
 
 </details>
@@ -660,10 +657,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [contains-lowercase-letter?]]))
+(ns my-namespace (:require [string.api :refer [contains-lowercase-letter?]]))
 
-(string/contains-lowercase-letter? ...)
-(contains-lowercase-letter?        ...)
+(string.api/contains-lowercase-letter? ...)
+(contains-lowercase-letter?            ...)
 ```
 
 </details>
@@ -730,10 +727,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [contains-part?]]))
+(ns my-namespace (:require [string.api :refer [contains-part?]]))
 
-(string/contains-part? ...)
-(contains-part?        ...)
+(string.api/contains-part? ...)
+(contains-part?            ...)
 ```
 
 </details>
@@ -785,10 +782,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [contains-uppercase-letter?]]))
+(ns my-namespace (:require [string.api :refer [contains-uppercase-letter?]]))
 
-(string/contains-uppercase-letter? ...)
-(contains-uppercase-letter?        ...)
+(string.api/contains-uppercase-letter? ...)
+(contains-uppercase-letter?            ...)
 ```
 
 </details>
@@ -871,10 +868,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [count-occurences]]))
+(ns my-namespace (:require [string.api :refer [count-occurences]]))
 
-(string/count-occurences ...)
-(count-occurences        ...)
+(string.api/count-occurences ...)
+(count-occurences            ...)
 ```
 
 </details>
@@ -934,10 +931,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [ends-with!]]))
+(ns my-namespace (:require [string.api :refer [ends-with!]]))
 
-(string/ends-with! ...)
-(ends-with!        ...)
+(string.api/ends-with! ...)
+(ends-with!            ...)
 ```
 
 </details>
@@ -1006,10 +1003,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [ends-with?]]))
+(ns my-namespace (:require [string.api :refer [ends-with?]]))
 
-(string/ends-with? ...)
-(ends-with?        ...)
+(string.api/ends-with? ...)
+(ends-with?            ...)
 ```
 
 </details>
@@ -1058,10 +1055,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [filter-characters]]))
+(ns my-namespace (:require [string.api :refer [filter-characters]]))
 
-(string/filter-characters ...)
-(filter-characters        ...)
+(string.api/filter-characters ...)
+(filter-characters            ...)
 ```
 
 </details>
@@ -1135,10 +1132,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [first-dex-of]]))
+(ns my-namespace (:require [string.api :refer [first-dex-of]]))
 
-(string/first-dex-of ...)
-(first-dex-of        ...)
+(string.api/first-dex-of ...)
+(first-dex-of            ...)
 ```
 
 </details>
@@ -1226,10 +1223,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [from-first-occurence]]))
+(ns my-namespace (:require [string.api :refer [from-first-occurence]]))
 
-(string/from-first-occurence ...)
-(from-first-occurence        ...)
+(string.api/from-first-occurence ...)
+(from-first-occurence            ...)
 ```
 
 </details>
@@ -1317,10 +1314,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [from-last-occurence]]))
+(ns my-namespace (:require [string.api :refer [from-last-occurence]]))
 
-(string/from-last-occurence ...)
-(from-last-occurence        ...)
+(string.api/from-last-occurence ...)
+(from-last-occurence            ...)
 ```
 
 </details>
@@ -1371,10 +1368,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [get-nth-character]]))
+(ns my-namespace (:require [string.api :refer [get-nth-character]]))
 
-(string/get-nth-character ...)
-(get-nth-character        ...)
+(string.api/get-nth-character ...)
+(get-nth-character            ...)
 ```
 
 </details>
@@ -1424,10 +1421,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [insert-part]]))
+(ns my-namespace (:require [string.api :refer [insert-part]]))
 
-(string/insert-part ...)
-(insert-part        ...)
+(string.api/insert-part ...)
+(insert-part            ...)
 ```
 
 </details>
@@ -1501,10 +1498,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [join]]))
+(ns my-namespace (:require [string.api :refer [join]]))
 
-(string/join ...)
-(join        ...)
+(string.api/join ...)
+(join            ...)
 ```
 
 </details>
@@ -1578,10 +1575,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [last-dex-of]]))
+(ns my-namespace (:require [string.api :refer [last-dex-of]]))
 
-(string/last-dex-of ...)
-(last-dex-of        ...)
+(string.api/last-dex-of ...)
+(last-dex-of            ...)
 ```
 
 </details>
@@ -1635,10 +1632,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [length]]))
+(ns my-namespace (:require [string.api :refer [length]]))
 
-(string/length ...)
-(length        ...)
+(string.api/length ...)
+(length            ...)
 ```
 
 </details>
@@ -1698,10 +1695,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [length?]]))
+(ns my-namespace (:require [string.api :refer [length?]]))
 
-(string/length? ...)
-(length?        ...)
+(string.api/length? ...)
+(length?            ...)
 ```
 
 </details>
@@ -1752,10 +1749,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [line-count]]))
+(ns my-namespace (:require [string.api :refer [line-count]]))
 
-(string/line-count ...)
-(line-count        ...)
+(string.api/line-count ...)
+(line-count            ...)
 ```
 
 </details>
@@ -1820,10 +1817,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [max-length]]))
+(ns my-namespace (:require [string.api :refer [max-length]]))
 
-(string/max-length ...)
-(max-length        ...)
+(string.api/max-length ...)
+(max-length            ...)
 ```
 
 </details>
@@ -1876,10 +1873,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [max-length?]]))
+(ns my-namespace (:require [string.api :refer [max-length?]]))
 
-(string/max-length? ...)
-(max-length?        ...)
+(string.api/max-length? ...)
+(max-length?            ...)
 ```
 
 </details>
@@ -1948,10 +1945,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [max-lines]]))
+(ns my-namespace (:require [string.api :refer [max-lines]]))
 
-(string/max-lines ...)
-(max-lines        ...)
+(string.api/max-lines ...)
+(max-lines            ...)
 ```
 
 </details>
@@ -2025,10 +2022,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [max-occurence?]]))
+(ns my-namespace (:require [string.api :refer [max-occurence?]]))
 
-(string/max-occurence? ...)
-(max-occurence?        ...)
+(string.api/max-occurence? ...)
+(max-occurence?            ...)
 ```
 
 </details>
@@ -2081,10 +2078,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [min-length?]]))
+(ns my-namespace (:require [string.api :refer [min-length?]]))
 
-(string/min-length? ...)
-(min-length?        ...)
+(string.api/min-length? ...)
+(min-length?            ...)
 ```
 
 </details>
@@ -2158,10 +2155,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [min-occurence?]]))
+(ns my-namespace (:require [string.api :refer [min-occurence?]]))
 
-(string/min-occurence? ...)
-(min-occurence?        ...)
+(string.api/min-occurence? ...)
+(min-occurence?            ...)
 ```
 
 </details>
@@ -2209,10 +2206,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [multiply]]))
+(ns my-namespace (:require [string.api :refer [multiply]]))
 
-(string/multiply ...)
-(multiply        ...)
+(string.api/multiply ...)
+(multiply            ...)
 ```
 
 </details>
@@ -2264,10 +2261,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [nonblank?]]))
+(ns my-namespace (:require [string.api :refer [nonblank?]]))
 
-(string/nonblank? ...)
-(nonblank?        ...)
+(string.api/nonblank? ...)
+(nonblank?            ...)
 ```
 
 </details>
@@ -2334,10 +2331,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [not-ends-with!]]))
+(ns my-namespace (:require [string.api :refer [not-ends-with!]]))
 
-(string/not-ends-with! ...)
-(not-ends-with!        ...)
+(string.api/not-ends-with! ...)
+(not-ends-with!            ...)
 ```
 
 </details>
@@ -2400,10 +2397,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [not-ends-with?]]))
+(ns my-namespace (:require [string.api :refer [not-ends-with?]]))
 
-(string/not-ends-with? ...)
-(not-ends-with?        ...)
+(string.api/not-ends-with? ...)
+(not-ends-with?            ...)
 ```
 
 </details>
@@ -2471,10 +2468,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [not-pass-with?]]))
+(ns my-namespace (:require [string.api :refer [not-pass-with?]]))
 
-(string/not-pass-with? ...)
-(not-pass-with?        ...)
+(string.api/not-pass-with? ...)
+(not-pass-with?            ...)
 ```
 
 </details>
@@ -2544,10 +2541,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [not-starts-with!]]))
+(ns my-namespace (:require [string.api :refer [not-starts-with!]]))
 
-(string/not-starts-with! ...)
-(not-starts-with!        ...)
+(string.api/not-starts-with! ...)
+(not-starts-with!            ...)
 ```
 
 </details>
@@ -2614,10 +2611,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [not-starts-with?]]))
+(ns my-namespace (:require [string.api :refer [not-starts-with?]]))
 
-(string/not-starts-with? ...)
-(not-starts-with?        ...)
+(string.api/not-starts-with? ...)
+(not-starts-with?            ...)
 ```
 
 </details>
@@ -2673,10 +2670,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [nth-dex-of]]))
+(ns my-namespace (:require [string.api :refer [nth-dex-of]]))
 
-(string/nth-dex-of ...)
-(nth-dex-of        ...)
+(string.api/nth-dex-of ...)
+(nth-dex-of            ...)
 ```
 
 </details>
@@ -2752,10 +2749,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [part]]))
+(ns my-namespace (:require [string.api :refer [part]]))
 
-(string/part ...)
-(part        ...)
+(string.api/part ...)
+(part            ...)
 ```
 
 </details>
@@ -2827,10 +2824,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [pass-with?]]))
+(ns my-namespace (:require [string.api :refer [pass-with?]]))
 
-(string/pass-with? ...)
-(pass-with?        ...)
+(string.api/pass-with? ...)
+(pass-with?            ...)
 ```
 
 </details>
@@ -2896,10 +2893,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [prefix]]))
+(ns my-namespace (:require [string.api :refer [prefix]]))
 
-(string/prefix ...)
-(prefix        ...)
+(string.api/prefix ...)
+(prefix            ...)
 ```
 
 </details>
@@ -2948,10 +2945,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [prepend]]))
+(ns my-namespace (:require [string.api :refer [prepend]]))
 
-(string/prepend ...)
-(prepend        ...)
+(string.api/prepend ...)
+(prepend            ...)
 ```
 
 </details>
@@ -3011,10 +3008,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [remove-first-occurence]]))
+(ns my-namespace (:require [string.api :refer [remove-first-occurence]]))
 
-(string/remove-first-occurence ...)
-(remove-first-occurence        ...)
+(string.api/remove-first-occurence ...)
+(remove-first-occurence            ...)
 ```
 
 </details>
@@ -3074,10 +3071,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [remove-last-occurence]]))
+(ns my-namespace (:require [string.api :refer [remove-last-occurence]]))
 
-(string/remove-last-occurence ...)
-(remove-last-occurence        ...)
+(string.api/remove-last-occurence ...)
+(remove-last-occurence            ...)
 ```
 
 </details>
@@ -3121,10 +3118,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [remove-newlines]]))
+(ns my-namespace (:require [string.api :refer [remove-newlines]]))
 
-(string/remove-newlines ...)
-(remove-newlines        ...)
+(string.api/remove-newlines ...)
+(remove-newlines            ...)
 ```
 
 </details>
@@ -3190,10 +3187,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [remove-part]]))
+(ns my-namespace (:require [string.api :refer [remove-part]]))
 
-(string/remove-part ...)
-(remove-part        ...)
+(string.api/remove-part ...)
+(remove-part            ...)
 ```
 
 </details>
@@ -3279,10 +3276,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [replace-part]]))
+(ns my-namespace (:require [string.api :refer [replace-part]]))
 
-(string/replace-part ...)
-(replace-part        ...)
+(string.api/replace-part ...)
+(replace-part            ...)
 ```
 
 </details>
@@ -3353,10 +3350,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [split]]))
+(ns my-namespace (:require [string.api :refer [split]]))
 
-(string/split ...)
-(split        ...)
+(string.api/split ...)
+(split            ...)
 ```
 
 </details>
@@ -3419,10 +3416,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [starts-with!]]))
+(ns my-namespace (:require [string.api :refer [starts-with!]]))
 
-(string/starts-with! ...)
-(starts-with!        ...)
+(string.api/starts-with! ...)
+(starts-with!            ...)
 ```
 
 </details>
@@ -3495,10 +3492,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [starts-with?]]))
+(ns my-namespace (:require [string.api :refer [starts-with?]]))
 
-(string/starts-with? ...)
-(starts-with?        ...)
+(string.api/starts-with? ...)
+(starts-with?            ...)
 ```
 
 </details>
@@ -3564,10 +3561,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [suffix]]))
+(ns my-namespace (:require [string.api :refer [suffix]]))
 
-(string/suffix ...)
-(suffix        ...)
+(string.api/suffix ...)
+(suffix            ...)
 ```
 
 </details>
@@ -3611,10 +3608,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-capitalized]]))
+(ns my-namespace (:require [string.api :refer [to-capitalized]]))
 
-(string/to-capitalized ...)
-(to-capitalized        ...)
+(string.api/to-capitalized ...)
+(to-capitalized            ...)
 ```
 
 </details>
@@ -3702,10 +3699,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-first-occurence]]))
+(ns my-namespace (:require [string.api :refer [to-first-occurence]]))
 
-(string/to-first-occurence ...)
-(to-first-occurence        ...)
+(string.api/to-first-occurence ...)
+(to-first-occurence            ...)
 ```
 
 </details>
@@ -3759,10 +3756,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-integer]]))
+(ns my-namespace (:require [string.api :refer [to-integer]]))
 
-(string/to-integer ...)
-(to-integer        ...)
+(string.api/to-integer ...)
+(to-integer            ...)
 ```
 
 </details>
@@ -3850,10 +3847,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-last-occurence]]))
+(ns my-namespace (:require [string.api :refer [to-last-occurence]]))
 
-(string/to-last-occurence ...)
-(to-last-occurence        ...)
+(string.api/to-last-occurence ...)
+(to-last-occurence            ...)
 ```
 
 </details>
@@ -3897,10 +3894,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-lowercase]]))
+(ns my-namespace (:require [string.api :refer [to-lowercase]]))
 
-(string/to-lowercase ...)
-(to-lowercase        ...)
+(string.api/to-lowercase ...)
+(to-lowercase            ...)
 ```
 
 </details>
@@ -3944,10 +3941,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [to-uppercase]]))
+(ns my-namespace (:require [string.api :refer [to-uppercase]]))
 
-(string/to-uppercase ...)
-(to-uppercase        ...)
+(string.api/to-uppercase ...)
+(to-uppercase            ...)
 ```
 
 </details>
@@ -3991,10 +3988,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [trim]]))
+(ns my-namespace (:require [string.api :refer [trim]]))
 
-(string/trim ...)
-(trim        ...)
+(string.api/trim ...)
+(trim            ...)
 ```
 
 </details>
@@ -4047,10 +4044,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [use-nil]]))
+(ns my-namespace (:require [string.api :refer [use-nil]]))
 
-(string/use-nil ...)
-(use-nil        ...)
+(string.api/use-nil ...)
+(use-nil            ...)
 ```
 
 </details>
@@ -4104,10 +4101,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [use-placeholder]]))
+(ns my-namespace (:require [string.api :refer [use-placeholder]]))
 
-(string/use-placeholder ...)
-(use-placeholder        ...)
+(string.api/use-placeholder ...)
+(use-placeholder            ...)
 ```
 
 </details>
@@ -4162,10 +4159,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [use-replacement]]))
+(ns my-namespace (:require [string.api :refer [use-replacement]]))
 
-(string/use-replacement ...)
-(use-replacement        ...)
+(string.api/use-replacement ...)
+(use-replacement            ...)
 ```
 
 </details>
@@ -4242,10 +4239,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [string.api :as string :refer [use-replacements]]))
+(ns my-namespace (:require [string.api :refer [use-replacements]]))
 
-(string/use-replacements ...)
-(use-replacements        ...)
+(string.api/use-replacements ...)
+(use-replacements            ...)
 ```
 
 </details>

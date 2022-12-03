@@ -1,10 +1,7 @@
 
 # <strong>sequence.api</strong> namespace
-<p>Documentation of the <strong>sequence/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > sequence.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/sequence/api.cljc
 
 ### next-dex
 
@@ -51,10 +48,10 @@ nagyobb, mint max
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [sequence.api :as sequence :refer [next-dex]]))
+(ns my-namespace (:require [sequence.api :refer [next-dex]]))
 
-(sequence/next-dex ...)
-(next-dex          ...)
+(sequence.api/next-dex ...)
+(next-dex              ...)
 ```
 
 </details>
@@ -106,10 +103,10 @@ mint max
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [sequence.api :as sequence :refer [prev-dex]]))
+(ns my-namespace (:require [sequence.api :refer [prev-dex]]))
 
-(sequence/prev-dex ...)
-(prev-dex          ...)
+(sequence.api/prev-dex ...)
+(prev-dex              ...)
 ```
 
 </details>
@@ -159,10 +156,10 @@ nagyobb, mint max
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [sequence.api :as sequence :refer [prev-prev-dex]]))
+(ns my-namespace (:require [sequence.api :refer [prev-prev-dex]]))
 
-(sequence/prev-prev-dex ...)
-(prev-prev-dex          ...)
+(sequence.api/prev-prev-dex ...)
+(prev-prev-dex              ...)
 ```
 
 </details>

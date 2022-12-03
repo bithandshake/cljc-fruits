@@ -1,10 +1,7 @@
 
 # <strong>gestures.api</strong> namespace
-<p>Documentation of the <strong>gestures/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > gestures.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/gestures/api.cljc
 
 ### item-label->copy-label
 
@@ -63,10 +60,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [gestures.api :as gestures :refer [item-label->copy-label]]))
+(ns my-namespace (:require [gestures.api :refer [item-label->copy-label]]))
 
-(gestures/item-label->copy-label ...)
-(item-label->copy-label          ...)
+(gestures.api/item-label->copy-label ...)
+(item-label->copy-label              ...)
 ```
 
 </details>
@@ -103,10 +100,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [gestures.api :as gestures :refer [ordered-label?]]))
+(ns my-namespace (:require [gestures.api :refer [ordered-label?]]))
 
-(gestures/ordered-label? ...)
-(ordered-label?          ...)
+(gestures.api/ordered-label? ...)
+(ordered-label?              ...)
 ```
 
 </details>
@@ -165,10 +162,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [gestures.api :as gestures :refer [resolve-variable]]))
+(ns my-namespace (:require [gestures.api :refer [resolve-variable]]))
 
-(gestures/resolve-variable ...)
-(resolve-variable          ...)
+(gestures.api/resolve-variable ...)
+(resolve-variable              ...)
 ```
 
 </details>

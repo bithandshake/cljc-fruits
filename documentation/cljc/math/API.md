@@ -1,10 +1,7 @@
 
 # <strong>math.api</strong> namespace
-<p>Documentation of the <strong>math/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > math.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/math/api.cljc
 
 ### absolute
 
@@ -38,10 +35,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [absolute]]))
+(ns my-namespace (:require [math.api :refer [absolute]]))
 
-(math/absolute ...)
-(absolute      ...)
+(math.api/absolute ...)
+(absolute          ...)
 ```
 
 </details>
@@ -79,10 +76,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [absolute-difference]]))
+(ns my-namespace (:require [math.api :refer [absolute-difference]]))
 
-(math/absolute-difference ...)
-(absolute-difference      ...)
+(math.api/absolute-difference ...)
+(absolute-difference          ...)
 ```
 
 </details>
@@ -127,10 +124,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [avarage]]))
+(ns my-namespace (:require [math.api :refer [avarage]]))
 
-(math/avarage ...)
-(avarage      ...)
+(math.api/avarage ...)
+(avarage          ...)
 ```
 
 </details>
@@ -173,10 +170,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [between!]]))
+(ns my-namespace (:require [math.api :refer [between!]]))
 
-(math/between! ...)
-(between!      ...)
+(math.api/between! ...)
+(between!          ...)
 ```
 
 </details>
@@ -218,10 +215,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [between?]]))
+(ns my-namespace (:require [math.api :refer [between?]]))
 
-(math/between? ...)
-(between?      ...)
+(math.api/between? ...)
+(between?          ...)
 ```
 
 </details>
@@ -283,10 +280,10 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [calc]]))
+(ns my-namespace (:require [math.api :refer [calc]]))
 
-(math/calc ...)
-(calc      ...)
+(math.api/calc ...)
+(calc          ...)
 ```
 
 </details>
@@ -337,10 +334,10 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [ceil]]))
+(ns my-namespace (:require [math.api :refer [ceil]]))
 
-(math/ceil ...)
-(ceil      ...)
+(math.api/ceil ...)
+(ceil          ...)
 ```
 
 </details>
@@ -389,10 +386,10 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [choose]]))
+(ns my-namespace (:require [math.api :refer [choose]]))
 
-(math/choose ...)
-(choose      ...)
+(math.api/choose ...)
+(choose          ...)
 ```
 
 </details>
@@ -436,10 +433,10 @@ A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [circum]]))
+(ns my-namespace (:require [math.api :refer [circum]]))
 
-(math/circum ...)
-(circum      ...)
+(math.api/circum ...)
+(circum          ...)
 ```
 
 </details>
@@ -492,10 +489,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [collection-maximum]]))
+(ns my-namespace (:require [math.api :refer [collection-maximum]]))
 
-(math/collection-maximum ...)
-(collection-maximum      ...)
+(math.api/collection-maximum ...)
+(collection-maximum          ...)
 ```
 
 </details>
@@ -548,10 +545,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [collection-minimum]]))
+(ns my-namespace (:require [math.api :refer [collection-minimum]]))
 
-(math/collection-minimum ...)
-(collection-minimum      ...)
+(math.api/collection-minimum ...)
+(collection-minimum          ...)
 ```
 
 </details>
@@ -616,10 +613,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [domain-ceil]]))
+(ns my-namespace (:require [math.api :refer [domain-ceil]]))
 
-(math/domain-ceil ...)
-(domain-ceil      ...)
+(math.api/domain-ceil ...)
+(domain-ceil          ...)
 ```
 
 </details>
@@ -684,10 +681,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [domain-floor]]))
+(ns my-namespace (:require [math.api :refer [domain-floor]]))
 
-(math/domain-floor ...)
-(domain-floor      ...)
+(math.api/domain-floor ...)
+(domain-floor          ...)
 ```
 
 </details>
@@ -752,10 +749,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [domain-inchoate]]))
+(ns my-namespace (:require [math.api :refer [domain-inchoate]]))
 
-(math/domain-inchoate ...)
-(domain-inchoate      ...)
+(math.api/domain-inchoate ...)
+(domain-inchoate          ...)
 ```
 
 </details>
@@ -801,10 +798,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [floor]]))
+(ns my-namespace (:require [math.api :refer [floor]]))
 
-(math/floor ...)
-(floor      ...)
+(math.api/floor ...)
+(floor          ...)
 ```
 
 </details>
@@ -843,10 +840,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [maximum]]))
+(ns my-namespace (:require [math.api :refer [maximum]]))
 
-(math/maximum ...)
-(maximum      ...)
+(math.api/maximum ...)
+(maximum          ...)
 ```
 
 </details>
@@ -885,10 +882,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [minimum]]))
+(ns my-namespace (:require [math.api :refer [minimum]]))
 
-(math/minimum ...)
-(minimum      ...)
+(math.api/minimum ...)
+(minimum          ...)
 ```
 
 </details>
@@ -929,10 +926,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [negative]]))
+(ns my-namespace (:require [math.api :refer [negative]]))
 
-(math/negative ...)
-(negative      ...)
+(math.api/negative ...)
+(negative          ...)
 ```
 
 </details>
@@ -971,10 +968,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [negative?]]))
+(ns my-namespace (:require [math.api :refer [negative?]]))
 
-(math/negative? ...)
-(negative?      ...)
+(math.api/negative? ...)
+(negative?          ...)
 ```
 
 </details>
@@ -1014,10 +1011,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [nonnegative?]]))
+(ns my-namespace (:require [math.api :refer [nonnegative?]]))
 
-(math/nonnegative? ...)
-(nonnegative?      ...)
+(math.api/nonnegative? ...)
+(nonnegative?          ...)
 ```
 
 </details>
@@ -1056,10 +1053,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [opposite]]))
+(ns my-namespace (:require [math.api :refer [opposite]]))
 
-(math/opposite ...)
-(opposite      ...)
+(math.api/opposite ...)
+(opposite          ...)
 ```
 
 </details>
@@ -1099,10 +1096,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [percent]]))
+(ns my-namespace (:require [math.api :refer [percent]]))
 
-(math/percent ...)
-(percent      ...)
+(math.api/percent ...)
+(percent          ...)
 ```
 
 </details>
@@ -1141,10 +1138,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [percent->angle]]))
+(ns my-namespace (:require [math.api :refer [percent->angle]]))
 
-(math/percent->angle ...)
-(percent->angle      ...)
+(math.api/percent->angle ...)
+(percent->angle          ...)
 ```
 
 </details>
@@ -1184,10 +1181,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [percent-add]]))
+(ns my-namespace (:require [math.api :refer [percent-add]]))
 
-(math/percent-add ...)
-(percent-add      ...)
+(math.api/percent-add ...)
+(percent-add          ...)
 ```
 
 </details>
@@ -1227,10 +1224,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [percent-rest]]))
+(ns my-namespace (:require [math.api :refer [percent-rest]]))
 
-(math/percent-rest ...)
-(percent-rest      ...)
+(math.api/percent-rest ...)
+(percent-rest          ...)
 ```
 
 </details>
@@ -1270,10 +1267,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [percent-result]]))
+(ns my-namespace (:require [math.api :refer [percent-result]]))
 
-(math/percent-result ...)
-(percent-result      ...)
+(math.api/percent-result ...)
+(percent-result          ...)
 ```
 
 </details>
@@ -1314,10 +1311,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [positive]]))
+(ns my-namespace (:require [math.api :refer [positive]]))
 
-(math/positive ...)
-(positive      ...)
+(math.api/positive ...)
+(positive          ...)
 ```
 
 </details>
@@ -1356,10 +1353,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [positive?]]))
+(ns my-namespace (:require [math.api :refer [positive?]]))
 
-(math/positive? ...)
-(positive?      ...)
+(math.api/positive? ...)
+(positive?          ...)
 ```
 
 </details>
@@ -1400,10 +1397,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [power]]))
+(ns my-namespace (:require [math.api :refer [power]]))
 
-(math/power ...)
-(power      ...)
+(math.api/power ...)
+(power          ...)
 ```
 
 </details>
@@ -1463,10 +1460,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [math.api :as math :refer [round]]))
+(ns my-namespace (:require [math.api :refer [round]]))
 
-(math/round ...)
-(round      ...)
+(math.api/round ...)
+(round          ...)
 ```
 
 </details>

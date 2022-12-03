@@ -1,10 +1,7 @@
 
 # <strong>regex.api</strong> namespace
-<p>Documentation of the <strong>regex/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > regex.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/regex/api.cljc
 
 ### after-first-occurence
 
@@ -82,10 +79,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [after-first-occurence]]))
+(ns my-namespace (:require [regex.api :refer [after-first-occurence]]))
 
-(regex/after-first-occurence ...)
-(after-first-occurence       ...)
+(regex.api/after-first-occurence ...)
+(after-first-occurence           ...)
 ```
 
 </details>
@@ -163,10 +160,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [after-last-occurence]]))
+(ns my-namespace (:require [regex.api :refer [after-last-occurence]]))
 
-(regex/after-last-occurence ...)
-(after-last-occurence       ...)
+(regex.api/after-last-occurence ...)
+(after-last-occurence           ...)
 ```
 
 </details>
@@ -249,10 +246,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [before-first-occurence]]))
+(ns my-namespace (:require [regex.api :refer [before-first-occurence]]))
 
-(regex/before-first-occurence ...)
-(before-first-occurence       ...)
+(regex.api/before-first-occurence ...)
+(before-first-occurence           ...)
 ```
 
 </details>
@@ -330,10 +327,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [before-last-occurence]]))
+(ns my-namespace (:require [regex.api :refer [before-last-occurence]]))
 
-(regex/before-last-occurence ...)
-(before-last-occurence       ...)
+(regex.api/before-last-occurence ...)
+(before-last-occurence           ...)
 ```
 
 </details>
@@ -387,10 +384,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [between-occurences]]))
+(ns my-namespace (:require [regex.api :refer [between-occurences]]))
 
-(regex/between-occurences ...)
-(between-occurences       ...)
+(regex.api/between-occurences ...)
+(between-occurences           ...)
 ```
 
 </details>
@@ -441,10 +438,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [ends-with?]]))
+(ns my-namespace (:require [regex.api :refer [ends-with?]]))
 
-(regex/ends-with? ...)
-(ends-with?       ...)
+(regex.api/ends-with? ...)
+(ends-with?           ...)
 ```
 
 </details>
@@ -486,10 +483,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [first-dex-of]]))
+(ns my-namespace (:require [regex.api :refer [first-dex-of]]))
 
-(regex/first-dex-of ...)
-(first-dex-of       ...)
+(regex.api/first-dex-of ...)
+(first-dex-of           ...)
 ```
 
 </details>
@@ -572,10 +569,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [from-first-occurence]]))
+(ns my-namespace (:require [regex.api :refer [from-first-occurence]]))
 
-(regex/from-first-occurence ...)
-(from-first-occurence       ...)
+(regex.api/from-first-occurence ...)
+(from-first-occurence           ...)
 ```
 
 </details>
@@ -653,10 +650,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [from-last-occurence]]))
+(ns my-namespace (:require [regex.api :refer [from-last-occurence]]))
 
-(regex/from-last-occurence ...)
-(from-last-occurence       ...)
+(regex.api/from-last-occurence ...)
+(from-last-occurence           ...)
 ```
 
 </details>
@@ -698,10 +695,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [last-dex-of]]))
+(ns my-namespace (:require [regex.api :refer [last-dex-of]]))
 
-(regex/last-dex-of ...)
-(last-dex-of       ...)
+(regex.api/last-dex-of ...)
+(last-dex-of           ...)
 ```
 
 </details>
@@ -752,10 +749,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [not-ends-with!]]))
+(ns my-namespace (:require [regex.api :refer [not-ends-with!]]))
 
-(regex/not-ends-with! ...)
-(not-ends-with!       ...)
+(regex.api/not-ends-with! ...)
+(not-ends-with!           ...)
 ```
 
 </details>
@@ -808,10 +805,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [not-ends-with?]]))
+(ns my-namespace (:require [regex.api :refer [not-ends-with?]]))
 
-(regex/not-ends-with? ...)
-(not-ends-with?       ...)
+(regex.api/not-ends-with? ...)
+(not-ends-with?           ...)
 ```
 
 </details>
@@ -865,10 +862,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [not-starts-with!]]))
+(ns my-namespace (:require [regex.api :refer [not-starts-with!]]))
 
-(regex/not-starts-with! ...)
-(not-starts-with!       ...)
+(regex.api/not-starts-with! ...)
+(not-starts-with!           ...)
 ```
 
 </details>
@@ -924,10 +921,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [not-starts-with?]]))
+(ns my-namespace (:require [regex.api :refer [not-starts-with?]]))
 
-(regex/not-starts-with? ...)
-(not-starts-with?       ...)
+(regex.api/not-starts-with? ...)
+(not-starts-with?           ...)
 ```
 
 </details>
@@ -976,10 +973,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [nth-dex-of]]))
+(ns my-namespace (:require [regex.api :refer [nth-dex-of]]))
 
-(regex/nth-dex-of ...)
-(nth-dex-of       ...)
+(regex.api/nth-dex-of ...)
+(nth-dex-of           ...)
 ```
 
 </details>
@@ -1027,10 +1024,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [re-match?]]))
+(ns my-namespace (:require [regex.api :refer [re-match?]]))
 
-(regex/re-match? ...)
-(re-match?       ...)
+(regex.api/re-match? ...)
+(re-match?           ...)
 ```
 
 </details>
@@ -1078,10 +1075,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [re-mismatch?]]))
+(ns my-namespace (:require [regex.api :refer [re-mismatch?]]))
 
-(regex/re-mismatch? ...)
-(re-mismatch?       ...)
+(regex.api/re-mismatch? ...)
+(re-mismatch?           ...)
 ```
 
 </details>
@@ -1138,10 +1135,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [remove-first-occurence]]))
+(ns my-namespace (:require [regex.api :refer [remove-first-occurence]]))
 
-(regex/remove-first-occurence ...)
-(remove-first-occurence       ...)
+(regex.api/remove-first-occurence ...)
+(remove-first-occurence           ...)
 ```
 
 </details>
@@ -1198,10 +1195,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [remove-last-occurence]]))
+(ns my-namespace (:require [regex.api :refer [remove-last-occurence]]))
 
-(regex/remove-last-occurence ...)
-(remove-last-occurence       ...)
+(regex.api/remove-last-occurence ...)
+(remove-last-occurence           ...)
 ```
 
 </details>
@@ -1258,10 +1255,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [starts-with?]]))
+(ns my-namespace (:require [regex.api :refer [starts-with?]]))
 
-(regex/starts-with? ...)
-(starts-with?       ...)
+(regex.api/starts-with? ...)
+(starts-with?           ...)
 ```
 
 </details>
@@ -1344,10 +1341,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [to-first-occurence]]))
+(ns my-namespace (:require [regex.api :refer [to-first-occurence]]))
 
-(regex/to-first-occurence ...)
-(to-first-occurence       ...)
+(regex.api/to-first-occurence ...)
+(to-first-occurence           ...)
 ```
 
 </details>
@@ -1425,10 +1422,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [regex.api :as regex :refer [to-last-occurence]]))
+(ns my-namespace (:require [regex.api :refer [to-last-occurence]]))
 
-(regex/to-last-occurence ...)
-(to-last-occurence       ...)
+(regex.api/to-last-occurence ...)
+(to-last-occurence           ...)
 ```
 
 </details>

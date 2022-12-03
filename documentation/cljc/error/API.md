@@ -1,10 +1,7 @@
 
 # <strong>error.api</strong> namespace
-<p>Documentation of the <strong>error/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > error.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/error/api.cljc
 
 ### throw!
 
@@ -37,10 +34,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [error.api :as error :refer [throw!]]))
+(ns my-namespace (:require [error.api :refer [throw!]]))
 
-(error/throw! ...)
-(throw!       ...)
+(error.api/throw! ...)
+(throw!           ...)
 ```
 
 </details>
@@ -84,10 +81,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [error.api :as error :refer [try!]]))
+(ns my-namespace (:require [error.api :refer [try!]]))
 
-(error/try! ...)
-(try!       ...)
+(error.api/try! ...)
+(try!           ...)
 ```
 
 </details>

@@ -1,10 +1,7 @@
 
 # <strong>eql.api</strong> namespace
-<p>Documentation of the <strong>eql/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > eql.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/eql/api.cljc
 
 ### append-to-query
 
@@ -56,10 +53,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [append-to-query]]))
+(ns my-namespace (:require [eql.api :refer [append-to-query]]))
 
-(eql/append-to-query ...)
-(append-to-query     ...)
+(eql.api/append-to-query ...)
+(append-to-query         ...)
 ```
 
 </details>
@@ -98,10 +95,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [document-entity->id]]))
+(ns my-namespace (:require [eql.api :refer [document-entity->id]]))
 
-(eql/document-entity->id ...)
-(document-entity->id     ...)
+(eql.api/document-entity->id ...)
+(document-entity->id         ...)
 ```
 
 </details>
@@ -143,10 +140,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [document-entity?]]))
+(ns my-namespace (:require [eql.api :refer [document-entity?]]))
 
-(eql/document-entity? ...)
-(document-entity?     ...)
+(eql.api/document-entity? ...)
+(document-entity?         ...)
 ```
 
 </details>
@@ -185,10 +182,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [document-link->id]]))
+(ns my-namespace (:require [eql.api :refer [document-link->id]]))
 
-(eql/document-link->id ...)
-(document-link->id     ...)
+(eql.api/document-link->id ...)
+(document-link->id         ...)
 ```
 
 </details>
@@ -229,10 +226,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [document-link?]]))
+(ns my-namespace (:require [eql.api :refer [document-link?]]))
 
-(eql/document-link? ...)
-(document-link?     ...)
+(eql.api/document-link? ...)
+(document-link?         ...)
 ```
 
 </details>
@@ -279,10 +276,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [id->document-entity]]))
+(ns my-namespace (:require [eql.api :refer [id->document-entity]]))
 
-(eql/id->document-entity ...)
-(id->document-entity     ...)
+(eql.api/id->document-entity ...)
+(id->document-entity         ...)
 ```
 
 </details>
@@ -329,10 +326,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [id->document-link]]))
+(ns my-namespace (:require [eql.api :refer [id->document-link]]))
 
-(eql/id->document-link ...)
-(id->document-link     ...)
+(eql.api/id->document-link ...)
+(id->document-link         ...)
 ```
 
 </details>
@@ -371,10 +368,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [eql.api :as eql :refer [id->placeholder]]))
+(ns my-namespace (:require [eql.api :refer [id->placeholder]]))
 
-(eql/id->placeholder ...)
-(id->placeholder     ...)
+(eql.api/id->placeholder ...)
+(id->placeholder         ...)
 ```
 
 </details>

@@ -1,10 +1,7 @@
 
 # <strong>namespace.api</strong> namespace
-<p>Documentation of the <strong>namespace/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > namespace.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/namespace/api.cljc
 
 ### detect
 
@@ -36,10 +33,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [namespace.api :as namespace :refer [detect]]))
+(ns my-namespace (:require [namespace.api :refer [detect]]))
 
-(namespace/detect ...)
-(detect           ...)
+(namespace.api/detect ...)
+(detect               ...)
 ```
 
 </details>

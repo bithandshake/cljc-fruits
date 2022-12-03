@@ -1,10 +1,7 @@
 
 # <strong>syntax.api</strong> namespace
-<p>Documentation of the <strong>syntax/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > syntax.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/syntax/api.cljc
 
 ### ToCamelCase
 
@@ -37,10 +34,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [ToCamelCase]]))
+(ns my-namespace (:require [syntax.api :refer [ToCamelCase]]))
 
-(syntax/ToCamelCase ...)
-(ToCamelCase        ...)
+(syntax.api/ToCamelCase ...)
+(ToCamelCase            ...)
 ```
 
 </details>
@@ -79,10 +76,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [bracket]]))
+(ns my-namespace (:require [syntax.api :refer [bracket]]))
 
-(syntax/bracket ...)
-(bracket        ...)
+(syntax.api/bracket ...)
+(bracket            ...)
 ```
 
 </details>
@@ -137,10 +134,10 @@ character "{" in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [close-brace-position]]))
+(ns my-namespace (:require [syntax.api :refer [close-brace-position]]))
 
-(syntax/close-brace-position ...)
-(close-brace-position        ...)
+(syntax.api/close-brace-position ...)
+(close-brace-position            ...)
 ```
 
 </details>
@@ -195,10 +192,10 @@ character "[" in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [close-bracket-position]]))
+(ns my-namespace (:require [syntax.api :refer [close-bracket-position]]))
 
-(syntax/close-bracket-position ...)
-(close-bracket-position        ...)
+(syntax.api/close-bracket-position ...)
+(close-bracket-position            ...)
 ```
 
 </details>
@@ -246,10 +243,10 @@ character parenthesis open character in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [close-paren-position]]))
+(ns my-namespace (:require [syntax.api :refer [close-paren-position]]))
 
-(syntax/close-paren-position ...)
-(close-paren-position        ...)
+(syntax.api/close-paren-position ...)
+(close-paren-position            ...)
 ```
 
 </details>
@@ -318,10 +315,10 @@ given open-tag in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [close-tag-position]]))
+(ns my-namespace (:require [syntax.api :refer [close-tag-position]]))
 
-(syntax/close-tag-position ...)
-(close-tag-position        ...)
+(syntax.api/close-tag-position ...)
+(close-tag-position            ...)
 ```
 
 </details>
@@ -376,10 +373,10 @@ in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [open-brace-position]]))
+(ns my-namespace (:require [syntax.api :refer [open-brace-position]]))
 
-(syntax/open-brace-position ...)
-(open-brace-position        ...)
+(syntax.api/open-brace-position ...)
+(open-brace-position            ...)
 ```
 
 </details>
@@ -434,10 +431,10 @@ in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [open-bracket-position]]))
+(ns my-namespace (:require [syntax.api :refer [open-bracket-position]]))
 
-(syntax/open-bracket-position ...)
-(open-bracket-position        ...)
+(syntax.api/open-bracket-position ...)
+(open-bracket-position            ...)
 ```
 
 </details>
@@ -485,10 +482,10 @@ open character in the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [open-paren-position]]))
+(ns my-namespace (:require [syntax.api :refer [open-paren-position]]))
 
-(syntax/open-paren-position ...)
-(open-paren-position        ...)
+(syntax.api/open-paren-position ...)
+(open-paren-position            ...)
 ```
 
 </details>
@@ -544,10 +541,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [open-tag-position]]))
+(ns my-namespace (:require [syntax.api :refer [open-tag-position]]))
 
-(syntax/open-tag-position ...)
-(open-tag-position        ...)
+(syntax.api/open-tag-position ...)
+(open-tag-position            ...)
 ```
 
 </details>
@@ -586,10 +583,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [paren]]))
+(ns my-namespace (:require [syntax.api :refer [paren]]))
 
-(syntax/paren ...)
-(paren        ...)
+(syntax.api/paren ...)
+(paren            ...)
 ```
 
 </details>
@@ -628,10 +625,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [percent]]))
+(ns my-namespace (:require [syntax.api :refer [percent]]))
 
-(syntax/percent ...)
-(percent        ...)
+(syntax.api/percent ...)
+(percent            ...)
 ```
 
 </details>
@@ -670,10 +667,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [quotes]]))
+(ns my-namespace (:require [syntax.api :refer [quotes]]))
 
-(syntax/quotes ...)
-(quotes        ...)
+(syntax.api/quotes ...)
+(quotes            ...)
 ```
 
 </details>
@@ -724,10 +721,10 @@ the string n.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [syntax.api :as syntax :refer [to-snake-case]]))
+(ns my-namespace (:require [syntax.api :refer [to-snake-case]]))
 
-(syntax/to-snake-case ...)
-(to-snake-case        ...)
+(syntax.api/to-snake-case ...)
+(to-snake-case            ...)
 ```
 
 </details>

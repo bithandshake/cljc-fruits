@@ -1,10 +1,7 @@
 
 # <strong>format.api</strong> namespace
-<p>Documentation of the <strong>format/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > format.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/format/api.cljc
 
 ### decimals
 
@@ -72,10 +69,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [decimals]]))
+(ns my-namespace (:require [format.api :refer [decimals]]))
 
-(format/decimals ...)
-(decimals        ...)
+(format.api/decimals ...)
+(decimals            ...)
 ```
 
 </details>
@@ -127,10 +124,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [group-number]]))
+(ns my-namespace (:require [format.api :refer [group-number]]))
 
-(format/group-number ...)
-(group-number        ...)
+(format.api/group-number ...)
+(group-number            ...)
 ```
 
 </details>
@@ -202,10 +199,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [inc-version]]))
+(ns my-namespace (:require [format.api :refer [inc-version]]))
 
-(format/inc-version ...)
-(inc-version        ...)
+(format.api/inc-version ...)
+(inc-version            ...)
 ```
 
 </details>
@@ -260,10 +257,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [leading-zeros]]))
+(ns my-namespace (:require [format.api :refer [leading-zeros]]))
 
-(format/leading-zeros ...)
-(leading-zeros        ...)
+(format.api/leading-zeros ...)
+(leading-zeros            ...)
 ```
 
 </details>
@@ -318,10 +315,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [remove-leading-zeros]]))
+(ns my-namespace (:require [format.api :refer [remove-leading-zeros]]))
 
-(format/remove-leading-zeros ...)
-(remove-leading-zeros        ...)
+(format.api/remove-leading-zeros ...)
+(remove-leading-zeros            ...)
 ```
 
 </details>
@@ -374,10 +371,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [round]]))
+(ns my-namespace (:require [format.api :refer [round]]))
 
-(format/round ...)
-(round        ...)
+(format.api/round ...)
+(round            ...)
 ```
 
 </details>
@@ -425,10 +422,10 @@ Default: 2
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [format.api :as format :refer [trailing-zeros]]))
+(ns my-namespace (:require [format.api :refer [trailing-zeros]]))
 
-(format/trailing-zeros ...)
-(trailing-zeros        ...)
+(format.api/trailing-zeros ...)
+(trailing-zeros            ...)
 ```
 
 </details>

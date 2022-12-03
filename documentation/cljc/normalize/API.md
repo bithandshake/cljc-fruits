@@ -1,10 +1,7 @@
 
 # <strong>normalize.api</strong> namespace
-<p>Documentation of the <strong>normalize/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > normalize.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/normalize/api.cljc
 
 ### clean-text
 
@@ -73,10 +70,10 @@ Default: "-"
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [normalize.api :as normalize :refer [clean-text]]))
+(ns my-namespace (:require [normalize.api :refer [clean-text]]))
 
-(normalize/clean-text ...)
-(clean-text           ...)
+(normalize.api/clean-text ...)
+(clean-text               ...)
 ```
 
 </details>

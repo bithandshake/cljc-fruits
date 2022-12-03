@@ -1,10 +1,7 @@
 
 # <strong>geometry.api</strong> namespace
-<p>Documentation of the <strong>geometry/api.cljc</strong> file</p>
 
-<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > geometry.api</strong>
-
-
+<strong>[README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > </strong>source-code/cljc/geometry/api.cljc
 
 ### column-count
 
@@ -64,10 +61,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [geometry.api :as geometry :refer [column-count]]))
+(ns my-namespace (:require [geometry.api :refer [column-count]]))
 
-(geometry/column-count ...)
-(column-count          ...)
+(geometry.api/column-count ...)
+(column-count              ...)
 ```
 
 </details>
@@ -131,10 +128,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [geometry.api :as geometry :refer [columns-width]]))
+(ns my-namespace (:require [geometry.api :refer [columns-width]]))
 
-(geometry/columns-width ...)
-(columns-width          ...)
+(geometry.api/columns-width ...)
+(columns-width              ...)
 ```
 
 </details>
