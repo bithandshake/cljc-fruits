@@ -5,9 +5,6 @@
 
 <strong>[README](../README.md) > DOCUMENTATION</strong>
 
-### Clojure namespaces
-
-
 ### Isomorphic namespaces
 
 * [base64.api](cljc/base64/API.md) [cljc]
@@ -45,9 +42,6 @@
 * [syntax.api](cljc/syntax/API.md) [cljc]
 * [uri.api](cljc/uri/API.md) [cljc]
 * [vector.api](cljc/vector/API.md) [cljc]
-
-### ClojureScript namespaces
-
 
 ---
 
