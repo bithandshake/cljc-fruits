@@ -214,7 +214,7 @@
   [n]
   ; The to-relative function ...
   ; ... converts the n string to lowercase because the to-domain
-  ;     function converts it's result to lowercase too!
+  ;     function converts its result to lowercase too!
   ; ... cuts the leading part of the string including the domain (if necessary).
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the leading slash (if necessary) (it must be after the trailing slash removing!).
@@ -247,7 +247,7 @@
   [n domain]
   ; The to-absolute function ...
   ; ... converts the n string to lowercase because the to-domain
-  ;     function converts it's result to lowercase too!
+  ;     function converts its result to lowercase too!
   ; ... converts the domain string to lowercase because the function's result
   ;     must be a lowercase string and it may be used.
   ; ... prepends the given domain (if necessary).
