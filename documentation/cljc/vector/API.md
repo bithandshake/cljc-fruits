@@ -745,6 +745,11 @@ false
 ### conj-item-once
 
 ```
+@description
+Conj the item if the vector does not contain it.
+```
+
+```
 @param (vector) n
 @param (*) x
 ```
@@ -800,6 +805,11 @@ false
 ---
 
 ### conj-some
+
+```
+@description
+Conj the item if it is NOT nil.
+```
 
 ```
 @param (vector) n
@@ -904,6 +914,11 @@ false
 ---
 
 ### cons-item-once
+
+```
+@description
+Cons the item if the vector does not contain it.
+```
 
 ```
 @param (vector) n
@@ -1189,6 +1204,12 @@ true
 ---
 
 ### dec-dex
+
+```
+@description
+Returns with the previous item's index before the given dex.
+At the beginneng of the vector it stops.
+```
 
 ```
 @param (vector) n
@@ -2054,6 +2075,12 @@ nil
 ---
 
 ### inc-dex
+
+```
+@description
+Returns with the next item's index after the given dex.
+At the end of the vector it stops.
+```
 
 ```
 @param (vector) n
@@ -3353,6 +3380,12 @@ false
 ### next-dex
 
 ```
+@description
+Returns with the next item's index after the given dex.
+At the end of the vector it jumps to the first index.
+```
+
+```
 @param (vector) n
 @param (integer) dex
 ```
@@ -3700,6 +3733,12 @@ false
 ---
 
 ### prev-dex
+
+```
+@description
+Returns with the previous item's index before the given dex.
+At the beginneng of the vector it jumps to the last index.
+```
 
 ```
 @param (vector) n

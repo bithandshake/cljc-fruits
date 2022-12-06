@@ -65,7 +65,7 @@
 
 (defn remove-part
   ; @param (*) n
-  ; @param (regex or string) x
+  ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-part "abc" "b")

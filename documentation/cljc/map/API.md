@@ -842,6 +842,11 @@ true
 ### assoc-in-or
 
 ```
+@description
+Assoc-in the value to the n map if the value-path's value is nil.
+```
+
+```
 @param (map) n
 @param (vector) value-path
 @param (*) value
@@ -896,6 +901,11 @@ true
 ---
 
 ### assoc-in-some
+
+```
+@description
+Assoc-in the value to the n map if the value is something.
+```
 
 ```
 @param (map) n
@@ -998,6 +1008,11 @@ true
 ### assoc-or
 
 ```
+@description
+Assoc the value to the n map if the value is nil.
+```
+
+```
 @param (map) n
 @param (*) key
 @param (*) value
@@ -1052,6 +1067,11 @@ true
 ---
 
 ### assoc-some
+
+```
+@description
+Assoc the value to the n map if the value is something.
+```
 
 ```
 @param (map) n
@@ -2925,6 +2945,11 @@ false
 ### update-in-some
 
 ```
+@description
+Update-in the n map if the value is something.
+```
+
+```
 @param (map) n
 @param (vector) value-path
 @param (function) update-f
@@ -2981,6 +3006,11 @@ false
 ---
 
 ### update-some
+
+```
+@description
+Update the n map if the value is something.
+```
 
 ```
 @param (map) n

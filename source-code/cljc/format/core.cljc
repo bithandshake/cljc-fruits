@@ -10,14 +10,6 @@
 ;; ----------------------------------------------------------------------------
 
 (defn group-number
-  ; @warning
-  ; Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
-  ; csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
-  ;
-  ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
-  ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
-  ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
-  ;
   ; @param (number or string) n
   ;
   ; @usage
@@ -30,6 +22,12 @@
   ;
   ; @return (string)
   [n]
+  ; Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
+  ; csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
+  ;
+  ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
+  ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
+  ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
   (let [; base:        az n string első (kizárólag) számjegyekből álló blokkja
         ; group-count: a base string hány darab három karakteres blokkra osztható
         ; offset:      a base string három karakteres blokkokra osztása után hány karakter marad ki (a base string elején)

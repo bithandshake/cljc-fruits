@@ -3260,7 +3260,7 @@ true
 
 ```
 @param (*) n
-@param (regex or string) x
+@param (regex pattern or string) x
 ```
 
 ```
@@ -3329,7 +3329,7 @@ true
 
 ```
 @param (*) n
-@param (regex or string) x
+@param (regex pattern or string) x
 @param (*) y
 @param (map)(opt) options
  {:recursive? (boolean)(opt)

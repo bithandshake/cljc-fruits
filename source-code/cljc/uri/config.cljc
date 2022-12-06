@@ -4,7 +4,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @constant (regex)
+; @constant (regex pattern)
 ;
 ; The protocol part ...
 ; ... is not necessary.
@@ -25,7 +25,7 @@
 ; Trailing slash allowed but not necessary
 (def DOMAIN-PATTERN #"([a-zA-Z]{1,5}://)?(www.)?([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")
 
-; @constant (regex)
+; @constant (regex pattern)
 ;
 ; The subdomain part ...
 ; ... is not necessary .
@@ -42,7 +42,7 @@
 ; The trailing slash is allowed but not necessary!
 (def STRICT-DOMAIN-PATTERN #"([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")
 
-; @constant (regex)
+; @constant (regex pattern)
 ;
 ; The protocol ...
 ; ... can contain lowercase and/or uppercase letters.

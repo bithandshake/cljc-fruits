@@ -42,7 +42,7 @@
 
 (defn cons-item-once
   ; @description
-  ; Cons item to a vector if the vector does not contains it.
+  ; Cons the item if the vector does not contain it.
   ;
   ; @param (vector) n
   ; @param (*) x
@@ -89,7 +89,7 @@
 
 (defn conj-item-once
   ; @description
-  ; Conj item to a vector if the vector does not contains it.
+  ; Conj the item if the vector does not contain it.
   ;
   ; @param (vector) n
   ; @param (*) x
@@ -115,7 +115,7 @@
 
 (defn conj-some
   ; @description
-  ; Conj item to a vector if the item is NOT nil.
+  ; Conj the item if it is NOT nil.
   ;
   ; @param (vector) n
   ; @param (*) x
@@ -258,9 +258,6 @@
 ;; ----------------------------------------------------------------------------
 
 (defn prev-item
-  ; @description
-  ; A vektor elemei alapján meghatározza, az x-et megelőző elemet.
-  ;
   ; @param (vector) n
   ; @param (*) x
   ;
@@ -286,9 +283,6 @@
   [n x])
 
 (defn next-item
-  ; @description
-  ; A vektor elemei alapján meghatározza, az x után következő elemet.
-  ;
   ; @param (vector) n
   ; @param (*) x
   ;

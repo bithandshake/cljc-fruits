@@ -10,6 +10,11 @@
 ### mixed->string
 
 ```
+@description
+The <pre> HTML tag makes the output more human-readable.
+```
+
+```
 @param (*) n
 @param (map) options
 {:abc? (boolean)

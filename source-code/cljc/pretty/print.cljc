@@ -182,8 +182,7 @@
 
 (defn mixed->string
   ; @description
-  ; <pre> HTML-tag segít human-readable formátumként megjeleníteni a mixed->string
-  ; függvény kimenetét
+  ; The <pre> HTML tag makes the output more human-readable.
   ;
   ; @param (*) n
   ; @param (map) options

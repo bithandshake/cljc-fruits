@@ -144,7 +144,8 @@
 
 (defn next-dex
   ; @description
-  ; A vektor elemeinek száma alapján meghatározza, a dex után következő indexet.
+  ; Returns with the next item's index after the given dex.
+  ; At the end of the vector it jumps to the first index.
   ;
   ; @param (vector) n
   ; @param (integer) dex
@@ -175,8 +176,8 @@
 
 (defn inc-dex
   ; @description
-  ; A vektor elemeinek száma alapján meghatározza, a dex után következő indexet.
-  ; A legmagasabb indexnél megáll.
+  ; Returns with the next item's index after the given dex.
+  ; At the end of the vector it stops.
   ;
   ; @param (vector) n
   ; @param (integer) dex
@@ -202,7 +203,8 @@
 
 (defn prev-dex
   ; @description
-  ; A vektor elemeinek száma alapján meghatározza, a dex-et megelőző indexet.
+  ; Returns with the previous item's index before the given dex.
+  ; At the beginneng of the vector it jumps to the last index.
   ;
   ; @param (vector) n
   ; @param (integer) dex
@@ -230,8 +232,8 @@
 
 (defn dec-dex
   ; @description
-  ; A vektor elemeinek száma alapján meghatározza, a dex-et megelőző indexet.
-  ; A legalacsonyabb értéknél (0) megáll.
+  ; Returns with the previous item's index before the given dex.
+  ; At the beginneng of the vector it stops.
   ;
   ; @param (vector) n
   ; @param (integer) dex
@@ -256,11 +258,6 @@
       (dec        dex)))
 
 (defn match-dex
-  ; @description
-  ; A vektor elemeinek száma alapján meghatározza, hogy a dex paraméterként átadott
-  ; érték a vektor hányadik indexének felelne meg ha a vektor elemeit addig ismételnénk,
-  ; hogy legyen legalább annyi eleme, mint amilyen magas szám a dex értéke.
-  ;
   ; @param (vector) n
   ; @param (integer) dex
   ;
@@ -291,6 +288,9 @@
   ;
   ; @return (integer)
   [n dex]
+  ; A vektor elemeinek száma alapján meghatározza, hogy a dex paraméterként átadott
+  ; érték a vektor hányadik indexének felelne meg ha a vektor elemeit addig ismételnénk,
+  ; hogy legyen legalább annyi eleme, mint amilyen magas szám a dex értéke.
   (let [count (count n)
         x     (-> dex (/ count)
                       (math/floor))

@@ -53,7 +53,7 @@
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -139,7 +139,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -220,7 +220,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -306,7 +306,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -387,8 +387,8 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
-@param (regex) y
+@param (regex pattern) x
+@param (regex pattern) y
 ```
 
 ```
@@ -444,7 +444,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -543,7 +543,7 @@ false
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -629,7 +629,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -755,7 +755,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -809,7 +809,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -865,7 +865,7 @@ false
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -922,7 +922,7 @@ false
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -1135,7 +1135,7 @@ true
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -1255,7 +1255,7 @@ true
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 ```
 
 ```
@@ -1315,7 +1315,7 @@ false
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}
@@ -1401,7 +1401,7 @@ nil
 
 ```
 @param (*) n
-@param (regex) x
+@param (regex pattern) x
 @param (map) options
 {:return? (boolean)(opt)
   Default: false}

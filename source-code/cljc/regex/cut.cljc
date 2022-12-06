@@ -9,7 +9,7 @@
 
 (defn before-first-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -55,7 +55,7 @@
 
 (defn before-last-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -97,7 +97,7 @@
 
 (defn after-first-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -143,7 +143,7 @@
 
 (defn after-last-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -185,7 +185,7 @@
 
 (defn from-first-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -231,7 +231,7 @@
 
 (defn from-last-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -273,7 +273,7 @@
 
 (defn to-first-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -319,7 +319,7 @@
 
 (defn to-last-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -361,7 +361,7 @@
 
 (defn remove-first-occurence
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (remove-first-occurence "abc123def" #"\d")
@@ -413,8 +413,8 @@
 
 (defn between-occurences
   ; @param (*) n
-  ; @param (regex) x
-  ; @param (regex) y
+  ; @param (regex pattern) x
+  ; @param (regex pattern) y
   ;
   ; @usage
   ; (between-occurences "abc123def" #"a" #"f")

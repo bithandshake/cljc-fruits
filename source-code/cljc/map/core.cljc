@@ -163,7 +163,7 @@
 
 (defn update-some
   ; @description
-  ; Update n map if value is something
+  ; Update the n map if the value is something.
   ;
   ; @param (map) n
   ; @param (*) key
@@ -190,7 +190,7 @@
 
 (defn update-in-some
   ; @description
-  ; Update-in n map if value is something
+  ; Update-in the n map if the value is something.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -217,7 +217,7 @@
 
 (defn assoc-some
   ; @description
-  ; Assoc value to n map if value is something
+  ; Assoc the value to the n map if the value is something.
   ;
   ; @param (map) n
   ; @param (*) key
@@ -243,7 +243,7 @@
 
 (defn assoc-in-some
   ; @description
-  ; Assoc-in value to n map if value is something
+  ; Assoc-in the value to the n map if the value is something.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -269,7 +269,7 @@
 
 (defn assoc-or
   ; @description
-  ; Assoc value to n map if key's value is nil
+  ; Assoc the value to the n map if the value is nil.
   ;
   ; @param (map) n
   ; @param (*) key
@@ -294,7 +294,7 @@
 
 (defn assoc-in-or
   ; @description
-  ; Assoc-in value to n map if value-path's value is nil
+  ; Assoc-in the value to the n map if the value-path's value is nil.
   ;
   ; @param (map) n
   ; @param (vector) value-path

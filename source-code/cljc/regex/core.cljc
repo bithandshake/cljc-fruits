@@ -50,7 +50,7 @@
 
 (defn ends-with?
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (ends-with? "The things you used to own, now they own you." #"\.")
@@ -71,7 +71,7 @@
 
 (defn not-ends-with?
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (not-ends-with? "The things you used to own, now they own you." #"\.")
@@ -93,7 +93,7 @@
 
 (defn not-ends-with!
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (not-ends-with! "The things you used to own, now they own you." #"\.")
@@ -114,7 +114,7 @@
 
 (defn starts-with?
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
@@ -140,7 +140,7 @@
 
 (defn not-starts-with?
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
@@ -165,7 +165,7 @@
 
 (defn not-starts-with!
   ; @param (*) n
-  ; @param (regex) x
+  ; @param (regex pattern) x
   ;
   ; @usage
   ; (not-starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
