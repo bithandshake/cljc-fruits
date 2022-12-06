@@ -224,3 +224,41 @@
   [n]
   (not= (-> n str)
         (-> n str clojure.string/lower-case)))
+
+(defn if-contains-part
+  ; @param (*) n
+  ; @param (*) x
+  ;
+  ; @usage
+  ; (if-contains-part "abc" "ab")
+  ;
+  ; @example
+  ; (if-contains-part "abc" "ab")
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (if-contains-part "abc" "cd")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (if-contains-part "abc" "")
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (if-contains-part "abc" nil)
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (if-contains-part [:a] "[:")
+  ; =>
+  ; "[:a]"
+  ;
+  ; @return (string)
+  [n x]
+  (if (clojure.string/includes? (str n)
+                                (str x))
+      (str n)))

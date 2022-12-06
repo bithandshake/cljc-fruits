@@ -5,6 +5,8 @@
 
 ### Index
 
+- [abc](#abc)
+
 - [abc?](#abc)
 
 - [after-first-occurence](#after-first-occurence)
@@ -42,6 +44,8 @@
 - [from-last-occurence](#from-last-occurence)
 
 - [get-nth-character](#get-nth-character)
+
+- [if-contains-part](#if-contains-part)
 
 - [insert-part](#insert-part)
 
@@ -131,6 +135,84 @@
 
 - [use-replacements](#use-replacements)
 
+### abc
+
+```
+@param (*) a
+@param (*) b
+```
+
+```
+@usage
+(abc "abc" "def")
+```
+
+```
+@example
+(abc "abc" "def")
+=>
+"abc"
+```
+
+```
+@example
+(abc "def" "abc")
+=>
+"abc"
+```
+
+```
+@example
+(abc "abc" "abc")
+=>
+"abc"
+```
+
+```
+@example
+(abc 10 12)
+=>
+"10"
+```
+
+```
+@example
+(abc? "" "abc")
+=>
+""
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn abc
+  [a b]
+  (if (check/abc? a b)
+      (return       a)
+      (return       b)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [abc]]))
+
+(string.api/abc ...)
+(abc            ...)
+```
+
+</details>
+
+---
+
 ### abc?
 
 ```
@@ -160,6 +242,13 @@ true
 ```
 @example
 (abc? 10 12)
+=>
+true
+```
+
+```
+@example
+(abc? "" "abc")
 =>
 true
 ```
@@ -1500,6 +1589,84 @@ nil
 
 (string.api/get-nth-character ...)
 (get-nth-character            ...)
+```
+
+</details>
+
+---
+
+### if-contains-part
+
+```
+@param (*) n
+@param (*) x
+```
+
+```
+@usage
+(if-contains-part "abc" "ab")
+```
+
+```
+@example
+(if-contains-part "abc" "ab")
+=>
+"abc"
+```
+
+```
+@example
+(if-contains-part "abc" "cd")
+=>
+nil
+```
+
+```
+@example
+(if-contains-part "abc" "")
+=>
+"abc"
+```
+
+```
+@example
+(if-contains-part "abc" nil)
+=>
+"abc"
+```
+
+```
+@example
+(if-contains-part [:a] "[:")
+=>
+"[:a]"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn if-contains-part
+  [n x]
+  (if (clojure.string/includes? (str n)
+                                (str x))
+      (str n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [if-contains-part]]))
+
+(string.api/if-contains-part ...)
+(if-contains-part            ...)
 ```
 
 </details>

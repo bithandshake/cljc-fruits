@@ -22,6 +22,7 @@
 (def contains-part?             check/contains-part?)
 (def contains-lowercase-letter? check/contains-lowercase-letter?)
 (def contains-uppercase-letter? check/contains-uppercase-letter?)
+(def if-contains-part           check/if-contains-part)
 
 ; string.config
 (def EMPTY-STRING config/EMPTY-STRING)
