@@ -68,6 +68,11 @@
   ; =>
   ; true
   ;
+  ; @example
+  ; (abc? "" "abc")
+  ; =>
+  ; true
+  ;
   ; @return (boolean)
   [a b]
   (>= 0 (compare (str a)

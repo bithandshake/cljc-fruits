@@ -36,6 +36,7 @@
 (def to-lowercase   convert/to-lowercase)
 
 ; string.core
+(def abc               core/abc)
 (def length            core/length)
 (def get-nth-character core/get-nth-character)
 (def multiply          core/multiply)

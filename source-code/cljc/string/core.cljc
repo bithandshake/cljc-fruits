@@ -10,6 +10,44 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn abc
+  ; @param (*) a
+  ; @param (*) b
+  ;
+  ; @usage
+  ; (abc "abc" "def")
+  ;
+  ; @example
+  ; (abc "abc" "def")
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (abc "def" "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (abc "abc" "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @example
+  ; (abc 10 12)
+  ; =>
+  ; "10"
+  ;
+  ; @example
+  ; (abc? "" "abc")
+  ; =>
+  ; ""
+  ;
+  ; @return (string)
+  [a b]
+  (if (check/abc? a b)
+      (return       a)
+      (return       b)))
+
 (defn length
   ; @param (*) n
   ;
