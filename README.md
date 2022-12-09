@@ -1,8 +1,6 @@
 
 # cljc-fruits
 
-...
-
 ### Overview
 
 The <strong>cljc-fruits</strong> is a set of at least 500 Clojure/ClojureScript
