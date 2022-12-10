@@ -33,6 +33,7 @@
 (def contains-similars? compare/contains-similars?)
 (def difference         compare/difference)
 (def keep-items         compare/keep-items)
+(def keep-items-by      compare/keep-items-by)
 
 ; vector.convert
 (def to-map convert/to-map)
