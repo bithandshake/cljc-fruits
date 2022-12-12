@@ -26,6 +26,11 @@
 ### =?
 
 ```
+@description
+If 'a' is equal 'b', then returns with 'c', else returns with 'd'.
+```
+
+```
 @param (*) a
 @param (*) b
 @param (*) c
@@ -41,7 +46,6 @@
 
 ```
 @return (*)
-If a is equal b, returns c, else returns d.
 ```
 
 <details>
@@ -75,6 +79,11 @@ If a is equal b, returns c, else returns d.
 ### if-and
 
 ```
+@description
+If 'a' and 'b' is true, then returns with 'c', else returns with 'd'.
+```
+
+```
 @param (*) a
 @param (*) b
 @param (*) c
@@ -90,7 +99,6 @@ If a is equal b, returns c, else returns d.
 
 ```
 @return (*)
-If a and b is true, returns c, else returns d.
 ```
 
 <details>
@@ -124,6 +132,11 @@ If a and b is true, returns c, else returns d.
 ### if-or
 
 ```
+@description
+If 'a' or 'b' is true, then returns with 'c', else returns with 'd'.
+```
+
+```
 @param (*) a
 @param (*) b
 @param (*) c
@@ -139,7 +152,6 @@ If a and b is true, returns c, else returns d.
 
 ```
 @return (*)
-If a or b is true, returns c, else returns d.
 ```
 
 <details>
@@ -267,6 +279,11 @@ true
 ### nor
 
 ```
+@description
+Returns true if all the parameters are false after converting them to boolean type.
+```
+
+```
 @param (list of *) abc
 ```
 
@@ -293,7 +310,6 @@ true
 
 ```
 @return (boolean)
-Returns true if all the parameters are false after convert them to boolean type.
 ```
 
 <details>
@@ -324,6 +340,11 @@ Returns true if all the parameters are false after convert them to boolean type.
 ### not=?
 
 ```
+@description
+If 'a' is NOT equal 'b', then returns with 'c', else returns with 'd'.
+```
+
+```
 @param (*) a
 @param (*) b
 @param (*) c
@@ -339,7 +360,6 @@ Returns true if all the parameters are false after convert them to boolean type.
 
 ```
 @return (*)
-If a is NOT equal b, returns c, else returns d.
 ```
 
 <details>
@@ -373,6 +393,11 @@ If a is NOT equal b, returns c, else returns d.
 ### or=
 
 ```
+@description
+Returns true if 'a' is equal to any other parameter, false otherwise.
+```
+
+```
 @param (*) a
 @param (list of *) bcd
 ```
@@ -400,7 +425,6 @@ true
 
 ```
 @return (boolean)
-Returns true if a is equal to any other parameter, false otherwise.
 ```
 
 <details>
@@ -431,6 +455,12 @@ Returns true if a is equal to any other parameter, false otherwise.
 ### swap
 
 ```
+@description
+Returns with 'b' if 'x' is equal to 'a', returns with 'a' if 'x' is equal to 'b',
+returns with 'x' otherwise.
+```
+
+```
 @param (*) x
 @param (*) a
 @param (*) b
@@ -459,7 +489,6 @@ Returns true if a is equal to any other parameter, false otherwise.
 
 ```
 @return (*)
-Returns b if x is equal to a, returns a if x is equal to b, returns x otherwise.
 ```
 
 <details>

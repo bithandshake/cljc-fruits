@@ -97,6 +97,8 @@
 
 - [keep-items](#keep-items)
 
+- [keep-items-by](#keep-items-by)
+
 - [last-dex](#last-dex)
 
 - [last-filtered](#last-filtered)
@@ -2674,6 +2676,58 @@ true
 
 (vector.api/keep-items ...)
 (keep-items            ...)
+```
+
+</details>
+
+---
+
+### keep-items-by
+
+```
+@param (vector) n
+@param (function) f
+```
+
+```
+@usage
+(keep-items-by [:a :b "c" "d"] keyword?)
+```
+
+```
+@example
+(keep-items-by [:a :b "c" "d"] keyword?)
+=>
+[:a :b]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn keep-items-by
+  [n f]
+  (letfn [(f0 [o x]
+              (if (f x)
+                  (conj   o x)
+                  (return o)))]
+         (reduce f0 [] n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [keep-items-by]]))
+
+(vector.api/keep-items-by ...)
+(keep-items-by            ...)
 ```
 
 </details>
