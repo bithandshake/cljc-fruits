@@ -6,7 +6,8 @@
 ;; ----------------------------------------------------------------------------
 
 (defn reduce-kv-indexed
-  ; Az f függvény harmadik paraméterként megkapja az aktuális ciklus számát
+  ; @description
+  ; The f function gets the current item's index as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial
@@ -23,7 +24,8 @@
          (first (reduce-kv fi [initial 0] map))))
 
 (defn reduce-indexed
-  ; Az f függvény harmadik paraméterként megkapja az aktuális ciklus számát
+  ; @description
+  ; The f function gets the current item's index as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial
@@ -34,10 +36,7 @@
   ;
   ; @return (*)
   [f initial coll]
-  (letfn [(fi [[o dex] x]
-              [(f o dex x)
-               (inc dex)])]
-         (first (reduce fi [initial 0] coll))))
+  (reduce-kv f initial coll))
 
 (defn some-indexed
   ; @param (function) test-f
@@ -72,9 +71,9 @@
 (defn do-while
   ; @param (function) f
   ; @param (*) n
-  ; Az f függvény első paramétere
+  ; The initial parameter of the f function.
   ; @param (function) test-f
-  ; A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
+  ; When the test-f functions returns with true the iteration stops.
   ;
   ; @example
   ; (do-while (fn [{:keys [my-numbers x] :as n}]
