@@ -19,6 +19,10 @@
                         (string/replace-part #"-" "_"))))
 
 (defn invoke
+  ; @warning
+  ; It's really sad but the compiler cannot resolve functions like this :(
+  ; This function will be commented until the problem being solved.
+  ;
   ; @param (string) function-name
   ; @param (list of *) args
   ;

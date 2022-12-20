@@ -32,6 +32,11 @@
   ; =>
   ; "My item #3"
   ;
+  ; @example
+  ; (item-label->copy-label "" [])
+  ; =>
+  ; "#2"
+  ;
   ; @return (string)
   ([item-label]
    (item-label->copy-label item-label []))
@@ -43,7 +48,9 @@
                                  label-base    (string/before-last-occurence n "#" {:return? true})
                                  next-copy-dex (mixed/update-whole-number copy-dex inc)]
                                 (str label-base "#" next-copy-dex))
-                           (str n " #2")))]
+                           (if (string/nonblank? n)
+                               (str n " #2")
+                               (str    "#2"))))]
           (do-while f item-label test-f))))
 
 ;; ----------------------------------------------------------------------------
