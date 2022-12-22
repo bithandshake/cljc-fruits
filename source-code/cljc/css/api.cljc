@@ -33,3 +33,4 @@
 
 ; css.parse
 (def unparse parse/unparse)
+(def parse   parse/parse)

@@ -125,11 +125,6 @@
   ; (decimals "420" 2)
   ;
   ; @example
-  ; (decimals nil 2)
-  ; =>
-  ; ""
-  ;
-  ; @example
   ; (decimals "1" 2)
   ; =>
   ; "1.00"
@@ -138,6 +133,11 @@
   ; (decimals "11.0000" 3)
   ; =>
   ; "11.000"
+  ;
+  ; @example
+  ; (decimals nil 2)
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n]

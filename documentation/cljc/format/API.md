@@ -34,13 +34,6 @@ Default: 2
 
 ```
 @example
-(decimals nil 2)
-=>
-""
-```
-
-```
-@example
 (decimals "1" 2)
 =>
 "1.00"
@@ -51,6 +44,13 @@ Default: 2
 (decimals "11.0000" 3)
 =>
 "11.000"
+```
+
+```
+@example
+(decimals nil 2)
+=>
+""
 ```
 
 ```
@@ -123,10 +123,10 @@ Default: 2
 ```
 (defn group-number
   [n]
-  (let [        base        (re-find #"\d+" n)
+  (let [base        (re-find #"\d+" n)
         group-count (quot (count base) 3)
         offset      (-    (count base) (* 3 group-count))]
-       (str            (string/trim (reduce (fn [result dex]
+       (str (string/trim (reduce (fn [result dex]
                                      (let [x (+ offset (* 3 dex))]
                                           (str result " " (subs base x (+ x 3)))))
                                  (subs base 0 offset)
@@ -192,17 +192,21 @@ Default: 2
 ```
 (defn inc-version
   [n]
-  (letfn [(implode-f                     [n separators]
+  (letfn [
+          (implode-f [n separators]
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
                                     (vector/remove-last-item separators))
                          (return n)))
-          (explode-f                     [n separators]
+
+          (explode-f [n separators]
                      (if-let [separator (string/first-dex-of n ".")]
                              (explode-f (string/remove-first-occurence n ".")
                                         (conj separators separator))
-                             (implode-f                                        (let [bugfix (remove-leading-zeros n)]
+                             (implode-f
+                                        (let [bugfix (remove-leading-zeros n)]
                                              (leading-zeros (mixed/update-whole-number bugfix inc) (count n)))
+
                                         (if (re-match? n #"^[9]{1,}$")
                                             (vector/->items separators inc)
                                             (param          separators)))))]

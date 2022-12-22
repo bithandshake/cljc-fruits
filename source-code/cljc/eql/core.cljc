@@ -86,7 +86,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn append-to-query
-  ; @param (nil vector) query
+  ; @param (nil or vector) query
   ; @param (keyword, map, string or vector) query-parts
   ;
   ; @example

@@ -7,8 +7,6 @@
 
 - [->js](#-js)
 
-- [invoke](#invoke)
-
 ### ->js
 
 ```
@@ -46,44 +44,6 @@
 
 (function.api/->js ...)
 (->js              ...)
-```
-
-</details>
-
----
-
-### invoke
-
-```
-@param (string) function-name
-@param (list of *) args
-```
-
-```
-@example
-(invoke "vector.api/conj-item" [:a :b] :c)
-=>
-[:a :b :c]
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn invoke
-  [function-name & args])
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [function.api :refer [invoke]]))
-
-(function.api/invoke ...)
-(invoke              ...)
 ```
 
 </details>
