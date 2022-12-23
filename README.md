@@ -44,3 +44,61 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 - Isomorphic error handler functions in the [`error.api`](documentation/cljc/error/API.md) namespace.
 
 - Number formatting functions in the [`format.api`](documentation/cljc/format/API.md) namespace.
+
+- Source code interpreters in the [`function.api`](documentation/cljc/function/API.md) namespace.
+
+- Gesture related functions such as copy marking item labels in the [`gestures.api`](documentation/cljc/gestures/API.md) namespace.
+
+- Cryptographic hash functions in the [`hash.api`](documentation/cljc/hash/API.md) namespace.
+
+- HICCUP utility functions in the [`hiccup.api`](documentation/cljc/hiccup/API.md) namespace.
+
+- Contact data to link converters in the [`href.api`](documentation/cljc/href/API.md) namespace.
+
+- HTTP wrappers and request extractor functions in the [`http.api`](documentation/cljc/http/API.md) namespace.
+
+- Integer utility functions in the [`integer.api`](documentation/cljc/integer/API.md) namespace.
+
+- JSON syntax functions such as keywordizing, hyphenizing, parsing, etc. [`json.api`](documentation/cljc/json/API.md) namespace.
+
+- Keyword utility functions in the [`keyword.api`](documentation/cljc/keyword/API.md) namespace.
+
+- Layout utility functions in the [`layout.api`](documentation/cljc/layout/API.md) namespace.
+
+- Logic gate functions in the [`logic.api`](documentation/cljc/logic/API.md) namespace.
+
+- Iterator functions in the [`loop.api`](documentation/cljc/loop/API.md) namespace.
+
+- Lorem ipsum samples in the [`lorem-ipsum.api`](documentation/cljc/lorem-ipsum/API.md) namespace.
+
+- Map utility functions in the [`map.api`](documentation/cljc/map/API.md) namespace.
+
+- Mathematical constants and functions in the [`math.api`](documentation/cljc/math/API.md) namespace.
+
+- Utility functions for flexible types (e.g. integers in string, etc.) [`mixed.api`](documentation/cljc/mixed/API.md) namespace.
+
+- NATO alphabet sample in the [`nato.api`](documentation/cljc/nato/API.md) namespace.
+
+- String normalizer functions in the [`normalize.api`](documentation/cljc/normalize/API.md) namespace.
+
+- Pretty printing functions in the [`pretty.api`](documentation/cljc/pretty/API.md) namespace.
+
+- Random generator functions in the [`random.api`](documentation/cljc/random/API.md) namespace.
+
+- Reader and evaluator functions in the [`reader.api`](documentation/cljc/reader/API.md) namespace.
+
+- Regex utility functions in the [`regex.api`](documentation/cljc/regex/API.md) namespace.
+
+- Seqable types utility functions in the [`seqable.api`](documentation/cljc/seqable/API.md) namespace.
+
+- Sequence utility functions in the [`sequence.api`](documentation/cljc/sequence/API.md) namespace.
+
+- String utility functions in the [`string.api`](documentation/cljc/string/API.md) namespace.
+
+- SVG utility functions in the [`svg.api`](documentation/cljc/svg/API.md) namespace.
+
+- Syntax functions in the [`syntax.api`](documentation/cljc/syntax/API.md) namespace.
+
+- URI utility functions in the [`uri.api`](documentation/cljc/uri/API.md) namespace.
+
+- Vector utility functions in the [`vector.api`](documentation/cljc/vector/API.md) namespace.

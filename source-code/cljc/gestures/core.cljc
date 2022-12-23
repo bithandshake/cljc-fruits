@@ -11,8 +11,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn item-label->copy-label
-  ; Az original-label paraméterként átadott címkét ellátja a suffix paraméterként
-  ; átadott toldalékkal. Névütközés esetén sorszámmal látja el a címkét.
+  ; @description
+  ; Appends a copy marking suffix to the given 'item-label'.
+  ; Avoids name conflicts by checking the concurent labels.
   ;
   ; @param (string) item-label
   ; @param (strings in vector)(opt) concurent-labels
@@ -57,31 +58,32 @@
 ;; ----------------------------------------------------------------------------
 
 (defn resolve-variable
+  ; @description
+  ; Replaces variables in strings with its values.
+  ;
   ; @param (string) text
-  ; @param (vectors in vector) variables
-  ; [[(string) variable-value
-  ;   (list of strings) variable-names]
-  ;  [...]]}
+  ; @param (list of vectors) variables
+  ; [(string) variable-value
+  ;  (string) variable-name]
   ;
   ; @example
   ; (resolve-variable "My favorite color is @color."
-  ;                   [["red" "@color"]])
+  ;                   ["red" "@color"])
   ; =>
   ; "My favorite color is red."
   ;
   ; @example
   ; (resolve-variable "My favorite color is @color."
-  ;                   [["red" "@color" "@szin"]])
+  ;                   ["red" "@color"]
+  ;                   ["red" "@szin"])
   ; =>
   ; "My favorite color is red."
   ;
   ; @return (string)
-  [text variables]
-  (letfn [(f [result [variable-value & variable-names]]
-             (letfn [(f [result variable-name]
-                        (cond (nil?             variable-value) (return              result)
-                              (number?          variable-value) (string/replace-part result variable-name variable-value)
-                              (string/nonblank? variable-value) (string/replace-part result variable-name variable-value)
-                              :return result))]
-                    (reduce f result variable-names)))]
+  [text & [variables]]
+  (letfn [(f [result [variable-value variable-name]]
+             (cond (nil?             variable-value) (return              result)
+                   (number?          variable-value) (string/replace-part result variable-name variable-value)
+                   (string/nonblank? variable-value) (string/replace-part result variable-name variable-value)
+                   :return result))]
          (reduce f text variables)))

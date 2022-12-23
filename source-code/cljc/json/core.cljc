@@ -414,9 +414,9 @@
   ; meghívja önmagát addig, amíg már nem okoz újabb változást az n értékében,
   ; így biztosítva, hogy ne hagyjon maga után üres értékeket.
   ; Pl.: Ha az n térkép egyik értéke egy vektor, amiben egy üres térkép van,
-  ;     akkor a rekurzió első iterációjakor a vektor még nem üres,
-  ;     de az üres térkép eltávolítása után az azt tartalmazó vektor is üressé
-  ;     válik és ezért a következő iterációban már eltávolítható.
+  ;      akkor a rekurzió első iterációjakor a vektor még nem üres,
+  ;      de az üres térkép eltávolítása után az azt tartalmazó vektor is üressé
+  ;      válik és ezért a következő iterációban már eltávolítható.
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
               (if (=                 n result)

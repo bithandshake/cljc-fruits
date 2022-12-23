@@ -1,12 +1,12 @@
 
-(ns logical.api
-    (:require [logical.core :as core]
-              [logical.type :as type]))
+(ns logic.api
+    (:require [logic.core :as core]
+              [logic.type :as type]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; logical.core
+; logic.core
 (def =?     core/=?)
 (def not=?  core/not=?)
 (def if-or  core/if-or)
@@ -15,6 +15,6 @@
 (def or=    core/or=)
 (def swap   core/swap)
 
-; logical.type
+; logic.type
 (def nonfalse? type/nonfalse?)
 (def nontrue?  type/nontrue?)

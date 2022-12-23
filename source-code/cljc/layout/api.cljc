@@ -1,10 +1,10 @@
 
-(ns geometry.api
-    (:require [geometry.columns :as columns]))
+(ns layout.api
+    (:require [layout.columns :as columns]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; geometry.columns
+; layout.columns
 (def column-count  columns/column-count)
 (def columns-width columns/columns-width)

@@ -20,7 +20,7 @@
 
 (defn invoke
   ; @warning
-  ; It's really sad but the compiler cannot resolve functions like this :(
+  ; It's really sad, but the compiler cannot resolve functions like this :(
   ; This function will be commented until the problem being solved.
   ;
   ; @param (string) function-name
@@ -32,5 +32,5 @@
   ; [:a :b :c]
   [function-name & args])
 ;  #?(:cljs (let [evaled (js/eval (->js function-name))]
-;                (apply evaled args)]
+;                (apply evaled args)))
 ;  #?(:clj  (apply (resolve (symbol function-name)) args)))

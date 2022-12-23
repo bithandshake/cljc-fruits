@@ -1,16 +1,15 @@
 
-(ns geometry.columns
+(ns layout.columns
     (:require [math.api :as math]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn column-count
-  ; Kiszámítja hány oszlopban fér el a megadott számú elem és ...
-  ; ... szükség szerint csökkenti az oszlopok számát aszerint, hogy az ne haladja
-  ;    meg a max-column-count paraméterként átadott értéket.
-  ; ... szükség szerint csökkenti az oszlopok számát aszerint, hogy az oszlopok
-  ;    összeadott szélessége ne haladja meg a max-width paraméterként átadott értéket.
+  ; @description
+  ; Finds out how many columns need to display the given amount of items
+  ; considering the columns' width, the maximum column count and the maximum
+  ; displaying width.
   ;
   ; @param (integer) item-count
   ; @param (px) column-width
@@ -44,8 +43,9 @@
        (math/between! item-count 0 max-column-count)))
 
 (defn columns-width
-  ; Kiszámítja, hogy a (column-count ...) függvény által meghatározott
-  ; számú oszlopnak mennyi az összeadott szélessége.
+  ; @description
+  ; Uses the 'column-count' function to finds out how many columns need to display
+  ; a certain amount of items and what's the total width of these columns.
   ;
   ; @param (integer) item-count
   ; @param (px) column-width
