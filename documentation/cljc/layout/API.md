@@ -1,7 +1,7 @@
 
-# geometry.api isomorphic namespace
+# layout.api isomorphic namespace
 
-##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > geometry.api
+##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > layout.api
 
 ### Index
 
@@ -10,6 +10,13 @@
 - [columns-width](#columns-width)
 
 ### column-count
+
+```
+@description
+Finds out how many columns need to display the given amount of items
+considering the columns' width, the maximum column count and the maximum
+displaying width.
+```
 
 ```
 @param (integer) item-count
@@ -67,10 +74,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [geometry.api :refer [column-count]]))
+(ns my-namespace (:require [layout.api :refer [column-count]]))
 
-(geometry.api/column-count ...)
-(column-count              ...)
+(layout.api/column-count ...)
+(column-count            ...)
 ```
 
 </details>
@@ -78,6 +85,12 @@
 ---
 
 ### columns-width
+
+```
+@description
+Uses the 'column-count' function to finds out how many columns need to display
+a certain amount of items and what's the total width of these columns.
+```
 
 ```
 @param (integer) item-count
@@ -134,10 +147,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [geometry.api :refer [columns-width]]))
+(ns my-namespace (:require [layout.api :refer [columns-width]]))
 
-(geometry.api/columns-width ...)
-(columns-width              ...)
+(layout.api/columns-width ...)
+(columns-width            ...)
 ```
 
 </details>

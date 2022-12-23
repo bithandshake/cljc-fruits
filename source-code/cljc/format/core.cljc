@@ -28,15 +28,16 @@
   ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
   ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
   ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
-  (let [; base:        az n string első (kizárólag) számjegyekből álló blokkja
-        ; group-count: a base string hány darab három karakteres blokkra osztható
-        ; offset:      a base string három karakteres blokkokra osztása után hány karakter marad ki (a base string elején)
-        base        (re-find #"\d+" n)
+  ;
+  ; base:        az n string első (kizárólag) számjegyekből álló blokkja
+  ; group-count: a base string hány darab három karakteres blokkra osztható
+  ; offset:      a base string három karakteres blokkokra osztása után hány karakter marad ki (a base string elején)
+  (let [base        (re-find #"\d+" n)
         group-count (quot (count base) 3)
         offset      (-    (count base) (* 3 group-count))]
-       (str ; Abban az esetben, ha az offset értéke 0, mert a base karaktereinek száma hárommal osztható,
-            ; szükséges a ciklus kimeneti értékének elejéről a felesleges elválasztó karaktert eltávolítani!
-            (string/trim (reduce (fn [result dex]
+       ; Abban az esetben, ha az offset értéke 0, mert a base karaktereinek száma hárommal osztható,
+       ; szükséges a ciklus kimeneti értékének elejéről a felesleges elválasztó karaktert eltávolítani!
+       (str (string/trim (reduce (fn [result dex]
                                      (let [x (+ offset (* 3 dex))]
                                           (str result " " (subs base x (+ x 3)))))
                                  (subs base 0 offset)
@@ -87,8 +88,9 @@
   ;
   ; @return (string)
   [n]
-  ; Java környezetben az egyelemű string típusa CHAR, ezért az első karakter
-  ; összehasonlítása előtt szükséges azt string típusra alakítani!
+  ; In Java language the one character long strings can be character types,
+  ; therefore in the test function the first character has to be converted
+  ; to string type!
   (letfn [(f [n]
              (if-not (= "0" (-> n first str))
                      (return n)
@@ -123,11 +125,6 @@
   ; (decimals "420" 2)
   ;
   ; @example
-  ; (decimals nil 2)
-  ; =>
-  ; ""
-  ;
-  ; @example
   ; (decimals "1" 2)
   ; =>
   ; "1.00"
@@ -136,6 +133,11 @@
   ; (decimals "11.0000" 3)
   ; =>
   ; "11.000"
+  ;
+  ; @example
+  ; (decimals nil 2)
+  ; =>
+  ; ""
   ;
   ; @return (string)
   ([n]
@@ -206,30 +208,33 @@
   ;
   ; @return (string)
   [n]
-  (letfn [(implode-f ; @param (string) n
-                     ; @param (integers in vector) separators
-                     ; Az elválasztó-karakterek (".") pozíciói az n string-ben
-                     [n separators]
+  (letfn [
+          ; @param (string) n
+          ; @param (integers in vector) separators
+          ; The positions of delimiters (".") in the string n.
+          (implode-f [n separators]
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
                                     (vector/remove-last-item separators))
                          (return n)))
-          (explode-f ; @param (string) n
-                     ; @param (integers in vector) separators
-                     ; Az elválasztó-karakterek (".") pozíciói az n string-ben
-                     [n separators]
+
+          ; @param (string) n
+          ; @param (integers in vector) separators
+          ; The positions of delimiters (".") in the string n.
+          (explode-f [n separators]
                      (if-let [separator (string/first-dex-of n ".")]
                              (explode-f (string/remove-first-occurence n ".")
                                         (conj separators separator))
-                             (implode-f ; BUG#0080
-                                        ; A mixed/update-whole-number függvény a "008" string-et bit (?) típusként
-                                        ; értelmezné, ezért szükséges eltávolítani a kezdő nullákat az n string-ből!
+                             (implode-f
+                                        ; BUG#0080
+                                        ; The leading zeros has to be removed to prevent the update-whole-number
+                                        ; function from parsing the n string (e.g. "008") in a non-decimal system.
                                         (let [bugfix (remove-leading-zeros n)]
                                              (leading-zeros (mixed/update-whole-number bugfix inc) (count n)))
-                                        ; Ha az n értéke a növelés előtt kizárólag
-                                        ; 9-es számjegyeket tartalmaz, akkor szükséges az elválasztó
-                                        ; karakterek pozícióit növelni, különben a "9.9" verziószám
-                                        ; a növelés után "10.0" helyett "1.00" lenne!
+
+                                        ; If the n contains only "9" digits before the increasing,
+                                        ; an offset has to be applied on the positions of delimiters,
+                                        ; otherwise "9.9" might followed by "1.00" instead of "10.0"
                                         (if (re-match? n #"^[9]{1,}$")
                                             (vector/->items separators inc)
                                             (param          separators)))))]

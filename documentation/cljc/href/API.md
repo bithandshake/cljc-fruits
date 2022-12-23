@@ -107,7 +107,7 @@
 ### phone-number
 
 ```
-@param (string) phone-number
+@param (integer or string) phone-number
 ```
 
 ```
@@ -127,7 +127,7 @@
 ```
 (defn phone-number
   [phone-number]
-  (if (string/nonblank? phone-number)
+  (if (-> phone-number str string/nonblank?)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 ```
 

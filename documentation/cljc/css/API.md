@@ -15,6 +15,8 @@
 
 - [ms](#ms)
 
+- [parse](#parse)
+
 - [percent](#percent)
 
 - [px](#px)
@@ -279,6 +281,60 @@
 
 (css.api/ms ...)
 (ms         ...)
+```
+
+</details>
+
+---
+
+### parse
+
+```
+@param (string) n
+```
+
+```
+@example
+(parse "opacity: 1; width: 100%;")
+=>
+{:opacity 1 :width "100%"}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn parse
+  [n]
+  (letfn [(f0 [x] (if-let [k (string/before-first-occurence x ":" {:return? false})]
+                          (if-let [v (string/before-first-occurence x ":" {:return? false})]
+                                  (let [k (string/trim k) v (string/trim v)]
+                                       (and (string/nonblank? k)
+                                            (string/nonblank? v)
+                                            [k v])))))
+          (f1 [style n] (if-let [x (string/before-first-occurence n "                                (if-let [[k v] (f0 x)]
+                                        (f1 (assoc style (keyword k) v)
+                                            (string/after-first-occurence n "                                        (return style))
+                                (if-let [[k v] (f0 n)]
+                                        (assoc  style (keyword k) v)
+                                        (return style))))]
+         (f1 {} n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [css.api :refer [parse]]))
+
+(css.api/parse ...)
+(parse         ...)
 ```
 
 </details>

@@ -1,10 +1,13 @@
 
-(ns logical.core)
+(ns logic.core)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn =?
+  ; @description
+  ; If 'a' is equal 'b', then returns with 'c', else returns with 'd'.
+  ;
   ; @param (*) a
   ; @param (*) b
   ; @param (*) c
@@ -16,7 +19,6 @@
   ; "not equal"
   ;
   ; @return (*)
-  ; If a is equal b, returns c, else returns d.
   ([a b c]
    (when (= a b) c))
 
@@ -24,6 +26,9 @@
    (if (= a b) c d)))
 
 (defn not=?
+  ; @description
+  ; If 'a' is NOT equal 'b', then returns with 'c', else returns with 'd'.
+  ;
   ; @param (*) a
   ; @param (*) b
   ; @param (*) c
@@ -35,7 +40,6 @@
   ; "not equal"
   ;
   ; @return (*)
-  ; If a is NOT equal b, returns c, else returns d.
   ([a b c]
    (when-not (= a b) c))
 
@@ -43,6 +47,9 @@
    (if-not (= a b) c d)))
 
 (defn if-or
+  ; @description
+  ; If 'a' or 'b' is true, then returns with 'c', else returns with 'd'.
+  ;
   ; @param (*) a
   ; @param (*) b
   ; @param (*) c
@@ -54,7 +61,6 @@
   ; "C"
   ;
   ; @return (*)
-  ; If a or b is true, returns c, else returns d.
   ([a b c]
    (when (or a b) c))
 
@@ -62,6 +68,9 @@
    (if (or a b) c d)))
 
 (defn if-and
+  ; @description
+  ; If 'a' and 'b' is true, then returns with 'c', else returns with 'd'.
+  ;
   ; @param (*) a
   ; @param (*) b
   ; @param (*) c
@@ -73,7 +82,6 @@
   ; "D"
   ;
   ; @return (*)
-  ; If a and b is true, returns c, else returns d.
   ([a b c]
    (when (and a b) c))
 
@@ -81,6 +89,9 @@
    (if (and a b) c d)))
 
 (defn nor
+  ; @description
+  ; Returns true if all the parameters are false after converting them to boolean type.
+  ;
   ; @param (list of *) abc
   ;
   ; @example
@@ -99,11 +110,13 @@
   ; true
   ;
   ; @return (boolean)
-  ; Returns true if all the parameters are false after convert them to boolean type.
   [& abc]
   (not-any? boolean abc))
 
 (defn or=
+  ; @description
+  ; Returns true if 'a' is equal to any other parameter, false otherwise.
+  ;
   ; @param (*) a
   ; @param (list of *) bcd
   ;
@@ -123,11 +136,14 @@
   ; true
   ;
   ; @return (boolean)
-  ; Returns true if a is equal to any other parameter, false otherwise.
   [a & bcd]
   (boolean (some #(= a %) bcd)))
 
 (defn swap
+  ; @description
+  ; Returns with 'b' if 'x' is equal to 'a', returns with 'a' if 'x' is equal to 'b',
+  ; returns with 'x' otherwise.
+  ;
   ; @param (*) x
   ; @param (*) a
   ; @param (*) b
@@ -148,7 +164,6 @@
   ; "C"
   ;
   ; @return (*)
-  ; Returns b if x is equal to a, returns a if x is equal to b, returns x otherwise.
   [x a b]
   (cond (= x a) b
         (= x b) a

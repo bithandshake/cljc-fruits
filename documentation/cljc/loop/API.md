@@ -18,9 +18,9 @@
 ```
 @param (function) f
 @param (*) n
-Az f függvény első paramétere
+The initial parameter of the f function.
 @param (function) test-f
-A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
+When the test-f functions returns with true the iteration stops.
 ```
 
 ```
@@ -80,6 +80,11 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 ### reduce-indexed
 
 ```
+@description
+The f function gets the current item's index as its second parameter.
+```
+
+```
 @param (function) f
 @param (*) initial
 @param (collection) coll
@@ -100,10 +105,7 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 ```
 (defn reduce-indexed
   [f initial coll]
-  (letfn [(fi [[o dex] x]
-              [(f o dex x)
-               (inc dex)])]
-         (first (reduce fi [initial 0] coll))))
+  (reduce-kv f initial coll))
 ```
 
 </details>
@@ -123,6 +125,11 @@ A teszt-függvény, aminek ha igaz a kimenete, akkor a ciklus megáll
 ---
 
 ### reduce-kv-indexed
+
+```
+@description
+The f function gets the current item's index as its second parameter.
+```
 
 ```
 @param (function) f

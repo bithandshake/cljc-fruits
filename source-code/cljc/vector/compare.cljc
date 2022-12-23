@@ -85,3 +85,23 @@
                  (conj   o x)
                  (return o)))]
          (reduce f [] n)))
+
+(defn keep-items-by
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (keep-items-by [:a :b "c" "d"] keyword?)
+  ;
+  ; @example
+  ; (keep-items-by [:a :b "c" "d"] keyword?)
+  ; =>
+  ; [:a :b]
+  ;
+  ; @return (vector)
+  [n f]
+  (letfn [(f0 [o x]
+              (if (f x)
+                  (conj   o x)
+                  (return o)))]
+         (reduce f0 [] n)))

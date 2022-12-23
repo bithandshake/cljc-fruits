@@ -27,7 +27,7 @@
         "&body="    body)))
 
 (defn phone-number
-  ; @param (string) phone-number
+  ; @param (integer or string) phone-number
   ;
   ; @example
   ; (phone-number "+3630 / 123 - 4567")
@@ -36,7 +36,8 @@
   ;
   ; @return (string)
   [phone-number]
-  (if (string/nonblank? phone-number)
+  ; The 'phone-number' has to be converted to a string, because it's might be an integer!
+  (if (-> phone-number str string/nonblank?)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 
 (defn address
