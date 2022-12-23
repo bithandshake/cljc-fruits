@@ -1,7 +1,7 @@
 
-# logical.api isomorphic namespace
+# logic.api isomorphic namespace
 
-##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > logical.api
+##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > logic.api
 
 ### Index
 
@@ -66,10 +66,10 @@ If 'a' is equal 'b', then returns with 'c', else returns with 'd'.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [=?]]))
+(ns my-namespace (:require [logic.api :refer [=?]]))
 
-(logical.api/=? ...)
-(=?             ...)
+(logic.api/=? ...)
+(=?           ...)
 ```
 
 </details>
@@ -119,10 +119,10 @@ If 'a' and 'b' is true, then returns with 'c', else returns with 'd'.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [if-and]]))
+(ns my-namespace (:require [logic.api :refer [if-and]]))
 
-(logical.api/if-and ...)
-(if-and             ...)
+(logic.api/if-and ...)
+(if-and           ...)
 ```
 
 </details>
@@ -172,10 +172,10 @@ If 'a' or 'b' is true, then returns with 'c', else returns with 'd'.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [if-or]]))
+(ns my-namespace (:require [logic.api :refer [if-or]]))
 
-(logical.api/if-or ...)
-(if-or             ...)
+(logic.api/if-or ...)
+(if-or           ...)
 ```
 
 </details>
@@ -219,10 +219,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [nonfalse?]]))
+(ns my-namespace (:require [logic.api :refer [nonfalse?]]))
 
-(logical.api/nonfalse? ...)
-(nonfalse?             ...)
+(logic.api/nonfalse? ...)
+(nonfalse?           ...)
 ```
 
 </details>
@@ -266,10 +266,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [nontrue?]]))
+(ns my-namespace (:require [logic.api :refer [nontrue?]]))
 
-(logical.api/nontrue? ...)
-(nontrue?             ...)
+(logic.api/nontrue? ...)
+(nontrue?           ...)
 ```
 
 </details>
@@ -327,10 +327,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [nor]]))
+(ns my-namespace (:require [logic.api :refer [nor]]))
 
-(logical.api/nor ...)
-(nor             ...)
+(logic.api/nor ...)
+(nor           ...)
 ```
 
 </details>
@@ -380,10 +380,10 @@ If 'a' is NOT equal 'b', then returns with 'c', else returns with 'd'.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [not=?]]))
+(ns my-namespace (:require [logic.api :refer [not=?]]))
 
-(logical.api/not=? ...)
-(not=?             ...)
+(logic.api/not=? ...)
+(not=?           ...)
 ```
 
 </details>
@@ -442,10 +442,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [or=]]))
+(ns my-namespace (:require [logic.api :refer [or=]]))
 
-(logical.api/or= ...)
-(or=             ...)
+(logic.api/or= ...)
+(or=           ...)
 ```
 
 </details>
@@ -508,10 +508,10 @@ returns with 'x' otherwise.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [logical.api :refer [swap]]))
+(ns my-namespace (:require [logic.api :refer [swap]]))
 
-(logical.api/swap ...)
-(swap             ...)
+(logic.api/swap ...)
+(swap           ...)
 ```
 
 </details>

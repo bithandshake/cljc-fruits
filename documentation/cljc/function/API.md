@@ -7,6 +7,8 @@
 
 - [->js](#-js)
 
+- [invoke](#invoke)
+
 ### ->js
 
 ```
@@ -44,6 +46,51 @@
 
 (function.api/->js ...)
 (->js              ...)
+```
+
+</details>
+
+---
+
+### invoke
+
+```
+@warning
+It's really sad, but the compiler cannot resolve functions like this :(
+This function will be commented until the problem being solved.
+```
+
+```
+@param (string) function-name
+@param (list of *) args
+```
+
+```
+@example
+(invoke "vector.api/conj-item" [:a :b] :c)
+=>
+[:a :b :c]
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn invoke
+  [function-name & args])
+;  #?(:clj  (apply (resolve (symbol function-name)) args)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [function.api :refer [invoke]]))
+
+(function.api/invoke ...)
+(invoke              ...)
 ```
 
 </details>
