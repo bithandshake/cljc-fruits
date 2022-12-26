@@ -185,8 +185,9 @@
   ;
   ; @return (map)
   [n key f value]
-  (if value (update n key f value)
-            (return n)))
+  (if (some?          value)
+      (update n key f value)
+      (return n)))
 
 (defn update-in-some
   ; @description
@@ -212,8 +213,9 @@
   ;
   ; @return (map)
   [n value-path update-f value]
-  (if value (update-in n value-path update-f value)
-            (return    n)))
+  (if (some?                           value)
+      (update-in n value-path update-f value)
+      (return    n)))
 
 (defn assoc-some
   ; @description
@@ -238,8 +240,9 @@
   ;
   ; @return (map)
   [n key value]
-  (if value (assoc  n key value)
-            (return n)))
+  (if (some?        value)
+      (assoc  n key value)
+      (return n)))
 
 (defn assoc-in-some
   ; @description
@@ -264,8 +267,9 @@
   ;
   ; @return (map)
   [n value-path value]
-  (if value (assoc-in n value-path value)
-            (return   n)))
+  (if (some?                 value)
+      (assoc-in n value-path value)
+      (return   n)))
 
 (defn assoc-or
   ; @description

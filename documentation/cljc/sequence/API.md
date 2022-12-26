@@ -35,8 +35,6 @@
 
 ```
 @return (integer)
-A dex utan kovetkezo index, ami nem lehet kisebb, mint min es nem lehet
-nagyobb, mint max
 ```
 
 <details>
@@ -145,8 +143,6 @@ mint max
 
 ```
 @return (integer)
-A dex elotti-elotti index, ami nem lehet kisebb, mint min es nem lehet
-nagyobb, mint max
 ```
 
 <details>
@@ -155,7 +151,16 @@ nagyobb, mint max
 ```
 (defn prev-prev-dex
   [dex min max]
-  (cond (not (> max min)) min        (>  dex max) (dec max)        (<= dex min) (dec max)        (= dex (inc min)) max        :return (- dex 2)))
+  (cond
+        (not (> max min)) min
+
+        (> dex max) (dec max)
+
+        (<= dex min) (dec max)
+
+        (= dex (inc min)) max
+
+        :return (- dex 2)))
 ```
 
 </details>

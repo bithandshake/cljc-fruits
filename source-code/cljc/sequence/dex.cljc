@@ -5,6 +5,11 @@
 ;; ----------------------------------------------------------------------------
 
 (defn next-dex
+  ; @descripiton
+  ; Returns with the following index after the given 'dex'.
+  ; Keeps the return value in the domain ranged by the value of the
+  ; given 'min' and 'max'.
+  ;
   ; @param (integer) dex
   ; @param (integer) min
   ; @param (integer) max
@@ -20,14 +25,17 @@
   ; 8
   ;
   ; @return (integer)
-  ; A dex utan kovetkezo index, ami nem lehet kisebb, mint min es nem lehet
-  ; nagyobb, mint max
   [dex min max]
   (cond (>= dex max) min
         (<  dex min) min
         :return (inc dex)))
 
 (defn prev-dex
+  ; @descripiton
+  ; Returns with the previous index before the given 'dex'.
+  ; Keeps the return value in the domain ranged by the value of the
+  ; given 'min' and 'max'.
+  ;
   ; @param (integer) dex
   ; @param (integer) min
   ; @param (integer) max
@@ -51,6 +59,11 @@
         :return (dec dex)))
 
 (defn prev-prev-dex
+  ; @descripiton
+  ; Returns with the index before previous of the given 'dex'.
+  ; Keeps the return value in the domain ranged by the value of the
+  ; given 'min' and 'max'.
+  ;
   ; @param (integer) dex
   ; @param (integer) min
   ; @param (integer) max
@@ -66,11 +79,19 @@
   ; 20
   ;
   ; @return (integer)
-  ; A dex elotti-elotti index, ami nem lehet kisebb, mint min es nem lehet
-  ; nagyobb, mint max
   [dex min max]
-  (cond (not (> max min)) min  ; Ha max nem nagyobb, mint min, akkor min
-        (>  dex max) (dec max) ; Ha dex nagyobb, mint max, akkor max-1
-        (<= dex min) (dec max) ; Ha dex kisebb-egyenlo, mint min, akkor max-1
-        (= dex (inc min)) max  ; Ha dex eggyel tobb, mint min, akkor max
-        :return (- dex 2)))    ; Kulonben dex-2
+  (cond
+        ; If 'max' is NOT greater than 'min', then returns with 'min'.
+        (not (> max min)) min
+
+        ; If 'dex' is greater than 'max', then returns with 'max - 1'
+        (> dex max) (dec max)
+
+        ; If 'dex' is equal to or smaller than 'min', then returns with 'max - 1'
+        (<= dex min) (dec max)
+
+        ; If 'dex' is equal to 'min + 1', then returns with 'max'.
+        (= dex (inc min)) max
+
+        ; Otherwise returns with 'dex  - 2'
+        :return (- dex 2)))

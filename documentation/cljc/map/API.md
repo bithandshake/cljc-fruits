@@ -942,8 +942,9 @@ Assoc-in the value to the n map if the value is something.
 ```
 (defn assoc-in-some
   [n value-path value]
-  (if value (assoc-in n value-path value)
-            (return   n)))
+  (if (some?                 value)
+      (assoc-in n value-path value)
+      (return   n)))
 ```
 
 </details>
@@ -1108,8 +1109,9 @@ Assoc the value to the n map if the value is something.
 ```
 (defn assoc-some
   [n key value]
-  (if value (assoc  n key value)
-            (return n)))
+  (if (some?        value)
+      (assoc  n key value)
+      (return n)))
 ```
 
 </details>
@@ -2985,8 +2987,9 @@ Update-in the n map if the value is something.
 ```
 (defn update-in-some
   [n value-path update-f value]
-  (if value (update-in n value-path update-f value)
-            (return    n)))
+  (if (some?                           value)
+      (update-in n value-path update-f value)
+      (return    n)))
 ```
 
 </details>
@@ -3048,8 +3051,9 @@ Update the n map if the value is something.
 ```
 (defn update-some
   [n key f value]
-  (if value (update n key f value)
-            (return n)))
+  (if (some?          value)
+      (update n key f value)
+      (return n)))
 ```
 
 </details>
