@@ -15,7 +15,7 @@
 
 - [negative-whole-number?](#negative-whole-number)
 
-- [nonempty?](#nonempty)
+- [nonblank?](#nonblank)
 
 - [parse-number](#parse-number)
 
@@ -330,7 +330,7 @@ true
 
 ---
 
-### nonempty?
+### nonblank?
 
 ```
 @param (*) n
@@ -338,28 +338,28 @@ true
 
 ```
 @example
-(nonempty? nil)
+(nonblank? nil)
 =>
 false
 ```
 
 ```
 @example
-(nonempty? "")
+(nonblank? "")
 =>
 false
 ```
 
 ```
 @example
-(nonempty? [])
+(nonblank? [])
 =>
 false
 ```
 
 ```
 @example
-(nonempty? {})
+(nonblank? {})
 =>
 false
 ```
@@ -372,7 +372,7 @@ false
 <summary>Source code</summary>
 
 ```
-(defn nonempty?
+(defn nonblank?
   [n]
   (or      (-> n seqable? not)
       (-> n empty?   not)))
@@ -384,10 +384,10 @@ false
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [mixed.api :refer [nonempty?]]))
+(ns my-namespace (:require [mixed.api :refer [nonblank?]]))
 
-(mixed.api/nonempty? ...)
-(nonempty?           ...)
+(mixed.api/nonblank? ...)
+(nonblank?           ...)
 ```
 
 </details>

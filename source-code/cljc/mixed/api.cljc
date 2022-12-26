@@ -26,7 +26,7 @@
 (def parse-whole-number    parse/parse-whole-number)
 
 ; mixed.type
-(def nonempty?              type/nonempty?)
+(def nonblank?              type/nonblank?)
 (def blank?                 type/blank?)
 (def rational-number?       type/rational-number?)
 (def whole-number?          type/whole-number?)

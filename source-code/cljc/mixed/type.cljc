@@ -5,26 +5,26 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonempty?
+(defn nonblank?
   ; @param (*) n
   ;
   ; @example
-  ; (nonempty? nil)
+  ; (nonblank? nil)
   ; =>
   ; false
   ;
   ; @example
-  ; (nonempty? "")
+  ; (nonblank? "")
   ; =>
   ; false
   ;
   ; @example
-  ; (nonempty? [])
+  ; (nonblank? [])
   ; =>
   ; false
   ;
   ; @example
-  ; (nonempty? {})
+  ; (nonblank? {})
   ; =>
   ; false
   ;
