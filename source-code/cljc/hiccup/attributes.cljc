@@ -75,6 +75,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn value
+  ; @description
+  ; Converts the given 'n' to a valid HICCUP attribute value
+  ;
   ; @param (keyword or string) n
   ; @param (string)(opt) flag
   ;
@@ -95,15 +98,13 @@
   ;
   ; @return (string)
   [n & [flag]]
-  ; A value függvény az n paraméterként átadott kulcsszó vagy string típusú
-  ; értéket úgy alakítja át, hogy az megfeleljen egy HTML attribútum értékeként.
-  (let [x (cond (keyword? n) (keyword/to-string n)
+  (let [n (cond (keyword? n) (keyword/to-string n)
                 (string?  n) (return            n))]
-       (letfn [(f [result tag] (case tag "." (str result "--")
-                                         "/" (str result "--")
-                                         "?" result
-                                         "!" result
-                                         ">" result
-                                             (str result tag)))]
-              (str (reduce f nil x)
+       (letfn [(f [result char] (case char "." (str result "--")
+                                           "/" (str result "--")
+                                           "?" result
+                                           "!" result
+                                           ">" result
+                                               (str result char)))]
+              (str (reduce f nil n)
                    (if flag (str "--" flag))))))
