@@ -47,20 +47,20 @@
   [n test-f]
   (every? test-f n))
 
-(defn get-first-match-item
+(defn get-first-match
   ; @param (vector) n
   ; @param (function) test-f
   ;
   ; @usage
-  ; (get-first-match-item [:a :b :c "d"] string?)
+  ; (get-first-match [:a :b :c "d"] string?)
   ;
   ; @example
-  ; (get-first-match-item [:a :b :c] string?)
+  ; (get-first-match [:a :b :c] string?)
   ; =>
   ; nil
   ;
   ; @example
-  ; (get-first-match-item [:a "b" :c] string?)
+  ; (get-first-match [:a "b" :c] string?)
   ; =>
   ; "b"
   ;
@@ -68,24 +68,68 @@
   [n test-f]
   (some test-f n))
 
-(defn get-first-match-item-dex
+(defn get-last-match
   ; @param (vector) n
   ; @param (function) test-f
   ;
   ; @usage
-  ; (get-first-match-item-dex [:a :b :c "d"] string?)
+  ; (get-last-match [:a :b :c "d"] string?)
   ;
   ; @example
-  ; (get-first-match-item-dex [:a :b :c] string?)
+  ; (get-last-match [:a :b :c] string?)
   ; =>
   ; nil
   ;
   ; @example
-  ; (get-first-match-item-dex [:a "b" :c] string?)
+  ; (get-last-match [:a "b" :c] string?)
+  ; =>
+  ; "b"
+  ;
+  ; @return (*)
+  [n test-f]
+  (letfn [(f [%1 %2] (if (test-f %2) %2 %1))]
+         (reduce f nil n)))
+
+(defn get-first-match-dex
+  ; @param (vector) n
+  ; @param (function) test-f
+  ;
+  ; @usage
+  ; (get-first-match-dex [:a :b :c "d"] string?)
+  ;
+  ; @example
+  ; (get-first-match-dex [:a :b :c] string?)
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (get-first-match-dex [:a "b" :c] string?)
   ; =>
   ; 1
   ;
   ; @return (*)
   [n test-f]
-  (letfn [(f [%1 %2] (if (test-f) %2) %1)]
+  (letfn [(f [%1 %2] (if (test-f %2) %1))]
          (some-indexed f n)))
+
+(defn get-last-match-dex
+  ; @param (vector) n
+  ; @param (function) test-f
+  ;
+  ; @usage
+  ; (get-last-match-dex [:a :b :c "d"] string?)
+  ;
+  ; @example
+  ; (get-last-match-dex [:a :b :c] string?)
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (get-last-match-dex [:a "b" :c] string?)
+  ; =>
+  ; 1
+  ;
+  ; @return (*)
+  [n test-f]
+  (letfn [(f [%1 %2 %3] (if (test-f %3) %2 %1))]
+         (reduce-kv f nil n)))

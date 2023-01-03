@@ -80,10 +80,12 @@
 (def filtered-count? filter/filtered-count?)
 
 ; vector.match
-(def any-item-match?          match/any-item-match?)
-(def all-items-match?         match/all-items-match?)
-(def get-first-match-item     match/get-first-match-item)
-(def get-first-match-item-dex match/get-first-match-item-dex)
+(def any-item-match?     match/any-item-match?)
+(def all-items-match?    match/all-items-match?)
+(def get-first-match     match/get-first-match)
+(def get-last-match      match/get-last-match)
+(def get-first-match-dex match/get-first-match-dex)
+(def get-last-match-dex  match/get-last-match-dex)
 
 ; vector.move
 (def move-item            move/move-item)

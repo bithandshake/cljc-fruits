@@ -71,9 +71,13 @@
 
 - [first-items](#first-items)
 
-- [get-first-match-item](#get-first-match-item)
+- [get-first-match](#get-first-match)
 
-- [get-first-match-item-dex](#get-first-match-item-dex)
+- [get-first-match-dex](#get-first-match-dex)
+
+- [get-last-match](#get-last-match)
+
+- [get-last-match-dex](#get-last-match-dex)
 
 - [inc-dex](#inc-dex)
 
@@ -1965,7 +1969,7 @@ true
 
 ---
 
-### get-first-match-item
+### get-first-match
 
 ```
 @param (vector) n
@@ -1974,19 +1978,19 @@ true
 
 ```
 @usage
-(get-first-match-item [:a :b :c "d"] string?)
+(get-first-match [:a :b :c "d"] string?)
 ```
 
 ```
 @example
-(get-first-match-item [:a :b :c] string?)
+(get-first-match [:a :b :c] string?)
 =>
 nil
 ```
 
 ```
 @example
-(get-first-match-item [:a "b" :c] string?)
+(get-first-match [:a "b" :c] string?)
 =>
 "b"
 ```
@@ -1999,7 +2003,7 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn get-first-match-item
+(defn get-first-match
   [n test-f]
   (some test-f n))
 ```
@@ -2010,17 +2014,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :refer [get-first-match-item]]))
+(ns my-namespace (:require [vector.api :refer [get-first-match]]))
 
-(vector.api/get-first-match-item ...)
-(get-first-match-item            ...)
+(vector.api/get-first-match ...)
+(get-first-match            ...)
 ```
 
 </details>
 
 ---
 
-### get-first-match-item-dex
+### get-first-match-dex
 
 ```
 @param (vector) n
@@ -2029,19 +2033,19 @@ nil
 
 ```
 @usage
-(get-first-match-item-dex [:a :b :c "d"] string?)
+(get-first-match-dex [:a :b :c "d"] string?)
 ```
 
 ```
 @example
-(get-first-match-item-dex [:a :b :c] string?)
+(get-first-match-dex [:a :b :c] string?)
 =>
 nil
 ```
 
 ```
 @example
-(get-first-match-item-dex [:a "b" :c] string?)
+(get-first-match-dex [:a "b" :c] string?)
 =>
 1
 ```
@@ -2054,9 +2058,9 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn get-first-match-item-dex
+(defn get-first-match-dex
   [n test-f]
-  (letfn [(f [%1 %2] (if (test-f) %2) %1)]
+  (letfn [(f [%1 %2] (if (test-f %2) %1))]
          (some-indexed f n)))
 ```
 
@@ -2066,10 +2070,122 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :refer [get-first-match-item-dex]]))
+(ns my-namespace (:require [vector.api :refer [get-first-match-dex]]))
 
-(vector.api/get-first-match-item-dex ...)
-(get-first-match-item-dex            ...)
+(vector.api/get-first-match-dex ...)
+(get-first-match-dex            ...)
+```
+
+</details>
+
+---
+
+### get-last-match
+
+```
+@param (vector) n
+@param (function) test-f
+```
+
+```
+@usage
+(get-last-match [:a :b :c "d"] string?)
+```
+
+```
+@example
+(get-last-match [:a :b :c] string?)
+=>
+nil
+```
+
+```
+@example
+(get-last-match [:a "b" :c] string?)
+=>
+"b"
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn get-last-match
+  [n test-f]
+  (letfn [(f [%1 %2] (if (test-f %2) %2 %1))]
+         (reduce f nil n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [get-last-match]]))
+
+(vector.api/get-last-match ...)
+(get-last-match            ...)
+```
+
+</details>
+
+---
+
+### get-last-match-dex
+
+```
+@param (vector) n
+@param (function) test-f
+```
+
+```
+@usage
+(get-last-match-dex [:a :b :c "d"] string?)
+```
+
+```
+@example
+(get-last-match-dex [:a :b :c] string?)
+=>
+nil
+```
+
+```
+@example
+(get-last-match-dex [:a "b" :c] string?)
+=>
+1
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn get-last-match-dex
+  [n test-f]
+  (letfn [(f [%1 %2 %3] (if (test-f %3) %2 %1))]
+         (reduce-kv f nil n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [get-last-match-dex]]))
+
+(vector.api/get-last-match-dex ...)
+(get-last-match-dex            ...)
 ```
 
 </details>
