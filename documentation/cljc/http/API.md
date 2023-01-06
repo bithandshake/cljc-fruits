@@ -5,6 +5,8 @@
 
 ### Index
 
+- [css-wrap](#css-wrap)
+
 - [html-wrap](#html-wrap)
 
 - [json-wrap](#json-wrap)
@@ -55,13 +57,68 @@
 
 - [xml-wrap](#xml-wrap)
 
+### css-wrap
+
+```
+@param (map) response-props
+{:body (string)
+ :session (map)(opt)
+ :status (integer)(opt)
+  Default: 200}
+```
+
+```
+@example
+(css-wrap {:body "foo"})
+=>
+{:body    "foo"
+ :headers {"Content-Type" "text/css"}
+ :status  200}
+```
+
+```
+@return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn css-wrap
+  [{:keys [body] :as response-props}]
+  (response-wrap (merge {:body      (str body)
+                         :mime-type "text/css"}
+                        (select-keys response-props [:session :status]))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [css-wrap]]))
+
+(http.api/css-wrap ...)
+(css-wrap          ...)
+```
+
+</details>
+
+---
+
 ### html-wrap
 
 ```
 @param (map) response-props
 {:body (string)
  :session (map)(opt)
- :status (integer)(opt)}
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -114,8 +171,8 @@
 @param (map) response-props
 {:body (string)
  :session (map)(opt)
- :status (integer)(opt)}
-
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -140,7 +197,6 @@
 
 ```
 (defn json-wrap
-
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
                          :mime-type "application/json"}
@@ -169,7 +225,8 @@
 @param (map) response-props
 {:body (map)
  :session (map)(opt)
- :status (integer)(opt)}
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -223,7 +280,8 @@
  :filename (string)(opt)
  :mime-type (string)
  :session (map)(opt)
- :status (integer)(opt)}
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -1009,7 +1067,8 @@
 @param (map) response-props
 {:body (string)
  :session (map)(opt)
- :status (integer)(opt)}
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```
@@ -1062,7 +1121,8 @@
 @param (map) response-props
 {:body (string)
  :session (map)(opt)
- :status (integer)(opt)}
+ :status (integer)(opt)
+  Default: 200}
 ```
 
 ```

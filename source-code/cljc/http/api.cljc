@@ -35,4 +35,5 @@
 (def map-wrap      wrap/map-wrap)
 (def media-wrap    wrap/media-wrap)
 (def xml-wrap      wrap/xml-wrap)
+(def css-wrap      wrap/css-wrap)
 (def text-wrap     wrap/text-wrap)

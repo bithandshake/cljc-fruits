@@ -1,9 +1,30 @@
 
 (ns regex.core
-    (:require [clojure.string]))
+    (:require [clojure.string]
+              [candy.api :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn re-match
+  ; @param (*) n
+  ; @param (regex pattern) pattern
+  ;
+  ; @example
+  ; (re-match "123" #"^[\d]{1,}$")
+  ; =>
+  ; "123"
+  ;
+  ; @example
+  ; (re-match "abc" #"^[\d]{1,}$")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n pattern]
+  (let [n (str n)]
+       (if (re-matches pattern n)
+           (return             n))))
 
 (defn re-match?
   ; @param (*) n
@@ -21,7 +42,6 @@
   ;
   ; @return (boolean)
   [n pattern]
-  ; Returns the match, if any, of string to pattern ...
   (let [n (str n)]
        (some? (re-matches pattern n))))
 
@@ -41,7 +61,6 @@
   ;
   ; @return (boolean)
   [n pattern]
-  ; Returns the match, if any, of string to pattern ...
   (let [n (str n)]
        (nil? (re-matches pattern n))))
 

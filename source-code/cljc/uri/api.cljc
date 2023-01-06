@@ -1,45 +1,44 @@
 
 (ns uri.api
     (:require [uri.check   :as check]
-              [uri.core    :as core]
               [uri.convert :as convert]
+              [uri.core    :as core]
               [uri.query   :as query]
-              [uri.type    :as type]
               [uri.valid   :as valid]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 ; uri.check
-(def match-template? check/match-template?)
+(def url-path-template-matches? check/url-path-template-matches?)
 
 ; uri.convert
-(def to-protocol     convert/to-protocol)
-(def to-domain       convert/to-domain)
-(def to-subdomain    convert/to-subdomain)
-(def to-tld          convert/to-tld)
-(def to-tail         convert/to-tail)
-(def to-parent       convert/to-parent)
-(def to-relative     convert/to-relative)
-(def to-absolute     convert/to-absolute)
-(def to-path         convert/to-path)
-(def to-path-params  convert/to-path-params)
-(def to-fragment     convert/to-fragment)
-(def to-query-string convert/to-query-string)
-(def to-query-params convert/to-query-params)
-(def to-encoded      convert/to-encoded)
+(def to-lowercase        convert/to-lowercase)
+(def to-scheme           convert/to-scheme)
+(def to-nonschemed       convert/to-nonschemed)
+(def to-hostname         convert/to-hostname)
+(def to-port             convert/to-port)
+(def to-domain           convert/to-domain)
+(def to-subdomain        convert/to-subdomain)
+(def to-tld              convert/to-tld)
+(def to-url-tail         convert/to-url-tail)
+(def to-parent-url       convert/to-parent-url)
+(def to-relative-url     convert/to-relative-url)
+(def to-absolute-url     convert/to-absolute-url)
+(def to-url-path         convert/to-url-path)
+(def to-url-path-params  convert/to-url-path-params)
+(def to-url-fragment     convert/to-url-fragment)
+(def to-url-query-string convert/to-url-query-string)
+(def to-url-query-params convert/to-url-query-params)
+(def to-encoded-url      convert/to-encoded-url)
 
 ; uri.core
-(def use-query-string core/use-query-string)
+(def use-url-query-string core/use-url-query-string)
 
 ; uri.query
-(def query-params->query-string query/query-params->query-string)
-(def query-string->query-params query/query-string->query-params)
-
-; uri.type
-(def domain? type/domain?)
+(def url-query-params->url-query-string query/url-query-params->url-query-string)
+(def url-query-string->url-query-params query/url-query-string->url-query-params)
 
 ; uri.valid
-(def valid-uri    valid/valid-uri)
-(def valid-domain valid/valid-domain)
-(def valid-path   valid/valid-path)
+(def valid-url      valid/valid-url)
+(def valid-url-path valid/valid-url-path)

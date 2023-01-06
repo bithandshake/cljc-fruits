@@ -2,42 +2,216 @@
 (ns uri.convert
     (:require [candy.api  :refer [return]]
               [reader.api :as reader]
-              [regex.api  :as regex :refer [re-match?]]
+              [regex.api  :refer [re-match]]
               [string.api :as string]
               [uri.config :as config]
               [uri.query  :as query]))
 
-;; ----------------------------------------------------------------------------
+;; -- URI functions -----------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn to-protocol
+(defn to-lowercase
   ; @param (string) n
   ;
   ; @usage
-  ; (to-protocol "https://my-domain.com/my-path")
+  ; (to-lowercase "Https://My-domain.com")
   ;
   ; @example
-  ; (to-protocol "https://my-domain.com/my-path")
+  ; (to-lowercase "Https://My-domain.com")
+  ; =>
+  ; "https://my-domain.com"
+  ;
+  ; @example
+  ; (to-lowercase "Https://My-domain.com/My-path?My-query#My-fragment")
+  ; =>
+  ; "https://my-domain.com/My-path?My-query#My-fragment"
+  ;
+  ; @return (string)
+  [n]
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; Schemes and hostnames are case-insensitive.
+  (cond
+        ; If the URI contains a double-slash ("http://my-domain.com/my-path"),
+        ; the path part starts from the 3rd "/" character.
+        (and (string/contains-part? n "//")
+             (string/nth-dex-of     n "/" 3))
+        (let [dex (string/nth-dex-of n "/" 3)]
+             (str (-> n (string/part 0 dex)
+                        (string/to-lowercase))
+                  (-> n (string/part dex))))
+
+        ; If the URI does NOT contain a double-slash ("my-domain.com/my-path"),
+        ; the path part starts from the 1st "/" character.
+        (string/contains-part? n "/")
+        (str (-> n (string/before-first-occurence "/" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "/" {:return? false})))
+
+        ; If the URI does not contain path part ...
+        (string/contains-part? n "?")
+        (str (-> n (string/before-first-occurence "?" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "?" {:return? false})))
+
+        ; If the URI does not contain path part ...
+        (string/contains-part? n "#")
+        (str (-> n (string/before-first-occurence "#" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "#" {:return? false})))))
+
+(defn to-scheme
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-scheme "https://my-domain.com")
+  ;
+  ; @example
+  ; (to-scheme "https://my-domain.com")
   ; =>
   ; "https"
   ;
   ; @example
-  ; (to-protocol "my-domain.com/my-path")
+  ; (to-scheme "mailto:johndoe@my-domain.com")
+  ; =>
+  ; "mailto"
+  ;
+  ; @example
+  ; (to-scheme "ftp://user@my-domain.com")
+  ; =>
+  ; "ftp"
+  ;
+  ; @example
+  ; (to-scheme "my-domain.com:80")
   ; =>
   ; nil
   ;
   ; @return (string)
   [n]
-  ; The to-protocol function ...
-  ; ... takes the first part of the n string which ends with the "://" part (including the "://"),
-  ;     and if the taken part matches with the protocol pattern, cuts the trailing "://" part,
-  ;     and converts the remaining protocol-name to a lowercase string.
-  ; ... if the result is an empty string, converts it to nil.
-  (as-> n % (string/to-first-occurence % "://" {:return? false})
-            (if (re-match? % config/PROTOCOL-PATTERN)
-                (-> % (string/not-ends-with! "://")
-                      (string/to-lowercase)
-                      (string/use-nil)))))
+  ; ...
+  ;
+  ; BUG#6610 (source-code/cljc/uri/config.cljc)
+  ;
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; ... schemes are case-insensitive, the canonical form is lowercase and documents
+  ;     that specify schemes must do so with lowercase letters.
+  (-> (string/before-first-occurence n ":" {:return? false})
+      (re-match config/STRICT-SCHEME-PATTERN)
+      (string/to-lowercase)))
+
+(defn to-nonschemed
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-nonschemed "https://my-domain.com")
+  ;
+  ; @example
+  ; (to-nonschemed "https://my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-nonschemed "mailto:johndoe@my-domain.com")
+  ; =>
+  ; "johndoe@my-domain.com"
+  ;
+  ; @example
+  ; (to-nonschemed "ftp://user@my-domain.com")
+  ; =>
+  ; "user@my-domain.com"
+  ;
+  ; @example
+  ; (to-nonschemed "my-domain.com:80")
+  ; =>
+  ; "my-domain.com:80"
+  ;
+  ; @return (string)
+  [n]
+  ; The 'to-nonschemed' function removes the scheme part of the URI, the ":"
+  ; character right after the scheme part and the "//" part (if necessary).
+  ; By removing the scheme part and its ":" character from the URI, it makes
+  ; easier to determine the meaning of the other ":" characters.
+  ;
+  ; BUG#6610 (source-code/cljc/uri/config.cljc)
+  (if-let [scheme (to-scheme n)]
+          (-> n (string/after-first-occurence ":"  {:return? false})
+                (string/after-first-occurence "//" {:return? true}))
+          (return n)))
+
+(defn to-hostname
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-hostname "https://my-domain.com")
+  ;
+  ; @example
+  ; (to-hostname "https://my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-hostname "https://www.sub.my-domain.com:80/my-path")
+  ; =>
+  ; "www.sub.my-domain.com"
+  ;
+  ; @example
+  ; (to-hostname "mailto:johndoe@my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-hostname "ftp://user@my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-hostname "http://192.0.2.16:80/my-path")
+  ; =>
+  ; "192.0.2.16"
+  ;
+  ; @example
+  ; (to-hostname "/my-path?my-query#my-fragment")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n]
+  ; ...
+  ;
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; The host subcomponent is case-insensitive.
+  (-> (to-nonschemed n)
+      (string/after-first-occurence  "@"  {:return? true})
+      (string/before-first-occurence ":"  {:return? true})
+      (string/before-first-occurence "/"  {:return? true})
+      (string/before-first-occurence "?"  {:return? true})
+      (string/before-first-occurence "#"  {:return? true})
+      (string/to-lowercase)))
+
+(defn to-port
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-port "https://my-domain.com:80")
+  ;
+  ; @example
+  ; (to-port "https://my-domain.com:80")
+  ; =>
+  ; "80"
+  ;
+  ; @example
+  ; (to-port "https://my-domain.com")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n]
+  ; ...
+  (-> (to-nonschemed n)
+      (string/after-first-occurence  ":" {:return? false})
+      (string/before-first-occurence "/" {:return? true})
+      (string/before-first-occurence "?" {:return? true})
+      (string/before-first-occurence "#" {:return? true})
+      (re-match config/PORT-PATTERN)))
 
 (defn to-domain
   ; @param (string) n
@@ -46,42 +220,83 @@
   ; (to-domain "https://my-domain.com")
   ;
   ; @example
-  ; (to-domain "https://my-domain.com/my-path")
+  ; (to-domain "https://my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @return (string)
-  [n]
-  ; The to-domain function ...
-  ; ... takes the part after the first "://" part (if possible),
-  ;     then takes the part before the first "/" char (if possible),
-  ;     and if the taken part matches with the strict domain pattern,
-  ;     converts it to a lowercase string.
-  ; ... if the result is an empty string, converts it to nil.
-  (as-> n % (string/after-first-occurence  % "://" {:return? true})
-            (string/before-first-occurence % "/"   {:return? true})
-            (if (re-match? % config/STRICT-DOMAIN-PATTERN)
-                (-> % (string/to-lowercase)
-                      (string/use-nil)))))
-
-(defn to-subdomain
-  ; @param (string) n
-  ;
-  ; @usage
-  ; (to-subdomain "https://subdomain.my-domain.com")
-  ;
   ; @example
-  ; (to-subdomain "https://subdomain.my-domain.com/my-path")
+  ; (to-domain "https://www.subs.my-domain.com:80/my-path")
   ; =>
-  ; "subdomain"
+  ; "sub.my-domain.com"
   ;
   ; @example
-  ; (to-subdomain "https://my-domain.com/my-path")
+  ; (to-domain "mailto:johndoe@my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-domain "ftp://user@my-domain.com")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-domain "my-domain.com:80")
+  ; =>
+  ; "my-domain.com"
+  ;
+  ; @example
+  ; (to-domain "192.0.2.16:80")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (to-domain "/my-path?my-query#my-fragment")
   ; =>
   ; nil
   ;
   ; @return (string)
   [n]
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; The host subcomponent is case-insensitive.
+  ;
+  ; Converting to lowercase must done before cutting the "www." part, because
+  ; the 'n' string might contains an uppercase "WWW."!
+  ;
+  ; The '@' character might be placed before the domain as user information
+  ; or might be placed in the query part as a special character.
+  ; "ftp://user@my-domain.com"
+  ; "https://my-domain.com?my-query=@hello"
+  ; Cutting the part before the first "@" character has to happen after the
+  ; tail has been removed!
+  (-> (to-nonschemed n)
+      (string/to-lowercase)
+      (string/after-first-occurence  "www." {:return? true})
+      (string/before-first-occurence "/"    {:return? true})
+      (string/before-first-occurence "?"    {:return? true})
+      (string/before-first-occurence "#"    {:return? true})
+      (string/after-first-occurence  "@"    {:return? true})
+      (re-match config/DOMAIN-PATTERN)))
+
+(defn to-subdomain
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-subdomain "https://sub.my-domain.com")
+  ;
+  ; @example
+  ; (to-subdomain "https://sub.my-domain.com")
+  ; =>
+  ; "sub"
+  ;
+  ; @example
+  ; (to-subdomain "https://my-domain.com")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n]
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; The host subcomponent is case-insensitive.
   (if-let [domain (to-domain n)]
           (if (-> domain (string/min-occurence?         "." 2))
               (-> domain (string/before-first-occurence ".")
@@ -95,360 +310,380 @@
   ; (to-tld "https://my-domain.com")
   ;
   ; @example
-  ; (to-tld "https://my-domain.com/my-path")
+  ; (to-tld "https://my-domain.com")
   ; =>
   ; "com"
   ;
   ; @return (string)
   [n]
+  ; https://www.rfc-editor.org/rfc/rfc3986
+  ; The host subcomponent is case-insensitive.
   (if-let [domain (to-domain n)]
           (string/after-last-occurence domain "." {:return? false})))
 
-(defn to-tail
+;; -- URL functions -----------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn to-url-tail
   ; @param (string) n
   ;
   ; @usage
-  ; (to-tail "https://my-domain.com?my-param=my-value")
+  ; (to-url-tail "https://my-domain.com?my-query")
   ;
   ; @example
-  ; (to-tail "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; (to-url-tail "https://my-domain.com/my-path?my-query#my-fragment")
   ; =>
-  ; "my-param=my-value&your-param#my-fragment"
+  ; "my-query#my-fragment"
   ;
   ; @example
-  ; (to-tail "https://my-domain.com/my-path#my-fragment")
+  ; (to-url-tail "https://my-domain.com/my-path#my-fragment")
   ; =>
   ; "my-fragment"
   ;
   ; @example
-  ; (to-tail "https://my-domain.com/my-path")
+  ; (to-url-tail "https://my-domain.com/my-path")
   ; =>
   ; nil
   ;
   ; @return (string)
   [n]
-  (if (-> n (string/contains-part? "?"))
-      (-> n (string/to-lowercase)
-            (string/after-first-occurence "?" {:return? false}))
-      (-> n (string/to-lowercase)
-            (string/after-first-occurence "#" {:return? false}))))
+  (if (string/contains-part?        n "?")
+      (string/after-first-occurence n "?" {:return? false})
+      (string/after-first-occurence n "#" {:return? false})))
 
-(defn to-parent
+(defn to-parent-url
   ; @param (string) n
   ;
   ; @usage
-  ; (to-parent "https://my-domain.com/my-path")
+  ; (to-parent-url "https://my-domain.com/my-path")
   ;
   ; @example
-  ; (to-parent "https://my-domain.com/my-path")
+  ; (to-parent-url "https://my-domain.com/my-path")
   ; =>
   ; "https://my-domain.com"
   ;
   ; @example
-  ; (to-parent "https://my-domain.com")
+  ; (to-parent-url "https://my-domain.com")
   ; =>
   ; "https://my-domain.com"
   ;
   ; @example
-  ; (to-parent "/my-path/your-path")
+  ; (to-parent-url "/my-path/your-path")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-parent "/my-path")
+  ; (to-parent-url "/my-path")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-parent "/")
+  ; (to-parent-url "/")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-parent "my-path")
+  ; (to-parent-url "my-path")
   ; =>
   ; "/"
   ;
   ; @return (string)
   [n]
-  (if (regex/starts-with? n config/DOMAIN-PATTERN)
-      (-> n (string/to-lowercase)
-            (string/before-last-occurence "/" {:return? true})
-            (string/not-ends-with!        "/"))
-      (-> n (string/to-lowercase)
-            (string/before-last-occurence "/" {:return? false})
-            (string/starts-with!          "/"))))
+  ; ...
+  ; It might be useful if the domain, scheme and other case-insensitive parts
+  ; would be converted to lowercase like in other functions.
+  (if-let [domain (to-domain n)]
+          (-> n (string/not-ends-with!        "/")
+                (string/before-last-occurence "/" {:return? true}))
+          (-> n (string/not-ends-with!        "/")
+                (string/before-last-occurence "/" {:return? false})
+                (string/starts-with!          "/"))))
 
-(defn to-relative
+(defn to-relative-url
   ; @param (string) n
   ;
   ; @usage
-  ; (to-relative "my-domain.com/my-path")
+  ; (to-relative-url "my-domain.com/my-path")
   ;
   ; @example
-  ; (to-relative "my-domain.com/my-path?my-param#my-fragment")
+  ; (to-relative-url "my-domain.com/my-path")
   ; =>
   ; "/my-path?my-param#my-fragment"
   ;
   ; @example
-  ; (to-relative "my-domain.com")
+  ; (to-relative-url "my-domain.com/my-path?my-query#my-fragment")
+  ; =>
+  ; "/my-path?my-query#my-fragment"
+  ;
+  ; @example
+  ; (to-relative-url "my-domain.com")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-relative "/my-path")
+  ; (to-relative-url "/my-path")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-relative "my-path")
+  ; (to-relative-url "my-path")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-relative "/")
+  ; (to-relative-url "/")
+  ; =>
+  ; "/"
+  ;
+  ; @example
+  ; (to-relative-url "")
   ; =>
   ; "/"
   ;
   ; @return (string)
   [n]
-  ; The to-relative function ...
-  ; ... converts the n string to lowercase because the to-domain
-  ;     function converts its result to lowercase too!
+  ; The 'to-relative-url' function ...
   ; ... cuts the leading part of the string including the domain (if necessary).
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the leading slash (if necessary) (it must be after the trailing slash removing!).
-  (let [n (string/to-lowercase n)]
-       (if-let [domain (to-domain n)]
-               (-> n (string/after-first-occurence domain)
-                     (string/not-ends-with! "/")
-                     (string/starts-with!   "/"))
-               (-> n (string/not-ends-with! "/")
-                     (string/starts-with!   "/")))))
+  (if-let [domain (to-domain n)]
+          (-> n (to-lowercase)
+                (string/after-first-occurence domain {:return? false})
+                (string/not-ends-with! "/")
+                (string/starts-with!   "/"))
+          (-> n (to-lowercase)
+                (string/not-ends-with! "/")
+                (string/starts-with!   "/"))))
 
-(defn to-absolute
+(defn to-absolute-url
   ; @param (string) n
   ; @param (string) domain
   ;
   ; @usage
-  ; (to-absolute "/my-path" "my-domain.com")
+  ; (to-absolute-url "/my-path" "my-domain.com")
   ;
   ; @example
-  ; (to-absolute "/my-path" "my-domain.com")
+  ; (to-absolute-url "/my-path" "my-domain.com")
   ; =>
   ; "https://my-domain.com/my-path"
   ;
   ; @example
-  ; (to-absolute "my-domain.com/my-path" "my-domain.com")
+  ; (to-absolute-url "your-domain.com/my-path" "my-domain.com")
   ; =>
-  ; "https://my-domain.com/my-path"
+  ; "https://your-domain.com/my-path"
   ;
   ; @return (string)
   [n domain]
-  ; The to-absolute function ...
-  ; ... converts the n string to lowercase because the to-domain
-  ;     function converts its result to lowercase too!
-  ; ... converts the domain string to lowercase because the function's result
-  ;     must be a lowercase string and it may be used.
-  ; ... prepends the given domain (if necessary).
-  ; ... provides the slash after the prepended domain (if necessary).
+  ; The 'to-absolute-url' function ...
+  ; ... prepends the given 'domain' (if necessary).
+  ; ... puts a slash after the prepended domain (if necessary).
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol part (if necessary).
-  (let [n      (string/to-lowercase n)
-        domain (string/to-lowercase domain)]
-       (if-let [absolute? (to-domain n)]
-               (-> n (string/not-ends-with! "/")
-                     (string/starts-with!   "https://"))
-               (-> n (string/starts-with!   "/")
-                     (string/prepend        domain)
-                     (string/not-ends-with! "/")
-                     (string/starts-with!   "https://")))))
+  (if-let [absolute-url? (to-domain n)]
+          (-> n (string/not-ends-with! "/")
+                (to-lowercase)
+                (string/starts-with!   "https://"))
+          (-> n (string/starts-with!   "/")
+                (string/prepend        domain)
+                (to-lowercase)
+                (string/not-ends-with! "/")
+                (string/starts-with!   "https://"))))
 
-(defn to-path
+(defn to-url-path
   ; @param (string) n
   ;
   ; @usage
-  ; (to-path "https://my-domain.com/my-path")
+  ; (to-url-path "https://my-domain.com/my-path")
   ;
   ; @example
-  ; (to-path "https://my-domain.com/my-path")
+  ; (to-url-path "https://my-domain.com/my-path")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-path "https://my-domain.com")
+  ; (to-url-path "https://my-domain.com")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-path "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com/my-path?my-param=my-value&your-param")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-path "https://my-domain.com/?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com/?my-param=my-value&your-param")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-path "https://my-domain.com?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com?my-param=my-value&your-param")
   ; =>
   ; "/"
   ;
   ; @return (string)
   [n]
-  (-> n (to-relative)
+  (-> n (to-relative-url)
         (string/before-first-occurence "?" {:return? true})
         (string/before-first-occurence "#" {:return? true})))
 
-(defn to-path-params
+(defn to-url-path-params
   ; @param (string) n
-  ; @param (string) template
+  ; @param (string) url-path-template
   ;
   ; @usage
-  ; (to-path-params "/my-path" "/:a")
+  ; (to-url-path-params "/my-path" "/:a")
   ;
   ; @example
-  ; (to-path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
-  ; =>
-  ; {:a "my-path" :b "your-path"}
-  ;
-  ; @example
-  ; (to-path-params "https://my-domain.com/my-path/your-path" "/:a/b")
+  ; (to-url-path-params "/my-path" "/:a")
   ; =>
   ; {:a "my-path"}
   ;
   ; @example
-  ; (to-path-params "/my-path/your-path" "/:a/:b")
+  ; (to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
   ; =>
   ; {:a "my-path" :b "your-path"}
   ;
   ; @example
-  ; (to-path-params "/my-path/your-path" "/a/b")
+  ; (to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/b")
+  ; =>
+  ; {:a "my-path"}
+  ;
+  ; @example
+  ; (to-url-path-params "/my-path/your-path" "/a/b")
   ; =>
   ; {}
   ;
   ; @return (map)
-  [n template]
-  (letfn [(to-path-parts [n] (-> n (to-path)
-                                   (string/not-starts-with!  "/")
-                                   (string/not-ends-with!    "/")
-                                   (string/split            #"/")))]
-         (let [path           (to-path       n)
-               path-parts     (to-path-parts path)
-               template-parts (to-path-parts template)]
+  [n url-path-template]
+  (letfn [(to-url-path-parts [n] (-> n (to-url-path)
+                                       (string/not-starts-with!  "/")
+                                       (string/not-ends-with!    "/")
+                                       (string/split            #"/")))]
+         (let [url-path                (to-url-path       n)
+               url-path-parts          (to-url-path-parts url-path)
+               url-path-template-parts (to-url-path-parts url-path-template)]
               (letfn [(f [o dex x] (let [x (reader/string->mixed x)]
                                         (if (keyword? x)
-                                            (let [path-part (nth path-parts dex)]
-                                                 (assoc o x path-part))
+                                            (let [url-path-part (nth url-path-parts dex)]
+                                                 (assoc o x url-path-part))
                                             (return o))))]
-                     (reduce-kv f {} template-parts)))))
+                     (reduce-kv f {} url-path-template-parts)))))
 
-(defn to-fragment
+(defn to-url-fragment
   ; @param (string) n
   ;
   ; @usage
-  ; (to-fragment "/my-path#my-fragment")
+  ; (to-url-fragment "/my-path#my-fragment")
   ;
   ; @example
-  ; (to-fragment "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; (to-url-fragment "/my-path#my-fragment")
   ; =>
   ; "my-fragment"
   ;
   ; @example
-  ; (to-fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; (to-url-fragment "https://my-domain.com/my-path?my-query#my-fragment")
+  ; =>
+  ; "my-fragment"
+  ;
+  ; @example
+  ; (to-url-fragment "/my-path#my-fragment")
+  ; =>
+  ; "my-fragment"
+  ;
+  ; @example
+  ; (to-url-fragment "https://my-domain.com/my-path?my-query")
   ; =>
   ; nil
-  ;
-  ; @example
-  ; (to-fragment "/my-path#my-fragment")
-  ; =>
-  ; "my-fragment"
   ;
   ; @return (string)
   [n]
-  (-> n (string/to-lowercase)
-        (string/after-first-occurence "#" {:return? false})))
+  ; https://en.wikipedia.org/wiki/URI_fragment
+  ; In URIs, a hash mark # introduces the optional fragment near the end of the URL.
+  (string/after-first-occurence n "#" {:return? false}))
 
-(defn to-query-string
+(defn to-url-query-string
   ; @param (string) n
   ;
   ; @usage
-  ; (to-query-string "/my-path?my-param=my-value")
+  ; (to-url-query-string "/my-path?my-query")
   ;
   ; @example
-  ; (to-query-string "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; (to-url-query-string "/my-path?my-query")
   ; =>
-  ; "my-param=my-value&your-param"
+  ; "my-query"
   ;
   ; @example
-  ; (to-query-string "https://my-domain.com/my-path#my-fragment")
+  ; (to-url-query-string "https://my-domain.com/my-path?my-query#my-fragment")
+  ; =>
+  ; "my-query"
+  ;
+  ; @example
+  ; (to-url-query-string "https://my-domain.com/my-path#my-fragment")
   ; =>
   ; nil
-  ;
-  ; @example
-  ; (to-query-string "/my-path?my-param=my-value")
-  ; =>
-  ; "my-param=my-value"
   ;
   ; @return (string)
   [n]
   ; The {:return? true} setting of the second step cause that the result
-  ; of the step may be an empty string, so it is important to apply the use-nil
+  ; of the step might be an empty string, so it is important to apply the 'use-nil'
   ; function to prevent the function returns with an empty string!
-  (-> n (string/to-lowercase)
-        (string/after-first-occurence  "?" {:return? false})
+  (-> n (string/after-first-occurence  "?" {:return? false})
         (string/before-first-occurence "#" {:return? true})
         (string/use-nil)))
 
-(defn to-query-params
+(defn to-url-query-params
   ; @param (string) n
   ;
   ; @usage
-  ; (to-query-params "/my-path?my-param=my-value")
+  ; (to-url-query-params "/my-path?my-query")
   ;
   ; @example
-  ; (to-query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; (to-url-query-params "/my-path?my-query")
+  ; =>
+  ; {:my-query nil}
+  ;
+  ; @example
+  ; (to-url-query-params "/my-path?my-param=my-value")
+  ; =>
+  ; {:my-param "my-value"}
+  ;
+  ; @example
+  ; (to-url-query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
   ; =>
   ; {:my-param "my-value" :your-param nil}
   ;
   ; @example
-  ; (to-query-params "http://my-domain.com/my-path#my-fragment")
+  ; (to-url-query-params "http://my-domain.com/my-path#my-fragment")
   ; =>
   ; {}
   ;
-  ; @example
-  ; (to-query-params "/my-path?my-param=my-value")
-  ; =>
-  ; {:my-param "my-value"}
-  ;
   ; @return (map)
   [n]
-  (-> n (to-query-string)
-        (query/query-string->query-params)))
+  (-> n (to-url-query-string)
+        (query/url-query-string->url-query-params)))
 
-(defn to-encoded
+(defn to-encoded-url
   ; @param (string) n
   ; @param (map)(opt) options
-  ;  {:strict? (boolean)(opt)
-  ;    Default: false}
+  ; {:strict? (boolean)(opt)
+  ;   Default: false}
   ;
   ; @usage
-  ; (to-encoded "my-domain.com/my path")
+  ; (to-encoded-url "my-domain.com/my path")
   ;
   ; @example
-  ; (to-encoded "my-domain.com/my path?my param")
+  ; (to-encoded-url "my-domain.com/my path?my param")
   ; =>
   ; "my-domain.com/my%20path?my%20param"
   ;
   ; @example
-  ; (to-encoded "my-domain.com/my path?my param" {:strict? true})
+  ; (to-encoded-url "my-domain.com/my path?my param" {:strict? true})
   ; =>
   ; "my-domain.com%2Fmy%20path%3Fmy%20param"
   ;
   ; @return (string)
   ([n]
-   (to-encoded n {}))
+   (to-encoded-url n {}))
 
   ([n {:keys [strict?]}]
    #?(:cljs (if strict? (.encodeURIComponent js/window n)

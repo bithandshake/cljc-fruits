@@ -5,45 +5,44 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn query-params->query-string
-  ; @param (map) query-params
+(defn url-query-params->url-query-string
+  ; @param (map) url-query-params
   ;
   ; @usage
-  ; (query-params->query-string {:my-param "my-value"})
+  ; (url-query-params->url-query-string {:my-param "my-value"})
   ;
   ; @example
-  ; (query-params->query-string {:my-param "my-value" :your-param nil})
+  ; (url-query-params->url-query-string {:my-param "my-value" :your-param nil})
   ; =>
   ; "my-param=my-value&your-param"
   ;
   ; @example
-  ; (query-params->query-string {"my-param" "my-value" "your-param" nil})
+  ; (url-query-params->url-query-string {"my-param" "my-value" "your-param" nil})
   ; =>
   ; "my-param=my-value&your-param"
   ;
   ; @return (string)
-  [query-params]
+  [url-query-params]
   (letfn [(f [o k v] (str o (if o "&")
                             (if (keyword? k)
                                 (name     k)
                                 (str      k))
                             (if v "=") v))]
-         (reduce-kv f nil query-params)))
+         (reduce-kv f nil url-query-params)))
 
-(defn query-string->query-params
-  ; @param (string) query-string
+(defn url-query-string->url-query-params
+  ; @param (string) url-query-string
   ;
   ; @usage
-  ; (query-string->query-params "my-param=my-value")
+  ; (url-query-string->url-query-params "my-param=my-value")
   ;
   ; @example
-  ; (query-string->query-params "my-param=my-value&your-param")
+  ; (url-query-string->url-query-params "my-param=my-value&your-param")
   ; =>
   ; {:my-param "my-value" :your-param nil}
   ;
   ; @return (map)
-  [query-string]
-  (let [query-string (string/to-lowercase query-string)]
-       (letfn [(f [o x] (let [[k v] (string/split x #"=")]
-                             (assoc o (keyword k) v)))]
-              (reduce f {} (string/split query-string #"&")))))
+  [url-query-string]
+  (letfn [(f [o x] (let [[k v] (string/split x #"=")]
+                        (assoc o (keyword k) v)))]
+         (reduce f {} (string/split url-query-string #"&"))))

@@ -1,6 +1,5 @@
 
-(ns keyword.convert
-    (:require [candy.api :refer [return]]))
+(ns keyword.convert)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -18,9 +17,8 @@
   ;
   ; @return (string)
   [n]
- ;(apply str (rest (str n)))
   (if (keyword? n)
       (if-let [namespace (namespace n)]
               (str namespace "/" (name n))
               (name n))
-      (return n)))
+      (str n)))

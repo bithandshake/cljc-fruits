@@ -5,47 +5,37 @@
 ;; ----------------------------------------------------------------------------
 
 ; @constant (regex pattern)
-;
-; The protocol part ...
-; ... is not necessary.
-; ... can contain lowercase and/or uppercase letters
-; ... has to be min. 1, but max. 5 char long!
-; ... must ends with "://"!
-; The "www." part is not necessary!
-; The subdomain part ...
-; ... is not necessary.
-; ... can contain lowercase letters, uppercase letters and/or digits and the "-" char.
-; ... has to be min. 1 char long!
-; ... must ends with a "." char!
-; The domain part ...
-; ... can contain lowercase letters, uppercase letters and/or digits and the "-" char.
-; ... has to be min. 1 char long!
-; ... must ends with a "." char!
-; The TLD part can contain lowercase and/or uppercase letters (min. 1 char.)
-; Trailing slash allowed but not necessary
-(def DOMAIN-PATTERN #"([a-zA-Z]{1,5}://)?(www.)?([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")
+(def PORT-PATTERN #"[\d]{1,8}")
+
+; @constant (regex pattern)
+; https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
+; A scheme consisting of a sequence of characters beginning with a letter and followed
+; by any combination of letters, digits, plus (+), period (.), or hyphen (-).
+(def SCHEME-PATTERN #"[a-zA-Z\-\+\.\d]{1,8}")
+
+; @constant (regex pattern)
+; BUG#6610
+; If the scheme part is missing from the URI, the part before the first ":"
+; character might be a hostname, and the part right after the ":" character
+; might be a port!
+; To determine whether the part before the first ":" character is a scheme
+; or a hostname the functions use a strict scheme pattern, which cannot be
+; matched with a hostname.
+(def STRICT-SCHEME-PATTERN #"[a-zA-Z\-\d]{1,8}")
 
 ; @constant (regex pattern)
 ;
 ; The subdomain part ...
-; ... is not necessary .
-; ... can contain lowercase letters, uppercase letters and/or digits and the "-" char.
+; ... is not necessary.
+; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
 ; ... has to be min. 1 char long!
 ; ... must ends with a "." char!
 ; The domain part ...
-; ... can contain lowercase letters, uppercase letters and/or digits and the "-" char.
+; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
 ; ... has to be min. 1 char long!
 ; ... must ends with a "." char!
 ; The TLD part ...
-; ... can contain lowercase and/or uppercase letters
+; ... can contains lowercase and/or uppercase letters
 ; ... has to be min. 1 char long!
 ; The trailing slash is allowed but not necessary!
-(def STRICT-DOMAIN-PATTERN #"([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")
-
-; @constant (regex pattern)
-;
-; The protocol ...
-; ... can contain lowercase and/or uppercase letters.
-; ... has to be min. 1, but max. 5 char long!
-; ... must ends with "://"!
-(def PROTOCOL-PATTERN #"[a-zA-Z]{1,5}://")
+(def DOMAIN-PATTERN #"([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")

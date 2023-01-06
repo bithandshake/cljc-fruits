@@ -396,7 +396,7 @@ true
       (if-let [namespace (namespace n)]
               (str namespace "/" (name n))
               (name n))
-      (return n)))
+      (str n)))
 ```
 
 </details>

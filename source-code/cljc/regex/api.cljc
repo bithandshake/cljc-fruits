@@ -8,6 +8,7 @@
 ;; ----------------------------------------------------------------------------
 
 ; regex.core
+(def re-match         core/re-match)
 (def re-match?        core/re-match?)
 (def re-mismatch?     core/re-mismatch?)
 (def ends-with?       core/ends-with?)

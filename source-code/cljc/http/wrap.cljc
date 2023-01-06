@@ -99,7 +99,8 @@
   ; @param (map) response-props
   ; {:body (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (html-wrap {:body "<!DOCTYPE html> ..."})
@@ -122,8 +123,8 @@
   ; @param (map) response-props
   ; {:body (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
-
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (json-wrap {:body "{...}"})
@@ -146,7 +147,8 @@
   ; @param (map) response-props
   ; {:body (map)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (map-wrap {:body {...})
@@ -170,7 +172,8 @@
   ;  :filename (string)(opt)
   ;  :mime-type (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (media-wrap {:body      #object[java.io.File 0x4571e67a "/my-file.png"
@@ -197,8 +200,9 @@
   ;  :status (integer)}
   [{:keys [body filename] :as response-props}]
   (response-wrap (merge {:body body
-                         ; Az attachment beállítás használatával a böngésző akkor is felkínálja mentésre,
-                         ; a szerver válaszát, ha azt különben képes lenne megjeleníteni.
+                         ; By using the attachment header, the browser asks for
+                         ; saving the file to the client device, even if its content
+                         ; can be displayed.
                          ; :headers (if filename {"Content-Disposition" "attachment; filename=\""filename"\""})
                          :headers (if filename {"Content-Disposition" "inline; filename=\""filename"\""})}
                         (select-keys response-props [:mime-type :session :status]))))
@@ -207,7 +211,8 @@
   ; @param (map) response-props
   ; {:body (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (xml-wrap {:body "foo"})
@@ -226,11 +231,36 @@
                          :mime-type "application/xml"}
                         (select-keys response-props [:session :status]))))
 
+(defn css-wrap
+  ; @param (map) response-props
+  ; {:body (string)
+  ;  :session (map)(opt)
+  ;  :status (integer)(opt)
+  ;   Default: 200}
+  ;
+  ; @example
+  ; (css-wrap {:body "foo"})
+  ; =>
+  ; {:body    "foo"
+  ;  :headers {"Content-Type" "text/css"}
+  ;  :status  200}
+  ;
+  ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
+  [{:keys [body] :as response-props}]
+  (response-wrap (merge {:body      (str body)
+                         :mime-type "text/css"}
+                        (select-keys response-props [:session :status]))))
+
 (defn text-wrap
   ; @param (map) response-props
   ; {:body (string)
   ;  :session (map)(opt)
-  ;  :status (integer)(opt)}
+  ;  :status (integer)(opt)
+  ;   Default: 200}
   ;
   ; @example
   ; (text-wrap {:body "foo"})

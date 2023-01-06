@@ -144,11 +144,3 @@
   ; @return (string)
   [{:keys [server-name uri]}]
   (str server-name uri))
-
-(defn request->route-path
-  ; @param (map) request
-  ; {:uri (string)}
-  ;
-  ; @return (string)
-  [{:keys [uri]}]
-  (str uri))

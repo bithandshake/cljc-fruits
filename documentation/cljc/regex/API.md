@@ -35,6 +35,8 @@
 
 - [nth-dex-of](#nth-dex-of)
 
+- [re-match](#re-match)
+
 - [re-match?](#re-match)
 
 - [re-mismatch?](#re-mismatch)
@@ -1023,6 +1025,58 @@ false
 
 (regex.api/nth-dex-of ...)
 (nth-dex-of           ...)
+```
+
+</details>
+
+---
+
+### re-match
+
+```
+@param (*) n
+@param (regex pattern) pattern
+```
+
+```
+@example
+(re-match "123" #"^[\d]{1,}$")
+=>
+"123"
+```
+
+```
+@example
+(re-match "abc" #"^[\d]{1,}$")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn re-match
+  [n pattern]
+  (let [n (str n)]
+       (if (re-matches pattern n)
+           (return             n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :refer [re-match]]))
+
+(regex.api/re-match ...)
+(re-match           ...)
 ```
 
 </details>

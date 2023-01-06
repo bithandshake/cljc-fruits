@@ -5,318 +5,55 @@
 
 ### Index
 
-- [domain?](#domain)
-
-- [match-template?](#match-template)
-
-- [query-params->query-string](#query-params-query-string)
-
-- [query-string->query-params](#query-string-query-params)
-
-- [to-absolute](#to-absolute)
+- [to-absolute-url](#to-absolute-url)
 
 - [to-domain](#to-domain)
 
-- [to-encoded](#to-encoded)
+- [to-encoded-url](#to-encoded-url)
 
-- [to-fragment](#to-fragment)
+- [to-hostname](#to-hostname)
 
-- [to-parent](#to-parent)
+- [to-lowercase](#to-lowercase)
 
-- [to-path](#to-path)
+- [to-nonschemed](#to-nonschemed)
 
-- [to-path-params](#to-path-params)
+- [to-parent-url](#to-parent-url)
 
-- [to-protocol](#to-protocol)
+- [to-port](#to-port)
 
-- [to-query-params](#to-query-params)
+- [to-relative-url](#to-relative-url)
 
-- [to-query-string](#to-query-string)
-
-- [to-relative](#to-relative)
+- [to-scheme](#to-scheme)
 
 - [to-subdomain](#to-subdomain)
 
-- [to-tail](#to-tail)
-
 - [to-tld](#to-tld)
 
-- [use-query-string](#use-query-string)
+- [to-url-fragment](#to-url-fragment)
 
-- [valid-domain](#valid-domain)
+- [to-url-path](#to-url-path)
 
-- [valid-path](#valid-path)
+- [to-url-path-params](#to-url-path-params)
 
-- [valid-uri](#valid-uri)
+- [to-url-query-params](#to-url-query-params)
 
-### domain?
+- [to-url-query-string](#to-url-query-string)
 
-```
-@param (*) n
-@param (map) 
- {:strict? (boolean)(opt)
-   Default: false}
-```
+- [to-url-tail](#to-url-tail)
 
-```
-@usage
-(domain? "my-domain.com")
-```
+- [url-path-template-matches?](#url-path-template-matches)
 
-```
-@example
-(domain? "https://my-domain.com")
-=>
-true
-```
+- [url-query-params->url-query-string](#url-query-params-url-query-string)
 
-```
-@example
-(domain? "https://my-domain.com/")
-=>
-true
-```
+- [url-query-string->url-query-params](#url-query-string-url-query-params)
 
-```
-@example
-(domain? www."my-domain.com/")
-=>
-true
-```
+- [use-url-query-string](#use-url-query-string)
 
-```
-@example
-(domain? "my-domain.com/")
-=>
-true
-```
+- [valid-url](#valid-url)
 
-```
-@example
-(domain? "sub.my-domain.com/")
-=>
-true
-```
+- [valid-url-path](#valid-url-path)
 
-```
-@example
-(domain? "https://my-domain.com" {:strict? true})
-=>
-false
-```
-
-```
-@example
-(domain? "my-domain.com/my-path")
-=>
-false
-```
-
-```
-@return (boolean)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn domain?
-  ([n]
-   (domain? n {}))
-
-  ([n {:keys [strict?] :or {strict? false}}]
-   (if strict? (re-match? n config/STRICT-DOMAIN-PATTERN)
-               (re-match? n config/DOMAIN-PATTERN))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [domain?]]))
-
-(uri.api/domain? ...)
-(domain?         ...)
-```
-
-</details>
-
----
-
-### match-template?
-
-```
-@param (string) path
-@param (string) template
-```
-
-```
-@usage
-(match-template? "/my-path/my-value" "/my-path/:my-param")
-```
-
-```
-@example
-(match-template? "/my-path/my-value" "/my-path/:my-param")
-=>
-true
-```
-
-```
-@return (boolean)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn match-template?
-  [path template]
-  (let [path                 (string/to-lowercase path)
-        template             (string/to-lowercase template)
-        path-parts           (string/split path     #"/")
-        template-parts       (string/split template #"/")
-        path-parts-count     (count path-parts)
-        template-parts-count (count template-parts)]
-       (letfn [(f [dex] (cond (= dex template-parts-count)
-                              (return true)
-                              (= ":" (str (get-in template-parts [dex 0])))
-                              (f (inc dex))
-                              (= (get path-parts     dex)
-                                 (get template-parts dex))
-                              (f (inc dex))))]
-              (boolean (if (= path-parts-count template-parts-count)
-                           (f 0))))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [match-template?]]))
-
-(uri.api/match-template? ...)
-(match-template?         ...)
-```
-
-</details>
-
----
-
-### query-params->query-string
-
-```
-@param (map) query-params
-```
-
-```
-@usage
-(query-params->query-string {:my-param "my-value"})
-```
-
-```
-@example
-(query-params->query-string {:my-param "my-value" :your-param nil})
-=>
-"my-param=my-value&your-param"
-```
-
-```
-@example
-(query-params->query-string {"my-param" "my-value" "your-param" nil})
-=>
-"my-param=my-value&your-param"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn query-params->query-string
-  [query-params]
-  (letfn [(f [o k v] (str o (if o "&")
-                            (if (keyword? k)
-                                (name     k)
-                                (str      k))
-                            (if v "=") v))]
-         (reduce-kv f nil query-params)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [query-params->query-string]]))
-
-(uri.api/query-params->query-string ...)
-(query-params->query-string         ...)
-```
-
-</details>
-
----
-
-### query-string->query-params
-
-```
-@param (string) query-string
-```
-
-```
-@usage
-(query-string->query-params "my-param=my-value")
-```
-
-```
-@example
-(query-string->query-params "my-param=my-value&your-param")
-=>
-{:my-param "my-value" :your-param nil}
-```
-
-```
-@return (map)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn query-string->query-params
-  [query-string]
-  (let [query-string (string/to-lowercase query-string)]
-       (letfn [(f [o x] (let [[k v] (string/split x #"=")]
-                             (assoc o (keyword k) v)))]
-              (reduce f {} (string/split query-string #"&")))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [query-string->query-params]]))
-
-(uri.api/query-string->query-params ...)
-(query-string->query-params         ...)
-```
-
-</details>
-
----
-
-### to-absolute
+### to-absolute-url
 
 ```
 @param (string) n
@@ -325,21 +62,21 @@ true
 
 ```
 @usage
-(to-absolute "/my-path" "my-domain.com")
+(to-absolute-url "/my-path" "my-domain.com")
 ```
 
 ```
 @example
-(to-absolute "/my-path" "my-domain.com")
+(to-absolute-url "/my-path" "my-domain.com")
 =>
 "https://my-domain.com/my-path"
 ```
 
 ```
 @example
-(to-absolute "my-domain.com/my-path" "my-domain.com")
+(to-absolute-url "your-domain.com/my-path" "my-domain.com")
 =>
-"https://my-domain.com/my-path"
+"https://your-domain.com/my-path"
 ```
 
 ```
@@ -350,17 +87,17 @@ true
 <summary>Source code</summary>
 
 ```
-(defn to-absolute
+(defn to-absolute-url
   [n domain]
-  (let [n      (string/to-lowercase n)
-        domain (string/to-lowercase domain)]
-       (if-let [absolute? (to-domain n)]
-               (-> n (string/not-ends-with! "/")
-                     (string/starts-with!   "https://"))
-               (-> n (string/starts-with!   "/")
-                     (string/prepend        domain)
-                     (string/not-ends-with! "/")
-                     (string/starts-with!   "https://")))))
+  (if-let [absolute-url? (to-domain n)]
+          (-> n (string/not-ends-with! "/")
+                (to-lowercase)
+                (string/starts-with!   "https://"))
+          (-> n (string/starts-with!   "/")
+                (string/prepend        domain)
+                (to-lowercase)
+                (string/not-ends-with! "/")
+                (string/starts-with!   "https://"))))
 ```
 
 </details>
@@ -369,10 +106,10 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-absolute]]))
+(ns my-namespace (:require [uri.api :refer [to-absolute-url]]))
 
-(uri.api/to-absolute ...)
-(to-absolute         ...)
+(uri.api/to-absolute-url ...)
+(to-absolute-url         ...)
 ```
 
 </details>
@@ -392,9 +129,51 @@ true
 
 ```
 @example
-(to-domain "https://my-domain.com/my-path")
+(to-domain "https://my-domain.com")
 =>
 "my-domain.com"
+```
+
+```
+@example
+(to-domain "https://www.subs.my-domain.com:80/my-path")
+=>
+"sub.my-domain.com"
+```
+
+```
+@example
+(to-domain "mailto:johndoe@my-domain.com")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-domain "ftp://user@my-domain.com")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-domain "my-domain.com:80")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-domain "192.0.2.16:80")
+=>
+nil
+```
+
+```
+@example
+(to-domain "/my-path?my-query#my-fragment")
+=>
+nil
 ```
 
 ```
@@ -407,11 +186,14 @@ true
 ```
 (defn to-domain
   [n]
-  (as-> n % (string/after-first-occurence  % "://" {:return? true})
-            (string/before-first-occurence % "/"   {:return? true})
-            (if (re-match? % config/STRICT-DOMAIN-PATTERN)
-                (-> % (string/to-lowercase)
-                      (string/use-nil)))))
+  (-> (to-nonschemed n)
+      (string/to-lowercase)
+      (string/after-first-occurence  "www." {:return? true})
+      (string/before-first-occurence "/"    {:return? true})
+      (string/before-first-occurence "?"    {:return? true})
+      (string/before-first-occurence "#"    {:return? true})
+      (string/after-first-occurence  "@"    {:return? true})
+      (re-match config/DOMAIN-PATTERN)))
 ```
 
 </details>
@@ -430,30 +212,30 @@ true
 
 ---
 
-### to-encoded
+### to-encoded-url
 
 ```
 @param (string) n
 @param (map)(opt) options
- {:strict? (boolean)(opt)
-   Default: false}
+{:strict? (boolean)(opt)
+  Default: false}
 ```
 
 ```
 @usage
-(to-encoded "my-domain.com/my path")
+(to-encoded-url "my-domain.com/my path")
 ```
 
 ```
 @example
-(to-encoded "my-domain.com/my path?my param")
+(to-encoded-url "my-domain.com/my path?my param")
 =>
 "my-domain.com/my%20path?my%20param"
 ```
 
 ```
 @example
-(to-encoded "my-domain.com/my path?my param" {:strict? true})
+(to-encoded-url "my-domain.com/my path?my param" {:strict? true})
 =>
 "my-domain.com%2Fmy%20path%3Fmy%20param"
 ```
@@ -466,9 +248,9 @@ true
 <summary>Source code</summary>
 
 ```
-(defn to-encoded
+(defn to-encoded-url
   ([n]
-   (to-encoded n {}))
+   (to-encoded-url n {}))
 
   ([n {:keys [strict?]}]
    #?(:cljs (if strict? (.encodeURIComponent js/window n)
@@ -481,17 +263,17 @@ true
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-encoded]]))
+(ns my-namespace (:require [uri.api :refer [to-encoded-url]]))
 
-(uri.api/to-encoded ...)
-(to-encoded         ...)
+(uri.api/to-encoded-url ...)
+(to-encoded-url         ...)
 ```
 
 </details>
 
 ---
 
-### to-fragment
+### to-hostname
 
 ```
 @param (string) n
@@ -499,28 +281,49 @@ true
 
 ```
 @usage
-(to-fragment "/my-path#my-fragment")
+(to-hostname "https://my-domain.com")
 ```
 
 ```
 @example
-(to-fragment "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+(to-hostname "https://my-domain.com")
 =>
-"my-fragment"
+"my-domain.com"
 ```
 
 ```
 @example
-(to-fragment "https://my-domain.com/my-path?my-param=my-value&your-param")
+(to-hostname "https://www.sub.my-domain.com:80/my-path")
+=>
+"www.sub.my-domain.com"
+```
+
+```
+@example
+(to-hostname "mailto:johndoe@my-domain.com")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-hostname "ftp://user@my-domain.com")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-hostname "http://192.0.2.16:80/my-path")
+=>
+"192.0.2.16"
+```
+
+```
+@example
+(to-hostname "/my-path?my-query#my-fragment")
 =>
 nil
-```
-
-```
-@example
-(to-fragment "/my-path#my-fragment")
-=>
-"my-fragment"
 ```
 
 ```
@@ -531,10 +334,15 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn to-fragment
+(defn to-hostname
   [n]
-  (-> n (string/to-lowercase)
-        (string/after-first-occurence "#" {:return? false})))
+  (-> (to-nonschemed n)
+      (string/after-first-occurence  "@"  {:return? true})
+      (string/before-first-occurence ":"  {:return? true})
+      (string/before-first-occurence "/"  {:return? true})
+      (string/before-first-occurence "?"  {:return? true})
+      (string/before-first-occurence "#"  {:return? true})
+      (string/to-lowercase)))
 ```
 
 </details>
@@ -543,17 +351,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-fragment]]))
+(ns my-namespace (:require [uri.api :refer [to-hostname]]))
 
-(uri.api/to-fragment ...)
-(to-fragment         ...)
+(uri.api/to-hostname ...)
+(to-hostname         ...)
 ```
 
 </details>
 
 ---
 
-### to-parent
+### to-lowercase
 
 ```
 @param (string) n
@@ -561,47 +369,193 @@ nil
 
 ```
 @usage
-(to-parent "https://my-domain.com/my-path")
+(to-lowercase "Https://My-domain.com")
 ```
 
 ```
 @example
-(to-parent "https://my-domain.com/my-path")
+(to-lowercase "Https://My-domain.com")
 =>
 "https://my-domain.com"
 ```
 
 ```
 @example
-(to-parent "https://my-domain.com")
+(to-lowercase "Https://My-domain.com/My-path?My-query#My-fragment")
+=>
+"https://my-domain.com/My-path?My-query#My-fragment"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-lowercase
+  [n]
+  (cond
+        (and (string/contains-part? n "//")
+             (string/nth-dex-of     n "/" 3))
+        (let [dex (string/nth-dex-of n "/" 3)]
+             (str (-> n (string/part 0 dex)
+                        (string/to-lowercase))
+                  (-> n (string/part dex))))
+
+        (string/contains-part? n "/")
+        (str (-> n (string/before-first-occurence "/" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "/" {:return? false})))
+
+        (string/contains-part? n "?")
+        (str (-> n (string/before-first-occurence "?" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "?" {:return? false})))
+
+        (string/contains-part? n "#")
+        (str (-> n (string/before-first-occurence "#" {:return? false})
+                   (string/to-lowercase))
+             (-> n (string/from-first-occurence   "#" {:return? false})))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-lowercase]]))
+
+(uri.api/to-lowercase ...)
+(to-lowercase         ...)
+```
+
+</details>
+
+---
+
+### to-nonschemed
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-nonschemed "https://my-domain.com")
+```
+
+```
+@example
+(to-nonschemed "https://my-domain.com")
+=>
+"my-domain.com"
+```
+
+```
+@example
+(to-nonschemed "mailto:johndoe@my-domain.com")
+=>
+"johndoe@my-domain.com"
+```
+
+```
+@example
+(to-nonschemed "ftp://user@my-domain.com")
+=>
+"user@my-domain.com"
+```
+
+```
+@example
+(to-nonschemed "my-domain.com:80")
+=>
+"my-domain.com:80"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-nonschemed
+  [n]
+  (if-let [scheme (to-scheme n)]
+          (-> n (string/after-first-occurence ":"  {:return? false})
+                (string/after-first-occurence "//" {:return? true}))
+          (return n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-nonschemed]]))
+
+(uri.api/to-nonschemed ...)
+(to-nonschemed         ...)
+```
+
+</details>
+
+---
+
+### to-parent-url
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-parent-url "https://my-domain.com/my-path")
+```
+
+```
+@example
+(to-parent-url "https://my-domain.com/my-path")
 =>
 "https://my-domain.com"
 ```
 
 ```
 @example
-(to-parent "/my-path/your-path")
+(to-parent-url "https://my-domain.com")
+=>
+"https://my-domain.com"
+```
+
+```
+@example
+(to-parent-url "/my-path/your-path")
 =>
 "/my-path"
 ```
 
 ```
 @example
-(to-parent "/my-path")
+(to-parent-url "/my-path")
 =>
 "/"
 ```
 
 ```
 @example
-(to-parent "/")
+(to-parent-url "/")
 =>
 "/"
 ```
 
 ```
 @example
-(to-parent "my-path")
+(to-parent-url "my-path")
 =>
 "/"
 ```
@@ -614,15 +568,14 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn to-parent
+(defn to-parent-url
   [n]
-  (if (regex/starts-with? n config/DOMAIN-PATTERN)
-      (-> n (string/to-lowercase)
-            (string/before-last-occurence "/" {:return? true})
-            (string/not-ends-with!        "/"))
-      (-> n (string/to-lowercase)
-            (string/before-last-occurence "/" {:return? false})
-            (string/starts-with!          "/"))))
+  (if-let [domain (to-domain n)]
+          (-> n (string/not-ends-with!        "/")
+                (string/before-last-occurence "/" {:return? true}))
+          (-> n (string/not-ends-with!        "/")
+                (string/before-last-occurence "/" {:return? false})
+                (string/starts-with!          "/"))))
 ```
 
 </details>
@@ -631,17 +584,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-parent]]))
+(ns my-namespace (:require [uri.api :refer [to-parent-url]]))
 
-(uri.api/to-parent ...)
-(to-parent         ...)
+(uri.api/to-parent-url ...)
+(to-parent-url         ...)
 ```
 
 </details>
 
 ---
 
-### to-path
+### to-port
 
 ```
 @param (string) n
@@ -649,177 +602,19 @@ nil
 
 ```
 @usage
-(to-path "https://my-domain.com/my-path")
+(to-port "https://my-domain.com:80")
 ```
 
 ```
 @example
-(to-path "https://my-domain.com/my-path")
+(to-port "https://my-domain.com:80")
 =>
-"/my-path"
+"80"
 ```
 
 ```
 @example
-(to-path "https://my-domain.com")
-=>
-"/"
-```
-
-```
-@example
-(to-path "https://my-domain.com/my-path?my-param=my-value&your-param")
-=>
-"/my-path"
-```
-
-```
-@example
-(to-path "https://my-domain.com/?my-param=my-value&your-param")
-=>
-"/"
-```
-
-```
-@example
-(to-path "https://my-domain.com?my-param=my-value&your-param")
-=>
-"/"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn to-path
-  [n]
-  (-> n (to-relative)
-        (string/before-first-occurence "?" {:return? true})
-        (string/before-first-occurence "#" {:return? true})))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [to-path]]))
-
-(uri.api/to-path ...)
-(to-path         ...)
-```
-
-</details>
-
----
-
-### to-path-params
-
-```
-@param (string) n
-@param (string) template
-```
-
-```
-@usage
-(to-path-params "/my-path" "/:a")
-```
-
-```
-@example
-(to-path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
-=>
-{:a "my-path" :b "your-path"}
-```
-
-```
-@example
-(to-path-params "https://my-domain.com/my-path/your-path" "/:a/b")
-=>
-{:a "my-path"}
-```
-
-```
-@example
-(to-path-params "/my-path/your-path" "/:a/:b")
-=>
-{:a "my-path" :b "your-path"}
-```
-
-```
-@example
-(to-path-params "/my-path/your-path" "/a/b")
-=>
-{}
-```
-
-```
-@return (map)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn to-path-params
-  [n template]
-  (letfn [(to-path-parts [n] (-> n (to-path)
-                                   (string/not-starts-with!  "/")
-                                   (string/not-ends-with!    "/")
-                                   (string/split            #"/")))]
-         (let [path           (to-path       n)
-               path-parts     (to-path-parts path)
-               template-parts (to-path-parts template)]
-              (letfn [(f [o dex x] (let [x (reader/string->mixed x)]
-                                        (if (keyword? x)
-                                            (let [path-part (nth path-parts dex)]
-                                                 (assoc o x path-part))
-                                            (return o))))]
-                     (reduce-kv f {} template-parts)))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [to-path-params]]))
-
-(uri.api/to-path-params ...)
-(to-path-params         ...)
-```
-
-</details>
-
----
-
-### to-protocol
-
-```
-@param (string) n
-```
-
-```
-@usage
-(to-protocol "https://my-domain.com/my-path")
-```
-
-```
-@example
-(to-protocol "https://my-domain.com/my-path")
-=>
-"https"
-```
-
-```
-@example
-(to-protocol "my-domain.com/my-path")
+(to-port "https://my-domain.com")
 =>
 nil
 ```
@@ -832,13 +627,14 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn to-protocol
+(defn to-port
   [n]
-  (as-> n % (string/to-first-occurence % "://" {:return? false})
-            (if (re-match? % config/PROTOCOL-PATTERN)
-                (-> % (string/not-ends-with! "://")
-                      (string/to-lowercase)
-                      (string/use-nil)))))
+  (-> (to-nonschemed n)
+      (string/after-first-occurence  ":" {:return? false})
+      (string/before-first-occurence "/" {:return? true})
+      (string/before-first-occurence "?" {:return? true})
+      (string/before-first-occurence "#" {:return? true})
+      (re-match config/PORT-PATTERN)))
 ```
 
 </details>
@@ -847,17 +643,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-protocol]]))
+(ns my-namespace (:require [uri.api :refer [to-port]]))
 
-(uri.api/to-protocol ...)
-(to-protocol         ...)
+(uri.api/to-port ...)
+(to-port         ...)
 ```
 
 </details>
 
 ---
 
-### to-query-params
+### to-relative-url
 
 ```
 @param (string) n
@@ -865,166 +661,54 @@ nil
 
 ```
 @usage
-(to-query-params "/my-path?my-param=my-value")
+(to-relative-url "my-domain.com/my-path")
 ```
 
 ```
 @example
-(to-query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-=>
-{:my-param "my-value" :your-param nil}
-```
-
-```
-@example
-(to-query-params "http://my-domain.com/my-path#my-fragment")
-=>
-{}
-```
-
-```
-@example
-(to-query-params "/my-path?my-param=my-value")
-=>
-{:my-param "my-value"}
-```
-
-```
-@return (map)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn to-query-params
-  [n]
-  (-> n (to-query-string)
-        (query/query-string->query-params)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [to-query-params]]))
-
-(uri.api/to-query-params ...)
-(to-query-params         ...)
-```
-
-</details>
-
----
-
-### to-query-string
-
-```
-@param (string) n
-```
-
-```
-@usage
-(to-query-string "/my-path?my-param=my-value")
-```
-
-```
-@example
-(to-query-string "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-=>
-"my-param=my-value&your-param"
-```
-
-```
-@example
-(to-query-string "https://my-domain.com/my-path#my-fragment")
-=>
-nil
-```
-
-```
-@example
-(to-query-string "/my-path?my-param=my-value")
-=>
-"my-param=my-value"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn to-query-string
-  [n]
-  (-> n (string/to-lowercase)
-        (string/after-first-occurence  "?" {:return? false})
-        (string/before-first-occurence "#" {:return? true})
-        (string/use-nil)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [to-query-string]]))
-
-(uri.api/to-query-string ...)
-(to-query-string         ...)
-```
-
-</details>
-
----
-
-### to-relative
-
-```
-@param (string) n
-```
-
-```
-@usage
-(to-relative "my-domain.com/my-path")
-```
-
-```
-@example
-(to-relative "my-domain.com/my-path?my-param#my-fragment")
+(to-relative-url "my-domain.com/my-path")
 =>
 "/my-path?my-param#my-fragment"
 ```
 
 ```
 @example
-(to-relative "my-domain.com")
+(to-relative-url "my-domain.com/my-path?my-query#my-fragment")
+=>
+"/my-path?my-query#my-fragment"
+```
+
+```
+@example
+(to-relative-url "my-domain.com")
 =>
 "/"
 ```
 
 ```
 @example
-(to-relative "/my-path")
+(to-relative-url "/my-path")
 =>
 "/my-path"
 ```
 
 ```
 @example
-(to-relative "my-path")
+(to-relative-url "my-path")
 =>
 "/my-path"
 ```
 
 ```
 @example
-(to-relative "/")
+(to-relative-url "/")
+=>
+"/"
+```
+
+```
+@example
+(to-relative-url "")
 =>
 "/"
 ```
@@ -1037,15 +721,16 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn to-relative
+(defn to-relative-url
   [n]
-  (let [n (string/to-lowercase n)]
-       (if-let [domain (to-domain n)]
-               (-> n (string/after-first-occurence domain)
-                     (string/not-ends-with! "/")
-                     (string/starts-with!   "/"))
-               (-> n (string/not-ends-with! "/")
-                     (string/starts-with!   "/")))))
+  (if-let [domain (to-domain n)]
+          (-> n (to-lowercase)
+                (string/after-first-occurence domain {:return? false})
+                (string/not-ends-with! "/")
+                (string/starts-with!   "/"))
+          (-> n (to-lowercase)
+                (string/not-ends-with! "/")
+                (string/starts-with!   "/"))))
 ```
 
 </details>
@@ -1054,10 +739,80 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [to-relative]]))
+(ns my-namespace (:require [uri.api :refer [to-relative-url]]))
 
-(uri.api/to-relative ...)
-(to-relative         ...)
+(uri.api/to-relative-url ...)
+(to-relative-url         ...)
+```
+
+</details>
+
+---
+
+### to-scheme
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-scheme "https://my-domain.com")
+```
+
+```
+@example
+(to-scheme "https://my-domain.com")
+=>
+"https"
+```
+
+```
+@example
+(to-scheme "mailto:johndoe@my-domain.com")
+=>
+"mailto"
+```
+
+```
+@example
+(to-scheme "ftp://user@my-domain.com")
+=>
+"ftp"
+```
+
+```
+@example
+(to-scheme "my-domain.com:80")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-scheme
+  [n]
+  (-> (string/before-first-occurence n ":" {:return? false})
+      (re-match config/STRICT-SCHEME-PATTERN)
+      (string/to-lowercase)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-scheme]]))
+
+(uri.api/to-scheme ...)
+(to-scheme         ...)
 ```
 
 </details>
@@ -1072,19 +827,19 @@ nil
 
 ```
 @usage
-(to-subdomain "https://subdomain.my-domain.com")
+(to-subdomain "https://sub.my-domain.com")
 ```
 
 ```
 @example
-(to-subdomain "https://subdomain.my-domain.com/my-path")
+(to-subdomain "https://sub.my-domain.com")
 =>
-"subdomain"
+"sub"
 ```
 
 ```
 @example
-(to-subdomain "https://my-domain.com/my-path")
+(to-subdomain "https://my-domain.com")
 =>
 nil
 ```
@@ -1122,71 +877,6 @@ nil
 
 ---
 
-### to-tail
-
-```
-@param (string) n
-```
-
-```
-@usage
-(to-tail "https://my-domain.com?my-param=my-value")
-```
-
-```
-@example
-(to-tail "https://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
-=>
-"my-param=my-value&your-param#my-fragment"
-```
-
-```
-@example
-(to-tail "https://my-domain.com/my-path#my-fragment")
-=>
-"my-fragment"
-```
-
-```
-@example
-(to-tail "https://my-domain.com/my-path")
-=>
-nil
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn to-tail
-  [n]
-  (if (-> n (string/contains-part? "?"))
-      (-> n (string/to-lowercase)
-            (string/after-first-occurence "?" {:return? false}))
-      (-> n (string/to-lowercase)
-            (string/after-first-occurence "#" {:return? false}))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [to-tail]]))
-
-(uri.api/to-tail ...)
-(to-tail         ...)
-```
-
-</details>
-
----
-
 ### to-tld
 
 ```
@@ -1200,7 +890,7 @@ nil
 
 ```
 @example
-(to-tld "https://my-domain.com/my-path")
+(to-tld "https://my-domain.com")
 =>
 "com"
 ```
@@ -1235,42 +925,649 @@ nil
 
 ---
 
-### use-query-string
+### to-url-fragment
 
 ```
 @param (string) n
-@param (string) query-string
 ```
 
 ```
 @usage
-(use-query-string "my-domain.com/my-path" "my-param")
+(to-url-fragment "/my-path#my-fragment")
 ```
 
 ```
 @example
-(use-query-string "my-domain.com/my-path" "my-param")
+(to-url-fragment "/my-path#my-fragment")
+=>
+"my-fragment"
+```
+
+```
+@example
+(to-url-fragment "https://my-domain.com/my-path?my-query#my-fragment")
+=>
+"my-fragment"
+```
+
+```
+@example
+(to-url-fragment "/my-path#my-fragment")
+=>
+"my-fragment"
+```
+
+```
+@example
+(to-url-fragment "https://my-domain.com/my-path?my-query")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-fragment
+  [n]
+  (string/after-first-occurence n "#" {:return? false}))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-fragment]]))
+
+(uri.api/to-url-fragment ...)
+(to-url-fragment         ...)
+```
+
+</details>
+
+---
+
+### to-url-path
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-url-path "https://my-domain.com/my-path")
+```
+
+```
+@example
+(to-url-path "https://my-domain.com/my-path")
+=>
+"/my-path"
+```
+
+```
+@example
+(to-url-path "https://my-domain.com")
+=>
+"/"
+```
+
+```
+@example
+(to-url-path "https://my-domain.com/my-path?my-param=my-value&your-param")
+=>
+"/my-path"
+```
+
+```
+@example
+(to-url-path "https://my-domain.com/?my-param=my-value&your-param")
+=>
+"/"
+```
+
+```
+@example
+(to-url-path "https://my-domain.com?my-param=my-value&your-param")
+=>
+"/"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-path
+  [n]
+  (-> n (to-relative-url)
+        (string/before-first-occurence "?" {:return? true})
+        (string/before-first-occurence "#" {:return? true})))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-path]]))
+
+(uri.api/to-url-path ...)
+(to-url-path         ...)
+```
+
+</details>
+
+---
+
+### to-url-path-params
+
+```
+@param (string) n
+@param (string) url-path-template
+```
+
+```
+@usage
+(to-url-path-params "/my-path" "/:a")
+```
+
+```
+@example
+(to-url-path-params "/my-path" "/:a")
+=>
+{:a "my-path"}
+```
+
+```
+@example
+(to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
+=>
+{:a "my-path" :b "your-path"}
+```
+
+```
+@example
+(to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/b")
+=>
+{:a "my-path"}
+```
+
+```
+@example
+(to-url-path-params "/my-path/your-path" "/a/b")
+=>
+{}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-path-params
+  [n url-path-template]
+  (letfn [(to-url-path-parts [n] (-> n (to-url-path)
+                                       (string/not-starts-with!  "/")
+                                       (string/not-ends-with!    "/")
+                                       (string/split            #"/")))]
+         (let [url-path                (to-url-path       n)
+               url-path-parts          (to-url-path-parts url-path)
+               url-path-template-parts (to-url-path-parts url-path-template)]
+              (letfn [(f [o dex x] (let [x (reader/string->mixed x)]
+                                        (if (keyword? x)
+                                            (let [url-path-part (nth url-path-parts dex)]
+                                                 (assoc o x url-path-part))
+                                            (return o))))]
+                     (reduce-kv f {} url-path-template-parts)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-path-params]]))
+
+(uri.api/to-url-path-params ...)
+(to-url-path-params         ...)
+```
+
+</details>
+
+---
+
+### to-url-query-params
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-url-query-params "/my-path?my-query")
+```
+
+```
+@example
+(to-url-query-params "/my-path?my-query")
+=>
+{:my-query nil}
+```
+
+```
+@example
+(to-url-query-params "/my-path?my-param=my-value")
+=>
+{:my-param "my-value"}
+```
+
+```
+@example
+(to-url-query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+=>
+{:my-param "my-value" :your-param nil}
+```
+
+```
+@example
+(to-url-query-params "http://my-domain.com/my-path#my-fragment")
+=>
+{}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-query-params
+  [n]
+  (-> n (to-url-query-string)
+        (query/url-query-string->url-query-params)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-query-params]]))
+
+(uri.api/to-url-query-params ...)
+(to-url-query-params         ...)
+```
+
+</details>
+
+---
+
+### to-url-query-string
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-url-query-string "/my-path?my-query")
+```
+
+```
+@example
+(to-url-query-string "/my-path?my-query")
+=>
+"my-query"
+```
+
+```
+@example
+(to-url-query-string "https://my-domain.com/my-path?my-query#my-fragment")
+=>
+"my-query"
+```
+
+```
+@example
+(to-url-query-string "https://my-domain.com/my-path#my-fragment")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-query-string
+  [n]
+  (-> n (string/after-first-occurence  "?" {:return? false})
+        (string/before-first-occurence "#" {:return? true})
+        (string/use-nil)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-query-string]]))
+
+(uri.api/to-url-query-string ...)
+(to-url-query-string         ...)
+```
+
+</details>
+
+---
+
+### to-url-tail
+
+```
+@param (string) n
+```
+
+```
+@usage
+(to-url-tail "https://my-domain.com?my-query")
+```
+
+```
+@example
+(to-url-tail "https://my-domain.com/my-path?my-query#my-fragment")
+=>
+"my-query#my-fragment"
+```
+
+```
+@example
+(to-url-tail "https://my-domain.com/my-path#my-fragment")
+=>
+"my-fragment"
+```
+
+```
+@example
+(to-url-tail "https://my-domain.com/my-path")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn to-url-tail
+  [n]
+  (if (string/contains-part?        n "?")
+      (string/after-first-occurence n "?" {:return? false})
+      (string/after-first-occurence n "#" {:return? false})))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [to-url-tail]]))
+
+(uri.api/to-url-tail ...)
+(to-url-tail         ...)
+```
+
+</details>
+
+---
+
+### url-path-template-matches?
+
+```
+@param (string) url-path
+@param (string) url-path-template
+@param (map)(opt) options
+{:case-sensitive? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(url-path-template-matches? "/my-path/my-value" "/my-path/:my-param")
+```
+
+```
+@example
+(url-path-template-matches? "/my-path/my-value" "/my-path/:my-param")
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn url-path-template-matches?
+  ([url-path url-path-template]
+   (url-path-template-matches? url-path url-path-template {}))
+
+  ([url-path url-path-template {:keys [case-sensitive?]}]
+   (letfn [(f1 [url-path url-path-template]
+               (let [url-path-parts                (string/split url-path          #"/")
+                     url-path-template-parts       (string/split url-path-template #"/")
+                     url-path-parts-count          (count        url-path-parts)
+                     url-path-template-parts-count (count        url-path-template-parts)]
+                    (letfn [(f0 [dex] (cond
+                                            (= dex url-path-template-parts-count)
+                                            (return true)
+
+                                            (= ":" (str (get-in url-path-template-parts [dex 0])))
+                                            (f0 (inc dex))
+
+                                            (=  (get url-path-parts          dex)
+                                                (get url-path-template-parts dex))
+                                            (f0 (inc dex))
+
+                                            :unmatching-parts nil))]
+
+                           (if (= url-path-parts-count url-path-template-parts-count)
+                               (f0 0)))))]
+
+          (if case-sensitive? (f1 (str                 url-path)
+                                  (str                 url-path-template))
+                              (f1 (string/to-lowercase url-path)
+                                  (string/to-lowercase url-path-template))))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [url-path-template-matches?]]))
+
+(uri.api/url-path-template-matches? ...)
+(url-path-template-matches?         ...)
+```
+
+</details>
+
+---
+
+### url-query-params->url-query-string
+
+```
+@param (map) url-query-params
+```
+
+```
+@usage
+(url-query-params->url-query-string {:my-param "my-value"})
+```
+
+```
+@example
+(url-query-params->url-query-string {:my-param "my-value" :your-param nil})
+=>
+"my-param=my-value&your-param"
+```
+
+```
+@example
+(url-query-params->url-query-string {"my-param" "my-value" "your-param" nil})
+=>
+"my-param=my-value&your-param"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn url-query-params->url-query-string
+  [url-query-params]
+  (letfn [(f [o k v] (str o (if o "&")
+                            (if (keyword? k)
+                                (name     k)
+                                (str      k))
+                            (if v "=") v))]
+         (reduce-kv f nil url-query-params)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [url-query-params->url-query-string]]))
+
+(uri.api/url-query-params->url-query-string ...)
+(url-query-params->url-query-string         ...)
+```
+
+</details>
+
+---
+
+### url-query-string->url-query-params
+
+```
+@param (string) url-query-string
+```
+
+```
+@usage
+(url-query-string->url-query-params "my-param=my-value")
+```
+
+```
+@example
+(url-query-string->url-query-params "my-param=my-value&your-param")
+=>
+{:my-param "my-value" :your-param nil}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn url-query-string->url-query-params
+  [url-query-string]
+  (letfn [(f [o x] (let [[k v] (string/split x #"=")]
+                        (assoc o (keyword k) v)))]
+         (reduce f {} (string/split url-query-string #"&"))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [uri.api :refer [url-query-string->url-query-params]]))
+
+(uri.api/url-query-string->url-query-params ...)
+(url-query-string->url-query-params         ...)
+```
+
+</details>
+
+---
+
+### use-url-query-string
+
+```
+@param (string) n
+@param (string) url-query-string
+```
+
+```
+@usage
+(use-url-query-string "my-domain.com/my-path" "my-param")
+```
+
+```
+@example
+(use-url-query-string "my-domain.com/my-path" "my-param")
 =>
 "my-domain.com/my-path?my-param"
 ```
 
 ```
 @example
-(use-query-string "my-domain.com/my-path" "my-param=my-value")
+(use-url-query-string "my-domain.com/my-path" "my-param=my-value")
 =>
 "my-domain.com/my-path?my-param=my-value"
 ```
 
 ```
 @example
-(use-query-string "my-domain.com/my-path#my-fragment" "my-param")
+(use-url-query-string "my-domain.com/my-path#my-fragment" "my-param")
 =>
 "my-domain.com/my-path?my-param#my-fragment"
 ```
 
 ```
 @example
-(use-query-string "my-domain.com/my-path?my-param" "your-param=your-value")
+(use-url-query-string "my-domain.com/my-path?my-param" "your-param=your-value")
 =>
 "my-domain.com/my-path?my-param&your-param=your-value"
 ```
@@ -1283,16 +1580,23 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn use-query-string
-  [uri query-string]
-  (letfn [(remove-duplicates [%] (-> % query/query-string->query-params query/query-params->query-string))]
-         (let [fragment     (convert/to-fragment uri)
-               query-string (if-let [% (convert/to-query-string uri)] (str % "&" query-string) query-string)
-               query-string (remove-duplicates query-string)]
-              (str (-> uri (string/before-first-occurence "?" {:return? true})
-                           (string/before-first-occurence "#" {:return? true}))
-                   (if (string/nonblank? query-string) (str "?" query-string))
-                   (if (string/nonblank? fragment)     (str "#" fragment))))))
+(defn use-url-query-string
+  [n url-query-string]
+  (letfn [
+          (use-original [] (if-let [% (convert/to-url-query-string n)]
+                                   (str % "&" url-query-string)
+                                   (str       url-query-string)))
+
+          (remove-duplicates [%] (-> % query/url-query-string->url-query-params
+                                       query/url-query-params->url-query-string))]
+
+         (let [url-fragment     (convert/to-url-fragment n)
+               url-query-string (-> (use-original)
+                                    (remove-duplicates))]
+              (str (-> n (string/before-first-occurence "?" {:return? true})
+                         (string/before-first-occurence "#" {:return? true}))
+                   (if (string/nonblank? url-query-string) (str "?" url-query-string))
+                   (if (string/nonblank? url-fragment)     (str "#" url-fragment))))))
 ```
 
 </details>
@@ -1301,17 +1605,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [use-query-string]]))
+(ns my-namespace (:require [uri.api :refer [use-url-query-string]]))
 
-(uri.api/use-query-string ...)
-(use-query-string         ...)
+(uri.api/use-url-query-string ...)
+(use-url-query-string         ...)
 ```
 
 </details>
 
 ---
 
-### valid-domain
+### valid-url
 
 ```
 @param (string) n
@@ -1319,42 +1623,42 @@ nil
 
 ```
 @usage
-(valid-domain "my-domain.com")
+(valid-url "my-domain.com")
 ```
 
 ```
 @example
-(valid-domain "my-domain.com")
+(valid-url "my-domain.com")
 =>
 "https://my-domain.com"
 ```
 
 ```
 @example
-(valid-domain "my-domain.com/")
+(valid-url "my-domain.com/")
 =>
 "https://my-domain.com"
 ```
 
 ```
 @example
-(valid-domain "http://my-domain.com")
+(valid-url "http://my-domain.com")
 =>
 "http://my-domain.com"
 ```
 
 ```
 @example
-(valid-domain "my-domain.com?my-param")
+(valid-url "/my-path")
 =>
-"https://my-domain.com"
+"/my-path"
 ```
 
 ```
 @example
-(valid-domain "/my-path")
+(valid-url "my-path")
 =>
-nil
+"/my-path"
 ```
 
 ```
@@ -1365,19 +1669,17 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn valid-domain
+(defn valid-url
   [n]
   (if-let [domain (convert/to-domain n)]
-          (if-let [protocol (convert/to-protocol n)]
-                  (-> n (string/to-lowercase)
-                        (string/not-ends-with!         "/")
-                        (string/before-first-occurence "?" {:return? true})
-                        (string/before-first-occurence "#" {:return? true}))
-                  (-> n (string/to-lowercase)
-                        (string/not-ends-with!         "/")
-                        (string/starts-with!           "https://")
-                        (string/before-first-occurence "?" {:return? true})
-                        (string/before-first-occurence "#" {:return? true})))))
+          (if (string/contains-part? n "://")
+              (-> n (convert/to-lowercase)
+                    (string/not-ends-with! "/"))
+              (-> n (convert/to-lowercase)
+                    (string/not-ends-with! "/")
+                    (string/starts-with!   "https://")))
+          (-> n (string/not-ends-with! "/")
+                (string/starts-with!   "/"))))
 ```
 
 </details>
@@ -1386,17 +1688,17 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [valid-domain]]))
+(ns my-namespace (:require [uri.api :refer [valid-url]]))
 
-(uri.api/valid-domain ...)
-(valid-domain         ...)
+(uri.api/valid-url ...)
+(valid-url         ...)
 ```
 
 </details>
 
 ---
 
-### valid-path
+### valid-url-path
 
 ```
 @param (string) n
@@ -1404,26 +1706,26 @@ nil
 
 ```
 @usage
-(valid-path "/my-path")
+(valid-url-path "/my-path")
 ```
 
 ```
 @example
-(valid-path "my-path")
+(valid-url-path "my-path")
 =>
 "/my-path"
 ```
 
 ```
 @example
-(valid-path "/my-path")
+(valid-url-path "/my-path")
 =>
 "/my-path"
 ```
 
 ```
 @example
-(valid-path "/my-path/")
+(valid-url-path "/my-path/")
 =>
 "/my-path"
 ```
@@ -1436,10 +1738,10 @@ nil
 <summary>Source code</summary>
 
 ```
-(defn valid-path
+(defn valid-url-path
   [n]
-  (if-let [path (convert/to-path n)]
-          (return path)
+  (if-let [url-path (convert/to-url-path n)]
+          (return url-path)
           (return "/")))
 ```
 
@@ -1449,84 +1751,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [uri.api :refer [valid-path]]))
+(ns my-namespace (:require [uri.api :refer [valid-url-path]]))
 
-(uri.api/valid-path ...)
-(valid-path         ...)
-```
-
-</details>
-
----
-
-### valid-uri
-
-```
-@param (string) n
-```
-
-```
-@usage
-(valid-uri "my-domain.com")
-```
-
-```
-@example
-(valid-uri "my-domain.com")
-=>
-"https://my-domain.com"
-```
-
-```
-@example
-(valid-uri "my-domain.com/")
-=>
-"https://my-domain.com"
-```
-
-```
-@example
-(valid-uri "http://my-domain.com")
-=>
-"http://my-domain.com"
-```
-
-```
-@example
-(valid-uri "/my-path")
-=>
-nil
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn valid-uri
-  [n]
-  (if-let [domain (convert/to-domain n)]
-          (if-let [protocol (convert/to-protocol n)]
-                  (-> n (string/to-lowercase)
-                        (string/not-ends-with! "/"))
-                  (-> n (string/to-lowercase)
-                        (string/not-ends-with! "/")
-                        (string/starts-with!   "https://")))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [uri.api :refer [valid-uri]]))
-
-(uri.api/valid-uri ...)
-(valid-uri         ...)
+(uri.api/valid-url-path ...)
+(valid-url-path         ...)
 ```
 
 </details>
