@@ -5,6 +5,8 @@
 
 ### Index
 
+- [<-walk](#-walk)
+
 - [do-while](#do-while)
 
 - [reduce-indexed](#reduce-indexed)
@@ -13,14 +15,82 @@
 
 - [some-indexed](#some-indexed)
 
+### <-walk
+
+```
+@description
+Takes the 'n' as initial value and iterates over the list of functions.
+Every function takes the previous function's result as an only argument.
+```
+
+```
+@param (*) n
+@param (list of functions) fs
+```
+
+```
+@usage
+(<-walk {...}
+        (fn [%] %)
+        (fn [%] %))
+```
+
+```
+@example
+(<-walk {:a "A"}
+        (fn [%] (merge {:b "B"} %))
+        (fn [%] (merge {:c "C"} %)))
+=>
+{:a "A" :b "B" :c "C"}
+```
+
+```
+@example
+(<-walk [:a]
+        (fn [%] (conj % :b))
+        (fn [%] (conj % :c)))
+=>
+[:a :b :c]
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn <-walk
+  [n & fs]
+  (letfn [(f [result f] (f result))]
+         (reduce f n fs)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [loop.api :refer [<-walk]]))
+
+(loop.api/<-walk ...)
+(<-walk          ...)
+```
+
+</details>
+
+---
+
 ### do-while
 
 ```
 @param (function) f
 @param (*) n
-The initial parameter of the f function.
+The initial parameter of the 'f' function.
 @param (function) test-f
-When the test-f functions returns with true the iteration stops.
+If the 'test-f' functions returns with true the iteration stops.
 ```
 
 ```
@@ -81,7 +151,7 @@ When the test-f functions returns with true the iteration stops.
 
 ```
 @description
-The f function gets the current item's index as its second parameter.
+The 'f' function gets the current item's index as its second parameter.
 ```
 
 ```
@@ -128,7 +198,7 @@ The f function gets the current item's index as its second parameter.
 
 ```
 @description
-The f function gets the current item's index as its second parameter.
+The 'f' function gets the current item's index as its second parameter.
 ```
 
 ```

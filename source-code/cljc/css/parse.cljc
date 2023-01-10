@@ -40,9 +40,9 @@
                                        (and (string/nonblank? k)
                                             (string/nonblank? v)
                                             [k v])))))
-          ; To avoid infinite loops when the f0 function cannot
-          ; resolve the passed x fraction, the f1 function quits
-          ; parsing the n string, and returns with the incomplete result.
+          ; To avoid infinite loops:
+          ; If the f0 function cannot resolves the passed x fraction, the f1 function
+          ; quits parsing the n string, and returns with the incomplete result.
           (f1 [style n] (if-let [x (string/before-first-occurence n ";" {:return? false})]
                                 (if-let [[k v] (f0 x)]
                                         (f1 (assoc style (keyword k) v)

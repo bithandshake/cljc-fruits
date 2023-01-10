@@ -204,18 +204,11 @@
   ; @return (vector)
   [n x]
   ; BUG#1130
-  ; A shadow-cljs a remove-first-occurence függvényt (anélkül, hogy az bárhol
-  ; meghívásra kerülne), megvizsgálja és a következő hibaüzenettel tér vissza:
+  ; The shadow-cljs protects the 'inc' function from receiving nil as a parameter.
+  ; The 'item-first-dex' function returns through a when condition, therefore
+  ; without using the (if (number? item-dex) ...) condition, the shadow-cljs
+  ; throws the following error message:
   ; "cljs.core/+, all arguments must be numbers, got [#{nil clj-nil} number] instead"
-  ;
-  ; Ez azért történik mert a dex/item-first-dex függvény egy when függvényel tér
-  ; vissza, ami a feltétel nem teljesülésekor nil értéket adna vissza és a shadow-cljs
-  ; megvédi az inc függvényt attól, hogy nil értéket kapjon paraméterként.
-  ; Bár az inc függvény number típust vár paraméterként, ettől függetlenül ha mégis
-  ; nil értéket kapna, akkor azt 1-re növelné.
-  ;
-  ; Az (if (number? item-dex) ...) vizsgálatot látva, a shadow-cljs van olyan kegyes
-  ; és megengedi az inc függvény használatát.
   (if-let [item-dex (dex/item-first-dex n x)]
           (if (number? item-dex)
               (vec (concat (subvec n 0 item-dex)

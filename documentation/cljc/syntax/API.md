@@ -31,6 +31,8 @@
 
 - [quotes](#quotes)
 
+- [remove-comments](#remove-comments)
+
 - [to-snake-case](#to-snake-case)
 
 ### ToCamelCase
@@ -119,6 +121,12 @@
 ### close-brace-position
 
 ```
+@description
+Returns the close pair position of the first opening brace character
+in the string 'n'.
+```
+
+```
 @param (n) 
 ```
 
@@ -145,8 +153,6 @@
 
 ```
 @return (integer)
-Returns with the position of the close-pair of the first occurence of the
-character "{" in the string n.
 ```
 
 <details>
@@ -177,6 +183,12 @@ character "{" in the string n.
 ### close-bracket-position
 
 ```
+@description
+Returns the close pair position of the first opening bracket character
+in the string 'n'.
+```
+
+```
 @param (n) 
 ```
 
@@ -203,8 +215,6 @@ character "{" in the string n.
 
 ```
 @return (integer)
-Returns with the position of the close-pair of the first occurence of the
-character "[" in the string n.
 ```
 
 <details>
@@ -235,6 +245,12 @@ character "[" in the string n.
 ### close-paren-position
 
 ```
+@description
+Returns the close pair position of the first opening parenthesis character
+in the string 'n'.
+```
+
+```
 @param (n) 
 ```
 
@@ -254,8 +270,6 @@ character "[" in the string n.
 
 ```
 @return (integer)
-Returns with the position of the close-pair of the first occurence of the
-character parenthesis open character in the string n.
 ```
 
 <details>
@@ -286,6 +300,12 @@ character parenthesis open character in the string n.
 ### close-tag-position
 
 ```
+@description
+Returns the close pair position of the first occurence of the 'open-tag'
+in the string 'n'.
+```
+
+```
 @param (string) n
 @param (string) open-tag
 @param (string) close-tag
@@ -314,8 +334,6 @@ character parenthesis open character in the string n.
 
 ```
 @return (integer)
-Returns with the position of the close-pair of the first occurence of the
-given open-tag in the string n.
 ```
 
 <details>
@@ -324,19 +342,31 @@ given open-tag in the string n.
 ```
 (defn close-tag-position
   [n open-tag close-tag]
-  (if (and (string/contains-part? n  open-tag)
-           (string/contains-part? n close-tag))
-      (letfn [(f [cursor]
-                 (let [a               (string/part             n  0 cursor)
-                       b               (string/part             n    cursor)
-                        open-tag-count (string/count-occurences a  open-tag)
-                       close-tag-count (string/count-occurences a close-tag)]
-                      (if (and (>  close-tag-count 0)
-                               (>= close-tag-count open-tag-count))
-                          (do                              (string/last-dex-of a close-tag))
-                          (if-let [close-tag-position (string/first-dex-of b close-tag)]
-                                  (do                                      (f (+ close-tag-position (count close-tag) cursor)))))))]
-             (f (string/first-dex-of n open-tag)))))
+  (if-let [offset (string/first-dex-of n open-tag)]
+          (letfn [
+                  (f0 [observed-part open-tag-found]
+                      (+ open-tag-found (string/count-occurences observed-part open-tag)))
+
+                  (f1 [observed-part close-tag-found]
+                      (+ close-tag-found (string/count-occurences observed-part close-tag)))
+
+                  (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
+                                     (+ from close-tag-pos (count close-tag))))
+
+                  (f3 [from open-tag-found close-tag-found]
+
+
+                      (if-let [to (f2 from)]
+                              (let [observed-part   (string/part n from to)
+                                    open-tag-found  (f0 observed-part open-tag-found)
+                                    close-tag-found (f1 observed-part close-tag-found)]
+
+
+                                   (if (<= open-tag-found close-tag-found)
+                                       (- to (count close-tag))
+                                       (f3 to open-tag-found close-tag-found)))))]
+
+                 (f3 offset 0 0))))
 ```
 
 </details>
@@ -356,6 +386,11 @@ given open-tag in the string n.
 ---
 
 ### open-brace-position
+
+```
+@description
+Returns the first position of the opening brace character in the string 'n'.
+```
 
 ```
 @param (n) 
@@ -384,8 +419,6 @@ given open-tag in the string n.
 
 ```
 @return (integer)
-Returns with the position of the first occurence of the character "{"
-in the string n.
 ```
 
 <details>
@@ -416,6 +449,11 @@ in the string n.
 ### open-bracket-position
 
 ```
+@description
+Returns the first position of the opening bracket character in the string 'n'.
+```
+
+```
 @param (n) 
 ```
 
@@ -442,8 +480,6 @@ in the string n.
 
 ```
 @return (integer)
-Returns with the position of the first occurence of the character "["
-in the string n.
 ```
 
 <details>
@@ -474,6 +510,11 @@ in the string n.
 ### open-paren-position
 
 ```
+@description
+Returns the first position of the opening parenthesis character in the string 'n'.
+```
+
+```
 @param (n) 
 ```
 
@@ -493,8 +534,6 @@ in the string n.
 
 ```
 @return (integer)
-Returns with the position of the first occurence of the character parenthesis
-open character in the string n.
 ```
 
 <details>
@@ -503,7 +542,7 @@ open character in the string n.
 ```
 (defn open-paren-position
   [n]
-  ; páratlan zárójel(ek) vannak benne, ezért szükésges idetenni egy szmájlit :)
+  ; That's why I have to put a close parenthesis here :)
 ```
 
 </details>
@@ -523,6 +562,11 @@ open character in the string n.
 ---
 
 ### open-tag-position
+
+```
+@description
+Returns the first position of the 'open-tag' in the string 'n'.
+```
 
 ```
 @param (string) n
@@ -552,8 +596,6 @@ open character in the string n.
 
 ```
 @return (integer)
-Returns with the position of the first occurence of the given open-tag in
-the string n.
 ```
 
 <details>
@@ -701,6 +743,80 @@ the string n.
 
 (syntax.api/quotes ...)
 (quotes            ...)
+```
+
+</details>
+
+---
+
+### remove-comments
+
+```
+@param (string) n
+@param (string) open-tag
+@param (string)(opt) close-tag
+ Defaul: "\n"
+```
+
+```
+@usage
+(remove-comments "(defn my-function []) \n ; My comment \n"
+                 ";")
+```
+
+```
+@example
+(remove-comments "(defn my-function []) \n ; My comment \n"
+                 ";")
+=>
+"(defn my-function []) \n"
+```
+
+```
+@example
+(remove-comments "body { /* My comment */ color: blue; }"
+                 "/*"
+                 "*/")
+=>
+"body {  color: blue; }"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-comments
+  ([n open-tag]
+   (remove-comments n open-tag "\n"))
+
+  ([n open-tag close-tag]
+   (letfn [
+           (f0 [n] (if-let [open-pos (tags/open-tag-position n open-tag)]
+                           (if-let [close-pos (tags/close-tag-position n open-tag close-tag)]
+                                   (if (number? close-pos)
+                                       (string/cut n open-pos (+ close-pos (count close-tag)))))))
+
+           (f1 [n] (if-let [n  (f0 n)]
+                           (f1     n)
+                           (return n)))]
+
+          (f1 n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [remove-comments]]))
+
+(syntax.api/remove-comments ...)
+(remove-comments            ...)
 ```
 
 </details>

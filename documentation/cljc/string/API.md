@@ -31,6 +31,8 @@
 
 - [count-occurences](#count-occurences)
 
+- [cut](#cut)
+
 - [ends-with!](#ends-with)
 
 - [ends-with?](#ends-with)
@@ -1119,6 +1121,86 @@ false
 
 (string.api/count-occurences ...)
 (count-occurences            ...)
+```
+
+</details>
+
+---
+
+### cut
+
+```
+@param (*) n
+@param (integer) start
+@param (integer)(opt) end
+```
+
+```
+@usage
+(cut "abc" 0 2)
+```
+
+```
+@example
+(cut "abcdef" 2 4)
+=>
+"abef"
+```
+
+```
+@example
+(cut "abcdef" 4 2)
+=>
+"abef"
+```
+
+```
+@example
+(cut 12345 2 4)
+=>
+"125"
+```
+
+```
+@example
+(cut [:a :b] 0 3)
+=>
+" :b]"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cut
+  ([n start]
+   (let [n (str n)]
+        (cut n 0 start)))
+
+  ([n start end]
+   (let [n (str n)]
+        (if (and (-> n empty? not)
+                 (math/between? end   0 (count n))
+                 (math/between? start 0 (count n)))
+            (str (subs n 0 (min start end))
+                 (subs n   (max start end)))
+            (return n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [cut]]))
+
+(string.api/cut ...)
+(cut            ...)
 ```
 
 </details>

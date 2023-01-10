@@ -5,9 +5,44 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn <-walk
+  ; @description
+  ; Takes the 'n' as initial value and iterates over the list of functions.
+  ; Every function takes the previous function's result as an only argument.
+  ;
+  ; @param (*) n
+  ; @param (list of functions) fs
+  ;
+  ; @usage
+  ; (<-walk {...}
+  ;         (fn [%] %)
+  ;         (fn [%] %))
+  ;
+  ; @example
+  ; (<-walk {:a "A"}
+  ;         (fn [%] (merge {:b "B"} %))
+  ;         (fn [%] (merge {:c "C"} %)))
+  ; =>
+  ; {:a "A" :b "B" :c "C"}
+  ;
+  ; @example
+  ; (<-walk [:a]
+  ;         (fn [%] (conj % :b))
+  ;         (fn [%] (conj % :c)))
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @return (*)
+  [n & fs]
+  (letfn [(f [result f] (f result))]
+         (reduce f n fs)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn reduce-kv-indexed
   ; @description
-  ; The f function gets the current item's index as its second parameter.
+  ; The 'f' function gets the current item's index as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial
@@ -25,7 +60,7 @@
 
 (defn reduce-indexed
   ; @description
-  ; The f function gets the current item's index as its second parameter.
+  ; The 'f' function gets the current item's index as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial
@@ -71,9 +106,9 @@
 (defn do-while
   ; @param (function) f
   ; @param (*) n
-  ; The initial parameter of the f function.
+  ; The initial parameter of the 'f' function.
   ; @param (function) test-f
-  ; When the test-f functions returns with true the iteration stops.
+  ; If the 'test-f' functions returns with true the iteration stops.
   ;
   ; @example
   ; (do-while (fn [{:keys [my-numbers x] :as n}]

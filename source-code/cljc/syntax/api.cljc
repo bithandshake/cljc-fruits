@@ -1,11 +1,15 @@
 
 (ns syntax.api
-    (:require [syntax.convert :as convert]
+    (:require [syntax.comment :as comment]
+              [syntax.convert :as convert]
               [syntax.core    :as core]
               [syntax.tags    :as tags]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; syntax.comment
+(def remove-comments comment/remove-comments)
 
 ; syntax.convert
 (def to-snake-case convert/to-snake-case)

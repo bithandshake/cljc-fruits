@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn open-tag-position
+  ; @description
+  ; Returns the first position of the 'open-tag' in the string 'n'.
+  ;
   ; @param (string) n
   ; @param (string) open-tag
   ;
@@ -25,12 +28,14 @@
   ; 7
   ;
   ; @return (integer)
-  ; Returns with the position of the first occurence of the given open-tag in
-  ; the string n.
   [n open-tag]
   (string/first-dex-of n open-tag))
 
 (defn close-tag-position
+  ; @description
+  ; Returns the close pair position of the first occurence of the 'open-tag'
+  ; in the string 'n'.
+  ;
   ; @param (string) n
   ; @param (string) open-tag
   ; @param (string) close-tag
@@ -51,35 +56,53 @@
   ; 12
   ;
   ; @return (integer)
-  ; Returns with the position of the close-pair of the first occurence of the
-  ; given open-tag in the string n.
   [n open-tag close-tag]
-  (if (and (string/contains-part? n  open-tag)
-           (string/contains-part? n close-tag))
-      (letfn [(f [cursor]
-                 (let [a               (string/part             n  0 cursor)
-                       b               (string/part             n    cursor)
-                        open-tag-count (string/count-occurences a  open-tag)
-                       close-tag-count (string/count-occurences a close-tag)]
-                      ;(println)
-                      ;(println (str "\"" a "\""))
-                      ;(println (str "\"" b "\""))
-                      ;(println "cursor:"           cursor)
-                      ;(println "open-tag-count:"   open-tag-count)
-                      ;(println "close-tag-count:" close-tag-count)
-                      (if (and (>  close-tag-count 0)
-                               (>= close-tag-count open-tag-count))
-                          (do ;(println "result:" (string/last-dex-of a close-tag))
-                              (string/last-dex-of a close-tag))
-                          (if-let [close-tag-position (string/first-dex-of b close-tag)]
-                                  (do ;(println "close-tag-position:" close-tag-position)
-                                      (f (+ close-tag-position (count close-tag) cursor)))))))]
-             (f (string/first-dex-of n open-tag)))))
+  (if-let [offset (string/first-dex-of n open-tag)]
+          (letfn [
+                  ; ...
+                  (f0 [observed-part open-tag-found]
+                      (+ open-tag-found (string/count-occurences observed-part open-tag)))
+
+                  ; ...
+                  (f1 [observed-part close-tag-found]
+                      (+ close-tag-found (string/count-occurences observed-part close-tag)))
+
+                  ; ...
+                  (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
+                                     (+ from close-tag-pos (count close-tag))))
+
+                  ; ...
+                  (f3 [from open-tag-found close-tag-found]
+
+                      ; DEBUG
+                      ; (println "offset:" offset)
+                      ; (println "from:"   from)
+
+                      (if-let [to (f2 from)]
+                              (let [observed-part   (string/part n from to)
+                                    open-tag-found  (f0 observed-part open-tag-found)
+                                    close-tag-found (f1 observed-part close-tag-found)]
+
+                                   ; DEBUG
+                                   ; (println "to:"              to)
+                                   ; (println "observed-part:"   (str "\""observed-part"\""))
+                                   ; (println "open-tag-found:"  open-tag-found)
+                                   ; (println "close-tag-found:" close-tag-found)
+
+                                   (if (<= open-tag-found close-tag-found)
+                                       (- to (count close-tag))
+                                       (f3 to open-tag-found close-tag-found)))))]
+
+                 ; ...
+                 (f3 offset 0 0))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn open-brace-position
+  ; @description
+  ; Returns the first position of the opening brace character in the string 'n'.
+  ;
   ; @param (n)
   ;
   ; @example
@@ -98,12 +121,14 @@
   ; 2
   ;
   ; @return (integer)
-  ; Returns with the position of the first occurence of the character "{"
-  ; in the string n.
   [n]
   (open-tag-position n "{"))
 
 (defn close-brace-position
+  ; @description
+  ; Returns the close pair position of the first opening brace character
+  ; in the string 'n'.
+  ;
   ; @param (n)
   ;
   ; @example
@@ -122,8 +147,6 @@
   ; 3
   ;
   ; @return (integer)
-  ; Returns with the position of the close-pair of the first occurence of the
-  ; character "{" in the string n.
   [n]
   (close-tag-position n "{" "}"))
 
@@ -131,6 +154,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn open-bracket-position
+  ; @description
+  ; Returns the first position of the opening bracket character in the string 'n'.
+  ;
   ; @param (n)
   ;
   ; @example
@@ -149,12 +175,15 @@
   ; 2
   ;
   ; @return (integer)
-  ; Returns with the position of the first occurence of the character "["
-  ; in the string n.
   [n]
   (open-tag-position n "["))
 
 (defn close-bracket-position
+  ; @description
+  ; Returns the close pair position of the first opening bracket character
+  ; in the string 'n'.
+  ;
+  ; @description
   ; @param (n)
   ;
   ; @example
@@ -173,8 +202,6 @@
   ; 3
   ;
   ; @return (integer)
-  ; Returns with the position of the close-pair of the first occurence of the
-  ; character "[" in the string n.
   [n]
   (close-tag-position n "[" "]"))
 
@@ -182,6 +209,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn open-paren-position
+  ; @description
+  ; Returns the first position of the opening parenthesis character in the string 'n'.
+  ;
+  ; @description
   ; @param (n)
   ;
   ; @example
@@ -195,14 +226,17 @@
   ; 4
   ;
   ; @return (integer)
-  ; Returns with the position of the first occurence of the character parenthesis
-  ; open character in the string n.
   [n]
-  ; A docs-api dokumentáció készítő nem tudja beolvasni ezt a függvényt, ha
-  ; páratlan zárójel(ek) vannak benne, ezért szükésges idetenni egy szmájlit :)
+  ; The 'docs-api' documentation book generator throws an error if the parenthesis
+  ; pairs in the code aren't balanced.
+  ; That's why I have to put a close parenthesis here :)
   (open-tag-position n "("))
 
 (defn close-paren-position
+  ; @description
+  ; Returns the close pair position of the first opening parenthesis character
+  ; in the string 'n'.
+  ;
   ; @param (n)
   ;
   ; @example
@@ -216,7 +250,5 @@
   ; 24
   ;
   ; @return (integer)
-  ; Returns with the position of the close-pair of the first occurence of the
-  ; character parenthesis open character in the string n.
   [n]
   (close-tag-position n "(" ")"))
