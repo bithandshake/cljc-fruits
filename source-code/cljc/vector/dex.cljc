@@ -204,7 +204,7 @@
 (defn prev-dex
   ; @description
   ; Returns with the previous item's index before the given dex.
-  ; At the beginneng of the vector it jumps to the last index.
+  ; At the beginning of the vector it jumps to the last index.
   ;
   ; @param (vector) n
   ; @param (integer) dex
@@ -233,7 +233,7 @@
 (defn dec-dex
   ; @description
   ; Returns with the previous item's index before the given dex.
-  ; At the beginneng of the vector it stops.
+  ; At the beginning of the vector it stops.
   ;
   ; @param (vector) n
   ; @param (integer) dex

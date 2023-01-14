@@ -9,26 +9,26 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn move-item
+(defn move-nth-item
   ; @param (vector) n
   ; @param (integer) from
   ; @param (integer) to
   ;
   ; @usage
-  ; (move-item [:a :b :c] 0 2)
+  ; (move-nth-item [:a :b :c] 0 2)
   ;
   ; @example
-  ; (move-item [:a :b :c :d :e :f :g :h] 2 2)
+  ; (move-nth-item [:a :b :c :d :e :f :g :h] 2 2)
   ; =>
   ; [:a :b :c :d :e :f :g :h]
   ;
   ; @example
-  ; (move-item [:a :b :c :d :e :f :g :h] 2 5)
+  ; (move-nth-item [:a :b :c :d :e :f :g :h] 2 5)
   ; =>
   ; [:a :b :d :e :c :f :g :h]
   ;
   ; @example
-  ; (move-item [:a :b :c :d :e :f :g :h] 5 2)
+  ; (move-nth-item [:a :b :c :d :e :f :g :h] 5 2)
   ; =>
   ; [:a :b :f :c :d :e :g :h]
   ;
@@ -36,19 +36,67 @@
   [n from to]
   (if (dex/dex-in-bounds? n from)
       (let [to (math/between! to 0 (count n))]
-           (cond ; Stay in place
+           (cond
+                 ; Stay in place
                  (= from to) (return n)
+
                  ; Move item fwd
                  (< from to) (vec (concat (range/ranged-items n 0 from)
                                           (range/ranged-items n (inc from) (inc to))
                                           (range/ranged-items n from (inc from))
                                           (range/ranged-items n (inc to))))
+
                  ; Move item bwd
                  (> from to) (vec (concat (range/ranged-items n 0 to)
                                           (range/ranged-items n from (inc from))
                                           (range/ranged-items n to from)
                                           (range/ranged-items n (inc from))))))
       (return n)))
+
+(defn move-nth-item-bwd
+  ; @param (vector) n
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (move-nth-item-bwd [:a :b :c] 1)
+  ;
+  ; @example
+  ; (move-nth-item-bwd [:a :b :c :d] 2)
+  ; =>
+  ; [:a :c :b :d]
+  ;
+  ; @example
+  ; (move-nth-item-bwd [:a :b :c :d] 0)
+  ; =>
+  ; [:b :c :d :a]
+  ;
+  ; @return (vector)
+  [n dex]
+  (move-nth-item n dex (dex/prev-dex n dex)))
+
+(defn move-nth-item-fwd
+  ; @param (vector) n
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (move-nth-item-fwd [:a :b :c] 1)
+  ;
+  ; @example
+  ; (move-nth-item-fwd [:a :b :c :d] 2)
+  ; =>
+  ; [:a :b :d :c]
+  ;
+  ; @example
+  ; (move-nth-item-fwd [:a :b :c :d] 3)
+  ; =>
+  ; [:d :a :b :c]
+  ;
+  ; @return (vector)
+  [n dex]
+  (move-nth-item n dex (dex/next-dex n dex)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn move-item-to-last
   ; @param (vector) n
@@ -118,5 +166,5 @@
   ; @return (vector)
   [n x dex]
   (if-let [item-first-dex (dex/item-first-dex n x)]
-          (move-item n item-first-dex dex)
-          (return    n)))
+          (move-nth-item n item-first-dex dex)
+          (return        n)))

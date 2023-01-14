@@ -88,7 +88,9 @@
 (def get-last-match-dex  match/get-last-match-dex)
 
 ; vector.move
-(def move-item            move/move-item)
+(def move-nth-item        move/move-nth-item)
+(def move-nth-item-bwd    move/move-nth-item-bwd)
+(def move-nth-item-fwd    move/move-nth-item-fwd)
 (def move-item-to-last    move/move-item-to-last)
 (def move-item-to-first   move/move-item-to-first)
 (def move-first-occurence move/move-first-occurence)

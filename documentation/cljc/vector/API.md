@@ -121,11 +121,15 @@
 
 - [move-first-occurence](#move-first-occurence)
 
-- [move-item](#move-item)
-
 - [move-item-to-first](#move-item-to-first)
 
 - [move-item-to-last](#move-item-to-last)
+
+- [move-nth-item](#move-nth-item)
+
+- [move-nth-item-bwd](#move-nth-item-bwd)
+
+- [move-nth-item-fwd](#move-nth-item-fwd)
 
 - [next-dex](#next-dex)
 
@@ -1214,7 +1218,7 @@ true
 ```
 @description
 Returns with the previous item's index before the given dex.
-At the beginneng of the vector it stops.
+At the beginning of the vector it stops.
 ```
 
 ```
@@ -3338,8 +3342,8 @@ false
 (defn move-first-occurence
   [n x dex]
   (if-let [item-first-dex (dex/item-first-dex n x)]
-          (move-item n item-first-dex dex)
-          (return    n)))
+          (move-nth-item n item-first-dex dex)
+          (return        n)))
 ```
 
 </details>
@@ -3352,80 +3356,6 @@ false
 
 (vector.api/move-first-occurence ...)
 (move-first-occurence            ...)
-```
-
-</details>
-
----
-
-### move-item
-
-```
-@param (vector) n
-@param (integer) from
-@param (integer) to
-```
-
-```
-@usage
-(move-item [:a :b :c] 0 2)
-```
-
-```
-@example
-(move-item [:a :b :c :d :e :f :g :h] 2 2)
-=>
-[:a :b :c :d :e :f :g :h]
-```
-
-```
-@example
-(move-item [:a :b :c :d :e :f :g :h] 2 5)
-=>
-[:a :b :d :e :c :f :g :h]
-```
-
-```
-@example
-(move-item [:a :b :c :d :e :f :g :h] 5 2)
-=>
-[:a :b :f :c :d :e :g :h]
-```
-
-```
-@return (vector)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn move-item
-  [n from to]
-  (if (dex/dex-in-bounds? n from)
-      (let [to (math/between! to 0 (count n))]
-           (cond                 (= from to) (return n)
-                 (< from to) (vec (concat (range/ranged-items n 0 from)
-                                          (range/ranged-items n (inc from) (inc to))
-                                          (range/ranged-items n from (inc from))
-                                          (range/ranged-items n (inc to))))
-                 (> from to) (vec (concat (range/ranged-items n 0 to)
-                                          (range/ranged-items n from (inc from))
-                                          (range/ranged-items n to from)
-                                          (range/ranged-items n (inc from))))))
-      (return n)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [vector.api :refer [move-item]]))
-
-(vector.api/move-item ...)
-(move-item            ...)
 ```
 
 </details>
@@ -3541,6 +3471,193 @@ false
 
 (vector.api/move-item-to-last ...)
 (move-item-to-last            ...)
+```
+
+</details>
+
+---
+
+### move-nth-item
+
+```
+@param (vector) n
+@param (integer) from
+@param (integer) to
+```
+
+```
+@usage
+(move-nth-item [:a :b :c] 0 2)
+```
+
+```
+@example
+(move-nth-item [:a :b :c :d :e :f :g :h] 2 2)
+=>
+[:a :b :c :d :e :f :g :h]
+```
+
+```
+@example
+(move-nth-item [:a :b :c :d :e :f :g :h] 2 5)
+=>
+[:a :b :d :e :c :f :g :h]
+```
+
+```
+@example
+(move-nth-item [:a :b :c :d :e :f :g :h] 5 2)
+=>
+[:a :b :f :c :d :e :g :h]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn move-nth-item
+  [n from to]
+  (if (dex/dex-in-bounds? n from)
+      (let [to (math/between! to 0 (count n))]
+           (cond
+                 (= from to) (return n)
+
+                 (< from to) (vec (concat (range/ranged-items n 0 from)
+                                          (range/ranged-items n (inc from) (inc to))
+                                          (range/ranged-items n from (inc from))
+                                          (range/ranged-items n (inc to))))
+
+                 (> from to) (vec (concat (range/ranged-items n 0 to)
+                                          (range/ranged-items n from (inc from))
+                                          (range/ranged-items n to from)
+                                          (range/ranged-items n (inc from))))))
+      (return n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [move-nth-item]]))
+
+(vector.api/move-nth-item ...)
+(move-nth-item            ...)
+```
+
+</details>
+
+---
+
+### move-nth-item-bwd
+
+```
+@param (vector) n
+@param (integer) dex
+```
+
+```
+@usage
+(move-nth-item-bwd [:a :b :c] 1)
+```
+
+```
+@example
+(move-nth-item-bwd [:a :b :c :d] 2)
+=>
+[:a :c :b :d]
+```
+
+```
+@example
+(move-nth-item-bwd [:a :b :c :d] 0)
+=>
+[:b :c :d :a]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn move-nth-item-bwd
+  [n dex]
+  (move-nth-item n dex (dex/prev-dex n dex)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [move-nth-item-bwd]]))
+
+(vector.api/move-nth-item-bwd ...)
+(move-nth-item-bwd            ...)
+```
+
+</details>
+
+---
+
+### move-nth-item-fwd
+
+```
+@param (vector) n
+@param (integer) dex
+```
+
+```
+@usage
+(move-nth-item-fwd [:a :b :c] 1)
+```
+
+```
+@example
+(move-nth-item-fwd [:a :b :c :d] 2)
+=>
+[:a :b :d :c]
+```
+
+```
+@example
+(move-nth-item-fwd [:a :b :c :d] 3)
+=>
+[:d :a :b :c]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn move-nth-item-fwd
+  [n dex]
+  (move-nth-item n dex (dex/next-dex n dex)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [move-nth-item-fwd]]))
+
+(vector.api/move-nth-item-fwd ...)
+(move-nth-item-fwd            ...)
 ```
 
 </details>
@@ -3907,7 +4024,7 @@ false
 ```
 @description
 Returns with the previous item's index before the given dex.
-At the beginneng of the vector it jumps to the last index.
+At the beginning of the vector it jumps to the last index.
 ```
 
 ```
