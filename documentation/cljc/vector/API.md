@@ -9,6 +9,8 @@
 
 - [->items](#-items)
 
+- [->items-indexed](#-items-indexed)
+
 - [abc-items](#abc-items)
 
 - [all-items-match?](#all-items-match)
@@ -287,6 +289,55 @@
 
 (vector.api/->items ...)
 (->items            ...)
+```
+
+</details>
+
+---
+
+### ->items-indexed
+
+```
+@param (map) n
+@param (function) update-f
+```
+
+```
+@usage
+(->items-indexed [0 1 2] (fn [dex %] (inc %)))
+```
+
+```
+@example
+(->items-indexed [:a :b :c] (fn [dex %] (name %)))
+=>
+["a" "b" "c"]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn ->items-indexed
+  [n update-f]
+  (letfn [(f [%1 %2 %3] (conj %1 (update-f %2 %3)))]
+         (reduce-kv f [] n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [->items-indexed]]))
+
+(vector.api/->items-indexed ...)
+(->items-indexed            ...)
 ```
 
 </details>
