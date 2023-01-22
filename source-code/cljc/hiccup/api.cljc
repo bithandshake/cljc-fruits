@@ -31,5 +31,8 @@
 (def tag-name? type/tag-name?)
 
 ; hiccup.walk
-(def walk    walk/walk)
-(def explode walk/explode)
+(def walk             walk/walk)
+(def explode          walk/explode)
+(def put              walk/put)
+(def put-with         walk/put-with)
+(def put-with-indexed walk/put-with-indexed)

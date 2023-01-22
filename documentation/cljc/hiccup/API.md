@@ -17,6 +17,12 @@
 
 - [join-class](#join-class)
 
+- [put](#put)
+
+- [put-with](#put-with)
+
+- [put-with-indexed](#put-with-indexed)
+
 - [set-style](#set-style)
 
 - [tag-name?](#tag-name)
@@ -74,20 +80,21 @@
 ### explode
 
 ```
+@param (hiccup)(opt) container
+ Default: [:div]
 @param (string) n
-@param (hiccup) container
 ```
 
 ```
 @example
-(explode "ab" [:div])
+(explode [:div] "ab")
 =>
 [:div [:span "a"]
       [:span "b"]
 ```
 
 ```
-@return (nil or hiccup)
+@return (hiccup)
 ```
 
 <details>
@@ -95,11 +102,14 @@
 
 ```
 (defn explode
-  [n container]
-  (if (and (string? n)
-           (type/hiccup? container))
-      (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} [:span %2]))]
-             (reduce f container n))))
+  ([n]
+   (explode [:div] n))
+
+  ([container n]
+   (and (string? n)
+        (type/hiccup? container)
+        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} [:span %2]))]
+               (reduce f container n)))))
 ```
 
 </details>
@@ -281,6 +291,219 @@
 
 (hiccup.api/join-class ...)
 (join-class            ...)
+```
+
+</details>
+
+---
+
+### put
+
+```
+@param (keyword)(opt) container
+ Default: [:div]
+@param (collection) n
+```
+
+```
+@usage
+(put [[:span "A"] [:span "B"]])
+```
+
+```
+@usage
+(put [:ul] [[:li "A"] [:li "B"]])
+```
+
+```
+@example
+(put [[:span "A"] [:span "B"]])
+=>
+[:div [:span "A"] [:span "B"]]
+```
+
+```
+@example
+(put [:ul] [[:li "A"] [:li "B"]])
+=>
+[:ul [:li "A"] [:li "B"]]
+```
+
+```
+@return (hiccup)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn put
+  ([n]
+   (put [:div] n))
+
+  ([container n]
+   (and (seqable? n)
+        (type/hiccup? container)
+        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} %2))]
+               (reduce f container n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [hiccup.api :refer [put]]))
+
+(hiccup.api/put ...)
+(put            ...)
+```
+
+</details>
+
+---
+
+### put-with
+
+```
+@param (keyword)(opt) container
+ Default: [:div]
+@param (collection) n
+@param (function) item-f
+```
+
+```
+@usage
+(defn my-item-f [%] (conj % "X"))
+(put-with [[:span "A"] [:span "B"]] my-item-f)
+```
+
+```
+@usage
+(defn my-item-f [%] (conj % "X"))
+(put-with [:ul] [[:li "A"] [:li "B"]] my-item-f)
+```
+
+```
+@example
+(defn my-item-f [%] (conj % "X"))
+(put-with [[:span "A"] [:span "B"]] my-item-f)
+=>
+[:div [:span "A" "X"] [:span "B" "X"]]
+```
+
+```
+@example
+(defn my-item-f [%] (conj % "X"))
+(put-with [:ul] [[:li "A"] [:li "B"]] my-item-f)
+=>
+[:ul [:li "A" "X"] [:li "B" "X"]]
+```
+
+```
+@return (hiccup)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn put-with
+  ([n f]
+   (put-with [:div] n f))
+
+  ([container n item-f]
+   (and (fn? item-f)
+        (seqable? n)
+        (type/hiccup? container)
+        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} (item-f %2)))]
+               (reduce f container n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [hiccup.api :refer [put-with]]))
+
+(hiccup.api/put-with ...)
+(put-with            ...)
+```
+
+</details>
+
+---
+
+### put-with-indexed
+
+```
+@param (keyword)(opt) container
+ Default: [:div]
+@param (collection) n
+@param (function) item-f
+```
+
+```
+@usage
+(defn my-item-f [dex %] (conj % "X"))
+(put-with-indexed [[:span "A"] [:span "B"]] my-item-f)
+```
+
+```
+@usage
+(defn my-item-f [dex %] (conj % "X"))
+(put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-item-f)
+```
+
+```
+@example
+(defn my-item-f [dex %] (conj % dex "X"))
+(put-with-indexed [[:span "A"] [:span "B"]] my-item-f)
+=>
+[:div [:span "A" 0 "X"] [:span "B" 1 "X"]]
+```
+
+```
+@example
+(defn my-item-f [dex %] (conj % dex "X"))
+(put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-item-f)
+=>
+[:ul [:li "A" 0 "X"] [:li "B" 1 "X"]]
+```
+
+```
+@return (hiccup)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn put-with-indexed
+  ([n f]
+   (put-with-indexed [:div] n f))
+
+  ([container n item-f]
+   (and (fn? item-f)
+        (seqable? n)
+        (type/hiccup? container)
+        (letfn [(f [%1 %2 %3] (conj %1 ^{:key (random/generate-uuid)} (item-f %2 %3)))]
+               (reduce-kv f container n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [hiccup.api :refer [put-with-indexed]]))
+
+(hiccup.api/put-with-indexed ...)
+(put-with-indexed            ...)
 ```
 
 </details>

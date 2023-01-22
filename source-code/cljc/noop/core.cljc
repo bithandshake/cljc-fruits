@@ -1,12 +1,12 @@
 
-(ns candy.core)
+(ns noop.core)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn param
   ; @description
-  ; A simple noop function for wrapping parameters of another functions or scopes.
+  ; A simple noop function for wrapping parameters.
   ; Returns with the given n parameter.
   ;
   ; @param (*) n
@@ -29,7 +29,7 @@
 
 (defn return
   ; @description
-  ; A simple noop function for wrapping return values of another functions or scopes.
+  ; A simple noop function for wrapping return values.
   ; Returns with the given n parameter.
   ;
   ; @param (*) n

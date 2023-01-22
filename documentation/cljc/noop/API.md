@@ -1,7 +1,7 @@
 
-# candy.api isomorphic namespace
+# noop.api isomorphic namespace
 
-##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > candy.api
+##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > noop.api
 
 ### Index
 
@@ -53,10 +53,10 @@ nil
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :refer [none]]))
+(ns my-namespace (:require [noop.api :refer [none]]))
 
-(candy.api/none ...)
-(none           ...)
+(noop.api/none ...)
+(none          ...)
 ```
 
 </details>
@@ -112,10 +112,10 @@ Returns with the given n parameter.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :refer [param]]))
+(ns my-namespace (:require [noop.api :refer [param]]))
 
-(candy.api/param ...)
-(param           ...)
+(noop.api/param ...)
+(param          ...)
 ```
 
 </details>
@@ -170,10 +170,10 @@ Returns with the given n parameter.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [candy.api :refer [return]]))
+(ns my-namespace (:require [noop.api :refer [return]]))
 
-(candy.api/return ...)
-(return           ...)
+(noop.api/return ...)
+(return          ...)
 ```
 
 </details>
