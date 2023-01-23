@@ -2,7 +2,7 @@
 (ns reader.core
     (:require #?(:cljs [cljs.reader :as reader])
               #?(:clj  [clojure.edn :as edn])
-              [candy.api  :refer [return]]
+              [noop.api   :refer [return]]
               [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------

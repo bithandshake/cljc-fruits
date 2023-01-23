@@ -1,6 +1,6 @@
 
 (ns uri.check
-    (:require [candy.api  :refer [return]]
+    (:require [noop.api   :refer [return]]
               [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------

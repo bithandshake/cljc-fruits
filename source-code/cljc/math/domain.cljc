@@ -1,15 +1,17 @@
 
 (ns math.domain
-    (:require [candy.api :refer [return]]
-              [math.core :as core]))
+    (:require [math.core :as core]
+              [noop.api  :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
-
-; Egy n szám milyen tulajdonságokkal rendelkezik egy tartományban.
-; Pl. 5 tartományai: -4–0, 1–5, 6–10, 11–15, ...
 
 (defn domain-inchoate
+  ; @description
+  ; Returns what domain contains the 'n'.
+  ;
+  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ;
   ; @param (integer) n
   ; @param (integer) domain
   ;
@@ -35,7 +37,6 @@
   ;
   ; @return (integer)
   [n domain]
-  ; Az n értéke hányadik domain tartományban helyezkedik el
   (let [quot (quot n domain)
         rem  (rem  n domain)]
        (if (=      rem 0)
@@ -43,6 +44,11 @@
            (inc    quot))))
 
 (defn domain-floor
+  ; @description
+  ; Returns the first whole number of the domain that contains the 'n'.
+  ;
+  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ;
   ; @param (integer) n
   ; @param (integer) domain
   ;
@@ -68,7 +74,6 @@
   ;
   ; @return (integer)
   [n domain]
-  ; The first whole value of the nth domain which contains the value n.
   (let [quot (quot n domain)
         rem  (rem  n domain)]
        (if (= rem 0)
@@ -76,6 +81,11 @@
            (inc (*      quot  domain)))))
 
 (defn domain-ceil
+  ; @description
+  ; Returns the last whole number of the domain that contains the 'n'.
+  ;
+  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ;
   ; @param (integer) n
   ; @param (integer) domain
   ;
@@ -101,7 +111,6 @@
   ;
   ; @return (integer)
   [n domain]
-  ; The last whole value of the nth domain which contains the value n.
   (let [quot (quot n domain)
         rem  (rem  n domain)]
        (if (= rem 0)
@@ -132,25 +141,19 @@
   (if (>= limit n) value-if-smaller value-if-bigger))
 
 (defn calc
-  ; A calc fuggveny kiszamolja egy A valtozo erteketol fuggo B valtozo
-  ; pillanatnyi erteket.
-  ; Pl. Egy elem left position erteke fuggjon a scroll-y kornyezeti valtozotol
+  ; @description
+  ; If 'n' is equal to or smaller than the input-min, returns the 'output-min'.
+  ; If 'n' is equal to or greater than the input-max, returns the 'output-max'.
+  ; If 'n' is in the input domain, takes the actual position of 'n' in the input
+  ; domain and projects the taken position to the output range.
   ;
-  ; A fuggveny mukodese:
-  ; Az n erteke amint eleri a domain-from erteket,
-  ; akkor a fuggveny kimenete range-from ertekrol indul es amikor az n erteke
-  ; elerei a domain-to erteket addigra a fuggveny kimenete eleri a range-to erteket.
-  ;
-  ; @param (float, int) n
-  ; Az A valtozo pillanatnyi erteke
-  ; @param (vector) domain
-  ; Az A valtozo ertelmezesi tartomanya
-  ; [(integer) domain-from
-  ;  (integer) domain-to
-  ; @param (vector) range
-  ; A B valtozo kimeneti tartomanya
-  ; [(integer) range-from
-  ;  (integer) range-to]
+  ; @param (number) n
+  ; @param (vector) input-domain
+  ; [(integer) input-min
+  ;  (integer) input-max
+  ; @param (vector) output-range
+  ; [(integer) output-min
+  ;  (integer) output-max]
   ;
   ; @example
   ; (calc 42 [10 50] [100 500])
@@ -158,19 +161,18 @@
   ; 420
   ;
   ; @return (*)
-  ; A B valtozo pillanatnyi erteke (az A valtozotol fuggoen)
-  [n [domain-from domain-to :as domain] [range-from range-to :as range]]
-  (let [domain-from   (min (first domain) (second domain))
-        domain-to     (max (first domain) (second domain))
-        range-from    (min (first range)  (second range))
-        range-to      (max (first range)  (second range))
-        domain-length (- domain-to domain-from)
-        domain-offset (- n domain-from)
-        range-length  (- range-to range-from)
-        range-offset  (core/absolute range-from)
+  [n [input-min input-max :as input-domain] [output-min output-max :as output-range]]
+  (let [input-min     (min (first input-domain) (second input-domain))
+        input-max     (max (first input-domain) (second input-domain))
+        output-min    (min (first output-range) (second output-range))
+        output-max    (max (first output-range) (second output-range))
+        domain-length (- input-max input-min)
+        domain-offset (- n input-min)
+        range-length  (- output-max output-min)
+        range-offset  (core/absolute output-min)
         ratio         (/ range-length domain-length)]
-       (if (< n domain-from)
-           (return range-from)
-           (if (> n domain-to)
-               (return range-to)
-               (+ range-from (* domain-offset ratio))))))
+       (if (< n input-min)
+           (return output-min)
+           (if (> n input-max)
+               (return output-max)
+               (+ output-min (* domain-offset ratio))))))

@@ -1,6 +1,6 @@
 
 (ns vector.compare
-    (:require [candy.api     :refer [return]]
+    (:require [noop.api      :refer [return]]
               [vector.check  :as check]
               [vector.remove :as remove]))
 

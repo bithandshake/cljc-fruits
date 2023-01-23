@@ -1,8 +1,8 @@
 
 (ns vector.dex
-    (:require [candy.api    :refer [return]]
-              [loop.api     :refer [some-indexed]]
+    (:require [loop.api     :refer [some-indexed]]
               [math.api     :as math]
+              [noop.api     :refer [return]]
               [sequence.api :as sequence]
               [vector.type  :as type]))
 

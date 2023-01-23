@@ -1,10 +1,10 @@
 
 (ns json.core
-    (:require [candy.api   :refer [return]]
-              [json.config :as config]
+    (:require [json.config :as config]
               [keyword.api :as keyword]
               [map.api     :as map]
               [mixed.api   :as mixed]
+              [noop.api    :refer [return]]
               [string.api  :as string]
               [syntax.api  :as syntax]
               [vector.api  :as vector]))

@@ -1,7 +1,7 @@
 
 (ns map.core
-    (:require [candy.api    :refer [return]]
-              [clojure.data :as data]))
+    (:require [clojure.data :as data]
+              [noop.api     :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

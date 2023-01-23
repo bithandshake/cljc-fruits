@@ -1,7 +1,7 @@
 
 (ns hiccup.walk
-    (:require [candy.api   :refer [return]]
-              [hiccup.type :as type]
+    (:require [hiccup.type :as type]
+              [noop.api    :refer [return]]
               [random.api  :as random]))
 
 ;; ----------------------------------------------------------------------------

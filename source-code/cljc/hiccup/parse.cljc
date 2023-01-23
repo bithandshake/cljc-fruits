@@ -1,9 +1,9 @@
 
 (ns hiccup.parse
-    (:require [candy.api         :refer [return]]
-              [css.api           :as css]
+    (:require [css.api           :as css]
               [hiccup.attributes :as attributes]
-              [hiccup.walk       :as walk]))
+              [hiccup.walk       :as walk]
+              [noop.api          :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

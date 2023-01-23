@@ -1,7 +1,7 @@
 
 (ns hiccup.attributes
-    (:require [candy.api   :refer [return]]
-              [keyword.api :as keyword]
+    (:require [keyword.api :as keyword]
+              [noop.api    :refer [return]]
               [vector.api  :as vector]))
 
 ;; ----------------------------------------------------------------------------

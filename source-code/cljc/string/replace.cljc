@@ -1,7 +1,7 @@
 
 (ns string.replace
     (:require [clojure.string]
-              [candy.api    :refer [return]]
+              [noop.api     :refer [return]]
               [string.check :as check]))
 
 ;; ----------------------------------------------------------------------------

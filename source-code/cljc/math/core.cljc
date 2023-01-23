@@ -1,7 +1,7 @@
 
 (ns math.core
-    (:require [candy.api   :refer [return]]
-              [math.config :as config]))
+    (:require [math.config :as config]
+              [noop.api    :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 
 (ns string.cut
     (:require [clojure.string]
-              [candy.api :refer [return]]
-              [math.api  :as math]))
+              [math.api :as math]
+              [noop.api :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

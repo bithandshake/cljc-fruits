@@ -1,7 +1,7 @@
 
 (ns pretty.print
-    (:require [candy.api  :refer [return]]
-              [loop.api   :refer [reduce-indexed reduce-kv-indexed]]
+    (:require [loop.api   :refer [reduce-indexed reduce-kv-indexed]]
+              [noop.api   :refer [return]]
               [string.api :as string]
               [vector.api :as vector]))
 

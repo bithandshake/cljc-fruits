@@ -1,6 +1,6 @@
 
 (ns vector.sort
-    (:require [candy.api  :refer [return]]
+    (:require [noop.api   :refer [return]]
               [vector.dex :as dex]
               [vector.nth :as nth]))
 

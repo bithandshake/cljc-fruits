@@ -1,8 +1,8 @@
 
 (ns mixed.convert
-    (:require [candy.api  :refer [return]]
-              [map.api    :as map]
+    (:require [map.api    :as map]
               [mixed.type :as type]
+              [noop.api   :refer [return]]
               [reader.api :as reader]
               [vector.api :as vector]))
 

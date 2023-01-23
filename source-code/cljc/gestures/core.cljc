@@ -1,9 +1,9 @@
 
 (ns gestures.core
-    (:require [candy.api     :refer [return]]
-              [gestures.type :as type]
+    (:require [gestures.type :as type]
               [loop.api      :refer [do-while]]
               [mixed.api     :as mixed]
+              [noop.api      :refer [return]]
               [string.api    :as string]
               [vector.api    :as vector]))
 

@@ -1,7 +1,7 @@
 
 (ns vector.move
-    (:require [candy.api     :refer [return]]
-              [math.api      :as math]
+    (:require [math.api      :as math]
+              [noop.api      :refer [return]]
               [vector.dex    :as dex]
               [vector.range  :as range]
               [vector.remove :as remove]))

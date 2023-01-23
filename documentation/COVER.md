@@ -9,7 +9,6 @@ Documentation of the [cljc-fruits](https://github.com/bithandshake/cljc-fruits) 
 
 * [base64.api](cljc/base64/API.md)
 * [blob.api](cljc/blob/API.md)
-* [candy.api](cljc/candy/API.md)
 * [css.api](cljc/css/API.md)
 * [eql.api](cljc/eql/API.md)
 * [error.api](cljc/error/API.md)

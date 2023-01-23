@@ -1,6 +1,6 @@
 
 (ns uri.convert
-    (:require [candy.api  :refer [return]]
+    (:require [noop.api   :refer [return]]
               [reader.api :as reader]
               [regex.api  :refer [re-match]]
               [string.api :as string]

@@ -1,6 +1,6 @@
 
 (ns vector.core
-    (:require [candy.api     :refer [return]]
+    (:require [noop.api      :refer [return]]
               [vector.check  :as check]
               [vector.dex    :as dex]
               [vector.remove :as remove]))

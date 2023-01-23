@@ -1,6 +1,6 @@
 
 (ns syntax.comment
-    (:require [candy.api   :refer [return]]
+    (:require [noop.api    :refer [return]]
               [string.api  :as string]
               [syntax.tags :as tags]))
 

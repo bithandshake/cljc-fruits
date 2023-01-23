@@ -1,7 +1,7 @@
 
 (ns mixed.parse
-    (:require [candy.api  :refer [return]]
-              [mixed.type :as type]
+    (:require [mixed.type :as type]
+              [noop.api   :refer [return]]
               [reader.api :as reader]))
 
 ;; ----------------------------------------------------------------------------

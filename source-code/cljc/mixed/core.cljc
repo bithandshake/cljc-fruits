@@ -1,8 +1,8 @@
 
 (ns mixed.core
-    (:require [candy.api     :refer [return]]
-              [mixed.convert :as convert]
+    (:require [mixed.convert :as convert]
               [mixed.type    :as type]
+              [noop.api      :refer [return]]
               [reader.api    :as reader]))
 
 ;; ----------------------------------------------------------------------------

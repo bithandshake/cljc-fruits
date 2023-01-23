@@ -1,7 +1,7 @@
 
 (ns string.lines
     (:require [clojure.string]
-              [candy.api   :refer [return]]
+              [noop.api    :refer [return]]
               [string.core :as core]))
 
 ;; ----------------------------------------------------------------------------

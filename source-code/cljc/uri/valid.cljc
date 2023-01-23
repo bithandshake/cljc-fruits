@@ -1,6 +1,6 @@
 
 (ns uri.valid
-    (:require [candy.api   :refer [return]]
+    (:require [noop.api    :refer [return]]
               [string.api  :as string]
               [uri.convert :as convert]))
 

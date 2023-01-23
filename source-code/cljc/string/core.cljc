@@ -1,8 +1,8 @@
 
 (ns string.core
     (:require [clojure.string]
-              [candy.api    :refer [return]]
               [math.api     :as math]
+              [noop.api     :refer [return]]
               [string.check :as check]
               [string.cut   :as cut]
               [string.dex   :as dex]))

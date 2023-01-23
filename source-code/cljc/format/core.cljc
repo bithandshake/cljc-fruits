@@ -1,7 +1,7 @@
 
 (ns format.core
-    (:require [candy.api  :refer [param return]]
-              [mixed.api  :as mixed]
+    (:require [mixed.api  :as mixed]
+              [noop.api   :refer [param return]]
               [regex.api  :refer [re-match?]]
               [string.api :as string]
               [vector.api :as vector]))
