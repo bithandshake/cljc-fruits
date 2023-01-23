@@ -110,7 +110,8 @@
    (and (fn? item-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} (item-f %2)))]
+        (letfn [(f [%1 %2] (if %2 (conj   %1 ^{:key (random/generate-uuid)} (item-f %2))
+                                  (return %1)))]
                (reduce f container n)))))
 
 (defn put-with-indexed
@@ -147,5 +148,6 @@
    (and (fn? item-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2 %3] (conj %1 ^{:key (random/generate-uuid)} (item-f %2 %3)))]
+        (letfn [(f [%1 %2 %3] (if %3 (conj   %1 ^{:key (random/generate-uuid)} (item-f %2 %3))
+                                     (return %1)))]
                (reduce-kv f container n)))))
