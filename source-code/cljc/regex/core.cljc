@@ -6,9 +6,63 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn re-match
+(defn re-first
+  ; @description
+  ; Returns the first match.
+  ;
   ; @param (*) n
   ; @param (regex pattern) pattern
+  ;
+  ; @usage
+  ; (re-first "123" #"\d")
+  ;
+  ; @example
+  ; (re-first "123" #"\d")
+  ; =>
+  ; "1"
+  ;
+  ; @example
+  ; (re-first "abc" #"\d")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n pattern]
+  (first (re-seq pattern (str n))))
+
+(defn re-last
+  ; @description
+  ; Returns the last match.
+  ;
+  ; @param (*) n
+  ; @param (regex pattern) pattern
+  ;
+  ; @usage
+  ; (re-last "123" #"\d")
+  ;
+  ; @example
+  ; (re-last "123" #"\d")
+  ; =>
+  ; "3"
+  ;
+  ; @example
+  ; (re-last "abc" #"\d")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n pattern]
+  (last (re-seq pattern (str n))))
+
+(defn re-match
+  ; @description
+  ; Returns the given 'n' string if any matches found.
+  ;
+  ; @param (*) n
+  ; @param (regex pattern) pattern
+  ;
+  ; @usage
+  ; (re-match "123" #"\d{1,}")
   ;
   ; @example
   ; (re-match "123" #"^[\d]{1,}$")
@@ -23,12 +77,18 @@
   ; @return (string)
   [n pattern]
   (let [n (str n)]
-       (if (re-matches pattern n)
-           (return             n))))
+       (if (re-find pattern n)
+           (return          n))))
 
 (defn re-match?
+  ; @description
+  ; Returns true if any matches found.
+  ;
   ; @param (*) n
   ; @param (regex pattern) pattern
+  ;
+  ; @usage
+  ; (re-match? "123" #"\d{1,}")
   ;
   ; @example
   ; (re-match? "123" #"^[\d]{1,}$")
@@ -43,9 +103,15 @@
   ; @return (boolean)
   [n pattern]
   (let [n (str n)]
-       (some? (re-matches pattern n))))
+       (some? (re-find pattern n))))
 
 (defn re-mismatch?
+  ; @description
+  ; Returns true if no matches found.
+  ;
+  ; @usage
+  ; (re-mismatch? "123" #"\d{1,}")
+  ;
   ; @param (*) n
   ; @param (regex pattern) pattern
   ;
@@ -62,7 +128,7 @@
   ; @return (boolean)
   [n pattern]
   (let [n (str n)]
-       (nil? (re-matches pattern n))))
+       (nil? (re-find pattern n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -85,8 +151,10 @@
   ; false
   ;
   ; @return (boolean)
-  [n x])
-  ; TODO
+  [n x]
+  (let [n (str n)]
+       (if-let [matches (re-seq x n)]
+               (clojure.string/ends-with? n (last matches)))))
 
 (defn not-ends-with?
   ; @param (*) n
@@ -107,8 +175,7 @@
   ;
   ; @return (boolean)
   [n x]
-  (let [ends-with? (ends-with? n x)]
-       (not ends-with?)))
+  (not (ends-with? n x)))
 
 (defn not-ends-with!
   ; @param (*) n
@@ -179,8 +246,7 @@
   ;
   ; @return (boolean)
   [n x]
-  (let [starts-with? (starts-with? n x)]
-       (not starts-with?)))
+  (not (starts-with? n x)))
 
 (defn not-starts-with!
   ; @param (*) n

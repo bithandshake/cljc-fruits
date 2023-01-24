@@ -35,6 +35,10 @@
 
 - [nth-dex-of](#nth-dex-of)
 
+- [re-first](#re-first)
+
+- [re-last](#re-last)
+
 - [re-match](#re-match)
 
 - [re-match?](#re-match)
@@ -116,8 +120,8 @@ nil
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n (+ dex (count match))))
+                (subs n (+ (clojure.string/index-of n match)
+                           (count                     match)))
                 (if return? n)))))
 ```
 
@@ -199,7 +203,12 @@ nil
   ([n x]
    (after-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n (+ (clojure.string/last-index-of n (last matches))
+                           (-> matches last count)))
+                (if return? n)))))
 ```
 
 </details>
@@ -283,8 +292,7 @@ nil
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n 0 dex))
+                (subs n 0 (clojure.string/index-of n match))
                 (if return? n)))))
 ```
 
@@ -366,7 +374,11 @@ nil
   ([n x]
    (before-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n 0 (clojure.string/last-index-of n (last matches)))
+                (if return? n)))))
 ```
 
 </details>
@@ -477,7 +489,10 @@ false
 
 ```
 (defn ends-with?
-  [n x])
+  [n x]
+  (let [n (str n)]
+       (if-let [matches (re-seq x n)]
+               (clojure.string/ends-with? n (last matches)))))
 ```
 
 </details>
@@ -606,8 +621,7 @@ nil
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n dex))
+                (subs n (clojure.string/index-of n match))
                 (if return? n)))))
 ```
 
@@ -689,7 +703,11 @@ nil
   ([n x]
    (from-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n (clojure.string/last-index-of n (last matches)))
+                (if return? n)))))
 ```
 
 </details>
@@ -843,8 +861,7 @@ false
 ```
 (defn not-ends-with?
   [n x]
-  (let [ends-with? (ends-with? n x)]
-       (not ends-with?)))
+  (not (ends-with? n x)))
 ```
 
 </details>
@@ -959,8 +976,7 @@ false
 ```
 (defn not-starts-with?
   [n x]
-  (let [starts-with? (starts-with? n x)]
-       (not starts-with?)))
+  (not (starts-with? n x)))
 ```
 
 </details>
@@ -1031,11 +1047,141 @@ false
 
 ---
 
-### re-match
+### re-first
+
+```
+@description
+Returns the first match.
+```
 
 ```
 @param (*) n
 @param (regex pattern) pattern
+```
+
+```
+@usage
+(re-first "123" #"\d")
+```
+
+```
+@example
+(re-first "123" #"\d")
+=>
+"1"
+```
+
+```
+@example
+(re-first "abc" #"\d")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn re-first
+  [n pattern]
+  (first (re-seq pattern (str n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :refer [re-first]]))
+
+(regex.api/re-first ...)
+(re-first           ...)
+```
+
+</details>
+
+---
+
+### re-last
+
+```
+@description
+Returns the last match.
+```
+
+```
+@param (*) n
+@param (regex pattern) pattern
+```
+
+```
+@usage
+(re-last "123" #"\d")
+```
+
+```
+@example
+(re-last "123" #"\d")
+=>
+"3"
+```
+
+```
+@example
+(re-last "abc" #"\d")
+=>
+nil
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn re-last
+  [n pattern]
+  (last (re-seq pattern (str n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :refer [re-last]]))
+
+(regex.api/re-last ...)
+(re-last           ...)
+```
+
+</details>
+
+---
+
+### re-match
+
+```
+@description
+Returns the given 'n' string if any matches found.
+```
+
+```
+@param (*) n
+@param (regex pattern) pattern
+```
+
+```
+@usage
+(re-match "123" #"\d{1,}")
 ```
 
 ```
@@ -1063,8 +1209,8 @@ nil
 (defn re-match
   [n pattern]
   (let [n (str n)]
-       (if (re-matches pattern n)
-           (return             n))))
+       (if (re-find pattern n)
+           (return          n))))
 ```
 
 </details>
@@ -1086,8 +1232,18 @@ nil
 ### re-match?
 
 ```
+@description
+Returns true if any matches found.
+```
+
+```
 @param (*) n
 @param (regex pattern) pattern
+```
+
+```
+@usage
+(re-match? "123" #"\d{1,}")
 ```
 
 ```
@@ -1115,7 +1271,7 @@ false
 (defn re-match?
   [n pattern]
   (let [n (str n)]
-       (some? (re-matches pattern n))))
+       (some? (re-find pattern n))))
 ```
 
 </details>
@@ -1137,8 +1293,18 @@ false
 ### re-mismatch?
 
 ```
+@description
+Returns true if no matches found.
+```
+
+```
 @param (*) n
 @param (regex pattern) pattern
+```
+
+```
+@usage
+(re-mismatch? "123" #"\d{1,}")
 ```
 
 ```
@@ -1166,7 +1332,7 @@ true
 (defn re-mismatch?
   [n pattern]
   (let [n (str n)]
-       (nil? (re-matches pattern n))))
+       (nil? (re-find pattern n))))
 ```
 
 </details>
@@ -1282,10 +1448,10 @@ true
 (defn remove-last-occurence
   [n x]
   (let [n (str n)]
-       (if-let [match (re-find x n)]
-               (let [dex (clojure.string/index-of n match)]
+       (if-let [matches (re-seq x n)]
+               (let [dex (clojure.string/last-index-of n (last matches))]
                     (str (subs n 0 dex)
-                         (subs n (+ dex (count match)))))
+                         (subs n (+ dex (-> matches last count)))))
                (return n))))
 ```
 
@@ -1430,8 +1596,8 @@ nil
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n 0 (+ dex (count match))))
+                (subs n 0 (+ (clojure.string/index-of n match)
+                             (count                     match)))
                 (if return? n)))))
 ```
 
@@ -1513,7 +1679,12 @@ nil
   ([n x]
    (to-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n 0 (+ (clojure.string/last-index-of n (last matches))
+                             (-> matches last count)))
+                (if return? n)))))
 ```
 
 </details>

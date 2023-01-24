@@ -49,8 +49,7 @@
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n 0 dex))
+                (subs n 0 (clojure.string/index-of n match))
                 (if return? n)))))
 
 (defn before-last-occurence
@@ -92,8 +91,11 @@
   ([n x]
    (before-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
-   ; TODO
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n 0 (clojure.string/last-index-of n (last matches)))
+                (if return? n)))))
 
 (defn after-first-occurence
   ; @param (*) n
@@ -137,8 +139,8 @@
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n (+ dex (count match))))
+                (subs n (+ (clojure.string/index-of n match)
+                           (count                     match)))
                 (if return? n)))))
 
 (defn after-last-occurence
@@ -180,8 +182,12 @@
   ([n x]
    (after-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
-   ; TODO
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n (+ (clojure.string/last-index-of n (last matches))
+                           (-> matches last count)))
+                (if return? n)))))
 
 (defn from-first-occurence
   ; @param (*) n
@@ -225,8 +231,7 @@
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n dex))
+                (subs n (clojure.string/index-of n match))
                 (if return? n)))))
 
 (defn from-last-occurence
@@ -268,8 +273,11 @@
   ([n x]
    (from-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
-   ; TODO
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n (clojure.string/last-index-of n (last matches)))
+                (if return? n)))))
 
 (defn to-first-occurence
   ; @param (*) n
@@ -313,8 +321,8 @@
   ([n x {:keys [return?]}]
    (let [n (str n)]
         (if-let [match (re-find x n)]
-                (let [dex (clojure.string/index-of n match)]
-                     (subs n 0 (+ dex (count match))))
+                (subs n 0 (+ (clojure.string/index-of n match)
+                             (count                     match)))
                 (if return? n)))))
 
 (defn to-last-occurence
@@ -356,8 +364,12 @@
   ([n x]
    (to-last-occurence n x {}))
 
-  ([n x {:keys [return?]}]))
-   ; TODO
+  ([n x {:keys [return?]}]
+   (let [n (str n)]
+        (if-let [matches (re-seq x n)]
+                (subs n 0 (+ (clojure.string/last-index-of n (last matches))
+                             (-> matches last count)))
+                (if return? n)))))
 
 (defn remove-first-occurence
   ; @param (*) n
@@ -405,10 +417,10 @@
   ; @return (string)
   [n x]
   (let [n (str n)]
-       (if-let [match (re-find x n)]
-               (let [dex (clojure.string/index-of n match)]
+       (if-let [matches (re-seq x n)]
+               (let [dex (clojure.string/last-index-of n (last matches))]
                     (str (subs n 0 dex)
-                         (subs n (+ dex (count match)))))
+                         (subs n (+ dex (-> matches last count)))))
                (return n))))
 
 (defn between-occurences
