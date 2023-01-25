@@ -88,9 +88,8 @@
   ;
   ; @return (string)
   [n]
-  ; In Java language the one character long strings can be character types,
-  ; therefore in the test function the first character has to be converted
-  ; to string type!
+  ; In Java language one character long strings can be character types, therefore
+  ; in the test function the first character must be converted to string type!
   (letfn [(f [n]
              (if-not (= "0" (-> n first str))
                      (return n)
