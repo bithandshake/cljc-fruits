@@ -3,6 +3,7 @@
     (:require [noop.api      :refer [return]]
               [vector.check  :as check]
               [vector.dex    :as dex]
+              [vector.nth    :as nth]
               [vector.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
@@ -305,10 +306,10 @@
   ; ?
   ;
   ; @return (*)
-  [n x])
-  ;(let [item-first-dex (item-first-dex n x)
-  ;     next-item-dex  (next-dex       n item-first-dex)
-  ;    (nth-item n next-item-dex)])
+  [n x]
+  (let [item-first-dex (dex/item-first-dex n x)
+        next-item-dex  (dex/next-dex       n item-first-dex)]
+       (nth/nth-item n next-item-dex)))
 
 (defn last-item
   ; @param (vector) n

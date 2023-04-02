@@ -19,7 +19,7 @@
 (def nonempty? check/nonempty?)
 
 ; map.convert
-(def to-vector)
+(def to-vector convert/to-vector)
 
 ; map.core
 (def difference     core/difference)
