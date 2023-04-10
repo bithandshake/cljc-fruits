@@ -29,6 +29,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 # What's in this library?
 
+- Clojure atom functions in the [`atom.api`](documentation/cljc/atom/API.md) namespace.
+
 - Base64 encoding functions in the [`base64.api`](documentation/cljc/base64/API.md) namespace.
 
 - Blob object functions in the [`blob.api`](documentation/cljc/blob/API.md) namespace.
@@ -74,6 +76,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 - Mathematical constants and functions in the [`math.api`](documentation/cljc/math/API.md) namespace.
 
 - Utility functions for flexible types (e.g. integers in string, etc.) [`mixed.api`](documentation/cljc/mixed/API.md) namespace.
+
+- Clojure namespace functions in the [`namespace.api`](documentation/cljc/namespace/API.md) namespace.
 
 - NATO alphabet sample in the [`nato.api`](documentation/cljc/nato/API.md) namespace.
 
