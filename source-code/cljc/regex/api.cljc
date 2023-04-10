@@ -1,8 +1,9 @@
 
 (ns regex.api
-    (:require [regex.core :as core]
-              [regex.cut  :as cut]
-              [regex.dex  :as dex]))
+    (:require [regex.core    :as core]
+              [regex.cut     :as cut]
+              [regex.dex     :as dex]
+              [regex.replace :as replace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -37,3 +38,6 @@
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
 (def nth-dex-of   dex/nth-dex-of)
+
+; regex.replace
+(def replace-part replace/replace-part)

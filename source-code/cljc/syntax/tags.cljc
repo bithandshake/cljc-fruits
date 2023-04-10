@@ -227,9 +227,8 @@
   ;
   ; @return (integer)
   [n]
-  ; The 'docs-api' documentation book generator throws an error if the parenthesis
-  ; pairs in the code aren't balanced.
-  ; That's why I have to put a close parenthesis here :)
+  ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
+  ; aren't balanced. That's why I have to put a closing parenthesis here :)
   (open-tag-position n "("))
 
 (defn close-paren-position

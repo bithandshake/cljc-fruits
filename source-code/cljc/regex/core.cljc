@@ -26,8 +26,12 @@
   ; =>
   ; nil
   ;
-  ; @return (string)
+  ; @return (map, string or vector)
   [n pattern]
+  ; The re-seq function returns a ...
+  ; ... sequence of strings if the pattern has no capturing groups.
+  ; ... sequence of vectors if the pattern has one or more capturing groups.
+  ; ... sequence of maps if the pattern has one ore more named capturing groups.
   (first (re-seq pattern (str n))))
 
 (defn re-last
@@ -50,8 +54,12 @@
   ; =>
   ; nil
   ;
-  ; @return (string)
+  ; @return (map, string or vector)
   [n pattern]
+  ; The re-seq function returns a ...
+  ; ... sequence of strings if the pattern has no capturing groups.
+  ; ... sequence of vectors if the pattern has one or more capturing groups.
+  ; ... sequence of maps if the pattern has one ore more named capturing groups.
   (last (re-seq pattern (str n))))
 
 (defn re-match
@@ -134,6 +142,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn ends-with?
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;
@@ -153,10 +165,14 @@
   ; @return (boolean)
   [n x]
   (let [n (str n)]
-       (if-let [matches (re-seq x n)]
-               (clojure.string/ends-with? n (last matches)))))
+       (if-let [last-match (re-last n x)]
+               (clojure.string/ends-with? n last-match))))
 
 (defn not-ends-with?
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;
@@ -178,6 +194,10 @@
   (not (ends-with? n x)))
 
 (defn not-ends-with!
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;
@@ -199,6 +219,10 @@
   ; TODO
 
 (defn starts-with?
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;
@@ -221,10 +245,14 @@
   ; @return (boolean)
   [n x]
   (let [n (str n)]
-       (if-let [match (re-find x n)]
-               (clojure.string/starts-with? n match))))
+       (if-let [first-match (re-first n x)]
+               (clojure.string/starts-with? n first-match))))
 
 (defn not-starts-with?
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;
@@ -249,6 +277,10 @@
   (not (starts-with? n x)))
 
 (defn not-starts-with!
+  ; @warning
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple
+  ; matches for the occurence!
+  ;
   ; @param (*) n
   ; @param (regex pattern) x
   ;

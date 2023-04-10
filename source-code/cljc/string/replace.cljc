@@ -12,8 +12,8 @@
   ; @param (regex pattern or string) x
   ; @param (*) y
   ; @param (map)(opt) options
-  ;  {:recursive? (boolean)(opt)
-  ;    Default: false}
+  ; {:recursive? (boolean)(opt)
+  ;   Default: false}
   ;
   ; @usage
   ; (replace-part "abc" "b" "x")
@@ -60,9 +60,9 @@
   ; @param (*) n
   ; @param (vector) replacements
   ; @param (map)(opt) options
-  ;  {:ignore? (boolean)(opt)
-  ;    The function returns nil if any of the replacements is nil or empty.
-  ;    Default: true}
+  ; {:ignore? (boolean)(opt)
+  ;   The function returns nil if any of the replacements is nil or empty.
+  ;   Default: true}
   ;
   ; @usage
   ; (use-replacements "Hi, my name is %" ["John"])
@@ -123,9 +123,9 @@
   ; @param (*) n
   ; @param (*) replacement
   ; @param (map)(opt) options
-  ;  {:ignore? (boolean)(opt)
-  ;    The function returns nil if the replacement is nil or empty.
-  ;    Default: true}
+  ; {:ignore? (boolean)(opt)
+  ;   The function returns nil if the replacement is nil or empty.
+  ;   Default: true}
   ;
   ; @usage
   ; (use-replacement "Hi, my name is %" "John")
