@@ -9,6 +9,26 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn gap-items
+  ; @param (*) n
+  ; @param (*) delimiter
+  ;
+  ; @usage
+  ; (gap-items [:A :B] :x)
+  ;
+  ; @example
+  ; (gap-items [:A :B :C :D] :x)
+  ; =>
+  ; [:A :x :B :x :C :x :D]
+  ;
+  ; @return (vector)
+  [n delimiter]
+  (letfn [(f [result dex x]
+             (if (= 0 dex)
+                 [x]
+                 (conj result delimiter x)))]
+         (reduce-kv f [] n)))
+
 (defn repeat-item
   ; @param (*) n
   ; @param (integer) x
@@ -187,10 +207,10 @@
   ;
   ; @return (vector)
   [n a b]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (= x a)
-                 (conj-item o b)
-                 (conj-item o x)))]
+                 (conj-item result b)
+                 (conj-item result x)))]
          (reduce f [] n)))
 
 (defn inject-item

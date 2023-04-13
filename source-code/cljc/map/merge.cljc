@@ -17,10 +17,10 @@
   ;
   ; @return (*)
   [n & xyz]
-  (letfn [(f [o x]
-             (if (and (map? o)
+  (letfn [(f [result x]
+             (if (and (map? result)
                       (map? x))
-                 (merge-with f o x)
+                 (merge-with f result x)
                  (return x)))]
          (if (some   identity xyz)
              (reduce f n xyz)

@@ -21,10 +21,10 @@
   ;
   ; @return (vector)
   [a b]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? b x)
-                 (vec (conj            o x))
-                 (return               o)))]
+                 (vec (conj result x))
+                 (return result)))]
          (reduce f [] a)))
 
 (defn contains-similars?
@@ -80,10 +80,10 @@
   ;
   ; @return (vector)
   [n xyz]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (conj   o x)
-                 (return o)))]
+                 (conj   result x)
+                 (return result)))]
          (reduce f [] n)))
 
 (defn keep-items-by
@@ -100,8 +100,8 @@
   ;
   ; @return (vector)
   [n f]
-  (letfn [(f0 [o x]
+  (letfn [(f0 [result x]
               (if (f x)
-                  (conj   o x)
-                  (return o)))]
+                  (conj   result x)
+                  (return result)))]
          (reduce f0 [] n)))

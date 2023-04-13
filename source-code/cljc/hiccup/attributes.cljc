@@ -66,9 +66,9 @@
   ;
   ; @return (keywords in vector)
   [& xyz]
-  (letfn [(join-class-f [o x] (cond (vector?  x) (concat o x)
-                                    (keyword? x) (conj   o x)
-                                    :return   o))]
+  (letfn [(join-class-f [result x] (cond (vector?  x) (concat result x)
+                                         (keyword? x) (conj   result x)
+                                         :return result))]
          (reduce join-class-f [] xyz)))
 
 ;; ----------------------------------------------------------------------------

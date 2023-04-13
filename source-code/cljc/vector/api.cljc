@@ -39,6 +39,7 @@
 (def to-map convert/to-map)
 
 ; vector.core
+(def gap-items         core/gap-items)
 (def repeat-item       core/repeat-item)
 (def cons-item         core/cons-item)
 (def cons-item-once    core/cons-item-once)

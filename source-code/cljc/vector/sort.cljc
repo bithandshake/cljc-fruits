@@ -35,9 +35,9 @@
   ;
   ; @return (vector)
   [n]
-  (letfn [(sort-item-f [o x] (cond (string?  x) (update o :string-items     conj x)
-                                   (keyword? x) (update o :keyword-items    conj x)
-                                   :return      (update o :unsortable-items conj x)))
+  (letfn [(sort-item-f [result x] (cond (string?  x) (update result :string-items     conj x)
+                                        (keyword? x) (update result :keyword-items    conj x)
+                                        :return      (update result :unsortable-items conj x)))
           (sort-items-f [n] (reduce sort-item-f {} n))]
          (let [{:keys [string-items keyword-items unsortable-items]} (sort-items-f n)]
               ; (sort) cannot compare string to keyword!

@@ -144,15 +144,15 @@
 
   ([coll separator {:keys [join-empty?] :or {join-empty? true}}]
    (let [last-dex (-> coll count dec)]
-        (letfn [(separate?      [dex]  (and (not= dex last-dex)
-                                            (-> (nth coll (inc dex)) str empty? not)))
-                (join?          [part] (or join-empty? (-> part str empty? not)))
+        (letfn [(separate? [dex] (and (not= dex last-dex)
+                                      (-> (nth coll (inc dex)) str empty? not)))
+                (join? [part] (or join-empty? (-> part str empty? not)))
                 (f [result dex part] (if (join? part)
                                          (if (separate? dex)
                                              (str result part separator)
                                              (str result part))
                                          (return result)))]
-               ; A reduce-kv csak vektor vagy térkép típust fogad, listát nem!
+               ; The reduce-kv takes vectors and maps but doesn't take lists!
                (reduce-kv f "" (vec coll))))))
 
 (defn split
@@ -183,6 +183,11 @@
   ; (split "a.b.c" #"_")
   ; =>
   ; ["a.b.c"]
+  ;
+  ; @example
+  ; (split "" #".")
+  ; =>
+  ; []
   ;
   ; @return (strings in vector)
   [n delimiter]

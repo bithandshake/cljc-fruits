@@ -129,10 +129,10 @@
   ;
   ; @return (vector)
   [n xyz]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (return               o)
-                 (conj                 o x)))]
+                 (return               result)
+                 (conj                 result x)))]
          (reduce f [] n)))
 
 (defn remove-items-by
@@ -149,10 +149,10 @@
   ;
   ; @return (vector)
   [n test-f]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (test-f x)
-                 (return o)
-                 (conj   o x)))]
+                 (return result)
+                 (conj   result x)))]
          (reduce f [] n)))
 
 (defn remove-items-kv
@@ -183,10 +183,10 @@
   ;
   ; @return (vector)
   [n]
-  (letfn [(f [o x]
-             (if (check/contains-item? o x)
-                 (return               o)
-                 (conj                 o x)))]
+  (letfn [(f [result x]
+             (if (check/contains-item? result x)
+                 (return               result)
+                 (conj                 result x)))]
          (reduce f [] n)))
 
 (defn remove-first-occurence

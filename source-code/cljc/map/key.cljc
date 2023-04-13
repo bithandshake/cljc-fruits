@@ -121,9 +121,9 @@
   ;
   ; @return (map)
   [n & keys]
-  (letfn [(f [o dex x] (if (even? dex)
-                           (dissoc (assoc o (nth keys (inc dex)) (get o x)) x)
-                           (return o)))]
+  (letfn [(f [result dex x] (if (even? dex)
+                                (dissoc (assoc result (nth keys (inc dex)) (get result x)) x)
+                                (return result)))]
          (reduce-kv f n (vec keys))))
 
 (defn get-keys-by

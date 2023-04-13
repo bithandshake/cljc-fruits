@@ -3,7 +3,9 @@
     (:require [css.api           :as css]
               [hiccup.attributes :as attributes]
               [hiccup.walk       :as walk]
-              [noop.api          :refer [return]]))
+              [noop.api          :refer [return]]
+              [string.api        :as string]
+              [vector.api        :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -23,8 +25,26 @@
   ;
   ; @return (hiccup)
   [n]
-  (letfn [(f [n] (let [style (attributes/get-style n)]
-                      (if (map? style)
-                          (attributes/set-style n (css/unparse style))
-                          (return               n))))]
+  (letfn [(f [element] (let [style (attributes/get-style element)]
+                            (if (map? style)
+                                (attributes/set-style element (css/unparse style))
+                                (return element))))]
          (walk/walk n f)))
+
+(defn parse-newlines
+  ; @param (hiccup) n
+  ;
+  ; @example
+  ; (parse-newlines [:p "Hello world!\nIt's me!"])
+  ; =>
+  ; [:p "Hello world!" [:br] "It's me!"]
+  ;
+  ; @return (hiccup)
+  [n]
+  (letfn [(f0 [element] (reduce f1 [] element))
+          (f1 [element content] (if (string/contains-part? content "\n")
+                                    (as-> content % (string/split % #"\n")
+                                                    (vector/gap-items % [:br])
+                                                    (vector/concat-items element %))
+                                    (vector/conj-item element content)))]
+         (walk/walk n f0)))

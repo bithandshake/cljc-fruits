@@ -11,6 +11,7 @@
 ;; ----------------------------------------------------------------------------
 
 ; math.collection
+(def collection-average collection/collection-average)
 (def collection-minimum collection/collection-minimum)
 (def collection-maximum collection/collection-maximum)
 (def minimum            collection/minimum)

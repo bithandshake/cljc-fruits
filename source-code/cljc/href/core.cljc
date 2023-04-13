@@ -40,11 +40,11 @@
   (if (-> phone-number str string/nonblank?)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 
-(defn address
+(defn google-maps-address
   ; @param (string) address
   ;
   ; @example
-  ; (address "My City, My Address street 42.")
+  ; (google-maps-address "My City, My Address street 42.")
   ; =>
   ; "https://www.google.com/maps/search/?api=1&query=My%20City,%20My%20Address%20street%2042."
   ;

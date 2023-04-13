@@ -49,12 +49,12 @@
   ; @param (map) map
   ;
   ; @usage
-  ; (reduce-kv-indexed (fn [o dex k v]) nil {})
+  ; (reduce-kv-indexed (fn [result dex k v]) nil {})
   ;
   ; @return (*)
   [f initial map]
-  (letfn [(fi [[o dex] k v]
-              [(f o dex k v)
+  (letfn [(fi [[result dex] k v]
+              [(f result dex k v)
                (inc dex)])]
          (first (reduce-kv fi [initial 0] map))))
 
@@ -67,7 +67,7 @@
   ; @param (collection) coll
   ;
   ; @usage
-  ; (reduce-indexed (fn [o dex x]) nil [:a :b])
+  ; (reduce-indexed (fn [result dex x]) nil [:a :b])
   ;
   ; @return (*)
   [f initial coll]

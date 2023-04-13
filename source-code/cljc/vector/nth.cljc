@@ -58,10 +58,10 @@
   ;
   ; @return (vector)
   [n dexes]
-  (letfn [(remove-nth-items-f [o dex x]
+  (letfn [(remove-nth-items-f [result dex x]
                               (if (check/contains-item? dexes dex)
-                                  (return o)
-                                  (conj   o x)))]
+                                  (return result)
+                                  (conj   result x)))]
          (reduce-kv remove-nth-items-f [] n)))
 
 (defn duplicate-nth-item

@@ -19,8 +19,8 @@
    (to-string n " "))
 
   ([n delimiter]
-   (letfn [(to-string-f [o x]
-                        (cond (string? x) (str o delimiter  x)
-                              (vector? x) (str o (to-string x))
-                              :return  o))]
+   (letfn [(to-string-f [result x]
+                        (cond (string? x) (str result delimiter x)
+                              (vector? x) (str result (to-string x))
+                              :return result))]
           (reduce to-string-f "" n))))

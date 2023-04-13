@@ -152,8 +152,8 @@
   ;
   ; @return (string)
   [n allowed-characters]
-  (letfn [(f [o x] (if (some #(= x %) allowed-characters)
-                       (str o x) o))]
+  (letfn [(f [result x] (if (some #(= x %) allowed-characters)
+                            (str result x) result))]
          (reduce f "" (str n))))
 
 (defn max-length

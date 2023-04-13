@@ -1,12 +1,38 @@
 
 (ns math.collection
-    (:require [noop.api :refer [param return]]))
+    (:require [noop.api :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn collection-average
+  ; @param (seqable) n
+  ;
+  ; @example
+  ; (collection-average [100 14 3 55])
+  ; =>
+  ; 43
+  ;
+  ; @example
+  ; (collection-average ["0" 1 "a" nil])
+  ; =>
+  ; 0.5
+  ;
+  ; @example
+  ; (collection-average ["0" "a"])
+  ; =>
+  ; 0
+  ;
+  ; @return (nil or number)
+  [n]
+  (letfn [(f [[sum count] x] (if (number? x)
+                                 [(+ sum x) (inc count)]
+                                 [sum count]))]
+         (let [[sum count] (reduce f [0 0] n)]
+              (/ sum count))))
 
 (defn collection-minimum
-  ; @param (collection) n
+  ; @param (seqable) n
   ;
   ; @example
   ; (collection-minimum [100 14 3 55])
@@ -23,12 +49,12 @@
   ; =>
   ; nil
   ;
-  ; @return (nil or integer)
+  ; @return (nil or number)
   [n]
   (apply min n))
 
 (defn collection-maximum
-  ; @param (collection) n
+  ; @param (seqable) n
   ;
   ; @example
   ; (collection-maximum [100 14 3 55])
@@ -45,12 +71,12 @@
   ; =>
   ; nil
   ;
-  ; @return (nil or integer)
+  ; @return (nil or number)
   [n]
   (apply max n))
 
 (defn minimum
-  ; @param (list of number) xyz
+  ; @param (list of numbers) xyz
   ;
   ; @example
   ; (minimum -4.20 2 0)

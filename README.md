@@ -55,6 +55,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Contact data to link converters in the [`href.api`](documentation/cljc/href/API.md) namespace.
 
+- HTML utility functions in the [`html.api`](documentation/cljc/html/API.md) namespace.
+
 - HTTP wrappers and request extractor functions in the [`http.api`](documentation/cljc/http/API.md) namespace.
 
 - Integer utility functions in the [`integer.api`](documentation/cljc/integer/API.md) namespace.
