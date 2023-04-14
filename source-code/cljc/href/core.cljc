@@ -8,6 +8,9 @@
 (defn email-address
   ; @param (string) email-address
   ;
+  ; @usage
+  ; (email-address "Hello@my-site.com")
+  ;
   ; @example
   ; (email-address "Hello@my-site.com")
   ; =>
@@ -29,6 +32,9 @@
 (defn phone-number
   ; @param (integer or string) phone-number
   ;
+  ; @usage
+  ; (phone-number "+3630 / 123 - 4567")
+  ;
   ; @example
   ; (phone-number "+3630 / 123 - 4567")
   ; =>
@@ -43,6 +49,9 @@
 (defn google-maps-address
   ; @param (string) address
   ;
+  ; @usage
+  ; (google-maps-address "My City, My Address street 42.")
+  ;
   ; @example
   ; (google-maps-address "My City, My Address street 42.")
   ; =>
@@ -51,3 +60,24 @@
   ; @return (string)
   [address]
   (str "https://www.google.com/maps/search/?api=1&query=" (string/replace-part address " " "%20")))
+
+(defn https-address
+  ; @param (string) address
+  ;
+  ; @usage
+  ; (https-address "my-website.com")
+  ;
+  ; @example
+  ; (https-address "my-website.com")
+  ; =>
+  ; "https://my-website.com"
+  ;
+  ; @example
+  ; (https-address "http://my-website.com")
+  ; =>
+  ; "https://my-website.com"
+  ;
+  ; @return (string)
+  [address]
+  (as-> address % (string/after-first-occurence % "://" {:return? true})
+                  (str "https://"%)))

@@ -60,6 +60,7 @@
 ; map.merge
 (def deep-merge     merge/deep-merge)
 (def reversed-merge merge/reversed-merge)
+(def merge-some     merge/merge-some)
 
 ; map.namespace
 (def get-namespace    namespace/get-namespace)
