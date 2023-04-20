@@ -135,6 +135,27 @@
       (and (= n [])
            (= x 0))))
 
+(defn only-item?
+  ; @param (vector) n
+  ; @param (*) x
+  ;
+  ; @usage
+  ; (only-item? [:c] :c)
+  ;
+  ; @example
+  ; (only-item? [:b] :b)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (only-item? [:a :b] :b)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n x]
+  (= n [x]))
+
 (defn item-last?
   ; @param (vector) n
   ; @param (*) x

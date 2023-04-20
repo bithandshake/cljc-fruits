@@ -25,6 +25,7 @@
 (def max?               check/max?)
 (def longer?            check/longer?)
 (def count?             check/count?)
+(def only-item?         check/only-item?)
 (def item-last?         check/item-last?)
 (def item-first?        check/item-first?)
 
