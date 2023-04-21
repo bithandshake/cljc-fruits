@@ -11,7 +11,7 @@
   ; @param (string) n
   ; @param (string) open-tag
   ; @param (string)(opt) close-tag
-  ;  Defaul: "\n"
+  ;  Default: "\n"
   ;
   ; @usage
   ; (remove-comments "(defn my-function []) \n ; My comment \n"
