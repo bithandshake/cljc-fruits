@@ -49,6 +49,8 @@
 
 - [remove-last-occurence](#remove-last-occurence)
 
+- [replace-part](#replace-part)
+
 - [starts-with?](#starts-with)
 
 - [to-first-occurence](#to-first-occurence)
@@ -56,6 +58,12 @@
 - [to-last-occurence](#to-last-occurence)
 
 ### after-first-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -119,9 +127,9 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [match (re-find x n)]
-                (subs n (+ (clojure.string/index-of n match)
-                           (count                     match)))
+        (if-let [first-match (core/re-first n x)]
+                (subs n (+ (clojure.string/index-of n first-match)
+                           (count                     first-match)))
                 (if return? n)))))
 ```
 
@@ -142,6 +150,12 @@ nil
 ---
 
 ### after-last-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -205,9 +219,9 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [matches (re-seq x n)]
-                (subs n (+ (clojure.string/last-index-of n (last matches))
-                           (-> matches last count)))
+        (if-let [last-match (core/re-last n x)]
+                (subs n (+ (clojure.string/last-index-of n last-match)
+                           (count last-match)))
                 (if return? n)))))
 ```
 
@@ -228,6 +242,12 @@ nil
 ---
 
 ### before-first-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -291,8 +311,8 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [match (re-find x n)]
-                (subs n 0 (clojure.string/index-of n match))
+        (if-let [first-match (core/re-first n x)]
+                (subs n 0 (clojure.string/index-of n first-match))
                 (if return? n)))))
 ```
 
@@ -313,6 +333,12 @@ nil
 ---
 
 ### before-last-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -376,8 +402,8 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [matches (re-seq x n)]
-                (subs n 0 (clojure.string/last-index-of n (last matches)))
+        (if-let [last-match (core/re-last n x)]
+                (subs n 0 (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 ```
 
@@ -398,6 +424,12 @@ nil
 ---
 
 ### between-occurences
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -457,6 +489,12 @@ nil
 ### ends-with?
 
 ```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
+
+```
 @param (*) n
 @param (regex pattern) x
 ```
@@ -491,8 +529,8 @@ false
 (defn ends-with?
   [n x]
   (let [n (str n)]
-       (if-let [matches (re-seq x n)]
-               (clojure.string/ends-with? n (last matches)))))
+       (if-let [last-match (re-last n x)]
+               (clojure.string/ends-with? n last-match))))
 ```
 
 </details>
@@ -559,6 +597,12 @@ false
 ### from-first-occurence
 
 ```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
+
+```
 @param (*) n
 @param (regex pattern) x
 @param (map) options
@@ -620,8 +664,8 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [match (re-find x n)]
-                (subs n (clojure.string/index-of n match))
+        (if-let [first-match (core/re-first n x)]
+                (subs n (clojure.string/index-of n first-match))
                 (if return? n)))))
 ```
 
@@ -642,6 +686,12 @@ nil
 ---
 
 ### from-last-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -705,8 +755,8 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [matches (re-seq x n)]
-                (subs n (clojure.string/last-index-of n (last matches)))
+        (if-let [last-match (core/re-last n x)]
+                (subs n (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 ```
 
@@ -774,6 +824,12 @@ nil
 ### not-ends-with!
 
 ```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
+
+```
 @param (*) n
 @param (regex pattern) x
 ```
@@ -826,6 +882,12 @@ nil
 ---
 
 ### not-ends-with?
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -883,6 +945,12 @@ false
 ### not-starts-with!
 
 ```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
+
+```
 @param (*) n
 @param (regex pattern) x
 ```
@@ -938,6 +1006,12 @@ false
 ---
 
 ### not-starts-with?
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -1079,7 +1153,7 @@ nil
 ```
 
 ```
-@return (string)
+@return (map, string or vector)
 ```
 
 <details>
@@ -1139,7 +1213,7 @@ nil
 ```
 
 ```
-@return (string)
+@return (map, string or vector)
 ```
 
 <details>
@@ -1354,6 +1428,12 @@ true
 ### remove-first-occurence
 
 ```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
+
+```
 @param (*) n
 @param (regex pattern) x
 ```
@@ -1388,10 +1468,10 @@ true
 (defn remove-first-occurence
   [n x]
   (let [n (str n)]
-       (if-let [match (re-find x n)]
-               (let [dex (clojure.string/index-of n match)]
+       (if-let [first-match (core/re-first n x)]
+               (let [dex (clojure.string/index-of n first-match)]
                     (str (subs n 0 dex)
-                         (subs n (+ dex (count match)))))
+                         (subs n (+ dex (count first-match)))))
                (return n))))
 ```
 
@@ -1412,6 +1492,12 @@ true
 ---
 
 ### remove-last-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -1448,10 +1534,10 @@ true
 (defn remove-last-occurence
   [n x]
   (let [n (str n)]
-       (if-let [matches (re-seq x n)]
-               (let [dex (clojure.string/last-index-of n (last matches))]
+       (if-let [last-match (core/re-last n x)]
+               (let [dex (clojure.string/last-index-of n last-match)]
                     (str (subs n 0 dex)
-                         (subs n (+ dex (-> matches last count)))))
+                         (subs n (+ dex (count last-match)))))
                (return n))))
 ```
 
@@ -1471,7 +1557,63 @@ true
 
 ---
 
+### replace-part
+
+```
+@param (*) n
+@param (regex pattern) x
+@param (*) y
+@param (map)(opt) options
+{:recursive? (boolean)(opt)
+  Default: false}
+```
+
+```
+@example
+(replace-part "abc" #"[b]{0,}" "x")
+=>
+"axc"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn replace-part
+  ([n x y]
+   (replace-part n x y {}))
+
+  ([n x y options]
+   (string/replace-part n x y options)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :refer [replace-part]]))
+
+(regex.api/replace-part ...)
+(replace-part           ...)
+```
+
+</details>
+
+---
+
 ### starts-with?
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -1511,8 +1653,8 @@ false
 (defn starts-with?
   [n x]
   (let [n (str n)]
-       (if-let [match (re-find x n)]
-               (clojure.string/starts-with? n match))))
+       (if-let [first-match (re-first n x)]
+               (clojure.string/starts-with? n first-match))))
 ```
 
 </details>
@@ -1532,6 +1674,12 @@ false
 ---
 
 ### to-first-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -1595,9 +1743,9 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [match (re-find x n)]
-                (subs n 0 (+ (clojure.string/index-of n match)
-                             (count                     match)))
+        (if-let [first-match (core/re-first n x)]
+                (subs n 0 (+ (clojure.string/index-of n first-match)
+                             (count                     first-match)))
                 (if return? n)))))
 ```
 
@@ -1618,6 +1766,12 @@ nil
 ---
 
 ### to-last-occurence
+
+```
+@warning
+Do not use capturing groups in you pattern, otherwise it generates multiple
+matches for the occurence!
+```
 
 ```
 @param (*) n
@@ -1681,9 +1835,9 @@ nil
 
   ([n x {:keys [return?]}]
    (let [n (str n)]
-        (if-let [matches (re-seq x n)]
-                (subs n 0 (+ (clojure.string/last-index-of n (last matches))
-                             (-> matches last count)))
+        (if-let [last-match (core/re-last n x)]
+                (subs n 0 (+ (clojure.string/last-index-of n last-match)
+                             (count last-match)))
                 (if return? n)))))
 ```
 
@@ -1703,5 +1857,5 @@ nil
 
 ---
 
-This documentation is generated by the [docs-api](https://github.com/bithandshake/docs-api) engine
+This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
 

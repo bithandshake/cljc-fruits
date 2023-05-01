@@ -13,6 +13,8 @@
 
 - [abc-items](#abc-items)
 
+- [align-items](#align-items)
+
 - [all-items-match?](#all-items-match)
 
 - [any-item-match?](#any-item-match)
@@ -72,6 +74,8 @@
 - [first-item](#first-item)
 
 - [first-items](#first-items)
+
+- [gap-items](#gap-items)
 
 - [get-first-match](#get-first-match)
 
@@ -144,6 +148,8 @@
 - [nth-filtered](#nth-filtered)
 
 - [nth-item](#nth-item)
+
+- [only-item?](#only-item)
 
 - [prev-dex](#prev-dex)
 
@@ -372,9 +378,9 @@
 ```
 (defn abc-items
   [n]
-  (letfn [(sort-item-f [o x] (cond (string?  x) (update o :string-items     conj x)
-                                   (keyword? x) (update o :keyword-items    conj x)
-                                   :return      (update o :unsortable-items conj x)))
+  (letfn [(sort-item-f [result x] (cond (string?  x) (update result :string-items     conj x)
+                                        (keyword? x) (update result :keyword-items    conj x)
+                                        :return      (update result :unsortable-items conj x)))
           (sort-items-f [n] (reduce sort-item-f {} n))]
          (let [{:keys [string-items keyword-items unsortable-items]} (sort-items-f n)]
               (vec (concat unsortable-items (sort string-items)
@@ -391,6 +397,74 @@
 
 (vector.api/abc-items ...)
 (abc-items            ...)
+```
+
+</details>
+
+---
+
+### align-items
+
+```
+@param (list of vectors) abc
+```
+
+```
+@usage
+(align-items [:a :b :c :d] [:c :d :e :f])
+```
+
+```
+@example
+(align-items [:a :b :c :d] [:c :d :e :f])
+=>
+[:a :b :c :d :e :f]
+```
+
+```
+@example
+(align-items [:a :b :c] [:c :d :e] [:e :f :g])
+=>
+[:a :b :c :d :e :f :g]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn align-items
+  [& abc]
+  (letfn [
+          (aligned? [a b shift] (let [a-size (- (count a) shift)
+                                      b-size (min a-size (count b))]
+                                     (= (subvec a shift)
+                                        (subvec b 0 b-size))))
+
+          (shiftable? [a b prev-shift] (< prev-shift (-> a count dec)))
+
+          (align-f [a b shift] (cond (aligned?   a b shift) (concat-items (subvec a 0 shift) b)
+                                     (shiftable? a b shift) (align-f a b (inc shift))
+                                     :no-alignment-found    (concat-items a b)))
+
+          (f [result dex x] (if (= dex 0) x (align-f result x 0)))]
+
+         (reduce-kv f [] (vec abc))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [align-items]]))
+
+(vector.api/align-items ...)
+(align-items            ...)
 ```
 
 </details>
@@ -537,10 +611,10 @@ true
 ```
 (defn change-item
   [n a b]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (= x a)
-                 (conj-item o b)
-                 (conj-item o x)))]
+                 (conj-item result b)
+                 (conj-item result x)))]
          (reduce f [] n)))
 ```
 
@@ -2024,6 +2098,58 @@ true
 
 ---
 
+### gap-items
+
+```
+@param (*) n
+@param (*) delimiter
+```
+
+```
+@usage
+(gap-items [:A :B] :x)
+```
+
+```
+@example
+(gap-items [:A :B :C :D] :x)
+=>
+[:A :x :B :x :C :x :D]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn gap-items
+  [n delimiter]
+  (letfn [(f [result dex x]
+             (if (= 0 dex)
+                 [x]
+                 (conj result delimiter x)))]
+         (reduce-kv f [] n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [gap-items]]))
+
+(vector.api/gap-items ...)
+(gap-items            ...)
+```
+
+</details>
+
+---
+
 ### get-first-match
 
 ```
@@ -2060,7 +2186,9 @@ nil
 ```
 (defn get-first-match
   [n test-f]
-  (some test-f n))
+  (letfn [(f [%] (if (test-f %)
+                     (return %)))]
+         (some f n)))
 ```
 
 </details>
@@ -2830,10 +2958,10 @@ true
 ```
 (defn keep-items
   [n xyz]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (conj   o x)
-                 (return o)))]
+                 (conj   result x)
+                 (return result)))]
          (reduce f [] n)))
 ```
 
@@ -2882,10 +3010,10 @@ true
 ```
 (defn keep-items-by
   [n f]
-  (letfn [(f0 [o x]
+  (letfn [(f0 [result x]
               (if (f x)
-                  (conj   o x)
-                  (return o)))]
+                  (conj   result x)
+                  (return result)))]
          (reduce f0 [] n)))
 ```
 
@@ -3827,7 +3955,10 @@ At the end of the vector it jumps to the first index.
 
 ```
 (defn next-item
-  [n x])
+  [n x]
+  (let [item-first-dex (dex/item-first-dex n x)
+        next-item-dex  (dex/next-dex       n item-first-dex)]
+       (nth/nth-item n next-item-dex)))
 ```
 
 </details>
@@ -4070,6 +4201,61 @@ false
 
 ---
 
+### only-item?
+
+```
+@param (vector) n
+@param (*) x
+```
+
+```
+@usage
+(only-item? [:c] :c)
+```
+
+```
+@example
+(only-item? [:b] :b)
+=>
+true
+```
+
+```
+@example
+(only-item? [:a :b] :b)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn only-item?
+  [n x]
+  (= n [x]))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [only-item?]]))
+
+(vector.api/only-item? ...)
+(only-item?            ...)
+```
+
+</details>
+
+---
+
 ### prev-dex
 
 ```
@@ -4299,10 +4485,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-duplicates
   [n]
-  (letfn [(f [o x]
-             (if (check/contains-item? o x)
-                 (return               o)
-                 (conj                 o x)))]
+  (letfn [(f [result x]
+             (if (check/contains-item? result x)
+                 (return               result)
+                 (conj                 result x)))]
          (reduce f [] n)))
 ```
 
@@ -4580,10 +4766,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-items
   [n xyz]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (return               o)
-                 (conj                 o x)))]
+                 (return               result)
+                 (conj                 result x)))]
          (reduce f [] n)))
 ```
 
@@ -4632,10 +4818,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-items-by
   [n test-f]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (test-f x)
-                 (return o)
-                 (conj   o x)))]
+                 (return result)
+                 (conj   result x)))]
          (reduce f [] n)))
 ```
 
@@ -4827,10 +5013,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-nth-items
   [n dexes]
-  (letfn [(remove-nth-items-f [o dex x]
+  (letfn [(remove-nth-items-f [result dex x]
                               (if (check/contains-item? dexes dex)
-                                  (return o)
-                                  (conj   o x)))]
+                                  (return result)
+                                  (conj   result x)))]
          (reduce-kv remove-nth-items-f [] n)))
 ```
 
@@ -5035,10 +5221,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn similars
   [a b]
-  (letfn [(f [o x]
+  (letfn [(f [result x]
              (if (check/contains-item? b x)
-                 (vec (conj            o x))
-                 (return               o)))]
+                 (vec (conj result x))
+                 (return result)))]
          (reduce f [] a)))
 ```
 
@@ -5433,5 +5619,5 @@ At the beginning of the vector it jumps to the last index.
 
 ---
 
-This documentation is generated by the [docs-api](https://github.com/bithandshake/docs-api) engine
+This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
 
