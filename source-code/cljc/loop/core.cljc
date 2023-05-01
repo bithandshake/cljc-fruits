@@ -58,6 +58,22 @@
                (inc dex)])]
          (first (reduce-kv fi [initial 0] map))))
 
+(defn reduce-range
+  ; @param (function) f
+  ; @param (*) initial
+  ; @param (integer)(opt) start
+  ; @param (integer) end
+  ;
+  ; @usage
+  ; (reduce-range (fn [result x]) nil 10)
+  ;
+  ; @return (*)
+  ([f initial end]
+   (reduce f initial (range end)))
+
+  ([f initial start end]
+   (reduce f initial (range start end))))
+
 (defn reduce-indexed
   ; @description
   ; The 'f' function gets the current item's index as its second parameter.
@@ -102,6 +118,23 @@
                       (when-not (= dex (-> coll count dec))
                                 (fi test-f coll (inc dex)))))]
          (fi test-f coll 0)))
+
+(defn do-indexed
+  ; @param (function) do-f
+  ; @param (collection) coll
+  ;
+  ; @usage
+  ; (do-indexed (fn [dex x]) [...])
+  ;
+  ; @usage
+  ; (do-indexed (fn [dex x] (println x "is the" dex "th item of the collection"))
+  ;             [:a :b :c :d :e])
+  [do-f coll]
+  (letfn [(f [dex x]
+             (do-f dex x)
+             (inc  dex))]
+         (reduce f 0 coll)
+         (return nil)))
 
 (defn do-while
   ; @param (function) f

@@ -189,6 +189,51 @@
   [& abc]
   (-> (apply concat abc) set vec))
 
+(defn align-items
+  ; @param (list of vectors) abc
+  ;
+  ; @usage
+  ; (align-items [:a :b :c :d] [:c :d :e :f])
+  ;
+  ; @example
+  ; (align-items [:a :b :c :d] [:c :d :e :f])
+  ; =>
+  ; [:a :b :c :d :e :f]
+  ;
+  ; @example
+  ; (align-items [:a :b :c] [:c :d :e] [:e :f :g])
+  ; =>
+  ; [:a :b :c :d :e :f :g]
+  ;
+  ; @return (vector)
+  [& abc]
+  (letfn [
+          ; (aligned? [:a :b :c] [:b :c e] 0)
+          ; =>
+          ; false
+          ;
+          ; (aligned? [:a :b :c] [:b :c e] 1)
+          ; =>
+          ; true
+          (aligned? [a b shift] (let [a-size (- (count a) shift)
+                                      b-size (min a-size (count b))]
+                                     (= (subvec a shift)
+                                        (subvec b 0 b-size))))
+
+          ; ...
+          (shiftable? [a b prev-shift] (< prev-shift (-> a count dec)))
+
+          ; ...
+          (align-f [a b shift] (cond (aligned?   a b shift) (concat-items (subvec a 0 shift) b)
+                                     (shiftable? a b shift) (align-f a b (inc shift))
+                                     :no-alignment-found    (concat-items a b)))
+
+          ; ...
+          (f [result dex x] (if (= dex 0) x (align-f result x 0)))]
+
+         ; ...
+         (reduce-kv f [] (vec abc))))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 

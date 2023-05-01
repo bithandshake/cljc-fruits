@@ -49,6 +49,7 @@
 (def conj-some         core/conj-some)
 (def concat-items      core/concat-items)
 (def concat-items-once core/concat-items-once)
+(def align-items       core/align-items)
 (def change-item       core/change-item)
 (def inject-item       core/inject-item)
 (def toggle-item       core/toggle-item)

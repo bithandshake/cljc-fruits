@@ -9,6 +9,25 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn sign-number
+  ; @param (number or string) n
+  ;
+  ; @usage
+  ; (sign-number 4200.5)
+  ;
+  ; @example
+  ; (sign-number 4200.5)
+  ; =>
+  ; "+4200.5"
+  ;
+  ; @return (string)
+  [n]
+  (let [n (str n)]
+       (if (= (str "-")
+              (-> n first str))
+           (return n)
+           (str "+"n))))
+
 (defn group-number
   ; @param (number or string) n
   ;
@@ -47,7 +66,7 @@
             (subs n (count base)))))
 
 (defn leading-zeros
-  ; @param (integer or string) n
+  ; @param (number or string) n
   ; @param (integer) length
   ;
   ; @usage
@@ -71,7 +90,7 @@
             (return x))))
 
 (defn remove-leading-zeros
-  ; @param (integer or string) n
+  ; @param (number or string) n
   ;
   ; @usage
   ; (remove-leading-zeros "042")
@@ -116,7 +135,7 @@
             (return x))))
 
 (defn decimals
-  ; @param (integer or string) n
+  ; @param (number or string) n
   ; @param (integer)(opt) length
   ; Default: 2
   ;
