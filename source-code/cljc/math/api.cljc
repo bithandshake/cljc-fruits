@@ -48,6 +48,7 @@
 (def percent-result percent/percent-result)
 (def percent-rest   percent/percent-rest)
 (def percent-add    percent/percent-add)
+(def percent-diff   percent/percent-diff)
 
 ; math.type
 (def negative?    type/negative?)

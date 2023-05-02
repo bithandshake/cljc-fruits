@@ -30,7 +30,7 @@
   (/ value (/ total 100)))
 
 ; TEMP
-; Ennek mi az igazi neve?
+; What's the real name of this?
 (defn percent-result
   ; @param (number) total
   ; @param (number) percentage
@@ -69,3 +69,21 @@
   ; @return (number)
   [total percentage]
   (+ total (percent-result total percentage)))
+
+(defn percent-diff
+  ; @param (number) a
+  ; @param (number) b
+  ;
+  ; @example
+  ; (percent-diff 100 110)
+  ; =>
+  ; 10
+  ;
+  ; @example
+  ; (percent-diff 50 55)
+  ; =>
+  ; 10
+  ;
+  ; @return (number)
+  [a b]
+  (- (percent a b) 100))
