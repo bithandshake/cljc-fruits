@@ -193,7 +193,7 @@
   ; @description
   ; Concatenate items of vectors with end alignment. If a vector's last items are
   ; indentical with the next vector's first items the indentical items will be
-  ; merged to avoid duplicates.
+  ; merged to avoid duplications.
   ;
   ; @param (list of vectors) abc
   ;
