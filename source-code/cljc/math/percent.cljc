@@ -80,9 +80,19 @@
   ; 10
   ;
   ; @example
+  ; (percent-diff 100 90)
+  ; =>
+  ; -10
+  ;
+  ; @example
   ; (percent-diff 50 55)
   ; =>
   ; 10
+  ;
+  ; @example
+  ; (percent-diff 50 45)
+  ; =>
+  ; -10
   ;
   ; @return (number)
   [a b]

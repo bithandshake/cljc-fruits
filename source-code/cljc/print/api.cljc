@@ -1,9 +1,10 @@
 
-(ns nato.api
-    (:require [nato.abc :as abc]))
+(ns print.api
+    (:require [print.table :as table]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; nato.abc
-(def ALPHABET abc/ALPHABET)
+; print.table
+(def table-line table/table-line)
+(def table-row  table/table-row)

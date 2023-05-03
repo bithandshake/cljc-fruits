@@ -29,6 +29,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 # What's in this library?
 
+- Alphabet functions in the [`alphabet.api`](documentation/cljc/alphabet/API.md) namespace.
+
 - Clojure atom functions in the [`atom.api`](documentation/cljc/atom/API.md) namespace.
 
 - Base64 encoding functions in the [`base64.api`](documentation/cljc/base64/API.md) namespace.
@@ -81,13 +83,13 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Clojure namespace functions in the [`namespace.api`](documentation/cljc/namespace/API.md) namespace.
 
-- NATO alphabet sample in the [`nato.api`](documentation/cljc/nato/API.md) namespace.
-
 - Simple noop functions in the [`noop.api`](documentation/cljc/noop/API.md) namespace.
 
 - String normalizer functions in the [`normalize.api`](documentation/cljc/normalize/API.md) namespace.
 
 - Pretty printing functions in the [`pretty.api`](documentation/cljc/pretty/API.md) namespace.
+
+- Console print functions in the [`print.api`](documentation/cljc/print/API.md) namespace.
 
 - Random generator functions in the [`random.api`](documentation/cljc/random/API.md) namespace.
 
