@@ -179,8 +179,8 @@
 
 (defn between?
   ; @param (number) n
-  ; @param (number) min
-  ; @param (number) max
+  ; @param (number) x
+  ; @param (number) y
   ;
   ; @example
   ; (between? 4.20 0 42)
@@ -188,14 +188,14 @@
   ; true
   ;
   ; @return (boolean)
-  [n min max]
-  (and (<= n max)
-       (>= n min)))
+  [n x y]
+  (and (<= n (max x y))
+       (>= n (min x y))))
 
 (defn between!
   ; @param (number) n
-  ; @param (number) min
-  ; @param (number) max
+  ; @param (number) x
+  ; @param (number) y
   ;
   ; @example
   ; (between! 4.20 0 42)
@@ -203,7 +203,7 @@
   ; 4.20
   ;
   ; @return (number)
-  [n min max]
-  (cond (< n min) min
-        (> n max) max
-        :return   n))
+  [n x y]
+  (cond (< n (min x y)) (min x y)
+        (> n (max x y)) (max x y)
+        :return n))
