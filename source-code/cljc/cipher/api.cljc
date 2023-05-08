@@ -1,9 +1,10 @@
 
-(ns code.api
-    (:require [code.run :as run]))
+(ns cipher.api
+    (:require [cipher.core :as core]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; code.run
-(def run-code! run/run-code!)
+; cipher.core
+(def encrypt core/encrypt)
+(def decrypt core/decrypt)

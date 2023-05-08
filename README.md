@@ -37,6 +37,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Blob object functions in the [`blob.api`](documentation/cljc/blob/API.md) namespace.
 
+- Cipher encryption functions in the [`cipher.api`](documentation/cljc/cipher/API.md) namespace.
+
 - Source code evaluator functions in the [`code.api`](documentation/cljc/code/API.md) namespace.
 
 - CSS parser, unparser and wrapper functions in the [`css.api`](documentation/cljc/css/API.md) namespace.

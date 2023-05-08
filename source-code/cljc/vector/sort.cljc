@@ -64,7 +64,10 @@
    (-> n sort vec))
 
   ([n comparator-f]
-   (vec (sort comparator-f n))))
+   ; XXX#0610
+   ; The return value of the comparator function has to be a boolean value!
+   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+          (vec (sort compare-f n)))))
 
 (defn items-sorted?
   ; @param (vector) n
@@ -85,7 +88,9 @@
   ;
   ; @return (boolean)
   [n comparator-f]
-  (= n (sort-items n comparator-f)))
+  ; XXX#0610
+  (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+         (= n (sort-items n compare-f))))
 
 (defn sort-items-by
   ; @param (vector) n
@@ -110,7 +115,9 @@
    (vec (sort-by value-f n)))
 
   ([n comparator-f value-f]
-   (vec (sort-by value-f comparator-f n))))
+   ; XXX#0610
+   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+          (vec (sort-by value-f compare-f n)))))
 
 (defn sort-items-by-dexes
   ; @param (vector) n
@@ -202,11 +209,11 @@
   [a b comparator-f]
   ; A compared-items-ordered? függvény összehasonlítja a és b vektor azonos indexű elemeit. ...
   ; ... Az első alkalommal, amikor két összehasonlított elem nem egyezik, visszatér
-  ;    a (comparator-f x y) függvény kimenetével.
+  ;     a (comparator-f x y) függvény kimenetével.
   ; ... Ha a és b vektor elemei és az elemek száma megegyeznek, a visszatérési érték true!
   ; ... Ha a vektor elemeinek száma és b vektor elemeinek száma nem egyenlő,
-  ;    akkor az elemek összehasonlítása az alacsonyabb elemszámig történik!
-  ;    (Ha az összehasonlított elemek megegyeznek, akkor a kisebb elemszámú vektor számít
+  ;     akkor az elemek összehasonlítása az alacsonyabb elemszámig történik!
+  ;     (Ha az összehasonlított elemek megegyeznek, akkor a kisebb elemszámú vektor számít
   ;     a sorrendben hamarabbinak!)
   (let [max-count (min (count a) (count b))]
        (letfn [(f [dex]
