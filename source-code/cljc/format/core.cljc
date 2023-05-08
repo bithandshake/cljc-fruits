@@ -84,6 +84,8 @@
   ;
   ; @return (string)
   [n length]
+  ; TODO
+  ; It doesn't handle the "-" and "+" signs!
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str "0" x))
