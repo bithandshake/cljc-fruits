@@ -54,10 +54,9 @@
   ;
   ; @return (vector)
   [n length]
-  (if (and (-> length integer?)
-           (>= length (count n)))
-      (return n)
-      (subvec n (-> n count (- length)))))
+  (cond (-> length integer? not) (return n)
+        (>= length (count n))    (return n)
+        :return (subvec n (-> n count (- length)))))
 
 (defn first-items
   ; @param (vector) n
@@ -73,10 +72,9 @@
   ;
   ; @return (vector)
   [n length]
-  (if (and (-> length integer?)
-           (>= length (count n)))
-      (return n)
-      (subvec n 0 length)))
+  (cond (-> length integer? not) (return n)
+        (>= length (count n))    (return n)
+        :return (subvec n 0 length)))
 
 (defn trim
   ; @param (vector) n

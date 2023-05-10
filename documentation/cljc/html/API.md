@@ -16,6 +16,11 @@
 ```
 
 ```
+@usage
+(blank? "<p> </p><p>\n</p>")
+```
+
+```
 @example
 (blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
 =>
@@ -72,10 +77,8 @@ true
 ```
 
 ```
-@example
+@usage
 (nonblank? "<p> </p><p>\n</p>")
-=>
-false
 ```
 
 ```
@@ -83,6 +86,13 @@ false
 (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
 =>
 true
+```
+
+```
+@example
+(nonblank? "<p> </p><p>\n</p>")
+=>
+false
 ```
 
 ```

@@ -26,6 +26,24 @@
   ;    (return          [])])
   (vec (drop 1 n)))
 
+(defn remove-first-items
+  ; @param (vector) n
+  ; @param (integer) cut
+  ;
+  ; @usage
+  ; (remove-first-items [:a :b :c] 2)
+  ;
+  ; @example
+  ; (remove-first-items [:a :b :c :d :e] 2)
+  ; =>
+  ; [:c :d :e]
+  ;
+  ; @return (vector)
+  [n cut]
+  (cond (-> cut integer? not) (return n)
+        (>= cut (count n))    (return [])
+        :return (subvec n cut)))
+
 (defn remove-last-item
   ; @param (vector) n
   ;
@@ -43,6 +61,27 @@
   ;    (subvec          n 0 (-> n count dec))
   ;    (return          [])])
   (-> n drop-last vec))
+
+(defn remove-last-items
+  ; @param (vector) n
+  ; @param (integer) cut
+  ;
+  ; @usage
+  ; (remove-last-items [:a :b :c] 2)
+  ;
+  ; @example
+  ; (remove-last-items [:a :b :c :d :e] 2)
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @return (vector)
+  [n cut]
+  (cond (-> cut integer? not) (return n)
+        (>= cut (count n))    (return [])
+        :return (subvec n 0 (-> n count (- cut)))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn remove-item
   ; @param (vector) n

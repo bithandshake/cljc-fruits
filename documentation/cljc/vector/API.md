@@ -161,6 +161,8 @@
 
 - [remove-first-item](#remove-first-item)
 
+- [remove-first-items](#remove-first-items)
+
 - [remove-first-occurence](#remove-first-occurence)
 
 - [remove-item](#remove-item)
@@ -174,6 +176,8 @@
 - [remove-items-kv](#remove-items-kv)
 
 - [remove-last-item](#remove-last-item)
+
+- [remove-last-items](#remove-last-items)
 
 - [remove-nth-item](#remove-nth-item)
 
@@ -404,6 +408,13 @@
 ---
 
 ### align-items
+
+```
+@description
+Concatenate items of vectors with end alignment. If a vector's last items are
+indentical with the next vector's first items the indentical items will be
+merged to avoid duplications.
+```
 
 ```
 @param (list of vectors) abc
@@ -2076,10 +2087,9 @@ true
 ```
 (defn first-items
   [n length]
-  (if (and (-> length integer?)
-           (>= length (count n)))
-      (return n)
-      (subvec n 0 length)))
+  (cond (-> length integer? not) (return n)
+        (>= length (count n))    (return n)
+        :return (subvec n 0 length)))
 ```
 
 </details>
@@ -2910,7 +2920,8 @@ true
 ```
 (defn items-sorted?
   [n comparator-f]
-  (= n (sort-items n comparator-f)))
+  (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+         (= n (sort-items n compare-f))))
 ```
 
 </details>
@@ -3209,10 +3220,9 @@ true
 ```
 (defn last-items
   [n length]
-  (if (and (-> length integer?)
-           (>= length (count n)))
-      (return n)
-      (subvec n (-> n count (- length)))))
+  (cond (-> length integer? not) (return n)
+        (>= length (count n))    (return n)
+        :return (subvec n (-> n count (- length)))))
 ```
 
 </details>
@@ -4555,6 +4565,56 @@ At the beginning of the vector it jumps to the last index.
 
 ---
 
+### remove-first-items
+
+```
+@param (vector) n
+@param (integer) cut
+```
+
+```
+@usage
+(remove-first-items [:a :b :c] 2)
+```
+
+```
+@example
+(remove-first-items [:a :b :c :d :e] 2)
+=>
+[:c :d :e]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-first-items
+  [n cut]
+  (cond (-> cut integer? not) (return n)
+        (>= cut (count n))    (return [])
+        :return (subvec n cut)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [remove-first-items]]))
+
+(vector.api/remove-first-items ...)
+(remove-first-items            ...)
+```
+
+</details>
+
+---
+
 ### remove-first-occurence
 
 ```
@@ -4933,6 +4993,56 @@ At the beginning of the vector it jumps to the last index.
 
 ---
 
+### remove-last-items
+
+```
+@param (vector) n
+@param (integer) cut
+```
+
+```
+@usage
+(remove-last-items [:a :b :c] 2)
+```
+
+```
+@example
+(remove-last-items [:a :b :c :d :e] 2)
+=>
+[:a :b :c]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-last-items
+  [n cut]
+  (cond (-> cut integer? not) (return n)
+        (>= cut (count n))    (return [])
+        :return (subvec n 0 (-> n count (- cut)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [remove-last-items]]))
+
+(vector.api/remove-last-items ...)
+(remove-last-items            ...)
+```
+
+</details>
+
+---
+
 ### remove-nth-item
 
 ```
@@ -5276,7 +5386,8 @@ At the beginning of the vector it jumps to the last index.
    (-> n sort vec))
 
   ([n comparator-f]
-   (vec (sort comparator-f n))))
+   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+          (vec (sort compare-f n)))))
 ```
 
 </details>
@@ -5335,7 +5446,8 @@ At the beginning of the vector it jumps to the last index.
    (vec (sort-by value-f n)))
 
   ([n comparator-f value-f]
-   (vec (sort-by value-f comparator-f n))))
+   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
+          (vec (sort-by value-f compare-f n)))))
 ```
 
 </details>

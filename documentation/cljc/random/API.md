@@ -190,7 +190,8 @@ true
 ```
 (defn generate-number
   [digits]
-  (int (* (math/power 10 (dec digits)) (min 9.999 (-> 9 rand inc)))))
+  (int (min (* (math/power 10 (dec digits)) (-> 9 rand inc))
+            (dec (math/power 10 digits)))))
 ```
 
 </details>

@@ -83,7 +83,7 @@
 
 ```
 @param (hiccup)(opt) container
- Default: [:div]
+Default: [:div]
 @param (string) n
 ```
 
@@ -351,7 +351,7 @@
 
 ```
 @param (keyword)(opt) container
- Default: [:div]
+Default: [:div]
 @param (collection) n
 ```
 
@@ -418,7 +418,7 @@
 
 ```
 @param (keyword)(opt) container
- Default: [:div]
+Default: [:div]
 @param (collection) n
 @param (function) item-f
 ```
@@ -492,7 +492,7 @@
 
 ```
 @param (keyword)(opt) container
- Default: [:div]
+Default: [:div]
 @param (collection) n
 @param (function) item-f
 ```

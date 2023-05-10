@@ -5,8 +5,31 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn html?
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (html? "<p>Paragraph #1</p>")
+  ;
+  ; @example
+  ; (html? "Paragraph #1")
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (html? "<p>Paragraph #1</p>")
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n])
+  ; TODO
+
 (defn blank?
   ; @param (string) n
+  ;
+  ; @usage
+  ; (blank? "<p> </p><p>\n</p>")
   ;
   ; @example
   ; (blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
@@ -32,15 +55,18 @@
 (defn nonblank?
   ; @param (string) n
   ;
-  ; @example
+  ; @usage
   ; (nonblank? "<p> </p><p>\n</p>")
-  ; =>
-  ; false
   ;
   ; @example
   ; (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; true
+  ;
+  ; @example
+  ; (nonblank? "<p> </p><p>\n</p>")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]

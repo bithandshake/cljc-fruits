@@ -11,4 +11,4 @@
 
 - html.api
 
-- Unnecessary items from .gitignore
+- Unnecessary items in .gitignore

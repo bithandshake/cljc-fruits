@@ -55,6 +55,8 @@
 
 - [percent-add](#percent-add)
 
+- [percent-diff](#percent-diff)
+
 - [percent-rest](#percent-rest)
 
 - [percent-result](#percent-result)
@@ -202,8 +204,8 @@
 
 ```
 @param (number) n
-@param (number) min
-@param (number) max
+@param (number) x
+@param (number) y
 ```
 
 ```
@@ -222,10 +224,10 @@
 
 ```
 (defn between!
-  [n min max]
-  (cond (< n min) min
-        (> n max) max
-        :return   n))
+  [n x y]
+  (cond (< n (min x y)) (min x y)
+        (> n (max x y)) (max x y)
+        :return n))
 ```
 
 </details>
@@ -248,8 +250,8 @@
 
 ```
 @param (number) n
-@param (number) min
-@param (number) max
+@param (number) x
+@param (number) y
 ```
 
 ```
@@ -268,9 +270,9 @@ true
 
 ```
 (defn between?
-  [n min max]
-  (and (<= n max)
-       (>= n min)))
+  [n x y]
+  (and (<= n (max x y))
+       (>= n (min x y))))
 ```
 
 </details>
@@ -1331,6 +1333,70 @@ true
 
 (math.api/percent-add ...)
 (percent-add          ...)
+```
+
+</details>
+
+---
+
+### percent-diff
+
+```
+@param (number) a
+@param (number) b
+```
+
+```
+@example
+(percent-diff 100 110)
+=>
+10
+```
+
+```
+@example
+(percent-diff 100 90)
+=>
+-10
+```
+
+```
+@example
+(percent-diff 50 55)
+=>
+10
+```
+
+```
+@example
+(percent-diff 50 45)
+=>
+-10
+```
+
+```
+@return (number)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn percent-diff
+  [a b]
+  (- (percent a b) 100))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [math.api :refer [percent-diff]]))
+
+(math.api/percent-diff ...)
+(percent-diff          ...)
 ```
 
 </details>

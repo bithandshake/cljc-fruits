@@ -4683,7 +4683,7 @@ nil
                       (f1 [n marker replacement]
                           (if (or (-> replacement str empty? not)
                                   (not ignore?))
-                              (clojure.string/replace n marker replacement)))
+                              (clojure.string/replace n marker (str replacement))))
                       (f2 [n dex replacement]
                           (let [marker (str "%" (inc dex))]
                                (f1 n marker replacement)))]

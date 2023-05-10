@@ -105,6 +105,20 @@ Avoids name conflicts by checking the concurent labels.
 ```
 
 ```
+@example
+(ordered-label? "My item #3")
+=>
+true
+```
+
+```
+@example
+(ordered-label? "My item")
+=>
+false
+```
+
+```
 @return (boolean)
 ```
 

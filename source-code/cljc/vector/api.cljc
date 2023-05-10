@@ -117,7 +117,9 @@
 
 ; vector.remove
 (def remove-first-item      remove/remove-first-item)
+(def remove-first-items     remove/remove-first-items)
 (def remove-last-item       remove/remove-last-item)
+(def remove-last-items      remove/remove-last-items)
 (def remove-item            remove/remove-item)
 (def remove-item-once       remove/remove-item-once)
 (def remove-items           remove/remove-items)

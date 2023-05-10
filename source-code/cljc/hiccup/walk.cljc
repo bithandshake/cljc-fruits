@@ -26,7 +26,7 @@
 
 (defn explode
   ; @param (hiccup)(opt) container
-  ;  Default: [:div]
+  ; Default: [:div]
   ; @param (string) n
   ;
   ; @example
@@ -47,7 +47,7 @@
 
 (defn put
   ; @param (keyword)(opt) container
-  ;  Default: [:div]
+  ; Default: [:div]
   ; @param (collection) n
   ;
   ; @usage
@@ -78,7 +78,7 @@
 
 (defn put-with
   ; @param (keyword)(opt) container
-  ;  Default: [:div]
+  ; Default: [:div]
   ; @param (collection) n
   ; @param (function) item-f
   ;
@@ -116,7 +116,7 @@
 
 (defn put-with-indexed
   ; @param (keyword)(opt) container
-  ;  Default: [:div]
+  ; Default: [:div]
   ; @param (collection) n
   ; @param (function) item-f
   ;

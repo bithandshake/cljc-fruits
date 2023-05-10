@@ -110,8 +110,19 @@
   ;
   ; @return (integer)
   [digits]
-  ; A (-> 9 rand inc) függvény kimenete egy lebegőpontos érték 1 és 10 között
+  ; Warning! Decimal points (.) and decimal commas (,) in the text! Don't mix up them!
   ;
-  ; A (generate-number n) fügvény visszatérési értéke egy 1 és 9.99 között érték szorozva
-  ; 10 (n - 1) hatványával, integer típusra alakítva.
-  (int (* (math/power 10 (dec digits)) (min 9.999 (-> 9 rand inc)))))
+  ; Step 1: Generating a random float number from 0.000' to 9.000' | (-> 9 rand)
+  ; Step 2: Increasing the result by one (1.000' to 10.000')       | (-> 9 rand inc)
+  ; Step 3: Multiplying the result by 10 to the power of (n - 1)   | (* (math/power 10 (dec digits)) ...)
+  ; Step 4: Set a limit for the result to its maximum minus 1      | (min (...) (dec (math/power 10 digits)))
+  ; Step 5: Converting the result to integer type.                 | (int ...)
+  ;
+  ; E.g. The expected digit count is 5
+  ;      10 to the power of (5 - 1) is 10,000
+  ;      Step 1: 0.000' to 9.000'
+  ;      Step 2: 1.000' to 10.000'
+  ;      Step 3: 10,000 to 100,000
+  ;      Step 4: 10,000 to 99,999
+  (int (min (* (math/power 10 (dec digits)) (-> 9 rand inc))
+            (dec (math/power 10 digits)))))
