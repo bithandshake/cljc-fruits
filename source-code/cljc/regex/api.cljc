@@ -1,6 +1,7 @@
 
 (ns regex.api
-    (:require [regex.core    :as core]
+    (:require [regex.check   :as check]
+              [regex.core    :as core]
               [regex.cut     :as cut]
               [regex.dex     :as dex]
               [regex.replace :as replace]))
@@ -8,12 +9,14 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+; regex.check
+(def re-match?    check/re-match?)
+(def re-mismatch? check/re-mismatch?)
+
 ; regex.core
 (def re-first         core/re-first)
 (def re-last          core/re-last)
 (def re-match         core/re-match)
-(def re-match?        core/re-match?)
-(def re-mismatch?     core/re-mismatch?)
 (def ends-with?       core/ends-with?)
 (def not-ends-with?   core/not-ends-with?)
 (def not-ends-with!   core/not-ends-with!)

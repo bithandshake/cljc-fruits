@@ -6,6 +6,7 @@
 ;; ----------------------------------------------------------------------------
 
 ; format.core
+(def hide-email           core/hide-email)
 (def sign-number          core/sign-number)
 (def group-number         core/group-number)
 (def leading-zeros        core/leading-zeros)

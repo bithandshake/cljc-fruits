@@ -67,6 +67,9 @@
   ; @usage
   ; (reduce-range (fn [result x]) nil 10)
   ;
+  ; @usage
+  ; (reduce-range (fn [result x]) nil 10 20)
+  ;
   ; @return (*)
   ([f initial end]
    (reduce f initial (range end)))

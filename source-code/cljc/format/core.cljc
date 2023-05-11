@@ -9,6 +9,33 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn hide-email
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (hide-email "user@email.com")
+  ;
+  ; @example
+  ; (hide-email "user@email.com")
+  ; =>
+  ; "u**r@email.com"
+  ;
+  ; @example
+  ; (hide-email "username@email.com")
+  ; =>
+  ; "u******e@email.com"
+  ;
+  ; @return (string)
+  [n]
+  (if-let [user (string/before-first-occurence n "@" {:return? false})]
+          (case (count user) 0 (str n)
+                             1 (string/cover n "*")
+                             2 (string/cover n "*" 1)
+                               (string/cover n (string/multiply "*" (-> user count dec dec)) 1))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn sign-number
   ; @param (number or string) n
   ;

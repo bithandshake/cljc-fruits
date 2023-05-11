@@ -155,6 +155,43 @@
                ; The reduce-kv takes vectors and maps but doesn't take lists!
                (reduce-kv f "" (vec coll))))))
 
+(defn cover
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer)(opt) offset
+  ;
+  ; @usage
+  ; (cover "user@email.com" "**")
+  ;
+  ; @example
+  ; (cover "user@email.com" "**")
+  ; =>
+  ; "**er@email.com"
+  ;
+  ; @example
+  ; (cover "user@email.com" "**" 2)
+  ; =>
+  ; "us**@email.com"
+  ;
+  ; "user"
+  ;   "**"
+  ; 2
+  ;
+  ; "user@"
+  ;   "*"
+  ; 2
+  ;
+  ; @return (string)
+  ([n x]
+   (cover n x 0))
+
+  ([n x offset]
+   (let [n (str n)
+         x (str x)]
+        (str (subs n 0 offset)
+             (subs x 0 (- (count n) offset))
+             (subs n   (+ (count x) offset))))))
+
 (defn split
   ; @param (*) n
   ; @param (clj: regex, cljs: regex or string) delimiter

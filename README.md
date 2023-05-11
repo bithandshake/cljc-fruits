@@ -47,6 +47,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Isomorphic error handler functions in the [`error.api`](documentation/cljc/error/API.md) namespace.
 
+- Form validator functions in the [`form.api`](documentation/cljc/form/API.md) namespace.
+
 - Number formatting functions in the [`format.api`](documentation/cljc/format/API.md) namespace.
 
 - Source code interpreters in the [`function.api`](documentation/cljc/function/API.md) namespace.

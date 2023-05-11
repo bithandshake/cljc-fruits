@@ -42,6 +42,7 @@
 (def get-nth-character core/get-nth-character)
 (def multiply          core/multiply)
 (def join              core/join)
+(def cover             core/cover)
 (def split             core/split)
 (def prefix            core/prefix)
 (def suffix            core/suffix)
