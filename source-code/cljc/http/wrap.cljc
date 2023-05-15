@@ -72,14 +72,14 @@
 
 (defn error-wrap
   ; @param (map) response-props
-  ; {:error-message (string)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 500}
   ;
   ; @example
-  ; (error-wrap {:error-message ":file-not-found"
-  ;              :status        404}
+  ; (error-wrap {:body   :file-not-found
+  ;              :status 404}
   ; =>
   ; {:body    ":file-not-found"
   ;  :headers {"Content-Type" "text/plain"}
@@ -90,14 +90,15 @@
   ;  :headers (map)
   ;  :session (map)
   ;  :status (integer)}
-  [{:keys [error-message] :as response-props}]
-  (response-wrap (merge {:body   error-message
-                         :status 500}
+  [{:keys [body] :as response-props}]
+  (response-wrap (merge {:body      (str body)
+                         :mime-type "text/plain"
+                         :status    500}
                         (select-keys response-props [:session :status]))))
 
 (defn html-wrap
   ; @param (map) response-props
-  ; {:body (string)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
@@ -116,12 +117,13 @@
   ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "text/html"}
+                         :mime-type "text/html"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 
 (defn json-wrap
   ; @param (map) response-props
-  ; {:body (string)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
@@ -140,20 +142,21 @@
   ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "application/json"}
+                         :mime-type "application/json"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 
-(defn map-wrap
+(defn text-wrap
   ; @param (map) response-props
-  ; {:body (map)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
   ; @example
-  ; (map-wrap {:body {...})
+  ; (text-wrap {:body "foo"})
   ; =>
-  ; {:body    "{...}"
+  ; {:body    "foo"
   ;  :headers {"Content-Type" "text/plain"}
   ;  :status  200}
   ;
@@ -163,7 +166,9 @@
   ;  :session (map)
   ;  :status (integer)}
   [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body (str body)}
+  (response-wrap (merge {:body      (str body)
+                         :mime-type "text/plain"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 
 (defn media-wrap
@@ -204,12 +209,13 @@
                          ; saving the file to the client device, even if its content
                          ; can be displayed.
                          ; :headers (if filename {"Content-Disposition" "attachment; filename=\""filename"\""})
-                         :headers (if filename {"Content-Disposition" "inline; filename=\""filename"\""})}
+                         :headers (if filename {"Content-Disposition" "inline; filename=\""filename"\""})
+                         :status  200}
                         (select-keys response-props [:mime-type :session :status]))))
 
 (defn xml-wrap
   ; @param (map) response-props
-  ; {:body (string)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
@@ -228,12 +234,13 @@
   ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "application/xml"}
+                         :mime-type "application/xml"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 
 (defn css-wrap
   ; @param (map) response-props
-  ; {:body (string)
+  ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
@@ -252,29 +259,6 @@
   ;  :status (integer)}
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "text/css"}
-                        (select-keys response-props [:session :status]))))
-
-(defn text-wrap
-  ; @param (map) response-props
-  ; {:body (string)
-  ;  :session (map)(opt)
-  ;  :status (integer)(opt)
-  ;   Default: 200}
-  ;
-  ; @example
-  ; (text-wrap {:body "foo"})
-  ; =>
-  ; {:body    "foo"
-  ;  :headers {"Content-Type" "text/plain"}
-  ;  :status  200}
-  ;
-  ; @return (map)
-  ; {:body (string)
-  ;  :headers (map)
-  ;  :session (map)
-  ;  :status (integer)}
-  [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body      (str body)
-                         :mime-type "text/plain"}
+                         :mime-type "text/css"
+                         :status    200}
                         (select-keys response-props [:session :status]))))

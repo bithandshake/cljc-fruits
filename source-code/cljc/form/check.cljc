@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn valid-pin?
+(defn pin-valid?
   ; @description
   ; Returns true if the given value is a valid PIN code.
   ;
@@ -19,25 +19,25 @@
   ; Default: 4
   ;
   ; @usage
-  ; (valid-pin? "0042")
+  ; (pin-valid? "0042")
   ;
   ; @usage
-  ; (valid-pin? "420069" 6)
+  ; (pin-valid? "420069" 6)
   ;
   ; @example
-  ; (valid-pin? "420069" 6)
+  ; (pin-valid? "420069" 6)
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n]
-   (valid-pin? n 4))
+   (pin-valid? n 4))
 
   ([n length]
    (let [pattern (patterns/pin-pattern length)]
         (re-match? (str n) pattern))))
 
-(defn valid-password?
+(defn password-valid?
   ; @description
   ; Returns true if the given value is a valid password.
   ;
@@ -56,41 +56,41 @@
   ; Default: 32
   ;
   ; @usage
-  ; (valid-password? "Password1")
+  ; (password-valid? "Password1")
   ;
   ; @usage
-  ; (valid-password? "Password1" 6)
+  ; (password-valid? "Password1" 6)
   ;
   ; @usage
-  ; (valid-password? "Password1" 6 16)
+  ; (password-valid? "Password1" 6 16)
   ;
   ; @example
-  ; (valid-password? "Password1" 6 16)
+  ; (password-valid? "Password1" 6 16)
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n]
-   (valid-password? 8 32))
+   (password-valid? 8 32))
 
   ([n min]
-   (valid-password? min 32))
+   (password-valid? min 32))
 
   ([n min max]
    (let [pattern (patterns/password-pattern min max)]
         (re-match? (str n) pattern))))
 
-(defn valid-email-address?
+(defn email-address-valid?
   ; @description
   ; Returns true if the given value is a valid email address.
   ;
   ; @param (*) n
   ;
   ; @usage
-  ; (valid-email-address? "user@email.com")
+  ; (email-address-valid? "user@email.com")
   ;
   ; @example
-  ; (valid-email-address? "user@email.com")
+  ; (email-address-valid? "user@email.com")
   ; =>
   ; true
   ;
@@ -99,14 +99,14 @@
   (let [pattern (patterns/email-address-pattern)]
        (re-match? (str n) pattern)))
 
-(defn valid-phone-number?
+(defn phone-number-valid?
   ; @description
   ; Returns true if the given value is a valid phone number.
   ;
   ; Phone number qualified as valid if ...
   ; ... its length is in a certain domain.
   ; ... its first letter is a plus sign.
-  ; 
+  ;
   ; @param (*) n
   ; @param (integer)(opt) min
   ; Default: 4
@@ -114,25 +114,25 @@
   ; Default: 20
   ;
   ; @usage
-  ; (valid-phone-number? "+36420001234")
+  ; (phone-number-valid? "+36420001234")
   ;
   ; @usage
-  ; (valid-phone-number? "+36420001234" 6)
+  ; (phone-number-valid? "+36420001234" 6)
   ;
   ; @usage
-  ; (valid-phone-number? "+36420001234" 6 24)
+  ; (phone-number-valid? "+36420001234" 6 24)
   ;
   ; @example
-  ; (valid-phone-number? "+36420001234" 6 24)
+  ; (phone-number-valid? "+36420001234" 6 24)
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n]
-   (valid-phone-number? 4 20))
+   (phone-number-valid? 4 20))
 
   ([n min]
-   (valid-phone-number? min 20))
+   (phone-number-valid? min 20))
 
   ([n min max]
    (let [pattern (patterns/phone-number-pattern min max)]

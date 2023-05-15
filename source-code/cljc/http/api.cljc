@@ -32,7 +32,6 @@
 (def error-wrap    wrap/error-wrap)
 (def html-wrap     wrap/html-wrap)
 (def json-wrap     wrap/json-wrap)
-(def map-wrap      wrap/map-wrap)
 (def media-wrap    wrap/media-wrap)
 (def xml-wrap      wrap/xml-wrap)
 (def css-wrap      wrap/css-wrap)

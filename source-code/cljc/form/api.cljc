@@ -8,10 +8,10 @@
 ;; ----------------------------------------------------------------------------
 
 ; form.check
-(def valid-pin?           check/valid-pin?)
-(def valid-password?      check/valid-password?)
-(def valid-email-address? check/valid-email-address?)
-(def valid-phone-number?  check/valid-phone-number?)
+(def pin-valid?           check/pin-valid?)
+(def password-valid?      check/password-valid?)
+(def email-address-valid? check/email-address-valid?)
+(def phone-number-valid?  check/phone-number-valid?)
 
 ; form.generate
 (def generate-pin      generate/generate-pin)
