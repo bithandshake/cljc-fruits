@@ -4,7 +4,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn pin-pattern
+(defn pin-code-pattern
   ; @description
   ; Returns a regex pattern that could be used for validate user input PIN codes.
   ;
@@ -16,19 +16,19 @@
   ; Default: 4
   ;
   ; @usage
-  ; (pin-pattern)
+  ; (pin-code-pattern)
   ;
   ; @usage
-  ; (pin-pattern 6)
+  ; (pin-code-pattern 6)
   ;
   ; @example
-  ; (pin-pattern 6)
+  ; (pin-code-pattern 6)
   ; =>
   ; #"[\d]{6,6}"
   ;
   ; @return (regex pattern)
   ([]
-   (pin-pattern 4))
+   (pin-code-pattern 4))
 
   ([length]
    (re-pattern (str "[\\d]{"length","length"}"))))

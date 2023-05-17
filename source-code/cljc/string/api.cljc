@@ -20,6 +20,7 @@
 (def max-length?                check/max-length?)
 (def length?                    check/length?)
 (def contains-part?             check/contains-part?)
+(def contains-digit?            check/contains-digit?)
 (def contains-lowercase-letter? check/contains-lowercase-letter?)
 (def contains-uppercase-letter? check/contains-uppercase-letter?)
 (def if-contains-part           check/if-contains-part)

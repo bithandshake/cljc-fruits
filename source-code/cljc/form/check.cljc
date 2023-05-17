@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn pin-valid?
+(defn pin-code-valid?
   ; @description
   ; Returns true if the given value is a valid PIN code.
   ;
@@ -19,22 +19,22 @@
   ; Default: 4
   ;
   ; @usage
-  ; (pin-valid? "0042")
+  ; (pin-valid-code? "0042")
   ;
   ; @usage
-  ; (pin-valid? "420069" 6)
+  ; (pin-valid-code? "420069" 6)
   ;
   ; @example
-  ; (pin-valid? "420069" 6)
+  ; (pin-valid-code? "420069" 6)
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n]
-   (pin-valid? n 4))
+   (pin-code-valid? n 4))
 
   ([n length]
-   (let [pattern (patterns/pin-pattern length)]
+   (let [pattern (patterns/pin-code-pattern length)]
         (re-match? (str n) pattern))))
 
 (defn password-valid?

@@ -7,21 +7,26 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn generate-pin
+(defn generate-pin-code
   ; @param (integer)(opt) length
   ; Default: 4
   ;
   ; @usage
-  ; (generate-pin)
+  ; (generate-pin-code)
   ;
   ; @example
-  ; (generate-pin)
+  ; (generate-pin-code)
   ; =>
   ; "0420"
   ;
+  ; @example
+  ; (generate-pin-code 6)
+  ; =>
+  ; "042069"
+  ;
   ; @return (string)
   ([]
-   (generate-pin 4))
+   (generate-pin-code 4))
 
   ([length]
    (-> length random/generate-number str)))

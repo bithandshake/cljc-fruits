@@ -183,6 +183,26 @@
   (clojure.string/includes? (str n)
                             (str x)))
 
+(defn contains-digit?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (contains-digit? "abc1")
+  ;
+  ; @example
+  ; (contains-digit? "abc1")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (contains-digit? "abc")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (some? (re-find #"\d" (str n))))
+
 (defn contains-lowercase-letter?
   ; @param (*) n
   ;
