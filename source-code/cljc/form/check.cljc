@@ -47,7 +47,7 @@
   ; ... contains at least one lowercase letter.
   ; ... contains at least one digit.
   ;
-  ; Allowed characters: ".-_!?#*"
+  ; Accented characters and the following special characters are allowed: .-_!?#*
   ;
   ; @param (*) n
   ; @param (integer)(opt) min

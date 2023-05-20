@@ -43,7 +43,7 @@
   ; ... contains at least one lowercase letter.
   ; ... contains at least one digit.
   ;
-  ; Allowed characters: ".-_!?#*"
+  ; Accented characters and the following special characters are allowed: .-_!?#*
   ;
   ; @param (integer)(opt) min
   ; Default: 8
@@ -72,7 +72,7 @@
    (password-pattern min 32))
 
   ([min max]
-   (re-pattern (str "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d\\.\\-\\_\\!\\?\\#\\*]{"min","max"}$"))))
+   (re-pattern (str "^(?=.*[a-ÿ])(?=.*[A-Ÿ])(?=.*\\d)[a-ÿA-Ÿ\\d\\.\\-\\_\\!\\?\\#\\*]{"min","max"}$"))))
 
 (defn email-address-pattern
   ; @description
