@@ -1,14 +1,23 @@
 
 (ns http.api
-    (:require [http.request :as request]
+    (:require [http.check   :as check]
+              [http.request :as request]
+              [http.utils   :as utils]
               [http.wrap    :as wrap]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+; http.check
+(def local-request?  check/local-request?)
+(def remote-request? check/remote-request?)
+
 ; http.request
+(def request->header           request/request->header)
 (def request->cookies          request/request->cookies)
 (def request->cookie           request/request->cookie)
+(def request->ip-address       request/request->ip-address)
+(def request->user-agent       request/request->user-agent)
 (def request->query-string     request/request->query-string)
 (def request->form-params      request/request->form-params)
 (def request->form-param       request/request->form-param)
@@ -25,6 +34,9 @@
 (def request->route-path       request/request->route-path)
 (def request->uri              request/request->uri)
 (def request->route-path       request/request->route-path)
+
+; http.utils
+(def capitalize-header utils/capitalize-header)
 
 ; http.wrap
 (def response-wrap wrap/response-wrap)

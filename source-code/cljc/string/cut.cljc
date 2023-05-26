@@ -198,6 +198,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -255,6 +256,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -312,6 +314,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -369,6 +372,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -426,6 +430,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -483,6 +488,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -540,6 +546,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage
@@ -597,6 +604,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
+  ;   If true, returns the whole string in case of no occurence found.
   ;   Default: false}
   ;
   ; @usage

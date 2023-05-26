@@ -1,6 +1,7 @@
 
 (ns map.key
-    (:require [noop.api :refer [return]]))
+    (:require [noop.api :refer [return]]
+              [loop.api :refer [reduce-pairs]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -109,22 +110,28 @@
 
 (defn rekey-items
   ; @param (map) n
-  ; @param (list of *) keys
+  ; @param (list of * pairs) key-pairs
   ;
   ; @usage
-  ; (rekey-items {:a "A" :c "C"} :a :b :c :d)
+  ; (rekey-items {:a "A" :b "B"} :a :x :b :y)
   ;
   ; @example
-  ; (rekey-items {:a "A" :c "C"} :a :b :c :d)
+  ; (rekey-items {:a "A" :b "B"} :a :x :b :y)
   ; =>
-  ; {:b "A" :d "C"}
+  ; {:x "A" :y "B"}
+  ;
+  ; @example
+  ; (rekey-items {:a "A" :b "B"} :c :z)
+  ; =>
+  ; {:a "A" :b "B"}
   ;
   ; @return (map)
-  [n & keys]
-  (letfn [(f [result dex x] (if (even? dex)
-                                (dissoc (assoc result (nth keys (inc dex)) (get result x)) x)
-                                (return result)))]
-         (reduce-kv f n (vec keys))))
+  [n & key-pairs]
+  ; TEMP#5500 (source-code/cljc/map/core.cljc)
+  (letfn [(f [n from to] (if (contains? n from)
+                             (dissoc (assoc n to (get n from)) from)
+                             (return n)))]
+         (reduce-pairs f n key-pairs)))
 
 (defn get-keys-by
   ; @param (map) n

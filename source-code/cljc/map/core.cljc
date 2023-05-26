@@ -1,7 +1,8 @@
 
 (ns map.core
     (:require [clojure.data :as data]
-              [noop.api     :refer [return]]))
+              [noop.api     :refer [return]]
+              [loop.api     :refer [reduce-pairs]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -219,14 +220,13 @@
 
 (defn assoc-some
   ; @description
-  ; Assoc the value to the n map if the value is something.
+  ; Assoc values to the n map if the value is something.
   ;
   ; @param (map) n
-  ; @param (*) key
-  ; @param (*) value
+  ; @param (list of * pairs) kv-pairs
   ;
   ; @usage
-  ; (assoc-some {} :a "A")
+  ; (assoc-some {} :a "A" :b "B")
   ;
   ; @example
   ; (assoc-some {:a [:b :c]} :d "D")
@@ -234,15 +234,21 @@
   ; {:a [:b :c] :d "D"}
   ;
   ; @example
-  ; (assoc-some {:a [:b :c]} :d nil)
+  ; (assoc-some {:a [:b :c]} :d nil :e "E")
   ; =>
-  ; {:a [:b :c]}
+  ; {:a [:b :c] :e "E"}
   ;
   ; @return (map)
-  [n key value]
-  (if (some?        value)
-      (assoc  n key value)
-      (return n)))
+  [n & kv-pairs]
+  ; TEMP#5500
+  ; This function uses the new reduce-pairs recursion that made for applying
+  ; functions on parameter pairs e.g. to make map functions take not just a single
+  ; key-value pair but more than one pairs.
+  ; Other map functions will use that recursion as well (in later versions).
+  (letfn [(f [n k v] (if (some? v)
+                         (assoc n k v)
+                         (return n)))]
+         (reduce-pairs f n kv-pairs)))
 
 (defn assoc-in-some
   ; @description

@@ -36,9 +36,7 @@
   ;  :headers (map)
   ;  :session (map)
   ;  :status (integer)}
-  [{:keys [headers mime-type] :as response-props}]
-  ; WARNING!
-  ; A :body és :mime-type tulajdonságok megadása szükséges a response-wrap függvény használatához!
+  [{:keys [headers mime-type] :as response-props :or {mime-type "text/plain"}}]
   (let [headers (merge {"Content-Type" (or mime-type "text/plain")} headers)]
        (merge {:headers headers :status 200}
               (select-keys response-props [:body :session :status]))))

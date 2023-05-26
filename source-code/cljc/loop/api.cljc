@@ -13,3 +13,5 @@
 (def some-indexed      core/some-indexed)
 (def do-indexed        core/do-indexed)
 (def do-while          core/do-while)
+(def reduce-pairs      core/reduce-pairs)
+(def apply-pairs       core/apply-pairs)

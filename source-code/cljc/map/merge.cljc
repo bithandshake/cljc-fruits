@@ -22,7 +22,7 @@
                       (map? x))
                  (merge-with f result x)
                  (return x)))]
-         (if (some   identity xyz)
+         (if (some identity xyz)
              (reduce f n xyz)
              (return n))))
 

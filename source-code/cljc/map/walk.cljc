@@ -36,8 +36,8 @@
   ;
   ; @return (map)
   [n update-f]
-  ; A rekurzió a vektorok elemein NEM hajtja végre az update-f függvényt,
-  ; mivel azok a térképek értékeinek megfelelői!
+  ; The recursion DOES NOT apply the update-f function on vector items,
+  ; because vector items are equivalents with map values not with map keys!
   (letfn [(f [n] (cond (vector? n) (reduce    #(conj  %1               (f %2)) [] n)
                        (map?    n) (reduce-kv #(assoc %1 (update-f %2) (f %3)) {} n)
                        :return  n))]
@@ -70,8 +70,8 @@
   ;
   ; @return (map)
   [n update-f]
-  ; A rekurzió a vektorok elemein is végrehajtja az update-f függvényt,
-  ; mivel azok a térképek értékeinek megfelelői!
+  ; The recursion applies the update-f function on vector items as well,
+  ; because vector items are equivalents with map values!
   (letfn [(f [n] (cond (map?    n) (reduce-kv #(assoc %1 %2 (f %3)) {} n)
                        (vector? n) (reduce    #(conj  %1    (f %2)) [] n)
                        :return     (update-f n)))]
@@ -110,8 +110,8 @@
   ;
   ; @return (map)
   [n k-f v-f]
-  ; A rekurzió a vektorok elemein is végrehajtja az v-f függvényt,
-  ; mivel azok a térképek értékeinek megfelelői!
+  ; The recursion applies the v-f function on vector items as well,
+  ; because vector items are equivalents with map values!
   (letfn [(f [n] (cond (map?    n) (reduce-kv #(assoc %1 (k-f %2) (f %3)) {} n)
                        (vector? n) (reduce    #(conj  %1          (f %2)) [] n)
                        :return     (v-f n)))]
@@ -178,8 +178,8 @@
   ;
   ; @return (map)
   [n r-f]
-  ; A rekurzió a vektorok elemein is végrehajtja az f függvényt,
-  ; mivel azok a térképek értékeinek megfelelői!
+  ; The recursion applies the f function on vector items as well,
+  ; because vector items are equivalents with map values!
   (letfn [(m-f [n k x] (if   (r-f     x) n (assoc n k (f x))))
           (v-f [n   x] (if   (r-f     x) n (conj  n   (f x))))
           (f   [n]     (cond (map?    n)   (reduce-kv m-f {} n)
