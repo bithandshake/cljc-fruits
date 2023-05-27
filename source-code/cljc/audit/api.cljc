@@ -1,23 +1,25 @@
 
-(ns form.api
-    (:require [form.check    :as check]
-              [form.generate :as generate]
-              [form.patterns :as patterns]))
+(ns audit.api
+    (:require [audit.check    :as check]
+              [audit.generate :as generate]
+              [audit.patterns :as patterns]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; form.check
+; audit.check
+(def ip-address-valid?    check/ip-address-valid?)
 (def pin-code-valid?      check/pin-code-valid?)
 (def password-valid?      check/password-valid?)
 (def email-address-valid? check/email-address-valid?)
 (def phone-number-valid?  check/phone-number-valid?)
 
-; form.generate
+; audit.generate
 (def generate-pin-code generate/generate-pin-code)
 (def generate-password generate/generate-password)
 
-; form.patterns
+; audit.patterns
+(def ip-address-pattern    patterns/ip-address-pattern)
 (def pin-code-pattern      patterns/pin-code-pattern)
 (def password-pattern      patterns/password-pattern)
 (def email-address-pattern patterns/email-address-pattern)

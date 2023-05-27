@@ -29,7 +29,7 @@
   (str n))
 
 (defn string->mixed
-  ; @param (n) string
+  ; @param (string) n
   ;
   ; @example
   ; (string->mixed "")
@@ -57,8 +57,34 @@
       (let [x (read-str n)]
            (if (some #(% x) [keyword? map? vector? number?])
                (return x)
-               ; Előfordulhat, hogy a read-str függvény egy Error objektummal tér vissza
+               ; In case of the 'read-str' function returns an Error object it's
+               ; important to return that object from this function as well.
                (return n)))))
+
+(defn json->map
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (json->map "{\"name\":\"value\"}")
+  ;
+  ; @example
+  ; (json->map "{\"name\":\"value\"}")
+  ; =>
+  ; {"name" "value"}
+  ;
+  ; @example
+  ; (json->map "{\"name\":[\"value\"]}")
+  ; =>
+  ; {"name" ["value"]}
+  ;
+  ; @return (map)
+  [n]
+  ; https://ask.clojure.org/index.php/2366/accept-and-ignore-colon-between-key-and-value-in-map-literals
+  ; In JSON syntax there is a colon between names and values, but the Clojure reader
+  ; cannot deal with that colon, therefore all delimiter colons has to be removed
+  ; before reading a JSON data.
+  (letfn [(remove-delimiter-colons-f [%] (string/replace-part % #"(?<=\"[a-zA-Z0-9\-\_]+\")\:" " "))]
+         (-> n remove-delimiter-colons-f string->mixed)))
 
 (defn string->map
   ; @param (string) n

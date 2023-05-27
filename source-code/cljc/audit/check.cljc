@@ -1,10 +1,29 @@
 
-(ns form.check
-    (:require [form.patterns :as patterns]
-              [regex.api     :refer [re-match?]]))
+(ns audit.check
+    (:require [audit.patterns :as patterns]
+              [regex.api      :refer [re-match?]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn ip-address-valid?
+  ; @description
+  ; Returns true if the given value is a valid IP address.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (ip-address-valid? "0.0.0.0")
+  ;
+  ; @example
+  ; (ip-address-valid? "0.0.0.0")
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (let [pattern (patterns/ip-address-pattern)]
+       (re-match? (str n) pattern)))
 
 (defn pin-code-valid?
   ; @description
@@ -19,13 +38,13 @@
   ; Default: 4
   ;
   ; @usage
-  ; (pin-valid-code? "0042")
+  ; (pin-code-valid? "0042")
   ;
   ; @usage
-  ; (pin-valid-code? "420069" 6)
+  ; (pin-code-valid? "420069" 6)
   ;
   ; @example
-  ; (pin-valid-code? "420069" 6)
+  ; (pin-code-valid? "420069" 6)
   ; =>
   ; true
   ;

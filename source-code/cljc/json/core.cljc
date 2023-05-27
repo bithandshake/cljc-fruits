@@ -28,6 +28,9 @@
 (defn unkeywordize-key
   ; @param (*) n
   ;
+  ; @usage
+  ; (unkeywordize-key :my-namespace/key)
+  ;
   ; @example
   ; (unkeywordize-key :my-namespace/key)
   ; =>
@@ -39,6 +42,9 @@
 
 (defn keywordize-key
   ; @param (*) n
+  ;
+  ; @usage
+  ; (keywordize-key "my-namespace/key")
   ;
   ; @example
   ; (keywordize-key "my-namespace/key")
@@ -54,6 +60,12 @@
 
 (defn underscore-key
   ; @param (*) n
+  ;
+  ; @usage
+  ; (underscore-key :my-namespace/key)
+  ;
+  ; @usage
+  ; (underscore-key "my-namespace/key")
   ;
   ; @example
   ; (underscore-key :my-namespace/key)
@@ -73,6 +85,12 @@
 
 (defn hyphenize-key
   ; @param (*) n
+  ;
+  ; @usage
+  ; (hyphenize-key :my_namespace/key)
+  ;
+  ; @usage
+  ; (hyphenize-key "my_namespace/key")
   ;
   ; @example
   ; (hyphenize-key :my_namespace/key)
@@ -96,6 +114,12 @@
 (defn CamelCase-key
   ; @param (*) n
   ;
+  ; @usage
+  ; (CamelCase-key :my-key)
+  ;
+  ; @usage
+  ; (CamelCase-key "my-key")
+  ;
   ; @example
   ; (CamelCase-key :my-key)
   ; =>
@@ -114,6 +138,12 @@
 
 (defn snake-case-key
   ; @param (*) n
+  ;
+  ; @usage
+  ; (snake-case-key :myKey)
+  ;
+  ; @usage
+  ; (snake-case-key "myKey")
   ;
   ; @example
   ; (snake-case-key :myKey)
@@ -137,6 +167,9 @@
 (defn unkeywordized-value?
   ; @param (*) n
   ;
+  ; @usage
+  ; (unkeywordized-value? "*:apple")
+  ;
   ; @example
   ; (unkeywordized-value? "*:apple")
   ; =>
@@ -144,6 +177,7 @@
   ;
   ; @return (boolean)
   [n]
+  ; XXX#5914 (source-code/cljc/json/config.cljc)
   (and    (string? n)
        (> (count   n) 2)
        (= config/KEYWORD-PREFIX (str (nth n 0)))
@@ -152,6 +186,9 @@
 (defn keywordize-value
   ; @param (*) n
   ;
+  ; @usage
+  ; (keywordize-value "*:my-value")
+  ;
   ; @example
   ; (keywordize-value "*:my-value")
   ; =>
@@ -159,12 +196,16 @@
   ;
   ; @return (*)
   [n]
+  ; XXX#5914 (source-code/cljc/json/config.cljc)
   (if (unkeywordized-value? n)
       (->     n (subs 2) keyword)
       (return n)))
 
 (defn unkeywordize-value
   ; @param (*) n
+  ;
+  ; @usage
+  ; (unkeywordize-value :my-value)
   ;
   ; @example
   ; (unkeywordize-value :my-value)
@@ -173,6 +214,7 @@
   ;
   ; @return (*)
   [n]
+  ; XXX#5914 (source-code/cljc/json/config.cljc)
   (if (keyword?                  n)
       (str config/KEYWORD-PREFIX n)
       (return                    n)))
@@ -182,6 +224,9 @@
 
 (defn trim-value
   ; @param (*) n
+  ;
+  ; @usage
+  ; (trim-value " My value ")
   ;
   ; @example
   ; (trim-value " My value ")
@@ -200,6 +245,9 @@
 (defn parse-number-value
   ; @param (*) n
   ;
+  ; @usage
+  ; (parse-number-value "89.420")
+  ;
   ; @example
   ; (parse-number-value "89.420")
   ; =>
@@ -215,6 +263,9 @@
 (defn unkeywordize-keys
   ; @param (*) n
   ;
+  ; @usage
+  ; (unkeywordize-keys {:my-namespace/key :my-value})
+  ;
   ; @example
   ; (unkeywordize-keys {:my-namespace/key :my-value})
   ; =>
@@ -222,14 +273,17 @@
   ;
   ; @return (*)
   [n]
-  ; Az unkeywordize-key függvény csak keyword típusokat módosít, ezért nincs szükség további
-  ; típus-vizsgálatra!
+  ; This function uses the 'unkeywordize-key' function that only changes keyword
+  ; type values, therefore no need to use further type-checking in this function.
   (cond (map?    n) (map/->>keys      n unkeywordize-keys)
         (vector? n) (vector/->items   n unkeywordize-keys)
         :return     (unkeywordize-key n)))
 
 (defn keywordize-keys
   ; @param (*) n
+  ;
+  ; @usage
+  ; (keywordize-keys {"my-namespace/key" :my-value})
   ;
   ; @example
   ; (keywordize-keys {"my-namespace/key" :my-value})
@@ -247,6 +301,12 @@
 
 (defn underscore-keys
   ; @param (*) n
+  ;
+  ; @usage
+  ; (underscore-keys {:my-namespace/key :my-value})
+  ;
+  ; @usage
+  ; (underscore-keys {"my-namespace/key" :my-value})
   ;
   ; @example
   ; (underscore-keys {:my-namespace/key :my-value})
@@ -266,6 +326,12 @@
 
 (defn hyphenize-keys
   ; @param (*) n
+  ;
+  ; @usage
+  ; (hyphenize-keys {:my_namespace/key :my-value})
+  ;
+  ; @usage
+  ; (hyphenize-keys {"my_namespace/key" :my-value})
   ;
   ; @example
   ; (hyphenize-keys {:my_namespace/key :my-value})
@@ -289,6 +355,12 @@
 (defn CamelCase-keys
   ; @param (*) n
   ;
+  ; @usage
+  ; (Case-keys {:my-key :my-value})
+  ;
+  ; @usage
+  ; (Case-keys {"my-key" :my-value})
+  ;
   ; @example
   ; (Case-keys {:my-key :my-value})
   ; =>
@@ -307,6 +379,12 @@
 
 (defn snake-case-keys
   ; @param (*) n
+  ;
+  ; @usage
+  ; (snake-case-keys {:myKey :my-value})
+  ;
+  ; @usage
+  ; (snake-case-keys {"myKey" :my-value})
   ;
   ; @example
   ; (snake-case-keys {:myKey :my-value})
@@ -330,6 +408,9 @@
 (defn unkeywordize-values
   ; @param (*) n
   ;
+  ; @usage
+  ; (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
+  ;
   ; @example
   ; (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
   ; =>
@@ -339,14 +420,17 @@
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
-  ; Az unkeywordize- függvény csak keyword típusokat módosít, ezért nincs szükség további
-  ; típus-vizsgálatra!
+  ; This function uses the 'unkeywordize-value' function that only changes keyword
+  ; type values, therefore no need to use further type-checking in this function.
   (cond (map?    n) (map/->>values      n unkeywordize-values)
         (vector? n) (vector/->items     n unkeywordize-values)
         :return     (unkeywordize-value n)))
 
 (defn keywordize-values
   ; @param (*) n
+  ;
+  ; @usage
+  ; (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
   ;
   ; @example
   ; (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
@@ -357,8 +441,8 @@
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
-  ; A keywordize-value függvény csak string típusokat módosít, ezért nincs szükség további
-  ; típus-vizsgálatra!
+  ; This function uses the 'keywordize-value' function that only changes string
+  ; type values, therefore no need to use further type-checking in this function.
   (cond (map?    n) (map/->>values    n keywordize-values)
         (vector? n) (vector/->items   n keywordize-values)
         :return     (keywordize-value n)))
@@ -368,6 +452,9 @@
 
 (defn trim-values
   ; @param (*) n
+  ;
+  ; @usage
+  ; (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
   ;
   ; @example
   ; (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
@@ -386,6 +473,9 @@
 (defn parse-number-values
   ; @param (*) n
   ;
+  ; @usage
+  ; (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
+  ;
   ; @example
   ; (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
   ; =>
@@ -403,6 +493,9 @@
 (defn remove-blank-values
   ; @param (*) n
   ;
+  ; @usage
+  ; (remove-blank-values {:a "" :c [] :f {:g nil}})
+  ;
   ; @example
   ; (remove-blank-values {:a "" :c [] :f {:g nil}})
   ; =>
@@ -410,13 +503,13 @@
   ;
   ; @return (*)
   [n]
-  ; A remove-blank-values függvény az üres értékek eltávolítása után rekurzívan
-  ; meghívja önmagát addig, amíg már nem okoz újabb változást az n értékében,
-  ; így biztosítva, hogy ne hagyjon maga után üres értékeket.
-  ; Pl.: Ha az n térkép egyik értéke egy vektor, amiben egy üres térkép van,
-  ;      akkor a rekurzió első iterációjakor a vektor még nem üres,
-  ;      de az üres térkép eltávolítása után az azt tartalmazó vektor is üressé
-  ;      válik és ezért a következő iterációban már eltávolítható.
+  ; This function calls itself recursively after it removes the blank values
+  ; from the given data, until it can't find more blank values.
+  ; E.g. If the given 'n' parameter has an item that is a vector that contains
+  ;      an empty map, after the first call of this function only the empty map
+  ;      is being removed because the containing vector was not empty, but after
+  ;      removing the empty map from the vector, the vector gets being empty and
+  ;      the second call of this function will remove the just emptied vector as well.
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
               (if (=                 n result)

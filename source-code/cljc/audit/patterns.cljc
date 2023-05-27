@@ -1,12 +1,28 @@
 
-(ns form.patterns)
+(ns audit.patterns)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn ip-address-pattern
+  ; @description
+  ; Returns a regex pattern that matches with valid IP address.
+  ;
+  ; @usage
+  ; (ip-address-pattern)
+  ;
+  ; @example
+  ; (ip-address-pattern)
+  ; =>
+  ; #"[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}"
+  ;
+  ; @return (regex pattern)
+  []
+  (re-pattern (str "[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}")))
 
 (defn pin-code-pattern
   ; @description
-  ; Returns a regex pattern that could be used for validate user input PIN codes.
+  ; Returns a regex pattern that matches with valid PIN codes.
   ;
   ; PIN code qualified as valid if ...
   ; ... only contains digits.
@@ -35,7 +51,7 @@
 
 (defn password-pattern
   ; @description
-  ; Returns a regex pattern that could be used for validate user input passwords.
+  ; Returns a regex pattern that matches with valid passwords.
   ;
   ; Password qualified as valid if ...
   ; ... its length is in a certain domain.
@@ -76,7 +92,7 @@
 
 (defn email-address-pattern
   ; @description
-  ; Returns a regex pattern that could be used for validate user input email addresses.
+  ; Returns a regex pattern that matches with valid email addresses.
   ;
   ; @usage
   ; (email-address-pattern)
@@ -92,7 +108,7 @@
 
 (defn phone-number-pattern
   ; @description
-  ; Returns a regex pattern that could be used for validate user input phone numbers.
+  ; Returns a regex pattern that matches with valid phone numbers.
   ;
   ; Phone number qualified as valid if ...
   ; ... its length is in a certain domain.

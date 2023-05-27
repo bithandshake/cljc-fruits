@@ -33,6 +33,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Clojure atom functions in the [`atom.api`](documentation/cljc/atom/API.md) namespace.
 
+- Validator functions in the [`audit.api`](documentation/cljc/audit/API.md) namespace.
+
 - Base64 encoding functions in the [`base64.api`](documentation/cljc/base64/API.md) namespace.
 
 - Blob object functions in the [`blob.api`](documentation/cljc/blob/API.md) namespace.
@@ -46,8 +48,6 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 - EQL syntax functions in the [`eql.api`](documentation/cljc/eql/API.md) namespace.
 
 - Isomorphic error handler functions in the [`error.api`](documentation/cljc/error/API.md) namespace.
-
-- Form validator functions in the [`form.api`](documentation/cljc/form/API.md) namespace.
 
 - Number formatting functions in the [`format.api`](documentation/cljc/format/API.md) namespace.
 

@@ -10,10 +10,10 @@
   ; @param (keyword) n
   ;
   ; @usage
-  ; (add-namespace :a :b)
+  ; (add-namespace :b :a)
   ;
   ; @example
-  ; (add-namespace :a :b)
+  ; (add-namespace :b :a)
   ; =>
   ; :a/b
   ;
@@ -26,7 +26,7 @@
   ([n]
    (keyword (random/generate-uuid) (name n)))
 
-  ([namespace n]
+  ([n namespace]
    (keyword (name namespace) (name n))))
 
 (defn get-namespace
