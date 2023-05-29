@@ -57,11 +57,15 @@
                          (f n)))))
 
 (defn use-replacements
+  ; @description
+  ; Replacement markers only contain numbers in case of more than one replacement passed.
+  ; If only one replacement passed, its marker is a single percent character.
+  ;
   ; @param (*) n
   ; @param (vector) replacements
   ; @param (map)(opt) options
   ; {:ignore? (boolean)(opt)
-  ;   The function returns nil if any of the replacements is nil or empty.
+  ;   The function returns NIL if any of the replacements is NIL or empty.
   ;   Default: true}
   ;
   ; @usage
@@ -87,27 +91,13 @@
    (use-replacements n replacements {}))
 
   ([n replacements {:keys [ignore?] :or {ignore? true}}]
-   ; XXX#4509
-   ;
-   ; A behelyettesíthetőséget jelző karakter abban az esetben van számmal jelölve,
-   ; (pl. %1, %2, ...) ha a szöveg több behelyettesítést fogad.
-   ;
-   ; Hasonlóan az anoním függvények paramétereinek elnevezéséhez, ahol az EGY
-   ; paramétert fogadó függvények egyetlen paraméterének neve egy számmal NEM
-   ; megkülönböztett % karakter és a TÖBB paramétert fogadó függvények paramétereinek
-   ; nevei pedig számokkal megkülönböztetett %1, %2, ... elnevezések!
-   ;
-   ; Abban az esetben, ha valamelyik behelyettesítő kifejezés értéke üres (nil, "")
-   ; a függvény visszatérési értéke egy üres string ("")!
-   ; Emiatt nem szükséges máshol kezelni, hogy ne jelenjenek meg a hiányos feliratok,
-   ; mert ez a use-replacements függvényben kezelve van!
    (let [n (str n)]
         (when (vector? replacements)
                       ; ...
               (letfn [(f? [] (= 1 (count replacements)))
                       ; ...
                       (f1 [n marker replacement]
-                          ; The replacement's value could be any type!
+                          ; Replacement could be any type it will be converted to string!
                           (if (or (-> replacement str empty? not)
                                   (not ignore?))
                               (clojure.string/replace n marker (str replacement))))
@@ -128,10 +118,12 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (use-replacement "Hi, my name is %" "John")
+  ; (use-replacement "Hi, my name is %"
+  ;                  "John")
   ;
   ; @example
-  ; (use-replacement "Hi, my name is %" "John")
+  ; (use-replacement "Hi, my name is %"
+  ;                  "John")
   ; =>
   ; "Hi, my name is John"
   ;
@@ -173,15 +165,18 @@
   ; @param (string) placeholder
   ;
   ; @usage
-  ; (use-placeholder "My content" "My placeholder")
+  ; (use-placeholder "My content"
+  ;                  "My placeholder")
   ;
   ; @example
-  ; (use-placeholder "My content" "My placeholder")
+  ; (use-placeholder "My content"
+  ;                  "My placeholder")
   ; =>
   ; "My content"
   ;
   ; @example
-  ; (use-placeholder "" "My placeholder")
+  ; (use-placeholder ""
+  ;                  "My placeholder")
   ; =>
   ; "My placeholder"
   ;
