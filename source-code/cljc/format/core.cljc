@@ -50,13 +50,15 @@
   ; @return (string)
   [n]
   (let [n (str n)]
-       (if (= (str "-")
+       (if (= (-> "-"     str)
               (-> n first str))
            (return n)
            (str "+"n))))
 
 (defn group-number
   ; @param (number or string) n
+  ; @param (string)(opt) delimiter
+  ; Default: ","
   ;
   ; @usage
   ; (group-number 4200.5)
@@ -67,30 +69,33 @@
   ; "4 200.5"
   ;
   ; @return (string)
-  [n]
-  ; Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
-  ; csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
-  ;
-  ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
-  ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
-  ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
-  ;
-  ; base:        az n string első (kizárólag) számjegyekből álló blokkja
-  ; group-count: a base string hány darab három karakteres blokkra osztható
-  ; offset:      a base string három karakteres blokkokra osztása után hány karakter marad ki (a base string elején)
-  (let [base        (re-find #"\d+" n)
-        group-count (quot (count base) 3)
-        offset      (-    (count base) (* 3 group-count))]
-       ; Abban az esetben, ha az offset értéke 0, mert a base karaktereinek száma hárommal osztható,
-       ; szükséges a ciklus kimeneti értékének elejéről a felesleges elválasztó karaktert eltávolítani!
-       (str (string/trim (reduce (fn [result dex]
-                                     (let [x (+ offset (* 3 dex))]
-                                          (str result " " (subs base x (+ x 3)))))
-                                 (subs base 0 offset)
-                                 (range group-count)))
-            ; A csoportosítás kimenetéhez szükséges hozzáfűzni az n string nem csoportosított részét
-            ; (a base string után következő részt)
-            (subs n (count base)))))
+  ([n]
+   (group-number n ","))
+
+  ([n delimiter]
+   ; Nagy mennyiségben és gyakori frissítéssel megjelenített számok – group-number függvénnyel való
+   ; csoportosítával – megjelenítésekor a függvény további optimalizására is szükség lehet.
+   ;
+   ; A számjegyek csoportosításánál használt elválasztó a white-space karakter (" "),
+   ; a csoportok mérete pedig 3 karakterben van rögzítve. Ezen értékek paraméterként
+   ; nem átadhatók, ezzel is csökkentve a függvény számításikapacitás-igényét.
+   ;
+   ; base:        az n string első (kizárólag) számjegyekből álló blokkja
+   ; group-count: a base string hány darab három karakteres blokkra osztható
+   ; offset:      a base string három karakteres blokkokra osztása után hány karakter marad ki (a base string elején)
+   (let [base        (re-find #"\d+" n)
+         group-count (quot (count base) 3)
+         offset      (-    (count base) (* 3 group-count))]
+        ; Abban az esetben, ha az offset értéke 0, mert a base karaktereinek száma hárommal osztható,
+        ; szükséges a ciklus kimeneti értékének elejéről a felesleges elválasztó karaktert eltávolítani!
+        (str (string/trim (reduce (fn [result dex]
+                                      (let [x (+ offset (* 3 dex))]
+                                           (str result delimiter (subs base x (+ x 3)))))
+                                  (subs base 0 offset)
+                                  (range group-count)))
+             ; A csoportosítás kimenetéhez szükséges hozzáfűzni az n string nem csoportosított részét
+             ; (a base string után következő részt)
+             (subs n (count base))))))
 
 (defn leading-zeros
   ; @param (number or string) n
@@ -197,7 +202,7 @@
             (< count 1) x
             ; If x is NOT an empty string ...
             (if-let [separator-index (string/first-dex-of x ".")]
-                    ; If x is contains "." ...
+                    ; If x contains "." ...
                     (let [diff (- count separator-index length 1)]
                          (cond ; If x is too long ...
                                (> diff 0)
@@ -207,7 +212,7 @@
                                (str x (trailing-zeros nil (- 0 diff)))
                                ; If x is ...
                                (= diff 0) x))
-                    ; If x is NOT contains "." ...
+                    ; If x does NOT contain "." ...
                     (str x "." (trailing-zeros nil length)))))))
 
 (defn round
@@ -226,11 +231,22 @@
   ; =>
   ; "1M"
   ;
+  ; @example
+  ; (round 1000420069)
+  ; =>
+  ; "1B"
+  ;
   ; @return (string)
   [n]
-  (cond (>= n 1000000) (str (Math/round (/ n 1000000)) "M")
-        (>= n 1000)    (str (Math/round (/ n 1000))    "K")
-        :return        (str (Math/round n))))
+  ; TODO
+  ; Make this function more precise:
+  ; (round 1740)
+  ; =>
+  ; "1.7K" (instead of "2K")
+  (cond (>= n 1000000000) (str (Math/round (/ n 1000000)) "B")
+        (>= n 1000000)    (str (Math/round (/ n 1000000)) "M")
+        (>= n 1000)       (str (Math/round (/ n 1000))    "K")
+        :return           (str (Math/round n))))
 
 (defn inc-version
   ; @param (string) n
@@ -275,7 +291,7 @@
                              (implode-f
                                         ; BUG#0080
                                         ; The leading zeros has to be removed to prevent the update-whole-number
-                                        ; function from parsing the n string (e.g. "008") in a non-decimal system.
+                                        ; function from parsing the n string (e.g. "008") using a non-decimal system.
                                         (let [bugfix (remove-leading-zeros n)]
                                              (leading-zeros (mixed/update-whole-number bugfix inc) (count n)))
 

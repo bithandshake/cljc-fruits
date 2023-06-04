@@ -7,6 +7,9 @@
 (defn to-keyword
   ; @param (integer) n
   ;
+  ; @usage
+  ; (to-keyword 2)
+  ;
   ; @example
   ; (to-keyword 2)
   ; =>

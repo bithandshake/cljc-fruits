@@ -124,7 +124,7 @@
   ;
   ; Phone number qualified as valid if ...
   ; ... its length is in a certain domain.
-  ; ... its first letter is a plus sign.
+  ; ... its first character is a plus sign.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min

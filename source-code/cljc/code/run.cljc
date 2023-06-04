@@ -20,14 +20,14 @@
    (run-code! source-code []))
 
   ([source-code env-vars]
-   ; The source code passed to the 'load-string' function will be evaluated in
+   ; Source code that passed to the 'load-string' function will be evaluated in
    ; the clojure.core namespace, therefore the given environment variables must
    ; be defined with {:private true} setting to prevent the name conflicts in
    ; other namespaces.
    ;
    ; Tools like Ring wrap-reload redefines constants and functions in watched
-   ; namespaces when the code changes and it would cause name conflicts if the
-   ; 'run-code!' function doesn't define vars only in its private scope.
+   ; namespaces when the code changes and it can cause name conflicts if the
+   ; 'run-code!' function doesn't define vars only in private scope.
    #?(:clj (if (string/nonblank? source-code)
                (letfn [(environment-f [environment [var-name var-value]]
                                       (str environment "(def ^{:private true} "var-name" "var-value")\n"))]

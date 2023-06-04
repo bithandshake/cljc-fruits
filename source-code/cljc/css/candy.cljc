@@ -289,7 +289,7 @@
   ;
   ; @return (string)
   [n]
-  (cond (string?  n) (str "var( --"       n  " )")
+  (cond (string?  n) (str "var( --" n        " )")
         (keyword? n) (str "var( --" (name n) " )")))
 
 (defn var-key

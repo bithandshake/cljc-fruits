@@ -25,7 +25,7 @@
   ; XXX#4101
   ; The ASCII (7bit) character table contains 128 characters, therefore if the
   ; shifted character is not in the range (0 - 127) subtracting 128 puts it back
-  ; to the range and of course the decrypt method does the same but reversed (adding 128).
+  ; to the range and of course the decrypt method does the same in reversed (adding 128).
   ; 112 + 28 > 140 (out of range)
   ;            140 - 128 > 12
   (let [key-length (count key)

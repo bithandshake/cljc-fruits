@@ -18,7 +18,7 @@
   ;
   ; @return (boolean)
   [n]
-  (string/min-length? n 60))
+  (string/length-min? n 60))
 
 (defn mixed->wrap-items?
   ; @param (*) n

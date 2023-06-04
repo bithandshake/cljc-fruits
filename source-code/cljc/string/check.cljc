@@ -78,20 +78,20 @@
   (>= 0 (compare (str a)
                  (str b))))
 
-(defn min-length?
+(defn length-min?
   ; @param (*) n
   ; @param (integer) min
   ;
   ; @usage
-  ; (min-length? "abc" 3)
+  ; (length-min? "abc" 3)
   ;
   ; @example
-  ; (min-length? "abc" 3)
+  ; (length-min? "abc" 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (min-length? "abc" 4)
+  ; (length-min? "abc" 4)
   ; =>
   ; false
   ;
@@ -100,20 +100,20 @@
   (and (-> min integer?)
        (<= min (-> n str count))))
 
-(defn max-length?
+(defn length-max?
   ; @param (*) n
   ; @param (integer) max
   ;
   ; @usage
-  ; (max-length? "abc" 3)
+  ; (length-max? "abc" 3)
   ;
   ; @example
-  ; (max-length? "abc" 3)
+  ; (length-max? "abc" 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (max-length? "abc" 2)
+  ; (length-max? "abc" 2)
   ; =>
   ; false
   ;
@@ -122,10 +122,30 @@
   (and (-> max integer?)
        (>= max (-> n str count))))
 
+(defn length-between?
+  ; @param (*) n
+  ; @param (integer) min
+  ; @param (integer) max
+  ;
+  ; @example
+  ; (length-between? "abc" 3 4)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (length-between? "abc" 2 4)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n min max]
+  (let [n (str n)]
+       (and (<= min (count n))
+            (>= max (count n)))))
+
 (defn length?
   ; @param (*) n
-  ; @param (integer) length / min
-  ; @param (integer)(opt) max
+  ; @param (integer) length
   ;
   ; @example
   ; (length? "abc" 3)
@@ -137,19 +157,9 @@
   ; =>
   ; false
   ;
-  ; @example
-  ; (length? "abc" 2 4)
-  ; =>
-  ; true
-  ;
   ; @return (boolean)
-  ([n length]
-   (= length (-> n str count)))
-
-  ([n min max]
-   (let [n (str n)]
-        (and (<= min (count n))
-             (>= max (count n))))))
+  [n length]
+  (= length (-> n str count)))
 
 (defn contains-part?
   ; @param (*) n
