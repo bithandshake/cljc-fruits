@@ -20,6 +20,21 @@
   [n]
   (str "calc(" n ")"))
 
+(defn fr
+  ; @param (ms) n
+  ;
+  ; @usage
+  ; (fr 420)
+  ;
+  ; @example
+  ; (fr 420)
+  ; =>
+  ; "420fr"
+  ;
+  ; @return (string)
+  [n]
+  (str n "fr"))
+
 (defn ms
   ; @param (ms) n
   ;
@@ -79,6 +94,22 @@
   ; @return (string)
   [n]
   (str n "px"))
+
+(defn repeat-
+  ; @param (integer) count
+  ; @param (string) value
+  ;
+  ; @usage
+  ; (repeat- 3 "1fr")
+  ;
+  ; @example
+  ; (repeat- 3 "1fr")
+  ; =>
+  ; "repeat(3, 1fr)"
+  ;
+  ; @return (string)
+  [count value]
+  (str "repeat("count", "value")"))
 
 (defn rotate
   ; @param (deg) n

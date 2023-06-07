@@ -8,10 +8,12 @@
 
 ; css.candy
 (def calc               candy/calc)
+(def fr                 candy/fr)
 (def ms                 candy/ms)
 (def s                  candy/s)
 (def percent            candy/percent)
 (def px                 candy/px)
+(def repeat-            candy/repeat-)
 (def rotate             candy/rotate)
 (def rotate-x           candy/rotate-x)
 (def rotate-y           candy/rotate-y)
