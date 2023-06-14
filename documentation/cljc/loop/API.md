@@ -7,6 +7,8 @@
 
 - [<-walk](#-walk)
 
+- [apply-pairs](#apply-pairs)
+
 - [do-indexed](#do-indexed)
 
 - [do-while](#do-while)
@@ -14,6 +16,8 @@
 - [reduce-indexed](#reduce-indexed)
 
 - [reduce-kv-indexed](#reduce-kv-indexed)
+
+- [reduce-pairs](#reduce-pairs)
 
 - [reduce-range](#reduce-range)
 
@@ -87,6 +91,63 @@ Every function takes the previous function's result as an only argument.
 
 ---
 
+### apply-pairs
+
+```
+@description
+Iterates over the given parameter pairs (pair by pair) and passes them
+to the given 'f' function with the result of the previous iteration.
+```
+
+```
+@param (function) f
+@param (map) initial
+@param (list of * pairs) pairs
+```
+
+```
+@usage
+(defn my-f [n k v] ...)
+(apply-pairs my-f {} :a "A" :b "B")
+```
+
+```
+@example
+(defn my-f [n k v] (assoc n k v))
+(apply-pairs my-f {} :a "A" :b "B")
+=>
+{:a "A" :b "B"}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn apply-pairs
+  [f initial & pairs]
+  (reduce-pairs f initial pairs))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [loop.api :refer [apply-pairs]]))
+
+(loop.api/apply-pairs ...)
+(apply-pairs          ...)
+```
+
+</details>
+
+---
+
 ### do-indexed
 
 ```
@@ -141,7 +202,7 @@ Every function takes the previous function's result as an only argument.
 @param (*) n
 The initial parameter of the 'f' function.
 @param (function) test-f
-If the 'test-f' functions returns with true the iteration stops.
+If the 'test-f' functions returns true the iteration stops.
 ```
 
 ```
@@ -295,6 +356,73 @@ The 'f' function gets the current item's index as its second parameter.
 
 ---
 
+### reduce-pairs
+
+```
+@description
+Iterates over (pair by pair) the given collection (must contain even number of items)
+and passes them to the given 'f' function with the result of the previous iteration.
+```
+
+```
+@param (function) f
+@param (map) initial
+@param (collection with even number of items) pairs
+```
+
+```
+@usage
+(defn my-f [n k v] ...)
+(reduce-pairs my-f {} [:a "A" :b "B"])
+```
+
+```
+@example
+(defn my-f [n k v] (assoc n k v))
+(reduce-pairs my-f {} [:a "A" :b "B"])
+=>
+{:a "A" :b "B"}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn reduce-pairs
+  [f initial pairs]
+  (let [pairs-count (count pairs)]
+       (letfn [(fi [result lap] (let [cursor (* lap 2)]
+                                     (if (> cursor pairs-count) result
+                                         (let [a (nth pairs (- cursor 2))
+                                               b (nth pairs (- cursor 1))]
+                                              (fi (f result a b)
+                                                  (inc lap))))))]
+
+              (cond (-> pairs-count (< 2)) initial
+                    (-> pairs-count odd?)  initial
+                    :recursion (fi initial 1)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [loop.api :refer [reduce-pairs]]))
+
+(loop.api/reduce-pairs ...)
+(reduce-pairs          ...)
+```
+
+</details>
+
+---
+
 ### reduce-range
 
 ```
@@ -307,6 +435,11 @@ The 'f' function gets the current item's index as its second parameter.
 ```
 @usage
 (reduce-range (fn [result x]) nil 10)
+```
+
+```
+@usage
+(reduce-range (fn [result x]) nil 10 20)
 ```
 
 ```

@@ -29,8 +29,7 @@
 ```
 (defn hmac-sha256
   [n secret-key]
-  #?(:clj (-> n (mac/hash {:key secret-key :alg :hmac+sha256})
-                (codecs/bytes->hex))))
+  #?(:clj (-> n str (mac/hash {:key secret-key :alg :hmac+sha256}) codecs/bytes->hex)))
 ```
 
 </details>

@@ -5,15 +5,19 @@
 
 ### Index
 
+- [capitalize-header](#capitalize-header)
+
 - [css-wrap](#css-wrap)
 
 - [html-wrap](#html-wrap)
 
 - [json-wrap](#json-wrap)
 
-- [map-wrap](#map-wrap)
+- [local-request?](#local-request)
 
 - [media-wrap](#media-wrap)
+
+- [remote-request?](#remote-request)
 
 - [request->cookie](#request-cookie)
 
@@ -22,6 +26,10 @@
 - [request->form-param](#request-form-param)
 
 - [request->form-params](#request-form-params)
+
+- [request->header](#request-header)
+
+- [request->ip-address](#request-ip-address)
 
 - [request->multipart-param](#request-multipart-param)
 
@@ -51,17 +59,69 @@
 
 - [request->uri](#request-uri)
 
+- [request->user-agent](#request-user-agent)
+
 - [response-wrap](#response-wrap)
 
 - [text-wrap](#text-wrap)
 
 - [xml-wrap](#xml-wrap)
 
+### capitalize-header
+
+```
+@param (keyword) header-key
+```
+
+```
+@usage
+(capitalize-header :user-agent)
+```
+
+```
+@example
+(capitalize-header :user-agent)
+=>
+"User-Agent"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn capitalize-header
+  [header-key]
+  (as-> header-key % (name %)
+                     (clojure.string/split % #"\-")
+                     (map clojure.string/capitalize %)
+                     (clojure.string/join "-" %)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [capitalize-header]]))
+
+(http.api/capitalize-header ...)
+(capitalize-header          ...)
+```
+
+</details>
+
+---
+
 ### css-wrap
 
 ```
 @param (map) response-props
-{:body (string)
+{:body (*)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -91,7 +151,8 @@
 (defn css-wrap
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "text/css"}
+                         :mime-type "text/css"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 ```
 
@@ -115,7 +176,7 @@
 
 ```
 @param (map) response-props
-{:body (string)
+{:body (*)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -145,7 +206,8 @@
 (defn html-wrap
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "text/html"}
+                         :mime-type "text/html"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 ```
 
@@ -169,7 +231,7 @@
 
 ```
 @param (map) response-props
-{:body (string)
+{:body (*)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -199,7 +261,8 @@
 (defn json-wrap
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "application/json"}
+                         :mime-type "application/json"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 ```
 
@@ -219,41 +282,43 @@
 
 ---
 
-### map-wrap
+### local-request?
 
 ```
-@param (map) response-props
-{:body (map)
- :session (map)(opt)
- :status (integer)(opt)
-  Default: 200}
+@param (map) request
+{:server-name (string)}
+```
+
+```
+@usage
+(local-request? {...})
 ```
 
 ```
 @example
-(map-wrap {:body {...})
+(local-request? {:server-name "localhost" ...})
 =>
-{:body    "{...}"
- :headers {"Content-Type" "text/plain"}
- :status  200}
+true
 ```
 
 ```
-@return (map)
-{:body (string)
- :headers (map)
- :session (map)
- :status (integer)}
+@example
+(local-request? {:server-name "hostname.com" ...})
+=>
+false
+```
+
+```
+@return (boolean)
 ```
 
 <details>
 <summary>Source code</summary>
 
 ```
-(defn map-wrap
-  [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body (str body)}
-                        (select-keys response-props [:session :status]))))
+(defn local-request?
+  [{:keys [server-name]}]
+  (= server-name "localhost"))
 ```
 
 </details>
@@ -262,10 +327,10 @@
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [http.api :refer [map-wrap]]))
+(ns my-namespace (:require [http.api :refer [local-request?]]))
 
-(http.api/map-wrap ...)
-(map-wrap          ...)
+(http.api/local-request? ...)
+(local-request?          ...)
 ```
 
 </details>
@@ -321,7 +386,8 @@
 (defn media-wrap
   [{:keys [body filename] :as response-props}]
   (response-wrap (merge {:body body
-                         :headers (if filename {"Content-Disposition" "inline                        (select-keys response-props [:mime-type :session :status]))))
+                         :headers (if filename {"Content-Disposition" "inline                         :status  200}
+                        (select-keys response-props [:mime-type :session :status]))))
 ```
 
 </details>
@@ -340,12 +406,72 @@
 
 ---
 
+### remote-request?
+
+```
+@param (map) request
+{:server-name (string)}
+```
+
+```
+@usage
+(remote-request? {...})
+```
+
+```
+@example
+(remote-request? {:server-name "hostname.com" ...})
+=>
+true
+```
+
+```
+@example
+(remote-request? {:server-name "localhost" ...})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remote-request?
+  [{:keys [server-name]}]
+  (not= server-name "localhost"))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [remote-request?]]))
+
+(http.api/remote-request? ...)
+(remote-request?          ...)
+```
+
+</details>
+
+---
+
 ### request->cookie
 
 ```
 @param (map) request
 {:cookies (map)}
 @param (string) cookie-id
+```
+
+```
+@usage
+(request->cookies {...} "my-cookie")
 ```
 
 ```
@@ -382,6 +508,11 @@
 ```
 @param (map) request
 {:cookies (map)}
+```
+
+```
+@usage
+(request->cookies {...})
 ```
 
 ```
@@ -422,6 +553,11 @@
 ```
 
 ```
+@usage
+(request->form-param {...} "my-element")
+```
+
+```
 @return (*)
 ```
 
@@ -458,6 +594,11 @@
 ```
 
 ```
+@usage
+(request->form-params {...})
+```
+
+```
 @return (map)
 ```
 
@@ -486,12 +627,128 @@
 
 ---
 
+### request->header
+
+```
+@param (map) request
+@param (keyword) header-key
+```
+
+```
+@usage
+(request->header {...} :user-agent)
+```
+
+```
+@example
+(request->header {:headers {:user-agent "My User Agent" ...} ...}
+                 :user-agent)
+=>
+"My User Agent"
+```
+
+```
+@example
+(request->header {:headers {"user-agent" "My User Agent" ...} ...}
+                 :user-agent)
+=>
+"My User Agent"
+```
+
+```
+@example
+(request->header {:headers {"User-Agent" "My User Agent" ...} ...}
+                 :user-agent)
+=>
+"My User Agent"
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn request->header
+  [{:keys [headers]} header-key]
+  (or (->> headers header-key)
+      (->> header-key name                         (get headers))
+      (->> header-key name utils/capitalize-header (get headers))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [request->header]]))
+
+(http.api/request->header ...)
+(request->header          ...)
+```
+
+</details>
+
+---
+
+### request->ip-address
+
+```
+@param (map) request
+```
+
+```
+@usage
+(request->ip-address {...})
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn request->ip-address
+  [request]
+  (letfn [(fallback-f []  (if (check/local-request? request) "127.0.0.1"))
+          (split-f    [%] (clojure.string/split % #",\s"))]
+         (if-let [x-forwarded-for (request->header request :x-forwarded-for)]
+                 (-> x-forwarded-for split-f first)
+                 (fallback-f))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [request->ip-address]]))
+
+(http.api/request->ip-address ...)
+(request->ip-address          ...)
+```
+
+</details>
+
+---
+
 ### request->multipart-param
 
 ```
 @param (map) request
 {:multipart-params (map)}
 @param (keyword) param-key
+```
+
+```
+@usage
+(request->multipart-param {...} :my-param)
 ```
 
 ```
@@ -531,6 +788,11 @@
 ```
 
 ```
+@usage
+(request->multipart-params {...})
+```
+
+```
 @return (map)
 ```
 
@@ -564,6 +826,11 @@
 ```
 @param (map) request
 @param (keyword) param-key
+```
+
+```
+@usage
+(request->param {...} :my-param)
 ```
 
 ```
@@ -603,6 +870,11 @@
 ```
 
 ```
+@usage
+(request->params {...})
+```
+
+```
 @return (map)
 ```
 
@@ -636,6 +908,11 @@
 ```
 @param (map) request
 @param (keyword) param-key
+```
+
+```
+@usage
+(request->path-param {...} :my-param)
 ```
 
 ```
@@ -675,6 +952,11 @@
 ```
 
 ```
+@usage
+(request->path-params {...})
+```
+
+```
 @return (map)
 ```
 
@@ -708,6 +990,11 @@
 ```
 @param (map) request
 {:query-string (string)}
+```
+
+```
+@usage
+(request->query-string {...})
 ```
 
 ```
@@ -747,6 +1034,11 @@
 ```
 
 ```
+@usage
+(request->route-path {...})
+```
+
+```
 @return (string)
 ```
 
@@ -780,6 +1072,11 @@
 ```
 @param (map) request
 {:uri (string)}
+```
+
+```
+@usage
+(request->route-path {...})
 ```
 
 ```
@@ -819,6 +1116,11 @@
 ```
 
 ```
+@usage
+(request->session {...})
+```
+
+```
 @return (map)
 ```
 
@@ -852,6 +1154,11 @@
 ```
 @param (map) request
 @param (keyword) param-key
+```
+
+```
+@usage
+(request->session-param {...} :my-param)
 ```
 
 ```
@@ -891,6 +1198,11 @@
 ```
 
 ```
+@usage
+(request->transit-param {...} :my-param)
+```
+
+```
 @return (*)
 ```
 
@@ -924,6 +1236,11 @@
 ```
 @param (map) request
 {:transit-params (map)}
+```
+
+```
+@usage
+(request->transit-params {...})
 ```
 
 ```
@@ -964,6 +1281,11 @@
 ```
 
 ```
+@usage
+(request->uri {...})
+```
+
+```
 @return (string)
 ```
 
@@ -986,6 +1308,46 @@
 
 (http.api/request->uri ...)
 (request->uri          ...)
+```
+
+</details>
+
+---
+
+### request->user-agent
+
+```
+@param (map) request
+```
+
+```
+@usage
+(request->user-agent {...})
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn request->user-agent
+  [request]
+  (request->header request :user-agent))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [request->user-agent]]))
+
+(http.api/request->user-agent ...)
+(request->user-agent          ...)
 ```
 
 </details>
@@ -1039,7 +1401,7 @@
 
 ```
 (defn response-wrap
-  [{:keys [headers mime-type] :as response-props}]
+  [{:keys [headers mime-type] :as response-props :or {mime-type "text/plain"}}]
   (let [headers (merge {"Content-Type" (or mime-type "text/plain")} headers)]
        (merge {:headers headers :status 200}
               (select-keys response-props [:body :session :status]))))
@@ -1065,7 +1427,7 @@
 
 ```
 @param (map) response-props
-{:body (string)
+{:body (*)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -1095,7 +1457,8 @@
 (defn text-wrap
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "text/plain"}
+                         :mime-type "text/plain"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 ```
 
@@ -1119,7 +1482,7 @@
 
 ```
 @param (map) response-props
-{:body (string)
+{:body (*)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -1149,7 +1512,8 @@
 (defn xml-wrap
   [{:keys [body] :as response-props}]
   (response-wrap (merge {:body      (str body)
-                         :mime-type "application/xml"}
+                         :mime-type "application/xml"
+                         :status    200}
                         (select-keys response-props [:session :status]))))
 ```
 

@@ -837,7 +837,12 @@ false
 
 ```
 @param (vector) n
-@param (*) x
+@param (list of *) xyz
+```
+
+```
+@usage
+(conj-item [:a :b] :c)
 ```
 
 ```
@@ -897,7 +902,7 @@ Conj the item if the vector does not contain it.
 
 ```
 @param (vector) n
-@param (*) x
+@param (list of *) xyz
 ```
 
 ```
@@ -906,17 +911,15 @@ Conj the item if the vector does not contain it.
 ```
 
 ```
-@example
-(conj-item-once [:a :b] :b)
-=>
-[:a :b]
+@usage
+(conj-item-once [:a :b] :b :c :d)
 ```
 
 ```
 @example
-(conj-item-once [:a :b] :c)
+(conj-item-once [:a :b] :b :c :d)
 =>
-[:a :b :c]
+[:a :b :c :d]
 ```
 
 ```
@@ -928,10 +931,11 @@ Conj the item if the vector does not contain it.
 
 ```
 (defn conj-item-once
-  [n x]
-  (if (check/contains-item? n x)
-      (return               n)
-      (conj-item            n x)))
+  [n & xyz]
+  (letfn [(f [result x] (if (check/contains-item? result x)
+                            (return               result)
+                            (conj                 result x)))]
+         (vec (reduce f n (vec xyz)))))
 ```
 
 </details>
@@ -959,7 +963,7 @@ Conj the item if it is NOT nil.
 
 ```
 @param (vector) n
-@param (*) x
+@param (list of *) xyz
 ```
 
 ```
@@ -968,17 +972,15 @@ Conj the item if it is NOT nil.
 ```
 
 ```
-@example
-(conj-some [:a :b] :c)
-=>
-[:a :b :c]
+@usage
+(conj-some [:a :b] :c nil)
 ```
 
 ```
 @example
-(conj-some [:a :b] nil)
+(conj-some [:a :b] :c nil)
 =>
-[:a :b]
+[:a :b :c]
 ```
 
 ```
@@ -990,9 +992,10 @@ Conj the item if it is NOT nil.
 
 ```
 (defn conj-some
-  [n x]
-  (if x (conj-item n x)
-        (return    n)))
+  [n & xyz]
+  (letfn [(f [result x] (if x (conj   result x)
+                              (return result)))]
+         (vec (reduce f n (vec xyz)))))
 ```
 
 </details>
@@ -1015,19 +1018,19 @@ Conj the item if it is NOT nil.
 
 ```
 @param (vector) n
-@param (*) x
+@param (list of *) xyz
 ```
 
 ```
 @usage
-(cons-item [:a :b] :c)
+(cons-item [:a :b] :c :d :e)
 ```
 
 ```
 @example
-(cons-item [:a :b] :c)
+(cons-item [:a :b] :c :d :e)
 =>
-[:c :a :b]
+[:e :d :c :a :b]
 ```
 
 ```
@@ -1039,8 +1042,9 @@ Conj the item if it is NOT nil.
 
 ```
 (defn cons-item
-  [n x]
-  (vec (cons x n)))
+  [n & xyz]
+  (letfn [(f [result x] (cons x result))]
+         (vec (reduce f n (vec xyz)))))
 ```
 
 </details>
@@ -1068,7 +1072,7 @@ Cons the item if the vector does not contain it.
 
 ```
 @param (vector) n
-@param (*) x
+@param (list of *) xyz
 ```
 
 ```
@@ -1077,17 +1081,15 @@ Cons the item if the vector does not contain it.
 ```
 
 ```
-@example
-(cons-item-once [:a :b] :b)
-=>
-[:a :b]
+@usage
+(cons-item-once [:a :b] :b :c :d :e)
 ```
 
 ```
 @example
-(cons-item-once [:a :b] :c)
+(cons-item-once [:a :b] :b :c :d :e)
 =>
-[:c :a :b]
+[:e :d :c :a :b]
 ```
 
 ```
@@ -1099,10 +1101,11 @@ Cons the item if the vector does not contain it.
 
 ```
 (defn cons-item-once
-  [n x]
-  (if (check/contains-item? n x)
-      (return               n)
-      (cons-item            n x)))
+  [n & xyz]
+  (letfn [(f [result x] (if (check/contains-item? result x)
+                            (return               result)
+                            (cons               x result)))]
+         (vec (reduce f n (vec xyz)))))
 ```
 
 </details>
@@ -5150,7 +5153,7 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 @param (*) n
-@param (integer) x
+@param (integer) count
 ```
 
 ```
@@ -5174,8 +5177,8 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 (defn repeat-item
-  [n x]
-  (vec (repeat x n)))
+  [n count]
+  (vec (repeat count n)))
 ```
 
 </details>

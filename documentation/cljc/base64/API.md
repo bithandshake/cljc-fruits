@@ -110,7 +110,7 @@ and writes the encoded content to the destination-filepath.
 
 ```
 @return (string)
-Returns with the encoded content.
+Returns the encoded content.
 ```
 
 <details>
@@ -154,7 +154,7 @@ Returns with the encoded content.
 
 ```
 @return (boolean)
-Returns with true if the given value is base64 encoded.
+Returns true if the given value is base64 encoded.
 ```
 
 <details>

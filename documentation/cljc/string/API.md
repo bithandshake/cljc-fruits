@@ -23,6 +23,8 @@
 
 - [blank?](#blank)
 
+- [contains-digit?](#contains-digit)
+
 - [contains-lowercase-letter?](#contains-lowercase-letter)
 
 - [contains-part?](#contains-part)
@@ -30,6 +32,8 @@
 - [contains-uppercase-letter?](#contains-uppercase-letter)
 
 - [count-occurences](#count-occurences)
+
+- [cover](#cover)
 
 - [cut](#cut)
 
@@ -57,19 +61,21 @@
 
 - [length](#length)
 
+- [length-between?](#length-between)
+
+- [length-max?](#length-max)
+
+- [length-min?](#length-min)
+
 - [length?](#length)
 
 - [line-count](#line-count)
 
 - [max-length](#max-length)
 
-- [max-length?](#max-length)
-
 - [max-lines](#max-lines)
 
 - [max-occurence?](#max-occurence)
-
-- [min-length?](#min-length)
 
 - [min-occurence?](#min-occurence)
 
@@ -294,6 +300,7 @@ true
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -391,6 +398,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -540,6 +548,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -637,6 +646,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -855,6 +865,60 @@ true
 
 (string.api/blank? ...)
 (blank?            ...)
+```
+
+</details>
+
+---
+
+### contains-digit?
+
+```
+@param (*) n
+```
+
+```
+@usage
+(contains-digit? "abc1")
+```
+
+```
+@example
+(contains-digit? "abc1")
+=>
+true
+```
+
+```
+@example
+(contains-digit? "abc")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn contains-digit?
+  [n]
+  (some? (re-find #"\d" (str n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [contains-digit?]]))
+
+(string.api/contains-digit? ...)
+(contains-digit?            ...)
 ```
 
 </details>
@@ -1121,6 +1185,75 @@ false
 
 (string.api/count-occurences ...)
 (count-occurences            ...)
+```
+
+</details>
+
+---
+
+### cover
+
+```
+@param (*) n
+@param (*) x
+@param (integer)(opt) offset
+```
+
+```
+@usage
+(cover "user@email.com" "**")
+```
+
+```
+@example
+(cover "user@email.com" "**")
+=>
+"**er@email.com"
+```
+
+```
+@example
+(cover "user@email.com" "**" 2)
+=>
+"us**@email.com"
+"user"
+  "**"
+2
+"user@"
+  "*"
+2
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cover
+  ([n x]
+   (cover n x 0))
+
+  ([n x offset]
+   (let [n (str n)
+         x (str x)]
+        (str (subs n 0 offset)
+             (subs x 0 (- (count n) offset))
+             (subs n   (+ (count x) offset))))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [cover]]))
+
+(string.api/cover ...)
+(cover            ...)
 ```
 
 </details>
@@ -1480,6 +1613,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -1577,6 +1711,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -2061,12 +2196,176 @@ nil
 
 ---
 
+### length-between?
+
+```
+@param (*) n
+@param (integer) min
+@param (integer) max
+```
+
+```
+@example
+(length-between? "abc" 3 4)
+=>
+true
+```
+
+```
+@example
+(length-between? "abc" 2 4)
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn length-between?
+  [n min max]
+  (let [n (str n)]
+       (and (<= min (count n))
+            (>= max (count n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [length-between?]]))
+
+(string.api/length-between? ...)
+(length-between?            ...)
+```
+
+</details>
+
+---
+
+### length-max?
+
+```
+@param (*) n
+@param (integer) max
+```
+
+```
+@usage
+(length-max? "abc" 3)
+```
+
+```
+@example
+(length-max? "abc" 3)
+=>
+true
+```
+
+```
+@example
+(length-max? "abc" 2)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn length-max?
+  [n max]
+  (and (-> max integer?)
+       (>= max (-> n str count))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [length-max?]]))
+
+(string.api/length-max? ...)
+(length-max?            ...)
+```
+
+</details>
+
+---
+
+### length-min?
+
+```
+@param (*) n
+@param (integer) min
+```
+
+```
+@usage
+(length-min? "abc" 3)
+```
+
+```
+@example
+(length-min? "abc" 3)
+=>
+true
+```
+
+```
+@example
+(length-min? "abc" 4)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn length-min?
+  [n min]
+  (and (-> min integer?)
+       (<= min (-> n str count))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [length-min?]]))
+
+(string.api/length-min? ...)
+(length-min?            ...)
+```
+
+</details>
+
+---
+
 ### length?
 
 ```
 @param (*) n
-@param (integer) length / min
-@param (integer)(opt) max
+@param (integer) length
 ```
 
 ```
@@ -2084,13 +2383,6 @@ false
 ```
 
 ```
-@example
-(length? "abc" 2 4)
-=>
-true
-```
-
-```
 @return (boolean)
 ```
 
@@ -2099,13 +2391,8 @@ true
 
 ```
 (defn length?
-  ([n length]
-   (= length (-> n str count)))
-
-  ([n min max]
-   (let [n (str n)]
-        (and (<= min (count n))
-             (>= max (count n))))))
+  [n length]
+  (= length (-> n str count)))
 ```
 
 </details>
@@ -2240,62 +2527,6 @@ true
 
 (string.api/max-length ...)
 (max-length            ...)
-```
-
-</details>
-
----
-
-### max-length?
-
-```
-@param (*) n
-@param (integer) max
-```
-
-```
-@usage
-(max-length? "abc" 3)
-```
-
-```
-@example
-(max-length? "abc" 3)
-=>
-true
-```
-
-```
-@example
-(max-length? "abc" 2)
-=>
-false
-```
-
-```
-@return (boolean)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn max-length?
-  [n max]
-  (and (-> max integer?)
-       (>= max (-> n str count))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :refer [max-length?]]))
-
-(string.api/max-length? ...)
-(max-length?            ...)
 ```
 
 </details>
@@ -2445,62 +2676,6 @@ true
 
 (string.api/max-occurence? ...)
 (max-occurence?            ...)
-```
-
-</details>
-
----
-
-### min-length?
-
-```
-@param (*) n
-@param (integer) min
-```
-
-```
-@usage
-(min-length? "abc" 3)
-```
-
-```
-@example
-(min-length? "abc" 3)
-=>
-true
-```
-
-```
-@example
-(min-length? "abc" 4)
-=>
-false
-```
-
-```
-@return (boolean)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn min-length?
-  [n min]
-  (and (-> min integer?)
-       (<= min (-> n str count))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :refer [min-length?]]))
-
-(string.api/min-length? ...)
-(min-length?            ...)
 ```
 
 </details>
@@ -4073,6 +4248,7 @@ false
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -4227,6 +4403,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
+  If true, returns the whole string in case of no occurence found.
   Default: false}
 ```
 
@@ -4521,19 +4698,22 @@ nil
 
 ```
 @usage
-(use-placeholder "My content" "My placeholder")
+(use-placeholder "My content"
+                 "My placeholder")
 ```
 
 ```
 @example
-(use-placeholder "My content" "My placeholder")
+(use-placeholder "My content"
+                 "My placeholder")
 =>
 "My content"
 ```
 
 ```
 @example
-(use-placeholder "" "My placeholder")
+(use-placeholder ""
+                 "My placeholder")
 =>
 "My placeholder"
 ```
@@ -4582,12 +4762,14 @@ nil
 
 ```
 @usage
-(use-replacement "Hi, my name is %" "John")
+(use-replacement "Hi, my name is %"
+                 "John")
 ```
 
 ```
 @example
-(use-replacement "Hi, my name is %" "John")
+(use-replacement "Hi, my name is %"
+                 "John")
 =>
 "Hi, my name is John"
 ```
@@ -4630,11 +4812,17 @@ nil
 ### use-replacements
 
 ```
+@description
+Replacement markers only contain numbers in case of more than one replacement passed.
+If only one replacement passed, its marker is a single percent character.
+```
+
+```
 @param (*) n
 @param (vector) replacements
 @param (map)(opt) options
 {:ignore? (boolean)(opt)
-  The function returns nil if any of the replacements is nil or empty.
+  The function returns NIL if any of the replacements is NIL or empty.
   Default: true}
 ```
 

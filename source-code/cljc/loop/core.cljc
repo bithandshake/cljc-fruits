@@ -144,7 +144,7 @@
   ; @param (*) n
   ; The initial parameter of the 'f' function.
   ; @param (function) test-f
-  ; If the 'test-f' functions returns with true the iteration stops.
+  ; If the 'test-f' functions returns true the iteration stops.
   ;
   ; @example
   ; (do-while (fn [{:keys [my-numbers x] :as n}]

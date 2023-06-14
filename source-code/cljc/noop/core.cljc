@@ -7,7 +7,7 @@
 (defn param
   ; @description
   ; A simple noop function for wrapping parameters.
-  ; Returns with the given n parameter.
+  ; Returns the given n parameter.
   ;
   ; @param (*) n
   ;
@@ -30,7 +30,7 @@
 (defn return
   ; @description
   ; A simple noop function for wrapping return values.
-  ; Returns with the given n parameter.
+  ; Returns the given n parameter.
   ;
   ; @param (*) n
   ;
@@ -52,7 +52,7 @@
 (defn none
   ; @description
   ; A simple noop function for ignoring values.
-  ; Returns with nil.
+  ; Returns nil.
   ;
   ; @param (*) n
   ;

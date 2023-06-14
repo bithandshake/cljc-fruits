@@ -9,6 +9,7 @@ Documentation of the [cljc-fruits](https://github.com/bithandshake/cljc-fruits) 
 
 * [alphabet.api](cljc/alphabet/API.md)
 * [atom.api](cljc/atom/API.md)
+* [audit.api](cljc/audit/API.md)
 * [base64.api](cljc/base64/API.md)
 * [blob.api](cljc/blob/API.md)
 * [cipher.api](cljc/cipher/API.md)

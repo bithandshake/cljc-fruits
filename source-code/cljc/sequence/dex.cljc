@@ -6,7 +6,7 @@
 
 (defn next-dex
   ; @descripiton
-  ; Returns with the following index after the given 'dex'.
+  ; Returns the following index after the given 'dex'.
   ; Keeps the return value in the domain ranged by the value of the
   ; given 'min' and 'max'.
   ;
@@ -32,7 +32,7 @@
 
 (defn prev-dex
   ; @descripiton
-  ; Returns with the previous index before the given 'dex'.
+  ; Returns the previous index before the given 'dex'.
   ; Keeps the return value in the domain ranged by the value of the
   ; given 'min' and 'max'.
   ;
@@ -60,7 +60,7 @@
 
 (defn prev-prev-dex
   ; @descripiton
-  ; Returns with the index before previous of the given 'dex'.
+  ; Returns the index before previous of the given 'dex'.
   ; Keeps the return value in the domain ranged by the value of the
   ; given 'min' and 'max'.
   ;
@@ -81,17 +81,17 @@
   ; @return (integer)
   [dex min max]
   (cond
-        ; If 'max' is NOT greater than 'min', then returns with 'min'.
+        ; If 'max' is NOT greater than 'min', then it returns 'min'.
         (not (> max min)) min
 
-        ; If 'dex' is greater than 'max', then returns with 'max - 1'
+        ; If 'dex' is greater than 'max', then it returns 'max - 1'
         (> dex max) (dec max)
 
-        ; If 'dex' is equal to or smaller than 'min', then returns with 'max - 1'
+        ; If 'dex' is equal to or smaller than 'min', then it returns 'max - 1'
         (<= dex min) (dec max)
 
-        ; If 'dex' is equal to 'min + 1', then returns with 'max'.
+        ; If 'dex' is equal to 'min + 1', then it returns 'max'.
         (= dex (inc min)) max
 
-        ; Otherwise returns with 'dex  - 2'
+        ; Otherwise it returns 'dex  - 2'
         :return (- dex 2)))

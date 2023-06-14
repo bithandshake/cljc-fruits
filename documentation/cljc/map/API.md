@@ -1075,18 +1075,17 @@ Assoc the value to the n map if the value is nil.
 
 ```
 @description
-Assoc the value to the n map if the value is something.
+Assoc values to the n map if the value is something.
 ```
 
 ```
 @param (map) n
-@param (*) key
-@param (*) value
+@param (list of * pairs) kv-pairs
 ```
 
 ```
 @usage
-(assoc-some {} :a "A")
+(assoc-some {} :a "A" :b "B")
 ```
 
 ```
@@ -1098,9 +1097,9 @@ Assoc the value to the n map if the value is something.
 
 ```
 @example
-(assoc-some {:a [:b :c]} :d nil)
+(assoc-some {:a [:b :c]} :d nil :e "E")
 =>
-{:a [:b :c]}
+{:a [:b :c] :e "E"}
 ```
 
 ```
@@ -1112,10 +1111,11 @@ Assoc the value to the n map if the value is something.
 
 ```
 (defn assoc-some
-  [n key value]
-  (if (some?        value)
-      (assoc  n key value)
-      (return n)))
+  [n & kv-pairs]
+  (letfn [(f [n k v] (if (some? v)
+                         (assoc n k v)
+                         (return n)))]
+         (reduce-pairs f n kv-pairs)))
 ```
 
 </details>
@@ -1345,7 +1345,7 @@ true
                       (map? x))
                  (merge-with f result x)
                  (return x)))]
-         (if (some   identity xyz)
+         (if (some identity xyz)
              (reduce f n xyz)
              (return n))))
 ```
@@ -2465,19 +2465,26 @@ false
 
 ```
 @param (map) n
-@param (list of *) keys
+@param (list of * pairs) key-pairs
 ```
 
 ```
 @usage
-(rekey-items {:a "A" :c "C"} :a :b :c :d)
+(rekey-items {:a "A" :b "B"} :a :x :b :y)
 ```
 
 ```
 @example
-(rekey-items {:a "A" :c "C"} :a :b :c :d)
+(rekey-items {:a "A" :b "B"} :a :x :b :y)
 =>
-{:b "A" :d "C"}
+{:x "A" :y "B"}
+```
+
+```
+@example
+(rekey-items {:a "A" :b "B"} :c :z)
+=>
+{:a "A" :b "B"}
 ```
 
 ```
@@ -2489,11 +2496,11 @@ false
 
 ```
 (defn rekey-items
-  [n & keys]
-  (letfn [(f [result dex x] (if (even? dex)
-                                (dissoc (assoc result (nth keys (inc dex)) (get result x)) x)
-                                (return result)))]
-         (reduce-kv f n (vec keys))))
+  [n & key-pairs]
+  (letfn [(f [n from to] (if (contains? n from)
+                             (dissoc (assoc n to (get n from)) from)
+                             (return n)))]
+         (reduce-pairs f n key-pairs)))
 ```
 
 </details>

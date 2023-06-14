@@ -27,7 +27,7 @@
 
 ```
 @description
-If 'a' is equal 'b', then returns with 'c', else returns with 'd'.
+If 'a' is equal 'b', then it returns 'c', else it returns 'd'.
 ```
 
 ```
@@ -80,7 +80,7 @@ If 'a' is equal 'b', then returns with 'c', else returns with 'd'.
 
 ```
 @description
-If 'a' and 'b' is true, then returns with 'c', else returns with 'd'.
+If 'a' and 'b' is true, then it returns 'c', else it returns 'd'.
 ```
 
 ```
@@ -133,7 +133,7 @@ If 'a' and 'b' is true, then returns with 'c', else returns with 'd'.
 
 ```
 @description
-If 'a' or 'b' is true, then returns with 'c', else returns with 'd'.
+If 'a' or 'b' is true, then it returns 'c', else it returns 'd'.
 ```
 
 ```
@@ -341,7 +341,7 @@ true
 
 ```
 @description
-If 'a' is NOT equal 'b', then returns with 'c', else returns with 'd'.
+If 'a' is NOT equal 'b', then it returns 'c', else it returns 'd'.
 ```
 
 ```
@@ -456,8 +456,9 @@ true
 
 ```
 @description
-Returns with 'b' if 'x' is equal to 'a', returns with 'a' if 'x' is equal to 'b',
-returns with 'x' otherwise.
+Returns 'b' if 'x' is equal to 'a',
+returns 'a' if 'x' is equal to 'b',
+returns 'x' otherwise.
 ```
 
 ```

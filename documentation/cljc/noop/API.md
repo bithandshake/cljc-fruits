@@ -16,7 +16,7 @@
 ```
 @description
 A simple noop function for ignoring values.
-Returns with nil.
+Returns nil.
 ```
 
 ```
@@ -68,7 +68,7 @@ nil
 ```
 @description
 A simple noop function for wrapping parameters.
-Returns with the given n parameter.
+Returns the given n parameter.
 ```
 
 ```
@@ -127,7 +127,7 @@ Returns with the given n parameter.
 ```
 @description
 A simple noop function for wrapping return values.
-Returns with the given n parameter.
+Returns the given n parameter.
 ```
 
 ```

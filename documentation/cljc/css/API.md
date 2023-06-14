@@ -7,6 +7,8 @@
 
 - [calc](#calc)
 
+- [fr](#fr)
+
 - [horizontal-margin](#horizontal-margin)
 
 - [horizontal-padding](#horizontal-padding)
@@ -20,6 +22,8 @@
 - [percent](#percent)
 
 - [px](#px)
+
+- [repeat-](#repeat-)
 
 - [rotate](#rotate)
 
@@ -96,6 +100,53 @@
 
 (css.api/calc ...)
 (calc         ...)
+```
+
+</details>
+
+---
+
+### fr
+
+```
+@param (ms) n
+```
+
+```
+@usage
+(fr 420)
+```
+
+```
+@example
+(fr 420)
+=>
+"420fr"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn fr
+  [n]
+  (str n "fr"))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [css.api :refer [fr]]))
+
+(css.api/fr ...)
+(fr         ...)
 ```
 
 </details>
@@ -429,6 +480,54 @@
 
 (css.api/px ...)
 (px         ...)
+```
+
+</details>
+
+---
+
+### repeat-
+
+```
+@param (integer) count
+@param (string) value
+```
+
+```
+@usage
+(repeat- 3 "1fr")
+```
+
+```
+@example
+(repeat- 3 "1fr")
+=>
+"repeat(3, 1fr)"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn repeat-
+  [count value]
+  (str "repeat("count", "value")"))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [css.api :refer [repeat-]]))
+
+(css.api/repeat- ...)
+(repeat-         ...)
 ```
 
 </details>
@@ -1110,7 +1209,7 @@
 ```
 (defn var
   [n]
-  (cond (string?  n) (str "var( --"       n  " )")
+  (cond (string?  n) (str "var( --" n        " )")
         (keyword? n) (str "var( --" (name n) " )")))
 ```
 

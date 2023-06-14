@@ -59,7 +59,7 @@
   ; "data:application/pdf;base64,..."
   ;
   ; @return (string)
-  ; Returns with the encoded content.
+  ; Returns the encoded content.
   [source-filepath destination-filepath]
   #?(:clj (when source-filepath (with-open [i (io/input-stream       source-filepath)
                                             o (io/output-stream destination-filepath)]

@@ -9,6 +9,8 @@
 
 - [group-number](#group-number)
 
+- [hide-email](#hide-email)
+
 - [inc-version](#inc-version)
 
 - [leading-zeros](#leading-zeros)
@@ -101,6 +103,8 @@ Default: 2
 
 ```
 @param (number or string) n
+@param (string)(opt) delimiter
+Default: ","
 ```
 
 ```
@@ -124,16 +128,19 @@ Default: 2
 
 ```
 (defn group-number
-  [n]
-  (let [base        (re-find #"\d+" n)
-        group-count (quot (count base) 3)
-        offset      (-    (count base) (* 3 group-count))]
-       (str (string/trim (reduce (fn [result dex]
-                                     (let [x (+ offset (* 3 dex))]
-                                          (str result " " (subs base x (+ x 3)))))
-                                 (subs base 0 offset)
-                                 (range group-count)))
-            (subs n (count base)))))
+  ([n]
+   (group-number n ","))
+
+  ([n delimiter]
+   (let [base        (re-find #"\d+" n)
+         group-count (quot (count base) 3)
+         offset      (-    (count base) (* 3 group-count))]
+        (str (string/trim (reduce (fn [result dex]
+                                      (let [x (+ offset (* 3 dex))]
+                                           (str result delimiter (subs base x (+ x 3)))))
+                                  (subs base 0 offset)
+                                  (range group-count)))
+             (subs n (count base))))))
 ```
 
 </details>
@@ -146,6 +153,64 @@ Default: 2
 
 (format.api/group-number ...)
 (group-number            ...)
+```
+
+</details>
+
+---
+
+### hide-email
+
+```
+@param (string) n
+```
+
+```
+@usage
+(hide-email "user@email.com")
+```
+
+```
+@example
+(hide-email "user@email.com")
+=>
+"u**r@email.com"
+```
+
+```
+@example
+(hide-email "username@email.com")
+=>
+"u******e@email.com"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn hide-email
+  [n]
+  (if-let [user (string/before-first-occurence n "@" {:return? false})]
+          (case (count user) 0 (str n)
+                             1 (string/cover n "*")
+                             2 (string/cover n "*" 1)
+                               (string/cover n (string/multiply "*" (-> user count dec dec)) 1))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [format.api :refer [hide-email]]))
+
+(format.api/hide-email ...)
+(hide-email            ...)
 ```
 
 </details>
@@ -373,6 +438,13 @@ Default: 2
 ```
 
 ```
+@example
+(round 1000420069)
+=>
+"1B"
+```
+
+```
 @return (string)
 ```
 
@@ -382,9 +454,10 @@ Default: 2
 ```
 (defn round
   [n]
-  (cond (>= n 1000000) (str (Math/round (/ n 1000000)) "M")
-        (>= n 1000)    (str (Math/round (/ n 1000))    "K")
-        :return        (str (Math/round n))))
+  (cond (>= n 1000000000) (str (Math/round (/ n 1000000)) "B")
+        (>= n 1000000)    (str (Math/round (/ n 1000000)) "M")
+        (>= n 1000)       (str (Math/round (/ n 1000))    "K")
+        :return           (str (Math/round n))))
 ```
 
 </details>
@@ -432,7 +505,7 @@ Default: 2
 (defn sign-number
   [n]
   (let [n (str n)]
-       (if (= (str "-")
+       (if (= (-> "-"     str)
               (-> n first str))
            (return n)
            (str "+"n))))

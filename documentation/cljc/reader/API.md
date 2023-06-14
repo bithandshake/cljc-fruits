@@ -5,6 +5,8 @@
 
 ### Index
 
+- [json->map](#json-map)
+
 - [mixed->string](#mixed-string)
 
 - [read-str](#read-str)
@@ -12,6 +14,61 @@
 - [string->map](#string-map)
 
 - [string->mixed](#string-mixed)
+
+### json->map
+
+```
+@param (string) n
+```
+
+```
+@usage
+(json->map "{\"name\":\"value\"}")
+```
+
+```
+@example
+(json->map "{\"name\":\"value\"}")
+=>
+{"name" "value"}
+```
+
+```
+@example
+(json->map "{\"name\":[\"value\"]}")
+=>
+{"name" ["value"]}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn json->map
+  [n]
+  (letfn [(remove-delimiter-colons-f [%] (string/replace-part % #"(?<=\"[a-zA-Z0-9\-\_]+\")\:" " "))]
+         (-> n remove-delimiter-colons-f string->mixed)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [reader.api :refer [json->map]]))
+
+(reader.api/json->map ...)
+(json->map            ...)
+```
+
+</details>
+
+---
 
 ### mixed->string
 
@@ -154,7 +211,7 @@
 ### string->mixed
 
 ```
-@param (n) string
+@param (string) n
 ```
 
 ```

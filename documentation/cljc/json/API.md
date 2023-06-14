@@ -58,6 +58,16 @@
 ```
 
 ```
+@usage
+(CamelCase-key :my-key)
+```
+
+```
+@usage
+(CamelCase-key "my-key")
+```
+
+```
 @example
 (CamelCase-key :my-key)
 =>
@@ -106,6 +116,16 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(Case-keys {:my-key :my-value})
+```
+
+```
+@usage
+(Case-keys {"my-key" :my-value})
 ```
 
 ```
@@ -160,6 +180,16 @@
 ```
 
 ```
+@usage
+(hyphenize-key :my_namespace/key)
+```
+
+```
+@usage
+(hyphenize-key "my_namespace/key")
+```
+
+```
 @example
 (hyphenize-key :my_namespace/key)
 =>
@@ -208,6 +238,16 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(hyphenize-keys {:my_namespace/key :my-value})
+```
+
+```
+@usage
+(hyphenize-keys {"my_namespace/key" :my-value})
 ```
 
 ```
@@ -301,6 +341,11 @@
 ```
 
 ```
+@usage
+(keywordize-key "my-namespace/key")
+```
+
+```
 @example
 (keywordize-key "my-namespace/key")
 =>
@@ -340,6 +385,11 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(keywordize-keys {"my-namespace/key" :my-value})
 ```
 
 ```
@@ -387,6 +437,11 @@
 ```
 
 ```
+@usage
+(keywordize-value "*:my-value")
+```
+
+```
 @example
 (keywordize-value "*:my-value")
 =>
@@ -428,6 +483,11 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
 ```
 
 ```
@@ -475,6 +535,11 @@
 ```
 
 ```
+@usage
+(parse-number-value "89.420")
+```
+
+```
 @example
 (parse-number-value "89.420")
 =>
@@ -514,6 +579,11 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
 ```
 
 ```
@@ -561,6 +631,11 @@
 ```
 
 ```
+@usage
+(remove-blank-values {:a "" :c [] :f {:g nil}})
+```
+
+```
 @example
 (remove-blank-values {:a "" :c [] :f {:g nil}})
 =>
@@ -604,6 +679,16 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(snake-case-key :myKey)
+```
+
+```
+@usage
+(snake-case-key "myKey")
 ```
 
 ```
@@ -658,6 +743,16 @@
 ```
 
 ```
+@usage
+(snake-case-keys {:myKey :my-value})
+```
+
+```
+@usage
+(snake-case-keys {"myKey" :my-value})
+```
+
+```
 @example
 (snake-case-keys {:myKey :my-value})
 =>
@@ -709,6 +804,11 @@
 ```
 
 ```
+@usage
+(trim-value " My value ")
+```
+
+```
 @example
 (trim-value " My value ")
 =>
@@ -753,6 +853,11 @@
 ```
 
 ```
+@usage
+(trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
+```
+
+```
 @example
 (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
 =>
@@ -794,6 +899,16 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(underscore-key :my-namespace/key)
+```
+
+```
+@usage
+(underscore-key "my-namespace/key")
 ```
 
 ```
@@ -848,6 +963,16 @@
 ```
 
 ```
+@usage
+(underscore-keys {:my-namespace/key :my-value})
+```
+
+```
+@usage
+(underscore-keys {"my-namespace/key" :my-value})
+```
+
+```
 @example
 (underscore-keys {:my-namespace/key :my-value})
 =>
@@ -899,6 +1024,11 @@
 ```
 
 ```
+@usage
+(unkeywordize-key :my-namespace/key)
+```
+
+```
 @example
 (unkeywordize-key :my-namespace/key)
 =>
@@ -938,6 +1068,11 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(unkeywordize-keys {:my-namespace/key :my-value})
 ```
 
 ```
@@ -985,6 +1120,11 @@
 ```
 
 ```
+@usage
+(unkeywordize-value :my-value)
+```
+
+```
 @example
 (unkeywordize-value :my-value)
 =>
@@ -1029,6 +1169,11 @@
 ```
 
 ```
+@usage
+(unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
+```
+
+```
 @example
 (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
 =>
@@ -1070,6 +1215,11 @@
 
 ```
 @param (*) n
+```
+
+```
+@usage
+(unkeywordized-value? "*:apple")
 ```
 
 ```

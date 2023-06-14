@@ -32,6 +32,6 @@
   ; (encoded? "...")
   ;
   ; @return (boolean)
-  ; Returns with true if the given value is base64 encoded.
+  ; Returns true if the given value is base64 encoded.
   [n])
   ; TODO
