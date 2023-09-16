@@ -75,12 +75,16 @@
 (def item-first-dex     dex/item-first-dex)
 
 ; vector.filter
-(def filter-items-by filter/filter-items-by)
-(def first-filtered  filter/first-filtered)
-(def last-filtered   filter/last-filtered)
-(def nth-filtered    filter/nth-filtered)
-(def filtered-count  filter/filtered-count)
-(def filtered-count? filter/filtered-count?)
+(def filter-items      filter/filter-items)
+(def filter-items-by   filter/filter-items-by)
+(def first-filtered    filter/first-filtered)
+(def first-filtered-by filter/first-filtered-by)
+(def last-filtered     filter/last-filtered)
+(def last-filtered-by  filter/last-filtered-by)
+(def nth-filtered      filter/nth-filtered)
+(def nth-filtered-by   filter/nth-filtered-by)
+(def filtered-count    filter/filtered-count)
+(def filtered-count?   filter/filtered-count?)
 
 ; vector.match
 (def any-item-match?     match/any-item-match?)

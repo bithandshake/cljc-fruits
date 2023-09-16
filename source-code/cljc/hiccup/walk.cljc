@@ -80,25 +80,25 @@
   ; @param (keyword)(opt) container
   ; Default: [:div]
   ; @param (collection) n
-  ; @param (function) item-f
+  ; @param (function) put-f
   ;
   ; @usage
-  ; (defn my-item-f [%] (conj % "X"))
-  ; (put-with [[:span "A"] [:span "B"]] my-item-f)
+  ; (defn my-put-f [%] (conj % "X"))
+  ; (put-with [[:span "A"] [:span "B"]] my-put-f)
   ;
   ; @usage
-  ; (defn my-item-f [%] (conj % "X"))
-  ; (put-with [:ul] [[:li "A"] [:li "B"]] my-item-f)
+  ; (defn my-put-f [%] (conj % "X"))
+  ; (put-with [:ul] [[:li "A"] [:li "B"]] my-put-f)
   ;
   ; @example
-  ; (defn my-item-f [%] (conj % "X"))
-  ; (put-with [[:span "A"] [:span "B"]] my-item-f)
+  ; (defn my-put-f [%] (conj % "X"))
+  ; (put-with [[:span "A"] [:span "B"]] my-put-f)
   ; =>
   ; [:div [:span "A" "X"] [:span "B" "X"]]
   ;
   ; @example
-  ; (defn my-item-f [%] (conj % "X"))
-  ; (put-with [:ul] [[:li "A"] [:li "B"]] my-item-f)
+  ; (defn my-put-f [%] (conj % "X"))
+  ; (put-with [:ul] [[:li "A"] [:li "B"]] my-put-f)
   ; =>
   ; [:ul [:li "A" "X"] [:li "B" "X"]]
   ;
@@ -106,11 +106,11 @@
   ([n f]
    (put-with [:div] n f))
 
-  ([container n item-f]
-   (and (fn? item-f)
+  ([container n put-f]
+   (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (if %2 (conj   %1 ^{:key (random/generate-uuid)} (item-f %2))
+        (letfn [(f [%1 %2] (if %2 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2))
                                   (return %1)))]
                (reduce f container n)))))
 
@@ -118,25 +118,25 @@
   ; @param (keyword)(opt) container
   ; Default: [:div]
   ; @param (collection) n
-  ; @param (function) item-f
+  ; @param (function) put-f
   ;
   ; @usage
-  ; (defn my-item-f [dex %] (conj % "X"))
-  ; (put-with-indexed [[:span "A"] [:span "B"]] my-item-f)
+  ; (defn my-put-f [dex %] (conj % "X"))
+  ; (put-with-indexed [[:span "A"] [:span "B"]] my-put-f)
   ;
   ; @usage
-  ; (defn my-item-f [dex %] (conj % "X"))
-  ; (put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-item-f)
+  ; (defn my-put-f [dex %] (conj % "X"))
+  ; (put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-put-f)
   ;
   ; @example
-  ; (defn my-item-f [dex %] (conj % dex "X"))
-  ; (put-with-indexed [[:span "A"] [:span "B"]] my-item-f)
+  ; (defn my-put-f [dex %] (conj % dex "X"))
+  ; (put-with-indexed [[:span "A"] [:span "B"]] my-put-f)
   ; =>
   ; [:div [:span "A" 0 "X"] [:span "B" 1 "X"]]
   ;
   ; @example
-  ; (defn my-item-f [dex %] (conj % dex "X"))
-  ; (put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-item-f)
+  ; (defn my-put-f [dex %] (conj % dex "X"))
+  ; (put-with-indexed [:ul] [[:li "A"] [:li "B"]] my-put-f)
   ; =>
   ; [:ul [:li "A" 0 "X"] [:li "B" 1 "X"]]
   ;
@@ -144,10 +144,10 @@
   ([n f]
    (put-with-indexed [:div] n f))
 
-  ([container n item-f]
-   (and (fn? item-f)
+  ([container n put-f]
+   (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2 %3] (if %3 (conj   %1 ^{:key (random/generate-uuid)} (item-f %2 %3))
+        (letfn [(f [%1 %2 %3] (if %3 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
                                      (return %1)))]
                (reduce-kv f container n)))))
