@@ -2887,6 +2887,7 @@ false
 
 ```
 @param (map) n
+@param (function)(opt) convert-f
 ```
 
 ```
@@ -2895,10 +2896,24 @@ false
 ```
 
 ```
+@usage
+(defn my-convert-f [k v] [k v])
+(to-vector {:a "A" b "B"} my-convert-f)
+```
+
+```
 @example
 (to-vector {:a "A" b "B" :c "C"})
 =>
 ["A" "B" "C"]
+```
+
+```
+@example
+(defn my-convert-f [k v] [k v])
+(to-vector {:a "A" b "B"} my-convert-f)
+=>
+[[:a "A"] [:b "B"]]
 ```
 
 ```
@@ -2910,9 +2925,15 @@ false
 
 ```
 (defn to-vector
-  [n]
-  (letfn [(f [%1 _ %3] (conj %1 %3))]
-         (reduce-kv f [] n)))
+  ([n]
+   (letfn [(f [result [k v]]
+              (conj result v))]
+          (reduce f [] n)))
+
+  ([n convert-f]
+   (letfn [(f [result [k v]]
+              (conj result (convert-f k v)))]
+          (reduce f [] n))))
 ```
 
 </details>

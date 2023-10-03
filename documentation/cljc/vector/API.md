@@ -63,6 +63,8 @@
 
 - [duplicate-nth-items](#duplicate-nth-items)
 
+- [filter-items](#filter-items)
+
 - [filter-items-by](#filter-items-by)
 
 - [filtered-count](#filtered-count)
@@ -70,6 +72,8 @@
 - [filtered-count?](#filtered-count)
 
 - [first-filtered](#first-filtered)
+
+- [first-filtered-by](#first-filtered-by)
 
 - [first-item](#first-item)
 
@@ -113,6 +117,8 @@
 
 - [last-filtered](#last-filtered)
 
+- [last-filtered-by](#last-filtered-by)
+
 - [last-item](#last-item)
 
 - [last-items](#last-items)
@@ -146,6 +152,8 @@
 - [not-contains-item?](#not-contains-item)
 
 - [nth-filtered](#nth-filtered)
+
+- [nth-filtered-by](#nth-filtered-by)
 
 - [nth-item](#nth-item)
 
@@ -1817,21 +1825,21 @@ false
 
 ---
 
-### filter-items-by
+### filter-items
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 ```
 
 ```
 @usage
-(filter-items-by [:a :b "c"] keyword?)
+(filter-items [:a :b "c"] keyword?)
 ```
 
 ```
 @example
-(filter-items-by [:a :b "c"] keyword?)
+(filter-items [:a :b "c"] keyword?)
 =>
 [:a :b]
 ```
@@ -1844,9 +1852,57 @@ false
 <summary>Source code</summary>
 
 ```
+(defn filter-items
+  [n filter-f]
+  (vec (filter filter-f n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [filter-items]]))
+
+(vector.api/filter-items ...)
+(filter-items            ...)
+```
+
+</details>
+
+---
+
+### filter-items-by
+
+```
+@param (vector) n
+@param (function) filter-f
+@param (function) value-f
+```
+
+```
+@usage
+(filter-items-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+```
+
+```
+@example
+(filter-items-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+=>
+[{:value :a} {:value :b}]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
 (defn filter-items-by
-  [n test-f]
-  (vec (filter test-f n)))
+  [n filter-f value-f])
 ```
 
 </details>
@@ -1869,7 +1925,7 @@ false
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 ```
 
 ```
@@ -1893,8 +1949,8 @@ false
 
 ```
 (defn filtered-count
-  [n test-f]
-  (count (filter test-f n)))
+  [n filter-f]
+  (count (filter filter-f n)))
 ```
 
 </details>
@@ -1917,7 +1973,7 @@ false
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 @param (integer) x
 ```
 
@@ -1942,8 +1998,8 @@ true
 
 ```
 (defn filtered-count?
-  [n test-f x]
-  (= x (filtered-count n test-f)))
+  [n filter-f x]
+  (= x (filtered-count n filter-f)))
 ```
 
 </details>
@@ -1966,7 +2022,7 @@ true
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 ```
 
 ```
@@ -1979,9 +2035,6 @@ true
 (first-filtered ["a" :b "c" :d "e"] keyword?)
 =>
 :b
-(first-filtered ["a" :b "c" :d "e"] #(string? %1))
-=>
-"a"
 ```
 
 ```
@@ -1993,8 +2046,8 @@ true
 
 ```
 (defn first-filtered
-  [n test-f]
-  (letfn [(f [%] (if (test-f %) %))]
+  [n filter-f]
+  (letfn [(f [%] (if (filter-f %) %))]
          (some f n)))
 ```
 
@@ -2008,6 +2061,56 @@ true
 
 (vector.api/first-filtered ...)
 (first-filtered            ...)
+```
+
+</details>
+
+---
+
+### first-filtered-by
+
+```
+@param (vector) n
+@param (function) filter-f
+@param (function) value-f
+```
+
+```
+@usage
+(first-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+```
+
+```
+@example
+(first-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+=>
+{:value :a}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn first-filtered-by
+  [n filter-f value-f]
+  (letfn [(f [%] (if (-> % value-f filter-f) %))]
+         (some f n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [first-filtered-by]]))
+
+(vector.api/first-filtered-by ...)
+(first-filtered-by            ...)
 ```
 
 </details>
@@ -3099,7 +3202,7 @@ true
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 ```
 
 ```
@@ -3112,9 +3215,6 @@ true
 (last-filtered ["a" :b "c" :d "e"] keyword?)
 =>
 :d
-(last-filtered ["a" :b "c" :d "e"] #(string? %1))
-=>
-"e"
 ```
 
 ```
@@ -3126,8 +3226,8 @@ true
 
 ```
 (defn last-filtered
-  [n test-f]
-  (letfn [(f [%1 %2] (if (test-f %2) %2 %1))]
+  [n filter-f]
+  (letfn [(f [%1 %2] (if (filter-f %2) %2 %1))]
          (reduce f nil n)))
 ```
 
@@ -3141,6 +3241,56 @@ true
 
 (vector.api/last-filtered ...)
 (last-filtered            ...)
+```
+
+</details>
+
+---
+
+### last-filtered-by
+
+```
+@param (vector) n
+@param (function) filter-f
+@param (function) value-f
+```
+
+```
+@usage
+(last-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+```
+
+```
+@example
+(last-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? :value)
+=>
+{:value :b}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn last-filtered-by
+  [n filter-f value-f]
+  (letfn [(f [%1 %2] (if (-> %2 value-f filter-f) %2 %1))]
+         (reduce f nil n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [last-filtered-by]]))
+
+(vector.api/last-filtered-by ...)
+(last-filtered-by            ...)
 ```
 
 </details>
@@ -4106,7 +4256,7 @@ false
 
 ```
 @param (vector) n
-@param (function) test-f
+@param (function) filter-f
 @param (integer) dex
 ```
 
@@ -4120,9 +4270,6 @@ false
 (nth-filtered ["a" :b "c" :d "e"] keyword? 2)
 =>
 :d
-(nth-filtered ["a" :b "c" :d "e"] #(string? %1) 2)
-=>
-"c"
 ```
 
 ```
@@ -4134,9 +4281,9 @@ false
 
 ```
 (defn nth-filtered
-  [n test-f dex]
+  [n filter-f dex]
   (letfn [(f [x match-count f-dex]
-             (if (-> x test-f not)
+             (if (-> x filter-f not)
                  (if (dex/dex-last? n f-dex)
                      (return nil)
                      (f (get n (inc f-dex)) match-count (inc f-dex)))
@@ -4158,6 +4305,55 @@ false
 
 (vector.api/nth-filtered ...)
 (nth-filtered            ...)
+```
+
+</details>
+
+---
+
+### nth-filtered-by
+
+```
+@param (vector) n
+@param (function) filter-f
+@param (function) value-f
+@param (integer) dex
+```
+
+```
+@usage
+(nth-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? 1)
+```
+
+```
+@example
+(nth-filtered-by [{:value :a} {:value :b} {:value "c"}] keyword? 2)
+=>
+{:value :b}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn nth-filtered-by
+  [n filter-f value-f dex])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [nth-filtered-by]]))
+
+(vector.api/nth-filtered-by ...)
+(nth-filtered-by            ...)
 ```
 
 </details>
