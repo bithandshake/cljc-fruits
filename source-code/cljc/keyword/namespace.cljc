@@ -6,8 +6,8 @@
 ;; ----------------------------------------------------------------------------
 
 (defn add-namespace
-  ; @param (keyword)(opt) namespace
   ; @param (keyword) n
+  ; @param (keyword)(opt) namespace
   ;
   ; @usage
   ; (add-namespace :b :a)

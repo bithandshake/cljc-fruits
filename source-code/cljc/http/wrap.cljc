@@ -1,7 +1,8 @@
 
-(ns http.wrap)
+(ns http.wrap
+    (:require [http.utils :as utils]))
 
-;; -- Default wrapper ---------------------------------------------------------
+;; -- Default wrappers --------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn response-wrap
@@ -13,20 +14,25 @@
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
+  ; @param (map)(opt) options
+  ; {:hide-errors? (boolean)(opt)
+  ;   Replaces the body with an unsensitive keyword such as :client-error
+  ;   or :server-error in case of client or server error status code passed.
+  ;   Default: false}
   ;
   ; @example
-  ; (response-wrap {:body "foo"})
+  ; (response-wrap {:body "My text"})
   ; =>
-  ; {:body    "foo"
+  ; {:body    "My text"
   ;  :headers {"Content-Type" "text/plain"}
   ;  :status  200}
   ;
   ; @example
-  ; (response-wrap {:body      "foo"
+  ; (response-wrap {:body      "My text"
   ;                 :headers   {"Content-Disposition" "inline"}
   ;                 :mime-type "text/plain"})
   ; =>
-  ; {:body    "foo"
+  ; {:body    "My text"
   ;  :headers {"Content-Type"        "text/plain"
   ;            "Content-Disposition" "inline"}
   ;  :status  200}
@@ -36,12 +42,15 @@
   ;  :headers (map)
   ;  :session (map)
   ;  :status (integer)}
-  [{:keys [headers mime-type] :as response-props :or {mime-type "text/plain"}}]
-  (let [headers (merge {"Content-Type" (or mime-type "text/plain")} headers)]
-       (merge {:headers headers :status 200}
-              (select-keys response-props [:body :session :status]))))
+  ([response-props]
+   (response-wrap response-props {}))
 
-;; -- Specific wrappers -------------------------------------------------------
+  ([{:keys [body headers mime-type session status] :or {mime-type "text/plain" status 200}}
+    {:keys [hide-errors?]}]
+   (cond-> {:body body :session session :status status :headers (merge {"Content-Type" mime-type} headers)}
+           hide-errors? utils/unsensitive-body)))
+
+;; -- Redirection wrappers ----------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn redirect-wrap
@@ -68,12 +77,54 @@
                          :headers {"Location" location}}
                         (select-keys response-props [:session :status]))))
 
+;; -- Basic wrappers ----------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn text-wrap
+  ; @param (map) response-props
+  ; {:body (*)
+  ;  :session (map)(opt)
+  ;  :status (integer)(opt)
+  ;   Default: 200}
+  ; @param (map)(opt) options
+  ; {:hide-errors? (boolean)(opt)
+  ;   Replaces the body with an unsensitive keyword such as :client-error
+  ;   or :server-error in case of client or server error status code passed.
+  ;   Default: false}
+  ;
+  ; @example
+  ; (text-wrap {:body "My text"})
+  ; =>
+  ; {:body    "My text"
+  ;  :headers {"Content-Type" "text/plain"}
+  ;  :status  200}
+  ;
+  ; @return (map)
+  ; {:body (string)
+  ;  :headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
+  ([response-props]
+   (text-wrap response-props {}))
+
+  ([{:keys [body] :as response-props} options]
+   (response-wrap (merge {:body      (str body)
+                          :mime-type "text/plain"
+                          :status    200}
+                         (select-keys response-props [:session :status]))
+                  options)))
+
 (defn error-wrap
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 500}
+  ; @param (map)(opt) options
+  ; {:hide-errors? (boolean)(opt)
+  ;   Replaces the body with an unsensitive keyword such as :client-error
+  ;   or :server-error in case of client or server error status code passed.
+  ;   Default: false}
   ;
   ; @example
   ; (error-wrap {:body   :file-not-found
@@ -88,11 +139,18 @@
   ;  :headers (map)
   ;  :session (map)
   ;  :status (integer)}
-  [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body      (str body)
-                         :mime-type "text/plain"
-                         :status    500}
-                        (select-keys response-props [:session :status]))))
+  ([response-props]
+   (error-wrap response-props {}))
+
+  ([{:keys [body] :as response-props} options]
+   (response-wrap (merge {:body      (str body)
+                          :mime-type "text/plain"
+                          :status    500}
+                         (select-keys response-props [:session :status]))
+                  options)))
+
+;; -- Specific wrappers -------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn html-wrap
   ; @param (map) response-props
@@ -144,31 +202,6 @@
                          :status    200}
                         (select-keys response-props [:session :status]))))
 
-(defn text-wrap
-  ; @param (map) response-props
-  ; {:body (*)
-  ;  :session (map)(opt)
-  ;  :status (integer)(opt)
-  ;   Default: 200}
-  ;
-  ; @example
-  ; (text-wrap {:body "foo"})
-  ; =>
-  ; {:body    "foo"
-  ;  :headers {"Content-Type" "text/plain"}
-  ;  :status  200}
-  ;
-  ; @return (map)
-  ; {:body (string)
-  ;  :headers (map)
-  ;  :session (map)
-  ;  :status (integer)}
-  [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body      (str body)
-                         :mime-type "text/plain"
-                         :status    200}
-                        (select-keys response-props [:session :status]))))
-
 (defn media-wrap
   ; @param (map) response-props
   ; {:body (java.io.File object)
@@ -204,7 +237,7 @@
   [{:keys [body filename] :as response-props}]
   (response-wrap (merge {:body body
                          ; By using the attachment header, the browser asks for
-                         ; saving the file to the client device, even if its content
+                         ; saving the file on the client device, even if its content
                          ; can be displayed.
                          ; :headers (if filename {"Content-Disposition" "attachment; filename=\""filename"\""})
                          :headers (if filename {"Content-Disposition" "inline; filename=\""filename"\""})
@@ -219,9 +252,9 @@
   ;   Default: 200}
   ;
   ; @example
-  ; (xml-wrap {:body "foo"})
+  ; (xml-wrap {:body "<?xml version="1.0" ...?>"})
   ; =>
-  ; {:body    "foo"
+  ; {:body    "<?xml version="1.0" ...?>"
   ;  :headers {"Content-Type" "application/xml"}
   ;  :status  200}
   ;
@@ -238,15 +271,15 @@
 
 (defn css-wrap
   ; @param (map) response-props
-  ; {:body (*)
+  ; {:body (string)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
   ; @example
-  ; (css-wrap {:body "foo"})
+  ; (css-wrap {:body ".class {}"})
   ; =>
-  ; {:body    "foo"
+  ; {:body    ".class {}"
   ;  :headers {"Content-Type" "text/css"}
   ;  :status  200}
   ;
