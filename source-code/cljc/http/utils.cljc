@@ -52,5 +52,5 @@
   ; @return (map)
   ; {:body (*)}
   [{:keys [status] :as response-props}]
-  (cond-> response-props (-> status str first (= 4)) (assoc :body ":client-error")
-                         (-> status str first (= 5)) (assoc :body ":server-error")))
+  (cond-> response-props (-> status str first str (= "4")) (assoc :body ":client-error")
+                         (-> status str first str (= "5")) (assoc :body ":server-error")))

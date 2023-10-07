@@ -8,6 +8,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn difference
+  ; @description
+  ; Computes the difference between two maps, returning key-value pairs that are
+  ; present in the first map but not in the second map.
+  ;
   ; @param (map) a
   ; @param (map) b
   ;
@@ -25,6 +29,10 @@
   (first (data/diff a b)))
 
 (defn swap
+  ; @description
+  ; Swaps the keys and values in a map, generating a new map with the values
+  ; as keys and the keys as values.
+  ;
   ; @param (map) n
   ;
   ; @usage
@@ -41,13 +49,14 @@
           (keys n)))
 
 (defn dissoc-in
+  ; @description
   ; Origin: re-frame.utils/dissoc-in
   ;
   ; Dissociates an entry from a nested associative structure returning a new
   ; nested structure. keys is a sequence of keys. Any empty maps that result
   ; will not be present in the new structure.
   ; The key thing is that 'm' remains identical? to istelf if the path was
-  ; never present
+  ; never present.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -71,6 +80,9 @@
            (dissoc n key)))
 
 (defn dissoc-items
+  ; @description
+  ; Removes specified keys and their associated values from a map.
+  ;
   ; @param (map) n
   ; @param (* in vector) keys
   ;
@@ -87,6 +99,10 @@
   (apply dissoc n keys))
 
 (defn inject-in
+  ; @description
+  ; Adds a key-value pair at a specified path within a nested map or creates
+  ; a nested map structure if it doesn't exist.
+  ;
   ; @param (map) n
   ; @param (vector) inject-path
   ; @param (*) key
@@ -105,6 +121,10 @@
   (assoc-in n (conj inject-path key) value))
 
 (defn toggle
+  ; @description
+  ; Adds a key-value pair to a map if the key is not present, or removes it
+  ; if the key is already present.
+  ;
   ; @param (map) n
   ; @param (*) key
   ; @param (*) value
@@ -134,6 +154,10 @@
           (assoc  n key value)))
 
 (defn toggle-in
+  ; @description
+  ; Modifies a map by adding a value at a specified path if it's not present,
+  ; or removing it if it already exists.
+  ;
   ; @param (map) n
   ; @param (vector) value-path
   ; @param (*) value
@@ -164,7 +188,8 @@
 
 (defn update-some
   ; @description
-  ; Update the n map if the value is something.
+  ; Updates a map by applying a function to a specified key if the provided
+  ; value is not nil or falsy.
   ;
   ; @param (map) n
   ; @param (*) key
@@ -192,7 +217,7 @@
 
 (defn update-in-some
   ; @description
-  ; Update-in the n map if the value is something.
+  ; Updates a map at a specified path if the provided value is not nil or falsy.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -220,7 +245,8 @@
 
 (defn assoc-some
   ; @description
-  ; Assoc values to the n map if the value is something.
+  ; Associates key-value pairs into a map, excluding any pairs where the value
+  ; is nil or falsy.
   ;
   ; @param (map) n
   ; @param (list of * pairs) kv-pairs
@@ -252,7 +278,8 @@
 
 (defn assoc-in-some
   ; @description
-  ; Assoc-in the value to the n map if the value is something.
+  ; Associates a value at a specified path within a nested map, but only if
+  ; the provided value is not NIL.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -279,7 +306,8 @@
 
 (defn assoc-or
   ; @description
-  ; Assoc the value to the n map if the value is nil.
+  ; Associates a value with a key in a map, but only if the key does not already
+  ; exist or has a nil value.
   ;
   ; @param (map) n
   ; @param (*) key
@@ -304,7 +332,8 @@
 
 (defn assoc-in-or
   ; @description
-  ; Assoc-in the value to the n map if the value-path's value is nil.
+  ; Associates a value at a specified path within a nested map, but only if the
+  ; current value at that path is NIL.
   ;
   ; @param (map) n
   ; @param (vector) value-path

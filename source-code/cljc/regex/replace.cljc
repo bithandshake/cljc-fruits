@@ -10,7 +10,7 @@
   ; @param (regex pattern) x
   ; @param (*) y
   ; @param (map)(opt) options
-  ; {:recursive? (boolean)(opt)
+  ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @example

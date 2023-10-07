@@ -1,6 +1,7 @@
 
 (ns map.api
     (:require [map.check     :as check]
+              [map.collapse  :as collapse]
               [map.convert   :as convert]
               [map.core      :as core]
               [map.filter    :as filter]
@@ -17,6 +18,9 @@
 
 ; map.check
 (def nonempty? check/nonempty?)
+
+; map.collapse
+(def collapse collapse/collapse)
 
 ; map.convert
 (def to-vector convert/to-vector)

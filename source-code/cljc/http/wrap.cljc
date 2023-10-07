@@ -1,8 +1,9 @@
 
 (ns http.wrap
-    (:require [http.utils :as utils]))
+    (:require [http.utils :as utils]
+              [map.api    :as map]))
 
-;; -- Default wrappers --------------------------------------------------------
+;; -- Default wrapper ---------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn response-wrap
@@ -16,8 +17,8 @@
   ;   Default: 200}
   ; @param (map)(opt) options
   ; {:hide-errors? (boolean)(opt)
-  ;   Replaces the body with an unsensitive keyword such as :client-error
-  ;   or :server-error in case of client or server error status code passed.
+  ;   Replaces the body with an unsensitive keyword (:client-error or :server-error)
+  ;   in case of client error (4**) or server error (5**) status code passed.
   ;   Default: false}
   ;
   ; @example
@@ -45,37 +46,12 @@
   ([response-props]
    (response-wrap response-props {}))
 
-  ([{:keys [body headers mime-type session status] :or {mime-type "text/plain" status 200}}
+  ([{:keys [mime-type status] :as response-props :or {mime-type "text/plain" status 200}}
     {:keys [hide-errors?]}]
-   (cond-> {:body body :session session :status status :headers (merge {"Content-Type" mime-type} headers)}
-           hide-errors? utils/unsensitive-body)))
-
-;; -- Redirection wrappers ----------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn redirect-wrap
-  ; @param (map) response-props
-  ; {:location (string)
-  ;  :session (map)(opt)
-  ;  :status (integer)(opt)
-  ;   Default: 302}
-  ;
-  ; @example
-  ; (redirect-wrap {:location "/my-page"
-  ;                 :status   303}
-  ; =>
-  ; {:headers {"Content-Type" "text/plain"
-  ;            "Location"     "/my-page"}
-  ;  :status  303}
-  ;
-  ; @return (map)
-  ; {:headers (map)
-  ;  :session (map)
-  ;  :status (integer)}
-  [{:keys [location] :as response-props}]
-  (response-wrap (merge {:status  302
-                         :headers {"Location" location}}
-                        (select-keys response-props [:session :status]))))
+   (cond-> response-props :remove-keys           (select-keys     [:body :headers :session :status])
+                          :use-default-mime-type (map/assoc-in-or [:headers "Content-Type"] mime-type)
+                          :use-default-status    (map/assoc-in-or [:status] status)
+                          hide-errors?           (utils/unsensitive-body))))
 
 ;; -- Basic wrappers ----------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -148,6 +124,33 @@
                           :status    500}
                          (select-keys response-props [:session :status]))
                   options)))
+
+;; -- Redirection wrappers ----------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn redirect-wrap
+  ; @param (map) response-props
+  ; {:location (string)
+  ;  :session (map)(opt)
+  ;  :status (integer)(opt)
+  ;   Default: 302}
+  ;
+  ; @example
+  ; (redirect-wrap {:location "/my-page"
+  ;                 :status   303}
+  ; =>
+  ; {:headers {"Content-Type" "text/plain"
+  ;            "Location"     "/my-page"}
+  ;  :status  303}
+  ;
+  ; @return (map)
+  ; {:headers (map)
+  ;  :session (map)
+  ;  :status (integer)}
+  [{:keys [location] :as response-props}]
+  (response-wrap (merge {:status  302
+                         :headers {"Location" location}}
+                        (select-keys response-props [:session :status]))))
 
 ;; -- Specific wrappers -------------------------------------------------------
 ;; ----------------------------------------------------------------------------

@@ -5,6 +5,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn local-request?
+  ; @description
+  ; Checks if a request is local based on the server-name attribute, returning
+  ; TRUE if it is 'localhost' and FALSE otherwise.
+  ;
   ; @param (map) request
   ; {:server-name (string)}
   ;
@@ -26,6 +30,10 @@
   (= server-name "localhost"))
 
 (defn remote-request?
+  ; @description
+  ; Checks if a request is remote based on the server-name attribute, returning
+  ; TRUE if it is not 'localhost' and FALSE if it is.
+  ;
   ; @param (map) request
   ; {:server-name (string)}
   ;
