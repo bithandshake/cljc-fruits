@@ -6,6 +6,25 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn email-address-valid?
+  ; @description
+  ; Returns true if the given value is a valid email address.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (email-address-valid? "user@email.com")
+  ;
+  ; @example
+  ; (email-address-valid? "user@email.com")
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (let [pattern (patterns/email-address-pattern)]
+       (re-match? (str n) pattern)))
+
 (defn ip-address-valid?
   ; @description
   ; Returns true if the given value is a valid IP address.
@@ -90,33 +109,14 @@
   ;
   ; @return (boolean)
   ([n]
-   (password-valid? 8 32))
+   (password-valid? n 8 32))
 
   ([n min]
-   (password-valid? min 32))
+   (password-valid? n min 32))
 
   ([n min max]
    (let [pattern (patterns/password-pattern min max)]
         (re-match? (str n) pattern))))
-
-(defn email-address-valid?
-  ; @description
-  ; Returns true if the given value is a valid email address.
-  ;
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (email-address-valid? "user@email.com")
-  ;
-  ; @example
-  ; (email-address-valid? "user@email.com")
-  ; =>
-  ; true
-  ;
-  ; @return (boolean)
-  [n]
-  (let [pattern (patterns/email-address-pattern)]
-       (re-match? (str n) pattern)))
 
 (defn phone-number-valid?
   ; @description
@@ -124,7 +124,7 @@
   ;
   ; Phone number qualified as valid if ...
   ; ... its length is in a certain domain.
-  ; ... its first character is a plus sign.
+  ; ... its first character is a "+" character.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min
@@ -148,10 +148,10 @@
   ;
   ; @return (boolean)
   ([n]
-   (phone-number-valid? 4 20))
+   (phone-number-valid? n 4 20))
 
   ([n min]
-   (phone-number-valid? min 20))
+   (phone-number-valid? n min 20))
 
   ([n min max]
    (let [pattern (patterns/phone-number-pattern min max)]

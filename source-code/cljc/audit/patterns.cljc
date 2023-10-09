@@ -4,6 +4,22 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn email-address-pattern
+  ; @description
+  ; Returns a regex pattern that matches with valid email addresses.
+  ;
+  ; @usage
+  ; (email-address-pattern)
+  ;
+  ; @example
+  ; (email-address-pattern)
+  ; =>
+  ; #"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
+  ;
+  ; @return (regex pattern)
+  []
+  (re-pattern "[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"))
+  
 (defn ip-address-pattern
   ; @description
   ; Returns a regex pattern that matches with valid IP address.
@@ -90,29 +106,13 @@
   ([min max]
    (re-pattern (str "^(?=.*[a-ÿ])(?=.*[A-Ÿ])(?=.*\\d)[a-ÿA-Ÿ\\d\\.\\-\\_\\!\\?\\#\\*]{"min","max"}$"))))
 
-(defn email-address-pattern
-  ; @description
-  ; Returns a regex pattern that matches with valid email addresses.
-  ;
-  ; @usage
-  ; (email-address-pattern)
-  ;
-  ; @example
-  ; (email-address-pattern)
-  ; =>
-  ; #"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
-  ;
-  ; @return (regex pattern)
-  []
-  (re-pattern "[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"))
-
 (defn phone-number-pattern
   ; @description
   ; Returns a regex pattern that matches with valid phone numbers.
   ;
   ; Phone number qualified as valid if ...
   ; ... its length is in a certain domain.
-  ; ... its first letter is a plus sign.
+  ; ... its first letter is a "+" character.
   ;
   ; @param (integer)(opt) min
   ; Default: 4
