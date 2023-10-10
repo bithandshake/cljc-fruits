@@ -30,6 +30,7 @@
 (def request->multipart-params request/request->multipart-params)
 (def request->multipart-param  request/request->multipart-param)
 (def request->session          request/request->session)
+(def request->session-params   request/request->session-params)
 (def request->session-param    request/request->session-param)
 (def request->route-path       request/request->route-path)
 (def request->uri              request/request->uri)

@@ -364,7 +364,7 @@ true
 ```
 @description
 Returns a regex pattern that matches with valid passwords.
-Password qualified as valid if ...
+Password is declared as valid if ...
 ... its length is in a certain domain.
 ... contains at least one uppercase letter.
 ... contains at least one lowercase letter.
@@ -441,7 +441,7 @@ Default: 32
 ```
 @description
 Returns true if the given value is a valid password.
-Password qualified as valid if ...
+Password is declared as valid if ...
 ... its length is in a certain domain.
 ... contains at least one uppercase letter.
 ... contains at least one lowercase letter.
@@ -489,10 +489,10 @@ true
 ```
 (defn password-valid?
   ([n]
-   (password-valid? 8 32))
+   (password-valid? n 8 32))
 
   ([n min]
-   (password-valid? min 32))
+   (password-valid? n min 32))
 
   ([n min max]
    (let [pattern (patterns/password-pattern min max)]
@@ -520,9 +520,9 @@ true
 ```
 @description
 Returns a regex pattern that matches with valid phone numbers.
-Phone number qualified as valid if ...
+Phone number is declared as valid if ...
 ... its length is in a certain domain.
-... its first letter is a plus sign.
+... its first letter is a "+" character.
 ```
 
 ```
@@ -594,9 +594,9 @@ Default: 20
 ```
 @description
 Returns true if the given value is a valid phone number.
-Phone number qualified as valid if ...
+Phone number is declared as valid if ...
 ... its length is in a certain domain.
-... its first character is a plus sign.
+... its first character is a "+" character.
 ```
 
 ```
@@ -639,10 +639,10 @@ true
 ```
 (defn phone-number-valid?
   ([n]
-   (phone-number-valid? 4 20))
+   (phone-number-valid? n 4 20))
 
   ([n min]
-   (phone-number-valid? min 20))
+   (phone-number-valid? n min 20))
 
   ([n min max]
    (let [pattern (patterns/phone-number-pattern min max)]
@@ -670,7 +670,7 @@ true
 ```
 @description
 Returns a regex pattern that matches with valid PIN codes.
-PIN code qualified as valid if ...
+PIN code is declared as valid if ...
 ... only contains digits.
 ... it has a certain length.
 ```
@@ -734,7 +734,7 @@ Default: 4
 ```
 @description
 Returns true if the given value is a valid PIN code.
-PIN code qualified as valid if ...
+PIN code is declared as valid if ...
 ... only contains digits.
 ... it has a certain length.
 ```

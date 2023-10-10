@@ -12,7 +12,7 @@
   ; associated values.
   ;
   ; @warning
-  ; Namespaced keys losing their namespaces during the method!
+  ; Namespaced keys losing their namespaces during the process!
   ;
   ; @param (*) n
   ; @param (map)(opt) options
@@ -80,9 +80,7 @@
            ; The type of the return value depends on the 'keywordize?' option.
            ;
            ; @param (*) a
-           ; Key A
            ; @param (*) b
-           ; Key B
            ;
            ; @example
            ; (join-keys-f :a :b)
@@ -102,7 +100,9 @@
            ; ...
            ;
            ; @param (*) ko
+           ; Key from outer map.
            ; @param (*) vo
+           ; Value from outer map.
            ;
            ; @return (boolean)
            (collapse-o? [ko vo] (and (map? vo)
@@ -113,7 +113,9 @@
            ; ...
            ;
            ; @param (*) ki
+           ; Key from inner map.
            ; @param (*) vi
+           ; Value from inner map.
            ;
            ; @return (boolean)
            (collapse-i? [ki vi] (or (not  inner-except-f)

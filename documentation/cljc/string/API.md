@@ -3818,7 +3818,7 @@ true
 @param (regex pattern or string) x
 @param (*) y
 @param (map)(opt) options
-{:recursive? (boolean)(opt)
+{:recur? (boolean)(opt)
   Default: false}
 ```
 
@@ -3857,7 +3857,7 @@ true
 
 ```
 @example
-(replace-part "///" "//" "/" {:recursive? true})
+(replace-part "///" "//" "/" {:recur? true})
 =>
 "/"
 ```
@@ -3874,14 +3874,14 @@ true
   ([n x y]
    (replace-part n x y {}))
 
-  ([n x y {:keys [recursive?]}]
+  ([n x y {:keys [recur?]}]
    (letfn [(f [n] (clojure.string/replace (str n) x
                                           (str y)))
            (r [n] (if (= n (f n))
                       (return n)
                       (r (f n))))]
-          (if recursive? (r n)
-                         (f n)))))
+          (if recur? (r n)
+                     (f n)))))
 ```
 
 </details>

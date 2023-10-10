@@ -43,6 +43,8 @@
 
 - [assoc-some](#assoc-some)
 
+- [collapse](#collapse)
+
 - [contains-key?](#contains-key)
 
 - [contains-of-keys?](#contains-of-keys)
@@ -78,6 +80,10 @@
 - [get-ns](#get-ns)
 
 - [get-values](#get-values)
+
+- [inherit](#inherit)
+
+- [inherit-in](#inherit-in)
 
 - [inject-in](#inject-in)
 
@@ -847,7 +853,8 @@ true
 
 ```
 @description
-Assoc-in the value to the n map if the value-path's value is nil.
+Associates a value at a specified path within a nested map, but only if the
+current value at that path is NIL.
 ```
 
 ```
@@ -908,7 +915,8 @@ Assoc-in the value to the n map if the value-path's value is nil.
 
 ```
 @description
-Assoc-in the value to the n map if the value is something.
+Associates a value at a specified path within a nested map, but only if
+the provided value is not NIL.
 ```
 
 ```
@@ -1014,7 +1022,8 @@ Assoc-in the value to the n map if the value is something.
 
 ```
 @description
-Assoc the value to the n map if the value is nil.
+Associates a value with a key in a map, but only if the key does not already
+exist or has a nil value.
 ```
 
 ```
@@ -1075,7 +1084,8 @@ Assoc the value to the n map if the value is nil.
 
 ```
 @description
-Assoc values to the n map if the value is something.
+Associates key-value pairs into a map, excluding any pairs where the value
+is nil or falsy.
 ```
 
 ```
@@ -1128,6 +1138,142 @@ Assoc values to the n map if the value is something.
 
 (map.api/assoc-some ...)
 (assoc-some         ...)
+```
+
+</details>
+
+---
+
+### collapse
+
+```
+@warning
+Namespaced keys losing their namespaces during the process!
+```
+
+```
+@description
+Flattens a nested map, converting its keys into dot-separated strings,
+optionally keywordizing keys, and providing options to control which keys
+are collapsed. The result is a new map with flattened keys and their
+associated values.
+```
+
+```
+@param (*) n
+@param (map)(opt) options
+{:inner-except-f (function)(opt)
+  An optional control function that determines whether specific key-value
+  pairs within nested maps should be excluded from the collapsing process.
+  It is invoked for each key-value pair within nested maps during the inner iteration.
+  If returns FALSE for a particular key-value pair, that pair will not be collapsed.
+ :keywordize? (boolean)(opt)
+  Default: false
+ :outer-except-f (function)(opt)
+  An optional control function that operates at the outer level of the map.
+  Similar to 'inner-except-f', it determines whether specific key-value pairs
+  at the outermost level of the map should be excluded from collapsing.}
+```
+
+```
+@usage
+(collapse {:a {:b "c"}})
+```
+
+```
+@example
+(collapse {:a {:b "c"}})
+=>
+{"a.b" "c"}
+```
+
+```
+@example
+(collapse {:a {:b "c"}} {:keywordize? true})
+=>
+{:a.b "c"}
+```
+
+```
+@example
+(collapse {:a {:b {:c "d"} :q [{:r {:s "t"}}]}} {:keywordize? true})
+=>
+{:a.b.c "d" :q [{:r.s "t"}]}
+```
+
+```
+@example
+The key :c is an exception, and its value will not be collapsed to the outer map.
+(defn my-inner-except-f [k v] (not= k :c))
+(collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-inner-except-f})
+=>
+{:a.b {:c "d"}}
+```
+
+```
+@example
+The key :b is an exception, and its value's keys will not be collapsed to their outer map.
+(defn my-outer-except-f [k v] (not= k :b))
+(collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-outer-except-f})
+=>
+{:a.b {:c "d"}}
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn collapse
+  ([n]
+   (collapse n {}))
+
+  ([n {:keys [inner-except-f outer-except-f keywordize?]}]
+   (letfn [           (stringize-key-f [k] (if (keyword? k)
+                                    (name     k)
+                                    (str      k)))
+
+           (join-keys-f [a b] (if keywordize? (keyword (str (stringize-key-f a) "." (stringize-key-f b)))
+                                              (str          (stringize-key-f a) "." (stringize-key-f b))))
+
+           (collapse-o? [ko vo] (and (map? vo)
+                                     (or (not  outer-except-f)
+                                         (not (outer-except-f ko vo)))))
+
+           (collapse-i? [ki vi] (or (not  inner-except-f)
+                                    (not (inner-except-f ki vi))))
+
+           (map-f [ro ko vo] (if (collapse-o? ko vo)
+                                 (letfn [                                         (collapse-f [ri ki vi] (if (collapse-i? ki vi)
+                                                                    (assoc    ri (join-keys-f ko ki) vi)
+                                                                    (assoc-in ri [ko ki] vi)))]
+
+                                        (reduce-kv collapse-f ro (walk-f vo)))
+
+                                 (assoc ro ko (walk-f vo))))
+
+           (vector-f [r x] (conj r (walk-f x)))
+
+           (walk-f [n] (cond (vector? n) (reduce    vector-f [] n)
+                             (map?    n) (reduce-kv map-f    {} n)
+                             :return  n))]
+
+          (walk-f n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [map.api :refer [collapse]]))
+
+(map.api/collapse ...)
+(collapse         ...)
 ```
 
 </details>
@@ -1369,6 +1515,12 @@ true
 ### difference
 
 ```
+@description
+Computes the difference between two maps, returning key-value pairs that are
+present in the first map but not in the second map.
+```
+
+```
 @param (map) a
 @param (map) b
 ```
@@ -1416,6 +1568,16 @@ Things only in a
 ---
 
 ### dissoc-in
+
+```
+@description
+Origin: re-frame.utils/dissoc-in
+Dissociates an entry from a nested associative structure returning a new
+nested structure. keys is a sequence of keys. Any empty maps that result
+will not be present in the new structure.
+The key thing is that 'm' remains identical? to istelf if the path was
+never present.
+```
 
 ```
 @param (map) n
@@ -1470,6 +1632,11 @@ Things only in a
 ---
 
 ### dissoc-items
+
+```
+@description
+Removes specified keys and their associated values from a map.
+```
 
 ```
 @param (map) n
@@ -2096,7 +2263,111 @@ nil
 
 ---
 
+### inherit
+
+```
+@param (map) n
+@param (vector) keys
+```
+
+```
+@usage
+(inherit {:a "A" :b "B" :c "C"} [:a :b])
+```
+
+```
+@example
+(inherit {:a "A" :b "B" :c "C"} [:a :b])
+=>
+{:a "A" :b "B"}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn inherit
+  [n keys]
+  (select-keys n keys))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [map.api :refer [inherit]]))
+
+(map.api/inherit ...)
+(inherit         ...)
+```
+
+</details>
+
+---
+
+### inherit-in
+
+```
+@param (map) n
+@param (vectors in vector) keys
+```
+
+```
+@usage
+(inherit-in {:a {:value "A"} :b {:value "B"} :c {:value "C"}} [[:a :value] [:b :value]])
+```
+
+```
+@example
+(inherit-in {:a {:value "A"} :b {:value "B"} :c {:value "C"}} [[:a :value] [:b :value]])
+=>
+{:a {:value "A"} :b {:value "B"}}
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn inherit-in
+  [n paths]
+  (letfn [(f [result path]
+             (assoc-in result path (get-in n path)))]
+         (reduce f {} paths)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [map.api :refer [inherit-in]]))
+
+(map.api/inherit-in ...)
+(inherit-in         ...)
+```
+
+</details>
+
+---
+
 ### inject-in
+
+```
+@description
+Adds a key-value pair at a specified path within a nested map or creates
+a nested map structure if it doesn't exist.
+```
 
 ```
 @param (map) n
@@ -2342,6 +2613,11 @@ true
 ---
 
 ### nonempty?
+
+```
+@description
+Returns TRUE in case of the given 'n' value is a nonempty map.
+```
 
 ```
 @param (map) n
@@ -2838,6 +3114,12 @@ false
 ### swap
 
 ```
+@description
+Swaps the keys and values in a map, generating a new map with the values
+as keys and the keys as values.
+```
+
+```
 @param (map) n
 ```
 
@@ -2884,6 +3166,11 @@ false
 ---
 
 ### to-vector
+
+```
+@description
+Converts the given 'n' map into a vector.
+```
 
 ```
 @param (map) n
@@ -2955,6 +3242,12 @@ false
 ### toggle
 
 ```
+@description
+Adds a key-value pair to a map if the key is not present, or removes it
+if the key is already present.
+```
+
+```
 @param (map) n
 @param (*) key
 @param (*) value
@@ -3018,6 +3311,12 @@ false
 ---
 
 ### toggle-in
+
+```
+@description
+Modifies a map by adding a value at a specified path if it's not present,
+or removing it if it already exists.
+```
 
 ```
 @param (map) n
@@ -3086,7 +3385,7 @@ false
 
 ```
 @description
-Update-in the n map if the value is something.
+Updates a map at a specified path if the provided value is not nil or falsy.
 ```
 
 ```
@@ -3150,7 +3449,8 @@ Update-in the n map if the value is something.
 
 ```
 @description
-Update the n map if the value is something.
+Updates a map by applying a function to a specified key if the provided
+value is not nil or falsy.
 ```
 
 ```

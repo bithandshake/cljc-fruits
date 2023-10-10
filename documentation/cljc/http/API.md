@@ -53,6 +53,8 @@
 
 - [request->session-param](#request-session-param)
 
+- [request->session-params](#request-session-params)
+
 - [request->transit-param](#request-transit-param)
 
 - [request->transit-params](#request-transit-params)
@@ -121,7 +123,7 @@
 
 ```
 @param (map) response-props
-{:body (*)
+{:body (string)
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
@@ -129,9 +131,9 @@
 
 ```
 @example
-(css-wrap {:body "foo"})
+(css-wrap {:body ".class {}"})
 =>
-{:body    "foo"
+{:body    ".class {}"
  :headers {"Content-Type" "text/css"}
  :status  200}
 ```
@@ -285,6 +287,12 @@
 ### local-request?
 
 ```
+@description
+Checks if a request is local based on the server-name attribute, returning
+TRUE if it is 'localhost' and FALSE otherwise.
+```
+
+```
 @param (map) request
 {:server-name (string)}
 ```
@@ -407,6 +415,12 @@ false
 ---
 
 ### remote-request?
+
+```
+@description
+Checks if a request is remote based on the server-name attribute, returning
+TRUE if it is not 'localhost' and FALSE if it is.
+```
 
 ```
 @param (map) request
@@ -1190,6 +1204,47 @@ false
 
 ---
 
+### request->session-params
+
+```
+@param (map) request
+{:session (map)}
+```
+
+```
+@usage
+(request->session-params {...})
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn request->session-params
+  [request]
+  (request->session request))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [request->session-params]]))
+
+(http.api/request->session-params ...)
+(request->session-params          ...)
+```
+
+</details>
+
+---
+
 ### request->transit-param
 
 ```
@@ -1365,24 +1420,29 @@ false
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
+@param (map)(opt) options
+{:hide-errors? (boolean)(opt)
+  Replaces the body with an unsensitive keyword (:client-error or :server-error)
+  in case of client error (4**) or server error (5**) status code passed.
+  Default: false}
 ```
 
 ```
 @example
-(response-wrap {:body "foo"})
+(response-wrap {:body "My text"})
 =>
-{:body    "foo"
+{:body    "My text"
  :headers {"Content-Type" "text/plain"}
  :status  200}
 ```
 
 ```
 @example
-(response-wrap {:body      "foo"
+(response-wrap {:body      "My text"
                 :headers   {"Content-Disposition" "inline"}
                 :mime-type "text/plain"})
 =>
-{:body    "foo"
+{:body    "My text"
  :headers {"Content-Type"        "text/plain"
            "Content-Disposition" "inline"}
  :status  200}
@@ -1401,10 +1461,17 @@ false
 
 ```
 (defn response-wrap
-  [{:keys [headers mime-type] :as response-props :or {mime-type "text/plain"}}]
-  (let [headers (merge {"Content-Type" (or mime-type "text/plain")} headers)]
-       (merge {:headers headers :status 200}
-              (select-keys response-props [:body :session :status]))))
+  ([response-props]
+   (response-wrap response-props {}))
+
+  ([{:keys [mime-type session status] :as response-props :or {mime-type "text/plain" status 200}}
+    {:keys [hide-errors?]}]
+   (cond-> response-props :select-keys           (select-keys     [:body :headers :session :status])
+                          :use-default-mime-type (map/assoc-in-or [:headers "Content-Type"] mime-type)
+                          :use-default-status    (map/assoc-in-or [:status] status)
+                          hide-errors?           (utils/unsensitive-body)
+
+                          (nil? session)         (dissoc :session))))
 ```
 
 </details>
@@ -1431,13 +1498,18 @@ false
  :session (map)(opt)
  :status (integer)(opt)
   Default: 200}
+@param (map)(opt) options
+{:hide-errors? (boolean)(opt)
+  Replaces the body with an unsensitive keyword such as :client-error
+  or :server-error in case of client or server error status code passed.
+  Default: false}
 ```
 
 ```
 @example
-(text-wrap {:body "foo"})
+(text-wrap {:body "My text"})
 =>
-{:body    "foo"
+{:body    "My text"
  :headers {"Content-Type" "text/plain"}
  :status  200}
 ```
@@ -1455,11 +1527,15 @@ false
 
 ```
 (defn text-wrap
-  [{:keys [body] :as response-props}]
-  (response-wrap (merge {:body      (str body)
-                         :mime-type "text/plain"
-                         :status    200}
-                        (select-keys response-props [:session :status]))))
+  ([response-props]
+   (text-wrap response-props {}))
+
+  ([{:keys [body] :as response-props} options]
+   (response-wrap (merge {:body      (str body)
+                          :mime-type "text/plain"
+                          :status    200}
+                         (select-keys response-props [:session :status]))
+                  options)))
 ```
 
 </details>
@@ -1490,9 +1566,9 @@ false
 
 ```
 @example
-(xml-wrap {:body "foo"})
+(xml-wrap {:body "<?xml version="1.0" ...?>"})
 =>
-{:body    "foo"
+{:body    "<?xml version="1.0" ...?>"
  :headers {"Content-Type" "application/xml"}
  :status  200}
 ```

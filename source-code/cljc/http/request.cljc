@@ -237,6 +237,17 @@
   [{:keys [session]}]
   (return session))
 
+(defn request->session-params
+  ; @param (map) request
+  ; {:session (map)}
+  ;
+  ; @usage
+  ; (request->session-params {...})
+  ;
+  ; @return (map)
+  [request]
+  (request->session request))
+
 (defn request->session-param
   ; @param (map) request
   ; @param (keyword) param-key

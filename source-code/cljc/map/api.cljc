@@ -6,6 +6,7 @@
               [map.core      :as core]
               [map.filter    :as filter]
               [map.key       :as key]
+              [map.inherit   :as inherit]
               [map.match     :as match]
               [map.merge     :as merge]
               [map.namespace :as namespace]
@@ -52,6 +53,10 @@
 (def rekey-item        key/rekey-item)
 (def rekey-items       key/rekey-items)
 (def get-keys-by       key/get-keys-by)
+
+; map.inherit
+(def inherit    inherit/inherit)
+(def inherit-in inherit/inherit-in)
 
 ; map.match
 (def any-key-match?        match/any-key-match?)

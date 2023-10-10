@@ -46,12 +46,17 @@
   ([response-props]
    (response-wrap response-props {}))
 
-  ([{:keys [mime-type status] :as response-props :or {mime-type "text/plain" status 200}}
+  ([{:keys [mime-type session status] :as response-props :or {mime-type "text/plain" status 200}}
     {:keys [hide-errors?]}]
-   (cond-> response-props :remove-keys           (select-keys     [:body :headers :session :status])
+   (cond-> response-props :select-keys           (select-keys     [:body :headers :session :status])
                           :use-default-mime-type (map/assoc-in-or [:headers "Content-Type"] mime-type)
                           :use-default-status    (map/assoc-in-or [:status] status)
-                          hide-errors?           (utils/unsensitive-body))))
+                          hide-errors?           (utils/unsensitive-body)
+
+                          ; If the session value is NIL, this function removes it from the response in order to avoid
+                          ; invalid anti-forgery token errors.
+                          ; https://clojureverse.org/t/how-do-you-do-csrf-protection-in-your-clojure-webapps/5752
+                          (nil? session)         (dissoc :session))))
 
 ;; -- Basic wrappers ----------------------------------------------------------
 ;; ----------------------------------------------------------------------------

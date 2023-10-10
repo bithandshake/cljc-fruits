@@ -19,7 +19,7 @@
   ; @return (regex pattern)
   []
   (re-pattern "[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"))
-  
+
 (defn ip-address-pattern
   ; @description
   ; Returns a regex pattern that matches with valid IP address.
@@ -40,7 +40,7 @@
   ; @description
   ; Returns a regex pattern that matches with valid PIN codes.
   ;
-  ; PIN code qualified as valid if ...
+  ; PIN code is declared as valid if ...
   ; ... only contains digits.
   ; ... it has a certain length.
   ;
@@ -69,7 +69,7 @@
   ; @description
   ; Returns a regex pattern that matches with valid passwords.
   ;
-  ; Password qualified as valid if ...
+  ; Password is declared as valid if ...
   ; ... its length is in a certain domain.
   ; ... contains at least one uppercase letter.
   ; ... contains at least one lowercase letter.
@@ -110,7 +110,7 @@
   ; @description
   ; Returns a regex pattern that matches with valid phone numbers.
   ;
-  ; Phone number qualified as valid if ...
+  ; Phone number is declared as valid if ...
   ; ... its length is in a certain domain.
   ; ... its first letter is a "+" character.
   ;

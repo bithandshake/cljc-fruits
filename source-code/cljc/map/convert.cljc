@@ -5,6 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn to-vector
+  ; @description
+  ; Converts the given 'n' map into a vector.
+  ;
   ; @param (map) n
   ; @param (function)(opt) convert-f
   ;

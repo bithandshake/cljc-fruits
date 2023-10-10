@@ -48,7 +48,7 @@
   ; @description
   ; Returns true if the given value is a valid PIN code.
   ;
-  ; PIN code qualified as valid if ...
+  ; PIN code is declared as valid if ...
   ; ... only contains digits.
   ; ... it has a certain length.
   ;
@@ -79,7 +79,7 @@
   ; @description
   ; Returns true if the given value is a valid password.
   ;
-  ; Password qualified as valid if ...
+  ; Password is declared as valid if ...
   ; ... its length is in a certain domain.
   ; ... contains at least one uppercase letter.
   ; ... contains at least one lowercase letter.
@@ -122,7 +122,7 @@
   ; @description
   ; Returns true if the given value is a valid phone number.
   ;
-  ; Phone number qualified as valid if ...
+  ; Phone number is declared as valid if ...
   ; ... its length is in a certain domain.
   ; ... its first character is a "+" character.
   ;
