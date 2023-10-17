@@ -168,11 +168,12 @@
   ;
   ; @return (vector)
   [n xyz]
-  (letfn [(f [result x]
-             (if (check/contains-item? xyz x)
-                 (return               result)
-                 (conj                 result x)))]
-         (reduce f [] n)))
+  ;(letfn [(f [result x]
+  ;           (if (check/contains-item? xyz x)
+  ;               (return               result)
+  ;               (conj                 result x)
+  ;       (reduce f [] n)])
+  (remove (set xyz) n))
 
 (defn remove-items-by
   ; @param (vector) n

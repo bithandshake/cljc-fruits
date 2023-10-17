@@ -177,8 +177,6 @@
 
 - [remove-item-once](#remove-item-once)
 
-- [remove-items](#remove-items)
-
 - [remove-items-by](#remove-items-by)
 
 - [remove-items-kv](#remove-items-kv)
@@ -4983,65 +4981,6 @@ At the beginning of the vector it jumps to the last index.
 
 (vector.api/remove-item-once ...)
 (remove-item-once            ...)
-```
-
-</details>
-
----
-
-### remove-items
-
-```
-@param (vector) n
-@param (vector) xyz
-```
-
-```
-@usage
-(remove-items [:a :b :c] [:b :c])
-```
-
-```
-@example
-(remove-items [:a :b :c] [:b :c])
-=>
-[:a]
-```
-
-```
-@example
-(remove-items [:a :b :b :c ] [:b :c])
-=>
-[:a]
-```
-
-```
-@return (vector)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn remove-items
-  [n xyz]
-  (letfn [(f [result x]
-             (if (check/contains-item? xyz x)
-                 (return               result)
-                 (conj                 result x)))]
-         (reduce f [] n)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [vector.api :refer [remove-items]]))
-
-(vector.api/remove-items ...)
-(remove-items            ...)
 ```
 
 </details>
