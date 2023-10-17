@@ -63,7 +63,27 @@
 
 - [request->user-agent](#request-user-agent)
 
+- [response->client-error?](#response-client-error)
+
+- [response->info?](#response-info)
+
+- [response->redirected?](#response-redirected)
+
+- [response->server-error?](#response-server-error)
+
+- [response->success?](#response-success)
+
 - [response-wrap](#response-wrap)
+
+- [status->client-error?](#status-client-error)
+
+- [status->info?](#status-info)
+
+- [status->redirected?](#status-redirected)
+
+- [status->server-error?](#status-server-error)
+
+- [status->success?](#status-success)
 
 - [text-wrap](#text-wrap)
 
@@ -1409,6 +1429,276 @@ false
 
 ---
 
+### response->client-error?
+
+```
+@param (integer) response
+```
+
+```
+@usage
+(response->client-error? {:body "..." :status 429})
+```
+
+```
+@example
+(response->client-error? {:body "..." :status 429})
+=>
+true
+```
+
+```
+@example
+(response->client-error? {:body "..." :status 500})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn response->client-error?
+  [response]
+  (-> response :status status/status->client-error?))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [response->client-error?]]))
+
+(http.api/response->client-error? ...)
+(response->client-error?          ...)
+```
+
+</details>
+
+---
+
+### response->info?
+
+```
+@param (integer) response
+```
+
+```
+@usage
+(response->info? {:body "..." :status 100})
+```
+
+```
+@example
+(response->info? {:body "..." :status 100})
+=>
+true
+```
+
+```
+@example
+(response->info? {:body "..." :status 200})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn response->info?
+  [response]
+  (-> response :status status/status->info?))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [response->info?]]))
+
+(http.api/response->info? ...)
+(response->info?          ...)
+```
+
+</details>
+
+---
+
+### response->redirected?
+
+```
+@param (integer) response
+```
+
+```
+@usage
+(response->redirected? {:body "..." :status 301})
+```
+
+```
+@example
+(response->redirected? {:body "..." :status 301})
+=>
+true
+```
+
+```
+@example
+(response->redirected? {:body "..." :status 404})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn response->redirected?
+  [response]
+  (-> response :status status/status->redirected?))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [response->redirected?]]))
+
+(http.api/response->redirected? ...)
+(response->redirected?          ...)
+```
+
+</details>
+
+---
+
+### response->server-error?
+
+```
+@param (integer) response
+```
+
+```
+@usage
+(response->server-error? {:body "..." :status 500})
+```
+
+```
+@example
+(response->server-error? {:body "..." :status 500})
+=>
+true
+```
+
+```
+@example
+(response->server-error? {:body "..." :status 404})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn response->server-error?
+  [response]
+  (-> response :status status/status->server-error?))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [response->server-error?]]))
+
+(http.api/response->server-error? ...)
+(response->server-error?          ...)
+```
+
+</details>
+
+---
+
+### response->success?
+
+```
+@param (integer) response
+```
+
+```
+@usage
+(response->success? {:body "..." :status 200})
+```
+
+```
+@example
+(response->success? {:body "..." :status 200})
+=>
+true
+```
+
+```
+@example
+(response->success? {:body "..." :status 404})
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn response->success?
+  [response]
+  (-> response :status status/status->success?))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [response->success?]]))
+
+(http.api/response->success? ...)
+(response->success?          ...)
+```
+
+</details>
+
+---
+
 ### response-wrap
 
 ```
@@ -1484,6 +1774,276 @@ false
 
 (http.api/response-wrap ...)
 (response-wrap          ...)
+```
+
+</details>
+
+---
+
+### status->client-error?
+
+```
+@param (integer or string) status
+```
+
+```
+@usage
+(status->client-error? 429)
+```
+
+```
+@example
+(status->client-error? 429)
+=>
+true
+```
+
+```
+@example
+(status->client-error? 500)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn status->client-error?
+  [status]
+  (-> status str first str (= "4")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [status->client-error?]]))
+
+(http.api/status->client-error? ...)
+(status->client-error?          ...)
+```
+
+</details>
+
+---
+
+### status->info?
+
+```
+@param (integer or string) status
+```
+
+```
+@usage
+(status->info? 100)
+```
+
+```
+@example
+(status->info? 100)
+=>
+true
+```
+
+```
+@example
+(status->info? 200)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn status->info?
+  [status]
+  (-> status str first str (= "1")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [status->info?]]))
+
+(http.api/status->info? ...)
+(status->info?          ...)
+```
+
+</details>
+
+---
+
+### status->redirected?
+
+```
+@param (integer or string) status
+```
+
+```
+@usage
+(status->redirected? 301)
+```
+
+```
+@example
+(status->redirected? 301)
+=>
+true
+```
+
+```
+@example
+(status->redirected? 404)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn status->redirected?
+  [status]
+  (-> status str first str (= "3")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [status->redirected?]]))
+
+(http.api/status->redirected? ...)
+(status->redirected?          ...)
+```
+
+</details>
+
+---
+
+### status->server-error?
+
+```
+@param (integer or string) status
+```
+
+```
+@usage
+(status->server-error? 500)
+```
+
+```
+@example
+(status->server-error? 500)
+=>
+true
+```
+
+```
+@example
+(status->server-error? 404)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn status->server-error?
+  [status]
+  (-> status str first str (= "5")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [status->server-error?]]))
+
+(http.api/status->server-error? ...)
+(status->server-error?          ...)
+```
+
+</details>
+
+---
+
+### status->success?
+
+```
+@param (integer or string) status
+```
+
+```
+@usage
+(status->success? 200)
+```
+
+```
+@example
+(status->success? 200)
+=>
+true
+```
+
+```
+@example
+(status->success? 404)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn status->success?
+  [status]
+  (-> status str first str (= "2")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [status->success?]]))
+
+(http.api/status->success? ...)
+(status->success?          ...)
 ```
 
 </details>

@@ -13,9 +13,15 @@
 
 - [generate-pin-code](#generate-pin-code)
 
+- [generate-security-code](#generate-security-code)
+
 - [ip-address-pattern](#ip-address-pattern)
 
 - [ip-address-valid?](#ip-address-valid)
+
+- [latin-name-pattern](#latin-name-pattern)
+
+- [latin-name-valid?](#latin-name-valid)
 
 - [password-pattern](#password-pattern)
 
@@ -28,6 +34,14 @@
 - [pin-code-pattern](#pin-code-pattern)
 
 - [pin-code-valid?](#pin-code-valid)
+
+- [security-code-pattern](#security-code-pattern)
+
+- [security-code-valid?](#security-code-valid)
+
+- [username-pattern](#username-pattern)
+
+- [username-valid?](#username-valid)
 
 ### email-address-pattern
 
@@ -81,7 +95,7 @@ Returns a regex pattern that matches with valid email addresses.
 
 ```
 @description
-Returns true if the given value is a valid email address.
+Returns TRUE if the given value is a valid email address.
 ```
 
 ```
@@ -258,11 +272,69 @@ Default: 4
 
 ---
 
+### generate-security-code
+
+```
+@param (integer)(opt) length
+Default: 6
+```
+
+```
+@usage
+(generate-security-code)
+```
+
+```
+@example
+(generate-security-code)
+=>
+"042069"
+```
+
+```
+@example
+(generate-security-code 8)
+=>
+"04206900"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn generate-security-code
+  ([]
+   (generate-security-code 6))
+
+  ([length]
+   (-> length random/generate-number str)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [generate-security-code]]))
+
+(audit.api/generate-security-code ...)
+(generate-security-code           ...)
+```
+
+</details>
+
+---
+
 ### ip-address-pattern
 
 ```
 @description
-Returns a regex pattern that matches with valid IP address.
+Returns a regex pattern that matches with valid IP addresses.
 ```
 
 ```
@@ -310,7 +382,7 @@ Returns a regex pattern that matches with valid IP address.
 
 ```
 @description
-Returns true if the given value is a valid IP address.
+Returns TRUE if the given value is a valid IP address.
 ```
 
 ```
@@ -359,15 +431,156 @@ true
 
 ---
 
+### latin-name-pattern
+
+```
+@description
+Returns a regex pattern that matches with valid latin names.
+Latin name is declared as valid if ...
+... its length is in a certain domain,
+... contains only latin characters, accented latin characters, digits,
+    underscrores, hyphens, apostrophes, periods and spaces.
+```
+
+```
+@param (integer)(opt) min
+Default: 2
+@param (integer)(opt) max
+Default: 32
+```
+
+```
+@usage
+(latin-name-pattern)
+```
+
+```
+@usage
+(latin-name-pattern 3)
+```
+
+```
+@usage
+(latin-name-pattern 3 18)
+```
+
+```
+@example
+(latin-name-pattern 3 18)
+=>
+#"[A-Za-zÀ-Ýà-ý0-9_\-\']{3,18}"
+```
+
+```
+@return (regex pattern)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn latin-name-pattern
+  ([]
+   (latin-name-pattern 2 32))
+
+  ([min]
+   (latin-name-pattern min 32))
+
+  ([min max]
+   (re-pattern (str "[A-Za-zÀ-Ýà-ý0-9\\_\\-\\'\\.\\s]{"min","max"}"))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [latin-name-pattern]]))
+
+(audit.api/latin-name-pattern ...)
+(latin-name-pattern           ...)
+```
+
+</details>
+
+---
+
+### latin-name-valid?
+
+```
+@description
+Returns TRUE if the given value is a valid latin name.
+Latin name is declared as valid if ...
+... its length is in a certain domain,
+... contains only latin characters, accented latin characters, digits,
+    underscrores, hyphens, apostrophes, periods and spaces.
+```
+
+```
+@param (integer)(opt) min
+Default: 2
+@param (integer)(opt) max
+Default: 32
+```
+
+```
+@usage
+(latin-name-valid? "John O'Reilly")
+```
+
+```
+@example
+(latin-name-valid? "John O'Reilly")
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn latin-name-valid?
+  ([n]
+   (latin-name-valid? n 2 32))
+
+  ([n min]
+   (latin-name-valid? n min 32))
+
+  ([n min max]
+   (let [pattern (patterns/latin-name-pattern min max)]
+        (re-match? (str n) pattern))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [latin-name-valid?]]))
+
+(audit.api/latin-name-valid? ...)
+(latin-name-valid?           ...)
+```
+
+</details>
+
+---
+
 ### password-pattern
 
 ```
 @description
 Returns a regex pattern that matches with valid passwords.
 Password is declared as valid if ...
-... its length is in a certain domain.
-... contains at least one uppercase letter.
-... contains at least one lowercase letter.
+... its length is in a certain domain,
+... contains at least one uppercase letter,
+... contains at least one lowercase letter,
 ... contains at least one digit.
 Accented characters and the following special characters are allowed: .-_!?#*
 ```
@@ -440,11 +653,11 @@ Default: 32
 
 ```
 @description
-Returns true if the given value is a valid password.
+Returns TRUE if the given value is a valid password.
 Password is declared as valid if ...
-... its length is in a certain domain.
-... contains at least one uppercase letter.
-... contains at least one lowercase letter.
+... its length is in a certain domain,
+... contains at least one uppercase letter,
+... contains at least one lowercase letter,
 ... contains at least one digit.
 Accented characters and the following special characters are allowed: .-_!?#*
 ```
@@ -521,7 +734,7 @@ true
 @description
 Returns a regex pattern that matches with valid phone numbers.
 Phone number is declared as valid if ...
-... its length is in a certain domain.
+... its length is in a certain domain,
 ... its first letter is a "+" character.
 ```
 
@@ -593,9 +806,9 @@ Default: 20
 
 ```
 @description
-Returns true if the given value is a valid phone number.
+Returns TRUE if the given value is a valid phone number.
 Phone number is declared as valid if ...
-... its length is in a certain domain.
+... its length is in a certain domain,
 ... its first character is a "+" character.
 ```
 
@@ -671,7 +884,7 @@ true
 @description
 Returns a regex pattern that matches with valid PIN codes.
 PIN code is declared as valid if ...
-... only contains digits.
+... only contains digits,
 ... it has a certain length.
 ```
 
@@ -733,9 +946,9 @@ Default: 4
 
 ```
 @description
-Returns true if the given value is a valid PIN code.
+Returns TRUE if the given value is a valid PIN code.
 PIN code is declared as valid if ...
-... only contains digits.
+... only contains digits,
 ... it has a certain length.
 ```
 
@@ -789,6 +1002,286 @@ true
 
 (audit.api/pin-code-valid? ...)
 (pin-code-valid?           ...)
+```
+
+</details>
+
+---
+
+### security-code-pattern
+
+```
+@description
+Returns a regex pattern that matches with valid security codes.
+Security code is declared as valid if ...
+... only contains digits,
+... it has a certain length.
+```
+
+```
+@param (integer)(opt) length
+Default: 6
+```
+
+```
+@usage
+(security-code-pattern)
+```
+
+```
+@usage
+(security-code-pattern 8)
+```
+
+```
+@example
+(security-code-pattern 8)
+=>
+#"[\d]{8,8}"
+```
+
+```
+@return (regex pattern)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn security-code-pattern
+  ([]
+   (security-code-pattern 6))
+
+  ([length]
+   (re-pattern (str "[\\d]{"length","length"}"))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [security-code-pattern]]))
+
+(audit.api/security-code-pattern ...)
+(security-code-pattern           ...)
+```
+
+</details>
+
+---
+
+### security-code-valid?
+
+```
+@description
+Returns TRUE if the given value is a valid security code.
+Security code is declared as valid if ...
+... only contains digits,
+... it has a certain length.
+```
+
+```
+@param (*) n
+@param (integer)(opt) length
+Default: 6
+```
+
+```
+@usage
+(security-code-valid? "004269")
+```
+
+```
+@usage
+(security-code-valid? "420069" 6)
+```
+
+```
+@example
+(security-code-valid? "420069" 6)
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn security-code-valid?
+  ([n]
+   (security-code-valid? n 6))
+
+  ([n length]
+   (let [pattern (patterns/security-code-pattern length)]
+        (re-match? (str n) pattern))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [security-code-valid?]]))
+
+(audit.api/security-code-valid? ...)
+(security-code-valid?           ...)
+```
+
+</details>
+
+---
+
+### username-pattern
+
+```
+@description
+Returns a regex pattern that matches with valid usernames.
+Username is declared as valid if ...
+... its length is in a certain domain,
+... contains only latin characters, digits, underscrores and hyphens.
+```
+
+```
+@param (integer)(opt) min
+Default: 4
+@param (integer)(opt) max
+Default: 16
+```
+
+```
+@usage
+(username-pattern)
+```
+
+```
+@usage
+(username-pattern 6)
+```
+
+```
+@usage
+(username-pattern 6 24)
+```
+
+```
+@example
+(username-pattern 6 24)
+=>
+#"[A-Za-z0-9_\-]{6,24}"
+```
+
+```
+@return (regex pattern)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn username-pattern
+  ([]
+   (username-pattern 4 16))
+
+  ([min]
+   (username-pattern min 16))
+
+  ([min max]
+   (re-pattern (str "[A-Za-z0-9\\_\\-]{"min","max"}"))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [username-pattern]]))
+
+(audit.api/username-pattern ...)
+(username-pattern           ...)
+```
+
+</details>
+
+---
+
+### username-valid?
+
+```
+@description
+Returns TRUE if the given value is a valid username.
+Username is declared as valid if ...
+... its length is in a certain domain,
+... contains only latin characters, digits, underscrores and hyphens.
+```
+
+```
+@param (*) n
+@param (integer)(opt) min
+Default: 4
+@param (integer)(opt) max
+Default: 16
+```
+
+```
+@usage
+(username-valid? "WinnieThePooh_69")
+```
+
+```
+@usage
+(username-valid? "WinnieThePooh_69" 6)
+```
+
+```
+@usage
+(username-valid? "WinnieThePooh_69" 6 32)
+```
+
+```
+@example
+(username-valid? "WinnieThePooh_69" 6 32)
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn username-valid?
+  ([n]
+   (username-valid? n 4 16))
+
+  ([n min]
+   (username-valid? n min 16))
+
+  ([n min max]
+   (let [pattern (patterns/username-pattern min max)]
+        (re-match? (str n) pattern))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [username-valid?]]))
+
+(audit.api/username-valid? ...)
+(username-valid?           ...)
 ```
 
 </details>

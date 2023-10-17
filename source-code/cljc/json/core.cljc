@@ -507,9 +507,9 @@
   ; from the given data, until it can't find more blank values.
   ; E.g. If the given 'n' parameter has an item that is a vector that contains
   ;      an empty map, after the first call of this function only the empty map
-  ;      is being removed because the containing vector was not empty, but after
-  ;      removing the empty map from the vector, the vector gets being empty and
-  ;      the second call of this function will remove the just emptied vector as well.
+  ;      is removed because the containing vector was not empty, but after removing
+  ;      the empty map from the vector, the vector is now empty and the second
+  ;      call of this function will remove the just emptied vector as well.
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
               (if (=                 n result)

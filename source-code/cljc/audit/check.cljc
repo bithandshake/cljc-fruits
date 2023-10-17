@@ -8,7 +8,7 @@
 
 (defn email-address-valid?
   ; @description
-  ; Returns true if the given value is a valid email address.
+  ; Returns TRUE if the given value is a valid email address.
   ;
   ; @param (*) n
   ;
@@ -27,7 +27,7 @@
 
 (defn ip-address-valid?
   ; @description
-  ; Returns true if the given value is a valid IP address.
+  ; Returns TRUE if the given value is a valid IP address.
   ;
   ; @param (*) n
   ;
@@ -44,45 +44,47 @@
   (let [pattern (patterns/ip-address-pattern)]
        (re-match? (str n) pattern)))
 
-(defn pin-code-valid?
+(defn latin-name-valid?
   ; @description
-  ; Returns true if the given value is a valid PIN code.
+  ; Returns TRUE if the given value is a valid latin name.
   ;
-  ; PIN code is declared as valid if ...
-  ; ... only contains digits.
-  ; ... it has a certain length.
+  ; Latin name is declared as valid if ...
+  ; ... its length is in a certain domain,
+  ; ... contains only latin characters, accented latin characters, digits,
+  ;     underscrores, hyphens, apostrophes, periods and spaces.
   ;
-  ; @param (*) n
-  ; @param (integer)(opt) length
-  ; Default: 4
+  ; @param (integer)(opt) min
+  ; Default: 2
+  ; @param (integer)(opt) max
+  ; Default: 32
   ;
   ; @usage
-  ; (pin-code-valid? "0042")
-  ;
-  ; @usage
-  ; (pin-code-valid? "420069" 6)
+  ; (latin-name-valid? "John O'Reilly")
   ;
   ; @example
-  ; (pin-code-valid? "420069" 6)
+  ; (latin-name-valid? "John O'Reilly")
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n]
-   (pin-code-valid? n 4))
+   (latin-name-valid? n 2 32))
 
-  ([n length]
-   (let [pattern (patterns/pin-code-pattern length)]
+  ([n min]
+   (latin-name-valid? n min 32))
+
+  ([n min max]
+   (let [pattern (patterns/latin-name-pattern min max)]
         (re-match? (str n) pattern))))
 
 (defn password-valid?
   ; @description
-  ; Returns true if the given value is a valid password.
+  ; Returns TRUE if the given value is a valid password.
   ;
   ; Password is declared as valid if ...
-  ; ... its length is in a certain domain.
-  ; ... contains at least one uppercase letter.
-  ; ... contains at least one lowercase letter.
+  ; ... its length is in a certain domain,
+  ; ... contains at least one uppercase letter,
+  ; ... contains at least one lowercase letter,
   ; ... contains at least one digit.
   ;
   ; Accented characters and the following special characters are allowed: .-_!?#*
@@ -120,10 +122,10 @@
 
 (defn phone-number-valid?
   ; @description
-  ; Returns true if the given value is a valid phone number.
+  ; Returns TRUE if the given value is a valid phone number.
   ;
   ; Phone number is declared as valid if ...
-  ; ... its length is in a certain domain.
+  ; ... its length is in a certain domain,
   ; ... its first character is a "+" character.
   ;
   ; @param (*) n
@@ -155,4 +157,105 @@
 
   ([n min max]
    (let [pattern (patterns/phone-number-pattern min max)]
+        (re-match? (str n) pattern))))
+
+(defn pin-code-valid?
+  ; @description
+  ; Returns TRUE if the given value is a valid PIN code.
+  ;
+  ; PIN code is declared as valid if ...
+  ; ... only contains digits,
+  ; ... it has a certain length.
+  ;
+  ; @param (*) n
+  ; @param (integer)(opt) length
+  ; Default: 4
+  ;
+  ; @usage
+  ; (pin-code-valid? "0042")
+  ;
+  ; @usage
+  ; (pin-code-valid? "420069" 6)
+  ;
+  ; @example
+  ; (pin-code-valid? "420069" 6)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ([n]
+   (pin-code-valid? n 4))
+
+  ([n length]
+   (let [pattern (patterns/pin-code-pattern length)]
+        (re-match? (str n) pattern))))
+
+(defn security-code-valid?
+  ; @description
+  ; Returns TRUE if the given value is a valid security code.
+  ;
+  ; Security code is declared as valid if ...
+  ; ... only contains digits,
+  ; ... it has a certain length.
+  ;
+  ; @param (*) n
+  ; @param (integer)(opt) length
+  ; Default: 6
+  ;
+  ; @usage
+  ; (security-code-valid? "004269")
+  ;
+  ; @usage
+  ; (security-code-valid? "420069" 6)
+  ;
+  ; @example
+  ; (security-code-valid? "420069" 6)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ([n]
+   (security-code-valid? n 6))
+
+  ([n length]
+   (let [pattern (patterns/security-code-pattern length)]
+        (re-match? (str n) pattern))))
+
+(defn username-valid?
+  ; @description
+  ; Returns TRUE if the given value is a valid username.
+  ;
+  ; Username is declared as valid if ...
+  ; ... its length is in a certain domain,
+  ; ... contains only latin characters, digits, underscrores and hyphens.
+  ;
+  ; @param (*) n
+  ; @param (integer)(opt) min
+  ; Default: 4
+  ; @param (integer)(opt) max
+  ; Default: 16
+  ;
+  ; @usage
+  ; (username-valid? "WinnieThePooh_69")
+  ;
+  ; @usage
+  ; (username-valid? "WinnieThePooh_69" 6)
+  ;
+  ; @usage
+  ; (username-valid? "WinnieThePooh_69" 6 32)
+  ;
+  ; @example
+  ; (username-valid? "WinnieThePooh_69" 6 32)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ([n]
+   (username-valid? n 4 16))
+
+  ([n min]
+   (username-valid? n min 16))
+
+  ([n min max]
+   (let [pattern (patterns/username-pattern min max)]
         (re-match? (str n) pattern))))

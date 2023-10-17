@@ -7,30 +7,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn generate-pin-code
-  ; @param (integer)(opt) length
-  ; Default: 4
-  ;
-  ; @usage
-  ; (generate-pin-code)
-  ;
-  ; @example
-  ; (generate-pin-code)
-  ; =>
-  ; "0420"
-  ;
-  ; @example
-  ; (generate-pin-code 6)
-  ; =>
-  ; "042069"
-  ;
-  ; @return (string)
-  ([]
-   (generate-pin-code 4))
-
-  ([length]
-   (-> length random/generate-number str)))
-
 (defn generate-password
   ; @param (integer)(opt) length
   ; Default: 8
@@ -66,3 +42,51 @@
                          (part-f lower-chars (+ (math/floor (/ length 4)) (rem-f 2)))
                          (part-f digits      (+ (math/floor (/ length 4)) (rem-f 3)))
                          (part-f specials    (+ (math/floor (/ length 4)) (rem-f 4)))))))))
+
+(defn generate-pin-code
+  ; @param (integer)(opt) length
+  ; Default: 4
+  ;
+  ; @usage
+  ; (generate-pin-code)
+  ;
+  ; @example
+  ; (generate-pin-code)
+  ; =>
+  ; "0420"
+  ;
+  ; @example
+  ; (generate-pin-code 6)
+  ; =>
+  ; "042069"
+  ;
+  ; @return (string)
+  ([]
+   (generate-pin-code 4))
+
+  ([length]
+   (-> length random/generate-number str)))
+
+(defn generate-security-code
+  ; @param (integer)(opt) length
+  ; Default: 6
+  ;
+  ; @usage
+  ; (generate-security-code)
+  ;
+  ; @example
+  ; (generate-security-code)
+  ; =>
+  ; "042069"
+  ;
+  ; @example
+  ; (generate-security-code 8)
+  ; =>
+  ; "04206900"
+  ;
+  ; @return (string)
+  ([]
+   (generate-security-code 6))
+
+  ([length]
+   (-> length random/generate-number str)))

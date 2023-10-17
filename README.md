@@ -31,6 +31,8 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Alphabet functions in the [`alphabet.api`](documentation/cljc/alphabet/API.md) namespace.
 
+- BSON syntax functions in the [`bson.api`](documentation/cljc/bson/API.md) namespace.
+
 - Clojure atom functions in the [`atom.api`](documentation/cljc/atom/API.md) namespace.
 
 - Validator functions in the [`audit.api`](documentation/cljc/audit/API.md) namespace.

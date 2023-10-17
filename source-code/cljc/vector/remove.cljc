@@ -173,7 +173,7 @@
   ;               (return               result)
   ;               (conj                 result x)
   ;       (reduce f [] n)])
-  (remove (set xyz) n))
+  (vec (remove (set xyz) n)))
 
 (defn remove-items-by
   ; @param (vector) n

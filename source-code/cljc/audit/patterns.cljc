@@ -22,7 +22,7 @@
 
 (defn ip-address-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid IP address.
+  ; Returns a regex pattern that matches with valid IP addresses.
   ;
   ; @usage
   ; (ip-address-pattern)
@@ -36,43 +36,52 @@
   []
   (re-pattern (str "[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}")))
 
-(defn pin-code-pattern
+(defn latin-name-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid PIN codes.
+  ; Returns a regex pattern that matches with valid latin names.
   ;
-  ; PIN code is declared as valid if ...
-  ; ... only contains digits.
-  ; ... it has a certain length.
+  ; Latin name is declared as valid if ...
+  ; ... its length is in a certain domain,
+  ; ... contains only latin characters, accented latin characters, digits,
+  ;     underscrores, hyphens, apostrophes, periods and spaces.
   ;
-  ; @param (integer)(opt) length
-  ; Default: 4
+  ; @param (integer)(opt) min
+  ; Default: 2
+  ; @param (integer)(opt) max
+  ; Default: 32
   ;
   ; @usage
-  ; (pin-code-pattern)
+  ; (latin-name-pattern)
   ;
   ; @usage
-  ; (pin-code-pattern 6)
+  ; (latin-name-pattern 3)
+  ;
+  ; @usage
+  ; (latin-name-pattern 3 18)
   ;
   ; @example
-  ; (pin-code-pattern 6)
+  ; (latin-name-pattern 3 18)
   ; =>
-  ; #"[\d]{6,6}"
+  ; #"[A-Za-zÀ-Ýà-ý0-9_\-\']{3,18}"
   ;
   ; @return (regex pattern)
   ([]
-   (pin-code-pattern 4))
+   (latin-name-pattern 2 32))
 
-  ([length]
-   (re-pattern (str "[\\d]{"length","length"}"))))
+  ([min]
+   (latin-name-pattern min 32))
+
+  ([min max]
+   (re-pattern (str "[A-Za-zÀ-Ýà-ý0-9\\_\\-\\'\\.\\s]{"min","max"}"))))
 
 (defn password-pattern
   ; @description
   ; Returns a regex pattern that matches with valid passwords.
   ;
   ; Password is declared as valid if ...
-  ; ... its length is in a certain domain.
-  ; ... contains at least one uppercase letter.
-  ; ... contains at least one lowercase letter.
+  ; ... its length is in a certain domain,
+  ; ... contains at least one uppercase letter,
+  ; ... contains at least one lowercase letter,
   ; ... contains at least one digit.
   ;
   ; Accented characters and the following special characters are allowed: .-_!?#*
@@ -111,7 +120,7 @@
   ; Returns a regex pattern that matches with valid phone numbers.
   ;
   ; Phone number is declared as valid if ...
-  ; ... its length is in a certain domain.
+  ; ... its length is in a certain domain,
   ; ... its first letter is a "+" character.
   ;
   ; @param (integer)(opt) min
@@ -142,3 +151,98 @@
 
   ([min max]
    (re-pattern (str "\\+\\d{"min","max"}"))))
+
+(defn pin-code-pattern
+  ; @description
+  ; Returns a regex pattern that matches with valid PIN codes.
+  ;
+  ; PIN code is declared as valid if ...
+  ; ... only contains digits,
+  ; ... it has a certain length.
+  ;
+  ; @param (integer)(opt) length
+  ; Default: 4
+  ;
+  ; @usage
+  ; (pin-code-pattern)
+  ;
+  ; @usage
+  ; (pin-code-pattern 6)
+  ;
+  ; @example
+  ; (pin-code-pattern 6)
+  ; =>
+  ; #"[\d]{6,6}"
+  ;
+  ; @return (regex pattern)
+  ([]
+   (pin-code-pattern 4))
+
+  ([length]
+   (re-pattern (str "[\\d]{"length","length"}"))))
+
+(defn security-code-pattern
+  ; @description
+  ; Returns a regex pattern that matches with valid security codes.
+  ;
+  ; Security code is declared as valid if ...
+  ; ... only contains digits,
+  ; ... it has a certain length.
+  ;
+  ; @param (integer)(opt) length
+  ; Default: 6
+  ;
+  ; @usage
+  ; (security-code-pattern)
+  ;
+  ; @usage
+  ; (security-code-pattern 8)
+  ;
+  ; @example
+  ; (security-code-pattern 8)
+  ; =>
+  ; #"[\d]{8,8}"
+  ;
+  ; @return (regex pattern)
+  ([]
+   (security-code-pattern 6))
+
+  ([length]
+   (re-pattern (str "[\\d]{"length","length"}"))))
+
+(defn username-pattern
+  ; @description
+  ; Returns a regex pattern that matches with valid usernames.
+  ;
+  ; Username is declared as valid if ...
+  ; ... its length is in a certain domain,
+  ; ... contains only latin characters, digits, underscrores and hyphens.
+  ;
+  ; @param (integer)(opt) min
+  ; Default: 4
+  ; @param (integer)(opt) max
+  ; Default: 16
+  ;
+  ; @usage
+  ; (username-pattern)
+  ;
+  ; @usage
+  ; (username-pattern 6)
+  ;
+  ; @usage
+  ; (username-pattern 6 24)
+  ;
+  ; @example
+  ; (username-pattern 6 24)
+  ; =>
+  ; #"[A-Za-z0-9_\-]{6,24}"
+  ;
+  ; @return (regex pattern)
+  ([]
+   (username-pattern 4 16))
+
+  ([min]
+   (username-pattern min 16))
+
+  ([min max]
+   (re-pattern (str "[A-Za-z0-9\\_\\-]{"min","max"}"))))
