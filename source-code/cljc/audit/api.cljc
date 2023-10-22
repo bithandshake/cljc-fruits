@@ -15,6 +15,7 @@
 (def phone-number-valid?  check/phone-number-valid?)
 (def pin-code-valid?      check/pin-code-valid?)
 (def security-code-valid? check/security-code-valid?)
+(def user-agent-valid?    check/user-agent-valid?)
 (def username-valid?      check/username-valid?)
 
 ; audit.generate
@@ -30,4 +31,5 @@
 (def phone-number-pattern  patterns/phone-number-pattern)
 (def pin-code-pattern      patterns/pin-code-pattern)
 (def security-code-pattern patterns/security-code-pattern)
+(def user-agent-pattern    patterns/user-agent-pattern)
 (def username-pattern      patterns/username-pattern)

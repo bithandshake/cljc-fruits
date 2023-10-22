@@ -17,8 +17,8 @@
   ;   Default: 200}
   ; @param (map)(opt) options
   ; {:hide-errors? (boolean)(opt)
-  ;   Replaces the body with an unsensitive keyword (:client-error or :server-error)
-  ;   in case of client error (4**) or server error (5**) status code passed.
+  ;   Replaces the body with an unsensitive keyword (':client-error' or ':server-error')
+  ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
   ; @example
@@ -69,8 +69,8 @@
   ;   Default: 200}
   ; @param (map)(opt) options
   ; {:hide-errors? (boolean)(opt)
-  ;   Replaces the body with an unsensitive keyword such as :client-error
-  ;   or :server-error in case of client or server error status code passed.
+  ;   Replaces the body with an unsensitive keyword (':client-error' or ':server-error')
+  ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
   ; @example
@@ -103,8 +103,8 @@
   ;   Default: 500}
   ; @param (map)(opt) options
   ; {:hide-errors? (boolean)(opt)
-  ;   Replaces the body with an unsensitive keyword such as :client-error
-  ;   or :server-error in case of client or server error status code passed.
+  ;   Replaces the body with an unsensitive keyword (':client-error' or ':server-error')
+  ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
   ; @example

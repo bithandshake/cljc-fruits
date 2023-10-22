@@ -23,5 +23,6 @@
 (def get-name name/get-name)
 
 ; keyword.namespace
-(def add-namespace namespace/add-namespace)
-(def get-namespace namespace/get-namespace)
+(def add-namespace    namespace/add-namespace)
+(def get-namespace    namespace/get-namespace)
+(def remove-namespace namespace/remove-namespace)

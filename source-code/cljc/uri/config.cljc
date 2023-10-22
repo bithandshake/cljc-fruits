@@ -29,11 +29,11 @@
 ; ... is not necessary.
 ; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
 ; ... has to be min. 1 char long!
-; ... must ends with a "." char!
+; ... must end with a "." char!
 ; The domain part ...
 ; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
 ; ... has to be min. 1 char long!
-; ... must ends with a "." char!
+; ... must end with a "." char!
 ; The TLD part ...
 ; ... can contains lowercase and/or uppercase letters
 ; ... has to be min. 1 char long!

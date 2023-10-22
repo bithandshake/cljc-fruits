@@ -1,12 +1,13 @@
 
-(ns audit.patterns)
+(ns audit.patterns
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn email-address-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid email addresses.
+  ; Returns a regex pattern that matches valid email addresses.
   ;
   ; @usage
   ; (email-address-pattern)
@@ -22,7 +23,7 @@
 
 (defn ip-address-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid IP addresses.
+  ; Returns a regex pattern that matches valid IP addresses.
   ;
   ; @usage
   ; (ip-address-pattern)
@@ -30,15 +31,15 @@
   ; @example
   ; (ip-address-pattern)
   ; =>
-  ; #"[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}"
+  ; #"^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$"
   ;
   ; @return (regex pattern)
   []
-  (re-pattern (str "[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}")))
+  (re-pattern (str "^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$")))
 
 (defn latin-name-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid latin names.
+  ; Returns a regex pattern that matches valid latin names.
   ;
   ; Latin name is declared as valid if ...
   ; ... its length is in a certain domain,
@@ -76,7 +77,7 @@
 
 (defn password-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid passwords.
+  ; Returns a regex pattern that matches valid passwords.
   ;
   ; Password is declared as valid if ...
   ; ... its length is in a certain domain,
@@ -117,7 +118,7 @@
 
 (defn phone-number-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid phone numbers.
+  ; Returns a regex pattern that matches valid phone numbers.
   ;
   ; Phone number is declared as valid if ...
   ; ... its length is in a certain domain,
@@ -154,7 +155,7 @@
 
 (defn pin-code-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid PIN codes.
+  ; Returns a regex pattern that matches valid PIN codes.
   ;
   ; PIN code is declared as valid if ...
   ; ... only contains digits,
@@ -183,7 +184,7 @@
 
 (defn security-code-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid security codes.
+  ; Returns a regex pattern that matches valid security codes.
   ;
   ; Security code is declared as valid if ...
   ; ... only contains digits,
@@ -210,9 +211,36 @@
   ([length]
    (re-pattern (str "[\\d]{"length","length"}"))))
 
+(defn user-agent-pattern
+  ; @description
+  ; Returns a regex pattern that matches valid user agent strings.
+  ;
+  ; @param (strings in vector)(opt) allowed-agents
+  ; Default: ["Mozilla" "Chrome" "Safari"]
+  ;
+  ; @usage
+  ; (user-agent-pattern)
+  ;
+  ; @usage
+  ; (user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
+  ;
+  ; @example
+  ; (user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
+  ; =>
+  ; #""
+  ;
+  ; @return (regex pattern)
+  ([]
+   (user-agent-pattern ["Mozilla" "Chrome" "Safari"]))
+
+  ([allowed-agents]
+   (as-> allowed-agents % (string/join % "|")
+                          (str "^("%")")
+                          (re-pattern %))))
+
 (defn username-pattern
   ; @description
-  ; Returns a regex pattern that matches with valid usernames.
+  ; Returns a regex pattern that matches valid usernames.
   ;
   ; Username is declared as valid if ...
   ; ... its length is in a certain domain,

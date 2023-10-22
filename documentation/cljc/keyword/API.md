@@ -17,6 +17,8 @@
 
 - [namespaced?](#namespaced)
 
+- [remove-namespace](#remove-namespace)
+
 - [to-string](#to-string)
 
 ### add-namespace
@@ -358,6 +360,53 @@ true
 
 (keyword.api/namespaced? ...)
 (namespaced?             ...)
+```
+
+</details>
+
+---
+
+### remove-namespace
+
+```
+@param (keyword) n
+```
+
+```
+@usage
+(remove-namespace :a/b)
+```
+
+```
+@example
+(remove-namespace :a/b)
+=>
+:b
+```
+
+```
+@return (keyword)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-namespace
+  [n]
+  (-> n name keyword))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [keyword.api :refer [remove-namespace]]))
+
+(keyword.api/remove-namespace ...)
+(remove-namespace             ...)
 ```
 
 </details>

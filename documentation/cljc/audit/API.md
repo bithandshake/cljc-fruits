@@ -39,6 +39,10 @@
 
 - [security-code-valid?](#security-code-valid)
 
+- [user-agent-pattern](#user-agent-pattern)
+
+- [user-agent-valid?](#user-agent-valid)
+
 - [username-pattern](#username-pattern)
 
 - [username-valid?](#username-valid)
@@ -47,7 +51,7 @@
 
 ```
 @description
-Returns a regex pattern that matches with valid email addresses.
+Returns a regex pattern that matches valid email addresses.
 ```
 
 ```
@@ -334,7 +338,7 @@ Default: 6
 
 ```
 @description
-Returns a regex pattern that matches with valid IP addresses.
+Returns a regex pattern that matches valid IP addresses.
 ```
 
 ```
@@ -346,7 +350,7 @@ Returns a regex pattern that matches with valid IP addresses.
 @example
 (ip-address-pattern)
 =>
-#"[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}"
+#"^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$"
 ```
 
 ```
@@ -359,7 +363,7 @@ Returns a regex pattern that matches with valid IP addresses.
 ```
 (defn ip-address-pattern
   []
-  (re-pattern (str "[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}\\.[\\d]{1,3}")))
+  (re-pattern (str "^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$")))
 ```
 
 </details>
@@ -435,7 +439,7 @@ true
 
 ```
 @description
-Returns a regex pattern that matches with valid latin names.
+Returns a regex pattern that matches valid latin names.
 Latin name is declared as valid if ...
 ... its length is in a certain domain,
 ... contains only latin characters, accented latin characters, digits,
@@ -576,7 +580,7 @@ true
 
 ```
 @description
-Returns a regex pattern that matches with valid passwords.
+Returns a regex pattern that matches valid passwords.
 Password is declared as valid if ...
 ... its length is in a certain domain,
 ... contains at least one uppercase letter,
@@ -732,7 +736,7 @@ true
 
 ```
 @description
-Returns a regex pattern that matches with valid phone numbers.
+Returns a regex pattern that matches valid phone numbers.
 Phone number is declared as valid if ...
 ... its length is in a certain domain,
 ... its first letter is a "+" character.
@@ -882,7 +886,7 @@ true
 
 ```
 @description
-Returns a regex pattern that matches with valid PIN codes.
+Returns a regex pattern that matches valid PIN codes.
 PIN code is declared as valid if ...
 ... only contains digits,
 ... it has a certain length.
@@ -1012,7 +1016,7 @@ true
 
 ```
 @description
-Returns a regex pattern that matches with valid security codes.
+Returns a regex pattern that matches valid security codes.
 Security code is declared as valid if ...
 ... only contains digits,
 ... it has a certain length.
@@ -1138,11 +1142,138 @@ true
 
 ---
 
+### user-agent-pattern
+
+```
+@description
+Returns a regex pattern that matches valid user agent strings.
+```
+
+```
+@param (strings in vector)(opt) allowed-agents
+Default: ["Mozilla" "Chrome" "Safari"]
+```
+
+```
+@usage
+(user-agent-pattern)
+```
+
+```
+@usage
+(user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
+```
+
+```
+@example
+(user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
+=>
+#""
+```
+
+```
+@return (regex pattern)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn user-agent-pattern
+  ([]
+   (user-agent-pattern ["Mozilla" "Chrome" "Safari"]))
+
+  ([allowed-agents]
+   (as-> allowed-agents % (string/join % "|")
+                          (str "^("%")")
+                          (re-pattern %))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [user-agent-pattern]]))
+
+(audit.api/user-agent-pattern ...)
+(user-agent-pattern           ...)
+```
+
+</details>
+
+---
+
+### user-agent-valid?
+
+```
+@description
+Returns TRUE if the given value is a valid user agent string.
+```
+
+```
+@param (*) n
+@param (strings in vector)(opt) allowed-agents
+Default: ["Mozilla" "Chrome" "Safari"]
+```
+
+```
+@usage
+(user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
+```
+
+```
+@usage
+(user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36"
+                   ["Mozilla" "Chrome" "Safari" "My-agent"])
+```
+
+```
+@example
+(user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn user-agent-valid?
+  ([n]
+   (user-agent-valid? n ["Mozilla" "Chrome" "Safari"]))
+
+  ([n allowed-agents]
+   (let [pattern (patterns/user-agent-pattern allowed-agents)]
+        (re-match? (str n) pattern))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [audit.api :refer [user-agent-valid?]]))
+
+(audit.api/user-agent-valid? ...)
+(user-agent-valid?           ...)
+```
+
+</details>
+
+---
+
 ### username-pattern
 
 ```
 @description
-Returns a regex pattern that matches with valid usernames.
+Returns a regex pattern that matches valid usernames.
 Username is declared as valid if ...
 ... its length is in a certain domain,
 ... contains only latin characters, digits, underscrores and hyphens.

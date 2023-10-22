@@ -50,3 +50,18 @@
   (if (keyword? n)
       (if-let [namespace (namespace n)]
               (keyword namespace))))
+
+(defn remove-namespace
+  ; @param (keyword) n
+  ;
+  ; @usage
+  ; (remove-namespace :a/b)
+  ;
+  ; @example
+  ; (remove-namespace :a/b)
+  ; =>
+  ; :b
+  ;
+  ; @return (keyword)
+  [n]
+  (-> n name keyword))

@@ -81,7 +81,7 @@ https://www.mongodb.com/docs/manual/core/document/#dot-notation
 
 ```
 @description
-Replaces dot characters with hyphens in keys found in the given data.
+Recursively replaces dot characters with hyphens in keys found in the given data.
 Dot characters are not allowed to presence in BSON keys:
 https://www.mongodb.com/docs/manual/core/document/#dot-notation
 ```
@@ -112,6 +112,15 @@ https://www.mongodb.com/docs/manual/core/document/#dot-notation
 (undot-keys {"my.string" "My value"})
 =>
 {"my-string" "My value"}
+```
+
+```
+@example
+(undot-keys [{"my.string" "My value"}
+             {:my.keyword :my-value}])
+=>
+[{"my-string" "My value"}
+ {:my-keyword :my-value}]
 ```
 
 ```

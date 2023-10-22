@@ -6,17 +6,16 @@
 
 (defn collapse
   ; @description
-  ; Flattens a nested map, converting its keys into dot-separated strings,
+  ; Flattens a nested map, converting its keys into separated strings,
   ; optionally keywordizing keys, and providing options to control which keys
   ; are collapsed. The result is a new map with flattened keys and their
   ; associated values.
   ;
-  ; @warning
-  ; Namespaced keys losing their namespaces during the process!
-  ;
   ; @param (*) n
   ; @param (map)(opt) options
-  ; {:inner-except-f (function)(opt)
+  ; {:separator (string)(opt)
+  ;   Default: "."
+  ;  :inner-except-f (function)(opt)
   ;   An optional control function that determines whether specific key-value
   ;   pairs within nested maps should be excluded from the collapsing process.
   ;   It is invoked for each key-value pair within nested maps during the inner iteration.
@@ -47,14 +46,14 @@
   ; {:a.b.c "d" :q [{:r.s "t"}]}
   ;
   ; @example
-  ; The key :c is an exception, and its value will not be collapsed to the outer map.
+  ; The ':c' key is an exception, and its value will not be collapsed to the outer map.
   ; (defn my-inner-except-f [k v] (not= k :c))
   ; (collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-inner-except-f})
   ; =>
   ; {:a.b {:c "d"}}
   ;
   ; @example
-  ; The key :b is an exception, and its value's keys will not be collapsed to their outer map.
+  ; The ':b' key is an exception, and its value's keys will not be collapsed to their outer map.
   ; (defn my-outer-except-f [k v] (not= k :b))
   ; (collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-outer-except-f})
   ; =>
@@ -64,7 +63,7 @@
   ([n]
    (collapse n {}))
 
-  ([n {:keys [inner-except-f outer-except-f keywordize?]}]
+  ([n {:keys [inner-except-f outer-except-f keywordize? separator] :or {separator "."}}]
    (letfn [; @description
            ; Converts the given key to string type.
            ;
@@ -72,11 +71,14 @@
            ;
            ; @return (string)
            (stringize-key-f [k] (if (keyword? k)
-                                    (name     k)
-                                    (str      k)))
+                                    (if-let [namespace (namespace k)]
+                                            (str namespace "/" (name k))
+                                            (name k))
+                                    (str k)))
 
            ; @description
-           ; Joins an outer and an inner key into one.
+           ; Joins an outer and an inner key into one with the separator string
+           ; between each key.
            ; The type of the return value depends on the 'keywordize?' option.
            ;
            ; @param (*) a
@@ -93,8 +95,8 @@
            ; "a.b"
            ;
            ; @return (keyword or string)
-           (join-keys-f [a b] (if keywordize? (keyword (str (stringize-key-f a) "." (stringize-key-f b)))
-                                              (str          (stringize-key-f a) "." (stringize-key-f b))))
+           (join-keys-f [a b] (if keywordize? (keyword (str (stringize-key-f a) separator (stringize-key-f b)))
+                                              (str          (stringize-key-f a) separator (stringize-key-f b))))
 
            ; @description
            ; ...

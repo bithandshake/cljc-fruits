@@ -221,6 +221,34 @@
    (let [pattern (patterns/security-code-pattern length)]
         (re-match? (str n) pattern))))
 
+(defn user-agent-valid?
+  ; @description
+  ; Returns TRUE if the given value is a valid user agent string.
+  ;
+  ; @param (*) n
+  ; @param (strings in vector)(opt) allowed-agents
+  ; Default: ["Mozilla" "Chrome" "Safari"]
+  ;
+  ; @usage
+  ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
+  ;
+  ; @usage
+  ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36"
+  ;                    ["Mozilla" "Chrome" "Safari" "My-agent"])
+  ;
+  ; @example
+  ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ([n]
+   (user-agent-valid? n ["Mozilla" "Chrome" "Safari"]))
+
+  ([n allowed-agents]
+   (let [pattern (patterns/user-agent-pattern allowed-agents)]
+        (re-match? (str n) pattern))))
+
 (defn username-valid?
   ; @description
   ; Returns TRUE if the given value is a valid username.

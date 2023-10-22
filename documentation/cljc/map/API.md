@@ -1147,13 +1147,8 @@ is nil or falsy.
 ### collapse
 
 ```
-@warning
-Namespaced keys losing their namespaces during the process!
-```
-
-```
 @description
-Flattens a nested map, converting its keys into dot-separated strings,
+Flattens a nested map, converting its keys into separated strings,
 optionally keywordizing keys, and providing options to control which keys
 are collapsed. The result is a new map with flattened keys and their
 associated values.
@@ -1162,7 +1157,9 @@ associated values.
 ```
 @param (*) n
 @param (map)(opt) options
-{:inner-except-f (function)(opt)
+{:separator (string)(opt)
+  Default: "."
+ :inner-except-f (function)(opt)
   An optional control function that determines whether specific key-value
   pairs within nested maps should be excluded from the collapsing process.
   It is invoked for each key-value pair within nested maps during the inner iteration.
@@ -1203,7 +1200,7 @@ associated values.
 
 ```
 @example
-The key :c is an exception, and its value will not be collapsed to the outer map.
+The ':c' key is an exception, and its value will not be collapsed to the outer map.
 (defn my-inner-except-f [k v] (not= k :c))
 (collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-inner-except-f})
 =>
@@ -1212,7 +1209,7 @@ The key :c is an exception, and its value will not be collapsed to the outer map
 
 ```
 @example
-The key :b is an exception, and its value's keys will not be collapsed to their outer map.
+The ':b' key is an exception, and its value's keys will not be collapsed to their outer map.
 (defn my-outer-except-f [k v] (not= k :b))
 (collapse {:a {:b {:c "d"}}} {:keywordize? true :except-f my-outer-except-f})
 =>
@@ -1231,13 +1228,15 @@ The key :b is an exception, and its value's keys will not be collapsed to their 
   ([n]
    (collapse n {}))
 
-  ([n {:keys [inner-except-f outer-except-f keywordize?]}]
+  ([n {:keys [inner-except-f outer-except-f keywordize? separator] :or {separator "."}}]
    (letfn [           (stringize-key-f [k] (if (keyword? k)
-                                    (name     k)
-                                    (str      k)))
+                                    (if-let [namespace (namespace k)]
+                                            (str namespace "/" (name k))
+                                            (name k))
+                                    (str k)))
 
-           (join-keys-f [a b] (if keywordize? (keyword (str (stringize-key-f a) "." (stringize-key-f b)))
-                                              (str          (stringize-key-f a) "." (stringize-key-f b))))
+           (join-keys-f [a b] (if keywordize? (keyword (str (stringize-key-f a) separator (stringize-key-f b)))
+                                              (str          (stringize-key-f a) separator (stringize-key-f b))))
 
            (collapse-o? [ko vo] (and (map? vo)
                                      (or (not  outer-except-f)
