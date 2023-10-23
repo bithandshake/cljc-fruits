@@ -1,6 +1,5 @@
 
-(ns map.remove
-    (:require [noop.api :refer [return]]))
+(ns map.remove)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -36,9 +35,9 @@
   ; @return (map)
   [n r-f]
   (letfn [(f [%1 %2 %3]
-             (if (r-f    %2)
-                 (return %1)
-                 (assoc  %1 %2 %3)))]
+             (if (-> %2 r-f)
+                 (-> %1)
+                 (-> %1 (assoc %2 %3))))]
          (reduce-kv f {} n)))
 
 (defn remove-values
@@ -72,7 +71,7 @@
   ; @return (map)
   [n r-f]
   (letfn [(f [%1 %2 %3]
-             (if (r-f    %3)
-                 (return %1)
-                 (assoc  %1 %2 %3)))]
+             (if (-> %3 r-f)
+                 (-> %1)
+                 (-> %1 (assoc %2 %3))))]
          (reduce-kv f {} n)))

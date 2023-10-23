@@ -1,7 +1,6 @@
 
 (ns uri.convert
-    (:require [noop.api   :refer [return]]
-              [reader.api :as reader]
+    (:require [reader.api :as reader]
               [regex.api  :refer [re-match]]
               [string.api :as string]
               [uri.config :as config]
@@ -135,7 +134,7 @@
   (if-let [scheme (to-scheme n)]
           (-> n (string/after-first-occurence ":"  {:return? false})
                 (string/after-first-occurence "//" {:return? true}))
-          (return n)))
+          (-> n)))
 
 (defn to-hostname
   ; @param (string) n
@@ -566,7 +565,7 @@
                                              (if (keyword? x)
                                                  (let [url-path-part (nth url-path-parts dex)]
                                                       (assoc result x url-path-part))
-                                                 (return result))))]
+                                                 (-> result))))]
                      (reduce-kv f {} url-path-template-parts)))))
 
 (defn to-url-fragment

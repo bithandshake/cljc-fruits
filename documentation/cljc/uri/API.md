@@ -488,7 +488,7 @@ nil
   (if-let [scheme (to-scheme n)]
           (-> n (string/after-first-occurence ":"  {:return? false})
                 (string/after-first-occurence "//" {:return? true}))
-          (return n)))
+          (-> n)))
 ```
 
 </details>
@@ -1131,7 +1131,7 @@ nil
                                              (if (keyword? x)
                                                  (let [url-path-part (nth url-path-parts dex)]
                                                       (assoc result x url-path-part))
-                                                 (return result))))]
+                                                 (-> result))))]
                      (reduce-kv f {} url-path-template-parts)))))
 ```
 
@@ -1388,7 +1388,7 @@ true
                      url-path-template-parts-count (count        url-path-template-parts)]
                     (letfn [(f0 [dex] (cond
                                             (= dex url-path-template-parts-count)
-                                            (return true)
+                                            (-> true)
 
                                             (= ":" (str (get-in url-path-template-parts [dex 0])))
                                             (f0 (inc dex))
@@ -1741,8 +1741,8 @@ true
 (defn valid-url-path
   [n]
   (if-let [url-path (convert/to-url-path n)]
-          (return url-path)
-          (return "/")))
+          (-> url-path)
+          (-> "/")))
 ```
 
 </details>

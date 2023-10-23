@@ -2,7 +2,6 @@
 (ns reader.core
     (:require #?(:cljs [cljs.reader :as reader])
               #?(:clj  [clojure.edn :as edn])
-              [noop.api   :refer [return]]
               [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
@@ -56,10 +55,10 @@
   (if (string/nonblank? n)
       (let [x (read-str n)]
            (if (some #(% x) [keyword? map? vector? number?])
-               (return x)
+               (-> x)
                ; In case of the 'read-str' function returns an Error object it's
-               ; important to return that object from this function as well.
-               (return n)))))
+               ; important to return that object for debugging reasons.
+               (-> n)))))
 
 (defn json->map
   ; @param (string) n
@@ -110,4 +109,4 @@
           (cond (map? x) x
                 (nil? n) {}
                 :return  {:0 (str n)})
-          (return {})))
+          (-> {})))

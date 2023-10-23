@@ -67,8 +67,8 @@
   [n]
   (let [base-char (int \a)]
        (loop [num n result ""]
-             (if (zero? num)
-                 (return result)
+             (if (-> num zero?)
+                 (-> result)
                  (let [char (char (+ base-char (mod (dec num) 26)))]
                       (recur (quot (dec num) 26) (str char result)))))))
 ```
@@ -147,8 +147,8 @@
   [n]
   (let [base-char (int \A)]
        (loop [num n result ""]
-             (if (zero? num)
-                 (return result)
+             (if (-> num zero?)
+                 (-> result)
                  (let [char (char (+ base-char (mod (dec num) 26)))]
                       (recur (quot (dec num) 26) (str char result)))))))
 ```

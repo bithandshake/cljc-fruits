@@ -1,7 +1,6 @@
 
 (ns vector.compare
-    (:require [noop.api      :refer [return]]
-              [vector.check  :as check]
+    (:require [vector.check  :as check]
               [vector.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
@@ -24,7 +23,7 @@
   (letfn [(f [result x]
              (if (check/contains-item? b x)
                  (vec (conj result x))
-                 (return result)))]
+                 (-> result)))]
          (reduce f [] a)))
 
 (defn contains-similars?
@@ -82,8 +81,8 @@
   [n xyz]
   (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (conj   result x)
-                 (return result)))]
+                 (conj result x)
+                 (->   result)))]
          (reduce f [] n)))
 
 (defn keep-items-by
@@ -102,6 +101,6 @@
   [n f]
   (letfn [(f0 [result x]
               (if (f x)
-                  (conj   result x)
-                  (return result)))]
+                  (conj result x)
+                  (->   result)))]
          (reduce f0 [] n)))

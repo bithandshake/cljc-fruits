@@ -800,9 +800,9 @@ Returns the first position of the 'open-tag' in the string 'n'.
                                    (if (number? close-pos)
                                        (string/cut n open-pos (+ close-pos (count close-tag)))))))
 
-           (f1 [n] (if-let [n  (f0 n)]
-                           (f1     n)
-                           (return n)))]
+           (f1 [n] (if-let [n (f0 n)]
+                           (-> n f1)
+                           (-> n)))]
 
           (f1 n))))
 ```
@@ -849,7 +849,7 @@ Returns the first position of the 'open-tag' in the string 'n'.
   (let [count (count n)]
        (letfn [(f [result cursor]
                   (if (= count cursor)
-                      (return result)
+                      (-> result)
                       (let [char (subs n cursor (inc cursor))]
                            (if (= char (string/to-uppercase char))
                                (f (str (subs n 0 cursor)

@@ -1,7 +1,6 @@
 
 (ns vector.move
     (:require [math.api      :as math]
-              [noop.api      :refer [return]]
               [vector.dex    :as dex]
               [vector.range  :as range]
               [vector.remove :as remove]))
@@ -38,7 +37,7 @@
       (let [to (math/between! to 0 (count n))]
            (cond
                  ; Stay in place
-                 (= from to) (return n)
+                 (= from to) (-> n)
 
                  ; Move item fwd
                  (< from to) (vec (concat (range/ranged-items n 0 from)
@@ -51,7 +50,7 @@
                                           (range/ranged-items n from (inc from))
                                           (range/ranged-items n to from)
                                           (range/ranged-items n (inc from))))))
-      (return n)))
+      (-> n)))
 
 (defn move-nth-item-bwd
   ; @param (vector) n
@@ -167,4 +166,4 @@
   [n x dex]
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (move-nth-item n item-first-dex dex)
-          (return        n)))
+          (-> n)))

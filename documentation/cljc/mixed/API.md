@@ -527,9 +527,9 @@ nil
    (parse-rational-number n {}))
 
   ([n {:keys [return?]}]
-   (cond (number?               n) (return               n)
-         (type/rational-number? n) (reader/string->mixed n)
-         return?                   (return               n))))
+   (cond (number?               n) (-> n)
+         (type/rational-number? n) (-> n reader/string->mixed)
+         return?                   (-> n))))
 ```
 
 </details>
@@ -598,9 +598,9 @@ nil
    (parse-whole-number n {}))
 
   ([n {:keys [return?]}]
-   (cond (integer?           n) (return               n)
-         (type/whole-number? n) (return               n)
-         return?                (return               n))))
+   (cond (integer?           n) (-> n)
+         (type/whole-number? n) (-> n)
+         return?                (-> n))))
 ```
 
 </details>
@@ -850,10 +850,10 @@ true
 ```
 (defn to-map
   [n]
-  (cond (vector? n) (vector/to-map n)
-        (map?    n) (return        n)
-        (nil?    n) (return        {})
-        :return                    {0 n}))
+  (cond (vector? n) (-> n vector/to-map)
+        (map?    n) (-> n)
+        (nil?    n) (-> {})
+        :return     {0 n}))
 ```
 
 </details>
@@ -923,10 +923,10 @@ true
 ```
 (defn to-number
   [n]
-  (cond (nil?                  n) (return               0)
-        (number?               n) (return               n)
-        (type/whole-number?    n) (reader/string->mixed n)
-        (type/rational-number? n) (reader/string->mixed n)
+  (cond (nil?                  n) (-> 0)
+        (number?               n) (-> n)
+        (type/whole-number?    n) (-> n reader/string->mixed)
+        (type/rational-number? n) (-> n reader/string->mixed)
         :return 0))
 ```
 
@@ -1032,10 +1032,10 @@ true
 ```
 (defn to-vector
   [n]
-  (cond (map?    n) (map/to-vector n)
-        (vector? n) (return        n)
-        (nil?    n) (return        [])
-        :return                    [n]))
+  (cond (map?    n) (-> n map/to-vector)
+        (vector? n) (-> n)
+        (nil?    n) (-> [])
+        :return     [n]))
 ```
 
 </details>
@@ -1105,10 +1105,10 @@ true
   ([n f x]
    (letfn [(update-f [n] (if x (f n x)
                                (f n)))]
-          (cond (-> n           integer?)      (update-f n)
+          (cond (-> n           integer?)      (-> n update-f)
                 (-> n type/whole-number?) (let [integer (reader/string->mixed n)]
-                                               (update-f integer))
-                (-> n              some?)      (return n)))))
+                                               (-> integer update-f))
+                (-> n              some?)      (-> n)))))
 ```
 
 </details>

@@ -2,7 +2,6 @@
 (ns string.core
     (:require [clojure.string]
               [math.api     :as math]
-              [noop.api     :refer [return]]
               [string.check :as check]
               [string.cut   :as cut]
               [string.dex   :as dex]))
@@ -45,8 +44,8 @@
   ; @return (string)
   [a b]
   (if (check/abc? a b)
-      (return       a)
-      (return       b)))
+      (-> a)
+      (-> b)))
 
 (defn length
   ; @param (*) n
@@ -67,9 +66,9 @@
   ; @return (integer)
   [n]
   (let [n (str n)]
-       (if (empty? n)
-           (return 0)
-           (count  n))))
+       (if (-> n empty?)
+           (-> 0)
+           (-> n count))))
 
 (defn get-nth-character
   ; @param (*) n
@@ -151,7 +150,7 @@
                                          (if (separate? dex)
                                              (str result part separator)
                                              (str result part))
-                                         (return result)))]
+                                         (-> result)))]
                ; The reduce-kv takes vectors and maps but doesn't take lists!
                (reduce-kv f "" (vec coll))))))
 
@@ -262,8 +261,8 @@
 
   ([n x separator]
    (let [n (str n)]
-        (if (empty?               n)
-            (return               n)
+        (if (-> n empty?)
+            (-> n)
             (str prefix separator n)))))
 
 (defn suffix
@@ -295,9 +294,9 @@
 
   ([n x separator]
    (let [n (str n)]
-        (if (empty? n)
-            (return n)
-            (str    n separator x)))))
+        (if (->  n empty?)
+            (->  n)
+            (str n separator x)))))
 
 (defn prepend
   ; @param (*) n
@@ -407,9 +406,9 @@
                                     (let [step (if separate-matches? (count x) 1)]
                                          (f (+   cursor first-dex step)
                                             (inc match-count)))
-                                    (return match-count)))]
+                                    (-> match-count)))]
                         (f 0 0)))
-            (return 0)))))
+            (-> 0)))))
 
 (defn min-occurence?
   ; @param (*) n
@@ -584,8 +583,8 @@
 
   ([n x options]
    (if (ends-with? n x options)
-       (return n)
-       (str    n x))))
+       (->  n)
+       (str n x))))
 
 (defn not-ends-with!
   ; @param (*) n
@@ -619,7 +618,7 @@
   ([n x options]
    (if (ends-with?                n x options)
        (cut/before-last-occurence n x)
-       (return                    n))))
+       (-> n))))
 
 (defn starts-with?
   ; @param (*) n
@@ -724,8 +723,8 @@
 
   ([n x options]
    (if (starts-with? n x options)
-       (return       n)
-       (str          x n))))
+       (->  n)
+       (str x n))))
 
 (defn not-starts-with!
   ; @param (*) n
@@ -762,7 +761,7 @@
   ([n x options]
    (if (starts-with?              n x options)
        (cut/after-first-occurence n x)
-       (return                    n))))
+       (-> n))))
 
 (defn pass-with?
   ; @param (*) n

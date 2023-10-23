@@ -1,7 +1,6 @@
 
 (ns mixed.parse
     (:require [mixed.type :as type]
-              [noop.api   :refer [return]]
               [reader.api :as reader]))
 
 ;; ----------------------------------------------------------------------------
@@ -43,9 +42,9 @@
    (parse-rational-number n {}))
 
   ([n {:keys [return?]}]
-   (cond (number?               n) (return               n)
-         (type/rational-number? n) (reader/string->mixed n)
-         return?                   (return               n))))
+   (cond (number?               n) (-> n)
+         (type/rational-number? n) (-> n reader/string->mixed)
+         return?                   (-> n))))
 
 (defn parse-number
   ; @param (*) n
@@ -116,6 +115,6 @@
    (parse-whole-number n {}))
 
   ([n {:keys [return?]}]
-   (cond (integer?           n) (return               n)
-         (type/whole-number? n) (return               n)
-         return?                (return               n))))
+   (cond (integer?           n) (-> n)
+         (type/whole-number? n) (-> n)
+         return?                (-> n))))

@@ -1,7 +1,6 @@
 
 (ns string.lines
     (:require [clojure.string]
-              [noop.api    :refer [return]]
               [string.core :as core]))
 
 ;; ----------------------------------------------------------------------------
@@ -75,7 +74,7 @@
                             (subvec lines 0 limit))]
         (letfn [(f [result dex]
                    (if (= dex limit)
-                       (return result)
+                       (-> result)
                        (f (str result (if (not= dex 0) "\n") (nth lines dex))
                           (inc dex))))]
                (f "" 0)))))

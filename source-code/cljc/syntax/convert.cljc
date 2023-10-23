@@ -1,7 +1,6 @@
 
 (ns syntax.convert
-    (:require [noop.api   :refer [return]]
-              [string.api :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -19,7 +18,7 @@
   (let [count (count n)]
        (letfn [(f [result cursor]
                   (if (= count cursor)
-                      (return result)
+                      (-> result)
                       (let [char (subs n cursor (inc cursor))]
                            (if (= char (string/to-uppercase char))
                                (f (str (subs n 0 cursor)

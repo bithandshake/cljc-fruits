@@ -2,7 +2,6 @@
 (ns mixed.convert
     (:require [map.api    :as map]
               [mixed.type :as type]
-              [noop.api   :refer [return]]
               [reader.api :as reader]
               [vector.api :as vector]))
 
@@ -58,10 +57,10 @@
   ;
   ; @return (vector)
   [n]
-  (cond (map?    n) (map/to-vector n)
-        (vector? n) (return        n)
-        (nil?    n) (return        [])
-        :return                    [n]))
+  (cond (map?    n) (-> n map/to-vector)
+        (vector? n) (-> n)
+        (nil?    n) (-> [])
+        :return     [n]))
 
 (defn to-map
   ; @param (*) n
@@ -88,10 +87,10 @@
   ;
   ; @return (map)
   [n]
-  (cond (vector? n) (vector/to-map n)
-        (map?    n) (return        n)
-        (nil?    n) (return        {})
-        :return                    {0 n}))
+  (cond (vector? n) (-> n vector/to-map)
+        (map?    n) (-> n)
+        (nil?    n) (-> {})
+        :return     {0 n}))
 
 (defn to-number
   ; @param (*) n
@@ -123,8 +122,8 @@
   ;
   ; @return (number)
   [n]
-  (cond (nil?                  n) (return               0)
-        (number?               n) (return               n)
-        (type/whole-number?    n) (reader/string->mixed n)
-        (type/rational-number? n) (reader/string->mixed n)
+  (cond (nil?                  n) (-> 0)
+        (number?               n) (-> n)
+        (type/whole-number?    n) (-> n reader/string->mixed)
+        (type/rational-number? n) (-> n reader/string->mixed)
         :return 0))

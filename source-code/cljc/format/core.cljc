@@ -1,7 +1,6 @@
 
 (ns format.core
     (:require [mixed.api  :as mixed]
-              [noop.api   :refer [param return]]
               [regex.api  :refer [re-match?]]
               [string.api :as string]
               [vector.api :as vector]))
@@ -52,7 +51,7 @@
   (let [n (str n)]
        (if (= (-> "-"     str)
               (-> n first str))
-           (return n)
+           (-> n)
            (str "+"n))))
 
 (defn group-number
@@ -121,7 +120,7 @@
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str "0" x))
-            (return x))))
+            (-> x))))
 
 (defn remove-leading-zeros
   ; @param (number or string) n
@@ -145,7 +144,7 @@
   ; in the test function the first character must be converted to string type!
   (letfn [(f [n]
              (if-not (= "0" (-> n first str))
-                     (return n)
+                     (-> n)
                      (f (subs n 1))))]
          (-> n str f)))
 
@@ -166,7 +165,7 @@
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str x "0"))
-            (return x))))
+            (-> x))))
 
 (defn decimals
   ; @param (number or string) n
@@ -279,7 +278,7 @@
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
                                     (vector/remove-last-item separators))
-                         (return n)))
+                         (-> n)))
 
           ; @param (string) n
           ; @param (integers in vector) separators
@@ -300,5 +299,5 @@
                                         ; otherwise "9.9" might followed by "1.00" instead of "10.0"
                                         (if (re-match? n #"^[9]{1,}$")
                                             (vector/->items separators inc)
-                                            (param          separators)))))]
+                                            (->             separators)))))]
          (explode-f n [])))

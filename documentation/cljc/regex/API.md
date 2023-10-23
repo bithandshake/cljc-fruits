@@ -1284,7 +1284,7 @@ nil
   [n pattern]
   (let [n (str n)]
        (if (re-find pattern n)
-           (return          n))))
+           (-> n))))
 ```
 
 </details>
@@ -1472,7 +1472,7 @@ matches for the occurence!
                (let [dex (clojure.string/index-of n first-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count first-match)))))
-               (return n))))
+               (-> n))))
 ```
 
 </details>
@@ -1538,7 +1538,7 @@ matches for the occurence!
                (let [dex (clojure.string/last-index-of n last-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count last-match)))))
-               (return n))))
+               (-> n))))
 ```
 
 </details>

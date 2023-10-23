@@ -4,7 +4,6 @@
               [keyword.api :as keyword]
               [map.api     :as map]
               [mixed.api   :as mixed]
-              [noop.api    :refer [return]]
               [string.api  :as string]
               [syntax.api  :as syntax]
               [vector.api  :as vector]))
@@ -79,7 +78,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (string/replace-part n "-" "_")
+  (cond (string?  n) (-> n (string/replace-part "-" "_"))
         (keyword? n) (-> n name underscore-key keyword)
         :return   n))
 
@@ -104,7 +103,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (string/replace-part n "_" "-")
+  (cond (string?  n) (-> n (string/replace-part "_" "-"))
         (keyword? n) (-> n name hyphenize-key keyword)
         :return   n))
 
@@ -132,7 +131,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (syntax/ToCamelCase n)
+  (cond (string?  n) (-> n syntax/ToCamelCase)
         (keyword? n) (-> n name CamelCase-key keyword)
         :return   n))
 
@@ -157,7 +156,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (syntax/to-snake-case n)
+  (cond (string?  n) (-> n syntax/to-snake-case )
         (keyword? n) (-> n name snake-case-key keyword)
         :return   n))
 
@@ -197,9 +196,9 @@
   ; @return (*)
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
-  (if (unkeywordized-value? n)
-      (->     n (subs 2) keyword)
-      (return n)))
+  (if (-> n unkeywordized-value?)
+      (-> n (subs 2) keyword)
+      (-> n)))
 
 (defn unkeywordize-value
   ; @param (*) n
@@ -215,9 +214,9 @@
   ; @return (*)
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
-  (if (keyword?                  n)
-      (str config/KEYWORD-PREFIX n)
-      (return                    n)))
+  (if (-> n keyword?)
+      (-> config/KEYWORD-PREFIX (str n))
+      (-> n)))
 
 ;; -- Trim value --------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -235,9 +234,9 @@
   ;
   ; @return (*)
   [n]
-  (if (string?     n)
-      (string/trim n)
-      (return      n)))
+  (if (-> n string?)
+      (-> n string/trim)
+      (-> n)))
 
 ;; -- Parse number value ------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -512,6 +511,6 @@
   ;      call of this function will remove the just emptied vector as well.
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
-              (if (=                 n result)
-                  (return              result)
-                  (remove-blank-values result)))))
+              (if (-> result (= n))
+                  (-> result)
+                  (-> result remove-blank-values)))))

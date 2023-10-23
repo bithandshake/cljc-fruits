@@ -37,20 +37,56 @@
   ; {:status (integer)}
   ;
   ; @usage
-  ; (unsensitive-body {:body :file-not-found :status 404})
+  ; (unsensitive-body {:body :file-not-found :status 404}
+  ;                   {...})
   ;
   ; @example
-  ; (unsensitive-body {:body :file-not-found :status 404})
+  ; (unsensitive-body {:body :file-not-found :status 404}
+  ;                   {...})
   ; =>
   ; ":client-error"
   ;
   ; @example
-  ; (unsensitive-body {:body :unable-to-save-uploaded-file :status 500})
+  ; (unsensitive-body {:body :unable-to-save-uploaded-file :status 500}
+  ;                   {...})
+  ; =>
+  ; ":server-error"
+  ;
+  ; @example
+  ; (unsensitive-body {:body :unable-to-save-uploaded-file :status 500}
+  ;                   {:allowed-errors [:unable-to-save-uploaded-file]})
   ; =>
   ; ":server-error"
   ;
   ; @return (map)
   ; {:body (*)}
-  [{:keys [status] :as response-props}]
+  [{:keys [body status] :as response-props}]
   (cond-> response-props (-> status str first str (= "4")) (assoc :body ":client-error")
                          (-> status str first str (= "5")) (assoc :body ":server-error")))
+
+(defn error-allowed?
+  ; @ignore
+  ;
+  ; @description
+  ;
+  ; @param (*) body
+  ; @param (vector) allowed-errors
+  ;
+  ; @usage
+  ; (error-allowed? :file-not-found [:file-not-found :permission-denied])
+  ;
+  ; @example
+  ; (error-allowed? :file-not-found [:file-not-found :permission-denied])
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (error-allowed? :file-not-found [:permission-denied])
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [body allowed-errors]
+  (letfn [(f [%] (= (str %)
+                    (str body)))]
+         (some f allowed-errors)))

@@ -1,7 +1,6 @@
 
 (ns string.convert
-    (:require [clojure.string]
-              [noop.api :refer [return]]))
+    (:require [clojure.string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -24,10 +23,10 @@
   ;
   ; @return (integer)
   [n]
-  #?(:cljs (cond (string?  n) (js/parseInt n)
-                 (integer? n) (return      n))
+  #?(:cljs (cond (string?  n) (-> n js/parseInt)
+                 (integer? n) (-> n))
      :clj  (cond (string?  n) (Integer. (re-find #"\d+" n))
-                 (integer? n) (return      n))))
+                 (integer? n) (-> n))))
 
 (defn to-capitalized
   ; @param (*) n

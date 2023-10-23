@@ -1,8 +1,7 @@
 
 (ns http.request
     (:require [http.check :as check]
-              [http.utils :as utils]
-              [noop.api   :refer [return]]))
+              [http.utils :as utils]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -53,8 +52,8 @@
   ; (request->cookies {...})
   ;
   ; @return (map)
-  [{:keys [cookies]}]
-  (return cookies))
+  [request]
+  (:cookies request))
 
 (defn request->cookie
   ; @param (map) request
@@ -111,8 +110,8 @@
   ; (request->query-string {...})
   ;
   ; @return (string)
-  [{:keys [query-string]}]
-  (return query-string))
+  [request]
+  (:query-string request))
 
 (defn request->form-params
   ; @param (map) request
@@ -122,8 +121,8 @@
   ; (request->form-params {...})
   ;
   ; @return (map)
-  [{:keys [form-params]}]
-  (return form-params))
+  [request]
+  (:form-params request))
 
 (defn request->form-param
   ; @param (map) request
@@ -145,8 +144,8 @@
   ; (request->path-params {...})
   ;
   ; @return (map)
-  [{:keys [path-params]}]
-  (return path-params))
+  [request]
+  (:path-params request))
 
 (defn request->path-param
   ; @param (map) request
@@ -167,8 +166,8 @@
   ; (request->params {...})
   ;
   ; @return (map)
-  [{:keys [params]}]
-  (return params))
+  [request]
+  (:params request))
 
 (defn request->param
   ; @param (map) request
@@ -189,8 +188,8 @@
   ; (request->transit-params {...})
   ;
   ; @return (map)
-  [{:keys [transit-params]}]
-  (return transit-params))
+  [request]
+  (:transit-params request))
 
 (defn request->transit-param
   ; @param (map) request
@@ -211,8 +210,8 @@
   ; (request->multipart-params {...})
   ;
   ; @return (map)
-  [{:keys [multipart-params]}]
-  (return multipart-params))
+  [request]
+  (:multipart-params request))
 
 (defn request->multipart-param
   ; @param (map) request
@@ -234,8 +233,8 @@
   ; (request->session {...})
   ;
   ; @return (map)
-  [{:keys [session]}]
-  (return session))
+  [request]
+  (:session request))
 
 (defn request->session-params
   ; @param (map) request

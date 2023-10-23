@@ -2,7 +2,6 @@
 (ns vector.dex
     (:require [loop.api     :refer [some-indexed]]
               [math.api     :as math]
-              [noop.api     :refer [return]]
               [sequence.api :as sequence]
               [vector.type  :as type]))
 
@@ -170,9 +169,9 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (type/nonempty?    n)
-      (sequence/next-dex dex 0 (-> n count dec))
-      (return            0)))
+  (if (-> n type/nonempty?)
+      (-> dex (sequence/next-dex 0 (-> n count dec)))
+      (-> 0)))
 
 (defn inc-dex
   ; @description
@@ -197,9 +196,9 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (dex-last? n dex)
-      (return      dex)
-      (inc         dex)))
+  (if (-> n (dex-last? dex))
+      (-> dex)
+      (-> dex inc)))
 
 (defn prev-dex
   ; @description
@@ -226,9 +225,9 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (vector?           n)
-      (sequence/prev-dex dex 0 (-> n count dec))
-      (return            0)))
+  (if (-> n vector?)
+      (-> dex (sequence/prev-dex 0 (-> n count dec)))
+      (-> 0)))
 
 (defn dec-dex
   ; @description
@@ -253,9 +252,9 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (dex-first? dex)
-      (return     dex)
-      (dec        dex)))
+  (if (-> dex dex-first?)
+      (-> dex)
+      (-> dex dec)))
 
 (defn match-dex
   ; @param (vector) n

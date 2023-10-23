@@ -155,8 +155,8 @@ Default: [:div]
   [n]
   (if (vector? n)
       (if-let [attributes (vector/nth-item n 1)]
-              (if (map?   attributes)
-                  (return attributes)))))
+              (if (-> attributes map?)
+                  (-> attributes)))))
 ```
 
 </details>
@@ -467,8 +467,8 @@ Default: [:div]
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (if %2 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2))
-                                  (return %1)))]
+        (letfn [(f [%1 %2] (if %2 (conj %1 ^{:key (random/generate-uuid)} (put-f %2))
+                                  (->   %1)))]
                (reduce f container n)))))
 ```
 
@@ -541,8 +541,8 @@ Default: [:div]
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2 %3] (if %3 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
-                                     (return %1)))]
+        (letfn [(f [%1 %2 %3] (if %3 (conj %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
+                                     (->   %1)))]
                (reduce-kv f container n)))))
 ```
 
@@ -732,9 +732,9 @@ Default: " "
 (defn unparse-css
   [n]
   (letfn [(f [element] (let [style (attributes/get-style element)]
-                            (if (map? style)
-                                (attributes/set-style element (css/unparse style))
-                                (return element))))]
+                            (if (-> style map?)
+                                (-> element (attributes/set-style (css/unparse style)))
+                                (-> element))))]
          (walk/walk n f)))
 ```
 
@@ -797,8 +797,8 @@ Converts the given 'n' to a valid HICCUP attribute value
 ```
 (defn value
   [n & [flag]]
-  (let [n (cond (keyword? n) (keyword/to-string n)
-                (string?  n) (return            n))]
+  (let [n (cond (keyword? n) (-> n keyword/to-string)
+                (string?  n) (-> n))]
        (letfn [(f [result char] (case char "." (str result "--")
                                            "/" (str result "--")
                                            "?" result
@@ -853,7 +853,7 @@ Converts the given 'n' to a valid HICCUP attribute value
   (if (type/hiccup? n)
       (letfn [(walk-f [%1 %2] (conj %1 (walk %2 f)))]
              (reduce walk-f [] (f n)))
-      (return n)))
+      (-> n)))
 ```
 
 </details>

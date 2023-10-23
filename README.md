@@ -55,8 +55,6 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Gesture related functions such as copy marking item labels in the [`gestures.api`](documentation/cljc/gestures/API.md) namespace.
 
-- Cryptographic hash functions in the [`hash.api`](documentation/cljc/hash/API.md) namespace.
-
 - HICCUP utility functions in the [`hiccup.api`](documentation/cljc/hiccup/API.md) namespace.
 
 - Contact data to link converters in the [`href.api`](documentation/cljc/href/API.md) namespace.

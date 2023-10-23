@@ -1,7 +1,6 @@
 
 (ns vector.remove
-    (:require [noop.api     :refer [return]]
-              [vector.check :as check]
+    (:require [vector.check :as check]
               [vector.dex   :as dex]
               [vector.range :as range]))
 
@@ -23,7 +22,7 @@
   [n]
   ;(if (check/nonempty? n)
   ;    (subvec          n 1)
-  ;    (return          [])])
+  ;    (->              [])])
   (vec (drop 1 n)))
 
 (defn remove-first-items
@@ -40,8 +39,8 @@
   ;
   ; @return (vector)
   [n cut]
-  (cond (-> cut integer? not) (return n)
-        (>= cut (count n))    (return [])
+  (cond (-> cut integer? not) (-> n)
+        (>= cut (count n))    (-> [])
         :return (subvec n cut)))
 
 (defn remove-last-item
@@ -59,7 +58,7 @@
   [n]
   ;(if (check/nonempty? n)
   ;    (subvec          n 0 (-> n count dec))
-  ;    (return          [])])
+  ;    (->              [])])
   (-> n drop-last vec))
 
 (defn remove-last-items
@@ -76,8 +75,8 @@
   ;
   ; @return (vector)
   [n cut]
-  (cond (-> cut integer? not) (return n)
-        (>= cut (count n))    (return [])
+  (cond (-> cut integer? not) (-> n)
+        (>= cut (count n))    (-> [])
         :return (subvec n 0 (-> n count (- cut)))))
 
 ;; ----------------------------------------------------------------------------
@@ -126,25 +125,26 @@
   [n x]
   (let [count (count n)]
        (letfn [(f [dex]
-                        ; Ha a dex a legmagasabb index a vektorban és a vizsgált
-                        ; elem megegyezik a törlendő elemmel, ...
+                        ; If the dex is the highest index in the vector, and the element being examined
+                        ; matches the element to be deleted...
                   (cond (and (= dex count)
                              (= x (nth n dex)))
-                        ; ... törli az utolsó elemet a vektorból.
+                        ; ... it deletes the last element from the vector.
                         (subvec n 0 (-> n count dec))
-                        ; Ha a dex a legmagasabb index a vektorban és a vizsgált
-                        ; elem NEM egyezik meg a törlendő elemmel, ...
+                        ; If the dex is the highest index in the vector, and the examined element
+                        ; does NOT match the element to be deleted...
                         (= dex count)
                         ; ... változtatás nélkül visszatér a vektorral.
-                        (return n)
-                        ; Ha NEM a dex a legmagasabb index a vektorban és a vizsgált
-                        ; elem megegyezik a törlendő elemmel, ...
+                        ; ... it returns the vector without making any changes.
+                        (-> n)
+                        ; If the dex is NOT the highest index in the vector and
+                        ; the examined element matches the element to be deleted...
                         (= x (nth n dex))
-                        ; ... törli az elemet a vektorból.
+                        ; ... it deletes the element from the vector.
                         (vec (concat (subvec n 0 dex)
                                      (subvec n (inc dex))))
-                        ; Ha NEM a dex a legmagasabb index a vektorban és a vizsgált
-                        ; elem NEM egyezik meg a törlendő elemmel, ...
+                        ; If the dex is NOT the highest index in the vector and the examined
+                        ; element does NOT match the element to be deleted...
                         :else
                         (-> dex inc f)))]
               (f 0))))
@@ -170,7 +170,7 @@
   [n xyz]
   ;(letfn [(f [result x]
   ;           (if (check/contains-item? xyz x)
-  ;               (return               result)
+  ;               (->                   result)
   ;               (conj                 result x)
   ;       (reduce f [] n)])
   (vec (remove (set xyz) n)))
@@ -190,9 +190,9 @@
   ; @return (vector)
   [n test-f]
   (letfn [(f [result x]
-             (if (test-f x)
-                 (return result)
-                 (conj   result x)))]
+             (if (-> x test-f)
+                 (->   result)
+                 (conj result x)))]
          (reduce f [] n)))
 
 (defn remove-items-kv
@@ -225,8 +225,8 @@
   [n]
   (letfn [(f [result x]
              (if (check/contains-item? result x)
-                 (return               result)
-                 (conj                 result x)))]
+                 (->   result)
+                 (conj result x)))]
          (reduce f [] n)))
 
 (defn remove-first-occurence
@@ -253,4 +253,4 @@
           (if (number? item-dex)
               (vec (concat (subvec n 0 item-dex)
                            (subvec n (inc item-dex)))))
-          (return n)))
+          (-> n)))

@@ -1,7 +1,6 @@
 
 (ns syntax.comment
-    (:require [noop.api    :refer [return]]
-              [string.api  :as string]
+    (:require [string.api  :as string]
               [syntax.tags :as tags]))
 
 ;; ----------------------------------------------------------------------------
@@ -54,9 +53,9 @@
            ; result (otherwise it returns a nil), after then the 'f1' function calls itself
            ; recursively, otherwise the 'f1' function returns the result from the
            ; previous iteration.
-           (f1 [n] (if-let [n  (f0 n)]
-                           (f1     n)
-                           (return n)))]
+           (f1 [n] (if-let [n (f0 n)]
+                           (-> n f1)
+                           (-> n)))]
 
           ; ...
           (f1 n))))

@@ -12,6 +12,7 @@
 (def if-or  core/if-or)
 (def if-and core/if-and)
 (def nor    core/nor)
+(def nor=   core/nor=)
 (def or=    core/or=)
 (def swap   core/swap)
 

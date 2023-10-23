@@ -56,7 +56,7 @@
 (def capitalize-header utils/capitalize-header)
 
 ; http.wrap
-(def response-wrap wrap/response-wrap)
+(def default-wrap  wrap/default-wrap)
 (def redirect-wrap wrap/redirect-wrap)
 (def text-wrap     wrap/text-wrap)
 (def error-wrap    wrap/error-wrap)

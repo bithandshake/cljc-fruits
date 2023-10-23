@@ -1,7 +1,6 @@
 
 (ns vector.sort
-    (:require [noop.api   :refer [return]]
-              [vector.dex :as dex]
+    (:require [vector.dex :as dex]
               [vector.nth :as nth]))
 
 ;; ----------------------------------------------------------------------------
@@ -139,8 +138,8 @@
              (vector? dexes))
         (letfn [(f [result dex]
                    (if-let [item (nth/nth-item n dex)]
-                           (conj   result item)
-                           (return result)))]
+                           (conj result item)
+                           (->   result)))]
                (reduce f [] dexes))))
 
 (defn sorted-dexes
@@ -163,8 +162,8 @@
              (vector? b))
         (letfn [(f [dexes x]
                    (if-let [ordered-dex (dex/item-first-dex a x)]
-                           (conj   dexes ordered-dex)
-                           (return dexes)))]
+                           (conj dexes ordered-dex)
+                           (->   dexes)))]
                (reduce f [] b))))
 
 (defn compared-items-sorted?
@@ -229,5 +228,5 @@
                            ; If the compared items are NOT equal ...
                            (comparator-f x y))))]
               ; Ha a max-count értéke 0, akkor mind a két vektor üres.
-              (case max-count 0 (return true)
+              (case max-count 0 (-> true)
                                 (f 0)))))

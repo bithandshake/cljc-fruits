@@ -1,7 +1,6 @@
 
 (ns vector.range
-    (:require [noop.api   :refer [return]]
-              [vector.dex :as dex]))
+    (:require [vector.dex :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -38,7 +37,7 @@
                  (<  low high)
                  (>= low 0))
             (subvec n low high)
-            (return [])))))
+            (-> [])))))
 
 (defn last-items
   ; @param (vector) n
@@ -54,8 +53,8 @@
   ;
   ; @return (vector)
   [n length]
-  (cond (-> length integer? not) (return n)
-        (>= length (count n))    (return n)
+  (cond (-> length integer? not) (-> n)
+        (>= length (count n))    (-> n)
         :return (subvec n (-> n count (- length)))))
 
 (defn first-items
@@ -72,8 +71,8 @@
   ;
   ; @return (vector)
   [n length]
-  (cond (-> length integer? not) (return n)
-        (>= length (count n))    (return n)
+  (cond (-> length integer? not) (-> n)
+        (>= length (count n))    (-> n)
         :return (subvec n 0 length)))
 
 (defn trim
@@ -116,7 +115,7 @@
   ;
   ; @return (vector)
   [n x]
-  (cond (= (count n) x) (return      n)
+  (cond (= (count n) x) (-> n)
         (> (count n) x) (first-items n x)
         (< (count n) x) (vec (concat n (repeat nil (- x (count n)))))))
 
@@ -136,7 +135,7 @@
   [n x]
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (subvec n 0 item-first-dex)
-          (return [])))
+          (-> [])))
 
 (defn items-after-first-occurence
   ; @param (vector) n
@@ -156,4 +155,4 @@
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (if (number? item-first-dex)
               (subvec n (inc item-first-dex)))
-          (return [])))
+          (-> [])))

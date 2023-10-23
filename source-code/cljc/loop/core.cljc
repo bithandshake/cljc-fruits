@@ -1,6 +1,5 @@
 
-(ns loop.core
-    (:require [noop.api :refer [return]]))
+(ns loop.core)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -117,7 +116,7 @@
   [test-f coll]
   (letfn [(fi [test-f coll dex]
               (if-let [result (test-f dex (get coll dex))]
-                      (return result)
+                      (-> result)
                       (when-not (= dex (-> coll count dec))
                                 (fi test-f coll (inc dex)))))]
          (fi test-f coll 0)))
@@ -137,7 +136,7 @@
              (do-f dex x)
              (inc  dex))]
          (reduce f 0 coll)
-         (return nil)))
+         (-> nil)))
 
 (defn do-while
   ; @param (function) f
@@ -167,8 +166,8 @@
   ; @return (*)
   [f n test-f]
   (let [result (f n)]
-       (if (test-f     result)
-           (return     result)
+       (if (-> result test-f)
+           (-> result)
            (do-while f result test-f))))
 
 (defn reduce-pairs

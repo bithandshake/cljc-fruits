@@ -1,7 +1,6 @@
 
 (ns hiccup.attributes
     (:require [keyword.api :as keyword]
-              [noop.api    :refer [return]]
               [vector.api  :as vector]))
 
 ;; ----------------------------------------------------------------------------
@@ -19,8 +18,8 @@
   [n]
   (if (vector? n)
       (if-let [attributes (vector/nth-item n 1)]
-              (if (map?   attributes)
-                  (return attributes)))))
+              (if (-> attributes map?)
+                  (-> attributes)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -98,8 +97,8 @@
   ;
   ; @return (string)
   [n & [flag]]
-  (let [n (cond (keyword? n) (keyword/to-string n)
-                (string?  n) (return            n))]
+  (let [n (cond (keyword? n) (-> n keyword/to-string)
+                (string?  n) (-> n))]
        (letfn [(f [result char] (case char "." (str result "--")
                                            "/" (str result "--")
                                            "?" result

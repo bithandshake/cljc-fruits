@@ -6,7 +6,7 @@
 
 (defn =?
   ; @description
-  ; If 'a' is equal 'b', then it returns 'c', else it returns 'd'.
+  ; If 'a' is equal 'b', then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -27,7 +27,7 @@
 
 (defn not=?
   ; @description
-  ; If 'a' is NOT equal 'b', then it returns 'c', else it returns 'd'.
+  ; If 'a' is NOT equal 'b', then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -48,7 +48,7 @@
 
 (defn if-or
   ; @description
-  ; If 'a' or 'b' is true, then it returns 'c', else it returns 'd'.
+  ; If 'a' or 'b' is true, then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -69,7 +69,7 @@
 
 (defn if-and
   ; @description
-  ; If 'a' and 'b' is true, then it returns 'c', else it returns 'd'.
+  ; If 'a' and 'b' is true, then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -90,7 +90,7 @@
 
 (defn nor
   ; @description
-  ; Returns true if all the parameters are false after converting them to boolean type.
+  ; Returns true if all the parameters are false.
   ;
   ; @param (list of *) abc
   ;
@@ -112,6 +112,32 @@
   ; @return (boolean)
   [& abc]
   (not-any? boolean abc))
+
+(defn nor=
+  ; @description
+  ; Returns true if 'a' is not equal to any other parameter, false otherwise.
+  ;
+  ; @param (*) a
+  ; @param (list of *) bcd
+  ;
+  ; @example
+  ; (nor= :a :b :c)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (nor= :a :b :a)
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (nor= :a :a)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [a & bcd]
+  (not (some #(= a %) bcd)))
 
 (defn or=
   ; @description

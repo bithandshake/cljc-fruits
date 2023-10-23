@@ -1,7 +1,6 @@
 
 (ns css.parse
-    (:require [noop.api   :refer [return]]
-              [string.api :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -47,8 +46,8 @@
                                 (if-let [[k v] (f0 x)]
                                         (f1 (assoc style (keyword k) v)
                                             (string/after-first-occurence n ";" {:return? false}))
-                                        (return style))
+                                        (-> style))
                                 (if-let [[k v] (f0 n)]
-                                        (assoc  style (keyword k) v)
-                                        (return style))))]
+                                        (assoc style (keyword k) v)
+                                        (-> style))))]
          (f1 {} n)))

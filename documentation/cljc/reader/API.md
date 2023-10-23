@@ -189,7 +189,7 @@
           (cond (map? x) x
                 (nil? n) {}
                 :return  {:0 (str n)})
-          (return {})))
+          (-> {})))
 ```
 
 </details>
@@ -255,8 +255,8 @@ nil
   (if (string/nonblank? n)
       (let [x (read-str n)]
            (if (some #(% x) [keyword? map? vector? number?])
-               (return x)
-               (return n)))))
+               (-> x)
+               (-> n)))))
 ```
 
 </details>

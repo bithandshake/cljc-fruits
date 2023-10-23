@@ -369,10 +369,10 @@
                                             [k v])))))
           (f1 [style n] (if-let [x (string/before-first-occurence n "                                (if-let [[k v] (f0 x)]
                                         (f1 (assoc style (keyword k) v)
-                                            (string/after-first-occurence n "                                        (return style))
+                                            (string/after-first-occurence n "                                        (-> style))
                                 (if-let [[k v] (f0 n)]
-                                        (assoc  style (keyword k) v)
-                                        (return style))))]
+                                        (assoc style (keyword k) v)
+                                        (-> style))))]
          (f1 {} n)))
 ```
 

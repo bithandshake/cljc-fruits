@@ -1,7 +1,6 @@
 
 (ns uri.check
-    (:require [noop.api   :refer [return]]
-              [string.api :as string]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -36,7 +35,7 @@
                                             ; 'url-path-template-parts' vector, the iteration is
                                             ; finished and all the parts are matching (or skipped).
                                             (= dex url-path-template-parts-count)
-                                            (return true)
+                                            (-> true)
 
                                             ; If the first character of the 'url-path-template-part'
                                             ; is ":", that means the part is a path parameter variable.

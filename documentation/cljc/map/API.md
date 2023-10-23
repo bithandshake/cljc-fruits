@@ -956,7 +956,7 @@ the provided value is not NIL.
   [n value-path value]
   (if (some?                 value)
       (assoc-in n value-path value)
-      (return   n)))
+      (-> n)))
 ```
 
 </details>
@@ -1122,9 +1122,9 @@ is nil or falsy.
 ```
 (defn assoc-some
   [n & kv-pairs]
-  (letfn [(f [n k v] (if (some? v)
-                         (assoc n k v)
-                         (return n)))]
+  (letfn [(f [n k v] (if (-> v some?)
+                         (-> n (assoc k v))
+                         (-> n)))]
          (reduce-pairs f n kv-pairs)))
 ```
 
@@ -1489,10 +1489,10 @@ true
              (if (and (map? result)
                       (map? x))
                  (merge-with f result x)
-                 (return x)))]
+                 (-> x)))]
          (if (some identity xyz)
              (reduce f n xyz)
-             (return n))))
+             (-> n))))
 ```
 
 </details>
@@ -1610,7 +1610,7 @@ never present.
                         (if (seq          new-n)
                             (assoc  n key new-n)
                             (dissoc n key)))
-                   (return n))
+                   (-> n))
            (dissoc n key)))
 ```
 
@@ -2535,9 +2535,9 @@ true
 (defn merge-some
   [& xyz]
   (letfn [(f0 [result x]   (reduce-kv f1 result x))
-          (f1 [result k v] (if (some? v)
-                               (assoc  result k v)
-                               (return result)))]
+          (f1 [result k v] (if (-> v some?)
+                               (-> result (assoc k v))
+                               (-> result)))]
          (reduce f0 {} xyz)))
 ```
 
@@ -2717,7 +2717,7 @@ false
   [n from to]
   (if (contains? n from)
       (dissoc (assoc n to (get n from)) from)
-      (return n)))
+      (-> n)))
 ```
 
 </details>
@@ -2774,7 +2774,7 @@ false
   [n & key-pairs]
   (letfn [(f [n from to] (if (contains? n from)
                              (dissoc (assoc n to (get n from)) from)
-                             (return n)))]
+                             (-> n)))]
          (reduce-pairs f n key-pairs)))
 ```
 
@@ -2872,9 +2872,9 @@ false
 (defn remove-keys-by
   [n r-f]
   (letfn [(f [%1 %2 %3]
-             (if (r-f    %2)
-                 (return %1)
-                 (assoc  %1 %2 %3)))]
+             (if (-> %2 r-f)
+                 (-> %1)
+                 (-> %1 (assoc %2 %3))))]
          (reduce-kv f {} n)))
 ```
 
@@ -3034,9 +3034,9 @@ false
 (defn remove-values-by
   [n r-f]
   (letfn [(f [%1 %2 %3]
-             (if (r-f    %3)
-                 (return %1)
-                 (assoc  %1 %2 %3)))]
+             (if (-> %3 r-f)
+                 (-> %1)
+                 (-> %1 (assoc %2 %3))))]
          (reduce-kv f {} n)))
 ```
 
@@ -3425,7 +3425,7 @@ Updates a map at a specified path if the provided value is not nil or falsy.
   [n value-path update-f value]
   (if (some?                           value)
       (update-in n value-path update-f value)
-      (return    n)))
+      (-> n)))
 ```
 
 </details>
@@ -3490,7 +3490,7 @@ value is not nil or falsy.
   [n key f value]
   (if (some?          value)
       (update n key f value)
-      (return n)))
+      (-> n)))
 ```
 
 </details>

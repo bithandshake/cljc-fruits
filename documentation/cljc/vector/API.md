@@ -725,7 +725,7 @@ false
                                (<= (count a) (count b))
                                (f (inc dex)))
                            (comparator-f x y))))]
-              (case max-count 0 (return true)
+              (case max-count 0 (-> true)
                                 (f 0)))))
 ```
 
@@ -938,9 +938,9 @@ Conj the item if the vector does not contain it.
 ```
 (defn conj-item-once
   [n & xyz]
-  (letfn [(f [result x] (if (check/contains-item? result x)
-                            (return               result)
-                            (conj                 result x)))]
+  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+                            (-> result)
+                            (-> result (conj x))))]
          (vec (reduce f n (vec xyz)))))
 ```
 
@@ -999,8 +999,8 @@ Conj the item if it is NOT nil.
 ```
 (defn conj-some
   [n & xyz]
-  (letfn [(f [result x] (if x (conj   result x)
-                              (return result)))]
+  (letfn [(f [result x] (if x (-> result (conj x))
+                              (-> result)))]
          (vec (reduce f n (vec xyz)))))
 ```
 
@@ -1108,9 +1108,9 @@ Cons the item if the vector does not contain it.
 ```
 (defn cons-item-once
   [n & xyz]
-  (letfn [(f [result x] (if (check/contains-item? result x)
-                            (return               result)
-                            (cons               x result)))]
+  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+                            (-> result)
+                            (-> x (cons result))))]
          (vec (reduce f n (vec xyz)))))
 ```
 
@@ -1286,7 +1286,7 @@ false
 ```
 (defn count!
   [n x]
-  (cond (= (count n) x) (return      n)
+  (cond (= (count n) x) (-> n)
         (> (count n) x) (first-items n x)
         (< (count n) x) (vec (concat n (repeat nil (- x (count n)))))))
 ```
@@ -1400,9 +1400,9 @@ At the beginning of the vector it stops.
 ```
 (defn dec-dex
   [n dex]
-  (if (dex-first? dex)
-      (return     dex)
-      (dec        dex)))
+  (if (-> dex dex-first?)
+      (-> dex)
+      (-> dex dec)))
 ```
 
 </details>
@@ -2191,8 +2191,8 @@ true
 ```
 (defn first-items
   [n length]
-  (cond (-> length integer? not) (return n)
-        (>= length (count n))    (return n)
+  (cond (-> length integer? not) (-> n)
+        (>= length (count n))    (-> n)
         :return (subvec n 0 length)))
 ```
 
@@ -2300,8 +2300,8 @@ nil
 ```
 (defn get-first-match
   [n test-f]
-  (letfn [(f [%] (if (test-f %)
-                     (return %)))]
+  (letfn [(f [%] (if (-> % test-f)
+                     (-> %)))]
          (some f n)))
 ```
 
@@ -2531,9 +2531,9 @@ At the end of the vector it stops.
 ```
 (defn inc-dex
   [n dex]
-  (if (dex-last? n dex)
-      (return      dex)
-      (inc         dex)))
+  (if (-> n (dex-last? dex))
+      (-> dex)
+      (-> dex inc)))
 ```
 
 </details>
@@ -2609,7 +2609,7 @@ At the end of the vector it stops.
             (concat-items (subvec n 0 dex)
                           [x]
                           (subvec n dex)))
-        (nil? n) (return [x])
+        (nil? n) (-> [x])
         :return n))
 ```
 
@@ -2919,7 +2919,7 @@ true
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (if (number? item-first-dex)
               (subvec n (inc item-first-dex)))
-          (return [])))
+          (-> [])))
 ```
 
 </details>
@@ -2969,7 +2969,7 @@ true
   [n x]
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (subvec n 0 item-first-dex)
-          (return [])))
+          (-> [])))
 ```
 
 </details>
@@ -3075,8 +3075,8 @@ true
   [n xyz]
   (letfn [(f [result x]
              (if (check/contains-item? xyz x)
-                 (conj   result x)
-                 (return result)))]
+                 (conj result x)
+                 (->   result)))]
          (reduce f [] n)))
 ```
 
@@ -3127,8 +3127,8 @@ true
   [n f]
   (letfn [(f0 [result x]
               (if (f x)
-                  (conj   result x)
-                  (return result)))]
+                  (conj result x)
+                  (->   result)))]
          (reduce f0 [] n)))
 ```
 
@@ -3371,8 +3371,8 @@ true
 ```
 (defn last-items
   [n length]
-  (cond (-> length integer? not) (return n)
-        (>= length (count n))    (return n)
+  (cond (-> length integer? not) (-> n)
+        (>= length (count n))    (-> n)
         :return (subvec n (-> n count (- length)))))
 ```
 
@@ -3683,7 +3683,7 @@ false
   [n x dex]
   (if-let [item-first-dex (dex/item-first-dex n x)]
           (move-nth-item n item-first-dex dex)
-          (return        n)))
+          (-> n)))
 ```
 
 </details>
@@ -3864,7 +3864,7 @@ false
   (if (dex/dex-in-bounds? n from)
       (let [to (math/between! to 0 (count n))]
            (cond
-                 (= from to) (return n)
+                 (= from to) (-> n)
 
                  (< from to) (vec (concat (range/ranged-items n 0 from)
                                           (range/ranged-items n (inc from) (inc to))
@@ -3875,7 +3875,7 @@ false
                                           (range/ranged-items n from (inc from))
                                           (range/ranged-items n to from)
                                           (range/ranged-items n (inc from))))))
-      (return n)))
+      (-> n)))
 ```
 
 </details>
@@ -4053,9 +4053,9 @@ At the end of the vector it jumps to the first index.
 ```
 (defn next-dex
   [n dex]
-  (if (type/nonempty?    n)
-      (sequence/next-dex dex 0 (-> n count dec))
-      (return            0)))
+  (if (-> n type/nonempty?)
+      (-> dex (sequence/next-dex 0 (-> n count dec)))
+      (-> 0)))
 ```
 
 </details>
@@ -4283,13 +4283,13 @@ false
   (letfn [(f [x match-count f-dex]
              (if (-> x filter-f not)
                  (if (dex/dex-last? n f-dex)
-                     (return nil)
+                     (-> nil)
                      (f (get n (inc f-dex)) match-count (inc f-dex)))
                  (if (< match-count dex)
                      (if (dex/dex-last? n f-dex)
-                         (return nil)
+                         (-> nil)
                          (f (get n (inc f-dex)) (inc match-count) (inc f-dex)))
-                     (return x))))]
+                     (-> x))))]
          (f (first n) 0 0)))
 ```
 
@@ -4507,9 +4507,9 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn prev-dex
   [n dex]
-  (if (vector?           n)
-      (sequence/prev-dex dex 0 (-> n count dec))
-      (return            0)))
+  (if (-> n vector?)
+      (-> dex (sequence/prev-dex 0 (-> n count dec)))
+      (-> 0)))
 ```
 
 </details>
@@ -4645,7 +4645,7 @@ At the beginning of the vector it jumps to the last index.
                  (<  low high)
                  (>= low 0))
             (subvec n low high)
-            (return [])))))
+            (-> [])))))
 ```
 
 </details>
@@ -4694,8 +4694,8 @@ At the beginning of the vector it jumps to the last index.
   [n]
   (letfn [(f [result x]
              (if (check/contains-item? result x)
-                 (return               result)
-                 (conj                 result x)))]
+                 (->   result)
+                 (conj result x)))]
          (reduce f [] n)))
 ```
 
@@ -4791,8 +4791,8 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-first-items
   [n cut]
-  (cond (-> cut integer? not) (return n)
-        (>= cut (count n))    (return [])
+  (cond (-> cut integer? not) (-> n)
+        (>= cut (count n))    (-> [])
         :return (subvec n cut)))
 ```
 
@@ -4845,7 +4845,7 @@ At the beginning of the vector it jumps to the last index.
           (if (number? item-dex)
               (vec (concat (subvec n 0 item-dex)
                            (subvec n (inc item-dex)))))
-          (return n)))
+          (-> n)))
 ```
 
 </details>
@@ -4962,7 +4962,7 @@ At the beginning of the vector it jumps to the last index.
                              (= x (nth n dex)))
                         (subvec n 0 (-> n count dec))
                         (= dex count)
-                        (return n)
+                        (-> n)
                         (= x (nth n dex))
                         (vec (concat (subvec n 0 dex)
                                      (subvec n (inc dex))))
@@ -5017,9 +5017,9 @@ At the beginning of the vector it jumps to the last index.
 (defn remove-items-by
   [n test-f]
   (letfn [(f [result x]
-             (if (test-f x)
-                 (return result)
-                 (conj   result x)))]
+             (if (-> x test-f)
+                 (->   result)
+                 (conj result x)))]
          (reduce f [] n)))
 ```
 
@@ -5160,8 +5160,8 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-last-items
   [n cut]
-  (cond (-> cut integer? not) (return n)
-        (>= cut (count n))    (return [])
+  (cond (-> cut integer? not) (-> n)
+        (>= cut (count n))    (-> [])
         :return (subvec n 0 (-> n count (- cut)))))
 ```
 
@@ -5263,8 +5263,8 @@ At the beginning of the vector it jumps to the last index.
   [n dexes]
   (letfn [(remove-nth-items-f [result dex x]
                               (if (check/contains-item? dexes dex)
-                                  (return result)
-                                  (conj   result x)))]
+                                  (->   result)
+                                  (conj result x)))]
          (reduce-kv remove-nth-items-f [] n)))
 ```
 
@@ -5374,7 +5374,7 @@ At the beginning of the vector it jumps to the last index.
       (vec (concat (subvec n 0 dex)
                    [x]
                    (subvec n (inc dex))))
-      (return n)))
+      (-> n)))
 ```
 
 </details>
@@ -5472,7 +5472,7 @@ At the beginning of the vector it jumps to the last index.
   (letfn [(f [result x]
              (if (check/contains-item? b x)
                  (vec (conj result x))
-                 (return result)))]
+                 (-> result)))]
          (reduce f [] a)))
 ```
 
@@ -5639,8 +5639,8 @@ At the beginning of the vector it jumps to the last index.
              (vector? dexes))
         (letfn [(f [result dex]
                    (if-let [item (nth/nth-item n dex)]
-                           (conj   result item)
-                           (return result)))]
+                           (conj result item)
+                           (->   result)))]
                (reduce f [] dexes))))
 ```
 
@@ -5695,8 +5695,8 @@ At the beginning of the vector it jumps to the last index.
              (vector? b))
         (letfn [(f [dexes x]
                    (if-let [ordered-dex (dex/item-first-dex a x)]
-                           (conj   dexes ordered-dex)
-                           (return dexes)))]
+                           (conj dexes ordered-dex)
+                           (->   dexes)))]
                (reduce f [] b))))
 ```
 

@@ -91,7 +91,7 @@
 ```
 (defn CamelCase-key
   [n]
-  (cond (string?  n) (syntax/ToCamelCase n)
+  (cond (string?  n) (-> n syntax/ToCamelCase)
         (keyword? n) (-> n name CamelCase-key keyword)
         :return   n))
 ```
@@ -213,7 +213,7 @@
 ```
 (defn hyphenize-key
   [n]
-  (cond (string?  n) (string/replace-part n "_" "-")
+  (cond (string?  n) (-> n (string/replace-part "_" "-"))
         (keyword? n) (-> n name hyphenize-key keyword)
         :return   n))
 ```
@@ -458,9 +458,9 @@
 ```
 (defn keywordize-value
   [n]
-  (if (unkeywordized-value? n)
-      (->     n (subs 2) keyword)
-      (return n)))
+  (if (-> n unkeywordized-value?)
+      (-> n (subs 2) keyword)
+      (-> n)))
 ```
 
 </details>
@@ -654,9 +654,9 @@
   [n]
   (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
          (let [result (map/->>remove-values-by n r-f)]
-              (if (=                 n result)
-                  (return              result)
-                  (remove-blank-values result)))))
+              (if (-> result (= n))
+                  (-> result)
+                  (-> result remove-blank-values)))))
 ```
 
 </details>
@@ -715,7 +715,7 @@
 ```
 (defn snake-case-key
   [n]
-  (cond (string?  n) (syntax/to-snake-case n)
+  (cond (string?  n) (-> n syntax/to-snake-case )
         (keyword? n) (-> n name snake-case-key keyword)
         :return   n))
 ```
@@ -825,9 +825,9 @@
 ```
 (defn trim-value
   [n]
-  (if (string?     n)
-      (string/trim n)
-      (return      n)))
+  (if (-> n string?)
+      (-> n string/trim)
+      (-> n)))
 ```
 
 </details>
@@ -935,7 +935,7 @@
 ```
 (defn underscore-key
   [n]
-  (cond (string?  n) (string/replace-part n "-" "_")
+  (cond (string?  n) (-> n (string/replace-part "-" "_"))
         (keyword? n) (-> n name underscore-key keyword)
         :return   n))
 ```
@@ -1141,9 +1141,9 @@
 ```
 (defn unkeywordize-value
   [n]
-  (if (keyword?                  n)
-      (str config/KEYWORD-PREFIX n)
-      (return                    n)))
+  (if (-> n keyword?)
+      (-> config/KEYWORD-PREFIX (str n))
+      (-> n)))
 ```
 
 </details>

@@ -264,7 +264,7 @@ Default: ","
                      (if (vector/nonempty? separators)
                          (implode-f (string/insert-part n "." (last separators))
                                     (vector/remove-last-item separators))
-                         (return n)))
+                         (-> n)))
 
           (explode-f [n separators]
                      (if-let [separator (string/first-dex-of n ".")]
@@ -276,7 +276,7 @@ Default: ","
 
                                         (if (re-match? n #"^[9]{1,}$")
                                             (vector/->items separators inc)
-                                            (param          separators)))))]
+                                            (->             separators)))))]
          (explode-f n [])))
 ```
 
@@ -335,7 +335,7 @@ Default: ","
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str "0" x))
-            (return x))))
+            (-> x))))
 ```
 
 </details>
@@ -391,7 +391,7 @@ Default: ","
   [n]
   (letfn [(f [n]
              (if-not (= "0" (-> n first str))
-                     (return n)
+                     (-> n)
                      (f (subs n 1))))]
          (-> n str f)))
 ```
@@ -507,7 +507,7 @@ Default: ","
   (let [n (str n)]
        (if (= (-> "-"     str)
               (-> n first str))
-           (return n)
+           (-> n)
            (str "+"n))))
 ```
 
@@ -559,7 +559,7 @@ Default: ","
   (loop [x (str n)]
         (if (< (count x) length)
             (recur (str x "0"))
-            (return x))))
+            (-> x))))
 ```
 
 </details>

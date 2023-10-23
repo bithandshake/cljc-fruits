@@ -1,7 +1,6 @@
 
 (ns vector.nth
-    (:require [noop.api     :refer [return]]
-              [vector.check :as check]
+    (:require [vector.check :as check]
               [vector.dex   :as dex]))
 
 ;; ----------------------------------------------------------------------------
@@ -60,8 +59,8 @@
   [n dexes]
   (letfn [(remove-nth-items-f [result dex x]
                               (if (check/contains-item? dexes dex)
-                                  (return result)
-                                  (conj   result x)))]
+                                  (->   result)
+                                  (conj result x)))]
          (reduce-kv remove-nth-items-f [] n)))
 
 (defn duplicate-nth-item
@@ -125,4 +124,4 @@
       (vec (concat (subvec n 0 dex)
                    [x]
                    (subvec n (inc dex))))
-      (return n)))
+      (-> n)))

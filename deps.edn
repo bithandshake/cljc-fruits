@@ -1,6 +1,5 @@
 
 {:paths ["source-code/cljc"]
- :deps  {buddy/buddy-core          {:mvn/version "1.10.1"}
-         org.clojure/clojure       {:mvn/version "1.10.1"}
+ :deps  {org.clojure/clojure       {:mvn/version "1.10.1"}
          org.clojure/clojurescript {:mvn/version "1.10.891"}
          org.clojure/data.codec    {:mvn/version "0.1.1"}}}

@@ -1,7 +1,6 @@
 
 (ns vector.match
-    (:require [loop.api :refer [some-indexed]]
-              [noop.api :refer [return]]))
+    (:require [loop.api :refer [some-indexed]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -67,8 +66,8 @@
   ;
   ; @return (*)
   [n test-f]
-  (letfn [(f [%] (if (test-f %)
-                     (return %)))]
+  (letfn [(f [%] (if (-> % test-f)
+                     (-> %)))]
          (some f n)))
 
 (defn get-last-match

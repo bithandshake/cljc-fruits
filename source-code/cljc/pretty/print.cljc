@@ -1,7 +1,6 @@
 
 (ns pretty.print
     (:require [loop.api   :refer [reduce-indexed reduce-kv-indexed]]
-              [noop.api   :refer [return]]
               [string.api :as string]
               [vector.api :as vector]))
 

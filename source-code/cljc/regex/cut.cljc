@@ -2,7 +2,6 @@
 (ns regex.cut
     (:require [clojure.string]
               [math.api   :as math]
-              [noop.api   :refer [return]]
               [regex.core :as core]))
 
 ;; ----------------------------------------------------------------------------
@@ -432,7 +431,7 @@
                (let [dex (clojure.string/index-of n first-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count first-match)))))
-               (return n))))
+               (-> n))))
 
 (defn remove-last-occurence
   ; @warning
@@ -462,7 +461,7 @@
                (let [dex (clojure.string/last-index-of n last-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count last-match)))))
-               (return n))))
+               (-> n))))
 
 (defn between-occurences
   ; @warning

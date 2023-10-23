@@ -2,7 +2,6 @@
 (ns mixed.core
     (:require [mixed.convert :as convert]
               [mixed.type    :as type]
-              [noop.api      :refer [return]]
               [reader.api    :as reader]))
 
 ;; ----------------------------------------------------------------------------
@@ -46,8 +45,6 @@
              (* result (convert/to-number x)))]
          (reduce f 1 abc)))
 
-
-
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -83,7 +80,7 @@
   ([n f x]
    (letfn [(update-f [n] (if x (f n x)
                                (f n)))]
-          (cond (-> n           integer?)      (update-f n)
+          (cond (-> n           integer?)      (-> n update-f)
                 (-> n type/whole-number?) (let [integer (reader/string->mixed n)]
-                                               (update-f integer))
-                (-> n              some?)      (return n)))))
+                                               (-> integer update-f))
+                (-> n              some?)      (-> n)))))

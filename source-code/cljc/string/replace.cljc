@@ -1,7 +1,6 @@
 
 (ns string.replace
     (:require [clojure.string]
-              [noop.api     :refer [return]]
               [string.check :as check]))
 
 ;; ----------------------------------------------------------------------------
@@ -50,9 +49,9 @@
   ([n x y {:keys [recur?]}]
    (letfn [(f [n] (clojure.string/replace (str n) x
                                           (str y)))
-           (r [n] (if (= n (f n))
-                      (return n)
-                      (r (f n))))]
+           (r [n] (if (-> n f (= n))
+                      (-> n)
+                      (-> n f r)))]
           (if recur? (r n)
                      (f n)))))
 
@@ -156,9 +155,9 @@
   ;
   ; @return (boolean)
   [n]
-  (if (empty? n)
-      (return nil)
-      (return n)))
+  (if (-> n empty?)
+      (-> nil)
+      (-> n)))
 
 (defn use-placeholder
   ; @param (string) n
@@ -182,6 +181,6 @@
   ;
   ; @return (string)
   [n placeholder]
-  (if (check/nonblank? n)
-      (return          n)
-      (return          placeholder)))
+  (if (-> n check/nonblank?)
+      (-> n)
+      (-> placeholder)))

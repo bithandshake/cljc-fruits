@@ -1,7 +1,6 @@
 
 (ns vector.core
-    (:require [noop.api      :refer [return]]
-              [vector.check  :as check]
+    (:require [vector.check  :as check]
               [vector.dex    :as dex]
               [vector.nth    :as nth]
               [vector.remove :as remove]))
@@ -82,9 +81,9 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (check/contains-item? result x)
-                            (return               result)
-                            (cons               x result)))]
+  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+                            (-> result)
+                            (-> x (cons result))))]
          (vec (reduce f n (vec xyz)))))
 
 (defn conj-item
@@ -131,9 +130,9 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (check/contains-item? result x)
-                            (return               result)
-                            (conj                 result x)))]
+  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+                            (-> result)
+                            (-> result (conj x))))]
          (vec (reduce f n (vec xyz)))))
 
 (defn conj-some
@@ -156,8 +155,8 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if x (conj   result x)
-                              (return result)))]
+  (letfn [(f [result x] (if x (-> result (conj x))
+                              (-> result)))]
          (vec (reduce f n (vec xyz)))))
 
 (defn concat-items
@@ -300,7 +299,7 @@
             (concat-items (subvec n 0 dex)
                           [x]
                           (subvec n dex)))
-        (nil? n) (return [x])
+        (nil? n) (-> [x])
         :return n))
 
 (defn toggle-item

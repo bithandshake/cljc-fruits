@@ -17,6 +17,8 @@
 
 - [nor](#nor)
 
+- [nor=](#nor)
+
 - [not=?](#not)
 
 - [or=](#or)
@@ -27,7 +29,7 @@
 
 ```
 @description
-If 'a' is equal 'b', then it returns 'c', else it returns 'd'.
+If 'a' is equal 'b', then returns 'c', else returns 'd'.
 ```
 
 ```
@@ -80,7 +82,7 @@ If 'a' is equal 'b', then it returns 'c', else it returns 'd'.
 
 ```
 @description
-If 'a' and 'b' is true, then it returns 'c', else it returns 'd'.
+If 'a' and 'b' is true, then returns 'c', else returns 'd'.
 ```
 
 ```
@@ -133,7 +135,7 @@ If 'a' and 'b' is true, then it returns 'c', else it returns 'd'.
 
 ```
 @description
-If 'a' or 'b' is true, then it returns 'c', else it returns 'd'.
+If 'a' or 'b' is true, then returns 'c', else returns 'd'.
 ```
 
 ```
@@ -280,7 +282,7 @@ true
 
 ```
 @description
-Returns true if all the parameters are false after converting them to boolean type.
+Returns true if all the parameters are false.
 ```
 
 ```
@@ -337,11 +339,73 @@ true
 
 ---
 
+### nor=
+
+```
+@description
+Returns true if 'a' is not equal to any other parameter, false otherwise.
+```
+
+```
+@param (*) a
+@param (list of *) bcd
+```
+
+```
+@example
+(nor= :a :b :c)
+=>
+true
+```
+
+```
+@example
+(nor= :a :b :a)
+=>
+false
+```
+
+```
+@example
+(nor= :a :a)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn nor=
+  [a & bcd]
+  (not (some #(= a %) bcd)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [logic.api :refer [nor=]]))
+
+(logic.api/nor= ...)
+(nor=           ...)
+```
+
+</details>
+
+---
+
 ### not=?
 
 ```
 @description
-If 'a' is NOT equal 'b', then it returns 'c', else it returns 'd'.
+If 'a' is NOT equal 'b', then returns 'c', else returns 'd'.
 ```
 
 ```

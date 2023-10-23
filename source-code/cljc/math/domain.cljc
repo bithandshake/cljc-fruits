@@ -1,7 +1,6 @@
 
 (ns math.domain
-    (:require [math.core :as core]
-              [noop.api  :refer [return]]))
+    (:require [math.core :as core]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -39,9 +38,9 @@
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (=      rem 0)
-           (return quot)
-           (inc    quot))))
+       (if (=   rem 0)
+           (->  quot)
+           (inc quot))))
 
 (defn domain-floor
   ; @description
@@ -172,7 +171,7 @@
         range-offset  (core/absolute output-min)
         ratio         (/ range-length domain-length)]
        (if (< n input-min)
-           (return output-min)
+           (-> output-min)
            (if (> n input-max)
-               (return output-max)
+               (-> output-max)
                (+ output-min (* domain-offset ratio))))))

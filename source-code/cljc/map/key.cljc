@@ -1,7 +1,6 @@
 
 (ns map.key
-    (:require [noop.api :refer [return]]
-              [loop.api :refer [reduce-pairs]]))
+    (:require [loop.api :refer [reduce-pairs]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -106,7 +105,7 @@
   [n from to]
   (if (contains? n from)
       (dissoc (assoc n to (get n from)) from)
-      (return n)))
+      (-> n)))
 
 (defn rekey-items
   ; @param (map) n
@@ -130,7 +129,7 @@
   ; TEMP#5500 (source-code/cljc/map/core.cljc)
   (letfn [(f [n from to] (if (contains? n from)
                              (dissoc (assoc n to (get n from)) from)
-                             (return n)))]
+                             (-> n)))]
          (reduce-pairs f n key-pairs)))
 
 (defn get-keys-by

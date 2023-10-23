@@ -201,8 +201,8 @@
 (defn abc
   [a b]
   (if (check/abc? a b)
-      (return       a)
-      (return       b)))
+      (-> a)
+      (-> b)))
 ```
 
 </details>
@@ -1170,9 +1170,9 @@ false
                                     (let [step (if separate-matches? (count x) 1)]
                                          (f (+   cursor first-dex step)
                                             (inc match-count)))
-                                    (return match-count)))]
+                                    (-> match-count)))]
                         (f 0 0)))
-            (return 0)))))
+            (-> 0)))))
 ```
 
 </details>
@@ -1321,7 +1321,7 @@ false
                  (math/between? start 0 (count n)))
             (str (subs n 0 (min start end))
                  (subs n   (max start end)))
-            (return n)))))
+            (-> n)))))
 ```
 
 </details>
@@ -1383,8 +1383,8 @@ false
 
   ([n x options]
    (if (ends-with? n x options)
-       (return n)
-       (str    n x))))
+       (->  n)
+       (str n x))))
 ```
 
 </details>
@@ -2042,7 +2042,7 @@ nil
                                          (if (separate? dex)
                                              (str result part separator)
                                              (str result part))
-                                         (return result)))]
+                                         (-> result)))]
                (reduce-kv f "" (vec coll))))))
 ```
 
@@ -2175,9 +2175,9 @@ nil
 (defn length
   [n]
   (let [n (str n)]
-       (if (empty? n)
-           (return 0)
-           (count  n))))
+       (if (-> n empty?)
+           (-> 0)
+           (-> n count))))
 ```
 
 </details>
@@ -2514,7 +2514,7 @@ false
                 (-> limit integer?)
                 (<  limit (count n)))
            (str (subs n 0 limit) suffix)
-           (return n))))
+           (-> n))))
 ```
 
 </details>
@@ -2583,7 +2583,7 @@ false
                             (subvec lines 0 limit))]
         (letfn [(f [result dex]
                    (if (= dex limit)
-                       (return result)
+                       (-> result)
                        (f (str result (if (not= dex 0) "\n") (nth lines dex))
                           (inc dex))))]
                (f "" 0)))))
@@ -2916,7 +2916,7 @@ nil
   ([n x options]
    (if (ends-with?                n x options)
        (cut/before-last-occurence n x)
-       (return                    n))))
+       (-> n))))
 ```
 
 </details>
@@ -3126,7 +3126,7 @@ nil
   ([n x options]
    (if (starts-with?              n x options)
        (cut/after-first-occurence n x)
-       (return                    n))))
+       (-> n))))
 ```
 
 </details>
@@ -3333,8 +3333,8 @@ false
         (if (and (-> n empty? not)
                  (math/between? end   0 (count n))
                  (math/between? start 0 (count n)))
-            (subs   n start end)
-            (return n)))))
+            (subs n start end)
+            (->   n)))))
 ```
 
 </details>
@@ -3476,8 +3476,8 @@ true
 
   ([n x separator]
    (let [n (str n)]
-        (if (empty?               n)
-            (return               n)
+        (if (-> n empty?)
+            (-> n)
             (str prefix separator n)))))
 ```
 
@@ -3597,7 +3597,7 @@ true
    (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
                               (str (subs n 0 dex)
                                    (subs n (+ dex (count x))))
-                              (return n)))]
+                              (-> n)))]
           (if case-sensitive? (f (-> n str)
                                  (-> n str)
                                  (-> x str))
@@ -3670,7 +3670,7 @@ true
    (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
                               (str (subs n 0 dex)
                                    (subs n (+ dex (count x))))
-                              (return n)))]
+                              (-> n)))]
           (if case-sensitive? (f (-> n str)
                                  (-> n str)
                                  (-> x str))
@@ -3877,9 +3877,9 @@ true
   ([n x y {:keys [recur?]}]
    (letfn [(f [n] (clojure.string/replace (str n) x
                                           (str y)))
-           (r [n] (if (= n (f n))
-                      (return n)
-                      (r (f n))))]
+           (r [n] (if (-> n f (= n))
+                      (-> n)
+                      (-> n f r)))]
           (if recur? (r n)
                      (f n)))))
 ```
@@ -4027,8 +4027,8 @@ true
 
   ([n x options]
    (if (starts-with? n x options)
-       (return       n)
-       (str          x n))))
+       (->  n)
+       (str x n))))
 ```
 
 </details>
@@ -4171,9 +4171,9 @@ false
 
   ([n x separator]
    (let [n (str n)]
-        (if (empty? n)
-            (return n)
-            (str    n separator x)))))
+        (if (->  n empty?)
+            (->  n)
+            (str n separator x)))))
 ```
 
 </details>
@@ -4372,10 +4372,10 @@ nil
 ```
 (defn to-integer
   [n]
-  #?(:cljs (cond (string?  n) (js/parseInt n)
-                 (integer? n) (return      n))
+  #?(:cljs (cond (string?  n) (-> n js/parseInt)
+                 (integer? n) (-> n))
      :clj  (cond (string?  n) (Integer. (re-find #"\d+" n))
-                 (integer? n) (return      n))))
+                 (integer? n) (-> n))))
 ```
 
 </details>
@@ -4668,9 +4668,9 @@ nil
 ```
 (defn use-nil
   [n]
-  (if (empty? n)
-      (return nil)
-      (return n)))
+  (if (-> n empty?)
+      (-> nil)
+      (-> n)))
 ```
 
 </details>
@@ -4728,9 +4728,9 @@ nil
 ```
 (defn use-placeholder
   [n placeholder]
-  (if (check/nonblank? n)
-      (return          n)
-      (return          placeholder)))
+  (if (-> n check/nonblank?)
+      (-> n)
+      (-> placeholder)))
 ```
 
 </details>

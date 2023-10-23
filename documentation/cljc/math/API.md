@@ -338,9 +338,9 @@ domain and projects the taken position to the output range.
         range-offset  (core/absolute output-min)
         ratio         (/ range-length domain-length)]
        (if (< n input-min)
-           (return output-min)
+           (-> output-min)
            (if (> n input-max)
-               (return output-max)
+               (-> output-max)
                (+ output-min (* domain-offset ratio))))))
 ```
 
@@ -886,9 +886,9 @@ For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (=      rem 0)
-           (return quot)
-           (inc    quot))))
+       (if (=   rem 0)
+           (->  quot)
+           (inc quot))))
 ```
 
 </details>
@@ -1063,9 +1063,9 @@ For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
 ```
 (defn negative
   [n]
-  (if (>=   0 n)
-      (return n)
-      (-    0 n)))
+  (if (>= 0 n)
+      (-> n)
+      (-  0 n)))
 ```
 
 </details>
@@ -1512,9 +1512,9 @@ true
 ```
 (defn positive
   [n]
-  (if (<=   0 n)
-      (return n)
-      (-    0 n)))
+  (if (<= 0 n)
+      (-> n)
+      (-  0 n)))
 ```
 
 </details>

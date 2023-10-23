@@ -1,8 +1,7 @@
 
 (ns string.cut
     (:require [clojure.string]
-              [math.api :as math]
-              [noop.api :refer [return]]))
+              [math.api :as math]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -45,8 +44,8 @@
         (if (and (-> n empty? not)
                  (math/between? end   0 (count n))
                  (math/between? start 0 (count n)))
-            (subs   n start end)
-            (return n)))))
+            (subs n start end)
+            (->   n)))))
 
 (defn cut
   ; @param (*) n
@@ -88,7 +87,7 @@
                  (math/between? start 0 (count n)))
             (str (subs n 0 (min start end))
                  (subs n   (max start end)))
-            (return n)))))
+            (-> n)))))
 
 (defn trim
   ; @param (*) n
@@ -186,7 +185,7 @@
                 (-> limit integer?)
                 (<  limit (count n)))
            (str (subs n 0 limit) suffix)
-           (return n))))
+           (-> n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -686,7 +685,7 @@
    (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
                               (str (subs n 0 dex)
                                    (subs n (+ dex (count x))))
-                              (return n)))]
+                              (-> n)))]
           (if case-sensitive? (f (-> n str)
                                  (-> n str)
                                  (-> x str))
@@ -725,7 +724,7 @@
    (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
                               (str (subs n 0 dex)
                                    (subs n (+ dex (count x))))
-                              (return n)))]
+                              (-> n)))]
           (if case-sensitive? (f (-> n str)
                                  (-> n str)
                                  (-> x str))

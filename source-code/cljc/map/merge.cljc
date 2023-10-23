@@ -1,6 +1,5 @@
 
-(ns map.merge
-    (:require [noop.api :refer [return]]))
+(ns map.merge)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -21,10 +20,10 @@
              (if (and (map? result)
                       (map? x))
                  (merge-with f result x)
-                 (return x)))]
+                 (-> x)))]
          (if (some identity xyz)
              (reduce f n xyz)
-             (return n))))
+             (-> n))))
 
 (defn reversed-merge
   ; @param (list of maps) xyz
@@ -65,7 +64,7 @@
   ; @return (map)
   [& xyz]
   (letfn [(f0 [result x]   (reduce-kv f1 result x))
-          (f1 [result k v] (if (some? v)
-                               (assoc  result k v)
-                               (return result)))]
+          (f1 [result k v] (if (-> v some?)
+                               (-> result (assoc k v))
+                               (-> result)))]
          (reduce f0 {} xyz)))

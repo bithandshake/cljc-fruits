@@ -1,7 +1,6 @@
 
 (ns hiccup.walk
     (:require [hiccup.type :as type]
-              [noop.api    :refer [return]]
               [random.api  :as random]))
 
 ;; ----------------------------------------------------------------------------
@@ -22,7 +21,7 @@
   (if (type/hiccup? n)
       (letfn [(walk-f [%1 %2] (conj %1 (walk %2 f)))]
              (reduce walk-f [] (f n)))
-      (return n)))
+      (-> n)))
 
 (defn explode
   ; @param (hiccup)(opt) container
@@ -110,8 +109,8 @@
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (if %2 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2))
-                                  (return %1)))]
+        (letfn [(f [%1 %2] (if %2 (conj %1 ^{:key (random/generate-uuid)} (put-f %2))
+                                  (->   %1)))]
                (reduce f container n)))))
 
 (defn put-with-indexed
@@ -148,6 +147,6 @@
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2 %3] (if %3 (conj   %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
-                                     (return %1)))]
+        (letfn [(f [%1 %2 %3] (if %3 (conj %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
+                                     (->   %1)))]
                (reduce-kv f container n)))))

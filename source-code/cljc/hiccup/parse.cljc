@@ -3,7 +3,6 @@
     (:require [css.api           :as css]
               [hiccup.attributes :as attributes]
               [hiccup.walk       :as walk]
-              [noop.api          :refer [return]]
               [string.api        :as string]
               [vector.api        :as vector]))
 
@@ -26,9 +25,9 @@
   ; @return (hiccup)
   [n]
   (letfn [(f [element] (let [style (attributes/get-style element)]
-                            (if (map? style)
-                                (attributes/set-style element (css/unparse style))
-                                (return element))))]
+                            (if (-> style map?)
+                                (-> element (attributes/set-style (css/unparse style)))
+                                (-> element))))]
          (walk/walk n f)))
 
 (defn parse-newlines

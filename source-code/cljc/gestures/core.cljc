@@ -3,7 +3,6 @@
     (:require [gestures.type :as type]
               [loop.api      :refer [do-while]]
               [mixed.api     :as mixed]
-              [noop.api      :refer [return]]
               [string.api    :as string]
               [vector.api    :as vector]))
 
@@ -82,7 +81,7 @@
   ; @return (string)
   [text & [variables]]
   (letfn [(f [result [variable-value variable-name]]
-             (cond (nil?             variable-value) (return              result)
+             (cond (nil?             variable-value) (->                  result)
                    (number?          variable-value) (string/replace-part result variable-name variable-value)
                    (string/nonblank? variable-value) (string/replace-part result variable-name variable-value)
                    :return result))]

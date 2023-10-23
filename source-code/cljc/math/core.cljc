@@ -1,7 +1,6 @@
 
 (ns math.core
-    (:require [math.config :as config]
-              [noop.api    :refer [return]]))
+    (:require [math.config :as config]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -136,9 +135,9 @@
   ;
   ; @return (number)
   [n]
-  (if (>=   0 n)
-      (return n)
-      (-    0 n)))
+  (if (>= 0 n)
+      (-> n)
+      (-  0 n)))
 
 (defn positive
   ; @param (number) n
@@ -150,9 +149,9 @@
   ;
   ; @return (number)
   [n]
-  (if (<=   0 n)
-      (return n)
-      (-    0 n)))
+  (if (<= 0 n)
+      (-> n)
+      (-  0 n)))
 
 (defn absolute-difference
   ; @param (number) a

@@ -1,7 +1,6 @@
 
 (ns vector.filter
-    (:require [noop.api   :refer [return]]
-              [vector.dex :as dex]))
+    (:require [vector.dex :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -129,7 +128,7 @@
                  ; If x is NOT matches ...
                  (if (dex/dex-last? n f-dex)
                      ; If NO more items in n ...
-                     (return nil)
+                     (-> nil)
                      ; If more items in n ...
                      (f (get n (inc f-dex)) match-count (inc f-dex)))
                  ; If x is matches ...
@@ -137,11 +136,11 @@
                      ; If x is not the nth match ...
                      (if (dex/dex-last? n f-dex)
                          ; If NO more items in n ...
-                         (return nil)
+                         (-> nil)
                          ; If more items in n ...
                          (f (get n (inc f-dex)) (inc match-count) (inc f-dex)))
                      ; If x is the nth match ...
-                     (return x))))]
+                     (-> x))))]
          (f (first n) 0 0)))
 
 (defn nth-filtered-by

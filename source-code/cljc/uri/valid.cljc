@@ -1,7 +1,6 @@
 
 (ns uri.valid
-    (:require [noop.api    :refer [return]]
-              [string.api  :as string]
+    (:require [string.api  :as string]
               [uri.convert :as convert]))
 
 ;; ----------------------------------------------------------------------------
@@ -82,5 +81,5 @@
   ; ... takes the path from the given 'n' string.
   ; ... if given string not contains path, returns with the root path ("/").
   (if-let [url-path (convert/to-url-path n)]
-          (return url-path)
-          (return "/")))
+          (-> url-path)
+          (-> "/")))

@@ -1,7 +1,6 @@
 
 (ns map.core
     (:require [clojure.data :as data]
-              [noop.api     :refer [return]]
               [loop.api     :refer [reduce-pairs]]))
 
 ;; ----------------------------------------------------------------------------
@@ -76,7 +75,7 @@
                         (if (seq          new-n)
                             (assoc  n key new-n)
                             (dissoc n key)))
-                   (return n))
+                   (-> n))
            (dissoc n key)))
 
 (defn dissoc-items
@@ -213,7 +212,7 @@
   [n key f value]
   (if (some?          value)
       (update n key f value)
-      (return n)))
+      (-> n)))
 
 (defn update-in-some
   ; @description
@@ -241,7 +240,7 @@
   [n value-path update-f value]
   (if (some?                           value)
       (update-in n value-path update-f value)
-      (return    n)))
+      (-> n)))
 
 (defn assoc-some
   ; @description
@@ -271,9 +270,9 @@
   ; functions on parameter pairs e.g. to make map functions take not just a single
   ; key-value pair but more than one pairs.
   ; Other map functions will use that recursion as well (in later versions).
-  (letfn [(f [n k v] (if (some? v)
-                         (assoc n k v)
-                         (return n)))]
+  (letfn [(f [n k v] (if (-> v some?)
+                         (-> n (assoc k v))
+                         (-> n)))]
          (reduce-pairs f n kv-pairs)))
 
 (defn assoc-in-some
@@ -302,7 +301,7 @@
   [n value-path value]
   (if (some?                 value)
       (assoc-in n value-path value)
-      (return   n)))
+      (-> n)))
 
 (defn assoc-or
   ; @description
