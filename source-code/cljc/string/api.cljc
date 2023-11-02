@@ -7,7 +7,8 @@
               [string.cut     :as cut]
               [string.dex     :as dex]
               [string.lines   :as lines]
-              [string.replace :as replace]))
+              [string.replace :as replace]
+              [string.trim    :as trim]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -68,7 +69,6 @@
 ; string.cut
 (def part                   cut/part)
 (def cut                    cut/cut)
-(def trim                   cut/trim)
 (def remove-part            cut/remove-part)
 (def filter-characters      cut/filter-characters)
 (def max-length             cut/max-length)
@@ -100,3 +100,7 @@
 (def use-replacement  replace/use-replacement)
 (def use-nil          replace/use-nil)
 (def use-placeholder  replace/use-placeholder)
+
+; string.trim
+(def trim             trim/trim)
+(def trim-whitespaces trim/trim-whitespaces)

@@ -89,21 +89,6 @@
                  (subs n   (max start end)))
             (-> n)))))
 
-(defn trim
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (trim " abc")
-  ;
-  ; @example
-  ; (trim " abc  ")
-  ; =>
-  ; "abc"
-  ;
-  ; @return (string)
-  [n]
-  (-> n str clojure.string/trim))
-
 (defn remove-part
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -124,12 +109,12 @@
   ; @example
   ; (remove-part "abc abc 123" #"\d")
   ; =>
-  ; "abc abc"
+  ; "abc abc "
   ;
   ; @example
   ; (remove-part "///" "//")
   ; =>
-  ; ""
+  ; "/"
   ;
   ; @return (string)
   [n x]

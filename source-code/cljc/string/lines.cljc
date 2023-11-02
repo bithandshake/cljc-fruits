@@ -19,9 +19,12 @@
   ;
   ; @return (string)
   [n]
-  (clojure.string/replace (str n) \newline ""))
+  (clojure.string/replace (str n) #"[\r\n]" ""))
 
 (defn line-count
+  ; @description
+  ; Returns the count of newlines in the given string.
+  ;
   ; @param (*) n
   ;
   ; @usage
@@ -42,6 +45,10 @@
   (get (-> n str frequencies) \newline))
 
 (defn max-lines
+  ; @description
+  ; - Limits the size of the given string by removing the end of it from the nth newline.
+  ; - With the '{:reverse? true}' setting it removes the beginning of the given string instead of the end.
+  ;
   ; @param (*) n
   ; @param (integer) limit
   ; @param (map)(opt) options

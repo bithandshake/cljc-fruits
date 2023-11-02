@@ -7,7 +7,7 @@
 
 (defn open-tag-position
   ; @description
-  ; Returns the first position of the 'open-tag' in the string 'n'.
+  ; Returns the position of the first 'open-tag' in the 'n' string.
   ;
   ; @param (string) n
   ; @param (string) open-tag
@@ -33,8 +33,7 @@
 
 (defn close-tag-position
   ; @description
-  ; Returns the close pair position of the first occurence of the 'open-tag'
-  ; in the string 'n'.
+  ; Returns the position of the close pair of the first occurence of the 'open-tag' in the 'n' string.
   ;
   ; @param (string) n
   ; @param (string) open-tag
@@ -101,7 +100,7 @@
 
 (defn open-brace-position
   ; @description
-  ; Returns the first position of the opening brace character in the string 'n'.
+  ; Returns the position of the first opening brace character in the 'n' string.
   ;
   ; @param (n)
   ;
@@ -126,8 +125,7 @@
 
 (defn close-brace-position
   ; @description
-  ; Returns the close pair position of the first opening brace character
-  ; in the string 'n'.
+  ; Returns the position of the close pair of the first opening brace character in the 'n' string.
   ;
   ; @param (n)
   ;
@@ -155,7 +153,7 @@
 
 (defn open-bracket-position
   ; @description
-  ; Returns the first position of the opening bracket character in the string 'n'.
+  ; Returns the position of the first opening bracket character in the 'n' string.
   ;
   ; @param (n)
   ;
@@ -180,8 +178,7 @@
 
 (defn close-bracket-position
   ; @description
-  ; Returns the close pair position of the first opening bracket character
-  ; in the string 'n'.
+  ; Returns the position of the close pair of the first opening bracket character in the 'n' string.
   ;
   ; @description
   ; @param (n)
@@ -210,7 +207,7 @@
 
 (defn open-paren-position
   ; @description
-  ; Returns the first position of the opening parenthesis character in the string 'n'.
+  ; Returns the position of the first opening parenthesis character in the 'n' string.
   ;
   ; @description
   ; @param (n)
@@ -227,14 +224,13 @@
   ;
   ; @return (integer)
   [n]
-  ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
-  ; aren't balanced. That's why I have to put a closing parenthesis here :)
   (open-tag-position n "("))
+  ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
+  ; aren't balanced. So a closing parenthesis must be placed here :)
 
 (defn close-paren-position
   ; @description
-  ; Returns the close pair position of the first opening parenthesis character
-  ; in the string 'n'.
+  ; Returns the position of the close pair of the first opening parenthesis character in the 'n' string.
   ;
   ; @param (n)
   ;
