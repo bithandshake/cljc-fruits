@@ -135,6 +135,14 @@
 
 - [trim](#trim)
 
+- [trim-end](#trim-end)
+
+- [trim-gaps](#trim-gaps)
+
+- [trim-newlines](#trim-newlines)
+
+- [trim-start](#trim-start)
+
 - [use-nil](#use-nil)
 
 - [use-placeholder](#use-placeholder)
@@ -2414,6 +2422,11 @@ false
 ### line-count
 
 ```
+@description
+Returns the count of newlines in the given string.
+```
+
+```
 @param (*) n
 ```
 
@@ -2534,6 +2547,12 @@ false
 ---
 
 ### max-lines
+
+```
+@description
+- Limits the size of the given string by removing the end of it from the nth newline.
+- With the '{:reverse? true}' setting it removes the beginning of the given string instead of the end.
+```
 
 ```
 @param (*) n
@@ -3478,7 +3497,7 @@ true
    (let [n (str n)]
         (if (-> n empty?)
             (-> n)
-            (str prefix separator n)))))
+            (str x separator n)))))
 ```
 
 </details>
@@ -3723,7 +3742,7 @@ true
 ```
 (defn remove-newlines
   [n]
-  (clojure.string/replace (str n) \newline ""))
+  (clojure.string/replace (str n) #"[\r\n]" ""))
 ```
 
 </details>
@@ -3772,14 +3791,14 @@ true
 @example
 (remove-part "abc abc 123" #"\d")
 =>
-"abc abc"
+"abc abc "
 ```
 
 ```
 @example
 (remove-part "///" "//")
 =>
-""
+"/"
 ```
 
 ```
@@ -4589,17 +4608,22 @@ nil
 ### trim
 
 ```
+@description
+Trims both ends of the given 'n' string by removing the leading and trailing whitespaces.
+```
+
+```
 @param (*) n
 ```
 
 ```
 @usage
-(trim " abc")
+(trim "  abc  ")
 ```
 
 ```
 @example
-(trim " abc  ")
+(trim "  abc  ")
 =>
 "abc"
 ```
@@ -4627,6 +4651,214 @@ nil
 
 (string.api/trim ...)
 (trim            ...)
+```
+
+</details>
+
+---
+
+### trim-end
+
+```
+@description
+Trims the end of the given 'n' string by removing the trailing whitespaces.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(trim-end "  abc  ")
+```
+
+```
+@example
+(trim-end "  abc  ")
+=>
+"abc  "
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn trim-end
+  [n]
+  (-> n str clojure.string/trimr))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [trim-end]]))
+
+(string.api/trim-end ...)
+(trim-end            ...)
+```
+
+</details>
+
+---
+
+### trim-gaps
+
+```
+@description
+Trims the whitespace gaps in the given 'n' string by removing the duplicated whitespaces.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(trim-gaps "  a  b  c  ")
+```
+
+```
+@example
+(trim-gaps "  a  b  c  ")
+=>
+" a b c "
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn trim-gaps
+  [n]
+  (-> n str (clojure.string/replace #"[\h]{1,}" " ")))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [trim-gaps]]))
+
+(string.api/trim-gaps ...)
+(trim-gaps            ...)
+```
+
+</details>
+
+---
+
+### trim-newlines
+
+```
+@description
+Trims the trailing newlines of the given 'n' string by removing the all newlines from the end.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(trim-newlines "abc \r\n")
+```
+
+```
+@example
+(trim-newlines "abc \r\n")
+=>
+"abc "
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn trim-newlines
+  [n]
+  (-> n str clojure.string/trim-newline))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [trim-newlines]]))
+
+(string.api/trim-newlines ...)
+(trim-newlines            ...)
+```
+
+</details>
+
+---
+
+### trim-start
+
+```
+@description
+Trims the beginning of the given 'n' string by removing the leading whitespaces.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(trim-start "  abc  ")
+```
+
+```
+@example
+(trim-start "  abc  ")
+=>
+"abc  "
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn trim-start
+  [n]
+  (-> n str clojure.string/triml))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [trim-start]]))
+
+(string.api/trim-start ...)
+(trim-start            ...)
 ```
 
 </details>

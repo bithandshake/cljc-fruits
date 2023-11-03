@@ -8,15 +8,15 @@
   ; @param (vector) n
   ;
   ; @usage
-  ; (pick-vector-item [:a :b :c :d]
+  ; (pick-vector-item [:a :b :c :d])
   ;
   ; @example
-  ; (pick-vector-item [:a :b :c]
+  ; (pick-vector-item [:a :b :c])
   ; =>
   ; :a
   ;
   ; @example
-  ; (pick-vector-item [:a :b :c]
+  ; (pick-vector-item [:a :b :c])
   ; =>
   ; :c
   ;

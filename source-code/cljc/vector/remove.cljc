@@ -171,8 +171,8 @@
   ;(letfn [(f [result x]
   ;           (if (check/contains-item? xyz x)
   ;               (->                   result)
-  ;               (conj                 result x)
-  ;       (reduce f [] n)])
+  ;               (conj                 result x)))]
+  ;       (reduce f [] n))
   (vec (remove (set xyz) n)))
 
 (defn remove-items-by

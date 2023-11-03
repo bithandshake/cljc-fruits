@@ -102,5 +102,8 @@
 (def use-placeholder  replace/use-placeholder)
 
 ; string.trim
-(def trim             trim/trim)
-(def trim-whitespaces trim/trim-whitespaces)
+(def trim          trim/trim)
+(def trim-start    trim/trim-start)
+(def trim-end      trim/trim-end)
+(def trim-newlines trim/trim-newlines)
+(def trim-gaps     trim/trim-gaps)

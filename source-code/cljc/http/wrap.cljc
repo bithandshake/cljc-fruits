@@ -123,7 +123,7 @@
   ;
   ; @example
   ; (error-wrap {:body   :file-not-found
-  ;              :status 404}
+  ;              :status 404})
   ; =>
   ; {:body    ":file-not-found"
   ;  :headers {"Content-Type" "text/plain"}
@@ -155,7 +155,7 @@
   ;
   ; @example
   ; (redirect-wrap {:location "/my-page"
-  ;                 :status   303}
+  ;                 :status   303})
   ; =>
   ; {:headers {"Content-Type" "text/plain"
   ;            "Location"     "/my-page"}

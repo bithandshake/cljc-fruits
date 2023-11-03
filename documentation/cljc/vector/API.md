@@ -177,6 +177,8 @@
 
 - [remove-item-once](#remove-item-once)
 
+- [remove-items](#remove-items)
+
 - [remove-items-by](#remove-items-by)
 
 - [remove-items-kv](#remove-items-kv)
@@ -361,6 +363,11 @@
 ---
 
 ### abc-items
+
+```
+@description
+Returns the given vector but its items are in alphabetical order.
+```
 
 ```
 @param (vector) n
@@ -652,6 +659,17 @@ true
 ---
 
 ### compared-items-sorted?
+
+```
+@description
+- Compares two vectors by comparing their items (at the same index) with the comparator function.
+- When iterating over the two vectors if items at the same index are not match, it returns the output
+  of the comparator function that takes that two items.
+- If the elements in vectors 'a' and 'b' match in value and the number of elements is the same, it returns TRUE.
+- If the number of elements in vector 'a' is not equal to the number of elements in vector 'b', the comparison is
+  performed up to the lower number of elements (if the compared elements match if vector 'a' has the smaller number
+  of elements it returns TRUE, otherwise it returns FALSE).
+```
 
 ```
 @param (vector) a
@@ -2991,6 +3009,11 @@ true
 ### items-sorted?
 
 ```
+@description
+Returns TRUE if the given vector's items are ordered with the given comparator function.
+```
+
+```
 @param (vector) n
 @param (function) comparator-f
 ```
@@ -4987,6 +5010,61 @@ At the beginning of the vector it jumps to the last index.
 
 ---
 
+### remove-items
+
+```
+@param (vector) n
+@param (vector) xyz
+```
+
+```
+@usage
+(remove-items [:a :b :c] [:b :c])
+```
+
+```
+@example
+(remove-items [:a :b :c] [:b :c])
+=>
+[:a]
+```
+
+```
+@example
+(remove-items [:a :b :b :c ] [:b :c])
+=>
+[:a]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn remove-items
+  [n xyz]
+  (vec (remove (set xyz) n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [remove-items]]))
+
+(vector.api/remove-items ...)
+(remove-items            ...)
+```
+
+</details>
+
+---
+
 ### remove-items-by
 
 ```
@@ -5396,6 +5474,11 @@ At the beginning of the vector it jumps to the last index.
 ### reverse-items
 
 ```
+@description
+Returns the given vector but its items are in reversed order.
+```
+
+```
 @param (vector) n
 ```
 
@@ -5495,6 +5578,11 @@ At the beginning of the vector it jumps to the last index.
 ### sort-items
 
 ```
+@description
+Returns the given vector but its items are ordered with the given comparator function.
+```
+
+```
 @param (vector) n
 @param (function)(opt) comparator-f
 ```
@@ -5547,9 +5635,15 @@ At the beginning of the vector it jumps to the last index.
 ### sort-items-by
 
 ```
+@description
+Returns the given vector but its items are ordered with the given comparator function
+that compares not the items but their versions converted by the 'convert-f' function.
+```
+
+```
 @param (vector) n
 @param (function)(opt) comparator-f
-@param (function) value-f
+@param (function) convert-f
 ```
 
 ```
@@ -5580,12 +5674,12 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 (defn sort-items-by
-  ([n value-f]
-   (vec (sort-by value-f n)))
+  ([n convert-f]
+   (vec (sort-by convert-f n)))
 
-  ([n comparator-f value-f]
+  ([n comparator-f convert-f]
    (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
-          (vec (sort-by value-f compare-f n)))))
+          (vec (sort-by convert-f compare-f n)))))
 ```
 
 </details>
@@ -5605,6 +5699,12 @@ At the beginning of the vector it jumps to the last index.
 ---
 
 ### sort-items-by-dexes
+
+```
+@description
+Returns the given vector but its items are ordered by the given index vector
+that tells the function which items to keep in what order.
+```
 
 ```
 @param (vector) n
@@ -5663,6 +5763,13 @@ At the beginning of the vector it jumps to the last index.
 ### sorted-dexes
 
 ```
+@description
+Takes two vectors and returns a new one that contains the positions of the second
+vector's items in the first vector. If an item of the second vector is not represented
+in the first vector, it's position won't be in the return vector.
+```
+
+```
 @param (vector) a
 @param (vector) b
 ```
@@ -5682,6 +5789,13 @@ At the beginning of the vector it jumps to the last index.
 ```
 
 ```
+@usage
+(sorted-dexes [:a :b :c] [:c :a :b :d])
+=>
+[2 0 1]
+```
+
+```
 @return (integers in vector)
 ```
 
@@ -5694,8 +5808,8 @@ At the beginning of the vector it jumps to the last index.
   (when (and (vector? a)
              (vector? b))
         (letfn [(f [dexes x]
-                   (if-let [ordered-dex (dex/item-first-dex a x)]
-                           (conj dexes ordered-dex)
+                   (if-let [dex (dex/item-first-dex a x)]
+                           (conj dexes dex)
                            (->   dexes)))]
                (reduce f [] b))))
 ```

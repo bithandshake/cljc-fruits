@@ -263,7 +263,7 @@
    (let [n (str n)]
         (if (-> n empty?)
             (-> n)
-            (str prefix separator n)))))
+            (str x separator n)))))
 
 (defn suffix
   ; @param (*) n

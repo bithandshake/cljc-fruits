@@ -122,12 +122,15 @@
 
 ```
 @description
-Returns the close pair position of the first opening brace character
-in the string 'n'.
+- Returns the position of the closing brace that corresponds to the first opening brace character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -160,8 +163,11 @@ in the string 'n'.
 
 ```
 (defn close-brace-position
-  [n]
-  (close-tag-position n "{" "}"))
+  ([n]
+   (close-brace-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "{" "}")))
 ```
 
 </details>
@@ -184,12 +190,15 @@ in the string 'n'.
 
 ```
 @description
-Returns the close pair position of the first opening bracket character
-in the string 'n'.
+- Returns the position of the closing bracket that corresponds to the first opening bracket character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -222,8 +231,11 @@ in the string 'n'.
 
 ```
 (defn close-bracket-position
-  [n]
-  (close-tag-position n "[" "]"))
+  ([n]
+   (close-bracket-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "[" "]")))
 ```
 
 </details>
@@ -246,12 +258,15 @@ in the string 'n'.
 
 ```
 @description
-Returns the close pair position of the first opening parenthesis character
-in the string 'n'.
+- Returns the position of the closing parenthesis that corresponds to the first opening parenthesis character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -277,8 +292,11 @@ in the string 'n'.
 
 ```
 (defn close-paren-position
-  [n]
-  (close-tag-position n "(" ")"))
+  ([n]
+   (close-paren-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "(" ")")))
 ```
 
 </details>
@@ -301,12 +319,15 @@ in the string 'n'.
 
 ```
 @description
-Returns the close pair position of the first occurence of the 'open-tag'
-in the string 'n'.
+- Returns the position of the close pair of the first occurence of the 'open-tag' string in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and is independent of the offset.
 ```
 
 ```
 @param (string) n
+@param (integer)(opt) offset
+Default: 0
 @param (string) open-tag
 @param (string) close-tag
 ```
@@ -341,32 +362,37 @@ in the string 'n'.
 
 ```
 (defn close-tag-position
-  [n open-tag close-tag]
-  (if-let [offset (string/first-dex-of n open-tag)]
-          (letfn [
-                  (f0 [observed-part open-tag-found]
-                      (+ open-tag-found (string/count-occurences observed-part open-tag)))
+  ([n open-tag close-tag]
+   (close-tag-position n 0 open-tag close-tag))
 
-                  (f1 [observed-part close-tag-found]
-                      (+ close-tag-found (string/count-occurences observed-part close-tag)))
+  ([n offset open-tag close-tag]
+   (let [n (string/part n offset)]
+        (if-let [from (string/first-dex-of n open-tag)]
+                (letfn [
+                        (f0 [observed-part open-tag-found]
+                            (+ open-tag-found (string/count-occurences observed-part open-tag)))
 
-                  (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
-                                     (+ from close-tag-pos (count close-tag))))
+                        (f1 [observed-part close-tag-found]
+                            (+ close-tag-found (string/count-occurences observed-part close-tag)))
 
-                  (f3 [from open-tag-found close-tag-found]
+                        (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
+                                           (+ from close-tag-pos (count close-tag))))
 
-
-                      (if-let [to (f2 from)]
-                              (let [observed-part   (string/part n from to)
-                                    open-tag-found  (f0 observed-part open-tag-found)
-                                    close-tag-found (f1 observed-part close-tag-found)]
+                        (f3 [from open-tag-found close-tag-found]
 
 
-                                   (if (<= open-tag-found close-tag-found)
-                                       (- to (count close-tag))
-                                       (f3 to open-tag-found close-tag-found)))))]
+                            (if-let [to (f2 from)]
+                                    (let [observed-part   (string/part n from to)
+                                          open-tag-found  (f0 observed-part open-tag-found)
+                                          close-tag-found (f1 observed-part close-tag-found)]
 
-                 (f3 offset 0 0))))
+
+                                         (if (<= open-tag-found close-tag-found)
+                                             (- to (count close-tag))
+                                             (f3 to open-tag-found close-tag-found)))))]
+
+                       (if-let [result (f3 from 0 0)]
+                               (+ offset result)))))))
 ```
 
 </details>
@@ -389,11 +415,15 @@ in the string 'n'.
 
 ```
 @description
-Returns the first position of the opening brace character in the string 'n'.
+- Returns the position of the first opening brace character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and is independent of the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -426,8 +456,11 @@ Returns the first position of the opening brace character in the string 'n'.
 
 ```
 (defn open-brace-position
-  [n]
-  (open-tag-position n "{"))
+  ([n]
+   (open-brace-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "{")))
 ```
 
 </details>
@@ -450,11 +483,15 @@ Returns the first position of the opening brace character in the string 'n'.
 
 ```
 @description
-Returns the first position of the opening bracket character in the string 'n'.
+- Returns the position of the first opening bracket character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and is independent of the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -487,8 +524,11 @@ Returns the first position of the opening bracket character in the string 'n'.
 
 ```
 (defn open-bracket-position
-  [n]
-  (open-tag-position n "["))
+  ([n]
+   (open-bracket-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "[")))
 ```
 
 </details>
@@ -511,11 +551,15 @@ Returns the first position of the opening bracket character in the string 'n'.
 
 ```
 @description
-Returns the first position of the opening parenthesis character in the string 'n'.
+- Returns the position of the first opening parenthesis character in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and is independent of the offset.
 ```
 
 ```
-@param (n) 
+@param (string) n
+@param (integer)(opt) offset
+Default: 0
 ```
 
 ```
@@ -541,8 +585,12 @@ Returns the first position of the opening parenthesis character in the string 'n
 
 ```
 (defn open-paren-position
-  [n]
-  ; aren't balanced. That's why I have to put a closing parenthesis here :)
+  ([n]
+   (open-paren-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "(")))
+   ; aren't balanced. So a closing parenthesis must be placed here :)
 ```
 
 </details>
@@ -565,11 +613,15 @@ Returns the first position of the opening parenthesis character in the string 'n
 
 ```
 @description
-Returns the first position of the 'open-tag' in the string 'n'.
+- Returns the position of the first 'open-tag' string in the 'n' string.
+- If the 'offset' parameter is not 0, the search starts from the offset position.
+- The returned position is an absolute value and is independent of the offset.
 ```
 
 ```
 @param (string) n
+@param (integer)(opt) offset
+Default: 0
 @param (string) open-tag
 ```
 
@@ -603,8 +655,13 @@ Returns the first position of the 'open-tag' in the string 'n'.
 
 ```
 (defn open-tag-position
-  [n open-tag]
-  (string/first-dex-of n open-tag))
+  ([n open-tag]
+   (open-tag-position n 0 open-tag))
+
+  ([n offset open-tag]
+   (let [n (string/part n offset)]
+        (if-let [result (string/first-dex-of n open-tag)]
+                (+ offset result)))))
 ```
 
 </details>

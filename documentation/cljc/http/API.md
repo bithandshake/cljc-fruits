@@ -11,6 +11,8 @@
 
 - [default-wrap](#default-wrap)
 
+- [error-wrap](#error-wrap)
+
 - [html-wrap](#html-wrap)
 
 - [json-wrap](#json-wrap)
@@ -18,6 +20,8 @@
 - [local-request?](#local-request)
 
 - [media-wrap](#media-wrap)
+
+- [redirect-wrap](#redirect-wrap)
 
 - [remote-request?](#remote-request)
 
@@ -278,6 +282,73 @@
 
 ---
 
+### error-wrap
+
+```
+@param (map) response-props
+{:body (*)
+ :session (map)(opt)
+ :status (integer)(opt)
+  Default: 500}
+@param (map)(opt) options
+{:allowed-errors (vector)(opt)
+  If the {:hide-errors? true} setting is passed, values in the 'allowed-errors'
+  vector are allowed as response body.
+ :hide-errors? (boolean)(opt)
+  Replaces the body with an unsensitive value ('":client-error"' or '":server-error"')
+  in case of client error (4**) or server error (5**) status code is passed.
+  Default: false}
+```
+
+```
+@example
+(error-wrap {:body   :file-not-found
+             :status 404})
+=>
+{:body    ":file-not-found"
+ :headers {"Content-Type" "text/plain"}
+ :status  404}
+```
+
+```
+@return (map)
+{:body (string)
+ :headers (map)
+ :session (map)
+ :status (integer)}
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn error-wrap
+  ([response-props]
+   (error-wrap response-props {}))
+
+  ([{:keys [body] :as response-props} options]
+   (default-wrap (as-> response-props % (select-keys % [:body :session :status])
+                                        (merge {:mime-type "text/plain" :status 500} %)
+                                        (update % :body str))
+                 options)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [error-wrap]]))
+
+(http.api/error-wrap ...)
+(error-wrap          ...)
+```
+
+</details>
+
+---
+
 ### html-wrap
 
 ```
@@ -509,6 +580,60 @@ false
 
 (http.api/media-wrap ...)
 (media-wrap          ...)
+```
+
+</details>
+
+---
+
+### redirect-wrap
+
+```
+@param (map) response-props
+{:location (string)
+ :session (map)(opt)
+ :status (integer)(opt)
+  Default: 302}
+```
+
+```
+@example
+(redirect-wrap {:location "/my-page"
+                :status   303})
+=>
+{:headers {"Content-Type" "text/plain"
+           "Location"     "/my-page"}
+ :status  303}
+```
+
+```
+@return (map)
+{:headers (map)
+ :session (map)
+ :status (integer)}
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn redirect-wrap
+  [{:keys [location] :as response-props}]
+  (default-wrap (as-> response-props % (select-keys % [:session :status])
+                                       (merge {:headers {"Location" location} :status 302} %)
+                                       (update % :body str))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [http.api :refer [redirect-wrap]]))
+
+(http.api/redirect-wrap ...)
+(redirect-wrap          ...)
 ```
 
 </details>

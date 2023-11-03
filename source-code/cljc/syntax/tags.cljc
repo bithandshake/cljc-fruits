@@ -7,9 +7,13 @@
 
 (defn open-tag-position
   ; @description
-  ; Returns the position of the first 'open-tag' in the 'n' string.
+  ; - Returns the position of the first 'open-tag' string in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent of the offset.
   ;
   ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ; @param (string) open-tag
   ;
   ; @example
@@ -28,14 +32,23 @@
   ; 7
   ;
   ; @return (integer)
-  [n open-tag]
-  (string/first-dex-of n open-tag))
+  ([n open-tag]
+   (open-tag-position n 0 open-tag))
+
+  ([n offset open-tag]
+   (let [n (string/part n offset)]
+        (if-let [result (string/first-dex-of n open-tag)]
+                (+ offset result)))))
 
 (defn close-tag-position
   ; @description
-  ; Returns the position of the close pair of the first occurence of the 'open-tag' in the 'n' string.
+  ; - Returns the position of the close pair of the first occurence of the 'open-tag' string in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent of the offset.
   ;
   ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ; @param (string) open-tag
   ; @param (string) close-tag
   ;
@@ -55,54 +68,63 @@
   ; 12
   ;
   ; @return (integer)
-  [n open-tag close-tag]
-  (if-let [offset (string/first-dex-of n open-tag)]
-          (letfn [
-                  ; ...
-                  (f0 [observed-part open-tag-found]
-                      (+ open-tag-found (string/count-occurences observed-part open-tag)))
+  ([n open-tag close-tag]
+   (close-tag-position n 0 open-tag close-tag))
 
-                  ; ...
-                  (f1 [observed-part close-tag-found]
-                      (+ close-tag-found (string/count-occurences observed-part close-tag)))
+  ([n offset open-tag close-tag]
+   (let [n (string/part n offset)]
+        (if-let [from (string/first-dex-of n open-tag)]
+                (letfn [
+                        ; ...
+                        (f0 [observed-part open-tag-found]
+                            (+ open-tag-found (string/count-occurences observed-part open-tag)))
 
-                  ; ...
-                  (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
-                                     (+ from close-tag-pos (count close-tag))))
+                        ; ...
+                        (f1 [observed-part close-tag-found]
+                            (+ close-tag-found (string/count-occurences observed-part close-tag)))
 
-                  ; ...
-                  (f3 [from open-tag-found close-tag-found]
+                        ; ...
+                        (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
+                                           (+ from close-tag-pos (count close-tag))))
 
-                      ; DEBUG
-                      ; (println "offset:" offset)
-                      ; (println "from:"   from)
+                        ; ...
+                        (f3 [from open-tag-found close-tag-found]
 
-                      (if-let [to (f2 from)]
-                              (let [observed-part   (string/part n from to)
-                                    open-tag-found  (f0 observed-part open-tag-found)
-                                    close-tag-found (f1 observed-part close-tag-found)]
+                            ; DEBUG
+                            ; (println "offset:" offset)
+                            ; (println "from:"   from)
 
-                                   ; DEBUG
-                                   ; (println "to:"              to)
-                                   ; (println "observed-part:"   (str "\""observed-part"\""))
-                                   ; (println "open-tag-found:"  open-tag-found)
-                                   ; (println "close-tag-found:" close-tag-found)
+                            (if-let [to (f2 from)]
+                                    (let [observed-part   (string/part n from to)
+                                          open-tag-found  (f0 observed-part open-tag-found)
+                                          close-tag-found (f1 observed-part close-tag-found)]
 
-                                   (if (<= open-tag-found close-tag-found)
-                                       (- to (count close-tag))
-                                       (f3 to open-tag-found close-tag-found)))))]
+                                         ; DEBUG
+                                         ; (println "to:"              to)
+                                         ; (println "observed-part:"   (str "\""observed-part"\""))
+                                         ; (println "open-tag-found:"  open-tag-found)
+                                         ; (println "close-tag-found:" close-tag-found)
 
-                 ; ...
-                 (f3 offset 0 0))))
+                                         (if (<= open-tag-found close-tag-found)
+                                             (- to (count close-tag))
+                                             (f3 to open-tag-found close-tag-found)))))]
+
+                       ; ...
+                       (if-let [result (f3 from 0 0)]
+                               (+ offset result)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn open-brace-position
   ; @description
-  ; Returns the position of the first opening brace character in the 'n' string.
+  ; - Returns the position of the first opening brace character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent of the offset.
   ;
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (open-brace-position "{:a 0}")
@@ -120,14 +142,21 @@
   ; 2
   ;
   ; @return (integer)
-  [n]
-  (open-tag-position n "{"))
+  ([n]
+   (open-brace-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "{")))
 
 (defn close-brace-position
   ; @description
-  ; Returns the position of the close pair of the first opening brace character in the 'n' string.
+  ; - Returns the position of the closing brace that corresponds to the first opening brace character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and does not depend on the offset.
   ;
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (close-brace-position "{:a 0}")
@@ -145,17 +174,24 @@
   ; 3
   ;
   ; @return (integer)
-  [n]
-  (close-tag-position n "{" "}"))
+  ([n]
+   (close-brace-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "{" "}")))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn open-bracket-position
   ; @description
-  ; Returns the position of the first opening bracket character in the 'n' string.
+  ; - Returns the position of the first opening bracket character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent of the offset.
   ;
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (open-bracket-position "[1 2]")
@@ -173,15 +209,21 @@
   ; 2
   ;
   ; @return (integer)
-  [n]
-  (open-tag-position n "["))
+  ([n]
+   (open-bracket-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "[")))
 
 (defn close-bracket-position
   ; @description
-  ; Returns the position of the close pair of the first opening bracket character in the 'n' string.
+  ; - Returns the position of the closing bracket that corresponds to the first opening bracket character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and does not depend on the offset.
   ;
-  ; @description
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (close-bracket-position "[1 2]")
@@ -199,18 +241,24 @@
   ; 3
   ;
   ; @return (integer)
-  [n]
-  (close-tag-position n "[" "]"))
+  ([n]
+   (close-bracket-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "[" "]")))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn open-paren-position
   ; @description
-  ; Returns the position of the first opening parenthesis character in the 'n' string.
+  ; - Returns the position of the first opening parenthesis character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent of the offset.
   ;
-  ; @description
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (open-paren-position "(+ 1 2)")
@@ -223,16 +271,23 @@
   ; 4
   ;
   ; @return (integer)
-  [n]
-  (open-tag-position n "("))
-  ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
-  ; aren't balanced. So a closing parenthesis must be placed here :)
+  ([n]
+   (open-paren-position n 0))
+
+  ([n offset]
+   (open-tag-position n offset "(")))
+   ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
+   ; aren't balanced. So a closing parenthesis must be placed here :)
 
 (defn close-paren-position
   ; @description
-  ; Returns the position of the close pair of the first opening parenthesis character in the 'n' string.
+  ; - Returns the position of the closing parenthesis that corresponds to the first opening parenthesis character in the 'n' string.
+  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - The returned position is an absolute value and does not depend on the offset.
   ;
-  ; @param (n)
+  ; @param (string) n
+  ; @param (integer)(opt) offset
+  ; Default: 0
   ;
   ; @example
   ; (close-paren-position "(+ 1 2)")
@@ -245,5 +300,8 @@
   ; 24
   ;
   ; @return (integer)
-  [n]
-  (close-tag-position n "(" ")"))
+  ([n]
+   (close-paren-position n 0))
+
+  ([n offset]
+   (close-tag-position n offset "(" ")")))

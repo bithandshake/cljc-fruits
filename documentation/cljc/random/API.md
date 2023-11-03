@@ -19,6 +19,8 @@
 
 - [generate-uuid](#generate-uuid)
 
+- [pick-vector-item](#pick-vector-item)
+
 ### generate-boolean
 
 ```
@@ -334,6 +336,60 @@ true
 
 (random.api/generate-uuid)
 (generate-uuid)
+```
+
+</details>
+
+---
+
+### pick-vector-item
+
+```
+@param (vector) n
+```
+
+```
+@usage
+(pick-vector-item [:a :b :c :d])
+```
+
+```
+@example
+(pick-vector-item [:a :b :c])
+=>
+:a
+```
+
+```
+@example
+(pick-vector-item [:a :b :c])
+=>
+:c
+```
+
+```
+@return (*)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn pick-vector-item
+  [n]
+  (nth n (-> n count rand-int)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [random.api :refer [pick-vector-item]]))
+
+(random.api/pick-vector-item ...)
+(pick-vector-item            ...)
 ```
 
 </details>
