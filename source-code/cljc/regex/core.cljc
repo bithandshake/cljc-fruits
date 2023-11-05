@@ -27,7 +27,7 @@
   ;
   ; @return (map, string or vector)
   [n pattern]
-  ; The re-seq function returns a ...
+  ; The 're-seq' function returns a ...
   ; ... sequence of strings if the pattern has no capturing groups.
   ; ... sequence of vectors if the pattern has one or more capturing groups.
   ; ... sequence of maps if the pattern has one ore more named capturing groups.
@@ -55,7 +55,7 @@
   ;
   ; @return (map, string or vector)
   [n pattern]
-  ; The re-seq function returns a ...
+  ; The 're-seq' function returns a ...
   ; ... sequence of strings if the pattern has no capturing groups.
   ; ... sequence of vectors if the pattern has one or more capturing groups.
   ; ... sequence of maps if the pattern has one ore more named capturing groups.
@@ -92,8 +92,7 @@
 
 (defn ends-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x
@@ -119,8 +118,7 @@
 
 (defn not-ends-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x
@@ -144,8 +142,7 @@
 
 (defn not-ends-with!
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x
@@ -169,8 +166,7 @@
 
 (defn starts-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x
@@ -199,8 +195,7 @@
 
 (defn not-starts-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x
@@ -227,8 +222,7 @@
 
 (defn not-starts-with!
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
   ; @param (regex pattern) x

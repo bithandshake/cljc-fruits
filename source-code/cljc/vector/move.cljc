@@ -24,7 +24,7 @@
   ; @example
   ; (move-nth-item [:a :b :c :d :e :f :g :h] 2 5)
   ; =>
-  ; [:a :b :d :e :c :f :g :h]
+  ; [:a :b :d :e :f :c :g :h]
   ;
   ; @example
   ; (move-nth-item [:a :b :c :d :e :f :g :h] 5 2)

@@ -738,7 +738,7 @@ For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (-> rem zero?)
            (*      quot  domain)
            (* (inc quot) domain))))
 ```
@@ -812,7 +812,7 @@ For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (-> rem zero?)
            (inc (* (dec quot) domain))
            (inc (*      quot  domain)))))
 ```
@@ -886,7 +886,7 @@ For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (=   rem 0)
+       (if (->  rem zero?)
            (->  quot)
            (inc quot))))
 ```

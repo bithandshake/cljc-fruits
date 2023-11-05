@@ -38,7 +38,7 @@
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (=   rem 0)
+       (if (->  rem zero?)
            (->  quot)
            (inc quot))))
 
@@ -75,7 +75,7 @@
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (-> rem zero?)
            (inc (* (dec quot) domain))
            (inc (*      quot  domain)))))
 
@@ -112,7 +112,7 @@
   [n domain]
   (let [quot (quot n domain)
         rem  (rem  n domain)]
-       (if (= rem 0)
+       (if (-> rem zero?)
            (*      quot  domain)
            (* (inc quot) domain))))
 

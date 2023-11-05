@@ -49,11 +49,11 @@ The <pre> HTML tag makes the output more human-readable.
              [n {:keys [depth wrap-items?]}]
              (letfn [(f [result dex k v]
                         (append-map-kv result (mixed->string k {:depth 0})
-                                              (mixed->string v {:depth       (inc depth)
-                                                                :wrap-items? (mixed->wrap-items? v)})
-                                              {:depth       depth
-                                               :first-item? (= dex 0)
-                                               :wrap-items? wrap-items?}))]
+                                              (mixed->string v {:depth       (-> depth inc)
+                                                                :wrap-items? (-> v mixed->wrap-items?)})
+                                              {:depth       (-> depth)
+                                               :first-item? (-> dex zero?)
+                                               :wrap-items? (-> wrap-items?)}))]
                     (map-wrap (reduce-kv-indexed f nil n))))
 
            (map->ordered-string
@@ -62,21 +62,21 @@ The <pre> HTML tag makes the output more human-readable.
                   (letfn [(f [result dex k]
                              (let [v (get n k)]
                                   (append-map-kv result (mixed->string k {:depth 0})
-                                                        (mixed->string v {:depth       (inc depth)
-                                                                          :wrap-items? (mixed->wrap-items? v)})
-                                                        {:depth       depth
-                                                         :first-item? (= 0 dex)
-                                                         :wrap-items? wrap-items?})))]
+                                                        (mixed->string v {:depth       (-> depth inc)
+                                                                          :wrap-items? (-> v mixed->wrap-items?)})
+                                                        {:depth       (-> depth)
+                                                         :first-item? (-> dex zero?)
+                                                         :wrap-items? (-> wrap-items?)})))]
                          (map-wrap (reduce-indexed f nil ordered-keys)))))
 
            (vector->string
              [n {:keys [depth wrap-items?]}]
              (letfn [(f [result dex x]
-                        (append-vector-v result (mixed->string x {:depth       (inc depth)
-                                                                  :wrap-items? (mixed->wrap-items? x)})
-                                                {:depth       depth
-                                                 :first-item? (= dex 0)
-                                                 :wrap-items? wrap-items?}))]
+                        (append-vector-v result (mixed->string x {:depth       (-> depth inc)
+                                                                  :wrap-items? (-> x mixed->wrap-items?)})
+                                                {:depth       (-> depth)
+                                                 :first-item? (-> dex zero?)
+                                                 :wrap-items? (-> wrap-items?)}))]
                     (vector-wrap (reduce-indexed f nil n))))
 
            (mixed->string
@@ -84,7 +84,7 @@ The <pre> HTML tag makes the output more human-readable.
              (cond (and (map? n) abc?) (map->ordered-string n options)
                    (map?     n)        (map->string         n options)
                    (vector?  n)        (vector->string      n options)
-                   (fn?      n)        (fn>string           n)
+                   (fn?      n)        (fn->string          n)
                    (float?   n)        (float->string       n)
                    (integer? n)        (integer->string     n)
                    (nil?     n)        (nil->string         n)

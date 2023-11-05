@@ -1,11 +1,14 @@
 
 (ns string.api
     (:require [string.check   :as check]
+              [string.apply   :as apply]
               [string.config  :as config]
               [string.convert :as convert]
               [string.core    :as core]
+              [string.cursor  :as cursor]
               [string.cut     :as cut]
               [string.dex     :as dex]
+              [string.length  :as length]
               [string.lines   :as lines]
               [string.replace :as replace]
               [string.trim    :as trim]))
@@ -13,16 +16,17 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+; string.apply
+(def apply-on-part apply/apply-on-part)
+
 ; string.check
 (def blank?                     check/blank?)
 (def nonblank?                  check/nonblank?)
 (def abc?                       check/abc?)
-(def length-min?                check/length-min?)
-(def length-max?                check/length-max?)
-(def length-between?            check/length-between?)
-(def length?                    check/length?)
 (def contains-part?             check/contains-part?)
 (def contains-digit?            check/contains-digit?)
+(def lowercase?                 check/lowercase?)
+(def uppercase?                 check/uppercase?)
 (def contains-lowercase-letter? check/contains-lowercase-letter?)
 (def contains-uppercase-letter? check/contains-uppercase-letter?)
 (def if-contains-part           check/if-contains-part)
@@ -41,7 +45,6 @@
 
 ; string.core
 (def abc               core/abc)
-(def length            core/length)
 (def get-nth-character core/get-nth-character)
 (def multiply          core/multiply)
 (def join              core/join)
@@ -66,12 +69,15 @@
 (def pass-with?        core/pass-with?)
 (def not-pass-with?    core/not-pass-with?)
 
+; string.cursor
+(def cursor-in-bounds?     cursor/cursor-in-bounds?)
+(def cursor-out-of-bounds? cursor/cursor-out-of-bounds?)
+
 ; string.cut
 (def part                   cut/part)
 (def cut                    cut/cut)
 (def remove-part            cut/remove-part)
 (def filter-characters      cut/filter-characters)
-(def max-length             cut/max-length)
 (def before-first-occurence cut/before-first-occurence)
 (def before-last-occurence  cut/before-last-occurence)
 (def after-first-occurence  cut/after-first-occurence)
@@ -85,9 +91,20 @@
 (def between-occurences     cut/between-occurences)
 
 ; string.dex
-(def first-dex-of dex/first-dex-of)
-(def last-dex-of  dex/last-dex-of)
-(def nth-dex-of   dex/nth-dex-of)
+(def dex-in-bounds?     dex/dex-in-bounds?)
+(def dex-out-of-bounds? dex/dex-out-of-bounds?)
+(def first-dex-of       dex/first-dex-of)
+(def last-dex-of        dex/last-dex-of)
+(def nth-dex-of         dex/nth-dex-of)
+
+; string.length
+(def length          length/length)
+(def same-length?    length/same-length?)
+(def length-min?     length/length-min?)
+(def length-max?     length/length-max?)
+(def length-between? length/length-between?)
+(def length?         length/length?)
+(def max-length      length/max-length)
 
 ; string.lines
 (def remove-newlines lines/remove-newlines)

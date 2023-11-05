@@ -4,6 +4,28 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn nonempty?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (nonempty? [:a])
+  ;
+  ; @example
+  ; (nonempty? [])
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (nonempty? [:a])
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ; Is n a nonempty vector?
+  [n]
+  (and (-> n vector?)
+       (-> n empty? not)))
+
 (defn contains-item?
   ; @param (vector) n
   ; @param (*) x
@@ -68,7 +90,7 @@
   ; @return (boolean)
   [n x]
   (and (-> n vector?)
-       (<= x (count n))))
+       (-> n count (>= x))))
 
 (defn max?
   ; @param (vector) n
@@ -90,7 +112,7 @@
   ; @return (boolean)
   [n x]
   (and (-> n vector?)
-       (>= x (count n))))
+       (-> n count (<= x))))
 
 (defn longer?
   ; @param (vector) a
@@ -111,10 +133,10 @@
   ;
   ; @return (boolean)
   [a b]
-  (and (vector? a)
-       (vector? b)
-       (> (count b)
-          (count a))))
+  (and (-> a vector?)
+       (-> b vector?)
+       (> (-> b count)
+          (-> a count))))
 
 (defn count?
   ; @param (vector) n
@@ -170,7 +192,7 @@
   ;
   ; @return (boolean)
   [n x]
-  (= (last n) x))
+  (-> n last (= x)))
 
 (defn item-first?
   ; @param (vector) n
@@ -186,4 +208,4 @@
   ;
   ; @return (boolean)
   [n x]
-  (= (first n) x))
+  (-> n first (= x)))

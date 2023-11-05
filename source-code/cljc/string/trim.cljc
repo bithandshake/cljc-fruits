@@ -7,7 +7,7 @@
 
 (defn trim
   ; @description
-  ; Trims both ends of the given 'n' string by removing the leading and trailing whitespaces.
+  ; Trims both ends of the given 'n' value (converted to string) by removing the leading and trailing whitespaces.
   ;
   ; @param (*) n
   ;
@@ -25,7 +25,7 @@
 
 (defn trim-start
   ; @description
-  ; Trims the beginning of the given 'n' string by removing the leading whitespaces.
+  ; Trims the beginning of the given 'n' value (converted to string) by removing the leading whitespaces.
   ;
   ; @param (*) n
   ;
@@ -43,7 +43,7 @@
 
 (defn trim-end
   ; @description
-  ; Trims the end of the given 'n' string by removing the trailing whitespaces.
+  ; Trims the end of the given 'n' value (converted to string) by removing the trailing whitespaces.
   ;
   ; @param (*) n
   ;
@@ -64,7 +64,7 @@
 
 (defn trim-newlines
   ; @description
-  ; Trims the trailing newlines of the given 'n' string by removing the all newlines from the end.
+  ; Trims the trailing newlines of the given 'n' value (converted to string) by removing the all newlines from the end.
   ;
   ; @param (*) n
   ;
@@ -82,7 +82,7 @@
 
 (defn trim-gaps
   ; @description
-  ; Trims the whitespace gaps in the given 'n' string by removing the duplicated whitespaces.
+  ; Trims the whitespace gaps in the given 'n' value (converted to string) by removing the duplicated whitespaces.
   ;
   ; @param (*) n
   ;

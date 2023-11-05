@@ -1,40 +1,42 @@
 
-(ns seqable.type)
+(ns math.check)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonseqable?
-  ; @param (*) n
+(defn negative?
+  ; @param (number) n
   ;
   ; @example
-  ; (nonseqable? 420)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (nonseqable? "420")
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n]
-  (-> n seqable? not))
-
-(defn nonempty?
-  ; @param (*) n
-  ;
-  ; @example
-  ; (nonempty? 420)
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (nonempty? "420")
+  ; (negative? -4.20)
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n]
-  (and (-> n seqable?)
-       (-> n empty? not)))
+  (> 0 n))
+
+(defn positive?
+  ; @param (number) n
+  ;
+  ; @example
+  ; (positive? 4.20)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (< 0 n))
+
+(defn nonnegative?
+  ; @param (number) n
+  ;
+  ; @example
+  ; (nonnegative? 4.20)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (or (zero?     n)
+      (positive? n)))

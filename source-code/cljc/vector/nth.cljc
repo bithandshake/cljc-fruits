@@ -20,9 +20,9 @@
   ;
   ; @return (*)
   [n dex]
-  (when (and (vector?            n)
-             (dex/dex-in-bounds? n dex))
-        (nth n dex)))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
+      (nth n dex)))
 
 (defn remove-nth-item
   ; @param (vector) n
@@ -38,10 +38,10 @@
   ;
   ; @return (vector)
   [n dex]
-  (when (and (vector?            n)
-             (dex/dex-in-bounds? n dex))
-        (vec (concat (subvec n 0 dex)
-                     (subvec n (inc dex))))))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
+      (vec (concat (subvec n 0 dex)
+                   (subvec n (inc dex))))))
 
 (defn remove-nth-items
   ; @param (vector) n
@@ -119,8 +119,8 @@
   ;
   ; @return (vector)
   [n dex x]
-  (if (and (vector?            n)
-           (dex/dex-in-bounds? n dex))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
       (vec (concat (subvec n 0 dex)
                    [x]
                    (subvec n (inc dex))))

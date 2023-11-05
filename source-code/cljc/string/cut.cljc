@@ -1,7 +1,8 @@
 
 (ns string.cut
     (:require [clojure.string]
-              [math.api :as math]))
+              [math.api      :as math]
+              [string.cursor :as cursor]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -36,21 +37,20 @@
   ;
   ; @return (string)
   ([n start]
-   (let [n (str n)]
-        (part n start (count n))))
+   (part n start (-> n str count)))
 
   ([n start end]
    (let [n (str n)]
         (if (and (-> n empty? not)
-                 (math/between? end   0 (count n))
-                 (math/between? start 0 (count n)))
-            (subs n start end)
-            (->   n)))))
+                 (-> n (cursor/cursor-in-bounds? start))
+                 (-> n (cursor/cursor-in-bounds? end)))
+            (subs n start end)))))
+           ;(-> n) <- Why this function returned the whole string in case of the cursors are out of bounds?
 
 (defn cut
   ; @param (*) n
-  ; @param (integer) start
-  ; @param (integer)(opt) end
+  ; @param (integer)(opt) start
+  ; @param (integer) end
   ;
   ; @usage
   ; (cut "abc" 0 2)
@@ -76,15 +76,14 @@
   ; " :b]"
   ;
   ; @return (string)
-  ([n start]
-   (let [n (str n)]
-        (cut n 0 start)))
+  ([n end]
+   (cut n 0 end))
 
   ([n start end]
    (let [n (str n)]
         (if (and (-> n empty? not)
-                 (math/between? end   0 (count n))
-                 (math/between? start 0 (count n)))
+                 (-> n (cursor/cursor-in-bounds? start))
+                 (-> n (cursor/cursor-in-bounds? end)))
             (str (subs n 0 (min start end))
                  (subs n   (max start end)))
             (-> n)))))
@@ -140,38 +139,6 @@
                             (str result x) result))]
          (reduce f "" (str n))))
 
-(defn max-length
-  ; @param (*) n
-  ; @param (integer) limit
-  ; @param (*)(opt) suffix
-  ;
-  ; @usage
-  ; (max-length "One Flew Over the Cuckoo's Nest" 5)
-  ;
-  ; @example
-  ; (max-length "One Flew Over the Cuckoo's Nest" 10)
-  ; =>
-  ; "One Flew O"
-  ;
-  ; @example
-  ; (max-length "One Flew Over the Cuckoo's Nest" 10 " ...")
-  ; =>
-  ; "One Flew O ..."
-  ;
-  ; @example
-  ; (max-length nil 10)
-  ; =>
-  ; ""
-  ;
-  ; @return (string)
-  [n limit & [suffix]]
-  (let [n (str n)]
-       (if (and (-> n empty? not)
-                (-> limit integer?)
-                (<  limit (count n)))
-           (str (subs n 0 limit) suffix)
-           (-> n))))
-
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -182,7 +149,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -240,7 +207,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -298,7 +265,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -356,7 +323,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -414,7 +381,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -472,7 +439,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -530,7 +497,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -588,7 +555,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the whole string in case of no occurence found.
+  ;   If true, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage

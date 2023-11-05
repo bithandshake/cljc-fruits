@@ -1,6 +1,7 @@
 
 (ns vector.core
     (:require [vector.check  :as check]
+              [vector.cursor :as cursor]
               [vector.dex    :as dex]
               [vector.nth    :as nth]
               [vector.remove :as remove]))
@@ -23,7 +24,7 @@
   ; @return (vector)
   [n delimiter]
   (letfn [(f [result dex x]
-             (if (= 0 dex)
+             (if (-> dex zero?)
                  [x]
                  (conj result delimiter x)))]
          (reduce-kv f [] n)))
@@ -265,7 +266,7 @@
 
 (defn inject-item
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) cursor
   ; @param (*) x
   ;
   ; @usage
@@ -292,13 +293,13 @@
   ; {:a "b"}
   ;
   ; @return (vector)
-  [n dex x]
+  [n cursor x]
   (cond (vector? n)
-        (if (dex/dex-out-of-bounds? n dex)
+        (if (cursor/cursor-out-of-bounds? n cursor)
             (conj-item n x)
-            (concat-items (subvec n 0 dex)
+            (concat-items (subvec n 0 cursor)
                           [x]
-                          (subvec n dex)))
+                          (subvec n cursor)))
         (nil? n) (-> [x])
         :return n))
 

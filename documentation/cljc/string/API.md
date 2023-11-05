@@ -71,6 +71,8 @@
 
 - [line-count](#line-count)
 
+- [lowercase?](#lowercase)
+
 - [max-length](#max-length)
 
 - [max-lines](#max-lines)
@@ -142,6 +144,8 @@
 - [trim-newlines](#trim-newlines)
 
 - [trim-start](#trim-start)
+
+- [uppercase?](#uppercase)
 
 - [use-nil](#use-nil)
 
@@ -232,6 +236,11 @@
 ### abc?
 
 ```
+@description
+Returns TRUE if the given 'a' and 'b' values (converted to string) are in alphabetical order.
+```
+
+```
 @param (*) a
 @param (*) b
 ```
@@ -279,8 +288,9 @@ true
 ```
 (defn abc?
   [a b]
-  (>= 0 (compare (str a)
-                 (str b))))
+  (let [a (str a)
+        b (str b)]
+       (>= 0 (compare a b))))
 ```
 
 </details>
@@ -828,6 +838,11 @@ nil
 ### blank?
 
 ```
+@description
+Returns TRUE if the given 'n' value is a string and it is empty.
+```
+
+```
 @param (*) n
 ```
 
@@ -860,7 +875,8 @@ true
 ```
 (defn blank?
   [n]
-  (clojure.string/blank? n))
+  (and (-> n string?)
+       (-> n empty?)))
 ```
 
 </details>
@@ -880,6 +896,11 @@ true
 ---
 
 ### contains-digit?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) contains at least one digit.
+```
 
 ```
 @param (*) n
@@ -914,7 +935,8 @@ false
 ```
 (defn contains-digit?
   [n]
-  (some? (re-find #"\d" (str n))))
+  (let [n (str n)]
+       (some? (re-find #"\d" n))))
 ```
 
 </details>
@@ -934,6 +956,11 @@ false
 ---
 
 ### contains-lowercase-letter?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) contains at least one lowercase letter.
+```
 
 ```
 @param (*) n
@@ -968,8 +995,8 @@ false
 ```
 (defn contains-lowercase-letter?
   [n]
-  (not= (-> n str)
-        (-> n str clojure.string/upper-case)))
+  (let [n (str n)]
+       (not= n (clojure.string/upper-case n))))
 ```
 
 </details>
@@ -989,6 +1016,11 @@ false
 ---
 
 ### contains-part?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) contains the given 'x' value (converted to string).
+```
 
 ```
 @param (*) n
@@ -1038,8 +1070,9 @@ true
 ```
 (defn contains-part?
   [n x]
-  (clojure.string/includes? (str n)
-                            (str x)))
+  (let [n (str n)
+        x (str x)]
+       (clojure.string/includes? n x)))
 ```
 
 </details>
@@ -1059,6 +1092,11 @@ true
 ---
 
 ### contains-uppercase-letter?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) contains at least one uppercase letter.
+```
 
 ```
 @param (*) n
@@ -1093,8 +1131,8 @@ false
 ```
 (defn contains-uppercase-letter?
   [n]
-  (not= (-> n str)
-        (-> n str clojure.string/lower-case)))
+  (let [n (str n)]
+       (not= n (clojure.string/lower-case n))))
 ```
 
 </details>
@@ -1865,6 +1903,11 @@ nil
 ### if-contains-part
 
 ```
+@description
+Returns the given 'n' value (converted to string) if it contains the given 'x' part.
+```
+
+```
 @param (*) n
 @param (*) x
 ```
@@ -1919,9 +1962,10 @@ nil
 ```
 (defn if-contains-part
   [n x]
-  (if (clojure.string/includes? (str n)
-                                (str x))
-      (str n)))
+  (let [n (str n)
+        x (str x)]
+       (if (-> n (clojure.string/includes? x))
+           (-> n))))
 ```
 
 </details>
@@ -2207,6 +2251,11 @@ nil
 ### length-between?
 
 ```
+@description
+Returns TRUE if the given 'n' value (converted to string) has a length between the given 'min' and 'max' values.
+```
+
+```
 @param (*) n
 @param (integer) min
 @param (integer) max
@@ -2260,6 +2309,11 @@ true
 ### length-max?
 
 ```
+@description
+Returns TRUE if the given 'n' value (converted to string) has a length that is not greater than the given 'max'.
+```
+
+```
 @param (*) n
 @param (integer) max
 ```
@@ -2293,8 +2347,9 @@ false
 ```
 (defn length-max?
   [n max]
-  (and (-> max integer?)
-       (>= max (-> n str count))))
+  (let [n (str n)]
+       (and (-> max integer?)
+            (>= max (-> n count)))))
 ```
 
 </details>
@@ -2314,6 +2369,11 @@ false
 ---
 
 ### length-min?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) has a length that is not smaller than the given 'min'.
+```
 
 ```
 @param (*) n
@@ -2349,8 +2409,9 @@ false
 ```
 (defn length-min?
   [n min]
-  (and (-> min integer?)
-       (<= min (-> n str count))))
+  (let [n (str n)]
+       (and (-> min integer?)
+            (<= min (-> n count)))))
 ```
 
 </details>
@@ -2370,6 +2431,11 @@ false
 ---
 
 ### length?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) has the exact same length as the given 'length' value.
+```
 
 ```
 @param (*) n
@@ -2400,7 +2466,8 @@ false
 ```
 (defn length?
   [n length]
-  (= length (-> n str count)))
+  (let [n (str n)]
+       (= length (-> n count))))
 ```
 
 </details>
@@ -2472,6 +2539,66 @@ Returns the count of newlines in the given string.
 
 (string.api/line-count ...)
 (line-count            ...)
+```
+
+</details>
+
+---
+
+### lowercase?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) is lowercase.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(lowercase? "abc")
+```
+
+```
+@example
+(lowercase? "abc")
+=>
+true
+```
+
+```
+@example
+(lowercase? "Abc")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn lowercase?
+  [n]
+  (let [n (str n)]
+       (= n (clojure.string/lower-case n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [lowercase?]]))
+
+(string.api/lowercase? ...)
+(lowercase?            ...)
 ```
 
 </details>
@@ -2830,6 +2957,11 @@ false
 ---
 
 ### nonblank?
+
+```
+@description
+Returns TRUE if the given 'n' value is a string and it is NOT empty.
+```
 
 ```
 @param (*) n
@@ -4859,6 +4991,66 @@ Trims the beginning of the given 'n' string by removing the leading whitespaces.
 
 (string.api/trim-start ...)
 (trim-start            ...)
+```
+
+</details>
+
+---
+
+### uppercase?
+
+```
+@description
+Returns TRUE if the given 'n' value (converted to string) is uppercase.
+```
+
+```
+@param (*) n
+```
+
+```
+@usage
+(uppercase? "ABC")
+```
+
+```
+@example
+(uppercase? "ABC")
+=>
+true
+```
+
+```
+@example
+(uppercase? "Abc")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn uppercase?
+  [n]
+  (let [n (str n)]
+       (= n (clojure.string/upper-case n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [uppercase?]]))
+
+(string.api/uppercase? ...)
+(uppercase?            ...)
 ```
 
 </details>

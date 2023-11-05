@@ -5,74 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonblank?
-  ; @param (*) n
-  ;
-  ; @example
-  ; (nonblank? nil)
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (nonblank? "")
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (nonblank? [])
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (nonblank? {})
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n]
-  ; Az empty? függvényt csak a seqable értékeken lehetséges alkalmazni!
-  ;
-  ; (A) Ha az n értéke nem seqable, akkor igaz rá, hogy nonempty (keyword, integer, ...)
-  ;
-  ; (B) Ha az n értéke seqable, akkor megvizsgálja, hogy üres-e (nil, map, string, vector, ...)
-  (or ; (A)
-      (-> n seqable? not)
-      ; (B)
-      (-> n empty?   not)))
-
-(defn blank?
-  ; @param (*) n
-  ;
-  ; @example
-  ; (blank? nil)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (blank? "")
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (blank? [])
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (=blank? {})
-  ; =>
-  ; true
-  ;
-  ; @return (boolean)
-  [n]
-  ; Az empty? függvényt csak a seqable értékeken lehetséges alkalmazni!
-  ; (A nonseqable értékek nem lehetnek üresek! Pl.: :keyword)
-  (and (-> n seqable?)
-       (-> n   empty?)))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
 (defn rational-number?
   ; @param (*) n
   ;
@@ -108,9 +40,9 @@
   ;
   ; @return (boolean)
   [n]
-  (or (number?   n)
-      (re-match? n #"^[+-]{0,1}[\d]{1,}$")
-      (re-match? n #"^[+-]{0,1}[\d]{1,}[\.][\d]{1,}$")))
+  (or (-> n number?)
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}$"))
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}[\.][\d]{1,}$"))))
 
 (defn whole-number?
   ; @param (*) n
@@ -137,8 +69,8 @@
   ;
   ; @return (boolean)
   [n]
-  (or (integer?  n)
-      (re-match? n #"^[+-]{0,1}[\d]{1,}$")))
+  (or (-> n integer?)
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}$"))))
 
 (defn natural-whole-number?
   ; @param (*) n
@@ -165,9 +97,8 @@
   ;
   ; @return (boolean)
   [n]
-  (or (and (integer? n)
-           (<= 0     n))
-      (re-match? n #"^[+]{0,1}[\d]{1,}$")))
+  (or (-> n nat-int?)
+      (-> n (re-match? #"^[+]{0,1}[\d]{1,}$"))))
 
 (defn positive-whole-number?
   ; @param (*) n
@@ -194,10 +125,10 @@
   ;
   ; @return (boolean)
   [n]
-  (or (and (integer?  n)
-           (<    0    n))
-      (and (not= 0    n)
-           (re-match? n #"^[+]{0,1}[\d]{1,}$"))))
+  (or (and (-> n integer?)
+           (-> n pos?))
+      (and (-> n zero? not)
+           (-> n (re-match? #"^[+]{0,1}[\d]{1,}$")))))
 
 (defn negative-whole-number?
   ; @param (*) n
@@ -219,6 +150,6 @@
   ;
   ; @return (boolean)
   [n]
-  (or (and (integer? n)
-           (> 0      n))
-      (re-match? n #"^[-][0-9]{1,}$")))
+  (or (and (-> n integer?)
+           (-> n neg?))
+      (-> n (re-match? #"^[-][0-9]{1,}$"))))

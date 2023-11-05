@@ -55,8 +55,7 @@
   ;
   ; @return (vector)
   [n update-f]
-  ; The recursion applies the update-f function on values of maps too, because
-  ; they are equivalents of items of vectors.
+  ; The recursion applies the 'update-f' function on values of maps also, because they are equivalents of items in vectors.
   (letfn [(f [n] (cond (vector? n) (reduce    #(conj  %1    (f %2)) [] n)
                        (map?    n) (reduce-kv #(assoc %1 %2 (f %3)) {} n)
                        :return     (update-f n)))]

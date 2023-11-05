@@ -1,14 +1,15 @@
 
 (ns vector.range
-    (:require [vector.dex :as dex]))
+    (:require [vector.cursor :as cursor]
+              [vector.dex    :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn ranged-items
   ; @param (vector) n
-  ; @param (integer) low
-  ; @param (integer)(opt) high
+  ; @param (integer) from
+  ; @param (integer)(opt) to
   ;
   ; @usage
   ; (ranged-items [:a :b :c] 1 3)
@@ -27,17 +28,18 @@
   ; [:c :d :e :f]
   ;
   ; @return (vector)
-  ([n low]
-   (let [high (count n)]
-        (ranged-items n low high)))
+  ([n from]
+   (let [to (count n)]
+        (ranged-items n from to)))
 
-  ([n low high]
-   (let [high (min high (count n))]
-        (if (and (vector? n)
-                 (<  low high)
-                 (>= low 0))
-            (subvec n low high)
-            (-> [])))))
+  ([n from to]
+   (if (and (-> n  vector?)
+            (-> to integer?)
+            (-> n (cursor/cursor-in-bounds? from)))
+       (let [to   (min to (count n))
+             from (min from to)]
+            (subvec n from to))
+       (-> []))))
 
 (defn last-items
   ; @param (vector) n
@@ -53,9 +55,9 @@
   ;
   ; @return (vector)
   [n length]
-  (cond (-> length integer? not) (-> n)
-        (>= length (count n))    (-> n)
-        :return (subvec n (-> n count (- length)))))
+  (if (dex/dex-in-bounds? n length)
+      (subvec n (-> n count (- length)))
+      (->     n)))
 
 (defn first-items
   ; @param (vector) n
@@ -71,9 +73,9 @@
   ;
   ; @return (vector)
   [n length]
-  (cond (-> length integer? not) (-> n)
-        (>= length (count n))    (-> n)
-        :return (subvec n 0 length)))
+  (if (dex/dex-in-bounds? n length)
+      (subvec n 0 length)
+      (->     n)))
 
 (defn trim
   ; @param (vector) n
@@ -115,9 +117,13 @@
   ;
   ; @return (vector)
   [n x]
-  (cond (= (count n) x) (-> n)
-        (> (count n) x) (first-items n x)
-        (< (count n) x) (vec (concat n (repeat nil (- x (count n)))))))
+  (if (and (-> n vector?)
+           (-> x integer?)
+           (-> n count (not= x)))
+      (if (> (count n) x)
+          (first-items n x)
+          (vec (concat n (repeat nil (- x (count n))))))
+      (-> n)))
 
 (defn items-before-first-occurence
   ; @param (vector) n

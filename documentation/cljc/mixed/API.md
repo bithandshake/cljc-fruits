@@ -137,7 +137,7 @@ true
 (defn blank?
   [n]
   (and (-> n seqable?)
-       (-> n   empty?)))
+       (-> n empty?)))
 ```
 
 </details>
@@ -251,9 +251,8 @@ false
 ```
 (defn natural-whole-number?
   [n]
-  (or (and (integer? n)
-           (<= 0     n))
-      (re-match? n #"^[+]{0,1}[\d]{1,}$")))
+  (or (-> n nat-int?)
+      (-> n (re-match? #"^[+]{0,1}[\d]{1,}$"))))
 ```
 
 </details>
@@ -309,9 +308,9 @@ true
 ```
 (defn negative-whole-number?
   [n]
-  (or (and (integer? n)
-           (> 0      n))
-      (re-match? n #"^[-][0-9]{1,}$")))
+  (or (and (-> n integer?)
+           (-> n neg?))
+      (-> n (re-match? #"^[-][0-9]{1,}$"))))
 ```
 
 </details>
@@ -375,7 +374,7 @@ false
 (defn nonblank?
   [n]
   (or      (-> n seqable? not)
-      (-> n empty?   not)))
+      (-> n empty? not)))
 ```
 
 </details>
@@ -663,10 +662,10 @@ false
 ```
 (defn positive-whole-number?
   [n]
-  (or (and (integer?  n)
-           (<    0    n))
-      (and (not= 0    n)
-           (re-match? n #"^[+]{0,1}[\d]{1,}$"))))
+  (or (and (-> n integer?)
+           (-> n pos?))
+      (and (-> n zero? not)
+           (-> n (re-match? #"^[+]{0,1}[\d]{1,}$")))))
 ```
 
 </details>
@@ -743,9 +742,9 @@ true
 ```
 (defn rational-number?
   [n]
-  (or (number?   n)
-      (re-match? n #"^[+-]{0,1}[\d]{1,}$")
-      (re-match? n #"^[+-]{0,1}[\d]{1,}[\.][\d]{1,}$")))
+  (or (-> n number?)
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}$"))
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}[\.][\d]{1,}$"))))
 ```
 
 </details>
@@ -1171,8 +1170,8 @@ true
 ```
 (defn whole-number?
   [n]
-  (or (integer?  n)
-      (re-match? n #"^[+-]{0,1}[\d]{1,}$")))
+  (or (-> n integer?)
+      (-> n (re-match? #"^[+-]{0,1}[\d]{1,}$"))))
 ```
 
 </details>

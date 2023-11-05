@@ -2260,7 +2260,7 @@ true
 (defn gap-items
   [n delimiter]
   (letfn [(f [result dex x]
-             (if (= 0 dex)
+             (if (-> dex zero?)
                  [x]
                  (conj result delimiter x)))]
          (reduce-kv f [] n)))

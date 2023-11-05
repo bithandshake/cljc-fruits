@@ -1,27 +1,35 @@
 
-(ns vector.type)
+(ns logic.check)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonempty?
+(defn nonfalse?
   ; @param (*) n
   ;
   ; @usage
-  ; (nonempty? [:a])
+  ; (nonfalse? nil)
   ;
   ; @example
-  ; (nonempty? [])
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (nonempty? [:a])
+  ; (nonfalse? nil)
   ; =>
   ; true
   ;
   ; @return (boolean)
-  ; Is n a nonempty vector?
   [n]
-  (and (-> n vector?)
-       (-> n empty? not)))
+  (not= n false))
+
+(defn nontrue?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (nontrue? :x)
+  ;
+  ; @example
+  ; (nontrue? nil)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (not= n true))

@@ -1,6 +1,138 @@
 
 (ns syntax.tags
-    (:require [string.api :as string]))
+    (:require [string.api   :as string]
+              [syntax.check :as check]))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn tag-position
+  ; @description
+  ; - Returns the position of the first 'tag' string in the 'n' string.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
+  ;
+  ; @param (string) n
+  ; @param (string) tag
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
+  ;
+  ; @example
+  ; (tag-position "<div>My content</div>" "<div>")
+  ; =>
+  ; 0
+  ;
+  ; @example
+  ; (tag-position "<div><div></div></div>" "<div>")
+  ; =>
+  ; 0
+  ;
+  ; @example
+  ; (tag-position "</div> <div></div>" "<div>")
+  ; =>
+  ; 7
+  ;
+  ; @return (integer)
+  ([n tag]
+   (tag-position n tag {}))
+
+  ([n tag {:keys [comment-close-tag comment-open-tag ignore-comments? offset]
+           :or   {comment-close-tag "\n" comment-open-tag ";" offset 0}
+           :as   options}]
+   (if (string/cursor-in-bounds? n offset)
+       (let [observed-part (string/part n offset)]
+            (if-let [observed-tag-pos (string/first-dex-of observed-part tag)]
+                    (let [observed-tag-pos (+ offset observed-tag-pos)]
+                         (if ignore-comments? (if (check/position-commented? n observed-tag-pos comment-open-tag comment-close-tag)
+                                                  (tag-position n tag (assoc options :offset (+ observed-tag-pos (count tag))))
+                                                  (-> observed-tag-pos))
+                                              (-> observed-tag-pos))))))))
+
+(defn tag-count
+  ; @description
+  ; - Returns the found occurence count of the 'tag' string in the 'n' string.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ;
+  ; @param (string) n
+  ; @param (string) tag
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
+  ;
+  ; @example
+  ; (tag-count "<div><div></div></div>" "<div>")
+  ; "** ***"
+  ; =>
+  ; 2
+  ;
+  ; @return (integer)
+  ([n tag]
+   (tag-count n tag {}))
+
+  ([n tag {:keys [offset] :or {offset 0} :as options}]
+   (letfn [(f [cursor found-tag-count]
+              (if (string/cursor-in-bounds? n cursor)
+                  (if-let [first-tag-pos (tag-position n tag (assoc options :offset cursor))]
+                          (f (+ first-tag-pos (count tag)) (inc found-tag-count))
+                          (-> found-tag-count))
+                  (-> found-tag-count)))]
+          ; ...
+          (f offset 0))))
+
+(defn tags-balanced?
+  ; @description
+  ; - Returns TRUE if the given 'open-tag' and 'close-tag' pairs are balanced in their quantity in the given 'n' string.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ;
+  ; @param (string) n
+  ; @param (string) open-tag
+  ; @param (string) close-tag
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
+  ;
+  ; @example
+  ; (tags-balanced? "<div><div></div>" "<div>" "</div>")
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (tags-balanced? "<div><div></div></div>" "<div>" "</div>")
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  ([n open-tag close-tag]
+   (tags-balanced? n open-tag close-tag {}))
+
+  ([n open-tag close-tag options]
+   (= (tag-count n open-tag  options)
+      (tag-count n close-tag options))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -8,13 +140,22 @@
 (defn open-tag-position
   ; @description
   ; - Returns the position of the first 'open-tag' string in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent of the offset.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
   ; @param (string) open-tag
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (open-tag-position "<div>My content</div>" "<div>")
@@ -33,24 +174,31 @@
   ;
   ; @return (integer)
   ([n open-tag]
-   (open-tag-position n 0 open-tag))
+   (open-tag-position n open-tag {}))
 
-  ([n offset open-tag]
-   (let [n (string/part n offset)]
-        (if-let [result (string/first-dex-of n open-tag)]
-                (+ offset result)))))
+  ([n open-tag options]
+   (tag-position n open-tag options)))
 
 (defn close-tag-position
   ; @description
   ; - Returns the position of the close pair of the first occurence of the 'open-tag' string in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent of the offset.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
   ; @param (string) open-tag
   ; @param (string) close-tag
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (close-tag-position "<div>My content</div>" "<div>" "</div>")
@@ -65,53 +213,23 @@
   ; @example
   ; (close-tag-position "</div> <div></div>" "<div>" "</div>")
   ; =>
-  ; 12
+  ; 12 <- DEPRECTATED BEHAVIOUR
+  ; 0
   ;
   ; @return (integer)
   ([n open-tag close-tag]
-   (close-tag-position n 0 open-tag close-tag))
+   (close-tag-position n open-tag close-tag {}))
 
-  ([n offset open-tag close-tag]
-   (let [n (string/part n offset)]
-        (if-let [from (string/first-dex-of n open-tag)]
-                (letfn [
-                        ; ...
-                        (f0 [observed-part open-tag-found]
-                            (+ open-tag-found (string/count-occurences observed-part open-tag)))
-
-                        ; ...
-                        (f1 [observed-part close-tag-found]
-                            (+ close-tag-found (string/count-occurences observed-part close-tag)))
-
-                        ; ...
-                        (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
-                                           (+ from close-tag-pos (count close-tag))))
-
-                        ; ...
-                        (f3 [from open-tag-found close-tag-found]
-
-                            ; DEBUG
-                            ; (println "offset:" offset)
-                            ; (println "from:"   from)
-
-                            (if-let [to (f2 from)]
-                                    (let [observed-part   (string/part n from to)
-                                          open-tag-found  (f0 observed-part open-tag-found)
-                                          close-tag-found (f1 observed-part close-tag-found)]
-
-                                         ; DEBUG
-                                         ; (println "to:"              to)
-                                         ; (println "observed-part:"   (str "\""observed-part"\""))
-                                         ; (println "open-tag-found:"  open-tag-found)
-                                         ; (println "close-tag-found:" close-tag-found)
-
-                                         (if (<= open-tag-found close-tag-found)
-                                             (- to (count close-tag))
-                                             (f3 to open-tag-found close-tag-found)))))]
-
-                       ; ...
-                       (if-let [result (f3 from 0 0)]
-                               (+ offset result)))))))
+  ([n open-tag close-tag {:keys [offset] :or {offset 0} :as options}]
+   (letfn [(f [cursor]
+              (if (string/cursor-in-bounds? n cursor)
+                  (if-let [observed-close-pos (tag-position n close-tag (assoc options :offset cursor))]
+                          (let [observed-part (string/part n 0 (+ observed-close-pos (count close-tag)))]
+                               (if (tags-balanced? observed-part open-tag close-tag options)
+                                   (-> observed-close-pos)
+                                   (f (+ observed-close-pos (count close-tag))))))))]
+          ; ...
+          (f offset))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -119,12 +237,21 @@
 (defn open-brace-position
   ; @description
   ; - Returns the position of the first opening brace character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent of the offset.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (open-brace-position "{:a 0}")
@@ -143,20 +270,29 @@
   ;
   ; @return (integer)
   ([n]
-   (open-brace-position n 0))
+   (open-brace-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "{")))
+  ([n options]
+   (open-tag-position n "{" options)))
 
 (defn close-brace-position
   ; @description
   ; - Returns the position of the closing brace that corresponds to the first opening brace character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
   ; - The returned position is an absolute value and does not depend on the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (close-brace-position "{:a 0}")
@@ -175,10 +311,10 @@
   ;
   ; @return (integer)
   ([n]
-   (close-brace-position n 0))
+   (close-brace-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "{" "}")))
+  ([n options]
+   (close-tag-position n "{" "}" options)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -186,12 +322,21 @@
 (defn open-bracket-position
   ; @description
   ; - Returns the position of the first opening bracket character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent of the offset.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (open-bracket-position "[1 2]")
@@ -210,20 +355,29 @@
   ;
   ; @return (integer)
   ([n]
-   (open-bracket-position n 0))
+   (open-bracket-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "[")))
+  ([n options]
+   (open-tag-position n "[" options)))
 
 (defn close-bracket-position
   ; @description
   ; - Returns the position of the closing bracket that corresponds to the first opening bracket character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
   ; - The returned position is an absolute value and does not depend on the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (close-bracket-position "[1 2]")
@@ -242,10 +396,10 @@
   ;
   ; @return (integer)
   ([n]
-   (close-bracket-position n 0))
+   (close-bracket-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "[" "]")))
+  ([n options]
+   (close-tag-position n "[" "]" options)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -253,12 +407,21 @@
 (defn open-paren-position
   ; @description
   ; - Returns the position of the first opening parenthesis character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent of the offset.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
+  ; - The returned position is an absolute value and is independent from the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (open-paren-position "(+ 1 2)")
@@ -272,22 +435,31 @@
   ;
   ; @return (integer)
   ([n]
-   (open-paren-position n 0))
+   (open-paren-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "(")))
-   ; The 'clj-docs-generator' throws an error if the parenthesis pairs in the code
-   ; aren't balanced. So a closing parenthesis must be placed here :)
+  ([n options]
+   ; The 'bithandshake/clj-docs-generator' library would throw an error of unbalanced parens
+   ; without this little fella' -> :)
+   (open-tag-position n "(" options)))
 
 (defn close-paren-position
   ; @description
   ; - Returns the position of the closing parenthesis that corresponds to the first opening parenthesis character in the 'n' string.
-  ; - If the 'offset' parameter is not 0, the search starts from the offset position.
+  ; - If the 'offset' parameter is passed, the search starts from the offset position.
   ; - The returned position is an absolute value and does not depend on the offset.
   ;
   ; @param (string) n
-  ; @param (integer)(opt) offset
-  ; Default: 0
+  ; @param (map)(opt) options
+  ; {:comment-close-tag (string)(opt)
+  ;   Default: "\n"
+  ;  :comment-open-tag (string)(opt)
+  ;   Default ";"
+  ;  :ignore-comments? (boolean)(opt)
+  ;   Default: false
+  ;  :ignore-quotes? (boolean)(opt)
+  ;   Default: false
+  ;  :offset (integer)(opt)
+  ;   Default: 0}
   ;
   ; @example
   ; (close-paren-position "(+ 1 2)")
@@ -301,7 +473,7 @@
   ;
   ; @return (integer)
   ([n]
-   (close-paren-position n 0))
+   (close-paren-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "(" ")")))
+  ([n options]
+   (close-tag-position n "(" ")" options)))

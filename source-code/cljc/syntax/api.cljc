@@ -1,12 +1,18 @@
 
 (ns syntax.api
-    (:require [syntax.comment :as comment]
+    (:require [syntax.check   :as check]
+              [syntax.comment :as comment]
               [syntax.convert :as convert]
               [syntax.core    :as core]
               [syntax.tags    :as tags]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; syntax.check
+(def position-escaped?   check/position-escaped?)
+(def position-commented? check/position-commented?)
+(def position-quoted?    check/position-quoted?)
 
 ; syntax.comment
 (def remove-comments comment/remove-comments)
@@ -17,11 +23,15 @@
 
 ; syntax.core
 (def paren   core/paren)
+(def brace   core/brace)
 (def bracket core/bracket)
 (def percent core/percent)
 (def quotes  core/quotes)
 
 ; syntax.tags
+(def tag-position           tags/tag-position)
+(def tag-count              tags/tag-count)
+(def tags-balanced?         tags/tags-balanced?)
 (def open-tag-position      tags/open-tag-position)
 (def close-tag-position     tags/close-tag-position)
 (def open-brace-position    tags/open-brace-position)

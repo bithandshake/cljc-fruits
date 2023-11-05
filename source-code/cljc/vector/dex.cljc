@@ -3,7 +3,64 @@
     (:require [loop.api     :refer [some-indexed]]
               [math.api     :as math]
               [sequence.api :as sequence]
-              [vector.type  :as type]))
+              [vector.check :as check]))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn dex-in-bounds?
+  ; @description
+  ; - Returns TRUE if the given 'dex' value is falls between 0 and the highest possible index value ('(-> n count dec)').
+  ; - Cursors are different from indexes in vectors.
+  ;   A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+  ;
+  ; @param (*) n
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (dex-in-bounds? [:a :b :c] 2)
+  ;
+  ; @example
+  ; (dex-in-bounds? [:a :b :c] 2)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (dex-in-bounds? [:a :b :c] 3)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n dex]
+  (and (-> dex nat-int?)
+       (-> n count (> dex))))
+
+(defn dex-out-of-bounds?
+  ; @description
+  ; - Returns TRUE if the given 'dex' value is NOT falls between 0 and the highest possible index value ('(-> n count dec)').
+  ; - Cursors are different from indexes in vectors.
+  ;   A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+  ;
+  ; @param (*) n
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (dex-out-of-bounds? [:a :b :c] 3)
+  ;
+  ; @example
+  ; (dex-out-of-bounds? [:a :b :c] 3)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (dex-out-of-bounds? [:a :b :c] 2)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n dex]
+  (or (-> dex nat-int?)
+      (-> n count (<= dex))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -33,50 +90,6 @@
   [n]
   (and (-> n integer?)
        (>= n 0)))
-
-(defn dex-out-of-bounds?
-  ; @param (vector) n
-  ; @param (integer) dex
-  ;
-  ; @usage
-  ; (dex-out-of-bounds? [:a :b :c] 0)
-  ;
-  ; @example
-  ; (dex-out-of-bounds? [:a :b :c] 3)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (dex-out-of-bounds? [:a :b :c] 2)
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n dex]
-  (or (<  dex 0)
-      (>= dex (count n))))
-
-(defn dex-in-bounds?
-  ; @param (vector) n
-  ; @param (integer) dex
-  ;
-  ; @usage
-  ; (dex-out-in-bounds? [:a :b :c] 0)
-  ;
-  ; @example
-  ; (dex-out-in-bounds? [:a :b :c] 2)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (dex-out-in-bounds? [:a :b :c] 3)
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n dex]
-  (and (>= dex 0)
-       (<  dex (count n))))
 
 (defn dex-range
   ; @param (vector) n
@@ -138,7 +151,7 @@
   ;
   ; @return (integer)
   [n]
-  (if (-> n type/nonempty?)
+  (if (-> n check/nonempty?)
       (-> n count dec)))
 
 (defn next-dex
@@ -169,7 +182,7 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (-> n type/nonempty?)
+  (if (-> n check/nonempty?)
       (-> dex (sequence/next-dex 0 (-> n count dec)))
       (-> 0)))
 

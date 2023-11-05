@@ -4,6 +4,7 @@
               [vector.compare :as compare]
               [vector.convert :as convert]
               [vector.core    :as core]
+              [vector.cursor  :as cursor]
               [vector.dex     :as dex]
               [vector.filter  :as filter]
               [vector.match   :as match]
@@ -12,13 +13,13 @@
               [vector.range   :as range]
               [vector.remove  :as remove]
               [vector.sort    :as sort]
-              [vector.type    :as type]
               [vector.walk    :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 ; vector.check
+(def nonempty?          check/nonempty?)
 (def contains-item?     check/contains-item?)
 (def not-contains-item? check/not-contains-item?)
 (def min?               check/min?)
@@ -58,10 +59,14 @@
 (def last-item         core/last-item)
 (def first-item        core/first-item)
 
+; vector.cursor
+(def cursor-in-bounds?     cursor/cursor-in-bounds?)
+(def cursor-out-of-bounds? cursor/cursor-out-of-bounds?)
+
 ; vector.dex
-(def item-dex?          dex/item-dex?)
-(def dex-out-of-bounds? dex/dex-out-of-bounds?)
 (def dex-in-bounds?     dex/dex-in-bounds?)
+(def dex-out-of-bounds? dex/dex-out-of-bounds?)
+(def item-dex?          dex/item-dex?)
 (def dex-range          dex/dex-range)
 (def dex-first?         dex/dex-first?)
 (def dex-last?          dex/dex-last?)
@@ -141,9 +146,6 @@
 (def sort-items-by-dexes    sort/sort-items-by-dexes)
 (def sorted-dexes           sort/sorted-dexes)
 (def compared-items-sorted? sort/compared-items-sorted?)
-
-; vector.type
-(def nonempty? type/nonempty?)
 
 ; vector.walk
 (def ->items         walk/->items)

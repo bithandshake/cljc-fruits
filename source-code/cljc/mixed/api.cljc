@@ -1,12 +1,17 @@
 
 (ns mixed.api
-    (:require [mixed.convert :as convert]
+    (:require [mixed.check   :as check]
+              [mixed.convert :as convert]
               [mixed.core    :as core]
               [mixed.parse   :as parse]
               [mixed.type    :as type]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; mixed.check
+(def nonblank? check/nonblank?)
+(def blank?    check/blank?)
 
 ; mixed.convert
 (def to-string   convert/to-string)
@@ -26,8 +31,6 @@
 (def parse-whole-number    parse/parse-whole-number)
 
 ; mixed.type
-(def nonblank?              type/nonblank?)
-(def blank?                 type/blank?)
 (def rational-number?       type/rational-number?)
 (def whole-number?          type/whole-number?)
 (def natural-whole-number?  type/natural-whole-number?)

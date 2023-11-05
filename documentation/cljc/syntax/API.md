@@ -7,6 +7,8 @@
 
 - [ToCamelCase](#tocamelcase)
 
+- [brace](#brace)
+
 - [bracket](#bracket)
 
 - [close-brace-position](#close-brace-position)
@@ -29,13 +31,30 @@
 
 - [percent](#percent)
 
+- [position-commented?](#position-commented)
+
+- [position-escaped?](#position-escaped)
+
+- [position-quoted?](#position-quoted)
+
 - [quotes](#quotes)
 
 - [remove-comments](#remove-comments)
 
+- [tag-count](#tag-count)
+
+- [tag-position](#tag-position)
+
+- [tags-balanced?](#tags-balanced)
+
 - [to-snake-case](#to-snake-case)
 
 ### ToCamelCase
+
+```
+@description
+Converts the given 'n' string from snake-case to CamelCase.
+```
 
 ```
 @param (string) n
@@ -57,7 +76,28 @@
 
 ```
 (defn ToCamelCase
-  [n])
+  [n]
+  (letfn [
+          (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
+
+          (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
+
+          (f2 [result cursor]
+              (let [char (subs result cursor (inc cursor))]
+                   (if (re-find #"[a-z]" char)
+                       (cond (= cursor 0)       (str                              (string/to-uppercase char) (subs result (inc cursor)))
+                             (f0 result cursor) (str (subs result 0 (dec cursor)) (string/to-uppercase char) (subs result (inc cursor)))
+                             (f1 result cursor) (str (subs result 0 cursor)       (string/to-uppercase char) (subs result (inc cursor)))
+                             :return result)
+                       (-> result))))
+
+          (f3 [result cursor]
+              (if (= (count result) cursor)
+                  (-> result)
+                  (let [new-result (f2 result cursor)]
+                       (f3 new-result (+ (inc cursor) (- (count new-result) (count result)))))))]
+
+         (f3 n 0)))
 ```
 
 </details>
@@ -76,7 +116,59 @@
 
 ---
 
+### brace
+
+```
+@description
+Wraps the given 'n' string with a brace pair.
+```
+
+```
+@param (string) n
+```
+
+```
+@example
+(brace ":x 420")
+=>
+"{:x 420}"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn brace
+  [n]
+  (str (when n (str "{"n"}"))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [brace]]))
+
+(syntax.api/brace ...)
+(brace            ...)
+```
+
+</details>
+
+---
+
 ### bracket
+
+```
+@description
+Wraps the given 'n' string with a bracket pair.
+```
 
 ```
 @param (string) n
@@ -99,7 +191,7 @@
 ```
 (defn bracket
   [n]
-  (str (when n (str "[" n "]"))))
+  (str (when n (str "["n"]"))))
 ```
 
 </details>
@@ -123,14 +215,23 @@
 ```
 @description
 - Returns the position of the closing brace that corresponds to the first opening brace character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
+- If the 'offset' parameter is passed, the search starts from the offset position.
 - The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -164,10 +265,10 @@ Default: 0
 ```
 (defn close-brace-position
   ([n]
-   (close-brace-position n 0))
+   (close-brace-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "{" "}")))
+  ([n options]
+   (close-tag-position n "{" "}" options)))
 ```
 
 </details>
@@ -191,14 +292,23 @@ Default: 0
 ```
 @description
 - Returns the position of the closing bracket that corresponds to the first opening bracket character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
+- If the 'offset' parameter is passed, the search starts from the offset position.
 - The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -232,10 +342,10 @@ Default: 0
 ```
 (defn close-bracket-position
   ([n]
-   (close-bracket-position n 0))
+   (close-bracket-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "[" "]")))
+  ([n options]
+   (close-tag-position n "[" "]" options)))
 ```
 
 </details>
@@ -259,14 +369,23 @@ Default: 0
 ```
 @description
 - Returns the position of the closing parenthesis that corresponds to the first opening parenthesis character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
+- If the 'offset' parameter is passed, the search starts from the offset position.
 - The returned position is an absolute value and does not depend on the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -293,10 +412,10 @@ Default: 0
 ```
 (defn close-paren-position
   ([n]
-   (close-paren-position n 0))
+   (close-paren-position n {}))
 
-  ([n offset]
-   (close-tag-position n offset "(" ")")))
+  ([n options]
+   (close-tag-position n "(" ")" options)))
 ```
 
 </details>
@@ -320,16 +439,25 @@ Default: 0
 ```
 @description
 - Returns the position of the close pair of the first occurence of the 'open-tag' string in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
-- The returned position is an absolute value and is independent of the offset.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
 @param (string) open-tag
 @param (string) close-tag
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -350,7 +478,8 @@ Default: 0
 @example
 (close-tag-position "</div> <div></div>" "<div>" "</div>")
 =>
-12
+12 <- DEPRECTATED BEHAVIOUR
+0
 ```
 
 ```
@@ -363,36 +492,17 @@ Default: 0
 ```
 (defn close-tag-position
   ([n open-tag close-tag]
-   (close-tag-position n 0 open-tag close-tag))
+   (close-tag-position n open-tag close-tag {}))
 
-  ([n offset open-tag close-tag]
-   (let [n (string/part n offset)]
-        (if-let [from (string/first-dex-of n open-tag)]
-                (letfn [
-                        (f0 [observed-part open-tag-found]
-                            (+ open-tag-found (string/count-occurences observed-part open-tag)))
+  ([n open-tag close-tag {:keys [offset] :or {offset 0} :as options}]
+   (letfn [(f [cursor]
+              (if-let [observed-close-pos (tag-position n close-tag (assoc options :offset cursor))]
+                      (let [observed-part (string/part n 0 (+ observed-close-pos (count close-tag)))]
+                           (if (tags-balanced? observed-part open-tag close-tag options)
+                               (-> observed-close-pos)
+                               (f (+ observed-close-pos (count close-tag)))))))]
 
-                        (f1 [observed-part close-tag-found]
-                            (+ close-tag-found (string/count-occurences observed-part close-tag)))
-
-                        (f2 [from] (if-let [close-tag-pos (string/first-dex-of (string/part n from) close-tag)]
-                                           (+ from close-tag-pos (count close-tag))))
-
-                        (f3 [from open-tag-found close-tag-found]
-
-
-                            (if-let [to (f2 from)]
-                                    (let [observed-part   (string/part n from to)
-                                          open-tag-found  (f0 observed-part open-tag-found)
-                                          close-tag-found (f1 observed-part close-tag-found)]
-
-
-                                         (if (<= open-tag-found close-tag-found)
-                                             (- to (count close-tag))
-                                             (f3 to open-tag-found close-tag-found)))))]
-
-                       (if-let [result (f3 from 0 0)]
-                               (+ offset result)))))))
+          (f offset))))
 ```
 
 </details>
@@ -416,14 +526,23 @@ Default: 0
 ```
 @description
 - Returns the position of the first opening brace character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
-- The returned position is an absolute value and is independent of the offset.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -457,10 +576,10 @@ Default: 0
 ```
 (defn open-brace-position
   ([n]
-   (open-brace-position n 0))
+   (open-brace-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "{")))
+  ([n options]
+   (open-tag-position n "{" options)))
 ```
 
 </details>
@@ -484,14 +603,23 @@ Default: 0
 ```
 @description
 - Returns the position of the first opening bracket character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
-- The returned position is an absolute value and is independent of the offset.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -525,10 +653,10 @@ Default: 0
 ```
 (defn open-bracket-position
   ([n]
-   (open-bracket-position n 0))
+   (open-bracket-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "[")))
+  ([n options]
+   (open-tag-position n "[" options)))
 ```
 
 </details>
@@ -552,14 +680,23 @@ Default: 0
 ```
 @description
 - Returns the position of the first opening parenthesis character in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
-- The returned position is an absolute value and is independent of the offset.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -586,11 +723,10 @@ Default: 0
 ```
 (defn open-paren-position
   ([n]
-   (open-paren-position n 0))
+   (open-paren-position n {}))
 
-  ([n offset]
-   (open-tag-position n offset "(")))
-   ; aren't balanced. So a closing parenthesis must be placed here :)
+  ([n options]
+   (open-tag-position n "(" options)))
 ```
 
 </details>
@@ -614,15 +750,24 @@ Default: 0
 ```
 @description
 - Returns the position of the first 'open-tag' string in the 'n' string.
-- If the 'offset' parameter is not 0, the search starts from the offset position.
-- The returned position is an absolute value and is independent of the offset.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
 ```
 
 ```
 @param (string) n
-@param (integer)(opt) offset
-Default: 0
 @param (string) open-tag
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
 ```
 
 ```
@@ -656,12 +801,10 @@ Default: 0
 ```
 (defn open-tag-position
   ([n open-tag]
-   (open-tag-position n 0 open-tag))
+   (open-tag-position n open-tag {}))
 
-  ([n offset open-tag]
-   (let [n (string/part n offset)]
-        (if-let [result (string/first-dex-of n open-tag)]
-                (+ offset result)))))
+  ([n open-tag options]
+   (tag-position n open-tag options)))
 ```
 
 </details>
@@ -681,6 +824,11 @@ Default: 0
 ---
 
 ### paren
+
+```
+@description
+Wraps the given 'n' string with a parenthesis pair.
+```
 
 ```
 @param (string) n
@@ -703,7 +851,7 @@ Default: 0
 ```
 (defn paren
   [n]
-  (str (when n (str "(" n ")"))))
+  (str (when n (str "("n")"))))
 ```
 
 </details>
@@ -723,6 +871,11 @@ Default: 0
 ---
 
 ### percent
+
+```
+@description
+Appends a percentage symbol to the given 'n' string.
+```
 
 ```
 @param (string) n
@@ -745,7 +898,7 @@ Default: 0
 ```
 (defn percent
   [n]
-  (str (when n (str n "%"))))
+  (str (when n (str n"%"))))
 ```
 
 </details>
@@ -764,7 +917,178 @@ Default: 0
 
 ---
 
+### position-commented?
+
+```
+@description
+- Returns TRUE if the given position in the 'n' string is in a commented section.
+- Quoted comment tags might cause false output.
+```
+
+```
+@param (string) n
+@param (dex) position
+@param (string) comment-open-tag
+Default: ";"
+@param (string)(opt) comment-close-tag
+Default: "\n"
+```
+
+```
+@usage
+(position-commented? "(defn my-function [])\n ; My comment\n" 5)
+```
+
+```
+@example
+(position-commented? "(defn my-function [])\n ; My comment\n" 5)
+=>
+false
+```
+
+```
+@example
+(position-commented? "(defn my-function [])\n ; My comment\n" 25)
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn position-commented?
+  ([n position]
+   (position-commented? n position "
+  ([n position comment-open-tag]
+   (position-commented? n position comment-open-tag "\n"))
+
+  ([n position comment-open-tag comment-close-tag]
+   (boolean (let [observed-part (string/part n 0 position)]
+                 (if-let [last-open-pos (string/last-dex-of observed-part comment-open-tag)]
+                         (-> n (string/part last-open-pos position)
+                               (string/contains-part? comment-close-tag)
+                               (not)))))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [position-commented?]]))
+
+(syntax.api/position-commented? ...)
+(position-commented?            ...)
+```
+
+</details>
+
+---
+
+### position-escaped?
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn position-escaped?
+  [n position])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [position-escaped?]]))
+
+(syntax.api/position-escaped?)
+(position-escaped?)
+```
+
+</details>
+
+---
+
+### position-quoted?
+
+```
+@description
+Returns TRUE if the given position in the 'n' string is in a quoted section.
+```
+
+```
+@param (string) n
+@param (dex) position
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false}
+```
+
+```
+@usage
+(position-quoted? "\"My quote\" My string" 3)
+```
+
+```
+@example
+(position-quoted? "\"My quote\" My string" 3)
+=>
+true
+```
+
+```
+@example
+(position-quoted? "\"My quote\" My string" 13)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn position-quoted?
+  [n position])
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [position-quoted?]]))
+
+(syntax.api/position-quoted? ...)
+(position-quoted?            ...)
+```
+
+</details>
+
+---
+
 ### quotes
+
+```
+@description
+Wraps the given 'n' string with a quote pair.
+```
 
 ```
 @param (string) n
@@ -787,7 +1111,7 @@ Default: 0
 ```
 (defn quotes
   [n]
-  (str (when n (str "\"" n "\""))))
+  (str (when n (str "\""n"\""))))
 ```
 
 </details>
@@ -809,24 +1133,29 @@ Default: 0
 ### remove-comments
 
 ```
+@description
+Removes the commented parts of the given 'n' string.
+```
+
+```
 @param (string) n
-@param (string) open-tag
-@param (string)(opt) close-tag
+@param (string) comment-open-tag
+@param (string)(opt) comment-close-tag
  Default: "\n"
 ```
 
 ```
 @usage
-(remove-comments "(defn my-function []) \n ; My comment \n"
+(remove-comments "(defn my-function [])\n ; My comment\n"
                  ";")
 ```
 
 ```
 @example
-(remove-comments "(defn my-function []) \n ; My comment \n"
+(remove-comments "(defn my-function [])\n ; My comment\n"
                  ";")
 =>
-"(defn my-function []) \n"
+"(defn my-function [])\n"
 ```
 
 ```
@@ -847,15 +1176,16 @@ Default: 0
 
 ```
 (defn remove-comments
-  ([n open-tag]
-   (remove-comments n open-tag "\n"))
+  ([n comment-open-tag]
+   (remove-comments n comment-open-tag "\n"))
 
-  ([n open-tag close-tag]
+  ([n comment-open-tag comment-close-tag]
    (letfn [
-           (f0 [n] (if-let [open-pos (tags/open-tag-position n open-tag)]
-                           (if-let [close-pos (tags/close-tag-position n open-tag close-tag)]
-                                   (if (number? close-pos)
-                                       (string/cut n open-pos (+ close-pos (count close-tag)))))))
+           (f0 [n] (if-let [comment-open-pos (tags/open-tag-position n comment-open-tag)]
+                           (if-let [comment-close-pos (tags/close-tag-position n comment-open-tag comment-close-tag)]
+                                   (if (number? comment-close-pos)
+                                       (string/cut n comment-open-pos (+ comment-close-pos (count comment-close-tag))))
+                                   (string/part n 0 comment-open-pos))))
 
            (f1 [n] (if-let [n (f0 n)]
                            (-> n f1)
@@ -880,7 +1210,237 @@ Default: 0
 
 ---
 
+### tag-count
+
+```
+@description
+- Returns the found occurence count of the 'tag' string in the 'n' string.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+```
+
+```
+@param (string) n
+@param (string) tag
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
+```
+
+```
+@example
+(tag-count "<div><div></div></div>" "<div>")
+=>
+2
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn tag-count
+  ([n tag]
+   (tag-count n tag {}))
+
+  ([n tag {:keys [offset] :or {offset 0} :as options}]
+   (letfn [(f [cursor found-tag-count]
+              (if-let [first-tag-pos (tag-position n tag (assoc options :offset cursor))]
+                      (f (+ first-tag-pos (count tag)) (inc found-tag-count))
+                      (-> found-tag-count)))]
+
+          (f offset 0))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [tag-count]]))
+
+(syntax.api/tag-count ...)
+(tag-count            ...)
+```
+
+</details>
+
+---
+
+### tag-position
+
+```
+@description
+- Returns the position of the first 'tag' string in the 'n' string.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+- The returned position is an absolute value and is independent from the offset.
+```
+
+```
+@param (string) n
+@param (string) tag
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
+```
+
+```
+@example
+(tag-position "<div>My content</div>" "<div>")
+=>
+0
+```
+
+```
+@example
+(tag-position "<div><div></div></div>" "<div>")
+=>
+0
+```
+
+```
+@example
+(tag-position "</div> <div></div>" "<div>")
+=>
+7
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn tag-position
+  ([n tag]
+   (tag-position n tag {}))
+
+  ([n tag {:keys [comment-close-tag comment-open-tag ignore-comments? offset]
+           :or   {comment-close-tag "\n" comment-open-tag "           :as   options}]
+   (let [observed-part (string/part n offset)]
+        (if-let [observed-tag-pos (string/first-dex-of observed-part tag)]
+                (let [observed-tag-pos (+ offset observed-tag-pos)]
+                     (if ignore-comments? (if (check/position-commented? n observed-tag-pos comment-open-tag comment-close-tag)
+                                              (tag-position n tag (assoc options :offset (+ observed-tag-pos (count tag))))
+                                              (-> observed-tag-pos))
+                                          (-> observed-tag-pos)))))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [tag-position]]))
+
+(syntax.api/tag-position ...)
+(tag-position            ...)
+```
+
+</details>
+
+---
+
+### tags-balanced?
+
+```
+@description
+- Returns TRUE if the given 'open-tag' and 'close-tag' pairs are balanced in their quantity in the given 'n' string.
+- If the 'offset' parameter is passed, the search starts from the offset position.
+```
+
+```
+@param (string) n
+@param (string) open-tag
+@param (string) close-tag
+@param (map)(opt) options
+{:comment-close-tag (string)(opt)
+  Default: "\n"
+ :comment-open-tag (string)(opt)
+  Default ";"
+ :ignore-comments? (boolean)(opt)
+  Default: false
+ :ignore-quotes? (boolean)(opt)
+  Default: false
+ :offset (integer)(opt)
+  Default: 0}
+```
+
+```
+@example
+(tags-balanced? "<div><div></div>" "<div>" "</div>")
+=>
+false
+```
+
+```
+@example
+(tags-balanced? "<div><div></div></div>" "<div>" "</div>")
+=>
+true
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn tags-balanced?
+  ([n open-tag close-tag]
+   (tags-balanced? n open-tag close-tag {}))
+
+  ([n open-tag close-tag options]
+   (= (tag-count n open-tag  options)
+      (tag-count n close-tag options))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [syntax.api :refer [tags-balanced?]]))
+
+(syntax.api/tags-balanced? ...)
+(tags-balanced?            ...)
+```
+
+</details>
+
+---
+
 ### to-snake-case
+
+```
+@description
+Converts the given 'n' string from CamelCase to snake-case.
+```
 
 ```
 @param (string) n
@@ -903,19 +1463,27 @@ Default: 0
 ```
 (defn to-snake-case
   [n]
-  (let [count (count n)]
-       (letfn [(f [result cursor]
-                  (if (= count cursor)
-                      (-> result)
-                      (let [char (subs n cursor (inc cursor))]
-                           (if (= char (string/to-uppercase char))
-                               (f (str (subs n 0 cursor)
-                                       (if (not= cursor 0) "-")
-                                       (string/to-lowercase char)
-                                       (subs n (inc cursor)))
-                                  (inc cursor))
-                               (f result (inc cursor))))))]
-              (f n 0))))
+  (letfn [
+          (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
+
+          (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
+
+          (f2 [result cursor]
+              (let [char (subs result cursor (inc cursor))]
+                   (if (re-find #"[A-Z]" char)
+                       (cond (= cursor 0)       (str                            (string/to-lowercase char) (subs result (inc cursor)))
+                             (f0 result cursor) (str (subs result 0 cursor)     (string/to-lowercase char) (subs result (inc cursor)))
+                             (f1 result cursor) (str (subs result 0 cursor)     (string/to-lowercase char) (subs result (inc cursor)))
+                             :else              (str (subs result 0 cursor) "-" (string/to-lowercase char) (subs result (inc cursor))))
+                       (-> result))))
+
+          (f3 [result cursor]
+              (if (= (count result) cursor)
+                  (-> result)
+                  (let [new-result (f2 result cursor)]
+                       (f3 new-result (+ (inc cursor) (- (count new-result) (count result)))))))]
+
+         (f3 n 0)))
 ```
 
 </details>

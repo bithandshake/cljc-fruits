@@ -1,10 +1,11 @@
 
 (ns string.core
     (:require [clojure.string]
-              [math.api     :as math]
-              [string.check :as check]
-              [string.cut   :as cut]
-              [string.dex   :as dex]))
+              [math.api      :as math]
+              [string.check  :as check]
+              [string.cursor :as cursor]
+              [string.cut    :as cut]
+              [string.dex    :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -47,29 +48,6 @@
       (-> a)
       (-> b)))
 
-(defn length
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (length "One Flew Over the Cuckoo's Nest")
-  ;
-  ; @example
-  ; (length "One Flew Over the Cuckoo's Nest")
-  ; =>
-  ; 31
-  ;
-  ; @example
-  ; (length [])
-  ; =>
-  ; 2
-  ;
-  ; @return (integer)
-  [n]
-  (let [n (str n)]
-       (if (-> n empty?)
-           (-> 0)
-           (-> n count))))
-
 (defn get-nth-character
   ; @param (*) n
   ; @param (integer) dex
@@ -90,8 +68,8 @@
   ; @param (string)
   [n dex]
   (let [n (str n)]
-       (if (math/between? dex 0 (-> n count dec))
-           (nth n dex))))
+       (if (-> n (dex/dex-in-bounds? dex))
+           (-> n (nth                dex)))))
 
 (defn multiply
   ; @param (*) n
@@ -171,14 +149,6 @@
   ; (cover "user@email.com" "**" 2)
   ; =>
   ; "us**@email.com"
-  ;
-  ; "user"
-  ;   "**"
-  ; 2
-  ;
-  ; "user@"
-  ;   "*"
-  ; 2
   ;
   ; @return (string)
   ([n x]
@@ -261,8 +231,8 @@
 
   ([n x separator]
    (let [n (str n)]
-        (if (-> n empty?)
-            (-> n)
+        (if (->  n empty?)
+            (->  n)
             (str x separator n)))))
 
 (defn suffix
@@ -341,7 +311,7 @@
 (defn insert-part
   ; @param (*) n
   ; @param (*) x
-  ; @param (integer) dex
+  ; @param (integer) cursor
   ;
   ; @usage
   ; (insert-part "abcd" "xx" 2)
@@ -352,12 +322,11 @@
   ; "abxxcd"
   ;
   ; @return (string)
-  [n x dex]
-  (let [n     (str   n)
-        count (count n)
-        dex   (math/between! dex 0 count)]
-       (str (subs n 0 dex) x
-            (subs n   dex))))
+  [n x cursor]
+  (let [n (str n)]
+       (if (-> n (cursor/cursor-in-bounds? cursor))
+           (str (subs n 0 cursor) x
+                (subs n   cursor)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

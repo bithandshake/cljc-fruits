@@ -490,8 +490,7 @@ nil
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```
@@ -575,7 +574,8 @@ false
   [n pattern]
   (let [n (str n)]
        (if-let [match (re-find pattern n)]
-               (string/first-dex-of n match))))
+               (cond (vector? match) (string/first-dex-of n (first match))
+                     (string? match) (string/first-dex-of n        match)))))
 ```
 
 </details>
@@ -802,7 +802,8 @@ nil
   [n pattern]
   (let [n (str n)]
        (if-let [match (re-find pattern n)]
-               (string/last-dex-of n match))))
+               (cond (vector? match) (string/last-dex-of n (first match))
+                     (string? match) (string/last-dex-of n        match)))))
 ```
 
 </details>
@@ -825,8 +826,7 @@ nil
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```
@@ -885,8 +885,7 @@ matches for the occurence!
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```
@@ -946,8 +945,7 @@ false
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```
@@ -1009,8 +1007,7 @@ matches for the occurence!
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```
@@ -1093,16 +1090,16 @@ false
 ```
 (defn nth-dex-of
   [n pattern dex]
-  (let [n (str n)])
-  (when (>= dex 0)
-        (letfn [(f [cursor skip]
-                   (if-let [first-dex (-> n (string/part  cursor)
-                                            (first-dex-of pattern))]
-                           (if (= skip dex)
-                               (+ cursor first-dex)
-                               (f (+ first-dex cursor 1)
-                                  (inc skip)))))]
-               (f 0 0))))
+  (let [n (str n)]
+       (when (>= dex 0)
+             (letfn [(f [cursor skip]
+                        (if-let [first-dex (-> n (string/part  cursor)
+                                                 (first-dex-of pattern))]
+                                (if (= skip dex)
+                                    (+ cursor first-dex)
+                                    (f (+ first-dex cursor 1)
+                                       (inc skip)))))]
+                    (f 0 0)))))
 ```
 
 </details>
@@ -1611,8 +1608,7 @@ matches for the occurence!
 
 ```
 @warning
-Do not use capturing groups in you pattern, otherwise it generates multiple
-matches for the occurence!
+Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
 ```
 
 ```

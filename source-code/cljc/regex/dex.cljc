@@ -18,7 +18,8 @@
   [n pattern]
   (let [n (str n)]
        (if-let [match (re-find pattern n)]
-               (string/first-dex-of n match))))
+               (cond (vector? match) (string/first-dex-of n (first match))
+                     (string? match) (string/first-dex-of n        match)))))
 
 (defn last-dex-of
   ; @param (*) n
@@ -33,7 +34,8 @@
   [n pattern]
   (let [n (str n)]
        (if-let [match (re-find pattern n)]
-               (string/last-dex-of n match))))
+               (cond (vector? match) (string/last-dex-of n (first match))
+                     (string? match) (string/last-dex-of n        match)))))
 
 (defn nth-dex-of
   ; @param (*) n
@@ -46,13 +48,13 @@
   ;
   ; @return (integer)
   [n pattern dex]
-  (let [n (str n)])
-  (when (>= dex 0)
-        (letfn [(f [cursor skip]
-                   (if-let [first-dex (-> n (string/part  cursor)
-                                            (first-dex-of pattern))]
-                           (if (= skip dex)
-                               (+ cursor first-dex)
-                               (f (+ first-dex cursor 1)
-                                  (inc skip)))))]
-               (f 0 0))))
+  (let [n (str n)]
+       (when (>= dex 0)
+             (letfn [(f [cursor skip]
+                        (if-let [first-dex (-> n (string/part  cursor)
+                                                 (first-dex-of pattern))]
+                                (if (= skip dex)
+                                    (+ cursor first-dex)
+                                    (f (+ first-dex cursor 1)
+                                       (inc skip)))))]
+                    (f 0 0)))))

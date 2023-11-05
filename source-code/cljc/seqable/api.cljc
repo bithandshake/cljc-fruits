@@ -1,10 +1,10 @@
 
 (ns seqable.api
-    (:require [seqable.type :as type]))
+    (:require [seqable.check :as check]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; seqable.type
-(def nonseqable? type/nonseqable?)
-(def nonempty?   type/nonempty?)
+; seqable.check
+(def nonseqable? check/nonseqable?)
+(def nonempty?   check/nonempty?)

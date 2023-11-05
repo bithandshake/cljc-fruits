@@ -1,14 +1,19 @@
 
 (ns math.api
-    (:require [math.collection :as collection]
+    (:require [math.check      :as check]
+              [math.collection :as collection]
               [math.config     :as config]
               [math.core       :as core]
               [math.domain     :as domain]
-              [math.percent    :as percent]
-              [math.type       :as type]))
+              [math.percent    :as percent]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; math.check
+(def negative?    check/negative?)
+(def positive?    check/positive?)
+(def nonnegative? check/nonnegative?)
 
 ; math.collection
 (def collection-average collection/collection-average)
@@ -49,8 +54,3 @@
 (def percent-rest   percent/percent-rest)
 (def percent-add    percent/percent-add)
 (def percent-diff   percent/percent-diff)
-
-; math.type
-(def negative?    type/negative?)
-(def positive?    type/positive?)
-(def nonnegative? type/nonnegative?)
