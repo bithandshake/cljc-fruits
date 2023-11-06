@@ -1,7 +1,11 @@
 
-# cljc-fruits documentation
+### cljc-fruits
 
-Documentation of the [cljc-fruits](https://github.com/bithandshake/cljc-fruits) Clojure / ClojureScript library
+Functional documentation of the [cljc-fruits](https://github.com/bithandshake/cljc-fruits) Clojure / ClojureScript library
+
+---
+
+
 
 ##### [README](../README.md) > DOCUMENTATION
 
@@ -51,5 +55,5 @@ Documentation of the [cljc-fruits](https://github.com/bithandshake/cljc-fruits) 
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

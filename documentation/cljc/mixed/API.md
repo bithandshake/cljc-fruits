@@ -1,5 +1,9 @@
 
-# mixed.api isomorphic namespace
+### mixed.api
+
+Functional documentation of the mixed.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > mixed.api
 
@@ -40,6 +44,8 @@
 - [update-whole-number](#update-whole-number)
 
 - [whole-number?](#whole-number)
+
+---
 
 ### add-numbers
 
@@ -121,7 +127,7 @@ true
 
 ```
 @example
-(=blank? {})
+(blank? {})
 =>
 true
 ```
@@ -1190,5 +1196,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

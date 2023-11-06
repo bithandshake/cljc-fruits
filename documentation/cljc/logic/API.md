@@ -1,5 +1,9 @@
 
-# logic.api isomorphic namespace
+### logic.api
+
+Functional documentation of the logic.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > logic.api
 
@@ -24,6 +28,8 @@
 - [or=](#or)
 
 - [swap](#swap)
+
+---
 
 ### =?
 
@@ -583,5 +589,5 @@ returns 'x' otherwise.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

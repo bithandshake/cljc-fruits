@@ -1,5 +1,9 @@
 
-# map.api isomorphic namespace
+### map.api
+
+Functional documentation of the map.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > map.api
 
@@ -124,6 +128,8 @@
 - [update-some](#update-some)
 
 - [values-equal?](#values-equal)
+
+---
 
 ### ->>keys
 
@@ -3561,5 +3567,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

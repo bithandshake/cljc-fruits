@@ -1,5 +1,9 @@
 
-# gestures.api isomorphic namespace
+### gestures.api
+
+Functional documentation of the gestures.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > gestures.api
 
@@ -10,6 +14,8 @@
 - [ordered-label?](#ordered-label)
 
 - [resolve-variable](#resolve-variable)
+
+---
 
 ### item-label->copy-label
 
@@ -212,5 +218,5 @@ Replaces variables in strings with its values.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

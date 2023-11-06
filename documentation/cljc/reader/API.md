@@ -1,5 +1,9 @@
 
-# reader.api isomorphic namespace
+### reader.api
+
+Functional documentation of the reader.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > reader.api
 
@@ -14,6 +18,8 @@
 - [string->map](#string-map)
 
 - [string->mixed](#string-mixed)
+
+---
 
 ### json->map
 
@@ -275,5 +281,5 @@ nil
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# math.api isomorphic namespace
+### math.api
+
+Functional documentation of the math.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > math.api
 
@@ -68,6 +72,8 @@
 - [power](#power)
 
 - [round](#round)
+
+---
 
 ### absolute
 
@@ -1682,5 +1688,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

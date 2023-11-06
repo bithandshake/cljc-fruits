@@ -1,5 +1,9 @@
 
-# regex.api isomorphic namespace
+### regex.api
+
+Functional documentation of the regex.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > regex.api
 
@@ -56,6 +60,8 @@
 - [to-first-occurence](#to-first-occurence)
 
 - [to-last-occurence](#to-last-occurence)
+
+---
 
 ### after-first-occurence
 
@@ -1853,5 +1859,5 @@ nil
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

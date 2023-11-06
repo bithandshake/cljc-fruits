@@ -1,5 +1,9 @@
 
-# bson.api isomorphic namespace
+### bson.api
+
+Functional documentation of the bson.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > bson.api
 
@@ -8,6 +12,8 @@
 - [undot-key](#undot-key)
 
 - [undot-keys](#undot-keys)
+
+---
 
 ### undot-key
 
@@ -154,5 +160,5 @@ https://www.mongodb.com/docs/manual/core/document/#dot-notation
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

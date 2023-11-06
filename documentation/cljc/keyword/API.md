@@ -1,5 +1,9 @@
 
-# keyword.api isomorphic namespace
+### keyword.api
+
+Functional documentation of the keyword.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > keyword.api
 
@@ -20,6 +24,8 @@
 - [remove-namespace](#remove-namespace)
 
 - [to-string](#to-string)
+
+---
 
 ### add-namespace
 
@@ -464,5 +470,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

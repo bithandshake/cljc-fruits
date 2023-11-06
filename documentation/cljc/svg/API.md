@@ -1,5 +1,9 @@
 
-# svg.api isomorphic namespace
+### svg.api
+
+Functional documentation of the svg.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > svg.api
 
@@ -8,6 +12,8 @@
 - [view-box](#view-box)
 
 - [wrapper-attributes](#wrapper-attributes)
+
+---
 
 ### view-box
 
@@ -107,5 +113,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

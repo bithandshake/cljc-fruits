@@ -1,5 +1,9 @@
 
-# noop.api isomorphic namespace
+### noop.api
+
+Functional documentation of the noop.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > noop.api
 
@@ -10,6 +14,8 @@
 - [param](#param)
 
 - [return](#return)
+
+---
 
 ### none
 
@@ -180,5 +186,5 @@ Returns the given n parameter.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# function.api isomorphic namespace
+### function.api
+
+Functional documentation of the function.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > function.api
 
@@ -8,6 +12,8 @@
 - [->js](#-js)
 
 - [invoke](#invoke)
+
+---
 
 ### ->js
 
@@ -97,5 +103,5 @@ This function will be commented until the problem is being solved.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# css.api isomorphic namespace
+### css.api
+
+Functional documentation of the css.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > css.api
 
@@ -58,6 +62,8 @@
 - [vertical-margin](#vertical-margin)
 
 - [vertical-padding](#vertical-padding)
+
+---
 
 ### calc
 
@@ -1378,5 +1384,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

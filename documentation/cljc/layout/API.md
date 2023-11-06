@@ -1,5 +1,9 @@
 
-# layout.api isomorphic namespace
+### layout.api
+
+Functional documentation of the layout.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > layout.api
 
@@ -8,6 +12,8 @@
 - [column-count](#column-count)
 
 - [columns-width](#columns-width)
+
+---
 
 ### column-count
 
@@ -157,5 +163,5 @@ a certain amount of items and what's the total width of these columns.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# alphabet.api isomorphic namespace
+### alphabet.api
+
+Functional documentation of the alphabet.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > alphabet.api
 
@@ -8,6 +12,8 @@
 - [integer->lowercase](#integer-lowercase)
 
 - [integer->uppercase](#integer-uppercase)
+
+---
 
 ### integer->lowercase
 
@@ -169,5 +175,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

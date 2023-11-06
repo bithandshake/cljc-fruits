@@ -1,5 +1,9 @@
 
-# syntax.api isomorphic namespace
+### syntax.api
+
+Functional documentation of the syntax.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > syntax.api
 
@@ -48,6 +52,8 @@
 - [tags-balanced?](#tags-balanced)
 
 - [to-snake-case](#to-snake-case)
+
+---
 
 ### ToCamelCase
 
@@ -496,12 +502,12 @@ Wraps the given 'n' string with a bracket pair.
 
   ([n open-tag close-tag {:keys [offset] :or {offset 0} :as options}]
    (letfn [(f [cursor]
-              (if-let [observed-close-pos (tag-position n close-tag (assoc options :offset cursor))]
-                      (let [observed-part (string/part n 0 (+ observed-close-pos (count close-tag)))]
-                           (if (tags-balanced? observed-part open-tag close-tag options)
-                               (-> observed-close-pos)
-                               (f (+ observed-close-pos (count close-tag)))))))]
-
+              (if (string/cursor-in-bounds? n cursor)
+                  (if-let [observed-close-pos (tag-position n close-tag (assoc options :offset cursor))]
+                          (let [observed-part (string/part n 0 (+ observed-close-pos (count close-tag)))]
+                               (if (tags-balanced? observed-part open-tag close-tag options)
+                                   (-> observed-close-pos)
+                                   (f (+ observed-close-pos (count close-tag))))))))]
           (f offset))))
 ```
 
@@ -1237,6 +1243,7 @@ Removes the commented parts of the given 'n' string.
 ```
 @example
 (tag-count "<div><div></div></div>" "<div>")
+"** ***"
 =>
 2
 ```
@@ -1255,10 +1262,11 @@ Removes the commented parts of the given 'n' string.
 
   ([n tag {:keys [offset] :or {offset 0} :as options}]
    (letfn [(f [cursor found-tag-count]
-              (if-let [first-tag-pos (tag-position n tag (assoc options :offset cursor))]
-                      (f (+ first-tag-pos (count tag)) (inc found-tag-count))
-                      (-> found-tag-count)))]
-
+              (if (string/cursor-in-bounds? n cursor)
+                  (if-let [first-tag-pos (tag-position n tag (assoc options :offset cursor))]
+                          (f (+ first-tag-pos (count tag)) (inc found-tag-count))
+                          (-> found-tag-count))
+                  (-> found-tag-count)))]
           (f offset 0))))
 ```
 
@@ -1338,13 +1346,14 @@ Removes the commented parts of the given 'n' string.
 
   ([n tag {:keys [comment-close-tag comment-open-tag ignore-comments? offset]
            :or   {comment-close-tag "\n" comment-open-tag "           :as   options}]
-   (let [observed-part (string/part n offset)]
-        (if-let [observed-tag-pos (string/first-dex-of observed-part tag)]
-                (let [observed-tag-pos (+ offset observed-tag-pos)]
-                     (if ignore-comments? (if (check/position-commented? n observed-tag-pos comment-open-tag comment-close-tag)
-                                              (tag-position n tag (assoc options :offset (+ observed-tag-pos (count tag))))
-                                              (-> observed-tag-pos))
-                                          (-> observed-tag-pos)))))))
+   (if (string/cursor-in-bounds? n offset)
+       (let [observed-part (string/part n offset)]
+            (if-let [observed-tag-pos (string/first-dex-of observed-part tag)]
+                    (let [observed-tag-pos (+ offset observed-tag-pos)]
+                         (if ignore-comments? (if (check/position-commented? n observed-tag-pos comment-open-tag comment-close-tag)
+                                                  (tag-position n tag (assoc options :offset (+ observed-tag-pos (count tag))))
+                                                  (-> observed-tag-pos))
+                                              (-> observed-tag-pos))))))))
 ```
 
 </details>
@@ -1502,5 +1511,5 @@ Converts the given 'n' string from CamelCase to snake-case.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# hiccup.api isomorphic namespace
+### hiccup.api
+
+Functional documentation of the hiccup.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > hiccup.api
 
@@ -36,6 +40,8 @@
 - [value](#value)
 
 - [walk](#walk)
+
+---
 
 ### content-length
 
@@ -872,5 +878,5 @@ Converts the given 'n' to a valid HICCUP attribute value
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

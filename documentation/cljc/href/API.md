@@ -1,5 +1,9 @@
 
-# href.api isomorphic namespace
+### href.api
+
+Functional documentation of the href.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > href.api
 
@@ -12,6 +16,8 @@
 - [https-address](#https-address)
 
 - [phone-number](#phone-number)
+
+---
 
 ### email-address
 
@@ -219,5 +225,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

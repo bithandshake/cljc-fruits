@@ -1,5 +1,9 @@
 
-# atom.api isomorphic namespace
+### atom.api
+
+Functional documentation of the atom.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > atom.api
 
@@ -12,6 +16,8 @@
 - [inc!](#inc)
 
 - [not!](#not)
+
+---
 
 ### apply!
 
@@ -179,5 +185,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,11 +1,17 @@
 
-# blob.api isomorphic namespace
+### blob.api
+
+Functional documentation of the blob.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > blob.api
 
 ### Index
 
 - [to-object-url](#to-object-url)
+
+---
 
 ### to-object-url
 
@@ -47,5 +53,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

@@ -1,5 +1,9 @@
 
-# html.api isomorphic namespace
+### html.api
+
+Functional documentation of the html.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > html.api
 
@@ -8,6 +12,8 @@
 - [blank?](#blank)
 
 - [nonblank?](#nonblank)
+
+---
 
 ### blank?
 
@@ -124,5 +130,5 @@ false
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

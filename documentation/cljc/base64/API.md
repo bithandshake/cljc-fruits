@@ -1,5 +1,9 @@
 
-# base64.api isomorphic namespace
+### base64.api
+
+Functional documentation of the base64.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > base64.api
 
@@ -20,6 +24,8 @@
 - [wrap](#wrap)
 
 - [wrapped?](#wrapped)
+
+---
 
 ### decode
 
@@ -447,5 +453,5 @@ false
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

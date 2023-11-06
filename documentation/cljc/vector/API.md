@@ -1,5 +1,9 @@
 
-# vector.api isomorphic namespace
+### vector.api
+
+Functional documentation of the vector.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > vector.api
 
@@ -44,6 +48,10 @@
 - [count!](#count)
 
 - [count?](#count)
+
+- [cursor-in-bounds?](#cursor-in-bounds)
+
+- [cursor-out-of-bounds?](#cursor-out-of-bounds)
 
 - [dec-dex](#dec-dex)
 
@@ -212,6 +220,8 @@
 - [toggle-item](#toggle-item)
 
 - [trim](#trim)
+
+---
 
 ### ->>items
 
@@ -1304,9 +1314,13 @@ false
 ```
 (defn count!
   [n x]
-  (cond (= (count n) x) (-> n)
-        (> (count n) x) (first-items n x)
-        (< (count n) x) (vec (concat n (repeat nil (- x (count n)))))))
+  (if (and (-> n vector?)
+           (-> x integer?)
+           (-> n count (not= x)))
+      (if (> (count n) x)
+          (first-items n x)
+          (vec (concat n (repeat nil (- x (count n))))))
+      (-> n)))
 ```
 
 </details>
@@ -1370,6 +1384,132 @@ true
 
 (vector.api/count? ...)
 (count?            ...)
+```
+
+</details>
+
+---
+
+### cursor-in-bounds?
+
+```
+@description
+- Returns TRUE if the given 'cursor' value is falls between 0 and the highest possible cursor value ('(count n)').
+- Cursors are different from indexes in vectors.
+  A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+```
+
+```
+@param (*) n
+@param (integer) cursor
+```
+
+```
+@usage
+(cursor-in-bounds? [:a :b :c] 3)
+```
+
+```
+@example
+(cursor-in-bounds? [:a :b :c] 3)
+=>
+true
+```
+
+```
+@example
+(cursor-in-bounds? [:a :b :c] 4)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cursor-in-bounds?
+  [n cursor]
+  (and (-> cursor nat-int?)
+       (-> n count (>= cursor))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [cursor-in-bounds?]]))
+
+(vector.api/cursor-in-bounds? ...)
+(cursor-in-bounds?            ...)
+```
+
+</details>
+
+---
+
+### cursor-out-of-bounds?
+
+```
+@description
+- Returns TRUE if the given 'cursor' value is NOT falls between 0 and the highest possible cursor value ('(count n)').
+- Cursors are different from indexes in vectors.
+  A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+```
+
+```
+@param (*) n
+@param (integer) cursor
+```
+
+```
+@usage
+(cursor-out-of-bounds? [:a :b :c] 4)
+```
+
+```
+@example
+(cursor-out-of-bounds? [:a :b :c] 4)
+=>
+true
+```
+
+```
+@example
+(cursor-out-of-bounds? [:a :b :c] 3)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cursor-out-of-bounds?
+  [n cursor]
+  (or (-> cursor nat-int?)
+      (-> n count (< cursor))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [cursor-out-of-bounds?]]))
+
+(vector.api/cursor-out-of-bounds? ...)
+(cursor-out-of-bounds?            ...)
 ```
 
 </details>
@@ -1489,25 +1629,32 @@ true
 ### dex-in-bounds?
 
 ```
-@param (vector) n
+@description
+- Returns TRUE if the given 'dex' value is falls between 0 and the highest possible index value ('(-> n count dec)').
+- Cursors are different from indexes in vectors.
+  A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+```
+
+```
+@param (*) n
 @param (integer) dex
 ```
 
 ```
 @usage
-(dex-out-in-bounds? [:a :b :c] 0)
+(dex-in-bounds? [:a :b :c] 2)
 ```
 
 ```
 @example
-(dex-out-in-bounds? [:a :b :c] 2)
+(dex-in-bounds? [:a :b :c] 2)
 =>
 true
 ```
 
 ```
 @example
-(dex-out-in-bounds? [:a :b :c] 3)
+(dex-in-bounds? [:a :b :c] 3)
 =>
 false
 ```
@@ -1522,8 +1669,8 @@ false
 ```
 (defn dex-in-bounds?
   [n dex]
-  (and (>= dex 0)
-       (<  dex (count n))))
+  (and (-> dex nat-int?)
+       (-> n count (> dex))))
 ```
 
 </details>
@@ -1594,13 +1741,20 @@ true
 ### dex-out-of-bounds?
 
 ```
-@param (vector) n
+@description
+- Returns TRUE if the given 'dex' value is NOT falls between 0 and the highest possible index value ('(-> n count dec)').
+- Cursors are different from indexes in vectors.
+  A cursor could be at the very end of the vector while an index could only point to the last item at the end.
+```
+
+```
+@param (*) n
 @param (integer) dex
 ```
 
 ```
 @usage
-(dex-out-of-bounds? [:a :b :c] 0)
+(dex-out-of-bounds? [:a :b :c] 3)
 ```
 
 ```
@@ -1627,8 +1781,8 @@ false
 ```
 (defn dex-out-of-bounds?
   [n dex]
-  (or (<  dex 0)
-      (>= dex (count n))))
+  (or (-> dex nat-int?)
+      (-> n count (<= dex))))
 ```
 
 </details>
@@ -2209,9 +2363,9 @@ true
 ```
 (defn first-items
   [n length]
-  (cond (-> length integer? not) (-> n)
-        (>= length (count n))    (-> n)
-        :return (subvec n 0 length)))
+  (if (dex/dex-in-bounds? n length)
+      (subvec n 0 length)
+      (->     n)))
 ```
 
 </details>
@@ -2574,7 +2728,7 @@ At the end of the vector it stops.
 
 ```
 @param (vector) n
-@param (integer) dex
+@param (integer) cursor
 @param (*) x
 ```
 
@@ -2620,13 +2774,13 @@ At the end of the vector it stops.
 
 ```
 (defn inject-item
-  [n dex x]
+  [n cursor x]
   (cond (vector? n)
-        (if (dex/dex-out-of-bounds? n dex)
+        (if (cursor/cursor-out-of-bounds? n cursor)
             (conj-item n x)
-            (concat-items (subvec n 0 dex)
+            (concat-items (subvec n 0 cursor)
                           [x]
-                          (subvec n dex)))
+                          (subvec n cursor)))
         (nil? n) (-> [x])
         :return n))
 ```
@@ -2783,7 +2937,7 @@ true
 ```
 (defn item-first?
   [n x]
-  (= (first n) x))
+  (-> n first (= x)))
 ```
 
 </details>
@@ -2881,7 +3035,7 @@ true
 ```
 (defn item-last?
   [n x]
-  (= (last n) x))
+  (-> n last (= x)))
 ```
 
 </details>
@@ -3199,7 +3353,7 @@ true
 ```
 (defn last-dex
   [n]
-  (if (-> n type/nonempty?)
+  (if (-> n check/nonempty?)
       (-> n count dec)))
 ```
 
@@ -3394,9 +3548,9 @@ true
 ```
 (defn last-items
   [n length]
-  (cond (-> length integer? not) (-> n)
-        (>= length (count n))    (-> n)
-        :return (subvec n (-> n count (- length)))))
+  (if (dex/dex-in-bounds? n length)
+      (subvec n (-> n count (- length)))
+      (->     n)))
 ```
 
 </details>
@@ -3451,10 +3605,10 @@ false
 ```
 (defn longer?
   [a b]
-  (and (vector? a)
-       (vector? b)
-       (> (count b)
-          (count a))))
+  (and (-> a vector?)
+       (-> b vector?)
+       (> (-> b count)
+          (-> a count))))
 ```
 
 </details>
@@ -3585,7 +3739,7 @@ false
 (defn max?
   [n x]
   (and (-> n vector?)
-       (>= x (count n))))
+       (-> n count (<= x))))
 ```
 
 </details>
@@ -3641,7 +3795,7 @@ false
 (defn min?
   [n x]
   (and (-> n vector?)
-       (<= x (count n))))
+       (-> n count (>= x))))
 ```
 
 </details>
@@ -3864,7 +4018,7 @@ false
 @example
 (move-nth-item [:a :b :c :d :e :f :g :h] 2 5)
 =>
-[:a :b :d :e :c :f :g :h]
+[:a :b :d :e :f :c :g :h]
 ```
 
 ```
@@ -4076,7 +4230,7 @@ At the end of the vector it jumps to the first index.
 ```
 (defn next-dex
   [n dex]
-  (if (-> n type/nonempty?)
+  (if (-> n check/nonempty?)
       (-> dex (sequence/next-dex 0 (-> n count dec)))
       (-> 0)))
 ```
@@ -4410,9 +4564,9 @@ false
 ```
 (defn nth-item
   [n dex]
-  (when (and (vector?            n)
-             (dex/dex-in-bounds? n dex))
-        (nth n dex)))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
+      (nth n dex)))
 ```
 
 </details>
@@ -4621,8 +4775,8 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 @param (vector) n
-@param (integer) low
-@param (integer)(opt) high
+@param (integer) from
+@param (integer)(opt) to
 ```
 
 ```
@@ -4658,17 +4812,18 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 (defn ranged-items
-  ([n low]
-   (let [high (count n)]
-        (ranged-items n low high)))
+  ([n from]
+   (let [to (count n)]
+        (ranged-items n from to)))
 
-  ([n low high]
-   (let [high (min high (count n))]
-        (if (and (vector? n)
-                 (<  low high)
-                 (>= low 0))
-            (subvec n low high)
-            (-> [])))))
+  ([n from to]
+   (if (and (-> n  vector?)
+            (-> to integer?)
+            (-> n (cursor/cursor-in-bounds? from)))
+       (let [to   (min to (count n))
+             from (min from to)]
+            (subvec n from to))
+       (-> []))))
 ```
 
 </details>
@@ -5288,10 +5443,10 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn remove-nth-item
   [n dex]
-  (when (and (vector?            n)
-             (dex/dex-in-bounds? n dex))
-        (vec (concat (subvec n 0 dex)
-                     (subvec n (inc dex))))))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
+      (vec (concat (subvec n 0 dex)
+                   (subvec n (inc dex))))))
 ```
 
 </details>
@@ -5447,8 +5602,8 @@ At the beginning of the vector it jumps to the last index.
 ```
 (defn replace-nth-item
   [n dex x]
-  (if (and (vector?            n)
-           (dex/dex-in-bounds? n dex))
+  (if (and (-> n vector?)
+           (-> n (dex/dex-in-bounds? dex)))
       (vec (concat (subvec n 0 dex)
                    [x]
                    (subvec n (inc dex))))
@@ -5983,5 +6138,5 @@ in the first vector, it's position won't be in the return vector.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

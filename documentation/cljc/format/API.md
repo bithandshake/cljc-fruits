@@ -1,5 +1,9 @@
 
-# format.api isomorphic namespace
+### format.api
+
+Functional documentation of the format.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > format.api
 
@@ -22,6 +26,8 @@
 - [sign-number](#sign-number)
 
 - [trailing-zeros](#trailing-zeros)
+
+---
 
 ### decimals
 
@@ -578,5 +584,5 @@ Default: ","
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

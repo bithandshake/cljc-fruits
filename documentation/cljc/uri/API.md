@@ -1,5 +1,9 @@
 
-# uri.api isomorphic namespace
+### uri.api
+
+Functional documentation of the uri.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > uri.api
 
@@ -52,6 +56,8 @@
 - [valid-url](#valid-url)
 
 - [valid-url-path](#valid-url-path)
+
+---
 
 ### to-absolute-url
 
@@ -1761,5 +1767,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

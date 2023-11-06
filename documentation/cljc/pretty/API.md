@@ -1,11 +1,17 @@
 
-# pretty.api isomorphic namespace
+### pretty.api
+
+Functional documentation of the pretty.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > pretty.api
 
 ### Index
 
 - [mixed->string](#mixed-string)
+
+---
 
 ### mixed->string
 
@@ -111,5 +117,5 @@ The <pre> HTML tag makes the output more human-readable.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

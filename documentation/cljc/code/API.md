@@ -1,11 +1,17 @@
 
-# code.api isomorphic namespace
+### code.api
+
+Functional documentation of the code.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > code.api
 
 ### Index
 
 - [run-code!](#run-code)
+
+---
 
 ### run-code!
 
@@ -58,5 +64,5 @@
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

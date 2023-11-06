@@ -1,5 +1,9 @@
 
-# random.api isomorphic namespace
+### random.api
+
+Functional documentation of the random.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > random.api
 
@@ -20,6 +24,8 @@
 - [generate-uuid](#generate-uuid)
 
 - [pick-vector-item](#pick-vector-item)
+
+---
 
 ### generate-boolean
 
@@ -396,5 +402,5 @@ true
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

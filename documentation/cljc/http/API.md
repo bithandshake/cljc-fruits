@@ -1,5 +1,9 @@
 
-# http.api isomorphic namespace
+### http.api
+
+Functional documentation of the http.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > http.api
 
@@ -92,6 +96,8 @@
 - [text-wrap](#text-wrap)
 
 - [xml-wrap](#xml-wrap)
+
+---
 
 ### capitalize-header
 
@@ -2295,5 +2301,5 @@ false
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

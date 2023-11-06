@@ -1,5 +1,9 @@
 
-# sequence.api isomorphic namespace
+### sequence.api
+
+Functional documentation of the sequence.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > sequence.api
 
@@ -10,6 +14,8 @@
 - [prev-dex](#prev-dex)
 
 - [prev-prev-dex](#prev-prev-dex)
+
+---
 
 ### next-dex
 
@@ -179,5 +185,5 @@ mint max
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

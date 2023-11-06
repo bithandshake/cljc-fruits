@@ -1,5 +1,9 @@
 
-# loop.api isomorphic namespace
+### loop.api
+
+Functional documentation of the loop.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > loop.api
 
@@ -22,6 +26,8 @@
 - [reduce-range](#reduce-range)
 
 - [some-indexed](#some-indexed)
+
+---
 
 ### <-walk
 
@@ -538,5 +544,5 @@ and passes them to the given 'f' function with the result of the previous iterat
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 

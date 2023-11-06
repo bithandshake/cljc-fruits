@@ -1,5 +1,9 @@
 
-# string.api isomorphic namespace
+### string.api
+
+Functional documentation of the string.api isomorphic namespace
+
+---
 
 ##### [README](../../../README.md) > [DOCUMENTATION](../../COVER.md) > string.api
 
@@ -14,6 +18,8 @@
 - [after-last-occurence](#after-last-occurence)
 
 - [append](#append)
+
+- [apply-on-part](#apply-on-part)
 
 - [before-first-occurence](#before-first-occurence)
 
@@ -35,7 +41,15 @@
 
 - [cover](#cover)
 
+- [cursor-in-bounds?](#cursor-in-bounds)
+
+- [cursor-out-of-bounds?](#cursor-out-of-bounds)
+
 - [cut](#cut)
+
+- [dex-in-bounds?](#dex-in-bounds)
+
+- [dex-out-of-bounds?](#dex-out-of-bounds)
 
 - [ends-with!](#ends-with)
 
@@ -115,6 +129,8 @@
 
 - [replace-part](#replace-part)
 
+- [same-length?](#same-length)
+
 - [split](#split)
 
 - [starts-with!](#starts-with)
@@ -154,6 +170,8 @@
 - [use-replacement](#use-replacement)
 
 - [use-replacements](#use-replacements)
+
+---
 
 ### abc
 
@@ -318,7 +336,7 @@ true
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -416,7 +434,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -557,6 +575,71 @@ nil
 
 ---
 
+### apply-on-part
+
+```
+@description
+Applies the given 'f' function on a specific part of the 'n' value (converted to string).
+```
+
+```
+@param (*) n
+@param (integer) from
+@param (integer)(opt) to
+@param (function) f
+```
+
+```
+@usage
+(apply-on-part "My string" 3 4 string.api/to-uppercase)
+```
+
+```
+@example
+(apply-on-part "My string" 3 4 string.api/to-uppercase)
+=>
+"My String"
+```
+
+```
+@return (string)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn apply-on-part
+  ([n from f]
+   (apply-on-part n from (-> n str count) f))
+
+  ([n from to f]
+   (let [n (str n)]
+        (if (and (-> n empty? not)
+                 (-> n (cursor/cursor-in-bounds? from))
+                 (-> n (cursor/cursor-in-bounds? to)))
+            (str (-> n (subs 0 from))
+                 (-> n (subs from to) f)
+                 (-> n (subs to)))
+            (-> n)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [apply-on-part]]))
+
+(string.api/apply-on-part ...)
+(apply-on-part            ...)
+```
+
+</details>
+
+---
+
 ### before-first-occurence
 
 ```
@@ -566,7 +649,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -664,7 +747,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -1262,12 +1345,6 @@ false
 (cover "user@email.com" "**" 2)
 =>
 "us**@email.com"
-"user"
-  "**"
-2
-"user@"
-  "*"
-2
 ```
 
 ```
@@ -1306,12 +1383,140 @@ false
 
 ---
 
+### cursor-in-bounds?
+
+```
+@description
+- Returns TRUE if the given 'cursor' value is falls between 0 and the highest possible cursor value ('(count n)').
+- Cursors are different from indexes in strings.
+  A cursor could be at the very end of the string while an index could only point to the last character at the end.
+```
+
+```
+@param (*) n
+@param (integer) cursor
+```
+
+```
+@usage
+(cursor-in-bounds? "abc" 3)
+```
+
+```
+@example
+(cursor-in-bounds? "abc" 3)
+=>
+true
+```
+
+```
+@example
+(cursor-in-bounds? "abc" 4)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cursor-in-bounds?
+  [n cursor]
+  (let [n (str n)]
+       (and (-> cursor nat-int?)
+            (-> n count (>= cursor)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [cursor-in-bounds?]]))
+
+(string.api/cursor-in-bounds? ...)
+(cursor-in-bounds?            ...)
+```
+
+</details>
+
+---
+
+### cursor-out-of-bounds?
+
+```
+@description
+- Returns TRUE if the given 'cursor' value is NOT falls between 0 and the highest possible cursor value ('(count n)').
+- Cursors are different from indexes in strings.
+  A cursor could be at the very end of the string while an index could only point to the last character at the end.
+```
+
+```
+@param (*) n
+@param (integer) cursor
+```
+
+```
+@usage
+(cursor-out-of-bounds? "abc" 4)
+```
+
+```
+@example
+(cursor-out-of-bounds? "abc" 4)
+=>
+true
+```
+
+```
+@example
+(cursor-out-of-bounds? "abc" 3)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn cursor-out-of-bounds?
+  [n cursor]
+  (let [n (str n)]
+       (or (-> cursor nat-int? not)
+           (-> n count (< cursor)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [cursor-out-of-bounds?]]))
+
+(string.api/cursor-out-of-bounds? ...)
+(cursor-out-of-bounds?            ...)
+```
+
+</details>
+
+---
+
 ### cut
 
 ```
 @param (*) n
-@param (integer) start
-@param (integer)(opt) end
+@param (integer)(opt) start
+@param (integer) end
 ```
 
 ```
@@ -1356,15 +1561,14 @@ false
 
 ```
 (defn cut
-  ([n start]
-   (let [n (str n)]
-        (cut n 0 start)))
+  ([n end]
+   (cut n 0 end))
 
   ([n start end]
    (let [n (str n)]
         (if (and (-> n empty? not)
-                 (math/between? end   0 (count n))
-                 (math/between? start 0 (count n)))
+                 (-> n (cursor/cursor-in-bounds? start))
+                 (-> n (cursor/cursor-in-bounds? end)))
             (str (subs n 0 (min start end))
                  (subs n   (max start end)))
             (-> n)))))
@@ -1380,6 +1584,134 @@ false
 
 (string.api/cut ...)
 (cut            ...)
+```
+
+</details>
+
+---
+
+### dex-in-bounds?
+
+```
+@description
+- Returns TRUE if the given 'dex' value is falls between 0 and the highest possible index value ('(-> n count dec)').
+- Cursors are different from indexes in strings.
+  A cursor could be at the very end of the string while an index could only point to the last character at the end.
+```
+
+```
+@param (*) n
+@param (integer) dex
+```
+
+```
+@usage
+(dex-in-bounds? "abc" 2)
+```
+
+```
+@example
+(dex-in-bounds? "abc" 2)
+=>
+true
+```
+
+```
+@example
+(dex-in-bounds? "abc" 3)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn dex-in-bounds?
+  [n dex]
+  (let [n (str n)]
+       (and (-> dex nat-int?)
+            (-> n count (> dex)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [dex-in-bounds?]]))
+
+(string.api/dex-in-bounds? ...)
+(dex-in-bounds?            ...)
+```
+
+</details>
+
+---
+
+### dex-out-of-bounds?
+
+```
+@description
+- Returns TRUE if the given 'dex' value is NOT falls between 0 and the highest possible index value ('(-> n count dec)').
+- Cursors are different from indexes in strings.
+  A cursor could be at the very end of the string while an index could only point to the last character at the end.
+```
+
+```
+@param (*) n
+@param (integer) dex
+```
+
+```
+@usage
+(dex-out-of-bounds? "abc" 3)
+```
+
+```
+@example
+(dex-out-of-bounds? "abc" 3)
+=>
+true
+```
+
+```
+@example
+(dex-out-of-bounds? "abc" 2)
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn dex-out-of-bounds?
+  [n dex]
+  (let [n (str n)]
+       (or (-> dex nat-int? not)
+           (-> n count (<= dex)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [dex-out-of-bounds?]]))
+
+(string.api/dex-out-of-bounds? ...)
+(dex-out-of-bounds?            ...)
 ```
 
 </details>
@@ -1659,7 +1991,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -1757,7 +2089,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -1880,8 +2212,8 @@ nil
 (defn get-nth-character
   [n dex]
   (let [n (str n)]
-       (if (math/between? dex 0 (-> n count dec))
-           (nth n dex))))
+       (if (-> n (dex/dex-in-bounds? dex))
+           (-> n (nth                dex)))))
 ```
 
 </details>
@@ -1989,7 +2321,7 @@ nil
 ```
 @param (*) n
 @param (*) x
-@param (integer) dex
+@param (integer) cursor
 ```
 
 ```
@@ -2013,12 +2345,11 @@ nil
 
 ```
 (defn insert-part
-  [n x dex]
-  (let [n     (str   n)
-        count (count n)
-        dex   (math/between! dex 0 count)]
-       (str (subs n 0 dex) x
-            (subs n   dex))))
+  [n x cursor]
+  (let [n (str n)]
+       (if (-> n (cursor/cursor-in-bounds? cursor))
+           (str (subs n 0 cursor) x
+                (subs n   cursor)))))
 ```
 
 </details>
@@ -2651,8 +2982,7 @@ false
   [n limit & [suffix]]
   (let [n (str n)]
        (if (and (-> n empty? not)
-                (-> limit integer?)
-                (<  limit (count n)))
+                (-> n (dex/dex-in-bounds? limit)))
            (str (subs n 0 limit) suffix)
            (-> n))))
 ```
@@ -3476,16 +3806,14 @@ false
 ```
 (defn part
   ([n start]
-   (let [n (str n)]
-        (part n start (count n))))
+   (part n start (-> n str count)))
 
   ([n start end]
    (let [n (str n)]
         (if (and (-> n empty? not)
-                 (math/between? end   0 (count n))
-                 (math/between? start 0 (count n)))
-            (subs n start end)
-            (->   n)))))
+                 (-> n (cursor/cursor-in-bounds? start))
+                 (-> n (cursor/cursor-in-bounds? end)))
+            (subs n start end)))))
 ```
 
 </details>
@@ -3627,8 +3955,8 @@ true
 
   ([n x separator]
    (let [n (str n)]
-        (if (-> n empty?)
-            (-> n)
+        (if (->  n empty?)
+            (->  n)
             (str x separator n)))))
 ```
 
@@ -4051,6 +4379,67 @@ true
 
 ---
 
+### same-length?
+
+```
+@description
+Returns TRUE if the given 'a' and 'b' values (converted to string) have a the same length.
+```
+
+```
+@param (*) a
+@param (*) b
+```
+
+```
+@usage
+(same-length? "abc" "def")
+```
+
+```
+@example
+(same-length? "abc" "def")
+=>
+true
+```
+
+```
+@example
+(same-length? "abc" "defghi")
+=>
+false
+```
+
+```
+@return (boolean)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn same-length?
+  [a b]
+  (= (-> a str count)
+     (-> b str count)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [same-length?]]))
+
+(string.api/same-length? ...)
+(same-length?            ...)
+```
+
+</details>
+
+---
+
 ### split
 
 ```
@@ -4399,7 +4788,7 @@ false
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -4554,7 +4943,7 @@ nil
 {:case-sensitive? (boolean)(opt)
   Default: true
  :return? (boolean)(opt)
-  If true, returns the whole string in case of no occurence found.
+  If true, returns the given 'n' value in case of no occurence has been found.
   Default: false}
 ```
 
@@ -4741,7 +5130,7 @@ nil
 
 ```
 @description
-Trims both ends of the given 'n' string by removing the leading and trailing whitespaces.
+Trims both ends of the given 'n' value (converted to string) by removing the leading and trailing whitespaces.
 ```
 
 ```
@@ -4793,7 +5182,7 @@ Trims both ends of the given 'n' string by removing the leading and trailing whi
 
 ```
 @description
-Trims the end of the given 'n' string by removing the trailing whitespaces.
+Trims the end of the given 'n' value (converted to string) by removing the trailing whitespaces.
 ```
 
 ```
@@ -4845,7 +5234,7 @@ Trims the end of the given 'n' string by removing the trailing whitespaces.
 
 ```
 @description
-Trims the whitespace gaps in the given 'n' string by removing the duplicated whitespaces.
+Trims the whitespace gaps in the given 'n' value (converted to string) by removing the duplicated whitespaces.
 ```
 
 ```
@@ -4897,7 +5286,7 @@ Trims the whitespace gaps in the given 'n' string by removing the duplicated whi
 
 ```
 @description
-Trims the trailing newlines of the given 'n' string by removing the all newlines from the end.
+Trims the trailing newlines of the given 'n' value (converted to string) by removing the all newlines from the end.
 ```
 
 ```
@@ -4949,7 +5338,7 @@ Trims the trailing newlines of the given 'n' string by removing the all newlines
 
 ```
 @description
-Trims the beginning of the given 'n' string by removing the leading whitespaces.
+Trims the beginning of the given 'n' value (converted to string) by removing the leading whitespaces.
 ```
 
 ```
@@ -5319,5 +5708,5 @@ If only one replacement passed, its marker is a single percent character.
 
 ---
 
-This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.
+<sub>This documentation is generated with the [clj-docs-generator](https://github.com/bithandshake/clj-docs-generator) engine.</sub>
 
