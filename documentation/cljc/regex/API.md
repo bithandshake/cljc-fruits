@@ -39,6 +39,8 @@ Functional documentation of the regex.api isomorphic namespace
 
 - [nth-dex-of](#nth-dex-of)
 
+- [re-count](#re-count)
+
 - [re-first](#re-first)
 
 - [re-last](#re-last)
@@ -1124,6 +1126,66 @@ false
 
 ---
 
+### re-count
+
+```
+@description
+Returns the match count.
+```
+
+```
+@param (*) n
+@param (regex pattern) pattern
+```
+
+```
+@usage
+(re-count "123" #"\d")
+```
+
+```
+@example
+(re-count "123" #"\d")
+=>
+3
+```
+
+```
+@example
+(re-count "abc" #"\d")
+=>
+0
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn re-count
+  [n pattern]
+  (count (re-seq pattern (str n))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [regex.api :refer [re-count]]))
+
+(regex.api/re-count ...)
+(re-count           ...)
+```
+
+</details>
+
+---
+
 ### re-first
 
 ```
@@ -1248,7 +1310,7 @@ nil
 
 ```
 @description
-Returns the given 'n' string if any matches found.
+Returns the given 'n' string if any match is found.
 ```
 
 ```
@@ -1310,7 +1372,7 @@ nil
 
 ```
 @description
-Returns true if any matches found.
+Returns TRUE if any matches found.
 ```
 
 ```
@@ -1371,7 +1433,7 @@ false
 
 ```
 @description
-Returns true if no matches found.
+Returns TRUE if no matches found.
 ```
 
 ```

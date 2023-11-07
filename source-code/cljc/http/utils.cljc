@@ -1,6 +1,7 @@
 
 (ns http.utils
-    (:require [clojure.string]))
+    (:require [clojure.string]
+              [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -61,8 +62,8 @@
   ; @return (map)
   ; {:body (*)}
   [{:keys [body status] :as response-props}]
-  (cond-> response-props (-> status str first str (= "4")) (assoc :body ":client-error")
-                         (-> status str first str (= "5")) (assoc :body ":server-error")))
+  (cond-> response-props (-> status string/first-character (= "4")) (assoc :body ":client-error")
+                         (-> status string/first-character (= "5")) (assoc :body ":server-error")))
 
 (defn error-allowed?
   ; @ignore

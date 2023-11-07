@@ -9,19 +9,17 @@ Functional documentation of the reader.api isomorphic namespace
 
 ### Index
 
-- [json->map](#json-map)
+- [prepare-edn](#prepare-edn)
 
-- [mixed->string](#mixed-string)
+- [prepare-json](#prepare-json)
 
-- [read-str](#read-str)
+- [read-edn](#read-edn)
 
-- [string->map](#string-map)
-
-- [string->mixed](#string-mixed)
+- [read-json](#read-json)
 
 ---
 
-### json->map
+### prepare-edn
 
 ```
 @param (string) n
@@ -29,19 +27,204 @@ Functional documentation of the reader.api isomorphic namespace
 
 ```
 @usage
-(json->map "{\"name\":\"value\"}")
+(prepare-edn "{:my-object #object[...]}")
 ```
 
 ```
 @example
-(json->map "{\"name\":\"value\"}")
+(prepare-edn "{:my-object #object[...]}")
+=>
+"{:my-object :object-removed-by-reader}"
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn prepare-edn
+  [n]
+  (letfn [
+          (remove-object-f [%] (if-let [open-pos (string/first-dex-of % "#object[")]
+                                       (if-let [close-pos (syntax/close-bracket-position % {:offset open-pos})]
+                                               (str (string/part % 0 open-pos)
+                                                    ":object-removed-by-reader"
+                                                    (string/part % (inc close-pos))))))
+
+          (remove-objects-f [%] (if-let [% (remove-object-f %)]
+                                        (-> % remove-objects-f)
+                                        (-> %)))]
+
+         (-> n remove-objects-f)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [reader.api :refer [prepare-edn]]))
+
+(reader.api/prepare-edn ...)
+(prepare-edn            ...)
+```
+
+</details>
+
+---
+
+### prepare-json
+
+```
+@param (string) n
+```
+
+```
+@usage
+(prepare-json "{\"name\":\"value\"}")
+```
+
+```
+@example
+(prepare-json "{\"name\":\"value\"}")
+=>
+"{\"name\" \"value\"}"
+```
+
+```
+@example
+(prepare-json "{\"name\":[\"value\"]}")
+=>
+"{\"name\" [\"value\"]}"
+```
+
+```
+@return (map)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn prepare-json
+  [n]
+  (letfn [(remove-delimiter-colons-f [%] (string/replace-part % #"(?<=\"[a-zA-Z0-9\-\_]+\")\:" " "))]
+         (-> n remove-delimiter-colons-f)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [reader.api :refer [prepare-json]]))
+
+(reader.api/prepare-json ...)
+(prepare-json            ...)
+```
+
+</details>
+
+---
+
+### read-edn
+
+```
+@description
+Reads one object from the given 'n' string.
+http://edn-format.org
+```
+
+```
+@param (string) n
+```
+
+```
+@example
+(read-edn "")
+=>
+nil
+```
+
+```
+@example
+(read-edn ":foo")
+=>
+:foo
+```
+
+```
+@example
+(read-edn "{:foo :bar}")
+=>
+{:foo :bar}
+```
+
+```
+@example
+(read-edn "[:foo]")
+=>
+[:foo]
+```
+
+```
+@return (nil, keyword, map, number, seqable (e.g., string, vector, etc.))
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn read-edn
+  [n]
+  (letfn [(read-edn-f [%] #?(:cljs (try (-> % str reader/read-string) (catch :default  e (println e)))
+                             :clj  (try (-> % str edn/read-string)    (catch Exception e (println e)))))]
+         (let [output (-> n prepare/prepare-edn read-edn-f)]
+              (if (some #(% output) [boolean? keyword? map? number? seqable?])                  (-> output)))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [reader.api :refer [read-edn]]))
+
+(reader.api/read-edn ...)
+(read-edn            ...)
+```
+
+</details>
+
+---
+
+### read-json
+
+```
+@param (string) n
+```
+
+```
+@usage
+(read-json "{\"name\":\"value\"}")
+```
+
+```
+@example
+(read-json "{\"name\":\"value\"}")
 =>
 {"name" "value"}
 ```
 
 ```
 @example
-(json->map "{\"name\":[\"value\"]}")
+(read-json "{\"name\":[\"value\"]}")
 =>
 {"name" ["value"]}
 ```
@@ -54,10 +237,9 @@ Functional documentation of the reader.api isomorphic namespace
 <summary>Source code</summary>
 
 ```
-(defn json->map
+(defn read-json
   [n]
-  (letfn [(remove-delimiter-colons-f [%] (string/replace-part % #"(?<=\"[a-zA-Z0-9\-\_]+\")\:" " "))]
-         (-> n remove-delimiter-colons-f string->mixed)))
+  (-> n prepare/prepare-json read-edn))
 ```
 
 </details>
@@ -66,215 +248,10 @@ Functional documentation of the reader.api isomorphic namespace
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [reader.api :refer [json->map]]))
+(ns my-namespace (:require [reader.api :refer [read-json]]))
 
-(reader.api/json->map ...)
-(json->map            ...)
-```
-
-</details>
-
----
-
-### mixed->string
-
-```
-@param (*) n
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn mixed->string
-  [n]
-  (str n))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [reader.api :refer [mixed->string]]))
-
-(reader.api/mixed->string ...)
-(mixed->string            ...)
-```
-
-</details>
-
----
-
-### read-str
-
-```
-@param (string) n
-```
-
-```
-@example
-(read-str "{:a \"b\"}")
-=>
-{:a "b"}
-```
-
-```
-@return (*)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn read-str
-  [n]
-  #?(:cljs (try (reader/read-string n) (catch :default  e (println e)))
-     :clj  (try (edn/read-string    n) (catch Exception e (println e)))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [reader.api :refer [read-str]]))
-
-(reader.api/read-str ...)
-(read-str            ...)
-```
-
-</details>
-
----
-
-### string->map
-
-```
-@param (string) n
-```
-
-```
-@example
-(string->map "foo")
-=>
-{:0 "foo"}
-```
-
-```
-@example
-(string->map nil)
-=>
-{}
-```
-
-```
-@example
-(string->map "{:foo :bar}")
-=>
-{:foo :bar}
-```
-
-```
-@return (map)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn string->map
-  [n]
-  (if-let [x (string->mixed n)]
-          (cond (map? x) x
-                (nil? n) {}
-                :return  {:0 (str n)})
-          (-> {})))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [reader.api :refer [string->map]]))
-
-(reader.api/string->map ...)
-(string->map            ...)
-```
-
-</details>
-
----
-
-### string->mixed
-
-```
-@param (string) n
-```
-
-```
-@example
-(string->mixed "")
-=>
-nil
-```
-
-```
-@example
-(string->mixed ":foo")
-=>
-:foo
-```
-
-```
-@example
-(string->mixed "{:foo :bar}")
-=>
-{:foo :bar}
-```
-
-```
-@example
-(string->mixed "[:foo]")
-=>
-[:foo]
-```
-
-```
-@return (nil, keyword, map, number, string or vector)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn string->mixed
-  [n]
-  (if (string/nonblank? n)
-      (let [x (read-str n)]
-           (if (some #(% x) [keyword? map? vector? number?])
-               (-> x)
-               (-> n)))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [reader.api :refer [string->mixed]]))
-
-(reader.api/string->mixed ...)
-(string->mixed            ...)
+(reader.api/read-json ...)
+(read-json            ...)
 ```
 
 </details>

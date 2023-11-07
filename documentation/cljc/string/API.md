@@ -57,19 +57,21 @@ Functional documentation of the string.api isomorphic namespace
 
 - [filter-characters](#filter-characters)
 
+- [first-character](#first-character)
+
 - [first-dex-of](#first-dex-of)
 
 - [from-first-occurence](#from-first-occurence)
 
 - [from-last-occurence](#from-last-occurence)
 
-- [get-nth-character](#get-nth-character)
-
 - [if-contains-part](#if-contains-part)
 
 - [insert-part](#insert-part)
 
 - [join](#join)
+
+- [last-character](#last-character)
 
 - [last-dex-of](#last-dex-of)
 
@@ -109,6 +111,8 @@ Functional documentation of the string.api isomorphic namespace
 
 - [not-starts-with?](#not-starts-with)
 
+- [nth-character](#nth-character)
+
 - [nth-dex-of](#nth-dex-of)
 
 - [part](#part)
@@ -130,6 +134,8 @@ Functional documentation of the string.api isomorphic namespace
 - [replace-part](#replace-part)
 
 - [same-length?](#same-length)
+
+- [second-character](#second-character)
 
 - [split](#split)
 
@@ -176,6 +182,12 @@ Functional documentation of the string.api isomorphic namespace
 ### abc
 
 ```
+@description
+Takes the value 'a' (converted to string) and value 'b' (converted to string)
+and returns the one that is less than in alphabetical order.
+```
+
+```
 @param (*) a
 @param (*) b
 ```
@@ -215,7 +227,7 @@ Functional documentation of the string.api isomorphic namespace
 
 ```
 @example
-(abc? "" "abc")
+(abc "" "abc")
 =>
 ""
 ```
@@ -230,9 +242,11 @@ Functional documentation of the string.api isomorphic namespace
 ```
 (defn abc
   [a b]
-  (if (check/abc? a b)
-      (-> a)
-      (-> b)))
+  (let [a (str a)
+        b (str b)]
+       (if (check/abc? a b)
+           (-> a)
+           (-> b))))
 ```
 
 </details>
@@ -922,7 +936,7 @@ nil
 
 ```
 @description
-Returns TRUE if the given 'n' value is a string and it is empty.
+Returns TRUE if the given 'n' value is an empty string.
 ```
 
 ```
@@ -1514,6 +1528,11 @@ false
 ### cut
 
 ```
+@description
+Returns a given 'n' value (converted to string) after a specific range is removed.
+```
+
+```
 @param (*) n
 @param (integer)(opt) start
 @param (integer) end
@@ -1905,7 +1924,71 @@ false
 
 ---
 
+### first-character
+
+```
+@description
+- Returns the first character of the given 'n' value (converted to string.)
+- Converts the output to string because one character long strings (in Java language) could be character types!
+```
+
+```
+@param (*) n
+@param (string) 
+```
+
+```
+@usage
+(first-character "abc")
+```
+
+```
+@example
+(first-character "abc")
+=>
+"a"
+```
+
+```
+@example
+(first-character {:a "A"})
+=>
+"{"
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn first-character
+  [n]
+  (let [n (str n)]
+       (-> n first str)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [first-character]]))
+
+(string.api/first-character ...)
+(first-character            ...)
+```
+
+</details>
+
+---
+
 ### first-dex-of
+
+```
+@description
+Returns the index of the first occurence of the given 'x' value (converted to string)
+in the given 'n' value (converted to string).
+```
 
 ```
 @param (*) n
@@ -2178,60 +2261,6 @@ nil
 
 ---
 
-### get-nth-character
-
-```
-@param (*) n
-@param (integer) dex
-@param (string) 
-```
-
-```
-@usage
-(get-nth-character "abc" 2)
-```
-
-```
-@example
-(get-nth-character "abc" 2)
-=>
-"c"
-```
-
-```
-@example
-(get-nth-character {:a "A"} 1)
-=>
-":"
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn get-nth-character
-  [n dex]
-  (let [n (str n)]
-       (if (-> n (dex/dex-in-bounds? dex))
-           (-> n (nth                dex)))))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [string.api :refer [get-nth-character]]))
-
-(string.api/get-nth-character ...)
-(get-nth-character            ...)
-```
-
-</details>
-
----
-
 ### if-contains-part
 
 ```
@@ -2445,7 +2474,71 @@ nil
 
 ---
 
+### last-character
+
+```
+@description
+- Returns the first character of the given 'n' value (converted to string.)
+- Converts the output to string because one character long strings (in Java language) could be character types!
+```
+
+```
+@param (*) n
+@param (string) 
+```
+
+```
+@usage
+(last-character "abc")
+```
+
+```
+@example
+(last-character "abc")
+=>
+"c"
+```
+
+```
+@example
+(last-character {:a "A"})
+=>
+"}"
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn last-character
+  [n]
+  (let [n (str n)]
+       (-> n last str)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [last-character]]))
+
+(string.api/last-character ...)
+(last-character            ...)
+```
+
+</details>
+
+---
+
 ### last-dex-of
+
+```
+@description
+Returns the index of the last occurence of the given 'x' value (converted to string)
+in the given 'n' value (converted to string).
+```
 
 ```
 @param (*) n
@@ -3290,7 +3383,7 @@ false
 
 ```
 @description
-Returns TRUE if the given 'n' value is a string and it is NOT empty.
+Returns TRUE if the given 'n' value is a nonempty string.
 ```
 
 ```
@@ -3696,7 +3789,73 @@ false
 
 ---
 
+### nth-character
+
+```
+@description
+- Returns the nth character of the given 'n' value (converted to string.)
+- Converts the output to string because in Java language one character long strings could be character types!
+```
+
+```
+@param (*) n
+@param (integer) dex
+@param (string) 
+```
+
+```
+@usage
+(nth-character "abc" 2)
+```
+
+```
+@example
+(nth-character "abc" 2)
+=>
+"c"
+```
+
+```
+@example
+(nth-character {:a "A"} 1)
+=>
+":"
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn nth-character
+  [n dex]
+  (let [n (str n)]
+       (if (-> n (dex/dex-in-bounds? dex))
+           (-> n (nth                dex) str))))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [nth-character]]))
+
+(string.api/nth-character ...)
+(nth-character            ...)
+```
+
+</details>
+
+---
+
 ### nth-dex-of
+
+```
+@description
+Returns the index of the nth occurence of the given 'x' value (converted to string)
+in the given 'n' value (converted to string).
+```
 
 ```
 @param (*) n
@@ -3756,6 +3915,11 @@ false
 ---
 
 ### part
+
+```
+@description
+Returns a specific range of the given 'n' value (converted to string).
+```
 
 ```
 @param (*) n
@@ -4440,6 +4604,64 @@ false
 
 ---
 
+### second-character
+
+```
+@description
+- Returns the second character of the given 'n' value (converted to string.)
+- Converts the output to string because one character long strings (in Java language) could be character types!
+```
+
+```
+@param (*) n
+@param (string) 
+```
+
+```
+@usage
+(second-character "abc")
+```
+
+```
+@example
+(second-character "abc")
+=>
+"b"
+```
+
+```
+@example
+(second-character {:a "A"})
+=>
+":"
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn second-character
+  [n]
+  (let [n (str n)]
+       (-> n second str)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [string.api :refer [second-character]]))
+
+(string.api/second-character ...)
+(second-character            ...)
+```
+
+</details>
+
+---
+
 ### split
 
 ```
@@ -4735,6 +4957,11 @@ false
 ### to-capitalized
 
 ```
+@description
+Makes the given 'n' value (converted to string) capitalized.
+```
+
+```
 @param (*) n
 ```
 
@@ -4878,6 +5105,11 @@ nil
 ---
 
 ### to-integer
+
+```
+@description
+Converts the given 'n' string to an integer.
+```
 
 ```
 @param (integer or string) n
@@ -5035,6 +5267,11 @@ nil
 ### to-lowercase
 
 ```
+@description
+Makes the given 'n' value (converted to string) lowercase.
+```
+
+```
 @param (*) n
 ```
 
@@ -5080,6 +5317,11 @@ nil
 ---
 
 ### to-uppercase
+
+```
+@description
+Makes the given 'n' value (converted to string) uppercase.
+```
 
 ```
 @param (*) n

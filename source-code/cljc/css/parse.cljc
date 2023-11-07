@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn unparse
+  ; @description
+  ; Converts the given style map to CSS string.
+  ;
   ; @param (map) n
   ;
   ; @example
@@ -19,6 +22,9 @@
          (string/trim (reduce-kv f "" n))))
 
 (defn parse
+  ; @description
+  ; Converts the given CSS string to style map.
+  ;
   ; @param (string) n
   ;
   ; @example
@@ -39,9 +45,9 @@
                                        (and (string/nonblank? k)
                                             (string/nonblank? v)
                                             [k v])))))
-          ; To avoid infinite loops:
-          ; If the f0 function cannot resolves the passed x fraction, the f1 function
-          ; quits parsing the n string, and returns the incomplete result.
+
+          ; In order to avoid infinite loops if the 'f0' function cannot resolve the passed 'x' fraction,
+          ; the 'f1' function quits parsing the 'n' string and returns the incomplete result.
           (f1 [style n] (if-let [x (string/before-first-occurence n ";" {:return? false})]
                                 (if-let [[k v] (f0 x)]
                                         (f1 (assoc style (keyword k) v)
@@ -50,4 +56,5 @@
                                 (if-let [[k v] (f0 n)]
                                         (assoc style (keyword k) v)
                                         (-> style))))]
+         ; ...
          (f1 {} n)))

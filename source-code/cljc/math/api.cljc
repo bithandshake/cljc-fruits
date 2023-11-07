@@ -26,6 +26,9 @@
 (def PI config/PI)
 
 ; math.core
+(def add                 core/add)
+(def subtract            core/subtract)
+(def multiply            core/multiply)
 (def avarage             core/avarage)
 (def circum              core/circum)
 (def power               core/power)

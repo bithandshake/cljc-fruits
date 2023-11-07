@@ -5,6 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn pick-vector-item
+  ; @description
+  ; Returns a randomly picked item from the given 'n' vector.
+  ;
   ; @param (vector) n
   ;
   ; @usage

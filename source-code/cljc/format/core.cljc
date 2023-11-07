@@ -48,11 +48,9 @@
   ;
   ; @return (string)
   [n]
-  (let [n (str n)]
-       (if (= (-> "-"     str)
-              (-> n first str))
-           (-> n)
-           (str "+"n))))
+  (if (-> n string/first-character (= "-"))
+      (str    n)
+      (str "+"n)))
 
 (defn group-number
   ; @param (number or string) n
@@ -140,10 +138,8 @@
   ;
   ; @return (string)
   [n]
-  ; In Java language one character long strings can be character types, therefore
-  ; in the test function the first character must be converted to string type!
   (letfn [(f [n]
-             (if-not (= "0" (-> n first str))
+             (if-not (-> n string/first-character (= "0"))
                      (-> n)
                      (f (subs n 1))))]
          (-> n str f)))

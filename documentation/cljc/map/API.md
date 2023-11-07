@@ -134,6 +134,12 @@ Functional documentation of the map.api isomorphic namespace
 ### ->>keys
 
 ```
+@description
+- Applies the given 'update-f' function on each key of the given 'n' map (recursivelly).
+- The 'update-f' function takes a key as parameter.
+```
+
+```
 @param (map) n
 @param (function) update-f
 ```
@@ -183,6 +189,13 @@ Functional documentation of the map.api isomorphic namespace
 ---
 
 ### ->>kv
+
+```
+@description
+- Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map (recursivelly).
+- The 'k-f' function takes a key as parameter.
+  The 'v-f' function takes a value as parameter.
+```
 
 ```
 @param (map) n
@@ -242,6 +255,14 @@ Functional documentation of the map.api isomorphic namespace
 ### ->>remove-keys-by
 
 ```
+@description
+- Removes specific keys from the given 'n' map (recursivelly).
+- Decides which keys to be removed by applying the given 'r-f' function on them.
+- The 'r-f' function takes a key as parameter.
+  If the 'r-f' function returns TRUE, the key will be removed.
+```
+
+```
 @param (map) n
 @param (function) r-f
 ```
@@ -283,6 +304,14 @@ Functional documentation of the map.api isomorphic namespace
 ---
 
 ### ->>remove-values-by
+
+```
+@description
+- Removes specific values from the given 'n' map (recursivelly).
+  Decides which values to be removed by applying the given 'r-f' function on them.
+- The 'r-f' function takes a value as parameter.
+  If the 'r-f' function returns TRUE, the value will be removed.
+```
 
 ```
 @param (map) n
@@ -340,6 +369,12 @@ Functional documentation of the map.api isomorphic namespace
 ### ->>values
 
 ```
+@description
+- Applies the given 'update-f' function on each value of the given 'n' map (recursivelly).
+- The 'update-f' function takes a value as parameter.
+```
+
+```
 @param (map) n
 @param (function) update-f
 ```
@@ -391,6 +426,12 @@ Functional documentation of the map.api isomorphic namespace
 ### ->keys
 
 ```
+@description
+- Applies the given 'update-f' function on each key of the given 'n' map.
+- The 'update-f' function takes a key as parameter.
+```
+
+```
 @param (map) n
 @param (function) update-f
 ```
@@ -438,6 +479,13 @@ Functional documentation of the map.api isomorphic namespace
 ---
 
 ### ->kv
+
+```
+@description
+- Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map.
+- The 'k-f' function takes a key as parameter.
+  The 'v-f' function takes a value as parameter.
+```
 
 ```
 @param (map) n
@@ -490,6 +538,14 @@ Functional documentation of the map.api isomorphic namespace
 ### ->remove-keys-by
 
 ```
+@description
+- Removes specific keys from the given 'n' map.
+  Decides which keys to be removed by applying the given 'r-f' function on them.
+- The 'r-f' function takes a key as parameter.
+  If the 'r-f' function returns TRUE, the key will be removed.
+```
+
+```
 @param (map) n
 @param (function) r-f
 ```
@@ -539,6 +595,14 @@ Functional documentation of the map.api isomorphic namespace
 ### ->remove-values-by
 
 ```
+@description
+- Removes specific values from the given 'n' map.
+  Decides which values to be removed by applying the given 'r-f' function on them.
+- The 'r-f' function takes a value as parameter.
+  If the 'r-f' function returns TRUE, the value will be removed.
+```
+
+```
 @param (map) n
 @param (function) r-f
 ```
@@ -581,6 +645,12 @@ Functional documentation of the map.api isomorphic namespace
 ---
 
 ### ->values
+
+```
+@description
+- Applies the given 'update-f' function on each value of the given 'n' map.
+- The 'update-f' function takes a value as parameter.
+```
 
 ```
 @param (map) n

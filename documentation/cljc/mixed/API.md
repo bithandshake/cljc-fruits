@@ -31,6 +31,8 @@ Functional documentation of the mixed.api isomorphic namespace
 
 - [rational-number?](#rational-number)
 
+- [subtract-numbers](#subtract-numbers)
+
 - [to-data-url](#to-data-url)
 
 - [to-map](#to-map)
@@ -48,6 +50,11 @@ Functional documentation of the mixed.api isomorphic namespace
 ---
 
 ### add-numbers
+
+```
+@description
+Adds the values of the given parameters that are convertable to a number.
+```
 
 ```
 @param (list of *) abc
@@ -163,6 +170,11 @@ true
 ---
 
 ### multiply-numbers
+
+```
+@description
+Multiplies the values of the given parameters that are convertable to a number.
+```
 
 ```
 @param (list of *) abc
@@ -533,7 +545,7 @@ nil
 
   ([n {:keys [return?]}]
    (cond (number?               n) (-> n)
-         (type/rational-number? n) (-> n reader/string->mixed)
+         (type/rational-number? n) (-> n reader/read-edn)
          return?                   (-> n))))
 ```
 
@@ -769,6 +781,62 @@ true
 
 ---
 
+### subtract-numbers
+
+```
+@description
+Subtracts the values of the given parameters that are convertable to a number.
+```
+
+```
+@param (list of *) abc
+```
+
+```
+@example
+(subtract-numbers 1 "3")
+=>
+-2
+```
+
+```
+@example
+(subtract-numbers 1 "3" "a")
+=>
+-2
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn subtract-numbers
+  [& abc]
+  (letfn [(f [result x]
+             (- result (convert/to-number x)))]
+         (reduce f 0 abc)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [mixed.api :refer [subtract-numbers]]))
+
+(mixed.api/subtract-numbers ...)
+(subtract-numbers           ...)
+```
+
+</details>
+
+---
+
 ### to-data-url
 
 ```
@@ -930,8 +998,8 @@ true
   [n]
   (cond (nil?                  n) (-> 0)
         (number?               n) (-> n)
-        (type/whole-number?    n) (-> n reader/string->mixed)
-        (type/rational-number? n) (-> n reader/string->mixed)
+        (type/whole-number?    n) (-> n reader/read-edn)
+        (type/rational-number? n) (-> n reader/read-edn)
         :return 0))
 ```
 
@@ -1111,7 +1179,7 @@ true
    (letfn [(update-f [n] (if x (f n x)
                                (f n)))]
           (cond (-> n           integer?)      (-> n update-f)
-                (-> n type/whole-number?) (let [integer (reader/string->mixed n)]
+                (-> n type/whole-number?) (let [integer (reader/read-edn n)]
                                                (-> integer update-f))
                 (-> n              some?)      (-> n)))))
 ```

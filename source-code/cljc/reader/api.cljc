@@ -1,13 +1,15 @@
 
 (ns reader.api
-    (:require [reader.core :as core]))
+    (:require [reader.prepare :as prepare]
+              [reader.read    :as read]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; reader.core
-(def read-str      core/read-str)
-(def mixed->string core/mixed->string)
-(def string->mixed core/string->mixed)
-(def json->map     core/json->map)
-(def string->map   core/string->map)
+; reader.prepare
+(def prepare-edn  prepare/prepare-edn)
+(def prepare-json prepare/prepare-json)
+
+; reader.read
+(def read-edn  read/read-edn)
+(def read-json read/read-json)

@@ -8,6 +8,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn part
+  ; @description
+  ; Returns a specific range of the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (integer) start
   ; @param (integer)(opt) end
@@ -48,6 +51,9 @@
            ;(-> n) <- Why this function returned the whole string in case of the cursors are out of bounds?
 
 (defn cut
+  ; @description
+  ; Returns a given 'n' value (converted to string) after a specific range is removed.
+  ;
   ; @param (*) n
   ; @param (integer)(opt) start
   ; @param (integer) end

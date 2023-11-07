@@ -124,6 +124,6 @@
   [n]
   (cond (nil?                  n) (-> 0)
         (number?               n) (-> n)
-        (type/whole-number?    n) (-> n reader/string->mixed)
-        (type/rational-number? n) (-> n reader/string->mixed)
+        (type/whole-number?    n) (-> n reader/read-edn)
+        (type/rational-number? n) (-> n reader/read-edn)
         :return 0))

@@ -7,7 +7,7 @@
 
 (defn blank?
   ; @description
-  ; Returns TRUE if the given 'n' value is a string and it is empty.
+  ; Returns TRUE if the given 'n' value is an empty string.
   ;
   ; @param (*) n
   ;
@@ -31,7 +31,7 @@
 
 (defn nonblank?
   ; @description
-  ; Returns TRUE if the given 'n' value is a string and it is NOT empty.
+  ; Returns TRUE if the given 'n' value is a nonempty string.
   ;
   ; @param (*) n
   ;

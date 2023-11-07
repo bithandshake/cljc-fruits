@@ -5,6 +5,87 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn add
+  ; @description
+  ; Adds the number values of the given parameters.
+  ;
+  ; @param (list of *) abc
+  ;
+  ; @usage
+  ; (add 7 42 69)
+  ;
+  ; @example
+  ; (add 7 42 69)
+  ; =>
+  ; 118
+  ;
+  ; @example
+  ; (add 7 "My string" 69)
+  ; =>
+  ; 76
+  ;
+  ; @return (number)
+  [& abc]
+  (letfn [(f [total x] (if (-> x number?)
+                           (+  total x)
+                           (-> total)))]
+         (reduce f 0 (vec abc))))
+
+(defn subtract
+  ; @description
+  ; Subtracts the number values of the given parameters.
+  ;
+  ; @param (list of *) abc
+  ;
+  ; @usage
+  ; (subtract 7 42 69)
+  ;
+  ; @example
+  ; (subtract 7 42 69)
+  ; =>
+  ; -104
+  ;
+  ; @example
+  ; (add 7 "My string" 69)
+  ; =>
+  ; -62
+  ;
+  ; @return (number)
+  [& abc]
+  (letfn [(f [total x] (if (-> x number?)
+                           (-  total x)
+                           (-> total)))]
+         (reduce f 0 (vec abc))))
+
+(defn multiply
+  ; @description
+  ; Subtracts the number values of the given parameters.
+  ;
+  ; @param (list of *) abc
+  ;
+  ; @usage
+  ; (multiply 7 42 69)
+  ;
+  ; @example
+  ; (multiply 7 42 69)
+  ; =>
+  ; 20286
+  ;
+  ; @example
+  ; (multiply 7 "My string" 69)
+  ; =>
+  ; 483
+  ;
+  ; @return (number)
+  [& abc]
+  (letfn [(f [total x] (if (-> x number?)
+                           (*  total x)
+                           (-> total)))]
+         (reduce f 0 (vec abc))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn avarage
   ; @param (list of numbers) abc
   ;

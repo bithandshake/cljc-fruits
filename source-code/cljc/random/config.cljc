@@ -5,9 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 ; BUG#5570
-; A cljs.reader/read-string függvény nem szereti azokat a névteres kulcsszavakat,
-; amelyekben a név első karaktere egy számjegy (pl. :namespace/0abc).
-; Ezért a generált kulcsszavak nevének első karaktere egy betű kell legyen!
+; The 'cljs.reader/read-string' function does not accept namespace keywords where
+; the first character of the name is a digit (e.g., :namespace/0abc).
+; Therefore, the first character of the generated keyword names must be a letter!
 ;
 ; @consant (string)
 (def NAME-PREFIX "q")

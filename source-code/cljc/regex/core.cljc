@@ -5,6 +5,30 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn re-count
+  ; @description
+  ; Returns the match count.
+  ;
+  ; @param (*) n
+  ; @param (regex pattern) pattern
+  ;
+  ; @usage
+  ; (re-count "123" #"\d")
+  ;
+  ; @example
+  ; (re-count "123" #"\d")
+  ; =>
+  ; 3
+  ;
+  ; @example
+  ; (re-count "abc" #"\d")
+  ; =>
+  ; 0
+  ;
+  ; @return (integer)
+  [n pattern]
+  (count (re-seq pattern (str n))))
+
 (defn re-first
   ; @description
   ; Returns the first match.
@@ -63,7 +87,7 @@
 
 (defn re-match
   ; @description
-  ; Returns the given 'n' string if any matches found.
+  ; Returns the given 'n' string if any match is found.
   ;
   ; @param (*) n
   ; @param (regex pattern) pattern

@@ -65,6 +65,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-dex-of
+  ; @description
+  ; Returns the index of the first occurence of the given 'x' value (converted to string)
+  ; in the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (*) x
   ;
@@ -102,6 +106,10 @@
                            (str x)))
 
 (defn last-dex-of
+  ; @description
+  ; Returns the index of the last occurence of the given 'x' value (converted to string)
+  ; in the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (*) x
   ;
@@ -139,6 +147,10 @@
                                 (str x)))
 
 (defn nth-dex-of
+  ; @description
+  ; Returns the index of the nth occurence of the given 'x' value (converted to string)
+  ; in the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (*) x
   ; @param (integer) dex

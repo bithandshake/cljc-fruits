@@ -7,9 +7,9 @@
 
 (defn domain-inchoate
   ; @description
-  ; Returns what domain contains the 'n'.
-  ;
-  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ; - Returns which domain contains the 'n' value.
+  ; - E.g., If 'n' is 3 and the 'domain' is 5, that means 'n' falls into the first domain of 5 (1 - 5).
+  ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
   ;
   ; @param (integer) n
   ; @param (integer) domain
@@ -44,9 +44,11 @@
 
 (defn domain-floor
   ; @description
-  ; Returns the first whole number of the domain that contains the 'n'.
-  ;
-  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ; - Returns the floor value of the domain that contains the 'n' value.
+  ; - E.g., If 'n' is 3 and the 'domain' is 5, that means 'n' falls into the first domain of 5 (1 - 5),
+  ;         and it returns the floor value of the first domain: 1.
+  ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
+  ;         and it returns the floor value of the second domain: 6.
   ;
   ; @param (integer) n
   ; @param (integer) domain
@@ -81,9 +83,11 @@
 
 (defn domain-ceil
   ; @description
-  ; Returns the last whole number of the domain that contains the 'n'.
-  ;
-  ; For example if n = 5, its domains are: 1-5, 6-10, 11-15, ...
+  ; - Returns the ceil value of the domain that contains the 'n' value.
+  ; - E.g., If 'n' is 3 and the 'domain' is 5, that means 'n' falls into the first domain of 5 (1 - 5),
+  ;         and it returns the ceil value of the first domain: 5.
+  ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
+  ;         and it returns the ceil value of the second domain: 10.
   ;
   ; @param (integer) n
   ; @param (integer) domain

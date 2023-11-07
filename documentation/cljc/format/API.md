@@ -396,7 +396,7 @@ Default: ","
 (defn remove-leading-zeros
   [n]
   (letfn [(f [n]
-             (if-not (= "0" (-> n first str))
+             (if-not (-> n string/first-character (= "0"))
                      (-> n)
                      (f (subs n 1))))]
          (-> n str f)))
@@ -510,11 +510,9 @@ Default: ","
 ```
 (defn sign-number
   [n]
-  (let [n (str n)]
-       (if (= (-> "-"     str)
-              (-> n first str))
-           (-> n)
-           (str "+"n))))
+  (if (-> n string/first-character (= "-"))
+      (str    n)
+      (str "+"n)))
 ```
 
 </details>

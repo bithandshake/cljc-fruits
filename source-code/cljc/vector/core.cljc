@@ -9,6 +9,30 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn sum-items-by
+  ; @description
+  ; Sum the derived values of items in the given 'n' vector.
+  ; Values are derived by applying the given 'v-f' function on the item.
+  ;
+  ; @param (vector) n
+  ; @param (function) v-f
+  ;
+  ; @usage
+  ; (sum-items-by [{:value 10} {:value 5}] :value)
+  ;
+  ; @example
+  ; (sum-items-by [{:value 10} {:value 5}] :value)
+  ; =>
+  ; 15
+  ;
+  ; @return (integer)
+  [n v-f]
+  (letfn [(f [sum x] (let [v (v-f x)]
+                          (if (-> v integer?)
+                              (+  sum v)
+                              (-> sum))))]
+         (reduce f 0 n)))
+
 (defn gap-items
   ; @param (*) n
   ; @param (*) delimiter
@@ -243,16 +267,19 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn change-item
+(defn replace-item
+  ; @description
+  ; Replaces items (that are indentical to the given 'a' value) in the given 'n' vector with the given 'b' value.
+  ;
   ; @param (vector) n
   ; @param (*) a
   ; @param (*) b
   ;
   ; @usage
-  ; (change-item [:a :b :c] :c :x)
+  ; (replace-item [:a :b :c] :c :x)
   ;
   ; @example
-  ; (change-item [:a :b :c :d :c] :c :x)
+  ; (replace-item [:a :b :c :d :c] :c :x)
   ; =>
   ; [:a :b :x :d :x]
   ;
@@ -264,31 +291,34 @@
                  (conj-item result x)))]
          (reduce f [] n)))
 
-(defn inject-item
+(defn insert-item
+  ; @description
+  ; Inserts the given 'x' value into the given 'n' vector to a specific position.
+  ;
   ; @param (vector) n
   ; @param (integer) cursor
   ; @param (*) x
   ;
   ; @usage
-  ; (inject-item [:a :b :c] 0 :x)
+  ; (insert-item [:a :b :c] 0 :x)
   ;
   ; @example
-  ; (inject-item [:a :b :c] 2 :d)
+  ; (insert-item [:a :b :c] 2 :d)
   ; =>
   ; [:a :b :d :c]
   ;
   ; @example
-  ; (inject-item [:a :b :c] 999 :d)
+  ; (insert-item [:a :b :c] 999 :d)
   ; =>
   ; [:a :b :d :c]
   ;
   ; @example
-  ; (inject-item nil 999 :d)
+  ; (insert-item nil 999 :d)
   ; =>
   ; [:d]
   ;
   ; @example
-  ; (inject-item {:a "b"} 1 :d)
+  ; (insert-item {:a "b"} 1 :d)
   ; =>
   ; {:a "b"}
   ;
@@ -304,6 +334,9 @@
         :return n))
 
 (defn toggle-item
+  ; @description
+  ; Toggles the presence of the given 'x' value in the 'n' vector.
+  ;
   ; @param (vector) n
   ; @param (*) x
   ;
@@ -352,7 +385,10 @@
   ; ?
   ;
   ; @return (*)
-  [n x])
+  [n x]
+  (let [item-first-dex (dex/item-first-dex n x)
+        prev-item-dex  (dex/prev-dex       n item-first-dex)]
+       (nth/nth-item n prev-item-dex)))
 
 (defn next-item
   ; @param (vector) n

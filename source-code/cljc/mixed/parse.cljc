@@ -43,7 +43,7 @@
 
   ([n {:keys [return?]}]
    (cond (number?               n) (-> n)
-         (type/rational-number? n) (-> n reader/string->mixed)
+         (type/rational-number? n) (-> n reader/read-edn)
          return?                   (-> n))))
 
 (defn parse-number

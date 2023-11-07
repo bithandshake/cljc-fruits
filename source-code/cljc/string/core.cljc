@@ -11,6 +11,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn abc
+  ; @description
+  ; Takes the value 'a' (converted to string) and value 'b' (converted to string)
+  ; and returns the one that is less than in alphabetical order.
+  ;
   ; @param (*) a
   ; @param (*) b
   ;
@@ -38,30 +42,114 @@
   ; "10"
   ;
   ; @example
-  ; (abc? "" "abc")
+  ; (abc "" "abc")
   ; =>
   ; ""
   ;
   ; @return (string)
   [a b]
-  (if (check/abc? a b)
-      (-> a)
-      (-> b)))
+  (let [a (str a)
+        b (str b)]
+       (if (check/abc? a b)
+           (-> a)
+           (-> b))))
 
-(defn get-nth-character
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn first-character
+  ; @description
+  ; - Returns the first character of the given 'n' value (converted to string.)
+  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ;
   ; @param (*) n
-  ; @param (integer) dex
   ;
   ; @usage
-  ; (get-nth-character "abc" 2)
+  ; (first-character "abc")
   ;
   ; @example
-  ; (get-nth-character "abc" 2)
+  ; (first-character "abc")
+  ; =>
+  ; "a"
+  ;
+  ; @example
+  ; (first-character {:a "A"})
+  ; =>
+  ; "{"
+  ;
+  ; @param (string)
+  [n]
+  (let [n (str n)]
+       (-> n first str)))
+
+(defn second-character
+  ; @description
+  ; - Returns the second character of the given 'n' value (converted to string.)
+  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (second-character "abc")
+  ;
+  ; @example
+  ; (second-character "abc")
+  ; =>
+  ; "b"
+  ;
+  ; @example
+  ; (second-character {:a "A"})
+  ; =>
+  ; ":"
+  ;
+  ; @param (string)
+  [n]
+  (let [n (str n)]
+       (-> n second str)))
+
+(defn last-character
+  ; @description
+  ; - Returns the first character of the given 'n' value (converted to string.)
+  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (last-character "abc")
+  ;
+  ; @example
+  ; (last-character "abc")
   ; =>
   ; "c"
   ;
   ; @example
-  ; (get-nth-character {:a "A"} 1)
+  ; (last-character {:a "A"})
+  ; =>
+  ; "}"
+  ;
+  ; @param (string)
+  [n]
+  (let [n (str n)]
+       (-> n last str)))
+
+(defn nth-character
+  ; @description
+  ; - Returns the nth character of the given 'n' value (converted to string.)
+  ; - Converts the output to string because in Java language one character long strings could be character types!
+  ;
+  ; @param (*) n
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (nth-character "abc" 2)
+  ;
+  ; @example
+  ; (nth-character "abc" 2)
+  ; =>
+  ; "c"
+  ;
+  ; @example
+  ; (nth-character {:a "A"} 1)
   ; =>
   ; ":"
   ;
@@ -69,7 +157,10 @@
   [n dex]
   (let [n (str n)]
        (if (-> n (dex/dex-in-bounds? dex))
-           (-> n (nth                dex)))))
+           (-> n (nth                dex) str))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn multiply
   ; @param (*) n

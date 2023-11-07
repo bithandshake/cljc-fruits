@@ -347,6 +347,11 @@ Functional documentation of the css.api isomorphic namespace
 ### parse
 
 ```
+@description
+Converts the given CSS string to style map.
+```
+
+```
 @param (string) n
 ```
 
@@ -373,6 +378,7 @@ Functional documentation of the css.api isomorphic namespace
                                        (and (string/nonblank? k)
                                             (string/nonblank? v)
                                             [k v])))))
+
           (f1 [style n] (if-let [x (string/before-first-occurence n "                                (if-let [[k v] (f0 x)]
                                         (f1 (assoc style (keyword k) v)
                                             (string/after-first-occurence n "                                        (-> style))
@@ -1043,6 +1049,11 @@ Functional documentation of the css.api isomorphic namespace
 ---
 
 ### unparse
+
+```
+@description
+Converts the given style map to CSS string.
+```
 
 ```
 @param (map) n

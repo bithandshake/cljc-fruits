@@ -14,6 +14,7 @@
 (def re-mismatch? check/re-mismatch?)
 
 ; regex.core
+(def re-count         core/re-count)
 (def re-first         core/re-first)
 (def re-last          core/re-last)
 (def re-match         core/re-match)

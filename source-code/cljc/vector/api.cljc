@@ -41,6 +41,7 @@
 (def to-map convert/to-map)
 
 ; vector.core
+(def sum-items-by      core/sum-items-by)
 (def gap-items         core/gap-items)
 (def repeat-item       core/repeat-item)
 (def cons-item         core/cons-item)
@@ -51,8 +52,8 @@
 (def concat-items      core/concat-items)
 (def concat-items-once core/concat-items-once)
 (def align-items       core/align-items)
-(def change-item       core/change-item)
-(def inject-item       core/inject-item)
+(def replace-item      core/replace-item)
+(def insert-item       core/insert-item)
 (def toggle-item       core/toggle-item)
 (def prev-item         core/prev-item)
 (def next-item         core/next-item)

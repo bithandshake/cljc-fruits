@@ -12,7 +12,6 @@
 (def generate-string             generate/generate-string)
 (def generate-keyword            generate/generate-keyword)
 (def generate-namespaced-keyword generate/generate-namespaced-keyword)
-(def generate-react-key          generate/generate-react-key)
 (def generate-number             generate/generate-number)
 
 ; random.pick

@@ -1946,7 +1946,7 @@ false
 ```
 (defn status->client-error?
   [status]
-  (-> status str first str (= "4")))
+  (-> status string/first-character (= "4")))
 ```
 
 </details>
@@ -2000,7 +2000,7 @@ false
 ```
 (defn status->info?
   [status]
-  (-> status str first str (= "1")))
+  (-> status string/first-character (= "1")))
 ```
 
 </details>
@@ -2054,7 +2054,7 @@ false
 ```
 (defn status->redirected?
   [status]
-  (-> status str first str (= "3")))
+  (-> status string/first-character (= "3")))
 ```
 
 </details>
@@ -2108,7 +2108,7 @@ false
 ```
 (defn status->server-error?
   [status]
-  (-> status str first str (= "5")))
+  (-> status string/first-character (= "5")))
 ```
 
 </details>
@@ -2162,7 +2162,7 @@ false
 ```
 (defn status->success?
   [status]
-  (-> status str first str (= "2")))
+  (-> status string/first-character (= "2")))
 ```
 
 </details>

@@ -23,8 +23,6 @@ Functional documentation of the vector.api isomorphic namespace
 
 - [any-item-match?](#any-item-match)
 
-- [change-item](#change-item)
-
 - [compared-items-sorted?](#compared-items-sorted)
 
 - [concat-items](#concat-items)
@@ -99,7 +97,7 @@ Functional documentation of the vector.api isomorphic namespace
 
 - [inc-dex](#inc-dex)
 
-- [inject-item](#inject-item)
+- [insert-item](#insert-item)
 
 - [item-dex?](#item-dex)
 
@@ -201,6 +199,8 @@ Functional documentation of the vector.api isomorphic namespace
 
 - [repeat-item](#repeat-item)
 
+- [replace-item](#replace-item)
+
 - [replace-nth-item](#replace-nth-item)
 
 - [reverse-items](#reverse-items)
@@ -214,6 +214,8 @@ Functional documentation of the vector.api isomorphic namespace
 - [sort-items-by-dexes](#sort-items-by-dexes)
 
 - [sorted-dexes](#sorted-dexes)
+
+- [sum-items-by](#sum-items-by)
 
 - [to-map](#to-map)
 
@@ -277,6 +279,12 @@ Functional documentation of the vector.api isomorphic namespace
 ### ->items
 
 ```
+@description
+- Applies the given 'update-f' function on each item of the given 'n' vector.
+- The 'update-f' function takes an item as parameter.
+```
+
+```
 @param (map) n
 @param (function) update-f
 ```
@@ -324,6 +332,12 @@ Functional documentation of the vector.api isomorphic namespace
 ---
 
 ### ->items-indexed
+
+```
+@description
+- Applies the given 'update-f' function on each item of the given 'n' vector.
+- The 'update-f' function takes an item and its index as parameters.
+```
 
 ```
 @param (map) n
@@ -609,59 +623,6 @@ true
 
 (vector.api/any-item-match? ...)
 (any-item-match?            ...)
-```
-
-</details>
-
----
-
-### change-item
-
-```
-@param (vector) n
-@param (*) a
-@param (*) b
-```
-
-```
-@usage
-(change-item [:a :b :c] :c :x)
-```
-
-```
-@example
-(change-item [:a :b :c :d :c] :c :x)
-=>
-[:a :b :x :d :x]
-```
-
-```
-@return (vector)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn change-item
-  [n a b]
-  (letfn [(f [result x]
-             (if (= x a)
-                 (conj-item result b)
-                 (conj-item result x)))]
-         (reduce f [] n)))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [vector.api :refer [change-item]]))
-
-(vector.api/change-item ...)
-(change-item            ...)
 ```
 
 </details>
@@ -2724,7 +2685,12 @@ At the end of the vector it stops.
 
 ---
 
-### inject-item
+### insert-item
+
+```
+@description
+Inserts the given 'x' value into the given 'n' vector to a specific position.
+```
 
 ```
 @param (vector) n
@@ -2734,33 +2700,33 @@ At the end of the vector it stops.
 
 ```
 @usage
-(inject-item [:a :b :c] 0 :x)
+(insert-item [:a :b :c] 0 :x)
 ```
 
 ```
 @example
-(inject-item [:a :b :c] 2 :d)
+(insert-item [:a :b :c] 2 :d)
 =>
 [:a :b :d :c]
 ```
 
 ```
 @example
-(inject-item [:a :b :c] 999 :d)
+(insert-item [:a :b :c] 999 :d)
 =>
 [:a :b :d :c]
 ```
 
 ```
 @example
-(inject-item nil 999 :d)
+(insert-item nil 999 :d)
 =>
 [:d]
 ```
 
 ```
 @example
-(inject-item {:a "b"} 1 :d)
+(insert-item {:a "b"} 1 :d)
 =>
 {:a "b"}
 ```
@@ -2773,7 +2739,7 @@ At the end of the vector it stops.
 <summary>Source code</summary>
 
 ```
-(defn inject-item
+(defn insert-item
   [n cursor x]
   (cond (vector? n)
         (if (cursor/cursor-out-of-bounds? n cursor)
@@ -2791,10 +2757,10 @@ At the end of the vector it stops.
 <summary>Require</summary>
 
 ```
-(ns my-namespace (:require [vector.api :refer [inject-item]]))
+(ns my-namespace (:require [vector.api :refer [insert-item]]))
 
-(vector.api/inject-item ...)
-(inject-item            ...)
+(vector.api/insert-item ...)
+(insert-item            ...)
 ```
 
 </details>
@@ -4752,7 +4718,10 @@ At the beginning of the vector it jumps to the last index.
 
 ```
 (defn prev-item
-  [n x])
+  [n x]
+  (let [item-first-dex (dex/item-first-dex n x)
+        prev-item-dex  (dex/prev-dex       n item-first-dex)]
+       (nth/nth-item n prev-item-dex)))
 ```
 
 </details>
@@ -5565,6 +5534,64 @@ At the beginning of the vector it jumps to the last index.
 
 ---
 
+### replace-item
+
+```
+@description
+Replaces items (that are indentical to the given 'a' value) in the given 'n' vector with the given 'b' value.
+```
+
+```
+@param (vector) n
+@param (*) a
+@param (*) b
+```
+
+```
+@usage
+(replace-item [:a :b :c] :c :x)
+```
+
+```
+@example
+(replace-item [:a :b :c :d :c] :c :x)
+=>
+[:a :b :x :d :x]
+```
+
+```
+@return (vector)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn replace-item
+  [n a b]
+  (letfn [(f [result x]
+             (if (= x a)
+                 (conj-item result b)
+                 (conj-item result x)))]
+         (reduce f [] n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [replace-item]]))
+
+(vector.api/replace-item ...)
+(replace-item            ...)
+```
+
+</details>
+
+---
+
 ### replace-nth-item
 
 ```
@@ -5985,6 +6012,64 @@ in the first vector, it's position won't be in the return vector.
 
 ---
 
+### sum-items-by
+
+```
+@description
+Sum the derived values of items in the given 'n' vector.
+Values are derived by applying the given 'v-f' function on the item.
+```
+
+```
+@param (vector) n
+@param (function) v-f
+```
+
+```
+@usage
+(sum-items-by [{:value 10} {:value 5}] :value)
+```
+
+```
+@example
+(sum-items-by [{:value 10} {:value 5}] :value)
+=>
+15
+```
+
+```
+@return (integer)
+```
+
+<details>
+<summary>Source code</summary>
+
+```
+(defn sum-items-by
+  [n v-f]
+  (letfn [(f [sum x] (let [v (v-f x)]
+                          (if (-> v integer?)
+                              (+  sum v)
+                              (-> sum))))]
+         (reduce f 0 n)))
+```
+
+</details>
+
+<details>
+<summary>Require</summary>
+
+```
+(ns my-namespace (:require [vector.api :refer [sum-items-by]]))
+
+(vector.api/sum-items-by ...)
+(sum-items-by            ...)
+```
+
+</details>
+
+---
+
 ### to-map
 
 ```
@@ -6034,6 +6119,11 @@ in the first vector, it's position won't be in the return vector.
 ---
 
 ### toggle-item
+
+```
+@description
+Toggles the presence of the given 'x' value in the 'n' vector.
+```
 
 ```
 @param (vector) n

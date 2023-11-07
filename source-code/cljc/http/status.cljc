@@ -1,5 +1,6 @@
 
-(ns http.status)
+(ns http.status
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -22,7 +23,7 @@
   ;
   ; @return (boolean)
   [status]
-  (-> status str first str (= "1")))
+  (-> status string/first-character (= "1")))
 
 (defn status->success?
   ; @param (integer or string) status
@@ -42,7 +43,7 @@
   ;
   ; @return (boolean)
   [status]
-  (-> status str first str (= "2")))
+  (-> status string/first-character (= "2")))
 
 (defn status->redirected?
   ; @param (integer or string) status
@@ -62,7 +63,7 @@
   ;
   ; @return (boolean)
   [status]
-  (-> status str first str (= "3")))
+  (-> status string/first-character (= "3")))
 
 (defn status->client-error?
   ; @param (integer or string) status
@@ -82,7 +83,7 @@
   ;
   ; @return (boolean)
   [status]
-  (-> status str first str (= "4")))
+  (-> status string/first-character (= "4")))
 
 (defn status->server-error?
   ; @param (integer or string) status
@@ -102,4 +103,4 @@
   ;
   ; @return (boolean)
   [status]
-  (-> status str first str (= "5")))
+  (-> status string/first-character (= "5")))

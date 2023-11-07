@@ -22,6 +22,7 @@
 
 ; mixed.core
 (def add-numbers         core/add-numbers)
+(def subtract-numbers    core/subtract-numbers)
 (def multiply-numbers    core/multiply-numbers)
 (def update-whole-number core/update-whole-number)
 

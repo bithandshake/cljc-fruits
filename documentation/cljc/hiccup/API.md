@@ -594,7 +594,7 @@ Default: [:div]
   (if (vector? n)
       (if-let [attributes (get-attributes n)]
               (assoc-in n [1 :style] style)
-              (vector/inject-item n 1 {:style style}))))
+              (vector/insert-item n 1 {:style style}))))
 ```
 
 </details>

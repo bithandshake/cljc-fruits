@@ -6,7 +6,7 @@
 
 (defn re-match?
   ; @description
-  ; Returns true if any matches found.
+  ; Returns TRUE if any matches found.
   ;
   ; @param (*) n
   ; @param (regex pattern) pattern
@@ -31,7 +31,7 @@
 
 (defn re-mismatch?
   ; @description
-  ; Returns true if no matches found.
+  ; Returns TRUE if no matches found.
   ;
   ; @usage
   ; (re-mismatch? "123" #"\d{1,}")

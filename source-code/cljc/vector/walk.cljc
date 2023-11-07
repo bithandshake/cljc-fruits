@@ -5,6 +5,10 @@
 ;; ----------------------------------------------------------------------------
 
 (defn ->items
+  ; @description
+  ; - Applies the given 'update-f' function on each item of the given 'n' vector.
+  ; - The 'update-f' function takes an item as parameter.
+  ;
   ; @param (map) n
   ; @param (function) update-f
   ;
@@ -22,6 +26,10 @@
          (reduce f [] n)))
 
 (defn ->items-indexed
+  ; @description
+  ; - Applies the given 'update-f' function on each item of the given 'n' vector.
+  ; - The 'update-f' function takes an item and its index as parameters.
+  ;
   ; @param (map) n
   ; @param (function) update-f
   ;
@@ -42,6 +50,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn ->>items
+  ; - Applies the given 'update-f' function on each item of the given 'n' vector (recursivelly).
+  ; - The 'update-f' function takes an item as parameter.
+  ;
   ; @param (map) n
   ; @param (function) update-f
   ;
@@ -55,8 +66,19 @@
   ;
   ; @return (vector)
   [n update-f]
-  ; The recursion applies the 'update-f' function on values of maps also, because they are equivalents of items in vectors.
+  ; The recursion applies the 'update-f' function on values of maps also,
+  ; because they are equivalents of items in vectors.
   (letfn [(f [n] (cond (vector? n) (reduce    #(conj  %1    (f %2)) [] n)
                        (map?    n) (reduce-kv #(assoc %1 %2 (f %3)) {} n)
                        :return     (update-f n)))]
          (f n)))
+
+(defn ->>items-indexed
+  ; - Applies the given 'update-f' function on each item of the given 'n' vector (recursivelly).
+  ; - The 'update-f' function takes an item and its index as parameter.
+  ;
+  ; @param (map) n
+  ; @param (function) update-f
+  ;
+  ; @return (vector)
+  [n update-f])

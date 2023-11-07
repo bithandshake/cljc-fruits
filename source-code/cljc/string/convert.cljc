@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn to-integer
+  ; @description
+  ; Converts the given 'n' string to an integer.
+  ;
   ; @param (integer or string) n
   ;
   ; @usage
@@ -29,6 +32,9 @@
                  (integer? n) (-> n))))
 
 (defn to-capitalized
+  ; @description
+  ; Makes the given 'n' value (converted to string) capitalized.
+  ;
   ; @param (*) n
   ;
   ; @usage
@@ -44,6 +50,9 @@
   (-> n str clojure.string/capitalize))
 
 (defn to-uppercase
+  ; @description
+  ; Makes the given 'n' value (converted to string) uppercase.
+  ;
   ; @param (*) n
   ;
   ; @usage
@@ -59,6 +68,9 @@
   (-> n str clojure.string/upper-case))
 
 (defn to-lowercase
+  ; @description
+  ; Makes the given 'n' value (converted to string) lowercase.
+  ;
   ; @param (*) n
   ;
   ; @usage

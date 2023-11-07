@@ -17,8 +17,6 @@ Functional documentation of the random.api isomorphic namespace
 
 - [generate-number](#generate-number)
 
-- [generate-react-key](#generate-react-key)
-
 - [generate-string](#generate-string)
 
 - [generate-uuid](#generate-uuid)
@@ -28,6 +26,11 @@ Functional documentation of the random.api isomorphic namespace
 ---
 
 ### generate-boolean
+
+```
+@description
+Returns a randomly generated boolean value.
+```
 
 ```
 @param (boolean) 
@@ -71,6 +74,11 @@ true
 ---
 
 ### generate-keyword
+
+```
+@description
+Returns a randomly generated keyword UUID.
+```
 
 ```
 @param (string)(opt) namespace
@@ -130,6 +138,11 @@ true
 ### generate-namespaced-keyword
 
 ```
+@description
+Returns a randomly generated namespaced keyword UUID.
+```
+
+```
 @usage
 (generate-namespaced-keyword)
 ```
@@ -173,6 +186,11 @@ true
 ### generate-number
 
 ```
+@description
+Returns a randomly generated integer with the given length
+```
+
+```
 @param (integer) digits
 ```
 
@@ -198,7 +216,7 @@ true
 ```
 (defn generate-number
   [digits]
-  (int (min (* (math/power 10 (dec digits)) (-> 9 rand inc))
+  (int (min (*   (math/power 10 (dec digits)) (-> 9 rand inc))
             (dec (math/power 10 digits)))))
 ```
 
@@ -218,50 +236,12 @@ true
 
 ---
 
-### generate-react-key
-
-```
-@usage
-(generate-react-key)
-```
-
-```
-@example
-(generate-react-key)
-=>
-"ko4983l3-i8790-j93l3-lk8385u591o2"
-```
-
-```
-@return (string)
-```
-
-<details>
-<summary>Source code</summary>
-
-```
-(defn generate-react-key
-  []
-  (generate-uuid))
-```
-
-</details>
-
-<details>
-<summary>Require</summary>
-
-```
-(ns my-namespace (:require [random.api :refer [generate-react-key]]))
-
-(random.api/generate-react-key)
-(generate-react-key)
-```
-
-</details>
-
----
-
 ### generate-string
+
+```
+@description
+Returns a randomly generated string UUID.
+```
 
 ```
 @usage
@@ -307,6 +287,11 @@ true
 ### generate-uuid
 
 ```
+@description
+Returns a randomly generated UUID.
+```
+
+```
 @usage
 (generate-uuid)
 ```
@@ -349,6 +334,11 @@ true
 ---
 
 ### pick-vector-item
+
+```
+@description
+Returns a randomly picked item from the given 'n' vector.
+```
 
 ```
 @param (vector) n
