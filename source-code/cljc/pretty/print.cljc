@@ -8,6 +8,8 @@
 ;; ----------------------------------------------------------------------------
 
 (defn string->wrap?
+  ; @ignore
+  ;
   ; @param (string) n
   ;
   ; @example
@@ -20,6 +22,8 @@
   (string/length-min? n 60))
 
 (defn mixed->wrap-items?
+  ; @ignore
+  ;
   ; @param (*) n
   ;
   ; @example
@@ -34,6 +38,8 @@
            (vector? n))))
 
 (defn remove-unnecessary-breaks
+  ; @ignore
+  ;
   ; @param (string) n
   ;
   ; @return (string)
@@ -41,6 +47,8 @@
   (string/replace-part n #"\r\n}" "}"))
 
 (defn key-tabs
+  ; @ignore
+  ;
   ; @param (integer) depth
   ;
   ; @example
@@ -53,6 +61,8 @@
   (apply str (repeat depth string/TAB)))
 
 (defn break
+  ; @ignore
+  ;
   ; @param (n) string
   ; @param (integer) depth
   ;
@@ -67,6 +77,8 @@
        (str string/BREAK key-tabs n)))
 
 (defn map-wrap
+  ; @ignore
+  ;
   ; @param (n) string
   ;
   ; @example
@@ -79,6 +91,8 @@
   (str "{"n"}"))
 
 (defn vector-wrap
+  ; @ignore
+  ;
   ; @param (string) n
   ;
   ; @example
@@ -91,6 +105,8 @@
   (str "["n"]"))
 
 (defn append-vector-v
+  ; @ignore
+  ;
   ; @param (string) o
   ; @param (string) v
   ; @param (map) options
@@ -108,6 +124,8 @@
              :return     (str result string/TAB v))))
 
 (defn append-map-kv
+  ; @ignore
+  ;
   ; @param (string) o
   ; @param (string) k
   ; @param (string) v
@@ -127,6 +145,8 @@
              :return     (str result string/TAB k string/TAB v))))
 
 (defn fn->string
+  ; @ignore
+  ;
   ; @param (function) n
   ;
   ; @return (string)
@@ -134,6 +154,8 @@
   (str n))
 
 (defn float->string
+  ; @ignore
+  ;
   ; @param (float) n
   ;
   ; @return (string)
@@ -141,6 +163,8 @@
   (str n))
 
 (defn integer->string
+  ; @ignore
+  ;
   ; @param (integer) n
   ;
   ; @return (string)
@@ -148,6 +172,8 @@
   (str n))
 
 (defn nil->string
+  ; @ignore
+  ;
   ; @param (nil) n
   ;
   ; @return (string)
@@ -155,6 +181,8 @@
   (str "nil"))
 
 (defn string->string
+  ; @ignore
+  ;
   ; @param (string) n
   ;
   ; @return (string)
@@ -168,6 +196,8 @@
   (pr-str n))
 
 (defn var->string
+  ; @ignore
+  ;
   ; @param (symbol) n
   ;
   ; @return (string)
