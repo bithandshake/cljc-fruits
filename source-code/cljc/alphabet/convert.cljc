@@ -5,6 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn integer->lowercase
+  ; @description
+  ; Returns the corresponging letter (in lowercase form) for the given 'n' integer in the English alphabet.
+  ;
   ; @param (integer) n
   ;
   ; @usage

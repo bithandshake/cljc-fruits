@@ -39,8 +39,7 @@
    (tag-matrix n tags {}))
 
   ([n tags {:keys [ignore-escaped?]}]
-   (letfn [
-           ; Returns TRUE if the given 'tag' string starts at the given 'cursor' value in the 'n' string.
+   (letfn [; Returns TRUE if the given 'tag' string starts at the given 'cursor' value in the 'n' string.
            (f0 [cursor tag] (= tag (subs n cursor (-> tag count (+ cursor)))))
 
            ; If the open or the close tag starts at the actual cursor it updates the state and returns it,

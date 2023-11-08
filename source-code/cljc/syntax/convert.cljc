@@ -18,8 +18,7 @@
   ;
   ; @return (string)
   [n]
-  (letfn [
-          ; Returns TRUE if the observed character follows a hyphen.
+  (letfn [; Returns TRUE if the observed character follows a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
           ; Returns TRUE if the observed character follows a whitespace.
@@ -60,8 +59,7 @@
   ;
   ; @return (string)
   [n]
-  (letfn [
-          ; Returns TRUE if the observed character follows a hyphen.
+  (letfn [; Returns TRUE if the observed character follows a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
           ; Returns TRUE if the observed character follows a whitespace.
