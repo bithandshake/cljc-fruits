@@ -43,10 +43,10 @@
    ; without using the (if (number? comment-close-pos) ...) condition, the Shadow CLJS
    ; would throw the following error message:
    ; "cljs.core/+, all arguments must be numbers, got [#{nil clj-nil} number] instead"
-   (letfn [
-           ; - If both an opening and a closing tag is found in the given 'n' string, it removes
+
+   (letfn [; - If both an opening and a closing tag is found in the given 'n' string, it removes
            ;   the part between the opening and closing tags.
-           ; - If only an opening tag is found in the given 'n' string, it removes the part after
+           ; - If only an opening tag is found in the given 'n' string, it removes the part from
            ;   the opening tag.
            (f0 [n] (if-let [comment-open-pos (tags/open-tag-position n comment-open-tag)]
                            (if-let [comment-close-pos (tags/close-tag-position n comment-open-tag comment-close-tag)]
@@ -57,8 +57,7 @@
            ; Removes the first comment by applying the 'f0' function.
            ; If the 'f0' function has found anything to cut out, it returns the chunked
            ; result (otherwise it returns nil), after then the 'f1' function calls itself
-           ; recursively, otherwise the 'f1' function returns the result from the
-           ; previous iteration.
+           ; recursively, otherwise the 'f1' function returns the result from the previous iteration.
            (f1 [n] (if-let [n (f0 n)]
                            (-> n f1)
                            (-> n)))]

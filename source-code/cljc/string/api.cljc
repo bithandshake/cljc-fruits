@@ -11,7 +11,8 @@
               [string.length  :as length]
               [string.lines   :as lines]
               [string.replace :as replace]
-              [string.trim    :as trim]))
+              [string.trim    :as trim]
+              [string.walk    :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -127,3 +128,6 @@
 (def trim-end      trim/trim-end)
 (def trim-newlines trim/trim-newlines)
 (def trim-gaps     trim/trim-gaps)
+
+; string.walk
+(def walk walk/walk)

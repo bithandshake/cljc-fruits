@@ -1,10 +1,11 @@
 
 (ns syntax.api
-    (:require [syntax.check   :as check]
-              [syntax.comment :as comment]
-              [syntax.convert :as convert]
-              [syntax.core    :as core]
-              [syntax.tags    :as tags]))
+    (:require [syntax.check       :as check]
+              [syntax.comment     :as comment]
+              [syntax.convert     :as convert]
+              [syntax.core        :as core]
+              [syntax.interpreter :as interpreter]
+              [syntax.tags        :as tags]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -27,6 +28,9 @@
 (def bracket core/bracket)
 (def percent core/percent)
 (def quotes  core/quotes)
+
+; syntax.interpreter
+(def tag-matrix interpreter/tag-matrix)
 
 ; syntax.tags
 (def tag-position           tags/tag-position)

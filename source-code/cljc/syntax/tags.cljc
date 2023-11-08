@@ -8,9 +8,9 @@
 
 (defn tag-position
   ; @description
-  ; - Returns the position of the first 'tag' string in the 'n' string.
+  ; - Returns the position of the first occurence of 'tag' string in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (string) tag
@@ -141,7 +141,7 @@
   ; @description
   ; - Returns the position of the first 'open-tag' string in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (string) open-tag
@@ -183,7 +183,7 @@
   ; @description
   ; - Returns the position of the close pair of the first occurence of the 'open-tag' string in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (string) open-tag
@@ -238,7 +238,7 @@
   ; @description
   ; - Returns the position of the first opening brace character in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (map)(opt) options
@@ -323,7 +323,7 @@
   ; @description
   ; - Returns the position of the first opening bracket character in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (map)(opt) options
@@ -408,7 +408,7 @@
   ; @description
   ; - Returns the position of the first opening parenthesis character in the 'n' string.
   ; - If the 'offset' parameter is passed, the search starts from the offset position.
-  ; - The returned position is an absolute value and is independent from the offset.
+  ; - The returned position is an absolute value and it is independent from the offset.
   ;
   ; @param (string) n
   ; @param (map)(opt) options
