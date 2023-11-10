@@ -1,7 +1,7 @@
 
 (ns vector.remove
-    (:require [vector.check :as check]
-              [vector.dex   :as dex]
+    (:require [vector.dex   :as dex]
+              [vector.item  :as item]
               [vector.range :as range]))
 
 ;; ----------------------------------------------------------------------------
@@ -224,7 +224,7 @@
   ; @return (vector)
   [n]
   (letfn [(f [result x]
-             (if (check/contains-item? result x)
+             (if (item/contains-item? result x)
                  (->   result)
                  (conj result x)))]
          (reduce f [] n)))

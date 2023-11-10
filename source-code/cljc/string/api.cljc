@@ -81,7 +81,7 @@
 
 ; string.cut
 (def part                   cut/part)
-(def cut                    cut/cut)
+(def cut-part               cut/cut-part)
 (def remove-part            cut/remove-part)
 (def filter-characters      cut/filter-characters)
 (def before-first-occurence cut/before-first-occurence)

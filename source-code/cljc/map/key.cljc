@@ -1,18 +1,22 @@
 
 (ns map.key
+    (:refer-clojure :exclude [keys])
     (:require [loop.api :refer [reduce-pairs]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn get-keys
+(defn keys
+  ; @description
+  ; Returns the keys of the given 'n' map in vector.
+  ;
   ; @param (map) n
   ;
   ; @usage
-  ; (get-keys {:a "A" :b "B"})
+  ; (keys {:a "A" :b "B"})
   ;
   ; @example
-  ; (get-keys {:a {:c "C"} :b "B"})
+  ; (keys {:a {:c "C"} :b "B"})
   ; =>
   ; [:a :b]
   ;
@@ -20,14 +24,40 @@
   [n]
   (-> n keys vec))
 
-(defn get-first-key
+(defn keys-by
+  ; @description
+  ; Returns the keys of the given 'n' map for which the given 'f' function returns TRUE.
+  ;
+  ; @param (map) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (keys-by {:a "A" :b :b} string?)
+  ;
+  ; @example
+  ; (keys-by {:a "A" :b :b :c :c} string?)
+  ; =>
+  ; [:a]
+  ;
+  ; @return (vector)
+  [n get-f]
+  (letfn [(f [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
+         (reduce-kv f [] n)))
+
+(defn first-key
+  ; @warning
+  ; Clojure maps are unordered data structures.
+  ;
+  ; @description
+  ; Returns the first key of the given 'n' map.
+  ;
   ; @param (map) n
   ;
   ; @usage
-  ; (get-first-key {:a "A" :b "B"})
+  ; (first-key {:a "A" :b "B"})
   ;
   ; @example
-  ; (get-first-key {:a {:c "C"} :b "B"})
+  ; (first-key {:a {:c "C"} :b "B"})
   ; =>
   ; :a
   ;
@@ -35,9 +65,15 @@
   [n]
   (-> n keys first))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn contains-key?
+  ; @description
+  ; Returns TRUE if the given 'n' map contains the given 'k' key.
+  ;
   ; @param (map) n
-  ; @param (*) x
+  ; @param (*) k
   ;
   ; @usage
   ; (contains-key? {:a "B" :b "B"} :a)
@@ -53,28 +89,31 @@
   ; false
   ;
   ; @return (boolean)
-  [n x]
-  (contains? n x))
+  [n k]
+  (contains? n k))
 
-(defn contains-of-keys?
+(defn contains-any-key?
+  ; @description
+  ; Returns TRUE if the given 'n' map contains any item of the given 'keys' vector.
+  ;
   ; @param (map) n
   ; @param (* in vector) keys
   ;
   ; @usage
-  ; (contains-of-keys? {:a "A" :b "B"} [:a])
+  ; (contains-any-key? {:a "A" :b "B"} [:a])
   ;
   ; @example
-  ; (contains-of-keys? {:a {:b "B"} :c "C"} [:a])
+  ; (contains-any-key? {:a {:b "B"} :c "C"} [:a])
   ; =>
   ; true
   ;
   ; @example
-  ; (contains-of-keys? {:a {:b "B"} :c "C"} [:a :b :c :d])
+  ; (contains-any-key? {:a {:b "B"} :c "C"} [:a :b :c :d])
   ; =>
   ; true
   ;
   ; @example
-  ; (contains-of-keys? {:a {:b "B"}} [:b :c :d])
+  ; (contains-any-key? {:a {:b "B"}} [:b :c :d])
   ; =>
   ; false
   ;
@@ -83,10 +122,16 @@
   (letfn [(f [%] (contains? n %))]
          (boolean (some f keys))))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn rekey-item
+  ; @description
+  ; Renames the given 'original-key' key in the given 'n' map to the 'renamed-key' value.
+  ;
   ; @param (map) n
-  ; @param (*) from
-  ; @param (*) to
+  ; @param (*) original-key
+  ; @param (*) renamed-key
   ;
   ; @usage
   ; (rekey-item {:a "A"} :a :b)
@@ -102,12 +147,16 @@
   ; {:a "A"}
   ;
   ; @return (map)
-  [n from to]
-  (if (contains? n from)
-      (dissoc (assoc n to (get n from)) from)
+  [n original-key renamed-key]
+  (if (contains? n original-key)
+      (dissoc (assoc n renamed-key (get n original-key)) original-key)
       (-> n)))
 
 (defn rekey-items
+  ; @description
+  ; Renames the given keys (odd items in the 'key-pairs' vector) in the given 'n' map
+  ; to their new names (even items in the 'key-pairs' vector).
+  ;
   ; @param (map) n
   ; @param (list of * pairs) key-pairs
   ;
@@ -126,25 +175,7 @@
   ;
   ; @return (map)
   [n & key-pairs]
-  ; TEMP#5500 (source-code/cljc/map/core.cljc)
-  (letfn [(f [n from to] (if (contains? n from)
-                             (dissoc (assoc n to (get n from)) from)
-                             (-> n)))]
+  (letfn [(f [n original-key renamed-key] (if (contains? n original-key)
+                                              (dissoc (assoc n renamed-key (get n original-key)) original-key)
+                                              (-> n)))]
          (reduce-pairs f n key-pairs)))
-
-(defn get-keys-by
-  ; @param (map) n
-  ; @param (function) f
-  ;
-  ; @usage
-  ; (get-keys-by {:a "A" :b :b} string?)
-  ;
-  ; @example
-  ; (get-keys-by {:a "A" :b :b :c :c} string?)
-  ; =>
-  ; [:a]
-  ;
-  ; @return (vector)
-  [n get-f]
-  (letfn [(f [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
-         (reduce-kv f [] n)))

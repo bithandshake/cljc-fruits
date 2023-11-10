@@ -1,7 +1,9 @@
 
 (ns map.api
+    (:refer-clojure :exclude [keys namespace])
     (:require [map.check     :as check]
               [map.collapse  :as collapse]
+              [map.compare   :as compare]
               [map.convert   :as convert]
               [map.core      :as core]
               [map.filter    :as filter]
@@ -23,11 +25,13 @@
 ; map.collapse
 (def collapse collapse/collapse)
 
+; map.compare
+(def difference compare/difference)
+
 ; map.convert
 (def to-vector convert/to-vector)
 
 ; map.core
-(def difference     core/difference)
 (def swap           core/swap)
 (def dissoc-in      core/dissoc-in)
 (def dissoc-items   core/dissoc-items)
@@ -46,25 +50,27 @@
 (def filter-values-by filter/filter-values-by)
 
 ; map.key
-(def get-keys          key/get-keys)
-(def get-first-key     key/get-first-key)
+(def keys              key/keys)
+(def keys-by           key/keys-by)
+(def first-key         key/first-key)
 (def contains-key?     key/contains-key?)
-(def contains-of-keys? key/contains-of-keys?)
+(def contains-any-key? key/contains-any-key?)
 (def rekey-item        key/rekey-item)
 (def rekey-items       key/rekey-items)
-(def get-keys-by       key/get-keys-by)
 
 ; map.inherit
 (def inherit    inherit/inherit)
 (def inherit-in inherit/inherit-in)
 
 ; map.match
-(def any-key-match?        match/any-key-match?)
-(def any-value-match?      match/any-value-match?)
-(def all-values-match?     match/all-values-match?)
-(def get-first-match-key   match/get-first-match-key)
-(def get-first-match-value match/get-first-match-value)
-(def match-pattern?        match/match-pattern?)
+(def any-key-matches?     match/any-key-matches?)
+(def any-value-matches?   match/any-value-matches?)
+(def all-keys-match?      match/all-keys-match?)
+(def all-values-match?    match/all-values-match?)
+(def first-match-key      match/first-match-key)
+(def first-matching-key   match/first-matching-key)
+(def first-matching-value match/first-matching-value)
+(def matches-pattern?     match/matches-pattern?)
 
 ; map.merge
 (def deep-merge     merge/deep-merge)
@@ -72,7 +78,7 @@
 (def merge-some     merge/merge-some)
 
 ; map.namespace
-(def get-namespace    namespace/get-namespace)
+(def namespace        namespace/namespace)
 (def namespaced?      namespace/namespaced?)
 (def add-namespace    namespace/add-namespace)
 (def remove-namespace namespace/remove-namespace)
@@ -86,8 +92,8 @@
 (def remove-values-by remove/remove-values-by)
 
 ; map.value
-(def get-values      value/get-values)
-(def get-first-value value/get-first-value)
+(def values          value/values)
+(def first-value     value/first-value)
 (def contains-value? value/contains-value?)
 (def values-equal?   value/values-equal?)
 

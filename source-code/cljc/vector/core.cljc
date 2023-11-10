@@ -1,9 +1,7 @@
 
 (ns vector.core
-    (:require [vector.check  :as check]
-              [vector.cursor :as cursor]
-              [vector.dex    :as dex]
-              [vector.nth    :as nth]
+    (:require [vector.cursor :as cursor]
+              [vector.item   :as item]
               [vector.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
@@ -106,7 +104,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+  (letfn [(f [result x] (if (-> result (item/contains-item? x))
                             (-> result)
                             (-> x (cons result))))]
          (vec (reduce f n (vec xyz)))))
@@ -155,7 +153,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (-> result (check/contains-item? x))
+  (letfn [(f [result x] (if (-> result (item/contains-item? x))
                             (-> result)
                             (-> result (conj x))))]
          (vec (reduce f n (vec xyz)))))
@@ -355,95 +353,6 @@
   ;
   ; @return (vector)
   [n x]
-  (if (check/contains-item? n x)
-      (remove/remove-item   n x)
-      (conj-item            n x)))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn prev-item
-  ; @param (vector) n
-  ; @param (*) x
-  ;
-  ; @example
-  ; (prev-item [:a :b :c] :c)
-  ;
-  ; @example
-  ; (prev-item [:a :b :c :d] :b)
-  ; =>
-  ; :a
-  ;
-  ; @example
-  ; (prev-item [:a :b :c :d] nil)
-  ; =>
-  ; :d
-  ;
-  ; @example
-  ; (prev-item [] :a)
-  ; =>
-  ; ?
-  ;
-  ; @return (*)
-  [n x]
-  (let [item-first-dex (dex/item-first-dex n x)
-        prev-item-dex  (dex/prev-dex       n item-first-dex)]
-       (nth/nth-item n prev-item-dex)))
-
-(defn next-item
-  ; @param (vector) n
-  ; @param (*) x
-  ;
-  ; @usage
-  ; (next-item [:a :b :c] :a)
-  ;
-  ; @example
-  ; (next-item [:a :b :c :d] :a)
-  ; =>
-  ; :b
-  ;
-  ; @example
-  ; (next-item [:a :b :c :d] nil)
-  ; =>
-  ; :a
-  ;
-  ; @example
-  ; (next-item [] :a)
-  ; =>
-  ; ?
-  ;
-  ; @return (*)
-  [n x]
-  (let [item-first-dex (dex/item-first-dex n x)
-        next-item-dex  (dex/next-dex       n item-first-dex)]
-       (nth/nth-item n next-item-dex)))
-
-(defn last-item
-  ; @param (vector) n
-  ;
-  ; @usage
-  ; (last-item [:a :b :c])
-  ;
-  ; @example
-  ; (last-item [:a :b :c])
-  ; =>
-  ; :c
-  ;
-  ; @return (*)
-  [n]
-  (last n))
-
-(defn first-item
-  ; @param (vector) n
-  ;
-  ; @usage
-  ; (first-item [:a :b :c])
-  ;
-  ; @example
-  ; (first-item [:a :b :c])
-  ; =>
-  ; :a
-  ;
-  ; @return (*)
-  [n]
-  (first n))
+  (if (item/contains-item? n x)
+      (remove/remove-item  n x)
+      (conj-item           n x)))

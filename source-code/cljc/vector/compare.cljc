@@ -1,6 +1,6 @@
 
 (ns vector.compare
-    (:require [vector.check  :as check]
+    (:require [vector.item   :as item]
               [vector.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@
   ; @return (vector)
   [a b]
   (letfn [(f [result x]
-             (if (check/contains-item? b x)
+             (if (item/contains-item? b x)
                  (vec (conj result x))
                  (-> result)))]
          (reduce f [] a)))
@@ -80,7 +80,7 @@
   ; @return (vector)
   [n xyz]
   (letfn [(f [result x]
-             (if (check/contains-item? xyz x)
+             (if (item/contains-item? xyz x)
                  (conj result x)
                  (->   result)))]
          (reduce f [] n)))

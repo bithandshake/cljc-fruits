@@ -4,14 +4,14 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn get-values
+(defn values
   ; @param (map) n
   ;
   ; @usage
-  ; (get-values {:a {:b "B"}})
+  ; (values {:a {:b "B"}})
   ;
   ; @example
-  ; (get-values {:a {:b "B"} :c "C"})
+  ; (values {:a {:b "B"} :c "C"})
   ; =>
   ; [{:b "B"} "C"]
   ;
@@ -19,20 +19,22 @@
   [n]
   (-> n vals vec))
 
-(defn get-first-value
+(defn first-value
+  ; @warning
+  ; Clojure maps are unordered data structures.
+  ;
   ; @param (map) n
   ;
   ; @usage
-  ; (get-first-value {:a "A" :b "B"})
+  ; (first-value {:a "A" :b "B"})
   ;
   ; @example
-  ; (get-first-value {:a "A" :b "B"})
+  ; (first-value {:a "A" :b "B"})
   ; =>
   ; "A"
   ;
   ; @return (*)
   [n]
-  ; WARNING! Clojure maps are an unordered data structure.
   (-> n vals first))
 
 (defn contains-value?

@@ -1,35 +1,36 @@
 
-(ns map.namespace)
+(ns map.namespace
+    (:refer-clojure :exclude [namespace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn get-namespace
+(defn namespace
   ; @param (map) n
   ;
   ; @usage
-  ; (get-namespace {:a/b "A"})
+  ; (namespace {:a/b "A"})
   ;
   ; @example
-  ; (get-namespace {:a "A"})
+  ; (namespace {:a "A"})
   ; =>
   ; nil
   ;
   ; @example
-  ; (get-namespace {:a/b "A"})
+  ; (namespace {:a/b "A"})
   ; =>
   ; :a
   ;
   ; @example
-  ; (get-namespace {:a   "A"
-  ;                 :b   "B"
-  ;                 :c/d "C"
-  ;                 :e/f "E"})
+  ; (namespace {:a   "A"
+  ;             :b   "B"
+  ;             :c/d "C"
+  ;             :e/f "E"})
   ; =>
   ; :c
   ;
   ; @example
-  ; (get-namespace {"a/b" "A"})
+  ; (namespace {"a/b" "A"})
   ; =>
   ; :a
   ;
@@ -37,10 +38,10 @@
   [n]
   (letfn [(f [item-key]
              (cond (string? item-key)
-                   (if-let [namespace (-> item-key keyword namespace)]
+                   (if-let [namespace (-> item-key keyword clojure.core/namespace)]
                            (keyword namespace))
                    (keyword? item-key)
-                   (if-let [namespace (-> item-key         namespace)]
+                   (if-let [namespace (-> item-key clojure.core/namespace)]
                            (keyword namespace))))]
          (some f (keys n))))
 
@@ -62,7 +63,7 @@
   ;
   ; @return (boolean)
   [n]
-  (-> n get-namespace some?))
+  (-> n namespace some?))
 
 (defn add-namespace
   ; @param (map) n
@@ -113,8 +114,6 @@
                    :return n))]
          (reduce-kv f {} n)))
 
-
-
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -143,6 +142,6 @@
   ;
   ; @return (*)
   [n key]
-  (if-let [namespace (get-namespace n)]
+  (if-let [namespace (namespace n)]
           (let [key (keyword (name namespace) (name key))]
                (get n key))))

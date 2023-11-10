@@ -1,7 +1,7 @@
 
 (ns vector.nth
-    (:require [vector.check :as check]
-              [vector.dex   :as dex]))
+    (:require [vector.dex  :as dex]
+              [vector.item :as item]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -58,7 +58,7 @@
   ; @return (vector)
   [n dexes]
   (letfn [(remove-nth-items-f [result dex x]
-                              (if (check/contains-item? dexes dex)
+                              (if (item/contains-item? dexes dex)
                                   (->   result)
                                   (conj result x)))]
          (reduce-kv remove-nth-items-f [] n)))

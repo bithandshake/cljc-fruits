@@ -936,7 +936,10 @@
   ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [n x] (= x (subs n cursor (-> x count (+ cursor)))))]
+        (letfn [(f [n x] (let [end-cursor (-> x count (+ cursor))]
+                              (and (-> n (cursor/cursor-in-bounds? end-cursor))
+                                   (-> n (subs cursor end-cursor)
+                                         (= x)))))]
                (if case-sensitive? (f n x)
                                    (f (clojure.string/lower-case n)
                                       (clojure.string/lower-case x)))))))
@@ -969,7 +972,10 @@
   ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [n x] (= x (subs n (- cursor (count x)) cursor)))]
+        (letfn [(f [n x] (let [start-cursor (->> x count (- cursor))]
+                              (and (-> n (cursor/cursor-in-bounds? start-cursor))
+                                   (-> n (subs start-cursor cursor)
+                                         (= x)))))]
                (if case-sensitive? (f n x)
                                    (f (clojure.string/lower-case n)
                                       (clojure.string/lower-case x)))))))

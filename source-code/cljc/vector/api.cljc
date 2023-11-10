@@ -4,31 +4,25 @@
               [vector.compare :as compare]
               [vector.convert :as convert]
               [vector.core    :as core]
+              [vector.count   :as count]
               [vector.cursor  :as cursor]
               [vector.dex     :as dex]
               [vector.filter  :as filter]
+              [vector.item    :as item]
               [vector.match   :as match]
               [vector.move    :as move]
               [vector.nth     :as nth]
               [vector.range   :as range]
               [vector.remove  :as remove]
               [vector.sort    :as sort]
+              [vector.step    :as step]
               [vector.walk    :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 ; vector.check
-(def nonempty?          check/nonempty?)
-(def contains-item?     check/contains-item?)
-(def not-contains-item? check/not-contains-item?)
-(def min?               check/min?)
-(def max?               check/max?)
-(def longer?            check/longer?)
-(def count?             check/count?)
-(def only-item?         check/only-item?)
-(def item-last?         check/item-last?)
-(def item-first?        check/item-first?)
+(def nonempty? check/nonempty?)
 
 ; vector.compare
 (def similars           compare/similars)
@@ -55,10 +49,12 @@
 (def replace-item      core/replace-item)
 (def insert-item       core/insert-item)
 (def toggle-item       core/toggle-item)
-(def prev-item         core/prev-item)
-(def next-item         core/next-item)
-(def last-item         core/last-item)
-(def first-item        core/first-item)
+
+; vector.count
+(def min?    count/min?)
+(def max?    count/max?)
+(def longer? count/longer?)
+(def count?  count/count?)
 
 ; vector.cursor
 (def cursor-in-bounds?     cursor/cursor-in-bounds?)
@@ -91,6 +87,15 @@
 (def nth-filtered-by   filter/nth-filtered-by)
 (def filtered-count    filter/filtered-count)
 (def filtered-count?   filter/filtered-count?)
+
+; vector.item
+(def last-item          item/last-item)
+(def first-item         item/first-item)
+(def contains-item?     item/contains-item?)
+(def not-contains-item? item/not-contains-item?)
+(def only-item?         item/only-item?)
+(def item-last?         item/item-last?)
+(def item-first?        item/item-first?)
 
 ; vector.match
 (def any-item-match?     match/any-item-match?)
@@ -147,6 +152,10 @@
 (def sort-items-by-dexes    sort/sort-items-by-dexes)
 (def sorted-dexes           sort/sorted-dexes)
 (def compared-items-sorted? sort/compared-items-sorted?)
+
+; vector.step
+(def prev-item step/prev-item)
+(def next-item step/next-item)
 
 ; vector.walk
 (def ->items         walk/->items)

@@ -23,9 +23,9 @@
   ; {:b "b"}
   ;
   ; @return (map)
-  ; Things only in a
+  ; Key-value pairs presented only in 'a' map.
   [a b]
-  (first (data/diff a b)))
+  (-> a (data/diff b) first))
 
 (defn swap
   ; @description
@@ -49,13 +49,12 @@
 
 (defn dissoc-in
   ; @description
-  ; Origin: re-frame.utils/dissoc-in
-  ;
-  ; Dissociates an entry from a nested associative structure returning a new
-  ; nested structure. keys is a sequence of keys. Any empty maps that result
-  ; will not be present in the new structure.
-  ; The key thing is that 'm' remains identical? to istelf if the path was
-  ; never present.
+  ; - Original: re-frame.utils/dissoc-in
+  ; - Dissociates an entry from a nested associative structure returning a new
+  ;   nested structure. keys is a sequence of keys. Any empty maps that result
+  ;   will not be present in the new structure.
+  ;   The key thing is that 'm' remains identical? to istelf if the path was
+  ;   never present.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -80,7 +79,7 @@
 
 (defn dissoc-items
   ; @description
-  ; Removes specified keys and their associated values from a map.
+  ; Removes specified keys and their associated values from the given 'n' map.
   ;
   ; @param (map) n
   ; @param (* in vector) keys
@@ -266,8 +265,8 @@
   ; @return (map)
   [n & kv-pairs]
   ; TEMP#5500
-  ; This function uses the new reduce-pairs recursion that made for applying
-  ; functions on parameter pairs e.g. to make map functions take not just a single
+  ; This function uses the new 'reduce-pairs' recursion that is designed for applying
+  ; functions on parameter pairs e.g., to make map functions take not just a single
   ; key-value pair but more than one pairs.
   ; Other map functions will use that recursion as well (in later versions).
   (letfn [(f [n k v] (if (-> v some?)

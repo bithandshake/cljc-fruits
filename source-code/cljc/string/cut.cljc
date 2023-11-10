@@ -50,7 +50,7 @@
             (subs n start end)))))
            ;(-> n) <- Why this function returned the whole string in case of the cursors are out of bounds?
 
-(defn cut
+(defn cut-part
   ; @description
   ; Returns a given 'n' value (converted to string) after a specific range is removed.
   ;
@@ -59,31 +59,31 @@
   ; @param (integer) end
   ;
   ; @usage
-  ; (cut "abc" 0 2)
+  ; (cut-part "abc" 0 2)
   ;
   ; @example
-  ; (cut "abcdef" 2 4)
+  ; (cut-part "abcdef" 2 4)
   ; =>
   ; "abef"
   ;
   ; @example
-  ; (cut "abcdef" 4 2)
+  ; (cut-part "abcdef" 4 2)
   ; =>
   ; "abef"
   ;
   ; @example
-  ; (cut 12345 2 4)
+  ; (cut-part 12345 2 4)
   ; =>
   ; "125"
   ;
   ; @example
-  ; (cut [:a :b] 0 3)
+  ; (cut-part [:a :b] 0 3)
   ; =>
   ; " :b]"
   ;
   ; @return (string)
   ([n end]
-   (cut n 0 end))
+   (cut-part n 0 end))
 
   ([n start end]
    (let [n (str n)]

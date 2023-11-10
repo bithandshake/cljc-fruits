@@ -6,7 +6,7 @@
 
 (defn nonempty?
   ; @description
-  ; Returns TRUE in case of the given 'n' value is a nonempty map.
+  ; Returns TRUE if the given 'n' value is a nonempty map.
   ;
   ; @param (map) n
   ;
