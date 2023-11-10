@@ -583,9 +583,10 @@
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (if case-sensitive? (clojure.string/ends-with? n x)
-                            (clojure.string/ends-with? (clojure.string/lower-case n)
-                                                       (clojure.string/lower-case x))))))
+        (letfn [(f [n x] (clojure.string/ends-with? n x))]
+               (if case-sensitive? (f n x)
+                                   (f (clojure.string/lower-case n)
+                                      (clojure.string/lower-case x)))))))
 
 (defn not-ends-with?
   ; @param (*) n
@@ -613,9 +614,12 @@
   ; false
   ;
   ; @return (boolean)
-  [n x]
-  (let [ends-with? (ends-with? n x)]
-       (not ends-with?)))
+  ([n x]
+   (not-ends-with? n x {}))
+
+  ([n x options]
+   (let [ends-with? (ends-with? n x options)]
+        (not ends-with?))))
 
 (defn ends-with!
   ; @param (*) n
@@ -716,9 +720,10 @@
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (if case-sensitive? (clojure.string/starts-with? n x)
-                            (clojure.string/starts-with? (clojure.string/lower-case n)
-                                                         (clojure.string/lower-case x))))))
+        (letfn [(f [n x] (clojure.string/starts-with? n x))]
+               (if case-sensitive? (f n x)
+                                   (f (clojure.string/lower-case n)
+                                      (clojure.string/lower-case x)))))))
 
 (defn not-starts-with?
   ; @param (*) n
@@ -750,9 +755,12 @@
   ; false
   ;
   ; @return (boolean)
-  [n x]
-  (let [starts-with? (starts-with? n x)]
-       (not starts-with?)))
+  ([n x]
+   (not-starts-with? n x {}))
+
+  ([n x options]
+   (let [starts-with? (starts-with? n x options)]
+        (not starts-with?))))
 
 (defn starts-with!
   ; @param (*) n
@@ -823,7 +831,7 @@
        (cut/after-first-occurence n x)
        (-> n))))
 
-(defn pass-with?
+(defn matches-with?
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
@@ -831,28 +839,28 @@
   ;   Default: true}
   ;
   ; @example
-  ; (pass-with? "abc" "ab")
+  ; (matches-with? "abc" "ab")
   ; =>
   ; false
   ;
   ; @example
-  ; (pass-with? "abc" "abc")
+  ; (matches-with? "abc" "abc")
   ; =>
   ; true
   ;
   ; @example
-  ; (pass-with? "abc" "Abc")
+  ; (matches-with? "abc" "Abc")
   ; =>
   ; false
   ;
   ; @example
-  ; (pass-with? "abc" "Abc" {:case-sensitive? false})
+  ; (matches-with? "abc" "Abc" {:case-sensitive? false})
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n x]
-   (pass-with? n x {}))
+   (matches-with? n x {}))
 
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
@@ -862,7 +870,7 @@
                  (= (clojure.string/lower-case n)
                     (clojure.string/lower-case x)))))))
 
-(defn not-pass-with?
+(defn not-matches-with?
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
@@ -870,29 +878,98 @@
   ;   Default: true}
   ;
   ; @example
-  ; (not-pass-with? "abc" "ab")
+  ; (not-matches-with? "abc" "ab")
   ; =>
   ; true
   ;
   ; @example
-  ; (not-pass-with? "abc" "abc")
+  ; (not-matches-with? "abc" "abc")
   ; =>
   ; false
   ;
   ; @example
-  ; (not-pass-with? "abc" "Abc")
+  ; (not-matches-with? "abc" "Abc")
   ; =>
   ; true
   ;
   ; @example
-  ; (not-pass-with? "abc" "Abc" {:case-sensitive? false})
+  ; (not-matches-with? "abc" "Abc" {:case-sensitive? false})
   ; =>
   ; false
   ;
   ; @return (boolean)
   ([n x]
-   (not-pass-with? n x {}))
+   (not-matches-with? n x {}))
 
   ([n x options]
-   (let [pass-with? (pass-with? n x options)]
-        (not pass-with?))))
+   (let [matches-with? (matches-with? n x options)]
+        (not matches-with?))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn starts-at?
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (starts-at? "The things you used to own, now they own you." "things" 4)
+  ;
+  ; @example
+  ; (starts-at? "The things you used to own, now they own you." "things" 4)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (starts-at? "The things you used to own, now they own you." "things" 2)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x cursor]
+   (starts-at? n x cursor {}))
+
+  ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
+   (let [n (str n)
+         x (str x)]
+        (letfn [(f [n x] (= x (subs n cursor (-> x count (+ cursor)))))]
+               (if case-sensitive? (f n x)
+                                   (f (clojure.string/lower-case n)
+                                      (clojure.string/lower-case x)))))))
+
+(defn ends-at?
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (ends-at? "The things you used to own, now they own you." "things" 10)
+  ;
+  ; @example
+  ; (ends-at? "The things you used to own, now they own you." "things" 10)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (ends-at? "The things you used to own, now they own you." "things" 15)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x cursor]
+   (ends-at? n x cursor {}))
+
+  ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
+   (let [n (str n)
+         x (str x)]
+        (letfn [(f [n x] (= x (subs n (- cursor (count x)) cursor)))]
+               (if case-sensitive? (f n x)
+                                   (f (clojure.string/lower-case n)
+                                      (clojure.string/lower-case x)))))))

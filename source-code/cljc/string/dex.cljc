@@ -208,6 +208,7 @@
                                         (inc skip)))))]
                      (f 0 0)))))
 
-  ([n x dex offset]
-   (if (-> offset integer?)
-       (+  offset (nth-dex-of (subs (str n) offset) x dex)))))
+  ([n x dex offset]))
+   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ;(if (-> offset integer?)
+   ;    (+ offset (nth-dex-of (subs (str n) offset) x dex))))

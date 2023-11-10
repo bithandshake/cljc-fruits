@@ -1,7 +1,6 @@
 
 (ns reader.prepare
-    (:require [string.api :as string]
-              [syntax.api :as syntax]))
+    (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -19,22 +18,22 @@
   ;
   ; @return (map)
   [n]
-  (letfn [
-          ; Removes the first '#object[...]' part of the given string.
+  (letfn [; Removes the first '#object[...]' part of the given string.
           ; Returns NIL in case of no part has been removed!
           (remove-object-f [%] (if-let [open-pos (string/first-dex-of % "#object[")]
-                                       (if-let [close-pos (syntax/close-bracket-position % {:offset open-pos})]
+                                       (if-let [close-pos (string/first-dex-of % "]" open-pos)]
                                                (str (string/part % 0 open-pos)
                                                     ":object-removed-by-reader"
                                                     (string/part % (inc close-pos))))))
 
-          ; Calls the 'remove-object-f' function recursivelly if an object has been removed (the function returned the updated string).
-          ; Returns the given string if the 'remove-object-f' returned NIL (no part has been removed).
+          ; Calls the 'remove-object-f' function recursivelly if an object has been removed (= the function returned the updated string).
+          ; Returns the given string if the 'remove-object-f' returned NIL (= no part has been removed).
           (remove-objects-f [%] (if-let [% (remove-object-f %)]
                                         (-> % remove-objects-f)
                                         (-> %)))]
 
-         ; The 'cljs.reader/read-string' function throws the following error if the EDN contains an unknown object as tag.
+         ; The 'cljs.reader/read-string' function would throw the following error if the EDN contains an unknown object as tag,
+         ; therefore this function removes objects from the given EDN.
          ; #error {:message No reader function for tag object., :data {:type :reader-exception, :ex-kind :reader-error}}
          (-> n remove-objects-f)))
 

@@ -156,7 +156,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (-> n syntax/to-snake-case )
+  (cond (string?  n) (-> n syntax/to-snake-case)
         (keyword? n) (-> n name snake-case-key keyword)
         :return   n))
 
