@@ -22,6 +22,6 @@
   ; {:b "b"}
   ;
   ; @return (map)
-  ; Key-value pairs presented only in 'a' map.
+  ; Key-value pairs present only in 'a' map.
   [a b]
   (-> a (clojure.data/diff b) first))

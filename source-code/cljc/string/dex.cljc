@@ -5,65 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn dex-in-bounds?
-  ; @description
-  ; - Returns TRUE if the given 'dex' value is falls between 0 and the highest possible index value ('(-> n count dec)').
-  ; - Cursors are different from indexes in strings.
-  ;   A cursor could be at the very end of the string while an index could only point to the last character at the end.
-  ;
-  ; @param (*) n
-  ; @param (integer) dex
-  ;
-  ; @usage
-  ; (dex-in-bounds? "abc" 2)
-  ;
-  ; @example
-  ; (dex-in-bounds? "abc" 2)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (dex-in-bounds? "abc" 3)
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n dex]
-  (let [n (str n)]
-       (and (-> dex nat-int?)
-            (-> n count (> dex)))))
-
-(defn dex-out-of-bounds?
-  ; @description
-  ; - Returns TRUE if the given 'dex' value is NOT falls between 0 and the highest possible index value ('(-> n count dec)').
-  ; - Cursors are different from indexes in strings.
-  ;   A cursor could be at the very end of the string while an index could only point to the last character at the end.
-  ;
-  ; @param (*) n
-  ; @param (integer) dex
-  ;
-  ; @usage
-  ; (dex-out-of-bounds? "abc" 3)
-  ;
-  ; @example
-  ; (dex-out-of-bounds? "abc" 3)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (dex-out-of-bounds? "abc" 2)
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  [n dex]
-  (let [n (str n)]
-       (or (-> dex nat-int? not)
-           (-> n count (<= dex)))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
 (defn first-dex-of
   ; @description
   ; - Returns the index of the first occurence of the given 'x' value (converted to string)

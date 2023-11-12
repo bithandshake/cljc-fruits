@@ -1,6 +1,6 @@
 
 (ns string.length
-    (:require [string.dex :as dex]))
+    (:require [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -184,6 +184,6 @@
   [n limit & [suffix]]
   (let [n (str n)]
        (if (and (-> n empty? not)
-                (-> n (dex/dex-in-bounds? limit)))
+                (-> n (seqable/dex-in-bounds? limit)))
            (str (subs n 0 limit) suffix)
            (-> n))))

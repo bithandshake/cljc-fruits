@@ -1,8 +1,30 @@
 
-(ns vector.check)
+(ns vector.check
+    (:refer-clojure :exclude [empty?]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn empty?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (empty? [])
+  ;
+  ; @example
+  ; (empty? [])
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (empty? [:a])
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n vector?)
+       (-> n clojure.core/empty?)))
 
 (defn nonempty?
   ; @param (*) n
@@ -11,17 +33,16 @@
   ; (nonempty? [:a])
   ;
   ; @example
-  ; (nonempty? [])
-  ; =>
-  ; false
-  ;
-  ; @example
   ; (nonempty? [:a])
   ; =>
   ; true
   ;
+  ; @example
+  ; (nonempty? [])
+  ; =>
+  ; false
+  ;
   ; @return (boolean)
-  ; Is n a nonempty vector?
   [n]
   (and (-> n vector?)
-       (-> n empty? not)))
+       (-> n clojure.core/empty? not)))

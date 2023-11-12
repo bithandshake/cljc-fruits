@@ -1,15 +1,15 @@
 
 (ns string.cut
     (:require [clojure.string]
-              [math.api      :as math]
-              [string.cursor :as cursor]))
+              [math.api    :as math]
+              [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn part
   ; @description
-  ; Returns a specific range of the given 'n' value (converted to string).
+  ; Returns a specific part of the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (integer) start
@@ -43,56 +43,53 @@
    (part n start (-> n str count)))
 
   ([n start end]
-   (let [n (str n)]
-        (if (and (-> n empty? not)
-                 (-> n (cursor/cursor-in-bounds? start))
-                 (-> n (cursor/cursor-in-bounds? end)))
-            (subs n start end)))))
-           ;(-> n) <- Why this function returned the whole string in case of the cursors are out of bounds?
+   (let [n     (-> n str)
+         start (-> n (seqable/normalize-cursor start))
+         end   (-> n (seqable/normalize-cursor end))]
+        (subs n (min start end)
+                (max start end)))))
 
-(defn cut-part
+(defn cut-range
   ; @description
-  ; Returns a given 'n' value (converted to string) after a specific range is removed.
+  ; Returns the given 'n' value (converted to string) after a specific range is removed.
   ;
   ; @param (*) n
   ; @param (integer)(opt) start
   ; @param (integer) end
   ;
   ; @usage
-  ; (cut-part "abc" 0 2)
+  ; (cut-range "abc" 0 2)
   ;
   ; @example
-  ; (cut-part "abcdef" 2 4)
+  ; (cut-range "abcdef" 2 4)
   ; =>
   ; "abef"
   ;
   ; @example
-  ; (cut-part "abcdef" 4 2)
+  ; (cut-range "abcdef" 4 2)
   ; =>
   ; "abef"
   ;
   ; @example
-  ; (cut-part 12345 2 4)
+  ; (cut-range 12345 2 4)
   ; =>
   ; "125"
   ;
   ; @example
-  ; (cut-part [:a :b] 0 3)
+  ; (cut-range [:a :b] 0 3)
   ; =>
   ; " :b]"
   ;
   ; @return (string)
   ([n end]
-   (cut-part n 0 end))
+   (cut-range n 0 end))
 
   ([n start end]
-   (let [n (str n)]
-        (if (and (-> n empty? not)
-                 (-> n (cursor/cursor-in-bounds? start))
-                 (-> n (cursor/cursor-in-bounds? end)))
-            (str (subs n 0 (min start end))
-                 (subs n   (max start end)))
-            (-> n)))))
+   (let [n     (str n)
+         start (seqable/normalize-cursor n start)
+         end   (seqable/normalize-cursor n end)]
+        (str (subs n 0 (min start end))
+             (subs n   (max start end))))))
 
 (defn remove-part
   ; @param (*) n
@@ -123,14 +120,16 @@
   ;
   ; @return (string)
   [n x]
-  (clojure.string/replace (str n) x ""))
+  (let [n (str n)]
+       (clojure.string/replace n x "")))
 
 (defn filter-characters
   ; @param (*) n
   ; @param (vector) allowed-characters
   ;
   ; @example
-  ; (filter-characters "+3630 / 123 - 4567" ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"])
+  ; (filter-characters "+3630 / 123 - 4567"
+  ;                    ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"])
   ; =>
   ; "+36301234567"
   ;
@@ -141,9 +140,10 @@
   ;
   ; @return (string)
   [n allowed-characters]
-  (letfn [(f [result x] (if (some #(= x %) allowed-characters)
-                            (str result x) result))]
-         (reduce f "" (str n))))
+  (let [n (str n)]
+       (letfn [(f [result x] (if (some #(= x %) allowed-characters)
+                                 (str result x) result))]
+              (reduce f "" n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -155,7 +155,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -213,7 +213,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -271,7 +271,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -329,7 +329,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -387,7 +387,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -445,7 +445,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -503,7 +503,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage
@@ -561,7 +561,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If true, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
   ;   Default: false}
   ;
   ; @usage

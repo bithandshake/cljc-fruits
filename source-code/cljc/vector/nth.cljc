@@ -1,6 +1,6 @@
 
 (ns vector.nth
-    (:require [vector.dex  :as dex]
+    (:require [seqable.api :as seqable]
               [vector.item :as item]))
 
 ;; ----------------------------------------------------------------------------
@@ -20,9 +20,9 @@
   ;
   ; @return (*)
   [n dex]
-  (if (and (-> n vector?)
-           (-> n (dex/dex-in-bounds? dex)))
-      (nth n dex)))
+  (if (vector? n)
+      (let [dex (seqable/normalize-dex n dex)]
+           (nth n dex))))
 
 (defn remove-nth-item
   ; @param (vector) n
@@ -38,30 +38,31 @@
   ;
   ; @return (vector)
   [n dex]
-  (if (and (-> n vector?)
-           (-> n (dex/dex-in-bounds? dex)))
-      (vec (concat (subvec n 0 dex)
-                   (subvec n (inc dex))))))
+  (if (vector? n)
+      (let [dex (seqable/normalize-dex n dex)]
+           (vec (concat (subvec n 0 dex)
+                        (subvec n (inc dex)))))))
 
 (defn remove-nth-items
   ; @param (vector) n
   ; @param (integers in vector) dexes
   ;
   ; @usage
-  ; (remove-nth-item [:a :b :c] [0 2])
+  ; (remove-nth-items [:a :b :c] [0 2])
   ;
   ; @example
-  ; (remove-nth-item [:a :b :c :d :e] [0 2])
+  ; (remove-nth-items [:a :b :c :d :e] [0 2])
   ; =>
   ; [:b :d :e]
   ;
   ; @return (vector)
   [n dexes]
-  (letfn [(remove-nth-items-f [result dex x]
-                              (if (item/contains-item? dexes dex)
-                                  (->   result)
-                                  (conj result x)))]
-         (reduce-kv remove-nth-items-f [] n)))
+  (if (vector? n)
+      (letfn [(f [result dex x]
+                 (if (item/contains-item? dexes dex)
+                     (->   result)
+                     (conj result x)))]
+             (reduce-kv f [] n))))
 
 (defn duplicate-nth-item
   ; @param (vector) n
@@ -119,9 +120,8 @@
   ;
   ; @return (vector)
   [n dex x]
-  (if (and (-> n vector?)
-           (-> n (dex/dex-in-bounds? dex)))
-      (vec (concat (subvec n 0 dex)
-                   [x]
-                   (subvec n (inc dex))))
-      (-> n)))
+  (if (vector? n)
+      (let [dex (seqable/normalize-dex n dex)]
+           (vec (concat (subvec n 0 dex)
+                        [x]
+                        (subvec n (inc dex)))))))

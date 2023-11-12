@@ -1,6 +1,6 @@
 
 (ns vector.filter
-    (:require [vector.dex :as dex]))
+    (:require [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -126,7 +126,7 @@
   (letfn [(f [x match-count f-dex]
              (if (-> x filter-f not)
                  ; If x is NOT matches ...
-                 (if (dex/dex-last? n f-dex)
+                 (if (seqable/dex-last? n f-dex)
                      ; If NO more items in n ...
                      (-> nil)
                      ; If more items in n ...
@@ -134,7 +134,7 @@
                  ; If x is matches ...
                  (if (< match-count dex)
                      ; If x is not the nth match ...
-                     (if (dex/dex-last? n f-dex)
+                     (if (seqable/dex-last? n f-dex)
                          ; If NO more items in n ...
                          (-> nil)
                          ; If more items in n ...

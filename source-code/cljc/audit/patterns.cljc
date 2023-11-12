@@ -39,12 +39,11 @@
 
 (defn latin-name-pattern
   ; @description
-  ; Returns a regex pattern that matches valid latin names.
-  ;
-  ; Latin name is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains only latin characters, accented latin characters, digits,
-  ;     underscrores, hyphens, apostrophes, periods and spaces.
+  ; - Returns a regex pattern that matches valid latin names.
+  ; - A latin name is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains only latin characters, accented latin characters, digits,
+  ;       underscrores, hyphens, apostrophes, periods and spaces.
   ;
   ; @param (integer)(opt) min
   ; Default: 2
@@ -77,15 +76,13 @@
 
 (defn password-pattern
   ; @description
-  ; Returns a regex pattern that matches valid passwords.
-  ;
-  ; Password is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains at least one uppercase letter,
-  ; ... contains at least one lowercase letter,
-  ; ... contains at least one digit.
-  ;
-  ; Accented characters and the following special characters are allowed: .-_!?#*
+  ; - Returns a regex pattern that matches valid passwords.
+  ; - A password is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains at least one uppercase letter,
+  ;   ... contains at least one lowercase letter,
+  ;   ... contains at least one digit.
+  ; - Accented characters and the following special characters are allowed: .-_!?#*
   ;
   ; @param (integer)(opt) min
   ; Default: 8
@@ -118,11 +115,10 @@
 
 (defn phone-number-pattern
   ; @description
-  ; Returns a regex pattern that matches valid phone numbers.
-  ;
-  ; Phone number is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... its first letter is a "+" character.
+  ; - Returns a regex pattern that matches valid phone numbers.
+  ; - A phone number is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... its first letter is a "+" character.
   ;
   ; @param (integer)(opt) min
   ; Default: 4
@@ -155,11 +151,10 @@
 
 (defn pin-code-pattern
   ; @description
-  ; Returns a regex pattern that matches valid PIN codes.
-  ;
-  ; PIN code is declared as valid if ...
-  ; ... only contains digits,
-  ; ... it has a certain length.
+  ; - Returns a regex pattern that matches valid PIN codes.
+  ; - A PIN code is declared as valid if ...
+  ;   ... only contains digits,
+  ;   ... it has a certain length.
   ;
   ; @param (integer)(opt) length
   ; Default: 4
@@ -184,11 +179,10 @@
 
 (defn security-code-pattern
   ; @description
-  ; Returns a regex pattern that matches valid security codes.
-  ;
-  ; Security code is declared as valid if ...
-  ; ... only contains digits,
-  ; ... it has a certain length.
+  ; - Returns a regex pattern that matches valid security codes.
+  ; - A security code is declared as valid if ...
+  ;   ... only contains digits,
+  ;   ... it has a certain length.
   ;
   ; @param (integer)(opt) length
   ; Default: 6
@@ -240,11 +234,10 @@
 
 (defn username-pattern
   ; @description
-  ; Returns a regex pattern that matches valid usernames.
-  ;
-  ; Username is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains only latin characters, digits, underscrores and hyphens.
+  ; - Returns a regex pattern that matches valid usernames.
+  ; - A username is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains only latin characters, digits, underscrores and hyphens.
   ;
   ; @param (integer)(opt) min
   ; Default: 4

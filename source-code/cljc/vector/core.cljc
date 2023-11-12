@@ -1,6 +1,6 @@
 
 (ns vector.core
-    (:require [vector.cursor :as cursor]
+    (:require [seqable.api   :as seqable]
               [vector.item   :as item]
               [vector.remove :as remove]))
 
@@ -9,8 +9,8 @@
 
 (defn sum-items-by
   ; @description
-  ; Sum the derived values of items in the given 'n' vector.
-  ; Values are derived by applying the given 'v-f' function on the item.
+  ; - Sums the derived values of items in the given 'n' vector.
+  ; - Values are derived by applying the given 'v-f' function on the item.
   ;
   ; @param (vector) n
   ; @param (function) v-f
@@ -85,9 +85,6 @@
          (vec (reduce f n (vec xyz)))))
 
 (defn cons-item-once
-  ; @description
-  ; Cons the item if the vector does not contain it.
-  ;
   ; @param (vector) n
   ; @param (list of *) xyz
   ;
@@ -131,7 +128,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (vec (apply conj n xyz)))
+  (apply conj n xyz))
 
 (defn conj-item-once
   ; @description
@@ -156,7 +153,7 @@
   (letfn [(f [result x] (if (-> result (item/contains-item? x))
                             (-> result)
                             (-> result (conj x))))]
-         (vec (reduce f n (vec xyz)))))
+         (reduce f n (vec xyz))))
 
 (defn conj-some
   ; @description
@@ -180,7 +177,7 @@
   [n & xyz]
   (letfn [(f [result x] (if x (-> result (conj x))
                               (-> result)))]
-         (vec (reduce f n (vec xyz)))))
+         (reduce f n (vec xyz))))
 
 (defn concat-items
   ; @param (list of vectors) abc
@@ -212,56 +209,6 @@
   [& abc]
   (-> (apply concat abc) set vec))
 
-(defn align-items
-  ; @description
-  ; Concatenate items of vectors with end alignment. If a vector's last items are
-  ; indentical with the next vector's first items the indentical items will be
-  ; merged to avoid duplications.
-  ;
-  ; @param (list of vectors) abc
-  ;
-  ; @usage
-  ; (align-items [:a :b :c :d] [:c :d :e :f])
-  ;
-  ; @example
-  ; (align-items [:a :b :c :d] [:c :d :e :f])
-  ; =>
-  ; [:a :b :c :d :e :f]
-  ;
-  ; @example
-  ; (align-items [:a :b :c] [:c :d :e] [:e :f :g])
-  ; =>
-  ; [:a :b :c :d :e :f :g]
-  ;
-  ; @return (vector)
-  [& abc]
-  (letfn [
-          ; (aligned? [:a :b :c] [:b :c e] 0)
-          ; =>
-          ; false
-          ;
-          ; (aligned? [:a :b :c] [:b :c e] 1)
-          ; =>
-          ; true
-          (aligned? [a b shift] (let [a-size (- (count a) shift)
-                                      b-size (min a-size (count b))]
-                                     (= (subvec a shift)
-                                        (subvec b 0 b-size))))
-
-          ; ...
-          (shiftable? [a b prev-shift] (< prev-shift (-> a count dec)))
-
-          ; ...
-          (align-f [a b shift] (cond (aligned?   a b shift) (concat-items (subvec a 0 shift) b)
-                                     (shiftable? a b shift) (align-f a b (inc shift))
-                                     :no-alignment-found    (concat-items a b)))
-
-          ; ...
-          (f [result dex x] (if (= dex 0) x (align-f result x 0)))]
-
-         ; ...
-         (reduce-kv f [] (vec abc))))
-
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -285,8 +232,8 @@
   [n a b]
   (letfn [(f [result x]
              (if (= x a)
-                 (conj-item result b)
-                 (conj-item result x)))]
+                 (conj result b)
+                 (conj result x)))]
          (reduce f [] n)))
 
 (defn insert-item
@@ -322,14 +269,11 @@
   ;
   ; @return (vector)
   [n cursor x]
-  (cond (vector? n)
-        (if (cursor/cursor-out-of-bounds? n cursor)
-            (conj-item n x)
-            (concat-items (subvec n 0 cursor)
-                          [x]
-                          (subvec n cursor)))
-        (nil? n) (-> [x])
-        :return n))
+  (let [n      (if (vector? n) n [])
+        cursor (seqable/normalize-cursor n cursor)]
+       (concat-items (subvec n 0 cursor)
+                     [x]
+                     (subvec n cursor))))
 
 (defn toggle-item
   ; @description
@@ -355,4 +299,4 @@
   [n x]
   (if (item/contains-item? n x)
       (remove/remove-item  n x)
-      (conj-item           n x)))
+      (conj                n x)))

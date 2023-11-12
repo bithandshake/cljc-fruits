@@ -46,7 +46,7 @@
                                             (string/nonblank? v)
                                             [k v])))))
 
-          ; In order to avoid infinite loops if the 'f0' function cannot resolve the passed 'x' fraction,
+          ; In order to avoid infinite loops, if the 'f0' function cannot resolve the passed 'x' fraction,
           ; the 'f1' function quits parsing the 'n' string and returns the incomplete result.
           (f1 [style n] (if-let [x (string/before-first-occurence n ";" {:return? false})]
                                 (if-let [[k v] (f0 x)]

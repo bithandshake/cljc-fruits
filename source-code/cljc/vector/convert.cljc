@@ -5,7 +5,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defn to-map
+  ; @description
+  ; Converts the given 'n' vector into a map.
+  ;
   ; @param (vector) n
+  ; @param (function)(opt) convert-f
+  ; Default: (fn [dex x] [dex x])
   ;
   ; @usage
   ; (to-map [:a :b :c])
@@ -13,9 +18,14 @@
   ; @example
   ; (to-map [:a :b :c])
   ; =>
-  ; {:0 :a :1 :b :2 :c}
+  ; {0 :a 1 :b 2 :c}
   ;
   ; @return (map)
-  [n]
-  (letfn [(f [%1 %2 %3] (assoc %1 (keyword (str %2)) %3))]
-         (reduce-kv f {} n)))
+  ([n]
+   (to-map n (fn [dex x] [dex x])))
+
+  ([n convert-f]
+   (letfn [(f [result dex x]
+              (let [[k v] (convert-f dex x)]
+                   (assoc result k v)))]
+          (reduce-kv f {} n))))

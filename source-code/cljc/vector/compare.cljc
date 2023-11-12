@@ -22,8 +22,8 @@
   [a b]
   (letfn [(f [result x]
              (if (item/contains-item? b x)
-                 (vec (conj result x))
-                 (-> result)))]
+                 (conj result x)
+                 (->   result)))]
          (reduce f [] a)))
 
 (defn contains-similars?
@@ -64,43 +64,3 @@
   ; @return (vector)
   [a b]
   (remove/remove-items a b))
-
-(defn keep-items
-  ; @param (vector) n
-  ; @param (vector) xyz
-  ;
-  ; @usage
-  ; (keep-items [:a :b :c :d] [:b :c])
-  ;
-  ; @example
-  ; (keep-items [:a :b :c :d] [:b :c])
-  ; =>
-  ; [:b :c]
-  ;
-  ; @return (vector)
-  [n xyz]
-  (letfn [(f [result x]
-             (if (item/contains-item? xyz x)
-                 (conj result x)
-                 (->   result)))]
-         (reduce f [] n)))
-
-(defn keep-items-by
-  ; @param (vector) n
-  ; @param (function) f
-  ;
-  ; @usage
-  ; (keep-items-by [:a :b "c" "d"] keyword?)
-  ;
-  ; @example
-  ; (keep-items-by [:a :b "c" "d"] keyword?)
-  ; =>
-  ; [:a :b]
-  ;
-  ; @return (vector)
-  [n f]
-  (letfn [(f0 [result x]
-              (if (f x)
-                  (conj result x)
-                  (->   result)))]
-         (reduce f0 [] n)))

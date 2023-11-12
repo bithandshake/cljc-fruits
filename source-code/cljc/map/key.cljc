@@ -8,7 +8,7 @@
 
 (defn keys
   ; @description
-  ; Returns the keys of the given 'n' map in vector.
+  ; Returns the keys of the given 'n' map in a vector.
   ;
   ; @param (map) n
   ;
@@ -121,6 +121,11 @@
   [n keys]
   (letfn [(f [%] (contains? n %))]
          (boolean (some f keys))))
+
+(defn contains-all-keys?
+  [n keys]
+  (letfn [(f [%] (contains? n %))]
+         (boolean (every? keys f))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

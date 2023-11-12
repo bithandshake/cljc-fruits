@@ -1,188 +1,39 @@
 
 (ns string.core
+    (:refer-clojure :exclude [repeat])
     (:require [clojure.string]
-              [math.api      :as math]
-              [string.check  :as check]
-              [string.cursor :as cursor]
-              [string.cut    :as cut]
-              [string.dex    :as dex]))
+              [math.api       :as math]
+              [seqable.api    :as seqable]
+              [string.contain :as contain]
+              [string.cut     :as cut]
+              [string.dex     :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn abc
-  ; @description
-  ; Takes the value 'a' (converted to string) and value 'b' (converted to string)
-  ; and returns the one that is less than in alphabetical order.
-  ;
-  ; @param (*) a
-  ; @param (*) b
-  ;
-  ; @usage
-  ; (abc "abc" "def")
-  ;
-  ; @example
-  ; (abc "abc" "def")
-  ; =>
-  ; "abc"
-  ;
-  ; @example
-  ; (abc "def" "abc")
-  ; =>
-  ; "abc"
-  ;
-  ; @example
-  ; (abc "abc" "abc")
-  ; =>
-  ; "abc"
-  ;
-  ; @example
-  ; (abc 10 12)
-  ; =>
-  ; "10"
-  ;
-  ; @example
-  ; (abc "" "abc")
-  ; =>
-  ; ""
-  ;
-  ; @return (string)
-  [a b]
-  (let [a (str a)
-        b (str b)]
-       (if (check/abc? a b)
-           (-> a)
-           (-> b))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn first-character
-  ; @description
-  ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
-  ;
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (first-character "abc")
-  ;
-  ; @example
-  ; (first-character "abc")
-  ; =>
-  ; "a"
-  ;
-  ; @example
-  ; (first-character {:a "A"})
-  ; =>
-  ; "{"
-  ;
-  ; @param (string)
-  [n]
-  (let [n (str n)]
-       (-> n first str)))
-
-(defn second-character
-  ; @description
-  ; - Returns the second character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
-  ;
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (second-character "abc")
-  ;
-  ; @example
-  ; (second-character "abc")
-  ; =>
-  ; "b"
-  ;
-  ; @example
-  ; (second-character {:a "A"})
-  ; =>
-  ; ":"
-  ;
-  ; @param (string)
-  [n]
-  (let [n (str n)]
-       (-> n second str)))
-
-(defn last-character
-  ; @description
-  ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
-  ;
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (last-character "abc")
-  ;
-  ; @example
-  ; (last-character "abc")
-  ; =>
-  ; "c"
-  ;
-  ; @example
-  ; (last-character {:a "A"})
-  ; =>
-  ; "}"
-  ;
-  ; @param (string)
-  [n]
-  (let [n (str n)]
-       (-> n last str)))
-
-(defn nth-character
-  ; @description
-  ; - Returns the nth character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because in Java language one character long strings could be character types!
-  ;
-  ; @param (*) n
-  ; @param (integer) dex
-  ;
-  ; @usage
-  ; (nth-character "abc" 2)
-  ;
-  ; @example
-  ; (nth-character "abc" 2)
-  ; =>
-  ; "c"
-  ;
-  ; @example
-  ; (nth-character {:a "A"} 1)
-  ; =>
-  ; ":"
-  ;
-  ; @param (string)
-  [n dex]
-  (let [n (str n)]
-       (if (-> n (dex/dex-in-bounds? dex))
-           (-> n (nth                dex) str))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn multiply
+(defn repeat
   ; @param (*) n
   ; @param (integer) x
   ;
   ; @usage
-  ; (multiply "a" 3)
+  ; (repeat "a" 3)
   ;
   ; @example
-  ; (multiply "a" 3)
+  ; (repeat "a" 3)
   ; =>
   ; "aaa"
   ;
   ; @return (string)
   [n x]
-  (when (integer? x)
-        (letfn [(f [result _]
-                   (str result n))]
-               (reduce f "" (range 0 x)))))
+  (if (nat-int? x)
+      (letfn [(f [result]
+                 (if (-> result count (= x))
+                     (-> result)
+                     (-> result (str x))))]
+             (f ""))))
 
 (defn join
-  ; @param (collection) coll
+  ; @param (collection) n
   ; @param (*) separator
   ; @param (map)(opt) options
   ; {:join-empty? (boolean)(opt)
@@ -207,50 +58,25 @@
   ; "a.b"
   ;
   ; @return (string)
-  ([coll separator]
-   (join coll separator {}))
+  ([n separator]
+   (join n separator {}))
 
-  ([coll separator {:keys [join-empty?] :or {join-empty? true}}]
-   (let [last-dex (-> coll count dec)]
-        (letfn [(separate? [dex] (and (not= dex last-dex)
-                                      (-> (nth coll (inc dex)) str empty? not)))
-                (join? [part] (or join-empty? (-> part str empty? not)))
-                (f [result dex part] (if (join? part)
-                                         (if (separate? dex)
-                                             (str result part separator)
-                                             (str result part))
-                                         (-> result)))]
-               ; The reduce-kv takes vectors and maps but doesn't take lists!
-               (reduce-kv f "" (vec coll))))))
-
-(defn cover
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (integer)(opt) offset
-  ;
-  ; @usage
-  ; (cover "user@email.com" "**")
-  ;
-  ; @example
-  ; (cover "user@email.com" "**")
-  ; =>
-  ; "**er@email.com"
-  ;
-  ; @example
-  ; (cover "user@email.com" "**" 2)
-  ; =>
-  ; "us**@email.com"
-  ;
-  ; @return (string)
-  ([n x]
-   (cover n x 0))
-
-  ([n x offset]
-   (let [n (str n)
-         x (str x)]
-        (str (subs n 0 offset)
-             (subs x 0 (- (count n) offset))
-             (subs n   (+ (count x) offset))))))
+  ([n separator {:keys [join-empty?] :or {join-empty? true}}]
+   (letfn [(f [result dex]
+              (cond ; ...
+                    (-> n count (= dex))
+                    (-> result)
+                    ; ...
+                    (or join-empty? (-> n (nth dex) empty? not))
+                    (if (and (-> n count dec (not= dex))
+                             (-> (nth n (inc dex)) str empty? not))
+                        (str result (nth n dex) separator)
+                        (str result (nth n dex)))
+                    ; ...
+                    :return result))]
+          ; ...
+          (if (seqable? n)
+              (f "" 0)))))
 
 (defn split
   ; @param (*) n
@@ -292,6 +118,54 @@
        (cond (-> n empty?)        []
              (-> delimiter some?) (clojure.string/split n delimiter)
              :return              [n])))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn cover
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer)(opt) offset
+  ;
+  ; @usage
+  ; (cover "user@email.com" "**")
+  ;
+  ; @example
+  ; (cover "user@email.com" "**")
+  ; =>
+  ; "**er@email.com"
+  ;
+  ; @example
+  ; (cover "user@email.com" "**" 2)
+  ; =>
+  ; "us**@email.com"
+  ;
+  ; @return (string)
+  ([n x]
+   (cover n x 0))
+
+  ([n x offset]
+   (let [n      (str n)
+         x      (str x)
+         offset (seqable/normalize-cursor n offset)]
+        (letfn [(f [result cursor]
+                   (cond ; If the cursor exceeded the end of the given 'n' string...
+                         (-> n count (= cursor))
+                         (-> result)
+                         ; ...
+                         (< cursor offset)
+                         (f (str result (nth n cursor))
+                            (inc cursor))
+                         ; ...
+                         (-> x count (+ offset) (<= cursor))
+                         (f (str result (nth n cursor))
+                            (inc cursor))
+                         ; ...
+                         :else
+                         (f (str result (nth x (- cursor offset)))
+                            (inc cursor))))]
+               ; ...
+               (f "" 0)))))
 
 (defn prefix
   ; @param (*) n
@@ -414,10 +288,10 @@
   ;
   ; @return (string)
   [n x cursor]
-  (let [n (str n)]
-       (if (-> n (cursor/cursor-in-bounds? cursor))
-           (str (subs n 0 cursor) x
-                (subs n   cursor)))))
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (str (subs n 0 cursor) x
+            (subs n   cursor))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -459,16 +333,21 @@
   ([n x {:keys [separate-matches?]}]
    (let [n (str n)
          x (str x)]
-        (if (check/contains-part? n x)
-            (let [step (if separate-matches? (count x) 1)]
-                 (letfn [(f [cursor match-count]
-                            (if-let [first-dex (dex/first-dex-of (cut/part n cursor) x)]
-                                    (let [step (if separate-matches? (count x) 1)]
-                                         (f (+   cursor first-dex step)
-                                            (inc match-count)))
-                                    (-> match-count)))]
-                        (f 0 0)))
-            (-> 0)))))
+        (letfn [(f [result cursor]
+                   (cond ; ...
+                         (< (-> n count)
+                            (-> x count (+ cursor)))
+                         (-> result)
+                         ; ...
+                         (= x (subs n cursor (+ cursor (count x))))
+                         (f (inc result)
+                            (if separate-matches? (+ cursor (count x))
+                                                  (inc cursor)))
+                         ; ...
+                         :else
+                         (f result (inc cursor))))]
+               ; ...
+               (f 0 0)))))
 
 (defn min-occurence?
   ; @param (*) n
@@ -506,8 +385,7 @@
    (min-occurence? n x min {}))
 
   ([n x min options]
-   (let [occurence-count (count-occurences n x options)]
-        (<= min occurence-count))))
+   (<= min (count-occurences n x options))))
 
 (defn max-occurence?
   ; @param (*) n
@@ -545,8 +423,7 @@
    (max-occurence? n x max {}))
 
   ([n x max options]
-   (let [occurence-count (count-occurences n x options)]
-        (>= max occurence-count))))
+   (>= max (count-occurences n x options))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -902,13 +779,15 @@
    (not-matches-with? n x {}))
 
   ([n x options]
-   (let [matches-with? (matches-with? n x options)]
-        (not matches-with?))))
+   (not (matches-with? n x options))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn starts-at?
+  ; @description
+  ; Returns TRUE if the given 'x' value (converted to string) starts at the given 'cursor' value in the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (*) x
   ; @param (integer) cursor
@@ -934,10 +813,11 @@
    (starts-at? n x cursor {}))
 
   ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (let [n (str n)
-         x (str x)]
+   (let [n      (str n)
+         x      (str x)
+         cursor (seqable/normalize-cursor n cursor)]
         (letfn [(f [n x] (let [end-cursor (-> x count (+ cursor))]
-                              (and (-> n (cursor/cursor-in-bounds? end-cursor))
+                              (and (-> n (seqable/cursor-in-bounds? end-cursor))
                                    (-> n (subs cursor end-cursor)
                                          (= x)))))]
                (if case-sensitive? (f n x)
@@ -945,6 +825,9 @@
                                       (clojure.string/lower-case x)))))))
 
 (defn ends-at?
+  ; @description
+  ; Returns TRUE if the given 'x' value (converted to string) ends at the given 'cursor' value in the given 'n' value (converted to string).
+  ;
   ; @param (*) n
   ; @param (*) x
   ; @param (integer) cursor
@@ -970,10 +853,11 @@
    (ends-at? n x cursor {}))
 
   ([n x cursor {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (let [n (str n)
-         x (str x)]
+   (let [n      (str n)
+         x      (str x)
+         cursor (seqable/normalize-cursor n cursor)]
         (letfn [(f [n x] (let [start-cursor (->> x count (- cursor))]
-                              (and (-> n (cursor/cursor-in-bounds? start-cursor))
+                              (and (-> n (seqable/cursor-in-bounds? start-cursor))
                                    (-> n (subs start-cursor cursor)
                                          (= x)))))]
                (if case-sensitive? (f n x)

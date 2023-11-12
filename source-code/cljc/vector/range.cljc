@@ -1,7 +1,7 @@
 
 (ns vector.range
-    (:require [vector.cursor :as cursor]
-              [vector.dex    :as dex]))
+    (:require [seqable.api :as seqable]
+              [vector.dex  :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -33,13 +33,12 @@
         (ranged-items n from to)))
 
   ([n from to]
-   (if (and (-> n  vector?)
-            (-> to integer?)
-            (-> n (cursor/cursor-in-bounds? from)))
-       (let [to   (min to (count n))
-             from (min from to)]
-            (subvec n from to))
-       (-> []))))
+   (if (vector? n)
+       (let [from (seqable/normalize-cursor n from)
+             to   (seqable/normalize-cursor n to)
+             from (min from to)
+             to   (max from to)]
+            (subvec n from to)))))
 
 (defn last-items
   ; @param (vector) n
@@ -55,9 +54,9 @@
   ;
   ; @return (vector)
   [n length]
-  (if (dex/dex-in-bounds? n length)
-      (subvec n (-> n count (- length)))
-      (->     n)))
+  (if (vector? n)
+      (let [length (seqable/normalize-cursor n length)]
+           (subvec n (-> n count (- length))))))
 
 (defn first-items
   ; @param (vector) n
@@ -73,9 +72,9 @@
   ;
   ; @return (vector)
   [n length]
-  (if (dex/dex-in-bounds? n length)
-      (subvec n 0 length)
-      (->     n)))
+  (if (vector? n)
+      (let [length (seqable/normalize-cursor n length)]
+           (subvec n 0 length))))
 
 (defn trim
   ; @param (vector) n
@@ -92,38 +91,6 @@
   ; @return (vector)
   [n length]
   (first-items n length))
-
-(defn count!
-  ; @param (vector) n
-  ; @param (integer) x
-  ;
-  ; @usage
-  ; (count! [:a :b :c] 3)
-  ;
-  ; @example
-  ; (count! [:a :b :c] 3)
-  ; =>
-  ; [:a :b :c]
-  ;
-  ; @example
-  ; (count! [:a :b :c] 2)
-  ; =>
-  ; [:a :b]
-  ;
-  ; @example
-  ; (count! [:a :b :c] 5)
-  ; =>
-  ; [:a :b :c nil nil]
-  ;
-  ; @return (vector)
-  [n x]
-  (if (and (-> n vector?)
-           (-> x integer?)
-           (-> n count (not= x)))
-      (if (> (count n) x)
-          (first-items n x)
-          (vec (concat n (repeat nil (- x (count n))))))
-      (-> n)))
 
 (defn items-before-first-occurence
   ; @param (vector) n

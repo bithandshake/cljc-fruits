@@ -1,11 +1,11 @@
 
 (ns vector.api
+    (:refer-clojure :exclude [empty?])
     (:require [vector.check   :as check]
               [vector.compare :as compare]
               [vector.convert :as convert]
               [vector.core    :as core]
               [vector.count   :as count]
-              [vector.cursor  :as cursor]
               [vector.dex     :as dex]
               [vector.filter  :as filter]
               [vector.item    :as item]
@@ -22,14 +22,13 @@
 ;; ----------------------------------------------------------------------------
 
 ; vector.check
+(def empty?    check/empty?)
 (def nonempty? check/nonempty?)
 
 ; vector.compare
 (def similars           compare/similars)
 (def contains-similars? compare/contains-similars?)
 (def difference         compare/difference)
-(def keep-items         compare/keep-items)
-(def keep-items-by      compare/keep-items-by)
 
 ; vector.convert
 (def to-map convert/to-map)
@@ -45,7 +44,6 @@
 (def conj-some         core/conj-some)
 (def concat-items      core/concat-items)
 (def concat-items-once core/concat-items-once)
-(def align-items       core/align-items)
 (def replace-item      core/replace-item)
 (def insert-item       core/insert-item)
 (def toggle-item       core/toggle-item)
@@ -56,25 +54,9 @@
 (def longer? count/longer?)
 (def count?  count/count?)
 
-; vector.cursor
-(def cursor-in-bounds?     cursor/cursor-in-bounds?)
-(def cursor-out-of-bounds? cursor/cursor-out-of-bounds?)
-
 ; vector.dex
-(def dex-in-bounds?     dex/dex-in-bounds?)
-(def dex-out-of-bounds? dex/dex-out-of-bounds?)
-(def item-dex?          dex/item-dex?)
-(def dex-range          dex/dex-range)
-(def dex-first?         dex/dex-first?)
-(def dex-last?          dex/dex-last?)
-(def last-dex           dex/last-dex)
-(def next-dex           dex/next-dex)
-(def inc-dex            dex/inc-dex)
-(def prev-dex           dex/prev-dex)
-(def dec-dex            dex/dec-dex)
-(def match-dex          dex/match-dex)
-(def item-last-dex      dex/item-last-dex)
-(def item-first-dex     dex/item-first-dex)
+(def item-last-dex  dex/item-last-dex)
+(def item-first-dex dex/item-first-dex)
 
 ; vector.filter
 (def filter-items      filter/filter-items)
@@ -126,7 +108,6 @@
 (def last-items                   range/last-items)
 (def first-items                  range/first-items)
 (def trim                         range/trim)
-(def count!                       range/count!)
 (def items-before-first-occurence range/items-before-first-occurence)
 (def items-after-first-occurence  range/items-after-first-occurence)
 
@@ -142,6 +123,8 @@
 (def remove-items-kv        remove/remove-items-kv)
 (def remove-duplicates      remove/remove-duplicates)
 (def remove-first-occurence remove/remove-first-occurence)
+(def keep-items             remove/keep-items)
+(def keep-items-by          remove/keep-items-by)
 
 ; vector.sort
 (def reverse-items          sort/reverse-items)

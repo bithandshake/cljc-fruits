@@ -1,17 +1,23 @@
 
 (ns format.api
-    (:require [format.core :as core]))
+    (:require [format.cover   :as cover]
+              [format.number  :as number]
+              [format.version :as version]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; format.core
-(def hide-email           core/hide-email)
-(def sign-number          core/sign-number)
-(def group-number         core/group-number)
-(def leading-zeros        core/leading-zeros)
-(def remove-leading-zeros core/remove-leading-zeros)
-(def trailing-zeros       core/trailing-zeros)
-(def decimals             core/decimals)
-(def round                core/round)
-(def inc-version          core/inc-version)
+; format.cover
+(def cover-email-address cover/cover-email-address)
+
+; format.number
+(def sign-number          number/sign-number)
+(def group-number         number/group-number)
+(def leading-zeros        number/leading-zeros)
+(def remove-leading-zeros number/remove-leading-zeros)
+(def trailing-zeros       number/trailing-zeros)
+(def decimals             number/decimals)
+(def round                number/round)
+
+; format.version
+(def inc-version version/inc-version)

@@ -5,40 +5,40 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not!
-  ; @param (atom) atom
+  ; @param (atom) n
   ;
   ; @usage
   ; (def my-atom (atom true))
   ; (not! my-atom)
   ;
   ; @return (atom)
-  [atom]
-  (swap! atom not))
+  [n]
+  (swap! n not))
 
 (defn inc!
-  ; @param (atom) atom
+  ; @param (atom) n
   ;
   ; @usage
   ; (def my-atom (atom 42))
   ; (inc! my-atom)
   ;
   ; @return (atom)
-  [atom]
-  (swap! atom inc))
+  [n]
+  (swap! n inc))
 
 (defn dec!
-  ; @param (atom) atom
+  ; @param (atom) n
   ;
   ; @usage
   ; (def my-atom (atom 42))
   ; (dec! my-atom)
   ;
   ; @return (atom)
-  [atom]
-  (swap! atom dec))
+  [n]
+  (swap! n dec))
 
 (defn apply!
-  ; @param (atom) atom
+  ; @param (atom) n
   ; @param (function) f
   ; @param (list of *)(opt) params
   ;
@@ -48,5 +48,5 @@
   ; (apply! my-atom my-f)
   ;
   ; @return (atom)
-  [atom f & params])
+  [n f & params])
   ; TODO

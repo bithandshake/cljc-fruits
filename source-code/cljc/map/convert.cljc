@@ -10,6 +10,7 @@
   ;
   ; @param (map) n
   ; @param (function)(opt) convert-f
+  ; Default: (fn [k v] v)
   ;
   ; @usage
   ; (to-vector {:a "A" b "B"})
@@ -31,9 +32,7 @@
   ;
   ; @return (vector)
   ([n]
-   (letfn [(f [result [k v]]
-              (conj result v))]
-          (reduce f [] n)))
+   (to-vector n (fn [k v] v)))
 
   ([n convert-f]
    (letfn [(f [result [k v]]

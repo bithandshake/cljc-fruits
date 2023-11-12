@@ -7,8 +7,9 @@
 ;; ----------------------------------------------------------------------------
 
 ; alphabet.abc
-(def NATO abc/NATO)
-(def EN   abc/EN)
+(def GREEK abc/GREEK)
+(def NATO  abc/NATO)
+(def EN    abc/EN)
 
 ; alphabet.convert
 (def integer->lowercase convert/integer->lowercase)

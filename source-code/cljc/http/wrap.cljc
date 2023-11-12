@@ -1,7 +1,6 @@
 
 (ns http.wrap
-    (:require [http.utils :as utils]
-              [map.api    :as map]))
+    (:require [http.utils :as utils]))
 
 ;; -- Default wrapper ---------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -51,21 +50,22 @@
 
   ([{:keys [body mime-type session status] :as response-props :or {mime-type "text/plain" status 200}}
     {:keys [allowed-errors hide-errors?]}]
-   (cond-> response-props :select-keys           (select-keys     [:body :headers :session :status])
-                          :use-default-mime-type (map/assoc-in-or [:headers "Content-Type"] mime-type)
-                          :use-default-status    (map/assoc-in-or [:status] status)
+   (letfn [(use-default-f [n value-path value] (assoc-in n value-path (or (get-in n value-path) value)))]
+          (cond-> response-props :select-keys           (select-keys   [:body :headers :session :status])
+                                 :use-default-mime-type (use-default-f [:headers "Content-Type"] mime-type)
+                                 :use-default-status    (use-default-f [:status] status)
 
-                          ; Replaces the body with an unsensitive value ('":client-error"', '":server-error"')
-                          ; in case of ...
-                          ; ... the {:hide-error? true} setting is passed,
-                          ; ... client error (4**) or server error (5**) status code is passed,
-                          ; ... the 'allowed-errors' vector doesn't contain the body value.
-                          (and hide-errors? (not (utils/error-allowed? body allowed-errors))) (utils/unsensitive-body)
+                                 ; Replaces the body with an unsensitive value ('":client-error"', '":server-error"')
+                                 ; in case of ...
+                                 ; ... the {:hide-error? true} setting is passed,
+                                 ; ... client error (4**) or server error (5**) status code is passed,
+                                 ; ... the 'allowed-errors' vector doesn't contain the body value.
+                                 (and hide-errors? (not (utils/error-allowed? body allowed-errors))) (utils/unsensitive-body)
 
-                          ; If the session value is NIL, this function removes it from the response in order to avoid
-                          ; invalid anti-forgery token errors.
-                          ; https://clojureverse.org/t/how-do-you-do-csrf-protection-in-your-clojure-webapps/5752
-                          (nil? session) (dissoc :session))))
+                                 ; If the session value is NIL, this function removes it from the response in order to avoid
+                                 ; invalid anti-forgery token errors.
+                                 ; https://clojureverse.org/t/how-do-you-do-csrf-protection-in-your-clojure-webapps/5752
+                                 (nil? session) (dissoc :session)))))
 
 ;; -- Basic wrappers ----------------------------------------------------------
 ;; ----------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 (def BREAK "\r\n")
 
 ; @constant (string)
-(def TAB " ")
+(def NEWLINE "\n")
 
 ; @constant (string)
 (def WHITE-SPACE " ")

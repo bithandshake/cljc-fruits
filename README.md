@@ -37,21 +37,13 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Validator functions in the [`audit.api`](documentation/cljc/audit/API.md) namespace.
 
-- Base64 encoding functions in the [`base64.api`](documentation/cljc/base64/API.md) namespace.
-
-- Blob object functions in the [`blob.api`](documentation/cljc/blob/API.md) namespace.
-
-- Source code evaluator functions in the [`code.api`](documentation/cljc/code/API.md) namespace.
+- Base64 utility functions in the [`base64.api`](documentation/cljc/base64/API.md) namespace.
 
 - CSS parser, unparser and wrapper functions in the [`css.api`](documentation/cljc/css/API.md) namespace.
 
 - EQL syntax functions in the [`eql.api`](documentation/cljc/eql/API.md) namespace.
 
-- Isomorphic error handler functions in the [`error.api`](documentation/cljc/error/API.md) namespace.
-
 - Number formatting functions in the [`format.api`](documentation/cljc/format/API.md) namespace.
-
-- Source code interpreters in the [`function.api`](documentation/cljc/function/API.md) namespace.
 
 - Gesture related functions such as copy marking item labels in the [`gestures.api`](documentation/cljc/gestures/API.md) namespace.
 
@@ -100,8 +92,6 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 - Regex utility functions in the [`regex.api`](documentation/cljc/regex/API.md) namespace.
 
 - Seqable types utility functions in the [`seqable.api`](documentation/cljc/seqable/API.md) namespace.
-
-- Sequence utility functions in the [`sequence.api`](documentation/cljc/sequence/API.md) namespace.
 
 - String utility functions in the [`string.api`](documentation/cljc/string/API.md) namespace.
 

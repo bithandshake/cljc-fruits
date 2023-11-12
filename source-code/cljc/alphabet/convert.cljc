@@ -6,7 +6,7 @@
 
 (defn integer->lowercase
   ; @description
-  ; Returns the corresponding letter (in lowercase form) for the given 'n' integer in the English alphabet.
+  ; Returns the corresponding letter (in lowercase form) for the given 'n' integer from the English alphabet.
   ;
   ; @param (integer) n
   ;
@@ -48,6 +48,9 @@
                       (recur (quot (dec num) 26) (str char result)))))))
 
 (defn integer->uppercase
+  ; @description
+  ; Returns the corresponding letter (in uppercase form) for the given 'n' integer from the English alphabet.
+  ;
   ; @param (integer) n
   ;
   ; @usage

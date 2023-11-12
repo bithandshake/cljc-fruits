@@ -18,7 +18,7 @@
   ;
   ; @return (map)
   [n filter-f]
-  (letfn [(f [%1 %2 %3] (if (filter-f %3) (assoc %1 %2 %3) %1))]
+  (letfn [(f [%1 %2 %3] (if (-> %3 filter-f) (assoc %1 %2 %3) %1))]
          (reduce-kv f {} n)))
 
 (defn filter-values-by
@@ -37,5 +37,5 @@
   ;
   ; @return (map)
   [n filter-f value-f]
-  (letfn [(f [%1 %2 %3] (if (filter-f (value-f %3)) (assoc %1 %2 %3) %1))]
+  (letfn [(f [%1 %2 %3] (if (-> %3 value-f filter-f) (assoc %1 %2 %3) %1))]
          (reduce-kv f {} n)))

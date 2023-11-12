@@ -1,6 +1,6 @@
 
 (ns map.api
-    (:refer-clojure :exclude [keys namespace])
+    (:refer-clojure :exclude [empty? keys namespace])
     (:require [map.check     :as check]
               [map.collapse  :as collapse]
               [map.compare   :as compare]
@@ -8,7 +8,6 @@
               [map.core      :as core]
               [map.filter    :as filter]
               [map.key       :as key]
-              [map.inherit   :as inherit]
               [map.match     :as match]
               [map.merge     :as merge]
               [map.namespace :as namespace]
@@ -20,6 +19,7 @@
 ;; ----------------------------------------------------------------------------
 
 ; map.check
+(def empty?    check/empty?)
 (def nonempty? check/nonempty?)
 
 ; map.collapse
@@ -32,18 +32,10 @@
 (def to-vector convert/to-vector)
 
 ; map.core
-(def swap           core/swap)
-(def dissoc-in      core/dissoc-in)
-(def dissoc-items   core/dissoc-items)
-(def inject-in      core/inject-in)
-(def toggle         core/toggle)
-(def toggle-in      core/toggle-in)
-(def update-some    core/update-some)
-(def update-in-some core/update-in-some)
-(def assoc-some     core/assoc-some)
-(def assoc-in-some  core/assoc-in-some)
-(def assoc-or       core/assoc-or)
-(def assoc-in-or    core/assoc-in-or)
+(def swap      core/swap)
+(def dissoc-in core/dissoc-in)
+(def toggle    core/toggle)
+(def toggle-in core/toggle-in)
 
 ; map.filter
 (def filter-values    filter/filter-values)
@@ -57,10 +49,6 @@
 (def contains-any-key? key/contains-any-key?)
 (def rekey-item        key/rekey-item)
 (def rekey-items       key/rekey-items)
-
-; map.inherit
-(def inherit    inherit/inherit)
-(def inherit-in inherit/inherit-in)
 
 ; map.match
 (def any-key-matches?     match/any-key-matches?)

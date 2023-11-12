@@ -10,10 +10,9 @@
 
 (defn undot-key
   ; @description
-  ; Replaces dot characters with hyphens in the given key.
-  ;
-  ; Dot characters are not allowed to presence in BSON keys:
-  ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ; - Replaces dot characters with hyphens in the given key.
+  ; - Dot characters are not allowed to presence in BSON keys:
+  ;   https://www.mongodb.com/docs/manual/core/document/#dot-notation
   ;
   ; @param (*) n
   ;
@@ -44,10 +43,9 @@
 
 (defn undot-keys
   ; @description
-  ; Recursively replaces dot characters with hyphens in keys found in the given data.
-  ;
-  ; Dot characters are not allowed to presence in BSON keys:
-  ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ; - Recursively replaces dot characters with hyphens in keys found in the given data.
+  ; - Dot characters are not allowed to presence in BSON keys:
+  ;   https://www.mongodb.com/docs/manual/core/document/#dot-notation
   ;
   ; @param (*) n
   ;

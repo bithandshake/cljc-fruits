@@ -20,7 +20,7 @@
   ; @example
   ; (replace-part "abc" "b" "x")
   ; =>
-  ; "axc"
+  ; "axc" 
   ;
   ; @example
   ; (replace-part "abc" #"[b]{0,}" "x")

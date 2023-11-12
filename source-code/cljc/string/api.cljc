@@ -1,16 +1,20 @@
 
 (ns string.api
-    (:require [string.check   :as check]
-              [string.apply   :as apply]
+    (:refer-clojure :exclude [repeat])
+    (:require [string.apply   :as apply]
+              [string.check   :as check]
               [string.config  :as config]
               [string.convert :as convert]
+              [string.contain :as contain]
               [string.core    :as core]
-              [string.cursor  :as cursor]
               [string.cut     :as cut]
               [string.dex     :as dex]
               [string.length  :as length]
               [string.lines   :as lines]
+              [string.nth     :as nth]
+              [string.order   :as order]
               [string.replace :as replace]
+              [string.search  :as search]
               [string.trim    :as trim]
               [string.walk    :as walk]))
 
@@ -18,25 +22,26 @@
 ;; ----------------------------------------------------------------------------
 
 ; string.apply
-(def apply-on-part apply/apply-on-part)
+(def apply-on-range apply/apply-on-range)
 
 ; string.check
-(def blank?                     check/blank?)
-(def nonblank?                  check/nonblank?)
-(def abc?                       check/abc?)
-(def contains-part?             check/contains-part?)
-(def contains-digit?            check/contains-digit?)
-(def lowercase?                 check/lowercase?)
-(def uppercase?                 check/uppercase?)
-(def contains-lowercase-letter? check/contains-lowercase-letter?)
-(def contains-uppercase-letter? check/contains-uppercase-letter?)
-(def if-contains-part           check/if-contains-part)
+(def blank?     check/blank?)
+(def nonblank?  check/nonblank?)
+(def lowercase? check/lowercase?)
+(def uppercase? check/uppercase?)
 
 ; string.config
 (def EMPTY-STRING config/EMPTY-STRING)
 (def BREAK        config/BREAK)
-(def TAB          config/TAB)
+(def NEWLINE      config/NEWLINE)
 (def WHITE-SPACE  config/WHITE-SPACE)
+
+; string.contain
+(def contains-part?             contain/contains-part?)
+(def contains-digit?            contain/contains-digit?)
+(def contains-lowercase-letter? contain/contains-lowercase-letter?)
+(def contains-uppercase-letter? contain/contains-uppercase-letter?)
+(def if-contains-part           contain/if-contains-part)
 
 ; string.convert
 (def to-integer     convert/to-integer)
@@ -45,12 +50,7 @@
 (def to-lowercase   convert/to-lowercase)
 
 ; string.core
-(def abc               core/abc)
-(def first-character   core/first-character)
-(def second-character  core/second-character)
-(def last-character    core/last-character)
-(def nth-character     core/nth-character)
-(def multiply          core/multiply)
+(def repeat            core/repeat)
 (def join              core/join)
 (def cover             core/cover)
 (def split             core/split)
@@ -59,9 +59,6 @@
 (def prepend           core/prepend)
 (def append            core/append)
 (def insert-part       core/insert-part)
-(def count-occurences  core/count-occurences)
-(def min-occurence?    core/min-occurence?)
-(def max-occurence?    core/max-occurence?)
 (def ends-with?        core/ends-with?)
 (def not-ends-with?    core/not-ends-with?)
 (def ends-with!        core/ends-with!)
@@ -75,13 +72,9 @@
 (def starts-at?        core/starts-at?)
 (def ends-at?          core/ends-at?)
 
-; string.cursor
-(def cursor-in-bounds?     cursor/cursor-in-bounds?)
-(def cursor-out-of-bounds? cursor/cursor-out-of-bounds?)
-
 ; string.cut
 (def part                   cut/part)
-(def cut-part               cut/cut-part)
+(def cut-range              cut/cut-range)
 (def remove-part            cut/remove-part)
 (def filter-characters      cut/filter-characters)
 (def before-first-occurence cut/before-first-occurence)
@@ -97,11 +90,9 @@
 (def between-occurences     cut/between-occurences)
 
 ; string.dex
-(def dex-in-bounds?     dex/dex-in-bounds?)
-(def dex-out-of-bounds? dex/dex-out-of-bounds?)
-(def first-dex-of       dex/first-dex-of)
-(def last-dex-of        dex/last-dex-of)
-(def nth-dex-of         dex/nth-dex-of)
+(def first-dex-of dex/first-dex-of)
+(def last-dex-of  dex/last-dex-of)
+(def nth-dex-of   dex/nth-dex-of)
 
 ; string.length
 (def length          length/length)
@@ -117,12 +108,27 @@
 (def line-count      lines/line-count)
 (def max-lines       lines/max-lines)
 
+; string.nth
+(def first-character  nth/first-character)
+(def second-character nth/second-character)
+(def last-character   nth/last-character)
+(def nth-character    nth/nth-character)
+
+; string.order
+(def abc? order/abc?)
+(def abc  order/abc)
+
 ; string.replace
 (def replace-part     replace/replace-part)
 (def use-replacements replace/use-replacements)
 (def use-replacement  replace/use-replacement)
 (def use-nil          replace/use-nil)
 (def use-placeholder  replace/use-placeholder)
+
+; string.search
+(def count-occurences search/count-occurences)
+(def min-occurence?   search/min-occurence?)
+(def max-occurence?   search/max-occurence?)
 
 ; string.trim
 (def trim          trim/trim)

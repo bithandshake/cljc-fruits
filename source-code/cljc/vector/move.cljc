@@ -1,6 +1,7 @@
 
 (ns vector.move
     (:require [math.api      :as math]
+              [seqable.api   :as seqable]
               [vector.dex    :as dex]
               [vector.range  :as range]
               [vector.remove :as remove]))
@@ -33,24 +34,20 @@
   ;
   ; @return (vector)
   [n from to]
-  (if (dex/dex-in-bounds? n from)
-      (let [to (math/between! to 0 (count n))]
-           (cond
-                 ; Stay in place
-                 (= from to) (-> n)
-
-                 ; Move item fwd
-                 (< from to) (vec (concat (range/ranged-items n 0 from)
-                                          (range/ranged-items n (inc from) (inc to))
-                                          (range/ranged-items n from (inc from))
-                                          (range/ranged-items n (inc to))))
-
-                 ; Move item bwd
-                 (> from to) (vec (concat (range/ranged-items n 0 to)
-                                          (range/ranged-items n from (inc from))
-                                          (range/ranged-items n to from)
-                                          (range/ranged-items n (inc from))))))
-      (-> n)))
+  (let [from (seqable/normalize-dex n from)
+        to   (seqable/normalize-dex n to)]
+       (cond ; Keeps the item in place ...
+             (= from to) (-> n)
+             ; Moves the item fwd ...
+             (< from to) (vec (concat (subvec n 0 from)
+                                      (subvec n (inc from) (inc to))
+                                      (subvec n from (inc from))
+                                      (subvec n (inc to))))
+             ; Moves the item bwd ...
+             (> from to) (vec (concat (subvec n 0 to)
+                                      (subvec n from (inc from))
+                                      (subvec n to from)
+                                      (subvec n (inc from)))))))
 
 (defn move-nth-item-bwd
   ; @param (vector) n
@@ -71,7 +68,7 @@
   ;
   ; @return (vector)
   [n dex]
-  (move-nth-item n dex (dex/prev-dex n dex)))
+  (move-nth-item n dex (seqable/prev-dex n dex)))
 
 (defn move-nth-item-fwd
   ; @param (vector) n
@@ -92,7 +89,7 @@
   ;
   ; @return (vector)
   [n dex]
-  (move-nth-item n dex (dex/next-dex n dex)))
+  (move-nth-item n dex (seqable/next-dex n dex)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

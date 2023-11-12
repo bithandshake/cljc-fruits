@@ -46,12 +46,11 @@
 
 (defn latin-name-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid latin name.
-  ;
-  ; Latin name is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains only latin characters, accented latin characters, digits,
-  ;     underscrores, hyphens, apostrophes, periods and spaces.
+  ; - Returns TRUE if the given value is a valid latin name.
+  ; - Latin name is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains only latin characters, accented latin characters, digits,
+  ;       underscrores, hyphens, apostrophes, periods and spaces.
   ;
   ; @param (integer)(opt) min
   ; Default: 2
@@ -79,15 +78,13 @@
 
 (defn password-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid password.
-  ;
-  ; Password is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains at least one uppercase letter,
-  ; ... contains at least one lowercase letter,
-  ; ... contains at least one digit.
-  ;
-  ; Accented characters and the following special characters are allowed: .-_!?#*
+  ; - Returns TRUE if the given value is a valid password.
+  ; - Password is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains at least one uppercase letter,
+  ;   ... contains at least one lowercase letter,
+  ;   ... contains at least one digit.
+  ; - Accented characters and the following special characters are allowed: .-_!?#*
   ;
   ; @param (*) n
   ; @param (integer)(opt) min
@@ -122,11 +119,10 @@
 
 (defn phone-number-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid phone number.
-  ;
-  ; Phone number is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... its first character is a "+" character.
+  ; - Returns TRUE if the given value is a valid phone number.
+  ; - A phone number is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... its first character is a "+" character.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min
@@ -161,11 +157,10 @@
 
 (defn pin-code-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid PIN code.
-  ;
-  ; PIN code is declared as valid if ...
-  ; ... only contains digits,
-  ; ... it has a certain length.
+  ; - Returns TRUE if the given value is a valid PIN code.
+  ; - A PIN code is declared as valid if ...
+  ;   ... only contains digits,
+  ;   ... it has a certain length.
   ;
   ; @param (*) n
   ; @param (integer)(opt) length
@@ -192,11 +187,10 @@
 
 (defn security-code-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid security code.
-  ;
-  ; Security code is declared as valid if ...
-  ; ... only contains digits,
-  ; ... it has a certain length.
+  ; - Returns TRUE if the given value is a valid security code.
+  ; - A security code is declared as valid if ...
+  ;   ... only contains digits,
+  ;   ... it has a certain length.
   ;
   ; @param (*) n
   ; @param (integer)(opt) length
@@ -223,7 +217,7 @@
 
 (defn user-agent-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid user agent string.
+  ; Returns TRUE if the given value is a valid user-agent string.
   ;
   ; @param (*) n
   ; @param (strings in vector)(opt) allowed-agents
@@ -251,11 +245,10 @@
 
 (defn username-valid?
   ; @description
-  ; Returns TRUE if the given value is a valid username.
-  ;
-  ; Username is declared as valid if ...
-  ; ... its length is in a certain domain,
-  ; ... contains only latin characters, digits, underscrores and hyphens.
+  ; - Returns TRUE if the given value is a valid username.
+  ; - A username is declared as valid if ...
+  ;   ... its length is in a certain domain,
+  ;   ... contains only latin characters, digits, underscrores and hyphens.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min

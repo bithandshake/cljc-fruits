@@ -58,7 +58,7 @@
   ;
   ; @return (string)
   [depth]
-  (apply str (repeat depth string/TAB)))
+  (apply str (repeat depth string/WHITE-SPACE)))
 
 (defn break
   ; @ignore
@@ -121,7 +121,7 @@
   [result v {:keys [depth first-item? wrap-items?]}]
   (let [v (if (and wrap-items? (not first-item?)) (break v (inc depth)) v)]
        (cond first-item? (str result v)
-             :return     (str result string/TAB v))))
+             :return     (str result string/WHITE-SPACE v))))
 
 (defn append-map-kv
   ; @ignore
@@ -141,8 +141,8 @@
   [result k v {:keys [depth first-item? wrap-items?]}]
   (let [k (if (and wrap-items? (not first-item?)) (break k (inc depth)) k)
         v (if (string->wrap? v) (break v (inc depth)) v)]
-       (cond first-item? (str result k string/TAB v)
-             :return     (str result string/TAB k string/TAB v))))
+       (cond first-item? (str result k string/WHITE-SPACE v)
+             :return     (str result string/WHITE-SPACE k string/WHITE-SPACE v))))
 
 (defn fn->string
   ; @ignore

@@ -1,7 +1,8 @@
 
 (ns vector.step
-    (:require [vector.dex :as dex]
-              [vector.nth :as nth]))
+    (:require [seqable.api :as seqable]
+              [vector.dex  :as dex]
+              [vector.nth  :as nth]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -31,7 +32,7 @@
   ; @return (*)
   [n x]
   (let [item-first-dex (dex/item-first-dex n x)
-        prev-item-dex  (dex/prev-dex       n item-first-dex)]
+        prev-item-dex  (seqable/prev-dex n item-first-dex)]
        (nth/nth-item n prev-item-dex)))
 
 (defn next-item
@@ -59,5 +60,5 @@
   ; @return (*)
   [n x]
   (let [item-first-dex (dex/item-first-dex n x)
-        next-item-dex  (dex/next-dex       n item-first-dex)]
+        next-item-dex  (seqable/next-dex n item-first-dex)]
        (nth/nth-item n next-item-dex)))

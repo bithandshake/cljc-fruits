@@ -1,13 +1,13 @@
 
 (ns string.apply
-    (:require [string.cursor :as cursor]))
+    (:require [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn apply-on-part
+(defn apply-on-range
   ; @description
-  ; Applies the given 'f' function on a specific part of the 'n' value (converted to string).
+  ; Applies the given 'f' function on a specific range of the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (integer) from
@@ -15,23 +15,23 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (apply-on-part "My string" 3 4 string.api/to-uppercase)
+  ; (apply-on-range "abcdef" 3 4 to-uppercase)
   ;
   ; @example
-  ; (apply-on-part "My string" 3 4 string.api/to-uppercase)
+  ; (apply-on-range "abcdef" 3 4 to-uppercase)
   ; =>
-  ; "My String"
+  ; "abcDef"
   ;
   ; @return (string)
   ([n from f]
-   (apply-on-part n from (-> n str count) f))
+   (apply-on-range n from (-> n str count) f))
 
   ([n from to f]
-   (let [n (str n)]
-        (if (and (-> n empty? not)
-                 (-> n (cursor/cursor-in-bounds? from))
-                 (-> n (cursor/cursor-in-bounds? to)))
-            (str (-> n (subs 0 from))
-                 (-> n (subs from to) f)
-                 (-> n (subs to)))
-            (-> n)))))
+   (let [n    (str n)
+         from (seqable/normalize-cursor n from)
+         to   (seqable/normalize-cursor n to)
+         from (min from to)
+         to   (max from to)]
+        (str (-> n (subs 0 from))
+             (-> n (subs from to) f)
+             (-> n (subs to))))))

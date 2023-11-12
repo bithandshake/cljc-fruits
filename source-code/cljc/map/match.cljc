@@ -1,9 +1,17 @@
 
 (ns map.match
-    (:require [map.core :as core]))
+    (:require [map.compare :as compare]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn every-key?
+  ; @param (map) n
+  ; @param (function) f
+  ;
+  ; @return (boolean)
+  [n f]
+  (every? (fn [[k _]] (f k)) n))
 
 (defn any-key-matches?
   ; @description
@@ -247,7 +255,7 @@
    (matches-pattern? n pattern {}))
 
   ([n pattern {:keys [strict-matching?]}]
-   (let [difference (core/difference n pattern)]
+   (let [difference (compare/difference n pattern)]
         (or ; If 'strict-matching?' is TRUE ...
             (and (not strict-matching?)
                  (= (count n)
