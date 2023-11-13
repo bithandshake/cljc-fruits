@@ -56,7 +56,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join-class
-  ; @param (list of keyword or keywords in vector) xyz
+  ; @param (list of keywords or keywords in vectors) xyz
   ;
   ; @example
   ; (join-class :my-class [:your-class] :our-class)
@@ -75,7 +75,7 @@
 
 (defn value
   ; @description
-  ; Converts the given 'n' to a valid HICCUP attribute value
+  ; Converts the given 'n' keyword / string to a valid HICCUP attribute value.
   ;
   ; @param (keyword or string) n
   ; @param (string)(opt) flag

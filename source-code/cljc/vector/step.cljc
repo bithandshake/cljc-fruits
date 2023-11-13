@@ -31,7 +31,7 @@
   ;
   ; @return (*)
   [n x]
-  (let [item-first-dex (dex/item-first-dex n x)
+  (let [item-first-dex (dex/first-dex-of n x)
         prev-item-dex  (seqable/prev-dex n item-first-dex)]
        (nth/nth-item n prev-item-dex)))
 
@@ -59,6 +59,6 @@
   ;
   ; @return (*)
   [n x]
-  (let [item-first-dex (dex/item-first-dex n x)
+  (let [item-first-dex (dex/first-dex-of n x)
         next-item-dex  (seqable/next-dex n item-first-dex)]
        (nth/nth-item n next-item-dex)))

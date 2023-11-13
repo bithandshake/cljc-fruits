@@ -51,7 +51,7 @@
   (let [n (str n)]
        (when (>= dex 0)
              (letfn [(f [cursor skip]
-                        (if-let [first-dex (-> n (string/part  cursor)
+                        (if-let [first-dex (-> n (string/keep-range cursor)
                                                  (first-dex-of pattern))]
                                 (if (= skip dex)
                                     (+ cursor first-dex)

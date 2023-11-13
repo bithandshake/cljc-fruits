@@ -33,13 +33,12 @@
   ;
   ; @return (*)
   [{:keys [headers]} header-key]
-  ; In Clojure, the header names in requests are typically represented as lowercase keywords.
+  ; In Clojure, header names in requests are typically represented as lowercase keywords.
   ; However, the actual capitalization of header names depends on the HTTP client
   ; or middleware you are using to handle the requests.
   ;
-  ; When receiving an HTTP request in Clojure, the header names are usually normalized
-  ; to lowercase keywords.
-  ; For example, the Host header would be represented as :host, Content-Type as :content-type, and so on.
+  ; When receiving an HTTP request in Clojure, the header names are usually normalized to lowercase keywords.
+  ; E.g., the 'Host' header would be represented as ':host', the 'Content-Type' as ':content-type', and so on.
   (or (->> headers header-key)
       (->> header-key name                         (get headers))
       (->> header-key name utils/capitalize-header (get headers))))
@@ -75,17 +74,16 @@
   ;
   ; @return (string)
   [request]
-  ; The X-Forwarded-For header is untrustworthy when no trusted reverse proxy
-  ; (e.g., a load balancer) is between the client and server.
-  ; If the client and all proxies are benign and well-behaved, then the list of
-  ; IP addresses in the header has the meaning described in the Directives section.
-  ; But if there's a risk the client or any proxy is malicious or misconfigured,
-  ; then it's possible any part (or the entirety) of the header may have been spoofed
-  ; (and may not be a list or contain IP addresses at all).
-  ;
-  ; If you acces "http://localhost" in the browser, the request will not be forwarded
-  ; to the internet through the router, but will instead remain in your own system.
-  ; Localhost has the IP address 127.0.0.1, which refers back to your own server.
+  ; - The 'X-Forwarded-For' header is untrustworthy when no trusted reverse proxy
+  ;   (e.g., a load balancer) is between the client and server.
+  ;   If the client and all proxies are benign and well-behaved, then the list of
+  ;   IP addresses in the header has the meaning described in the Directives section.
+  ;   But if there's a risk the client or any proxy is malicious or misconfigured,
+  ;   then it's possible any part (or the entirely) of the header may have been spoofed
+  ;   (and may not be a list or contain IP addresses at all).
+  ; - If you access "http://localhost" in the browser, the request will not be forwarded
+  ;   to the internet through the router, but will instead remain in your own system.
+  ;   Localhost has the IP address 127.0.0.1, which refers back to your own server.
   (letfn [(fallback-f []  (if (check/local-request? request) "127.0.0.1"))
           (split-f    [%] (clojure.string/split % #",\s"))]
          (if-let [x-forwarded-for (request->header request :x-forwarded-for)]

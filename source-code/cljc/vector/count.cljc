@@ -4,20 +4,20 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn min?
+(defn count-min?
   ; @param (vector) n
   ; @param (integer) x
   ;
   ; @usage
-  ; (min? [:a :b :c] 2)
+  ; (count-min? [:a :b :c] 2)
   ;
   ; @example
-  ; (min? [:a :b :c] 3)
+  ; (count-min? [:a :b :c] 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (min? [:a :b] 3)
+  ; (count-min? [:a :b] 3)
   ; =>
   ; false
   ;
@@ -26,20 +26,20 @@
   (and (-> n vector?)
        (-> n count (>= x))))
 
-(defn max?
+(defn count-max?
   ; @param (vector) n
   ; @param (integer) x
   ;
   ; @usage
-  ; (max? [:a :b :c] 2)
+  ; (count-max? [:a :b :c] 2)
   ;
   ; @example
-  ; (max? [:a :b :c] 3)
+  ; (count-max? [:a :b :c] 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (max? [:a :b :c :d] 3)
+  ; (count-max? [:a :b :c :d] 3)
   ; =>
   ; false
   ;

@@ -24,8 +24,10 @@
 (def to-string convert/to-string)
 
 ; hiccup.parse
-(def unparse-css    parse/unparse-css)
-(def parse-newlines parse/parse-newlines)
+(def parse-css        parse/parse-css)
+(def unparse-css      parse/unparse-css)
+(def parse-newlines   parse/parse-newlines)
+(def unparse-newlines parse/unparse-newlines)
 
 ; hiccup.type
 (def hiccup?   type/hiccup?)

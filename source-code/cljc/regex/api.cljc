@@ -1,17 +1,14 @@
 
 (ns regex.api
-    (:require [regex.check   :as check]
-              [regex.core    :as core]
+    (:require [regex.core    :as core]
               [regex.cut     :as cut]
               [regex.dex     :as dex]
+              [regex.match   :as match]
+              [regex.remove  :as remove]
               [regex.replace :as replace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
-
-; regex.check
-(def re-match?    check/re-match?)
-(def re-mismatch? check/re-mismatch?)
 
 ; regex.core
 (def re-count         core/re-count)
@@ -34,14 +31,19 @@
 (def from-last-occurence    cut/from-last-occurence)
 (def to-first-occurence     cut/to-first-occurence)
 (def to-last-occurence      cut/to-last-occurence)
-(def remove-first-occurence cut/remove-first-occurence)
-(def remove-last-occurence  cut/remove-last-occurence)
-(def between-occurences     cut/between-occurences)
 
 ; regex.dex
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
 (def nth-dex-of   dex/nth-dex-of)
 
+; regex.match
+(def re-match?    match/re-match?)
+(def re-mismatch? match/re-mismatch?)
+
+; regex.remove
+(def remove-first-match remove/remove-first-match)
+(def remove-last-match  remove/remove-last-match)
+
 ; regex.replace
-(def replace-part replace/replace-part)
+(def replace-match replace/replace-match)

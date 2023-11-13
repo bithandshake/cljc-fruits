@@ -23,4 +23,5 @@
   ;
   ; @return (boolean)
   [n tag-name]
-  (= (first n) tag-name))
+  (and (-> n vector?)
+       (-> n first (= tag-name))))

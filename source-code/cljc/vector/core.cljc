@@ -1,8 +1,8 @@
 
 (ns vector.core
-    (:require [seqable.api   :as seqable]
-              [vector.item   :as item]
-              [vector.remove :as remove]))
+    (:require [seqable.api    :as seqable]
+              [vector.contain :as contain]
+              [vector.remove  :as remove]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -10,10 +10,10 @@
 (defn sum-items-by
   ; @description
   ; - Sums the derived values of items in the given 'n' vector.
-  ; - Values are derived by applying the given 'v-f' function on the item.
+  ; - Values are derived by applying the given 'f' function on the item.
   ;
   ; @param (vector) n
-  ; @param (function) v-f
+  ; @param (function) f
   ;
   ; @usage
   ; (sum-items-by [{:value 10} {:value 5}] :value)
@@ -24,12 +24,12 @@
   ; 15
   ;
   ; @return (integer)
-  [n v-f]
-  (letfn [(f [sum x] (let [v (v-f x)]
-                          (if (-> v integer?)
-                              (+  sum v)
-                              (-> sum))))]
-         (reduce f 0 n)))
+  [n f]
+  (letfn [(f0 [sum x] (let [v (f x)]
+                           (if (-> v integer?)
+                               (+  sum v)
+                               (-> sum))))]
+         (reduce f0 0 n)))
 
 (defn gap-items
   ; @param (*) n
@@ -101,7 +101,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (-> result (item/contains-item? x))
+  (letfn [(f [result x] (if (-> result (contain/contains-item? x))
                             (-> result)
                             (-> x (cons result))))]
          (vec (reduce f n (vec xyz)))))
@@ -128,7 +128,11 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (apply conj n xyz))
+  ; XXX#6799
+  ; The 'vec' function converts the given 'n' value into a vector even if it wasn't.
+  ; E.g., (conj nil :a)       => (:a)
+  ;       (vec (conj nil :a)) => [:a]
+  (vec (apply conj n xyz)))
 
 (defn conj-item-once
   ; @description
@@ -150,10 +154,11 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (-> result (item/contains-item? x))
+  ; XXX#6799
+  (letfn [(f [result x] (if (-> result (contain/contains-item? x))
                             (-> result)
                             (-> result (conj x))))]
-         (reduce f n (vec xyz))))
+         (vec (reduce f n (vec xyz)))))
 
 (defn conj-some
   ; @description
@@ -175,9 +180,10 @@
   ;
   ; @return (vector)
   [n & xyz]
+  ; XXX#6799
   (letfn [(f [result x] (if x (-> result (conj x))
                               (-> result)))]
-         (reduce f n (vec xyz))))
+         (vec (reduce f n (vec xyz)))))
 
 (defn concat-items
   ; @param (list of vectors) abc
@@ -230,11 +236,12 @@
   ;
   ; @return (vector)
   [n a b]
+  ; XXX#6799
   (letfn [(f [result x]
              (if (= x a)
                  (conj result b)
                  (conj result x)))]
-         (reduce f [] n)))
+         (vec (reduce f [] n))))
 
 (defn insert-item
   ; @description
@@ -297,6 +304,6 @@
   ;
   ; @return (vector)
   [n x]
-  (if (item/contains-item? n x)
-      (remove/remove-item  n x)
-      (conj                n x)))
+  (if (contain/contains-item? n x)
+      (remove/remove-item     n x)
+      (conj-item              n x)))

@@ -46,8 +46,8 @@
 
 (defn max-lines
   ; @description
-  ; - Limits the size of the given string by removing the end of it from the nth newline.
-  ; - With the '{:reverse? true}' setting it removes the beginning of the given string instead of the end.
+  ; - Limits the line count of the given 'n' string.
+  ; - With the '{:reverse? true}' setting it removes the beginning of the given string instead of removing the end.
   ;
   ; @param (*) n
   ; @param (integer) limit

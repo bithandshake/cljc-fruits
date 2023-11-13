@@ -1,8 +1,7 @@
 
 (ns vector.remove
-    (:require [vector.dex   :as dex]
-              [vector.item  :as item]
-              [vector.range :as range]))
+    (:require [vector.contain :as contain]
+              [vector.dex     :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -169,7 +168,7 @@
   ; @return (vector)
   [n xyz]
   ;(letfn [(f [result x]
-  ;           (if (check/contains-item? xyz x)
+  ;           (if (contain/contains-item? xyz x)
   ;               (->                   result)
   ;               (conj                 result x)))]
   ;       (reduce f [] n))
@@ -224,7 +223,7 @@
   ; @return (vector)
   [n]
   (letfn [(f [result x]
-             (if (item/contains-item? result x)
+             (if (contain/contains-item? result x)
                  (->   result)
                  (conj result x)))]
          (reduce f [] n)))
@@ -245,11 +244,11 @@
   [n x]
   ; BUG#1130
   ; The shadow-cljs protects the 'inc' function from receiving nil as a parameter.
-  ; The 'item-first-dex' function returns through a when condition, therefore
+  ; The 'first-dex-of' function returns through a when condition, therefore
   ; without using the (if (number? item-dex) ...) condition, the shadow-cljs
   ; throws the following error message:
   ; "cljs.core/+, all arguments must be numbers, got [#{nil clj-nil} number] instead"
-  (if-let [item-dex (dex/item-first-dex n x)]
+  (if-let [item-dex (dex/first-dex-of n x)]
           (if (number? item-dex)
               (vec (concat (subvec n 0 item-dex)
                            (subvec n (inc item-dex)))))
@@ -273,7 +272,7 @@
   ; @return (vector)
   [n xyz]
   (letfn [(f [result x]
-             (if (item/contains-item? xyz x)
+             (if (contain/contains-item? xyz x)
                  (conj result x)
                  (->   result)))]
          (reduce f [] n)))

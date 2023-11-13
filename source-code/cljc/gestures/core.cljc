@@ -11,8 +11,8 @@
 
 (defn item-label->copy-label
   ; @description
-  ; Appends a copy marking suffix to the given 'item-label'.
-  ; Avoids name conflicts by checking the concurent labels.
+  ; - Appends a copy marker suffix to the given 'item-label' string.
+  ; - Optionally avoids name conflicts by checking the concurent labels.
   ;
   ; @param (string) item-label
   ; @param (strings in vector)(opt) concurent-labels
@@ -58,7 +58,7 @@
 
 (defn resolve-variable
   ; @description
-  ; Replaces variables in strings with its values.
+  ; Replaces variables in the given 'text' string with their corresponding values.
   ;
   ; @param (string) text
   ; @param (list of vectors) variables

@@ -3,16 +3,17 @@
     (:refer-clojure :exclude [empty?])
     (:require [vector.check   :as check]
               [vector.compare :as compare]
+              [vector.contain :as contain]
               [vector.convert :as convert]
               [vector.core    :as core]
               [vector.count   :as count]
+              [vector.cut     :as cut]
               [vector.dex     :as dex]
               [vector.filter  :as filter]
               [vector.item    :as item]
               [vector.match   :as match]
               [vector.move    :as move]
               [vector.nth     :as nth]
-              [vector.range   :as range]
               [vector.remove  :as remove]
               [vector.sort    :as sort]
               [vector.step    :as step]
@@ -29,6 +30,10 @@
 (def similars           compare/similars)
 (def contains-similars? compare/contains-similars?)
 (def difference         compare/difference)
+
+; vector.contain
+(def contains-item?     contain/contains-item?)
+(def not-contains-item? contain/not-contains-item?)
 
 ; vector.convert
 (def to-map convert/to-map)
@@ -49,14 +54,38 @@
 (def toggle-item       core/toggle-item)
 
 ; vector.count
-(def min?    count/min?)
-(def max?    count/max?)
-(def longer? count/longer?)
-(def count?  count/count?)
+(def count-min? count/count-min?)
+(def count-max? count/count-max?)
+(def longer?    count/longer?)
+(def count?     count/count?)
+
+; vector.cut
+(def keep-range             cut/keep-range)
+(def cut-range              cut/cut-range)
+(def last-items             cut/last-items)
+(def first-items            cut/first-items)
+(def before-first-occurence cut/before-first-occurence)
+(def before-first-match     cut/before-first-match)
+(def before-last-occurence  cut/before-last-occurence)
+(def before-last-match      cut/before-last-match)
+(def after-first-occurence  cut/after-first-occurence)
+(def after-first-match      cut/after-first-match)
+(def after-last-occurence   cut/after-last-occurence)
+(def after-last-match       cut/after-last-match)
+(def from-first-occurence   cut/from-first-occurence)
+(def from-first-match       cut/from-first-match)
+(def from-last-occurence    cut/from-last-occurence)
+(def from-last-match        cut/from-last-match)
+(def to-first-occurence     cut/to-first-occurence)
+(def to-first-match         cut/to-first-match)
+(def to-last-occurence      cut/to-last-occurence)
+(def to-last-match          cut/to-last-match)
 
 ; vector.dex
-(def item-last-dex  dex/item-last-dex)
-(def item-first-dex dex/item-first-dex)
+(def first-dex-of dex/first-dex-of)
+(def last-dex-of  dex/last-dex-of)
+(def first-dex-by dex/first-dex-by)
+(def last-dex-by  dex/last-dex-by)
 
 ; vector.filter
 (def filter-items      filter/filter-items)
@@ -67,25 +96,20 @@
 (def last-filtered-by  filter/last-filtered-by)
 (def nth-filtered      filter/nth-filtered)
 (def nth-filtered-by   filter/nth-filtered-by)
-(def filtered-count    filter/filtered-count)
-(def filtered-count?   filter/filtered-count?)
 
 ; vector.item
-(def last-item          item/last-item)
-(def first-item         item/first-item)
-(def contains-item?     item/contains-item?)
-(def not-contains-item? item/not-contains-item?)
-(def only-item?         item/only-item?)
-(def item-last?         item/item-last?)
-(def item-first?        item/item-first?)
+(def last-item   item/last-item)
+(def first-item  item/first-item)
+(def only-item?  item/only-item?)
+(def item-last?  item/item-last?)
+(def item-first? item/item-first?)
 
 ; vector.match
-(def any-item-match?     match/any-item-match?)
-(def all-items-match?    match/all-items-match?)
-(def get-first-match     match/get-first-match)
-(def get-last-match      match/get-last-match)
-(def get-first-match-dex match/get-first-match-dex)
-(def get-last-match-dex  match/get-last-match-dex)
+(def any-item-match?  match/any-item-match?)
+(def all-items-match? match/all-items-match?)
+(def first-match      match/first-match)
+(def last-match       match/last-match)
+(def match-count      match/match-count)
 
 ; vector.move
 (def move-nth-item        move/move-nth-item)
@@ -102,14 +126,6 @@
 (def duplicate-nth-item  nth/duplicate-nth-item)
 (def duplicate-nth-items nth/duplicate-nth-items)
 (def replace-nth-item    nth/replace-nth-item)
-
-; vector.range
-(def ranged-items                 range/ranged-items)
-(def last-items                   range/last-items)
-(def first-items                  range/first-items)
-(def trim                         range/trim)
-(def items-before-first-occurence range/items-before-first-occurence)
-(def items-after-first-occurence  range/items-after-first-occurence)
 
 ; vector.remove
 (def remove-first-item      remove/remove-first-item)

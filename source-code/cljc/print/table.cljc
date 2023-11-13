@@ -12,7 +12,7 @@
   ; @usage
   ; (table-line 50)
   [size]
-  (as-> size % (string/multiply "-" %)
+  (as-> size % (string/repeat "-" %)
                (str "|" % "|")
                (println %)))
 
@@ -29,12 +29,12 @@
   [columns]
   (letfn [(f [[size content align]]
              (let [space (- size (-> content str count))]
-                  (case align :left  (cond (>  2 space) (str     content (string/multiply " " space))
-                                           (<= 2 space) (str " " content (string/multiply " " (dec space))))
-                              :right (cond (>  2 space) (str (string/multiply " " space)       content)
-                                           (<= 2 space) (str (string/multiply " " (dec space)) content " "))
-                                     (cond (even? space) (str (string/multiply " " (/ space 2))       content (string/multiply " " (/ space 2)))
-                                           (odd?  space) (str (string/multiply " " (/ (dec space) 2)) content (string/multiply " " (/ (inc space) 2)))))))]
+                  (case align :left  (cond (>  2 space) (str     content (string/repeat " " space))
+                                           (<= 2 space) (str " " content (string/repeat " " (dec space))))
+                              :right (cond (>  2 space) (str (string/repeat " " space)       content)
+                                           (<= 2 space) (str (string/repeat " " (dec space)) content " "))
+                                     (cond (even? space) (str (string/repeat " " (/ space 2))       content (string/repeat " " (/ space 2)))
+                                           (odd?  space) (str (string/repeat " " (/ (dec space) 2)) content (string/repeat " " (/ (inc space) 2)))))))]
          (as-> columns % (vector/->items % f)
                          (string/join % "|")
                          (str "|" % "|")

@@ -45,8 +45,8 @@
 
   ([n initial f]
    (let [n (str n)]
-        (letfn [(fi [result cursor]
+        (letfn [(f0 [result cursor]
                     (if (-> n count (= cursor))
                         (-> result)
-                        (fi (f result cursor) (inc cursor))))]
-               (fi initial 0)))))
+                        (f0 (f result cursor) (inc cursor))))]
+               (f0 initial 0)))))

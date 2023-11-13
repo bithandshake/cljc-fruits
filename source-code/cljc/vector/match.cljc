@@ -1,13 +1,13 @@
 
 (ns vector.match
-    (:require [loop.api :refer [some-indexed]]))
+    (:require [vector.check :as check]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn any-item-match?
   ; @param (vector) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (any-item-match? ["a" "b" :c] keyword?)
@@ -23,12 +23,12 @@
   ; true
   ;
   ; @return (boolean)
-  [n test-f]
-  (boolean (some test-f n)))
+  [n f]
+  (boolean (some f n)))
 
 (defn all-items-match?
   ; @param (vector) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (all-items-match? ["a" "b" "c"] string?)
@@ -44,94 +44,75 @@
   ; true
   ;
   ; @return (boolean)
-  [n test-f]
-  (every? test-f n))
+  [n f]
+  (every? f n))
 
-(defn get-first-match
+(defn first-match
   ; @param (vector) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
-  ; (get-first-match [:a :b :c "d"] string?)
+  ; (first-match [:a :b :c "d"] string?)
   ;
   ; @example
-  ; (get-first-match [:a :b :c] string?)
+  ; (first-match [:a :b :c] string?)
   ; =>
   ; nil
   ;
   ; @example
-  ; (get-first-match [:a "b" :c] string?)
+  ; (first-match [:a "b" :c] string?)
   ; =>
   ; "b"
   ;
   ; @return (*)
-  [n test-f]
-  (letfn [(f [%] (if (-> % test-f)
-                     (-> %)))]
-         (some f n)))
+  [n f]
+  (if (check/nonempty? n)
+      (letfn [(f0 [dex]
+                  (cond (-> n (nth dex) f)
+                        (-> n (nth dex))
+                        (-> dex (< (-> n count dec)))
+                        (-> dex inc f0)))]
+             (f0 0))))
 
-(defn get-last-match
+(defn last-match
   ; @param (vector) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
-  ; (get-last-match [:a :b :c "d"] string?)
+  ; (last-match [:a :b :c "d"] string?)
   ;
   ; @example
-  ; (get-last-match [:a :b :c] string?)
+  ; (last-match [:a :b :c] string?)
   ; =>
   ; nil
   ;
   ; @example
-  ; (get-last-match [:a "b" :c] string?)
+  ; (last-match [:a "b" :c] string?)
   ; =>
   ; "b"
   ;
   ; @return (*)
-  [n test-f]
-  (letfn [(f [%1 %2] (if (test-f %2) %2 %1))]
-         (reduce f nil n)))
+  [n f]
+  (if (check/nonempty? n)
+      (letfn [(f0 [dex]
+                  (cond (-> n (nth dex) f)
+                        (-> n (nth dex))
+                        (-> dex (not= 0))
+                        (-> dex dec f0)))]
+             (f0 (-> n count dec)))))
 
-(defn get-first-match-dex
+(defn match-count
   ; @param (vector) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
-  ; (get-first-match-dex [:a :b :c "d"] string?)
+  ; (match-count [:a :b "c"] string?)
   ;
   ; @example
-  ; (get-first-match-dex [:a :b :c] string?)
+  ; (match-count [:a :b "c"] keyword?)
   ; =>
-  ; nil
+  ; 2
   ;
-  ; @example
-  ; (get-first-match-dex [:a "b" :c] string?)
-  ; =>
-  ; 1
-  ;
-  ; @return (*)
-  [n test-f]
-  (letfn [(f [%1 %2] (if (test-f %2) %1))]
-         (some-indexed f n)))
-
-(defn get-last-match-dex
-  ; @param (vector) n
-  ; @param (function) test-f
-  ;
-  ; @usage
-  ; (get-last-match-dex [:a :b :c "d"] string?)
-  ;
-  ; @example
-  ; (get-last-match-dex [:a :b :c] string?)
-  ; =>
-  ; nil
-  ;
-  ; @example
-  ; (get-last-match-dex [:a "b" :c] string?)
-  ; =>
-  ; 1
-  ;
-  ; @return (*)
-  [n test-f]
-  (letfn [(f [%1 %2 %3] (if (test-f %3) %2 %1))]
-         (reduce-kv f nil n)))
+  ; @return (integer)
+  [n f]
+  (count (filter f n)))

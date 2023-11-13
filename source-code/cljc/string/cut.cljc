@@ -7,55 +7,55 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn part
+(defn keep-range
   ; @description
-  ; Returns a specific part of the given 'n' value (converted to string).
+  ; Keeps a specific range from the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (integer) start
   ; @param (integer)(opt) end
   ;
   ; @usage
-  ; (part "abc" 0 2)
+  ; (keep-range "abc" 0 2)
   ;
   ; @example
-  ; (part "abcdef" 2 4)
+  ; (keep-range "abcdef" 2 4)
   ; =>
   ; "cd"
   ;
   ; @example
-  ; (part "abcdef" 4 2)
+  ; (keep-range "abcdef" 4 2)
   ; =>
   ; "cd"
   ;
   ; @example
-  ; (part 12345 2 4)
+  ; (keep-range 12345 2 4)
   ; =>
   ; "34"
   ;
   ; @example
-  ; (part [:a :b] 0 6)
+  ; (keep-range [:a :b] 0 6)
   ; =>
   ; "[:a, :"
   ;
   ; @return (string)
   ([n start]
-   (part n start (-> n str count)))
+   (keep-range n start nil))
 
   ([n start end]
    (let [n     (-> n str)
-         start (-> n (seqable/normalize-cursor start))
-         end   (-> n (seqable/normalize-cursor end))]
+         start (-> n (seqable/normalize-cursor (-> start)))
+         end   (-> n (seqable/normalize-cursor (-> end (or (count n)))))]
         (subs n (min start end)
                 (max start end)))))
 
 (defn cut-range
   ; @description
-  ; Returns the given 'n' value (converted to string) after a specific range is removed.
+  ; Removes a specific range from the given 'n' value (converted to string).
   ;
   ; @param (*) n
-  ; @param (integer)(opt) start
-  ; @param (integer) end
+  ; @param (integer) start
+  ; @param (integer)(opt) end
   ;
   ; @usage
   ; (cut-range "abc" 0 2)
@@ -81,69 +81,15 @@
   ; " :b]"
   ;
   ; @return (string)
-  ([n end]
-   (cut-range n 0 end))
+  ([n start]
+   (cut-range n start nil))
 
   ([n start end]
    (let [n     (str n)
-         start (seqable/normalize-cursor n start)
-         end   (seqable/normalize-cursor n end)]
+         start (seqable/normalize-cursor n (-> start))
+         end   (seqable/normalize-cursor n (-> end (or (count n))))]
         (str (subs n 0 (min start end))
              (subs n   (max start end))))))
-
-(defn remove-part
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (remove-part "abc" "b")
-  ;
-  ; @example
-  ; (remove-part "abc" "b")
-  ; =>
-  ; "ac"
-  ;
-  ; @example
-  ; (remove-part "abc abc" "b")
-  ; =>
-  ; "ac ac"
-  ;
-  ; @example
-  ; (remove-part "abc abc 123" #"\d")
-  ; =>
-  ; "abc abc "
-  ;
-  ; @example
-  ; (remove-part "///" "//")
-  ; =>
-  ; "/"
-  ;
-  ; @return (string)
-  [n x]
-  (let [n (str n)]
-       (clojure.string/replace n x "")))
-
-(defn filter-characters
-  ; @param (*) n
-  ; @param (vector) allowed-characters
-  ;
-  ; @example
-  ; (filter-characters "+3630 / 123 - 4567"
-  ;                    ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"])
-  ; =>
-  ; "+36301234567"
-  ;
-  ; @example
-  ; (filter-characters [:a :b] [":" "a" "b"])
-  ; =>
-  ; ":a:b"
-  ;
-  ; @return (string)
-  [n allowed-characters]
-  (let [n (str n)]
-       (letfn [(f [result x] (if (some #(= x %) allowed-characters)
-                                 (str result x) result))]
-              (reduce f "" n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -155,7 +101,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -213,7 +159,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -271,7 +217,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -329,7 +275,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -387,7 +333,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -445,7 +391,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -503,7 +449,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -561,7 +507,7 @@
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
-  ;   If TRUE, returns the given 'n' value in case of no occurence has been found.
+  ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
   ; @usage
@@ -611,125 +557,3 @@
                               (f (-> n str)
                                  (-> n str clojure.string/lower-case)
                                  (-> x str clojure.string/lower-case))))))
-
-(defn remove-first-occurence
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)(opt)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
-  ;
-  ; @example
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
-  ; =>
-  ; "With insomnia, you're really awake; but you're never really asleep."
-  ;
-  ; @example
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "abc")
-  ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
-  ;
-  ; @return (string)
-  ([n x]
-   (remove-first-occurence n x {}))
-
-  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (str (subs n 0 dex)
-                                   (subs n (+ dex (count x))))
-                              (-> n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
-
-(defn remove-last-occurence
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)(opt)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
-  ;
-  ; @example
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
-  ; =>
-  ; "With insomnia, you're never really awake; but you're really asleep."
-  ;
-  ; @example
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc")
-  ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
-  ;
-  ; @return (string)
-  ([n x]
-   (remove-last-occurence n x {}))
-
-  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (str (subs n 0 dex)
-                                   (subs n (+ dex (count x))))
-                              (-> n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
-
-(defn between-occurences
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (*) y
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)(opt)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "never" "never")
-  ;
-  ; @example
-  ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "never" "asleep.")
-  ; =>
-  ; " really awake; but you're never really "
-  ;
-  ; @example
-  ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "never" "never")
-  ; =>
-  ; " really awake; but you're "
-  ;
-  ; @example
-  ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "abc" "never")
-  ; =>
-  ; nil
-  ;
-  ; @example
-  ; (between-occurences "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "abc" "def")
-  ; =>
-  ; nil
-  ;
-  ; @return (string)
-  ([n x y]
-   (between-occurences n x y {}))
-
-  ([n x y {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (-> n (after-first-occurence x {:return? false :case-sensitive? case-sensitive?})
-         (before-last-occurence y {:return? false :case-sensitive? case-sensitive?}))))

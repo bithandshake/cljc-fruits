@@ -9,10 +9,12 @@
               [string.core    :as core]
               [string.cut     :as cut]
               [string.dex     :as dex]
+              [string.filter  :as filter]
               [string.length  :as length]
               [string.lines   :as lines]
               [string.nth     :as nth]
               [string.order   :as order]
+              [string.remove  :as remove]
               [string.replace :as replace]
               [string.search  :as search]
               [string.trim    :as trim]
@@ -73,10 +75,8 @@
 (def ends-at?          core/ends-at?)
 
 ; string.cut
-(def part                   cut/part)
+(def keep-range             cut/keep-range)
 (def cut-range              cut/cut-range)
-(def remove-part            cut/remove-part)
-(def filter-characters      cut/filter-characters)
 (def before-first-occurence cut/before-first-occurence)
 (def before-last-occurence  cut/before-last-occurence)
 (def after-first-occurence  cut/after-first-occurence)
@@ -85,14 +85,14 @@
 (def from-last-occurence    cut/from-last-occurence)
 (def to-first-occurence     cut/to-first-occurence)
 (def to-last-occurence      cut/to-last-occurence)
-(def remove-first-occurence cut/remove-first-occurence)
-(def remove-last-occurence  cut/remove-last-occurence)
-(def between-occurences     cut/between-occurences)
 
 ; string.dex
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
 (def nth-dex-of   dex/nth-dex-of)
+
+; string.filter
+(def filter-characters filter/filter-characters)
 
 ; string.length
 (def length          length/length)
@@ -117,6 +117,11 @@
 ; string.order
 (def abc? order/abc?)
 (def abc  order/abc)
+
+; string.remove
+(def remove-part            remove/remove-part)
+(def remove-first-occurence remove/remove-first-occurence)
+(def remove-last-occurence  remove/remove-last-occurence)
 
 ; string.replace
 (def replace-part     replace/replace-part)

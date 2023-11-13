@@ -188,13 +188,13 @@
   ;
   ; @return (integers in vector)
   [a b]
-  (when (and (vector? a)
-             (vector? b))
-        (letfn [(f [dexes x]
-                   (if-let [dex (dex/item-first-dex a x)]
-                           (conj dexes dex)
-                           (->   dexes)))]
-               (reduce f [] b))))
+  (if (and (vector? a)
+           (vector? b))
+      (letfn [(f [dexes x]
+                 (if-let [dex (dex/first-dex-of a x)]
+                         (conj dexes dex)
+                         (->   dexes)))]
+             (reduce f [] b))))
 
 (defn compared-items-sorted?
   ; @description

@@ -3,7 +3,6 @@
     (:require [math.api      :as math]
               [seqable.api   :as seqable]
               [vector.dex    :as dex]
-              [vector.range  :as range]
               [vector.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
@@ -161,6 +160,6 @@
   ;
   ; @return (vector)
   [n x dex]
-  (if-let [item-first-dex (dex/item-first-dex n x)]
+  (if-let [item-first-dex (dex/first-dex-of n x)]
           (move-nth-item n item-first-dex dex)
           (-> n)))

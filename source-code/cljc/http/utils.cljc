@@ -7,22 +7,32 @@
 ;; ----------------------------------------------------------------------------
 
 (defn capitalize-header
-  ; @param (keyword) header-key
+  ; @param (keyword or string) header-key
   ;
   ; @usage
   ; (capitalize-header :user-agent)
+  ;
+  ; @usage
+  ; (capitalize-header "user-agent")
   ;
   ; @example
   ; (capitalize-header :user-agent)
   ; =>
   ; "User-Agent"
   ;
+  ; @example
+  ; (capitalize-header "user-agent")
+  ; =>
+  ; "User-Agent"
+  ;
   ; @return (string)
   [header-key]
-  (as-> header-key % (name %)
-                     (clojure.string/split % #"\-")
-                     (map clojure.string/capitalize %)
-                     (clojure.string/join "-" %)))
+  (letfn [(f [%]
+             (as-> % % (clojure.string/split % #"\-")
+                       (map clojure.string/capitalize %)
+                       (clojure.string/join "-" %)))]
+         (cond (-> header-key keyword?) (-> header-key name f)
+               (-> header-key string?)  (-> header-key      f))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -31,8 +41,8 @@
   ; @ignore
   ;
   ; @description
-  ; Replaces the body value with an unsensitive keyword such as :client-error
-  ; or :server-error in case of client or server error status code passed.
+  ; Replaces the body value with an unsensitive keyword such as ':client-error'
+  ; or ':server-error' in case of client or server error status code passed.
   ;
   ; @param (map) response-props
   ; {:status (integer)}

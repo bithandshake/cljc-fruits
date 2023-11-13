@@ -35,9 +35,9 @@
         (and (string/contains-part? n "//")
              (string/nth-dex-of     n "/" 3))
         (let [dex (string/nth-dex-of n "/" 3)]
-             (str (-> n (string/part 0 dex)
+             (str (-> n (string/keep-range 0 dex)
                         (string/to-lowercase))
-                  (-> n (string/part dex))))
+                  (-> n (string/keep-range dex))))
 
         ; If the URI does NOT contain a double-slash ("my-domain.com/my-path"),
         ; the path part starts from the 1st "/" character.

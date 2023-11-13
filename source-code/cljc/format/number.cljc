@@ -227,7 +227,7 @@
   [n]
   (letfn [(f [%]
              (if (-> % string/last-character (= "0"))
-                 (-> % (string/part 0 -1))
+                 (-> % (string/keep-range 0 -1))
                  (-> % (string/insert-part "." -1))))]
          (cond (>= n 1000000000) (str (f (Math/round (/ n 100000000))) "B")
                (>= n 1000000)    (str (f (Math/round (/ n    100000))) "M")

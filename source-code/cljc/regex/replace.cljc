@@ -5,7 +5,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn replace-part
+(defn replace-match
   ; @param (*) n
   ; @param (regex pattern) x
   ; @param (*) y
@@ -14,14 +14,14 @@
   ;   Default: false}
   ;
   ; @example
-  ; (replace-part "abc" #"[b]{0,}" "x")
+  ; (replace-match "abc" #"[b]{0,}" "x")
   ; =>
   ; "axc"
   ;
   ; @return (string)
   ([n x y]
-   (replace-part n x y {}))
+   (replace-match n x y {}))
 
   ([n x y options]
-   ; The string.api/replace-part function can take regex patterns as well
+   ; The 'string.api/replace-part' function takes regex patterns as well
    (string/replace-part n x y options)))

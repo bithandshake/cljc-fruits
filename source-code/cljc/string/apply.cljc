@@ -10,8 +10,8 @@
   ; Applies the given 'f' function on a specific range of the given 'n' value (converted to string).
   ;
   ; @param (*) n
-  ; @param (integer) from
-  ; @param (integer)(opt) to
+  ; @param (integer) start
+  ; @param (integer)(opt) end
   ; @param (function) f
   ;
   ; @usage
@@ -23,15 +23,15 @@
   ; "abcDef"
   ;
   ; @return (string)
-  ([n from f]
-   (apply-on-range n from (-> n str count) f))
+  ([n start f]
+   (apply-on-range n start nil f))
 
-  ([n from to f]
-   (let [n    (str n)
-         from (seqable/normalize-cursor n from)
-         to   (seqable/normalize-cursor n to)
-         from (min from to)
-         to   (max from to)]
-        (str (-> n (subs 0 from))
-             (-> n (subs from to) f)
-             (-> n (subs to))))))
+  ([n start end f]
+   (let [n     (str n)
+         start (seqable/normalize-cursor n (-> start))
+         end   (seqable/normalize-cursor n (-> end (or (count n))))
+         start (min start end)
+         end   (max start end)]
+        (str (-> n (subs 0 start))
+             (-> n (subs start end) f)
+             (-> n (subs end))))))

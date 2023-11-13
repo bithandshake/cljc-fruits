@@ -22,9 +22,9 @@
           ; Returns NIL in case of no part has been removed!
           (remove-object-f [%] (if-let [open-pos (string/first-dex-of % "#object[")]
                                        (if-let [close-pos (string/first-dex-of % "]" open-pos)]
-                                               (str (string/part % 0 open-pos)
+                                               (str (string/keep-range % 0 open-pos)
                                                     ":object-removed-by-reader"
-                                                    (string/part % (inc close-pos))))))
+                                                    (string/keep-range % (inc close-pos))))))
 
           ; Calls the 'remove-object-f' function recursivelly if an object has been removed (= the function returned the updated string).
           ; Returns the given string if the 'remove-object-f' returned NIL (= no part has been removed).

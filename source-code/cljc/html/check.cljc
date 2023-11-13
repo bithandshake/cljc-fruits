@@ -32,21 +32,21 @@
   ; (blank? "<p> </p><p>\n</p>")
   ;
   ; @example
-  ; (blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
-  ; =>
-  ; false
-  ;
-  ; @example
   ; (blank? "<p> </p><p>\n</p>")
   ; =>
   ; true
+  ;
+  ; @example
+  ; (blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
   (-> n (string/remove-part #"<.*>")
         (string/remove-part #"</.*>")
         (string/remove-part #"<.*/>")
-        (string/remove-part #" ")
+        (string/remove-part #"\s")
         (string/remove-part #"\r")
         (string/remove-part #"\t")
         (string/remove-part #"\n")
@@ -56,7 +56,7 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (nonblank? "<p> </p><p>\n</p>")
+  ; (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ;
   ; @example
   ; (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")

@@ -52,10 +52,10 @@
   ;
   ; @return (*)
   [f initial map]
-  (letfn [(fi [[result dex] k v]
+  (letfn [(f0 [[result dex] k v]
               [(f result dex k v)
                (inc dex)])]
-         (first (reduce-kv fi [initial 0] map))))
+         (first (reduce-kv f0 [initial 0] map))))
 
 (defn reduce-range
   ; @param (function) f
@@ -114,12 +114,12 @@
   ;
   ; @return (*)
   [test-f coll]
-  (letfn [(fi [test-f coll dex]
+  (letfn [(f0 [test-f coll dex]
               (if-let [result (test-f dex (get coll dex))]
                       (-> result)
                       (when-not (= dex (-> coll count dec))
-                                (fi test-f coll (inc dex)))))]
-         (fi test-f coll 0)))
+                                (f0 test-f coll (inc dex)))))]
+         (f0 test-f coll 0)))
 
 (defn do-indexed
   ; @param (function) do-f
@@ -192,17 +192,17 @@
   ; @return (*)
   [f initial pairs]
   (let [pairs-count (count pairs)]
-       (letfn [(fi [result lap] (let [cursor (* lap 2)]
+       (letfn [(f0 [result lap] (let [cursor (* lap 2)]
                                      (if (> cursor pairs-count) result
                                          (let [a (nth pairs (- cursor 2))
                                                b (nth pairs (- cursor 1))]
-                                              (fi (f result a b)
+                                              (f0 (f result a b)
                                                   (inc lap))))))]
 
               ; Don't forget that 0 is even!
               (cond (-> pairs-count (< 2)) initial
                     (-> pairs-count odd?)  initial
-                    :recursion (fi initial 1)))))
+                    :recursion (f0 initial 1)))))
 
 (defn apply-pairs
   ; @description

@@ -8,7 +8,7 @@
 (defn normalize-cursor
   ; @description
   ; - Normalizes the given cursor value for the given 'n' sequence.
-  ; - Negative cursor values are used backwards as they were distances from the end of the sequence (not the beginning).
+  ; - Negative cursor values are used backwards as they were distances from the end of the sequence (not from the beginning).
   ; - The output is a non-negative cursor value that is not less than 0 and not more than the maximum cursor value.
   ;
   ; @param (*) n
@@ -34,10 +34,10 @@
   ;
   ; @return (integer)
   [n cursor]
-  (cond (-> n seqable? not)       (-> cursor)
-        (-> cursor integer? not)  (-> 0)
-        (-> n count - (> cursor)) (-> 0)
+  (cond (-> cursor integer? not)  (-> 0)
+        (-> n seqable? not)       (-> cursor)
         (-> n count   (< cursor)) (-> n count)
+        (-> n count - (> cursor)) (-> 0)
         (< cursor 0)              (-> n count (+ cursor))
         :return                   (-> cursor)))
 

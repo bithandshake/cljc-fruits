@@ -1,7 +1,7 @@
 
 (ns vector.nth
-    (:require [seqable.api :as seqable]
-              [vector.item :as item]))
+    (:require [seqable.api    :as seqable]
+              [vector.contain :as contain]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -59,7 +59,7 @@
   [n dexes]
   (if (vector? n)
       (letfn [(f [result dex x]
-                 (if (item/contains-item? dexes dex)
+                 (if (contain/contains-item? dexes dex)
                      (->   result)
                      (conj result x)))]
              (reduce-kv f [] n))))

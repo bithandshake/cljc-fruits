@@ -7,7 +7,7 @@
 (defn normalize-dex
   ; @description
   ; - Normalizes the given index value for the given 'n' sequence.
-  ; - Negative index values are used backwards as they were distances from the last index (not the first).
+  ; - Negative index values are used backwards as they were distances from the last index (not from the first).
   ; - The output is a non-negative index value that is not less than 0 and not more than the maximum index value.
   ;
   ; @param (*) string
@@ -33,10 +33,10 @@
   ;
   ; @return (integer)
   [n dex]
-  (cond (-> n seqable? not)     (-> dex)
-        (-> dex integer? not)   (-> 0)
-        (-> n count - (>= dex)) (-> 0)
+  (cond (-> dex integer? not)   (-> 0)
+        (-> n seqable? not)     (-> dex)
         (-> n count   (<= dex)) (-> n count dec)
+        (-> n count - (>= dex)) (-> 0)
         (< dex 0)               (-> n count dec (+ dex))
         :return                 (-> dex)))
 

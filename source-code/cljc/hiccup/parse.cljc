@@ -9,16 +9,22 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn parse-css
+  ; @param (hiccup) n
+  ;
+  ; @example
+  ; (parse-css [:td [:p {:style "color: red;"}]])
+  ; =>
+  ; [:td [:p {:style {:color "red"}}]]
+  ;
+  ; @return (hiccup)
+  [n])
+
 (defn unparse-css
   ; @param (hiccup) n
   ;
   ; @example
   ; (unparse-css [:td [:p {:style {:color "red"}}]])
-  ; =>
-  ; [:td [:p {:style "color: red;"}]]
-  ;
-  ; @example
-  ; (unparse-css [:td [:p {:style "color: red;"}]])
   ; =>
   ; [:td [:p {:style "color: red;"}]]
   ;
@@ -29,6 +35,9 @@
                                 (-> element (attributes/set-style (css/unparse style)))
                                 (-> element))))]
          (walk/walk n f)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn parse-newlines
   ; @param (hiccup) n
@@ -47,3 +56,14 @@
                                                     (vector/concat-items element %))
                                     (vector/conj-item element content)))]
          (walk/walk n f0)))
+
+(defn unparse-newlines
+  ; @param (hiccup) n
+  ;
+  ; @example
+  ; (unparse-newlines [:p "Hello world! [:br] It's me!"])
+  ; =>
+  ; [:p "Hello world!"\n"It's me!"]
+  ;
+  ; @return (hiccup)
+  [n])

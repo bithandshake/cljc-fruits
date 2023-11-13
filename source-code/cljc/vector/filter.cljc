@@ -160,36 +160,3 @@
   ; @return (*)
   [n filter-f value-f dex])
   ; TODO
-
-(defn filtered-count
-  ; @param (vector) n
-  ; @param (function) filter-f
-  ;
-  ; @usage
-  ; (filtered-count [:a :b "c"] string?)
-  ;
-  ; @example
-  ; (filtered-count [:a :b "c"] keyword?)
-  ; =>
-  ; 2
-  ;
-  ; @return (integer)
-  [n filter-f]
-  (count (filter filter-f n)))
-
-(defn filtered-count?
-  ; @param (vector) n
-  ; @param (function) filter-f
-  ; @param (integer) x
-  ;
-  ; @usage
-  ; (filtered-count? [:a :b "c"] string? 1)
-  ;
-  ; @example
-  ; (filtered-count? [:a :b "c"] keyword? 2)
-  ; =>
-  ; true
-  ;
-  ; @return (boolean)
-  [n filter-f x]
-  (= x (filtered-count n filter-f)))
