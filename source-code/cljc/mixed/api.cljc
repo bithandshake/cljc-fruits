@@ -1,5 +1,6 @@
 
 (ns mixed.api
+    (:refer-clojure :exclude [empty?])
     (:require [mixed.check   :as check]
               [mixed.convert :as convert]
               [mixed.core    :as core]
@@ -10,8 +11,8 @@
 ;; ----------------------------------------------------------------------------
 
 ; mixed.check
-(def nonblank? check/nonblank?)
-(def blank?    check/blank?)
+(def empty?    check/empty?)
+(def nonempty? check/nonempty?)
 
 ; mixed.convert
 (def to-string   convert/to-string)

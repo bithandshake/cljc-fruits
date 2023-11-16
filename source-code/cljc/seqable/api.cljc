@@ -1,5 +1,6 @@
 
 (ns seqable.api
+    (:refer-clojure :exclude [empty?])
     (:require [seqable.check  :as check]
               [seqable.cursor :as cursor]
               [seqable.dex    :as dex]))
@@ -9,6 +10,7 @@
 
 ; seqable.check
 (def nonseqable? check/nonseqable?)
+(def empty?      check/empty?)
 (def nonempty?   check/nonempty?)
 (def cursor?     check/cursor?)
 (def dex?        check/dex?)

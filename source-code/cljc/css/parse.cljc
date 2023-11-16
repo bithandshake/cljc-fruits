@@ -42,8 +42,8 @@
   (letfn [(f0 [x] (if-let [k (string/before-first-occurence x ":" {:return? false})]
                           (if-let [v (string/before-first-occurence x ":" {:return? false})]
                                   (let [k (string/trim k) v (string/trim v)]
-                                       (and (string/nonblank? k)
-                                            (string/nonblank? v)
+                                       (and (string/nonempty? k)
+                                            (string/nonempty? v)
                                             [k v])))))
 
           ; In order to avoid infinite loops, if the 'f0' function cannot resolve the passed 'x' fraction,

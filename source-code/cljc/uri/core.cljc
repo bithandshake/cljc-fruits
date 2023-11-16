@@ -57,5 +57,5 @@
                                     (remove-duplicates))]
               (str (-> n (string/before-first-occurence "?" {:return? true})
                          (string/before-first-occurence "#" {:return? true}))
-                   (if (string/nonblank? url-query-string) (str "?" url-query-string))
-                   (if (string/nonblank? url-fragment)     (str "#" url-fragment))))))
+                   (if (string/nonempty? url-query-string) (str "?" url-query-string))
+                   (if (string/nonempty? url-fragment)     (str "#" url-fragment))))))

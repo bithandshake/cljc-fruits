@@ -4,21 +4,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonfalse?
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (nonfalse? nil)
-  ;
-  ; @example
-  ; (nonfalse? nil)
-  ; =>
-  ; true
-  ;
-  ; @return (boolean)
-  [n]
-  (not= n false))
-
 (defn nontrue?
   ; @param (*) n
   ;
@@ -33,3 +18,18 @@
   ; @return (boolean)
   [n]
   (not= n true))
+
+(defn nonfalse?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (nonfalse? nil)
+  ;
+  ; @example
+  ; (nonfalse? nil)
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
+  [n]
+  (not= n false))

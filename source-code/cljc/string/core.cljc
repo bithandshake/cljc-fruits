@@ -40,12 +40,12 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (join ["filename" "extension"] ".")
+  ; (join ["a" "b"] ".")
   ;
   ; @example
-  ; (join ["filename" "extension"] ".")
+  ; (join ["my-image" "png"] ".")
   ; =>
-  ; "filename.extension"
+  ; "my-image.png"
   ;
   ; @example
   ; (join ["a" "b" ""] ".")
@@ -428,165 +428,28 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn ends-with?
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (ends-with? "The things you used to own, now they own you." ".")
-  ;
-  ; @example
-  ; (ends-with? "The things you used to own, now they own you." ".")
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (ends-with? "The things you used to own, now they own you." "")
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (ends-with? "The things you used to own, now they own you." "!")
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  ([n x]
-   (ends-with? n x {}))
-
-  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (let [n (str n)
-         x (str x)]
-        (letfn [(f [n x] (clojure.string/ends-with? n x))]
-               (if case-sensitive? (f n x)
-                                   (f (clojure.string/lower-case n)
-                                      (clojure.string/lower-case x)))))))
-
-(defn not-ends-with?
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (not-ends-with? "The things you used to own, now they own you." ".")
-  ;
-  ; @example
-  ; (not-ends-with? "The things you used to own, now they own you." "!")
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (not-ends-with? "The things you used to own, now they own you." ".")
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (not-ends-with? "The things you used to own, now they own you." "")
-  ; =>
-  ; false
-  ;
-  ; @return (boolean)
-  ([n x]
-   (not-ends-with? n x {}))
-
-  ([n x options]
-   (let [ends-with? (ends-with? n x options)]
-        (not ends-with?))))
-
-(defn ends-with!
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (ends-with! "The things you used to own, now they own you." ".")
-  ;
-  ; @example
-  ; (ends-with! "The things you used to own, now they own you." ".")
-  ; =>
-  ; "The things you used to own, now they own you."
-  ;
-  ; @example
-  ; (ends-with! "The things you used to own, now they own you" ".")
-  ; =>
-  ; "The things you used to own, now they own you."
-  ;
-  ; @return (string)
-  ([n x]
-   (ends-with! n x {}))
-
-  ([n x options]
-   (if (ends-with? n x options)
-       (->  n)
-       (str n x))))
-
-(defn not-ends-with!
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
-  ;   Default: true}
-  ;
-  ; @usage
-  ; (not-ends-with! "The things you used to own, now they own you." ".")
-  ;
-  ; @example
-  ; (not-ends-with! "The things you used to own, now they own you" ".")
-  ; =>
-  ; "The things you used to own, now they own you"
-  ;
-  ; @example
-  ; (not-ends-with! "The things you used to own, now they own you." ".")
-  ; =>
-  ; "The things you used to own, now they own you"
-  ;
-  ; @example
-  ; (not-ends-with! nil ".")
-  ; =>
-  ; nil
-  ;
-  ; @return (string)
-  ([n x]
-   (not-ends-with! n x {}))
-
-  ([n x options]
-   (if (ends-with?                n x options)
-       (cut/before-last-occurence n x)
-       (-> n))))
-
 (defn starts-with?
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
+  ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "On a")
+  ; (starts-with? "abcdef" "ab")
   ;
   ; @example
-  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "On a")
+  ; (starts-with? "abcdef" "ab")
   ; =>
   ; true
   ;
   ; @example
-  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "")
+  ; (starts-with? "abcdef" "")
   ; =>
   ; true
   ;
   ; @example
-  ; (starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "The ")
+  ; (starts-with? "abcdef" "bc")
   ; =>
   ; false
   ;
@@ -602,32 +465,68 @@
                                    (f (clojure.string/lower-case n)
                                       (clojure.string/lower-case x)))))))
 
-(defn not-starts-with?
+(defn ends-with?
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
+  ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;                   "On a")
+  ; (ends-with? "abcdef" "ef")
   ;
   ; @example
-  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;                   "The ")
+  ; (ends-with? "abcdef" "ef")
   ; =>
   ; true
   ;
   ; @example
-  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;                   "")
+  ; (ends-with? "abcdef" "")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (ends-with? "abcdef" "de")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x]
+   (ends-with? n x {}))
+
+  ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
+   (let [n (str n)
+         x (str x)]
+        (letfn [(f [n x] (clojure.string/ends-with? n x))]
+               (if case-sensitive? (f n x)
+                                   (f (clojure.string/lower-case n)
+                                      (clojure.string/lower-case x)))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn not-starts-with?
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)(opt)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (not-starts-with? "abcdef" "bc")
+  ;
+  ; @example
+  ; (not-starts-with? "abcdef" "bc")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-starts-with? "abcdef" "")
   ; =>
   ; false
   ;
   ; @example
-  ; (not-starts-with? "On a long enough time line, the survival rate for everyone drops to zero."
-  ;                   "On a")
+  ; (not-starts-with? "abcdef" "ab")
   ; =>
   ; false
   ;
@@ -639,28 +538,61 @@
    (let [starts-with? (starts-with? n x options)]
         (not starts-with?))))
 
+(defn not-ends-with?
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)(opt)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (not-ends-with? "abcdef" "de")
+  ;
+  ; @example
+  ; (not-ends-with? "abcdef" "de")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-ends-with? "abcdef" "")
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (not-ends-with? "abcdef" "ef")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x]
+   (not-ends-with? n x {}))
+
+  ([n x options]
+   (let [ends-with? (ends-with? n x options)]
+        (not ends-with?))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn starts-with!
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
+  ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "On a")
+  ; (starts-with! "abcdef" "ab")
   ;
   ; @example
-  ; (starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
-  ;               "On a")
+  ; (starts-with! "abcdef" "ab")
   ; =>
-  ; "On a long enough time line, the survival rate for everyone drops to zero."
+  ; "abcdef"
   ;
   ; @example
-  ; (starts-with! " long enough time line, the survival rate for everyone drops to zero."
-  ;               "On a")
+  ; (starts-with! "cdef" "ab")
   ; =>
-  ; "On a long enough time line, the survival rate for everyone drops to zero."
+  ; "abcdef"
   ;
   ; @return (string)
   ([n x]
@@ -671,31 +603,60 @@
        (->  n)
        (str x n))))
 
+(defn ends-with!
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)(opt)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (ends-with! "abcdef" "ef")
+  ;
+  ; @example
+  ; (ends-with! "abcdef" "ef")
+  ; =>
+  ; "abcdef"
+  ;
+  ; @example
+  ; (ends-with! "abcd" "ef")
+  ; =>
+  ; "abcdef"
+  ;
+  ; @return (string)
+  ([n x]
+   (ends-with! n x {}))
+
+  ([n x options]
+   (if (ends-with? n x options)
+       (->  n)
+       (str n x))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn not-starts-with!
   ; @param (*) n
   ; @param (*) x
   ; @param (map)(opt) options
-  ; {:case-sensitive? (boolean)
+  ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (not-starts-with! "On a long enough time line, the survival rate for everyone drops to zero."
-  ;                   "On a")
+  ; (not-starts-with! "abcdef" "ab")
   ;
   ; @example
-  ; (not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
-  ;                   "On a")
+  ; (not-starts-with! "abcdef" "ab")
   ; =>
-  ; " long enough time line, the survival rate for everyone drops to zero."
+  ; "cdef"
   ;
   ; @example
-  ; (not-starts-with! " long enough time line, the survival rate for everyone drops to zero."
-  ;                   "On a")
+  ; (not-starts-with! "cdef" "ab")
   ; =>
-  ; " long enough time line, the survival rate for everyone drops to zero."
+  ; "cdef"
   ;
   ; @example
-  ; (not-starts-with! nil ".")
+  ; (not-starts-with! nil "ab")
   ; =>
   ; nil
   ;
@@ -708,6 +669,43 @@
        (cut/after-first-occurence n x)
        (-> n))))
 
+(defn not-ends-with!
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (not-ends-with! "abcdef" "ef")
+  ;
+  ; @example
+  ; (not-ends-with! "abcdef" "ef")
+  ; =>
+  ; "abcd"
+  ;
+  ; @example
+  ; (not-ends-with! "abcd" "ef")
+  ; =>
+  ; "abcd"
+  ;
+  ; @example
+  ; (not-ends-with! nil ".")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  ([n x]
+   (not-ends-with! n x {}))
+
+  ([n x options]
+   (if (ends-with?                n x options)
+       (cut/before-last-occurence n x)
+       (-> n))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn matches-with?
   ; @param (*) n
   ; @param (*) x
@@ -715,15 +713,18 @@
   ; {:case-sensitive? (boolean)
   ;   Default: true}
   ;
-  ; @example
-  ; (matches-with? "abc" "ab")
-  ; =>
-  ; false
+  ; @usage
+  ; (matches-with? "abc" "abc")
   ;
   ; @example
   ; (matches-with? "abc" "abc")
   ; =>
   ; true
+  ;
+  ; @example
+  ; (matches-with? "abc" "ab")
+  ; =>
+  ; false
   ;
   ; @example
   ; (matches-with? "abc" "Abc")
@@ -753,6 +754,9 @@
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)
   ;   Default: true}
+  ;
+  ; @usage
+  ; (not-matches-with? "abc" "ab")
   ;
   ; @example
   ; (not-matches-with? "abc" "ab")
@@ -796,15 +800,15 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (starts-at? "The things you used to own, now they own you." "things" 4)
+  ; (starts-at? "abcdef" "de" 3)
   ;
   ; @example
-  ; (starts-at? "The things you used to own, now they own you." "things" 4)
+  ; (starts-at? "abcdef" "de" 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (starts-at? "The things you used to own, now they own you." "things" 2)
+  ; (starts-at? "abcdef" "de" 2)
   ; =>
   ; false
   ;
@@ -836,15 +840,15 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (ends-at? "The things you used to own, now they own you." "things" 10)
+  ; (ends-at? "abcdef" "de" 5)
   ;
   ; @example
-  ; (ends-at? "The things you used to own, now they own you." "things" 10)
+  ; (ends-at? "abcdef" "de" 5)
   ; =>
   ; true
   ;
   ; @example
-  ; (ends-at? "The things you used to own, now they own you." "things" 15)
+  ; (ends-at? "abcdef" "de" 2)
   ; =>
   ; false
   ;
@@ -863,3 +867,70 @@
                (if case-sensitive? (f n x)
                                    (f (clojure.string/lower-case n)
                                       (clojure.string/lower-case x)))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn not-starts-at?
+  ; @description
+  ; Returns TRUE if the given 'x' value (converted to string) starts at the given 'cursor' value in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (not-starts-at? "abcdef" "de" 2)
+  ;
+  ; @example
+  ; (not-starts-at? "abcdef" "de" 2)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-starts-at? "abcdef" "de" 3)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x cursor]
+   (not-starts-at? n x cursor {}))
+
+  ([n x cursor options]
+   (let [starts-at? (starts-at? n x cursor options)]
+        (not starts-at?))))
+
+(defn not-ends-at?
+  ; @description
+  ; Returns TRUE if the given 'x' value (converted to string) ends at the given 'cursor' value in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (not-ends-at? "abcdef" "de" 2)
+  ;
+  ; @example
+  ; (not-ends-at? "abcdef" "de" 2)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-ends-at? "abcdef" "de" 5)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x cursor]
+   (not-ends-at? n x cursor {}))
+
+  ([n x cursor options]
+   (let [ends-at? (ends-at? n x cursor options)]
+        (not ends-at?))))

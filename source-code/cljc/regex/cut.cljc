@@ -9,11 +9,10 @@
 
 (defn before-first-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -51,18 +50,18 @@
    (before-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [first-match (core/re-first n x)]
                 (subs n 0 (clojure.string/index-of n first-match))
                 (if return? n)))))
 
 (defn before-last-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -100,18 +99,18 @@
    (before-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [last-match (core/re-last n x)]
                 (subs n 0 (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 
 (defn after-first-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -149,7 +148,8 @@
    (after-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [first-match (core/re-first n x)]
                 (subs n (+ (clojure.string/index-of n first-match)
                            (count                     first-match)))
@@ -157,11 +157,10 @@
 
 (defn after-last-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -199,7 +198,8 @@
    (after-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [last-match (core/re-last n x)]
                 (subs n (+ (clojure.string/last-index-of n last-match)
                            (count last-match)))
@@ -207,11 +207,10 @@
 
 (defn from-first-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -249,18 +248,18 @@
    (from-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [first-match (core/re-first n x)]
                 (subs n (clojure.string/index-of n first-match))
                 (if return? n)))))
 
 (defn from-last-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -298,18 +297,18 @@
    (from-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [last-match (core/re-last n x)]
                 (subs n (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 
 (defn to-first-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -347,7 +346,8 @@
    (to-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [first-match (core/re-first n x)]
                 (subs n 0 (+ (clojure.string/index-of n first-match)
                              (count                     first-match)))
@@ -355,11 +355,10 @@
 
 (defn to-last-occurence
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple
-  ; matches for the occurence!
+  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
   ;   Default: false}
@@ -397,7 +396,8 @@
    (to-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   (let [n (str n)]
+   (let [n (str n)
+         x (re-pattern x)]
         (if-let [last-match (core/re-last n x)]
                 (subs n 0 (+ (clojure.string/last-index-of n last-match)
                              (count last-match)))

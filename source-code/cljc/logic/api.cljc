@@ -7,8 +7,8 @@
 ;; ----------------------------------------------------------------------------
 
 ; logic.check
-(def nonfalse? check/nonfalse?)
 (def nontrue?  check/nontrue?)
+(def nonfalse? check/nonfalse?)
 
 ; logic.core
 (def =?     core/=?)

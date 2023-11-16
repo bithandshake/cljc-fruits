@@ -1,6 +1,6 @@
 
 (ns string.api
-    (:refer-clojure :exclude [repeat])
+    (:refer-clojure :exclude [empty? repeat])
     (:require [string.apply   :as apply]
               [string.check   :as check]
               [string.config  :as config]
@@ -27,6 +27,8 @@
 (def apply-on-range apply/apply-on-range)
 
 ; string.check
+(def empty?     check/empty?)
+(def nonempty?  check/nonempty?)
 (def blank?     check/blank?)
 (def nonblank?  check/nonblank?)
 (def lowercase? check/lowercase?)
@@ -61,18 +63,20 @@
 (def prepend           core/prepend)
 (def append            core/append)
 (def insert-part       core/insert-part)
-(def ends-with?        core/ends-with?)
-(def not-ends-with?    core/not-ends-with?)
-(def ends-with!        core/ends-with!)
-(def not-ends-with!    core/not-ends-with!)
 (def starts-with?      core/starts-with?)
+(def ends-with?        core/ends-with?)
 (def not-starts-with?  core/not-starts-with?)
+(def not-ends-with?    core/not-ends-with?)
 (def starts-with!      core/starts-with!)
+(def ends-with!        core/ends-with!)
 (def not-starts-with!  core/not-starts-with!)
+(def not-ends-with!    core/not-ends-with!)
 (def matches-with?     core/matches-with?)
 (def not-matches-with? core/not-matches-with?)
 (def starts-at?        core/starts-at?)
 (def ends-at?          core/ends-at?)
+(def not-starts-at?    core/not-starts-at?)
+(def not-ends-at?      core/not-ends-at?)
 
 ; string.cut
 (def keep-range             cut/keep-range)

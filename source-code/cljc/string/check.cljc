@@ -1,37 +1,86 @@
 
 (ns string.check
+    (:refer-clojure :exclude [empty?])
     (:require [clojure.string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn blank?
+(defn empty?
   ; @description
   ; Returns TRUE if the given 'n' value is an empty string.
   ;
   ; @param (*) n
   ;
   ; @usage
-  ; (blank? "")
+  ; (empty? "")
+  ;
+  ; @example
+  ; (empty? "")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (empty? "abc")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n string?)
+       (-> n clojure.core/empty?)))
+
+(defn nonempty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonempty string.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (nonempty? "abc")
+  ;
+  ; @example
+  ; (nonempty? "abc")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (nonempty? "")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n string?)
+       (-> n clojure.core/empty? not)))
+
+(defn blank?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a string that only contains whitespaces, newlines or even empty.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (blank? " ")
+  ;
+  ; @example
+  ; (blank? " ")
+  ; =>
+  ; true
   ;
   ; @example
   ; (blank? "abc")
   ; =>
   ; false
   ;
-  ; @example
-  ; (blank? "")
-  ; =>
-  ; true
-  ;
   ; @return (boolean)
   [n]
   (and (-> n string?)
-       (-> n empty?)))
+       (-> n clojure.string/trim empty?)))
 
 (defn nonblank?
   ; @description
-  ; Returns TRUE if the given 'n' value is a nonempty string.
+  ; Returns TRUE if the given 'n' value is a string that contains more than whitespaces and newlines.
   ;
   ; @param (*) n
   ;
@@ -39,19 +88,22 @@
   ; (nonblank? "abc")
   ;
   ; @example
-  ; (nonblank? "")
-  ; =>
-  ; false
-  ;
-  ; @example
   ; (nonblank? "abc")
   ; =>
   ; true
   ;
+  ; @example
+  ; (nonblank? " ")
+  ; =>
+  ; false
+  ;
   ; @return (boolean)
   [n]
   (and (-> n string?)
-       (-> n empty? not)))
+       (-> n clojure.string/trim empty? not)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn lowercase?
   ; @description

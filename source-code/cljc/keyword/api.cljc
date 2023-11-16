@@ -10,7 +10,8 @@
 ;; ----------------------------------------------------------------------------
 
 ; keyword.check
-(def namespaced? check/namespaced?)
+(def namespaced?    check/namespaced?)
+(def nonnamespaced? check/nonnamespaced?)
 
 ; keyword.convert
 (def to-string convert/to-string)

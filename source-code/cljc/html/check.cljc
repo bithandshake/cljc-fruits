@@ -1,5 +1,6 @@
 
 (ns html.check
+    (:refer-clojure :exclude [empty?])
     (:require [string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
@@ -50,7 +51,7 @@
         (string/remove-part #"\r")
         (string/remove-part #"\t")
         (string/remove-part #"\n")
-        (empty?)))
+        (clojure.core/empty?)))
 
 (defn nonblank?
   ; @param (string) n
@@ -71,3 +72,46 @@
   ; @return (boolean)
   [n]
   (-> n blank? not))
+
+(defn empty?
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (empty? "<p></p><p></p>")
+  ;
+  ; @example
+  ; (empty? "<p></p><p></p>")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (-> n (string/remove-part #"<.*>")
+        (string/remove-part #"</.*>")
+        (string/remove-part #"<.*/>")
+        (clojure.core/empty?)))
+
+(defn nonempty?
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (nonempty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ;
+  ; @example
+  ; (nonempty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (nonempty? "<p></p><p></p>")
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (-> n empty? not))

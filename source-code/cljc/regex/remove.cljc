@@ -11,7 +11,7 @@
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-first-match "abc123def" #"\d")
@@ -28,7 +28,8 @@
   ;
   ; @return (string)
   [n x]
-  (let [n (str n)]
+  (let [n (str n)
+        x (re-pattern x)]
        (if-let [first-match (core/re-first n x)]
                (let [dex (clojure.string/index-of n first-match)]
                     (str (subs n 0 dex)
@@ -40,7 +41,7 @@
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
-  ; @param (regex pattern) x
+  ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-last-match "abc123def" #"\d")
@@ -57,7 +58,8 @@
   ;
   ; @return (string)
   [n x]
-  (let [n (str n)]
+  (let [n (str n)
+        x (re-pattern x)]
        (if-let [last-match (core/re-last n x)]
                (let [dex (clojure.string/last-index-of n last-match)]
                     (str (subs n 0 dex)

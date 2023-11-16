@@ -1,5 +1,6 @@
 
-(ns seqable.check)
+(ns seqable.check
+    (:refer-clojure :exclude [empty?]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -21,23 +22,45 @@
   [n]
   (-> n seqable? not))
 
-(defn nonempty?
+(defn empty?
   ; @param (*) n
   ;
-  ; @example
-  ; (nonempty? 420)
-  ; =>
-  ; false
+  ; @usage
+  ; (empty? "")
   ;
   ; @example
-  ; (nonempty? "420")
+  ; (empty? "")
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n]
   (and (-> n seqable?)
-       (-> n empty? not)))
+       (-> n clojure.core/empty?)))
+
+(defn nonempty?
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (nonempty? "420")
+  ;
+  ; @example
+  ; (nonempty? "420")
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (nonempty? 420)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n seqable?)
+       (-> n clojure.core/empty? not)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn cursor?
   ; @param (*) n

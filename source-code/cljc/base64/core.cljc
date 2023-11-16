@@ -29,5 +29,5 @@
   ;
   ; @return (string)
   [n mime-type]
-  (if (string/nonblank? n)
+  (if (string/nonempty? n)
       (str "data:"mime-type";base64,"n)))
