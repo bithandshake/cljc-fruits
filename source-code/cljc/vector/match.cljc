@@ -13,14 +13,14 @@
   ; (any-item-match? ["a" "b" :c] keyword?)
   ;
   ; @example
-  ; (any-item-match? [:a :b :c] string?)
-  ; =>
-  ; false
-  ;
-  ; @example
   ; (any-item-match? [:a "b" :c] string?)
   ; =>
   ; true
+  ;
+  ; @example
+  ; (any-item-match? [:a :b :c] string?)
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n f]
@@ -34,14 +34,14 @@
   ; (all-items-match? ["a" "b" "c"] string?)
   ;
   ; @example
-  ; (all-items-match? [:a "b" "c"] string?)
-  ; =>
-  ; false
-  ;
-  ; @example
   ; (all-items-match? ["a" "b" "c"] string?)
   ; =>
   ; true
+  ;
+  ; @example
+  ; (all-items-match? [:a "b" "c"] string?)
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n f]
@@ -52,17 +52,12 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (first-match [:a :b :c "d"] string?)
+  ; (first-match [:a :b :c "d"] keyword?)
   ;
   ; @example
-  ; (first-match [:a :b :c] string?)
+  ; (first-match [:a :b :c "d"] keyword?)
   ; =>
-  ; nil
-  ;
-  ; @example
-  ; (first-match [:a "b" :c] string?)
-  ; =>
-  ; "b"
+  ; :a
   ;
   ; @return (*)
   [n f]
@@ -79,17 +74,12 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (last-match [:a :b :c "d"] string?)
+  ; (last-match [:a :b :c "d"] keyword?)
   ;
   ; @example
-  ; (last-match [:a :b :c] string?)
+  ; (last-match [:a :b :c "d"] keyword?)
   ; =>
-  ; nil
-  ;
-  ; @example
-  ; (last-match [:a "b" :c] string?)
-  ; =>
-  ; "b"
+  ; :c
   ;
   ; @return (*)
   [n f]
@@ -100,6 +90,33 @@
                         (-> dex (not= 0))
                         (-> dex dec f0)))]
              (f0 (-> n count dec)))))
+
+(defn nth-match
+  ; @param (vector) n
+  ; @param (function) f
+  ; @param (integer) dex
+  ;
+  ; @usage
+  ; (nth-match [:a :b :c "d"] keyword? 1)
+  ;
+  ; @example
+  ; (nth-match [:a :b :c "d"] keyword? 1)
+  ; =>
+  ; :b
+  ;
+  ; @return (*)
+  [n f dex]
+  (if (check/nonempty? n)
+      (letfn [(f0 [f-dex match-count]
+                  (if (-> n (nth f-dex) f)
+                      (cond (-> dex   (= match-count))
+                            (-> n     (nth f-dex))
+                            (-> f-dex (< (-> n count dec)))
+                            (f0 (inc f-dex)
+                                (inc match-count)))
+                      (cond (-> f-dex (< (-> n count dec)))
+                            (f0 (inc f-dex) match-count))))]
+             (f0 0 0))))
 
 (defn match-count
   ; @param (vector) n

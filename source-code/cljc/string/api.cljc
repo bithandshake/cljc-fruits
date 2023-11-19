@@ -10,6 +10,8 @@
               [string.cut     :as cut]
               [string.dex     :as dex]
               [string.filter  :as filter]
+              [string.insert  :as insert]
+              [string.indent  :as indent]
               [string.length  :as length]
               [string.lines   :as lines]
               [string.nth     :as nth]
@@ -17,6 +19,7 @@
               [string.remove  :as remove]
               [string.replace :as replace]
               [string.search  :as search]
+              [string.set     :as set]
               [string.trim    :as trim]
               [string.walk    :as walk]))
 
@@ -54,15 +57,7 @@
 (def to-lowercase   convert/to-lowercase)
 
 ; string.core
-(def repeat            core/repeat)
-(def join              core/join)
 (def cover             core/cover)
-(def split             core/split)
-(def prefix            core/prefix)
-(def suffix            core/suffix)
-(def prepend           core/prepend)
-(def append            core/append)
-(def insert-part       core/insert-part)
 (def starts-with?      core/starts-with?)
 (def ends-with?        core/ends-with?)
 (def not-starts-with?  core/not-starts-with?)
@@ -98,6 +93,18 @@
 ; string.filter
 (def filter-characters filter/filter-characters)
 
+; string.indent
+(def inline-position        indent/inline-position)
+(def position-indent-length indent/position-indent-length)
+(def fix-inline-position    indent/fix-inline-position)
+
+; string.insert
+(def prefix      insert/prefix)
+(def suffix      insert/suffix)
+(def prepend     insert/prepend)
+(def append      insert/append)
+(def insert-part insert/insert-part)
+
 ; string.length
 (def length          length/length)
 (def same-length?    length/same-length?)
@@ -108,6 +115,10 @@
 (def max-length      length/max-length)
 
 ; string.lines
+(def containing-line lines/containing-line)
+(def remove-line     lines/remove-line)
+(def in-empty-line?  lines/in-empty-line?)
+(def in-blank-line?  lines/in-blank-line?)
 (def remove-newlines lines/remove-newlines)
 (def line-count      lines/line-count)
 (def max-lines       lines/max-lines)
@@ -138,6 +149,11 @@
 (def count-occurences search/count-occurences)
 (def min-occurence?   search/min-occurence?)
 (def max-occurence?   search/max-occurence?)
+
+; string.set
+(def repeat set/repeat)
+(def join   set/join)
+(def split  set/split)
 
 ; string.trim
 (def trim          trim/trim)

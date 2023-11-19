@@ -1,8 +1,10 @@
 
 (ns string.cut
     (:require [clojure.string]
-              [math.api    :as math]
-              [seqable.api :as seqable]))
+              [math.api      :as math]
+              [seqable.api   :as seqable]
+              [string.indent :as indent]
+              [string.set    :as set]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -56,9 +58,13 @@
   ; @param (*) n
   ; @param (integer) start
   ; @param (integer)(opt) end
+  ; @param (map)(opt) options
+  ; {:keep-inline-position? (boolean)(opt)
+  ;   Ensures that the following part has the same inline position before and after the cut.
+  ;   Default: false}
   ;
   ; @usage
-  ; (cut-range "abc" 0 2)
+  ; (cut-range "abcdef" 2 4)
   ;
   ; @example
   ; (cut-range "abcdef" 2 4)
@@ -80,16 +86,33 @@
   ; =>
   ; " :b]"
   ;
+  ; @example
+  ; (cut-range "abc\n      def" 3 10 {:keep-inline-position? false})
+  ; =>
+  ; "abcdef"
+  ;
+  ; @example
+  ; (cut-range "abc\n      def" 3 10 {:keep-inline-position? true})
+  ; =>
+  ; "abc   def"
+  ;
   ; @return (string)
   ([n start]
    (cut-range n start nil))
 
   ([n start end]
+   (cut-range n start end {}))
+
+  ([n start end {:keys [keep-inline-position?]}]
    (let [n     (str n)
          start (seqable/normalize-cursor n (-> start))
          end   (seqable/normalize-cursor n (-> end (or (count n))))]
-        (str (subs n 0 (min start end))
-             (subs n   (max start end))))))
+        (if-not keep-inline-position? (str (subs n 0 (min start end))
+                                           (subs n   (max start end)))
+                                      (indent/fix-inline-position (str (subs n 0 (min start end))
+                                                                       (subs n   (max start end)))
+                                                                  (min start end)
+                                                                  (indent/inline-position n (max start end)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
