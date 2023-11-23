@@ -38,8 +38,7 @@
 (def toggle-in core/toggle-in)
 
 ; map.filter
-(def filter-values    filter/filter-values)
-(def filter-values-by filter/filter-values-by)
+(def filter-values filter/filter-values)
 
 ; map.key
 (def keys              key/keys)

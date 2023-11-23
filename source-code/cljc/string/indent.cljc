@@ -79,13 +79,12 @@
 
 (defn fix-inline-position
   ; @description
-  ; Ensures that the given cursor position has a specific inline position by
-  ; adding / removing extra whitespaces before the cursor position or even inserting
-  ; a newline character if needed.
+  ; Ensures that the given cursor position has a specific inline position, by adding / removing
+  ; extra whitespaces before the cursor position or even inserting a newline character if needed.
   ;
   ; @param (*) n
   ; @param (integer) cursor
-  ; @param (integer) indent
+  ; @param (integer) fixed-position
   ;
   ; @usage
   ; (fix-inline-position "abc" 0 2)
@@ -106,17 +105,17 @@
   ; "abc\n def"
   ;
   ; @return (string)
-  [n cursor inline-position]
-  (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
-       (let [surplus (position-indent-length n cursor)
-             shift   (- cursor inline-position)]
-            (cond (= shift 0)        (-> n)
-                  (< shift 0)        (str (subs n 0 cursor)
-                                          (set/repeat " " (- shift))
-                                          (subs n   cursor))
-                  (>= surplus shift) (str (subs n 0 (- cursor shift))
-                                          (subs n   cursor))
-                  :surplus<shift     (str (subs n 0 cursor) "\n"
-                                          (set/repeat " " inline-position)
-                                          (subs n   cursor))))))
+  [n cursor fixed-position]
+  (let [n       (str n)
+        cursor  (seqable/normalize-cursor n cursor)
+        surplus (position-indent-length   n cursor)
+        shift   (- fixed-position (inline-position n cursor))]
+       (cond (-> shift (= 0))          (-> n)
+             (-> shift (> 0))          (str (subs n 0 (-> cursor))
+                                            (set/repeat " " shift)
+                                            (subs n   (-> cursor)))
+             (-> shift - (<= surplus)) (str (subs n 0 (-> cursor (+ shift)))
+                                            (subs n   (-> cursor)))
+             :surplus<shift            (str (subs n 0 cursor) "\n"
+                                            (set/repeat " " fixed-position)
+                                            (subs n   cursor)))))

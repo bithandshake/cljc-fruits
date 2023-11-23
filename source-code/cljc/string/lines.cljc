@@ -1,8 +1,9 @@
 
 (ns string.lines
     (:require [clojure.string]
-              [seqable.api :as seqable]
-              [string.set  :as set]))
+              [seqable.api  :as seqable]
+              [string.check :as check]
+              [string.set   :as set]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -25,11 +26,11 @@
   ; @return (string)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor cursor)]
+        cursor (seqable/normalize-cursor n cursor)]
        (subs n (if-let [prev-newline-position (clojure.string/last-index-of (subs n 0 cursor) "\n")] (+ prev-newline-position 1)      (-> 0))
                (if-let [next-newline-distance (clojure.string/index-of      (subs n   cursor) "\n")] (+ next-newline-distance cursor) (-> n count)))))
 
-(defn remove-line
+(defn remove-containing-line
   ; @description
   ; Removes the line where the given cursor position falls within the given 'n' value (converted to string).
   ;
@@ -37,22 +38,22 @@
   ; @param (integer) cursor
   ;
   ; @usage
-  ; (remove-line "abc\ndef\nghi" 5)
+  ; (remove-containing-line "abc\ndef\nghi" 5)
   ;
   ; @example
-  ; (remove-line "abc\ndef\nghi" 5)
+  ; (remove-containing-line "abc\ndef\nghi" 5)
   ; =>
   ; "abc\nghi"
   ;
   ; @example
-  ; (remove-line "abc" 2)
+  ; (remove-containing-line "abc" 2)
   ; =>
   ; ""
   ;
   ; @return (string)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor cursor)]
+        cursor (seqable/normalize-cursor n cursor)]
        (str (if-let [prev-newline-position (clojure.string/last-index-of (subs n 0 cursor) "\n")] (subs n 0 (-> prev-newline-position)))
             (if-let [next-newline-distance (clojure.string/index-of      (subs n   cursor) "\n")] (subs n   (-> next-newline-distance (+ cursor)))))))
 
@@ -61,7 +62,7 @@
 
 (defn in-empty-line?
   ; @description
-  ; Returns TRUE if the given cursor position falls within an empty line?
+  ; Returns TRUE if the given cursor position falls within an empty line.
   ;
   ; @param (*) n
   ; @param (integer) cursor
@@ -75,20 +76,45 @@
   ; true
   ;
   ; @example
-  ; (in-empty-line? "abc\n\ndef" 5)
+  ; (in-empty-line? "abc\ndef\nghi" 4)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor cursor)]
-       (-> n (containing-line cursor)
-             (empty?))))
+        cursor (seqable/normalize-cursor n cursor)]
+       (-> n (containing-line cursor) check/empty?)))
+
+(defn in-nonempty-line?
+  ; @description
+  ; Returns TRUE if the given cursor position falls within a nonempty line.
+  ;
+  ; @param (*) n
+  ; @param (integer) cursor
+  ;
+  ; @usage
+  ; (in-nonempty-line? "abc\ndef\nghi" 4)
+  ;
+  ; @example
+  ; (in-nonempty-line? "abc\ndef\nghi" 4)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (in-nonempty-line? "abc\n\ndef" 4)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n cursor]
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (-> n (containing-line cursor) check/nonempty?)))
 
 (defn in-blank-line?
   ; @description
-  ; Returns TRUE if the given cursor position falls within a blank line?
+  ; Returns TRUE if the given cursor position falls within a blank line.
   ;
   ; @param (*) n
   ; @param (integer) cursor
@@ -109,10 +135,34 @@
   ; @return (boolean)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor cursor)]
-       (-> n (containing-line cursor)
-             (re-find #"[\s\t]{0,}")
-             (boolean))))
+        cursor (seqable/normalize-cursor n cursor)]
+       (-> n (containing-line cursor) check/blank?)))
+
+(defn in-nonblank-line?
+  ; @description
+  ; Returns TRUE if the given cursor position falls within a blank line.
+  ;
+  ; @param (*) n
+  ; @param (integer) cursor
+  ;
+  ; @usage
+  ; (in-nonblank-line? "abc\ndef\nghi" 4)
+  ;
+  ; @example
+  ; (in-nonblank-line? "abc\ndef\nghi" 4)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (in-nonblank-line? "abc\n   \nghi" 4)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n cursor]
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (-> n (containing-line cursor) check/nonblank?)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

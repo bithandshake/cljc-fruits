@@ -1,15 +1,15 @@
 
 (ns regex.cut
     (:require [clojure.string]
-              [math.api   :as math]
-              [regex.core :as core]))
+              [math.api    :as math]
+              [regex.match :as match]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn before-first-occurence
+(defn before-first-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -18,47 +18,47 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (before-first-occurence "abc123def" #"\d")
+  ; (before-first-match "abc123def" #"\d")
   ;
   ; @example
-  ; (before-first-occurence "abc123def" #"\d")
+  ; (before-first-match "abc123def" #"\d")
   ; =>
   ; "abc"
   ;
   ; @example
-  ; (before-first-occurence "abcdef" #"\d")
+  ; (before-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-first-occurence "abcdef" #"\d" {:return? true})
+  ; (before-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (before-first-occurence nil #"\d")
+  ; (before-first-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-first-occurence nil "\d" {:return? true})
+  ; (before-first-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (before-first-occurence n x {}))
+   (before-first-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [first-match (core/re-first n x)]
+        (if-let [first-match (match/re-first n x)]
                 (subs n 0 (clojure.string/index-of n first-match))
                 (if return? n)))))
 
-(defn before-last-occurence
+(defn before-last-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -67,47 +67,47 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (before-last-occurence "abc123def" #"\d")
+  ; (before-last-match "abc123def" #"\d")
   ;
   ; @example
-  ; (before-last-occurence "abc123def" #"\d")
+  ; (before-last-match "abc123def" #"\d")
   ; =>
   ; "abc12"
   ;
   ; @example
-  ; (before-last-occurence "abcdef" #"\d")
+  ; (before-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-last-occurence "abcdef" #"\d" {:return? true})
+  ; (before-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (before-last-occurence nil #"\d")
+  ; (before-last-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-last-occurence nil "\d" {:return? true})
+  ; (before-last-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (before-last-occurence n x {}))
+   (before-last-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [last-match (core/re-last n x)]
+        (if-let [last-match (match/re-last n x)]
                 (subs n 0 (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 
-(defn after-first-occurence
+(defn after-first-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -116,48 +116,48 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (after-first-occurence "abc123def" #"\d")
+  ; (after-first-match "abc123def" #"\d")
   ;
   ; @example
-  ; (after-first-occurence "abc123def" #"\d")
+  ; (after-first-match "abc123def" #"\d")
   ; =>
   ; "23def"
   ;
   ; @example
-  ; (after-first-occurence "abcdef" #"\d")
+  ; (after-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-first-occurence "abcdef" #"\d" {:return? true})
+  ; (after-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (after-first-occurence nil #"\d")
+  ; (after-first-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-first-occurence nil "\d" {:return? true})
+  ; (after-first-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (after-first-occurence n x {}))
+   (after-first-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [first-match (core/re-first n x)]
+        (if-let [first-match (match/re-first n x)]
                 (subs n (+ (clojure.string/index-of n first-match)
                            (count                     first-match)))
                 (if return? n)))))
 
-(defn after-last-occurence
+(defn after-last-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -166,48 +166,48 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (after-last-occurence "abc123def" #"\d")
+  ; (after-last-match "abc123def" #"\d")
   ;
   ; @example
-  ; (after-last-occurence "abc123def" #"\d")
+  ; (after-last-match "abc123def" #"\d")
   ; =>
   ; "def"
   ;
   ; @example
-  ; (after-last-occurence "abcdef" #"\d")
+  ; (after-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-last-occurence "abcdef" #"\d" {:return? true})
+  ; (after-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (after-last-occurence nil #"\d")
+  ; (after-last-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-last-occurence nil "\d" {:return? true})
+  ; (after-last-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (after-last-occurence n x {}))
+   (after-last-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [last-match (core/re-last n x)]
+        (if-let [last-match (match/re-last n x)]
                 (subs n (+ (clojure.string/last-index-of n last-match)
                            (count last-match)))
                 (if return? n)))))
 
-(defn from-first-occurence
+(defn from-first-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -216,47 +216,47 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (from-first-occurence "abc123def" #"\d")
+  ; (from-first-match "abc123def" #"\d")
   ;
   ; @example
-  ; (from-first-occurence "abc123def" #"\d")
+  ; (from-first-match "abc123def" #"\d")
   ; =>
   ; "123def"
   ;
   ; @example
-  ; (from-first-occurence "abcdef" #"\d")
+  ; (from-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-first-occurence "abcdef" #"\d" {:return? true})
+  ; (from-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (from-first-occurence nil #"\d")
+  ; (from-first-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-first-occurence nil "\d" {:return? true})
+  ; (from-first-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (from-first-occurence n x {}))
+   (from-first-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [first-match (core/re-first n x)]
+        (if-let [first-match (match/re-first n x)]
                 (subs n (clojure.string/index-of n first-match))
                 (if return? n)))))
 
-(defn from-last-occurence
+(defn from-last-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -265,47 +265,47 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (from-last-occurence "abc123def" #"\d")
+  ; (from-last-match "abc123def" #"\d")
   ;
   ; @example
-  ; (from-last-occurence "abc123def" #"\d")
+  ; (from-last-match "abc123def" #"\d")
   ; =>
   ; "def"
   ;
   ; @example
-  ; (from-last-occurence "abcdef" #"\d")
+  ; (from-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-last-occurence "abcdef" #"\d" {:return? true})
+  ; (from-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (from-last-occurence nil #"\d")
+  ; (from-last-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-last-occurence nil "\d" {:return? true})
+  ; (from-last-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (from-last-occurence n x {}))
+   (from-last-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [last-match (core/re-last n x)]
+        (if-let [last-match (match/re-last n x)]
                 (subs n (clojure.string/last-index-of n last-match))
                 (if return? n)))))
 
-(defn to-first-occurence
+(defn to-first-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -314,48 +314,48 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (to-first-occurence "abc123def" #"\d")
+  ; (to-first-match "abc123def" #"\d")
   ;
   ; @example
-  ; (to-first-occurence "abc123def" #"\d")
+  ; (to-first-match "abc123def" #"\d")
   ; =>
   ; "abc1"
   ;
   ; @example
-  ; (to-first-occurence "abcdef" #"\d")
+  ; (to-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-first-occurence "abcdef" #"\d" {:return? true})
+  ; (to-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (to-first-occurence nil #"\d")
+  ; (to-first-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-first-occurence nil "\d" {:return? true})
+  ; (to-first-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (to-first-occurence n x {}))
+   (to-first-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [first-match (core/re-first n x)]
+        (if-let [first-match (match/re-first n x)]
                 (subs n 0 (+ (clojure.string/index-of n first-match)
                              (count                     first-match)))
                 (if return? n)))))
 
-(defn to-last-occurence
+(defn to-last-match
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -364,41 +364,41 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (to-last-occurence "abc123def" #"\d")
+  ; (to-last-match "abc123def" #"\d")
   ;
   ; @example
-  ; (to-last-occurence "abc123def" #"\d")
+  ; (to-last-match "abc123def" #"\d")
   ; =>
   ; "abc123"
   ;
   ; @example
-  ; (to-last-occurence "abcdef" #"\d")
+  ; (to-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-last-occurence "abcdef" #"\d" {:return? true})
+  ; (to-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
   ; @example
-  ; (to-last-occurence nil #"\d")
+  ; (to-last-match nil #"\d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-last-occurence nil "\d" {:return? true})
+  ; (to-last-match nil "\d" {:return? true})
   ; =>
   ; ""
   ;
   ; @return (string)
   ([n x]
-   (to-last-occurence n x {}))
+   (to-last-match n x {}))
 
   ([n x {:keys [return?]}]
    (let [n (str n)
          x (re-pattern x)]
-        (if-let [last-match (core/re-last n x)]
+        (if-let [last-match (match/re-last n x)]
                 (subs n 0 (+ (clojure.string/last-index-of n last-match)
                              (count last-match)))
                 (if return? n)))))

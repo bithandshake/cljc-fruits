@@ -20,22 +20,3 @@
   [n filter-f]
   (letfn [(f [%1 %2 %3] (if (-> %3 filter-f) (assoc %1 %2 %3) %1))]
          (reduce-kv f {} n)))
-
-(defn filter-values-by
-  ; @param (map) n
-  ; @param (function) filter-f
-  ; @param (function) value-f
-  ;
-  ; @usage
-  ; (filter-values-by {:a {:value "A"}} #(= % "A") :value)
-  ;
-  ; @example
-  ; (filter-values-by {:a {:value "A"} :b {:value "B"}}
-  ;                   #(= % "A") :value)
-  ; =>
-  ; {:a {:value "A"}}
-  ;
-  ; @return (map)
-  [n filter-f value-f]
-  (letfn [(f [%1 %2 %3] (if (-> %3 value-f filter-f) (assoc %1 %2 %3) %1))]
-         (reduce-kv f {} n)))

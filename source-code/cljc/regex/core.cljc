@@ -1,130 +1,14 @@
 
 (ns regex.core
     (:require [clojure.string]
-              [seqable.api :as seqable]))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn re-count
-  ; @description
-  ; Returns the match count.
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (re-count "123" #"\d")
-  ;
-  ; @example
-  ; (re-count "123" #"\d")
-  ; =>
-  ; 3
-  ;
-  ; @example
-  ; (re-count "abc" #"\d")
-  ; =>
-  ; 0
-  ;
-  ; @return (integer)
-  [n x]
-  (let [n (str n)
-        x (re-pattern x)]
-       (->> n (re-seq x) count)))
-
-(defn re-first
-  ; @description
-  ; Returns the first match.
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (re-first "123" #"\d")
-  ;
-  ; @example
-  ; (re-first "123" #"\d")
-  ; =>
-  ; "1"
-  ;
-  ; @example
-  ; (re-first "abc" #"\d")
-  ; =>
-  ; nil
-  ;
-  ; @return (map, string or vector)
-  [n x]
-  ; The 're-seq' function returns a ...
-  ; ... sequence of strings if the pattern has no capturing groups.
-  ; ... sequence of vectors if the pattern has one or more capturing groups.
-  ; ... sequence of maps if the pattern has one ore more named capturing groups.
-  (let [n (str n)
-        x (re-pattern x)]
-       (->> n (re-seq x) first)))
-
-(defn re-last
-  ; @description
-  ; Returns the last match.
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (re-last "123" #"\d")
-  ;
-  ; @example
-  ; (re-last "123" #"\d")
-  ; =>
-  ; "3"
-  ;
-  ; @example
-  ; (re-last "abc" #"\d")
-  ; =>
-  ; nil
-  ;
-  ; @return (map, string or vector)
-  [n x]
-  ; The 're-seq' function returns a ...
-  ; ... sequence of strings if the pattern has no capturing groups.
-  ; ... sequence of vectors if the pattern has one or more capturing groups.
-  ; ... sequence of maps if the pattern has one ore more named capturing groups.
-  (let [n (str n)
-        x (re-pattern x)]
-       (->> n (re-seq x) last)))
-
-(defn re-match
-  ; @description
-  ; Returns the given 'n' string if any match is found.
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (re-match "123" #"\d{1,}")
-  ;
-  ; @example
-  ; (re-match "123" #"^[\d]{1,}$")
-  ; =>
-  ; "123"
-  ;
-  ; @example
-  ; (re-match "abc" #"^[\d]{1,}$")
-  ; =>
-  ; nil
-  ;
-  ; @return (string)
-  [n x]
-  (let [n (str n)
-        x (re-pattern x)]
-       (if (->> n (re-find x))
-           (->  n))))
+              [regex.match :as match]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn starts-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -153,7 +37,7 @@
 
 (defn ends-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -173,7 +57,7 @@
   ;
   ; @return (boolean)
   [n x]
-  ; '(?![\n\r])'  asserts that something is not followed by a newline or return character
+  ; '(?![\n\r])'  asserts that something is not followed by a newline or a return character
   ; '$'           represents the end of a LINE or STRING
   ; '(?![\n\r])$' represents the end of the STRING (A)
   ; '$(?![\n\r])' represents the end of the STRING (B)
@@ -187,7 +71,7 @@
 
 (defn not-starts-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -212,7 +96,7 @@
 
 (defn not-ends-with?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -240,7 +124,7 @@
 
 (defn not-starts-with!
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -262,14 +146,14 @@
   [n x]
   (let [n (str n)
         x (re-pattern x)]
-       (or (if-let [first-match (re-first n x)]
+       (or (if-let [first-match (match/re-first n x)]
                    (if (clojure.string/starts-with? n first-match)
                        (subs n (-> first-match count))))
            (-> n))))
 
 (defn not-ends-with!
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -291,7 +175,7 @@
   [n x]
   (let [n (str n)
         x (re-pattern x)]
-       (or (if-let [last-match (re-last n x)]
+       (or (if-let [last-match (match/re-last n x)]
                    (if (clojure.string/ends-with? n last-match)
                        (subs n 0 (- (-> n          count)
                                     (-> last-match count)))))
@@ -302,11 +186,18 @@
 
 (defn starts-at?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ;
+  ; @description
+  ; Returns TRUE if a match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:max-lookbehind-length (integer)(opt)
+  ;   Must be provided if the given 'x' pattern contains lookbehind assertion. Use '-1' for unlimited lookbehind length.
+  ;   Default: 0}
   ;
   ; @usage
   ; (starts-at? "abc123" #"[/d]" 3)
@@ -326,56 +217,90 @@
   ; =>
   ; false
   ;
+  ; @example
+  ; (starts-at? "abc123" #"(?<=c)[\d]" 3)
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (starts-at? "abc123" #"(?<=c)[\d]" 3 {:max-lookbehind-length 1})
+  ; =>
+  ; true
+  ;
   ; @return (boolean)
-  [n x cursor]
-  (let [n      (str n)
-        x      (re-pattern x)
-        cursor (seqable/normalize-cursor n cursor)]
-       (starts-with? (subs n cursor) x)))
+  ([n x cursor]
+   (starts-at? n x cursor {}))
+
+  ([n x cursor options]
+   (-> (match/re-from n x cursor options) boolean)))
 
 (defn ends-at?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ;
+  ; @description
+  ; Returns TRUE if a match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:max-lookahead-length (integer)(opt)
+  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
+  ;   Default: 0}
   ;
   ; @usage
-  ; (ends-at? "abc123" #"[/d]" 6)
+  ; (ends-at? "abc123" #"[a-z]" 3)
   ;
   ; @example
-  ; (ends-at? "abc123" #"[/d]" 6)
+  ; (ends-at? "abc123" #"[a-z]" 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (ends-at? "abc123" #"[/d]" 5)
+  ; (ends-at? "abc123" #"[a-z]" 2)
   ; =>
   ; true
   ;
   ; @example
-  ; (ends-at? "abc123" #"[/d]" 2)
+  ; (ends-at? "abc123" #"[a-z]" 4)
   ; =>
   ; false
   ;
+  ; @example
+  ; (ends-at? "abc123" #"abc(?=\d)" 3)
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (ends-at? "abc123" #"abc(?=\d)" 3 {:max-lookahead-length 1})
+  ; =>
+  ; true
+  ;
   ; @return (boolean)
-  [n x cursor]
-  (let [n      (str n)
-        x      (re-pattern x)
-        cursor (seqable/normalize-cursor n cursor)]
-       (ends-with? (subs n 0 cursor) x)))
+  ([n x cursor]
+   (ends-at? n x cursor {}))
+
+  ([n x cursor options]
+   (-> (match/re-to n x cursor options) boolean)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-at?
   ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ;
+  ; @description
+  ; Returns TRUE if NO match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:max-lookahead-length (integer)(opt)
+  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
+  ;   Default: 0}
   ;
   ; @usage
   ; (not-starts-at? "abc123" #"[/d]" 2)
@@ -395,38 +320,71 @@
   ; =>
   ; false
   ;
-  ; @return (boolean)
-  [n x cursor]
-  (let [starts-at? (starts-at? n x cursor)]
-       (not starts-at?)))
-
-(defn not-ends-at?
-  ; @warning
-  ; Do not use capturing groups in you pattern, otherwise it generates multiple matches for the occurence!
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ; @param (integer) cursor
-  ;
-  ; @usage
-  ; (not-ends-at? "abc123" #"[/d]" 2)
-  ;
   ; @example
-  ; (not-ends-at? "abc123" #"[/d]" 2)
+  ; (not-starts-at? "abc123" #"(?<=c)[\d]" 3)
   ; =>
   ; true
   ;
   ; @example
-  ; (not-ends-at? "abc123" #"[/d]" 1)
-  ; =>
-  ; true
-  ;
-  ; @example
-  ; (not-ends-at? "abc123" #"[/d]" 4)
+  ; (not-starts-at? "abc123" #"(?<=c)[\d]" 3 {:max-lookbehind-length 1})
   ; =>
   ; false
   ;
   ; @return (boolean)
-  [n x cursor]
-  (let [ends-at? (ends-at? n x cursor)]
-       (not ends-at?)))
+  ([n x cursor]
+   (not-starts-at? n x cursor {}))
+
+  ([n x cursor options]
+   (let [starts-at? (starts-at? n x cursor options)]
+        (not starts-at?))))
+
+(defn not-ends-at?
+  ; @warning
+  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ;
+  ; @description
+  ; Returns TRUE if NO match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (regex pattern or string) x
+  ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:max-lookahead-length (integer)(opt)
+  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
+  ;   Default: 0}
+  ;
+  ; @usage
+  ; (not-ends-at? "abc123" #"[a-z]" 5)
+  ;
+  ; @example
+  ; (not-ends-at? "abc123" #"[a-z]" 5)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-ends-at? "abc123" #"[a-z]" 4)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-ends-at? "abc123" #"[a-z]" 3)
+  ; =>
+  ; false
+  ;
+  ; @example
+  ; (not-ends-at? "abc123" #"abc(?=\d)" 3)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-ends-at? "abc123" #"abc(?=\d)" 3 {:max-lookahead-length 1})
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  ([n x cursor]
+   (not-ends-at? n x cursor {}))
+
+  ([n x cursor options]
+   (let [ends-at? (ends-at? n x cursor options)]
+        (not ends-at?))))

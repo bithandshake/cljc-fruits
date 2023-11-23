@@ -2,6 +2,7 @@
 (ns seqable.api
     (:refer-clojure :exclude [empty?])
     (:require [seqable.check  :as check]
+              [seqable.count  :as count]
               [seqable.cursor :as cursor]
               [seqable.dex    :as dex]))
 
@@ -14,6 +15,9 @@
 (def nonempty?   check/nonempty?)
 (def cursor?     check/cursor?)
 (def dex?        check/dex?)
+
+; seqable.count
+(def count-difference count/count-difference)
 
 ; seqable.cursor
 (def normalize-cursor      cursor/normalize-cursor)

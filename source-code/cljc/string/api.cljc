@@ -115,13 +115,15 @@
 (def max-length      length/max-length)
 
 ; string.lines
-(def containing-line lines/containing-line)
-(def remove-line     lines/remove-line)
-(def in-empty-line?  lines/in-empty-line?)
-(def in-blank-line?  lines/in-blank-line?)
-(def remove-newlines lines/remove-newlines)
-(def line-count      lines/line-count)
-(def max-lines       lines/max-lines)
+(def containing-line        lines/containing-line)
+(def remove-containing-line lines/remove-containing-line)
+(def in-empty-line?         lines/in-empty-line?)
+(def in-nonempty-line?      lines/in-nonempty-line?)
+(def in-blank-line?         lines/in-blank-line?)
+(def in-nonblank-line?      lines/in-nonblank-line?)
+(def remove-newlines        lines/remove-newlines)
+(def line-count             lines/line-count)
+(def max-lines              lines/max-lines)
 
 ; string.nth
 (def first-character  nth/first-character)

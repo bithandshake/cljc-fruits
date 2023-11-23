@@ -1,7 +1,7 @@
 
 (ns regex.remove
     (:require [clojure.string]
-              [regex.core :as core]))
+              [regex.match :as match]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -30,7 +30,7 @@
   [n x]
   (let [n (str n)
         x (re-pattern x)]
-       (if-let [first-match (core/re-first n x)]
+       (if-let [first-match (match/re-first n x)]
                (let [dex (clojure.string/index-of n first-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count first-match)))))
@@ -60,7 +60,7 @@
   [n x]
   (let [n (str n)
         x (re-pattern x)]
-       (if-let [last-match (core/re-last n x)]
+       (if-let [last-match (match/re-last n x)]
                (let [dex (clojure.string/last-index-of n last-match)]
                     (str (subs n 0 dex)
                          (subs n (+ dex (count last-match)))))
