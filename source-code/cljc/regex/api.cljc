@@ -1,6 +1,7 @@
 
 (ns regex.api
-    (:require [regex.core    :as core]
+    (:require [regex.check   :as check]
+              [regex.core    :as core]
               [regex.cut     :as cut]
               [regex.dex     :as dex]
               [regex.match   :as match]
@@ -9,6 +10,9 @@
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+; regex.check
+(def pattern? check/pattern?)
 
 ; regex.core
 (def starts-with?     core/starts-with?)

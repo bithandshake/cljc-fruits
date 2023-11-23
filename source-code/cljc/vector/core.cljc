@@ -129,7 +129,7 @@
   ; @return (vector)
   [n & xyz]
   ; XXX#6799
-  ; The 'vec' function converts the given 'n' value into a vector even if it wasn't.
+  ; The 'vec' function converts the given 'n' value into a vector even if it wasn't when provided.
   ; E.g., (conj nil :a)       => (:a)
   ;       (vec (conj nil :a)) => [:a]
   (vec (apply conj n xyz)))

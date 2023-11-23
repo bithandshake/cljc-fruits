@@ -5,20 +5,20 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn any-item-match?
+(defn any-item-matches?
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (any-item-match? ["a" "b" :c] keyword?)
+  ; (any-item-matches? ["a" "b" :c] keyword?)
   ;
   ; @example
-  ; (any-item-match? [:a "b" :c] string?)
+  ; (any-item-matches? [:a "b" :c] string?)
   ; =>
   ; true
   ;
   ; @example
-  ; (any-item-match? [:a :b :c] string?)
+  ; (any-item-matches? [:a :b :c] string?)
   ; =>
   ; false
   ;

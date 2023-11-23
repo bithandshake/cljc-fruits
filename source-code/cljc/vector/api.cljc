@@ -100,12 +100,12 @@
 (def item-first? item/item-first?)
 
 ; vector.match
-(def any-item-match?  match/any-item-match?)
-(def all-items-match? match/all-items-match?)
-(def first-match      match/first-match)
-(def last-match       match/last-match)
-(def nth-match        match/nth-match)
-(def match-count      match/match-count)
+(def any-item-matches? match/any-item-matches?)
+(def all-items-match?  match/all-items-match?)
+(def first-match       match/first-match)
+(def last-match        match/last-match)
+(def nth-match         match/nth-match)
+(def match-count       match/match-count)
 
 ; vector.move
 (def move-nth-item        move/move-nth-item)
@@ -139,7 +139,9 @@
 (def keep-items-by          remove/keep-items-by)
 
 ; vector.replace
-(def replace-item replace/replace-item)
+(def replace-item       replace/replace-item)
+(def replace-first-item replace/replace-first-item)
+(def replace-last-item  replace/replace-last-item)
 
 ; vector.set
 (def sum-items-by set/sum-items-by)
