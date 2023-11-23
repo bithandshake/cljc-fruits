@@ -194,10 +194,6 @@
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookbehind-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookbehind assertion. Use '-1' for unlimited lookbehind length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (starts-at? "abc123" #"[/d]" 3)
@@ -220,19 +216,11 @@
   ; @example
   ; (starts-at? "abc123" #"(?<=c)[\d]" 3)
   ; =>
-  ; false
-  ;
-  ; @example
-  ; (starts-at? "abc123" #"(?<=c)[\d]" 3 {:max-lookbehind-length 1})
-  ; =>
   ; true
   ;
   ; @return (boolean)
-  ([n x cursor]
-   (starts-at? n x cursor {}))
-
-  ([n x cursor options]
-   (-> (match/re-from n x cursor options) boolean)))
+  [n x cursor]
+  (-> (match/re-from n x cursor) boolean))
 
 (defn ends-at?
   ; @warning
@@ -244,10 +232,6 @@
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookahead-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (ends-at? "abc123" #"[a-z]" 3)
@@ -270,19 +254,11 @@
   ; @example
   ; (ends-at? "abc123" #"abc(?=\d)" 3)
   ; =>
-  ; false
-  ;
-  ; @example
-  ; (ends-at? "abc123" #"abc(?=\d)" 3 {:max-lookahead-length 1})
-  ; =>
   ; true
   ;
   ; @return (boolean)
-  ([n x cursor]
-   (ends-at? n x cursor {}))
-
-  ([n x cursor options]
-   (-> (match/re-to n x cursor options) boolean)))
+  [n x cursor]
+  (-> (match/re-to n x cursor) boolean))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -297,10 +273,6 @@
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookahead-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (not-starts-at? "abc123" #"[/d]" 2)
@@ -323,20 +295,12 @@
   ; @example
   ; (not-starts-at? "abc123" #"(?<=c)[\d]" 3)
   ; =>
-  ; true
-  ;
-  ; @example
-  ; (not-starts-at? "abc123" #"(?<=c)[\d]" 3 {:max-lookbehind-length 1})
-  ; =>
   ; false
   ;
   ; @return (boolean)
-  ([n x cursor]
-   (not-starts-at? n x cursor {}))
-
-  ([n x cursor options]
-   (let [starts-at? (starts-at? n x cursor options)]
-        (not starts-at?))))
+  [n x cursor]
+  (let [starts-at? (starts-at? n x cursor)]
+       (not starts-at?)))
 
 (defn not-ends-at?
   ; @warning
@@ -348,10 +312,6 @@
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookahead-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (not-ends-at? "abc123" #"[a-z]" 5)
@@ -374,17 +334,9 @@
   ; @example
   ; (not-ends-at? "abc123" #"abc(?=\d)" 3)
   ; =>
-  ; true
-  ;
-  ; @example
-  ; (not-ends-at? "abc123" #"abc(?=\d)" 3 {:max-lookahead-length 1})
-  ; =>
   ; false
   ;
   ; @return (boolean)
-  ([n x cursor]
-   (not-ends-at? n x cursor {}))
-
-  ([n x cursor options]
-   (let [ends-at? (ends-at? n x cursor options)]
-        (not ends-at?))))
+  [n x cursor]
+  (let [ends-at? (ends-at? n x cursor)]
+       (not ends-at?)))

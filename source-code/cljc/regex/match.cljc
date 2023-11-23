@@ -173,56 +173,16 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn normalize-bwd-shift
-  ; @temp
-  ;
-  ; @description
-  ; Normalizes the given 'shift' value (distance from a cursor position in a sequence).
-  ;
-  ; @param (seqable) n
-  ; @param (integer) shift
-  ; @param (integer) cursor
-  ;
-  ; @return (integer)
-  [n shift cursor]
-  (cond (-> shift integer? not) (-> 0)
-        (-> shift (= -1))       (-> cursor)
-        (-> shift (<  0))       (-> 0)
-        (-> shift (> cursor))   (-> cursor)
-        :return shift))
-
-(defn normalize-fwd-shift
-  ; @temp
-  ;
-  ; @description
-  ; Normalizes the given 'shift' value (distance from a cursor position in a sequence).
-  ;
-  ; @param (seqable) n
-  ; @param (integer) shift
-  ; @param (integer) cursor
-  ;
-  ; @return (integer)
-  [n shift cursor]
-  (cond (-> shift integer? not)                (-> 0)
-        (-> shift (= -1))                      (-> n count (- cursor))
-        (-> shift (<  0))                      (-> 0)
-        (-> shift (> (-> n count (- cursor)))) (-> n count (- cursor))
-        :return shift))
-
 (defn re-from
   ; @warning
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
-  ; Returns the first match of the given 'x' pattern if the match starts at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns the longest match of the given 'x' pattern that starts at the given 'cursor' position in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookbehind-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookbehind assertion. Use '-1' for unlimited lookbehind length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (re-from "abc123" #"[/d]" 3)
@@ -245,48 +205,31 @@
   ; @example
   ; (re-from "abc123" #"(?<=c)[\d]" 3)
   ; =>
-  ; nil
-  ;
-  ; @example
-  ; (re-from "abc123" #"(?<=c)[\d]" 3 {:max-lookbehind-length 1})
-  ; =>
   ; "123"
   ;
   ; @return (string)
-  ([n x cursor]
-   (re-from n x cursor {}))
-
-  ([n x cursor {:keys [max-lookbehind-length]}]
-   (let [n                     (str n)
-         x                     (re-pattern x)
-         cursor                (seqable/normalize-cursor n cursor)
-         max-lookbehind-length (normalize-bwd-shift n max-lookbehind-length cursor)]
-        (loop [substring (subs n cursor) shift 0]
-              (or (if-let [match (re-first substring x)]
-                          (let [end-cursor (-> match count (+ cursor))]
-                               (and (-> n (seqable/cursor-in-bounds? end-cursor))
-                                    (-> n (subs cursor end-cursor)
-                                          (= match))
-                                    (-> match))))
-                  (if-not (or (= shift cursor)
-                              (= shift max-lookbehind-length))
-                          (recur (subs n (- cursor (inc shift)))
-                                 (inc shift))))))))
+  [n x cursor]
+  (let [n       (str n)
+        x       (re-pattern x)
+        cursor  (seqable/normalize-cursor n cursor)
+        matches (re-seq x n)]
+       (letfn [(f [result match]
+                  (or (and (=  match (subs n cursor (+ cursor (count match))))
+                           (-> match count (> (count result)))
+                           (-> match))
+                      (-> result)))]
+              (reduce f nil matches))))
 
 (defn re-to
   ; @warning
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
-  ; Returns the last match of the given 'x' pattern if the match ends at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns the longest match of the given 'x' pattern that ends at the given 'cursor' position in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
-  ; @param (map)(opt) options
-  ; {:max-lookahead-length (integer)(opt)
-  ;   Must be provided if the given 'x' pattern contains lookahead assertion. Use '-1' for unlimited lookahead length.
-  ;   Default: 0}
   ;
   ; @usage
   ; (re-to "abc123" #"[a-z]" 3)
@@ -309,28 +252,17 @@
   ; @example
   ; (re-to "abc123" #"abc(?=\d)" 3)
   ; =>
-  ; nil
-  ;
-  ; @example
-  ; (re-to "abc123" #"abc(?=\d)" 3 {:max-lookahead-length 1})
-  ; =>
   ; "abc"
   ;
   ; @return (string)
-  ([n x cursor]
-   (re-to n x cursor {}))
-
-  ([n x cursor {:keys [max-lookahead-length]}]
-   (let [n                    (str n)
-         x                    (re-pattern x)
-         cursor               (seqable/normalize-cursor n cursor)
-         max-lookahead-length (normalize-fwd-shift n max-lookahead-length cursor)]
-        (loop [substring (subs n 0 cursor) shift 0]
-              (or (if-let [match (re-last substring x)]
-                          (and (seqable/cursor-in-bounds? n (- cursor (count match)))
-                               (=  match (subs            n (- cursor (count match)) cursor))
-                               (-> match)))
-                  (if-not (or (= shift (-> n count (- cursor)))
-                              (= shift max-lookahead-length))
-                          (recur (subs n 0 (+ cursor (inc shift)))
-                                 (inc shift))))))))
+  [n x cursor]
+  (let [n       (str n)
+        x       (re-pattern x)
+        cursor  (seqable/normalize-cursor n cursor)
+        matches (re-seq x n)]
+       (letfn [(f [result match]
+                  (or (and (=  match (subs n (- cursor (count match)) cursor))
+                           (-> match count (> (count result)))
+                           (-> match))
+                      (-> result)))]
+              (reduce f nil matches))))
