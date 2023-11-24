@@ -83,8 +83,10 @@
 ; vector.dex
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
+(def nth-dex-of   dex/nth-dex-of)
 (def first-dex-by dex/first-dex-by)
 (def last-dex-by  dex/last-dex-by)
+(def nth-dex-by   dex/nth-dex-by)
 
 ; vector.filter
 (def filter-items filter/filter-items)
@@ -163,9 +165,12 @@
 (def next-item step/next-item)
 
 ; vector.update
-(def update-first-item update/update-first-item)
-(def update-last-item  update/update-last-item)
-(def update-nth-item   update/update-nth-item)
+(def update-first-item    update/update-first-item)
+(def update-last-item     update/update-last-item)
+(def update-nth-item      update/update-nth-item)
+(def update-first-item-by update/update-first-item-by)
+(def update-last-item-by  update/update-last-item-by)
+(def update-nth-item-by   update/update-nth-item-by)
 
 ; vector.walk
 (def ->items         walk/->items)

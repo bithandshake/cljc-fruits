@@ -86,7 +86,7 @@
   ; - Converts the output to string because in Java language one character long strings could be character types!
   ;
   ; @param (*) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (nth-character "abc" 2)
@@ -102,7 +102,7 @@
   ; ":"
   ;
   ; @param (string)
-  [n dex]
-  (let [n   (str n)
-        dex (seqable/normalize-dex n dex)]
-       (-> n (nth dex) str)))
+  [n th]
+  (let [n  (str n)
+        th (seqable/normalize-dex n th)]
+       (-> n (nth th) str)))

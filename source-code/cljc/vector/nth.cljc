@@ -8,7 +8,7 @@
 
 (defn nth-item
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (nth-item [:a :b :c] 1)
@@ -19,14 +19,14 @@
   ; :c
   ;
   ; @return (*)
-  [n dex]
+  [n th]
   (if (vector? n)
-      (let [dex (seqable/normalize-dex n dex)]
-           (nth n dex))))
+      (let [th (seqable/normalize-dex n th)]
+           (nth n th))))
 
 (defn remove-nth-item
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (remove-nth-item [:a :b :c] 2)
@@ -37,15 +37,15 @@
   ; [:a :b :d :e]
   ;
   ; @return (vector)
-  [n dex]
+  [n th]
   (if (vector? n)
-      (let [dex (seqable/normalize-dex n dex)]
-           (vec (concat (subvec n 0 dex)
-                        (subvec n (inc dex)))))))
+      (let [th (seqable/normalize-dex n th)]
+           (vec (concat (subvec n 0 th)
+                        (subvec n (inc th)))))))
 
 (defn remove-nth-items
   ; @param (vector) n
-  ; @param (integers in vector) dexes
+  ; @param (integers in vector) ths
   ;
   ; @usage
   ; (remove-nth-items [:a :b :c] [0 2])
@@ -56,17 +56,17 @@
   ; [:b :d :e]
   ;
   ; @return (vector)
-  [n dexes]
+  [n ths]
   (if (vector? n)
       (letfn [(f [result dex x]
-                 (if (contain/contains-item? dexes dex)
+                 (if (contain/contains-item? ths dex)
                      (->   result)
                      (conj result x)))]
              (reduce-kv f [] n))))
 
 (defn duplicate-nth-item
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (duplicate-nth-item [:a :b :c] 0)
@@ -77,16 +77,16 @@
   ; [:a :b :c :c :d :e]
   ;
   ; @return (vector)
-  [n dex]
-  (letfn [(f [result item-dex item]
-             (if (= item-dex dex)
+  [n th]
+  (letfn [(f [result dex item]
+             (if (= dex th)
                  (conj result item item)
                  (conj result item)))]
          (reduce-kv f [] n)))
 
 (defn duplicate-nth-items
   ; @param (vector) n
-  ; @param (integers in vector) dexes
+  ; @param (integers in vector) ths
   ;
   ; @usage
   ; (duplicate-nth-items [:a :b :c] [0 2])
@@ -97,12 +97,12 @@
   ; [:a :a :b :c :c :d :e]
   ;
   ; @return (vector)
-  [n dexes])
+  [n ths])
   ; TODO
 
 (defn replace-nth-item
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ; @param (*) x
   ;
   ; @usage
@@ -119,9 +119,9 @@
   ; [:a :b :c :d]
   ;
   ; @return (vector)
-  [n dex x]
+  [n th x]
   (if (vector? n)
-      (let [dex (seqable/normalize-dex n dex)]
-           (vec (concat (subvec n 0 dex)
+      (let [th (seqable/normalize-dex n th)]
+           (vec (concat (subvec n 0 th)
                         [x]
-                        (subvec n (inc dex)))))))
+                        (subvec n (inc th)))))))

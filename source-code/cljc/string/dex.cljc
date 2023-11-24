@@ -111,12 +111,11 @@
 
 (defn nth-dex-of
   ; @description
-  ; Returns the index of the nth occurence of the given 'x' value (converted to string)
-  ; in the given 'n' value (converted to string).
+  ; Returns the index of the nth occurence of the given 'x' value (converted to string) in the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (*) x
-  ; @param (integer) dex
+  ; @param (integer) th
   ; @param (integer)(opt) offset
   ; Default: 0
   ;
@@ -134,17 +133,17 @@
   ; 12
   ;
   ; @return (integer)
-  ([n x dex]
-   (nth-dex-of n x dex 0))
+  ([n x th]
+   (nth-dex-of n x th 0))
 
-  ([n x dex offset]
+  ([n x th offset]
    (let [n (str n)
          x (str x)]
-        (when (>= dex 0)
+        (when (>= th 0)
               (letfn [(f [cursor skip]
                          (if-let [first-dex (-> n (subs cursor)
                                                   (clojure.string/index-of x))]
-                                 (if (= skip dex)
+                                 (if (= skip th)
                                      (+ cursor first-dex)
                                      (f (+ first-dex cursor 1)
                                         (inc skip)))))]

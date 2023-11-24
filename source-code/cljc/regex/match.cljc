@@ -214,7 +214,8 @@
         cursor  (seqable/normalize-cursor n cursor)
         matches (re-seq x n)]
        (letfn [(f [result match]
-                  (or (and (=  match (subs n cursor (+ cursor (count match))))
+                  (or (and (seqable/cursor-in-bounds? n (+ cursor (count match)))
+                           (=  match (subs n cursor (+ cursor (count match))))
                            (-> match count (> (count result)))
                            (-> match))
                       (-> result)))]
@@ -261,7 +262,8 @@
         cursor  (seqable/normalize-cursor n cursor)
         matches (re-seq x n)]
        (letfn [(f [result match]
-                  (or (and (=  match (subs n (- cursor (count match)) cursor))
+                  (or (and (seqable/cursor-in-bounds? n (- cursor (count match)))
+                           (=  match (subs n (- cursor (count match)) cursor))
                            (-> match count (> (count result)))
                            (-> match))
                       (-> result)))]

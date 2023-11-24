@@ -50,7 +50,7 @@
 
 (defn move-nth-item-bwd
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (move-nth-item-bwd [:a :b :c] 1)
@@ -66,12 +66,12 @@
   ; [:b :c :d :a]
   ;
   ; @return (vector)
-  [n dex]
-  (move-nth-item n dex (seqable/prev-dex n dex)))
+  [n th]
+  (move-nth-item n th (seqable/prev-dex n th)))
 
 (defn move-nth-item-fwd
   ; @param (vector) n
-  ; @param (integer) dex
+  ; @param (integer) th
   ;
   ; @usage
   ; (move-nth-item-fwd [:a :b :c] 1)
@@ -87,8 +87,8 @@
   ; [:d :a :b :c]
   ;
   ; @return (vector)
-  [n dex]
-  (move-nth-item n dex (seqable/next-dex n dex)))
+  [n th]
+  (move-nth-item n th (seqable/next-dex n th)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -138,7 +138,7 @@
 (defn move-first-occurence
   ; @param (vector) n
   ; @param (*) x
-  ; @param (integer) dex
+  ; @param (integer) to
   ;
   ; @usage
   ; (move-first-occurence [:a :b :c] :c 0)
@@ -159,7 +159,7 @@
   ; [:a :c :a :b :c :b]
   ;
   ; @return (vector)
-  [n x dex]
+  [n x to]
   (if-let [item-first-dex (dex/first-dex-of n x)]
-          (move-nth-item n item-first-dex dex)
+          (move-nth-item n item-first-dex to)
           (-> n)))

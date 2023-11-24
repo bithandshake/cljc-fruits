@@ -42,6 +42,7 @@
 (defn nth-dex-of
   ; @param (*) n
   ; @param (regex pattern or string) x
+  ; @param (integer) th
   ;
   ; @example
   ; (nth-dex-of "abc 123 def 456" #"[\d]{3,}" 1)
@@ -49,14 +50,14 @@
   ; 12
   ;
   ; @return (integer)
-  [n x dex]
+  [n x th]
   (let [n (str n)
         x (re-pattern x)]
-       (when (>= dex 0)
+       (when (>= th 0)
              (letfn [(f [cursor skip]
                         (if-let [first-dex (-> n (string/keep-range cursor)
                                                  (first-dex-of x))]
-                                (if (= skip dex)
+                                (if (= skip th)
                                     (+ cursor first-dex)
                                     (f (+ first-dex cursor 1)
                                        (inc skip)))))]
