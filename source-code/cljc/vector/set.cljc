@@ -1,8 +1,40 @@
 
-(ns vector.set)
+(ns vector.set
+    (:require [noop.api :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn flat-items
+  ; @description
+  ; Flattens the nested vectors within the given 'n' vector.
+  ;
+  ; @param (vector) n
+  ; @param (function)(opt) convert-f
+  ; Default: return
+  ;
+  ; @usage
+  ; (flat-items [[:a :b :c] [:d :e :f [:g :h :i]]])
+  ;
+  ; @example
+  ; (flat-items [[:a :b :c] [:d :e :f [:g :h :i]]])
+  ; =>
+  ; [:a :b :c :d :e :f :g :h :i]
+  ;
+  ; @example
+  ; (flat-items [[:a :b :c] [:d :e :f [:g :h :i]]] name)
+  ; =>
+  ; ["a" "b" "c" "d" "e" "f" "g" "h" "i"]
+  ;
+  ; @return (vector)
+  ([n]
+   (flat-items n return))
+
+  ([n convert-f]
+   (letfn [(f [result x] (if (-> x vector?)
+                             (-> result (concat (flat-items x convert-f)))
+                             (-> result (conj   (convert-f  x)))))]
+          (->> n (reduce f []) vec))))
 
 (defn sum-items-by
   ; @description

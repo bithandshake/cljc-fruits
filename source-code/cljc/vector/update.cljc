@@ -209,7 +209,7 @@
   ; @return (vector)
   [n test-f th f & params]
   (if (check/nonempty? n)
-      (if-let [nth-dex (dex/nth-dex-by n test-f)]
+      (if-let [nth-dex (dex/nth-dex-by n test-f th)]
               (apply update n nth-dex f params)
               (-> n))
       (-> n)))

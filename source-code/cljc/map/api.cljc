@@ -73,8 +73,10 @@
 (def get-ns           namespace/get-ns)
 
 ; map.remove
+(def remove-key       remove/remove-key)
 (def remove-keys      remove/remove-keys)
 (def remove-keys-by   remove/remove-keys-by)
+(def remove-value     remove/remove-value)
 (def remove-values    remove/remove-values)
 (def remove-values-by remove/remove-values-by)
 

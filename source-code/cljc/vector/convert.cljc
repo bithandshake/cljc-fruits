@@ -20,6 +20,11 @@
   ; =>
   ; {0 :a 1 :b 2 :c}
   ;
+  ; @example
+  ; (to-map [:a :b :c] (fn [dex x] [(str dex) (name x)]))
+  ; =>
+  ; {"0" "a" "1" "b" "2" "c"}
+  ;
   ; @return (map)
   ([n]
    (to-map n (fn [dex x] [dex x])))

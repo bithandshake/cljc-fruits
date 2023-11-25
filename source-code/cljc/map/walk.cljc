@@ -66,7 +66,8 @@
   ;
   ; @return (map)
   [n update-f]
-  (reduce-kv #(assoc %1 %2 (update-f %3)) {} n))
+  (letfn [(f [result k v] (assoc result k (update-f v)))]
+         (reduce-kv f {} n)))
 
 (defn ->>values
   ; @description

@@ -146,6 +146,7 @@
 (def replace-last-item  replace/replace-last-item)
 
 ; vector.set
+(def flat-items   set/flat-items)
 (def sum-items-by set/sum-items-by)
 (def gap-items    set/gap-items)
 (def repeat-item  set/repeat-item)
