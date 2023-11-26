@@ -35,6 +35,6 @@
    (to-vector n (fn [k v] v)))
 
   ([n convert-f]
-   (letfn [(f [result [k v]]
-              (conj result (convert-f k v)))]
-          (reduce f [] n))))
+   (letfn [(f0 [result [k v]]
+               (conj result (convert-f k v)))]
+          (reduce f0 [] n))))

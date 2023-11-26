@@ -20,7 +20,7 @@
   ; @example
   ; (replace-part "abc" "b" "x")
   ; =>
-  ; "axc" 
+  ; "axc"
   ;
   ; @example
   ; (replace-part "abc" #"[b]{0,}" "x")
@@ -47,13 +47,13 @@
    (replace-part n x y {}))
 
   ([n x y {:keys [recur?]}]
-   (letfn [(f [n] (clojure.string/replace (str n) x
-                                          (str y)))
-           (r [n] (if (-> n f (= n))
-                      (-> n)
-                      (-> n f r)))]
-          (if recur? (r n)
-                     (f n)))))
+   (letfn [(f0 [n] (clojure.string/replace (str n) x
+                                           (str y)))
+           (f1 [n] (if (-> n f0 (= n))
+                       (-> n)
+                       (-> n f0 f1)))]
+          (if recur? (f1 n)
+                     (f0 n)))))
 
 (defn use-replacements
   ; @description

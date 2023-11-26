@@ -41,8 +41,8 @@
   ([container n]
    (and (string? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} [:span %2]))]
-               (reduce f container n)))))
+        (letfn [(f0 [%1 %2] (conj %1 ^{:key (random/generate-uuid)} [:span %2]))]
+               (reduce f0 container n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -75,8 +75,8 @@
   ([container n]
    (and (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (conj %1 ^{:key (random/generate-uuid)} %2))]
-               (reduce f container (vec n))))))
+        (letfn [(f0 [%1 %2] (conj %1 ^{:key (random/generate-uuid)} %2))]
+               (reduce f0 container (vec n))))))
 
 (defn put-with
   ; @param (keyword)(opt) container
@@ -112,9 +112,10 @@
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2] (if %2 (conj %1 ^{:key (random/generate-uuid)} (put-f %2))
-                                  (->   %1)))]
-               (reduce f container (vec n))))))
+        (letfn [(f0 [%1 %2]
+                    (if %2 (conj %1 ^{:key (random/generate-uuid)} (put-f %2))
+                           (->   %1)))]
+               (reduce f0 container (vec n))))))
 
 (defn put-with-indexed
   ; @param (keyword)(opt) container
@@ -150,6 +151,7 @@
    (and (fn? put-f)
         (seqable? n)
         (type/hiccup? container)
-        (letfn [(f [%1 %2 %3] (if %3 (conj %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
-                                     (->   %1)))]
-               (reduce-kv f container (vec n))))))
+        (letfn [(f0 [%1 %2 %3]
+                    (if %3 (conj %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
+                           (->   %1)))]
+               (reduce-kv f0 container (vec n))))))

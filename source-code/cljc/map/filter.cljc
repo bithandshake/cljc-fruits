@@ -18,5 +18,5 @@
   ;
   ; @return (map)
   [n filter-f]
-  (letfn [(f [%1 %2 %3] (if (-> %3 filter-f) (assoc %1 %2 %3) %1))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [%1 %2 %3] (if (-> %3 filter-f) (assoc %1 %2 %3) %1))]
+         (reduce-kv f0 {} n)))

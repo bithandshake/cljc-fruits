@@ -56,8 +56,8 @@
   ;
   ; @return (boolean)
   [n x]
-  (letfn [(f [%] (= x (val %)))]
-         (some f n)))
+  (letfn [(f0 [%] (= x (val %)))]
+         (some f0 n)))
 
 (defn values-equal?
   ; @param (map) n

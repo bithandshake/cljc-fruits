@@ -22,12 +22,12 @@
   ; @return (string)
   [n x]
   (if (nat-int? x)
-      (letfn [(f [result]
-                 (if (= (-> n      count (* x))
-                        (-> result count))
-                     (-> result)
-                     (-> result (str n) f)))]
-             (f ""))))
+      (letfn [(f0 [result]
+                  (if (= (-> n      count (* x))
+                         (-> result count))
+                      (-> result)
+                      (-> result (str n) f0)))]
+             (f0 ""))))
 
 (defn join
   ; @param (collection) n
@@ -59,17 +59,17 @@
    (join n separator {}))
 
   ([n separator {:keys [join-empty?] :or {join-empty? true}}]
-   (letfn [(f [result dex]
-              (cond (seqable/dex-out-of-bounds? n dex) (-> result)
-                    (or join-empty? (-> (nth n dex) str empty? not))
-                    (if (and (-> (seqable/dex-last? n dex) not)
-                             (-> (nth n (inc dex)) str empty? not))
-                        (f (str result (nth n dex) separator) (inc dex))
-                        (f (str result (nth n dex))           (inc dex)))
-                    :return (f result (inc dex))))]
+   (letfn [(f0 [result dex]
+               (cond (seqable/dex-out-of-bounds? n dex) (-> result)
+                     (or join-empty? (-> (nth n dex) str empty? not))
+                     (if (and (-> (seqable/dex-last? n dex) not)
+                              (-> (nth n (inc dex)) str empty? not))
+                         (f0 (str result (nth n dex) separator) (inc dex))
+                         (f0 (str result (nth n dex))           (inc dex)))
+                     :return (f0 result (inc dex))))]
           ; ...
           (if (seqable? n)
-              (f "" 0)))))
+              (f0 "" 0)))))
 
 (defn split
   ; @param (*) n

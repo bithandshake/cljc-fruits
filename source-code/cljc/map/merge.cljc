@@ -16,13 +16,13 @@
   ;
   ; @return (*)
   [n & xyz]
-  (letfn [(f [result x]
-             (if (and (map? result)
-                      (map? x))
-                 (merge-with f result x)
-                 (-> x)))]
+  (letfn [(f0 [result x]
+              (if (and (map? result)
+                       (map? x))
+                  (merge-with f0 result x)
+                  (-> x)))]
          (if (some identity xyz)
-             (reduce f n xyz)
+             (reduce f0 n xyz)
              (-> n))))
 
 (defn reversed-merge

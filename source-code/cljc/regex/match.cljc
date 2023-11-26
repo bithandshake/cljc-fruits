@@ -213,13 +213,13 @@
         x       (re-pattern x)
         cursor  (seqable/normalize-cursor n cursor)
         matches (re-seq x n)]
-       (letfn [(f [result match]
-                  (or (and (seqable/cursor-in-bounds? n (+ cursor (count match)))
-                           (=  match (subs n cursor (+ cursor (count match))))
-                           (-> match count (> (count result)))
-                           (-> match))
-                      (-> result)))]
-              (reduce f nil matches))))
+       (letfn [(f0 [result match]
+                   (or (and (seqable/cursor-in-bounds? n (+ cursor (count match)))
+                            (=  match (subs n cursor (+ cursor (count match))))
+                            (-> match count (> (count result)))
+                            (-> match))
+                       (-> result)))]
+              (reduce f0 nil matches))))
 
 (defn re-to
   ; @warning
@@ -261,10 +261,10 @@
         x       (re-pattern x)
         cursor  (seqable/normalize-cursor n cursor)
         matches (re-seq x n)]
-       (letfn [(f [result match]
-                  (or (and (seqable/cursor-in-bounds? n (- cursor (count match)))
-                           (=  match (subs n (- cursor (count match)) cursor))
-                           (-> match count (> (count result)))
-                           (-> match))
-                      (-> result)))]
-              (reduce f nil matches))))
+       (letfn [(f0 [result match]
+                   (or (and (seqable/cursor-in-bounds? n (- cursor (count match)))
+                            (=  match (subs n (- cursor (count match)) cursor))
+                            (-> match count (> (count result)))
+                            (-> match))
+                       (-> result)))]
+              (reduce f0 nil matches))))

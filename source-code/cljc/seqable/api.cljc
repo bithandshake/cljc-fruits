@@ -4,7 +4,8 @@
     (:require [seqable.check  :as check]
               [seqable.count  :as count]
               [seqable.cursor :as cursor]
-              [seqable.dex    :as dex]))
+              [seqable.dex    :as dex]
+              [seqable.path   :as path]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -46,3 +47,6 @@
 (def last-dex           dex/last-dex)
 (def inc-dex            dex/inc-dex)
 (def dec-dex            dex/dec-dex)
+
+; seqable.path
+(def dynamic-path path/dynamic-path)

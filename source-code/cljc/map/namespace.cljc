@@ -36,14 +36,14 @@
   ;
   ; @return (keyword)
   [n]
-  (letfn [(f [item-key]
-             (cond (string? item-key)
-                   (if-let [namespace (-> item-key keyword clojure.core/namespace)]
-                           (keyword namespace))
-                   (keyword? item-key)
-                   (if-let [namespace (-> item-key clojure.core/namespace)]
-                           (keyword namespace))))]
-         (some f (keys n))))
+  (letfn [(f0 [item-key]
+              (cond (string? item-key)
+                    (if-let [namespace (-> item-key keyword clojure.core/namespace)]
+                            (keyword namespace))
+                    (keyword? item-key)
+                    (if-let [namespace (-> item-key clojure.core/namespace)]
+                            (keyword namespace))))]
+         (some f0 (keys n))))
 
 (defn namespaced?
   ; @param (map) n
@@ -84,11 +84,11 @@
   ;
   ; @return (map)
   [n namespace]
-  (letfn [(f [n item-key item-value]
-             (cond (string?  item-key) (assoc n (str     (name namespace) "/"   item-key)  item-value)
-                   (keyword? item-key) (assoc n (keyword (name namespace) (name item-key)) item-value)
-                   :return n))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [n item-key item-value]
+              (cond (string?  item-key) (assoc n (str     (name namespace) "/"   item-key)  item-value)
+                    (keyword? item-key) (assoc n (keyword (name namespace) (name item-key)) item-value)
+                    :return n))]
+         (reduce-kv f0 {} n)))
 
 (defn remove-namespace
   ; @param (map) n
@@ -108,11 +108,11 @@
   ;
   ; @return (map)
   [n]
-  (letfn [(f [n item-key item-value]
-             (cond (string?  item-key) (assoc n (-> item-key keyword name)         item-value)
-                   (keyword? item-key) (assoc n (-> item-key         name keyword) item-value)
-                   :return n))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [n item-key item-value]
+              (cond (string?  item-key) (assoc n (-> item-key keyword name)         item-value)
+                    (keyword? item-key) (assoc n (-> item-key         name keyword) item-value)
+                    :return n))]
+         (reduce-kv f0 {} n)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

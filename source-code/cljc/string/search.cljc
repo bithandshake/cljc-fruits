@@ -41,21 +41,21 @@
   ([n x {:keys [separate-matches?]}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [result cursor]
-                   (cond ; ...
-                         (< (-> n count)
-                            (-> x count (+ cursor)))
-                         (-> result)
-                         ; ...
-                         (= x (subs n cursor (+ cursor (count x))))
-                         (f (inc result)
-                            (if separate-matches? (+ cursor (count x))
-                                                  (inc cursor)))
-                         ; ...
-                         :else 
-                         (f result (inc cursor))))]
+        (letfn [(f0 [result cursor]
+                    (cond ; ...
+                          (< (-> n count)
+                             (-> x count (+ cursor)))
+                          (-> result)
+                          ; ...
+                          (= x (subs n cursor (+ cursor (count x))))
+                          (f0 (inc result)
+                             (if separate-matches? (+ cursor (count x))
+                                                   (inc cursor)))
+                          ; ...
+                          :else
+                          (f0 result (inc cursor))))]
                ; ...
-               (f 0 0)))))
+               (f0 0 0)))))
 
 (defn min-occurence?
   ; @param (*) n

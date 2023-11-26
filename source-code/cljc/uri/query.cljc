@@ -23,12 +23,13 @@
   ;
   ; @return (string)
   [url-query-params]
-  (letfn [(f [result k v] (str result (if result "&")
-                                      (if (keyword? k)
-                                          (name     k)
-                                          (str      k))
-                                      (if v "=") v))]
-         (reduce-kv f nil url-query-params)))
+  (letfn [(f0 [result k v]
+              (str result (if result "&")
+                          (if (keyword? k)
+                              (name     k)
+                              (str      k))
+                          (if v "=") v))]
+         (reduce-kv f0 nil url-query-params)))
 
 (defn url-query-string->url-query-params
   ; @param (string) url-query-string
@@ -43,6 +44,7 @@
   ;
   ; @return (map)
   [url-query-string]
-  (letfn [(f [result x] (let [[k v] (string/split x #"=")]
-                             (assoc result (keyword k) v)))]
-         (reduce f {} (string/split url-query-string #"&"))))
+  (letfn [(f0 [result x]
+              (let [[k v] (string/split x #"=")]
+                   (assoc result (keyword k) v)))]
+         (reduce f0 {} (string/split url-query-string #"&"))))

@@ -27,12 +27,12 @@
   ;
   ; @return (string)
   [header-key]
-  (letfn [(f [%]
-             (as-> % % (clojure.string/split % #"\-")
-                       (map clojure.string/capitalize %)
-                       (clojure.string/join "-" %)))]
-         (cond (-> header-key keyword?) (-> header-key name f)
-               (-> header-key string?)  (-> header-key      f))))
+  (letfn [(f0 [%]
+              (as-> % % (clojure.string/split % #"\-")
+                        (map clojure.string/capitalize %)
+                        (clojure.string/join "-" %)))]
+         (cond (-> header-key keyword?) (-> header-key name f0)
+               (-> header-key string?)  (-> header-key      f0))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -98,6 +98,5 @@
   ;
   ; @return (boolean)
   [body allowed-errors]
-  (letfn [(f [%] (= (str %)
-                    (str body)))]
-         (some f allowed-errors)))
+  (letfn [(f0 [%] (= (str %) (str body)))]
+         (some f0 allowed-errors)))

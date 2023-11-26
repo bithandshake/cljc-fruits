@@ -22,8 +22,8 @@
   ;
   ; @return (vector)
   [n update-f]
-  (letfn [(f [%1 %2] (conj %1 (update-f %2)))]
-         (reduce f [] n)))
+  (letfn [(f0 [%1 %2] (conj %1 (update-f %2)))]
+         (reduce f0 [] n)))
 
 (defn ->items-indexed
   ; @description
@@ -43,8 +43,8 @@
   ;
   ; @return (vector)
   [n update-f]
-  (letfn [(f [%1 %2 %3] (conj %1 (update-f %2 %3)))]
-         (reduce-kv f [] n)))
+  (letfn [(f0 [%1 %2 %3] (conj %1 (update-f %2 %3)))]
+         (reduce-kv f0 [] n)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -68,10 +68,10 @@
   [n update-f]
   ; The recursion applies the 'update-f' function on values of maps also,
   ; because they are equivalents of items in vectors.
-  (letfn [(f [n] (cond (vector? n) (reduce    #(conj  %1    (f %2)) [] n)
-                       (map?    n) (reduce-kv #(assoc %1 %2 (f %3)) {} n)
-                       :return     (update-f n)))]
-         (f n)))
+  (letfn [(f0 [n] (cond (vector? n) (reduce    #(conj  %1    (f0 %2)) [] n)
+                        (map?    n) (reduce-kv #(assoc %1 %2 (f0 %3)) {} n)
+                        :return     (update-f n)))]
+         (f0 n)))
 
 (defn ->>items-indexed
   ; - Applies the given 'update-f' function on each item of the given 'n' vector (recursivelly).

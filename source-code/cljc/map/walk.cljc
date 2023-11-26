@@ -23,8 +23,8 @@
   ;
   ; @return (map)
   [n update-f]
-  (letfn [(f [%1 %2 %3] (assoc %1 (update-f %2) %3))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [%1 %2 %3] (assoc %1 (update-f %2) %3))]
+         (reduce-kv f0 {} n)))
 
 (defn ->>keys
   ; @description
@@ -46,10 +46,10 @@
   [n update-f]
   ; The recursion DOES NOT apply the 'update-f' function on vector items,
   ; because vector items are equivalents with map values not with map keys!
-  (letfn [(f [n] (cond (vector? n) (reduce    #(conj  %1               (f %2)) [] n)
-                       (map?    n) (reduce-kv #(assoc %1 (update-f %2) (f %3)) {} n)
-                       :return  n))]
-         (f n)))
+  (letfn [(f0 [n] (cond (vector? n) (reduce    #(conj  %1               (f0 %2)) [] n)
+                        (map?    n) (reduce-kv #(assoc %1 (update-f %2) (f0 %3)) {} n)
+                        :return  n))]
+         (f0 n)))
 
 (defn ->values
   ; @description
@@ -66,8 +66,8 @@
   ;
   ; @return (map)
   [n update-f]
-  (letfn [(f [result k v] (assoc result k (update-f v)))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [result k v] (assoc result k (update-f v)))]
+         (reduce-kv f0 {} n)))
 
 (defn ->>values
   ; @description
@@ -89,10 +89,10 @@
   [n update-f]
   ; The recursion applies the 'update-f' function on vector items as well,
   ; because vector items are equivalents with map values!
-  (letfn [(f [n] (cond (map?    n) (reduce-kv #(assoc %1 %2 (f %3)) {} n)
-                       (vector? n) (reduce    #(conj  %1    (f %2)) [] n)
-                       :return     (update-f n)))]
-         (f n)))
+  (letfn [(f0 [n] (cond (map?    n) (reduce-kv #(assoc %1 %2 (f0 %3)) {} n)
+                        (vector? n) (reduce    #(conj  %1    (f0 %2)) [] n)
+                        :return     (update-f n)))]
+         (f0 n)))
 
 (defn ->kv
   ; @description
@@ -114,8 +114,8 @@
   ;
   ; @return (map)
   [n k-f v-f]
-  (letfn [(f [%1 %2 %3] (assoc %1 (k-f %2) (v-f %3)))]
-         (reduce-kv f {} n)))
+  (letfn [(f0 [%1 %2 %3] (assoc %1 (k-f %2) (v-f %3)))]
+         (reduce-kv f0 {} n)))
 
 (defn ->>kv
   ; @description
@@ -139,10 +139,10 @@
   [n k-f v-f]
   ; The recursion applies the 'v-f' function on vector items as well,
   ; because vector items are equivalents with map values!
-  (letfn [(f [n] (cond (map?    n) (reduce-kv #(assoc %1 (k-f %2) (f %3)) {} n)
-                       (vector? n) (reduce    #(conj  %1          (f %2)) [] n)
-                       :return     (v-f n)))]
-         (f n)))
+  (letfn [(f0 [n] (cond (map?    n) (reduce-kv #(assoc %1 (k-f %2) (f0 %3)) {} n)
+                        (vector? n) (reduce    #(conj  %1          (f0 %2)) [] n)
+                        :return     (v-f n)))]
+         (f0 n)))
 
 (defn ->remove-keys-by
   ; @description
@@ -231,9 +231,9 @@
   [n r-f]
   ; The recursion applies the 'f' function on vector items as well,
   ; because vector items are equivalents with map values!
-  (letfn [(m-f [n k x] (if   (r-f     x) n (assoc n k (f x))))
-          (v-f [n   x] (if   (r-f     x) n (conj  n   (f x))))
-          (f   [n]     (cond (map?    n)   (reduce-kv m-f {} n)
-                             (vector? n)   (reduce    v-f [] n)
-                             :return  n))]
-         (f n)))
+  (letfn [(f0 [n k x] (if   (r-f     x) n (assoc n k (f2 x))))
+          (f1 [n   x] (if   (r-f     x) n (conj  n   (f2 x))))
+          (f2 [n]     (cond (map?    n)   (reduce-kv f0 {} n)
+                            (vector? n)   (reduce    f1 [] n)
+                            :return  n))]
+         (f2 n)))

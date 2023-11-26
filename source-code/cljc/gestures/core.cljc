@@ -80,9 +80,9 @@
   ;
   ; @return (string)
   [text & [variables]]
-  (letfn [(f [result [variable-value variable-name]]
-             (cond (nil?             variable-value) (->                  result)
-                   (number?          variable-value) (string/replace-part result variable-name variable-value)
-                   (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
-                   :return result))]
+  (letfn [(f0 [result [variable-value variable-name]]
+              (cond (nil?             variable-value) (->                  result)
+                    (number?          variable-value) (string/replace-part result variable-name variable-value)
+                    (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
+                    :return result))]
          (reduce f text variables)))

@@ -22,9 +22,10 @@
   ;
   ; @return (keyword)
   [& abc]
-  (letfn [(f [result x] (if (keyword? x) (str result (name x))
-                                         (str result x)))]
-         (keyword (reduce f abc))))
+  (letfn [(f0 [result x]
+              (if (keyword? x) (str result (name x))
+                               (str result x)))]
+         (keyword (reduce f0 abc))))
 
 (defn append
   ; @param (keyword) n

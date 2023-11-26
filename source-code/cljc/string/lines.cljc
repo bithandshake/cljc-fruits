@@ -240,9 +240,9 @@
          limit (min       limit count)
          lines (if reverse? (subvec lines (- count limit) count)
                             (subvec lines 0 limit))]
-        (letfn [(f [result dex]
-                   (if (= dex limit)
-                       (-> result)
-                       (f (str result (if (not= dex 0) "\n") (nth lines dex))
-                          (inc dex))))]
-               (f "" 0)))))
+        (letfn [(f0 [result dex]
+                    (if (= dex limit)
+                        (-> result)
+                        (f0 (str result (if (not= dex 0) "\n") (nth lines dex))
+                           (inc dex))))]
+               (f0 "" 0)))))

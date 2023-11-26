@@ -20,11 +20,11 @@
   ;
   ; @return (vector)
   [a b]
-  (letfn [(f [result x]
-             (if (contain/contains-item? b x)
-                 (conj result x)
-                 (->   result)))]
-         (reduce f [] a)))
+  (letfn [(f0 [result x]
+              (if (contain/contains-item? b x)
+                  (conj result x)
+                  (->   result)))]
+         (reduce f0 [] a)))
 
 (defn contains-similars?
   ; @param (vector) a

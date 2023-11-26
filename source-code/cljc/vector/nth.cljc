@@ -58,11 +58,11 @@
   ; @return (vector)
   [n ths]
   (if (vector? n)
-      (letfn [(f [result dex x]
-                 (if (contain/contains-item? ths dex)
-                     (->   result)
-                     (conj result x)))]
-             (reduce-kv f [] n))))
+      (letfn [(f0 [result dex x]
+                  (if (contain/contains-item? ths dex)
+                      (->   result)
+                      (conj result x)))]
+             (reduce-kv f0 [] n))))
 
 (defn duplicate-nth-item
   ; @param (vector) n
@@ -78,11 +78,11 @@
   ;
   ; @return (vector)
   [n th]
-  (letfn [(f [result dex item]
-             (if (= dex th)
-                 (conj result item item)
-                 (conj result item)))]
-         (reduce-kv f [] n)))
+  (letfn [(f0 [result dex item]
+              (if (= dex th)
+                  (conj result item item)
+                  (conj result item)))]
+         (reduce-kv f0 [] n)))
 
 (defn duplicate-nth-items
   ; @param (vector) n

@@ -100,8 +100,8 @@
   ;
   ; @return (vector)
   [n x]
-  (letfn [(f [%] (= % x))]
-         (vec (remove f n))))
+  (letfn [(f0 [%] (= % x))]
+         (vec (remove f0 n))))
 
 (defn remove-item-once
   ; @param (vector) n
@@ -123,30 +123,29 @@
   ; @return (vector)
   [n x]
   (let [count (count n)]
-       (letfn [(f [dex]
-                        ; If the dex is the highest index in the vector, and the element being examined
-                        ; matches the element to be deleted...
-                  (cond (and (= dex count)
-                             (= x (nth n dex)))
-                        ; ... it deletes the last element from the vector.
-                        (subvec n 0 (-> n count dec))
-                        ; If the dex is the highest index in the vector, and the examined element
-                        ; does NOT match the element to be deleted...
-                        (= dex count)
-                        ; ... változtatás nélkül visszatér a vektorral.
-                        ; ... it returns the vector without making any changes.
-                        (-> n)
-                        ; If the dex is NOT the highest index in the vector and
-                        ; the examined element matches the element to be deleted...
-                        (= x (nth n dex))
-                        ; ... it deletes the element from the vector.
-                        (vec (concat (subvec n 0 dex)
-                                     (subvec n (inc dex))))
-                        ; If the dex is NOT the highest index in the vector and the examined
-                        ; element does NOT match the element to be deleted...
-                        :else
-                        (-> dex inc f)))]
-              (f 0))))
+       (letfn [(f0 [dex]
+                   (cond ; If the dex is the highest index in the vector, and the element being examined
+                         ; matches the element to be deleted...
+                         (and (= dex count)
+                              (= x (nth n dex)))
+                         ; ... it deletes the last element from the vector.
+                         (subvec n 0 (-> n count dec))
+                         ; If the dex is the highest index in the vector, and the examined element
+                         ; does NOT match the element to be deleted...
+                         (= dex count)
+                         ; ... it returns the vector without making any changes.
+                         (-> n)
+                         ; If the dex is NOT the highest index in the vector and
+                         ; the examined element matches the element to be deleted...
+                         (= x (nth n dex))
+                         ; ... it deletes the element from the vector.
+                         (vec (concat (subvec n 0 dex)
+                                      (subvec n (inc dex))))
+                         ; If the dex is NOT the highest index in the vector and the examined
+                         ; element does NOT match the element to be deleted...
+                         :else
+                         (-> dex inc f0)))]
+              (f0 0))))
 
 (defn remove-items
   ; @param (vector) n
@@ -167,11 +166,11 @@
   ;
   ; @return (vector)
   [n xyz]
-  ;(letfn [(f [result x]
-  ;           (if (contain/contains-item? xyz x)
-  ;               (->                   result)
-  ;               (conj                 result x)))]
-  ;       (reduce f [] n))
+  ;(letfn [(f0 [result x]
+  ;            (if (contain/contains-item? xyz x)
+  ;                (->                   result)
+  ;                (conj                 result x)))]
+  ;       (reduce f0 [] n))
   (vec (remove (set xyz) n)))
 
 (defn remove-items-by
@@ -188,11 +187,11 @@
   ;
   ; @return (vector)
   [n test-f]
-  (letfn [(f [result x]
-             (if (-> x test-f)
-                 (->   result)
-                 (conj result x)))]
-         (reduce f [] n)))
+  (letfn [(f0 [result x]
+              (if (-> x test-f)
+                  (->   result)
+                  (conj result x)))]
+         (reduce f0 [] n)))
 
 (defn remove-items-kv
   ; @param (maps in vector) n
@@ -206,8 +205,8 @@
   ;
   ; @return (maps in vector)
   [n k v]
-  (letfn [(f [%] (= (k %) v))]
-         (vec (remove f n))))
+  (letfn [(f0 [%] (= (k %) v))]
+         (vec (remove f0 n))))
 
 (defn remove-duplicates
   ; @param (vector) n
@@ -222,11 +221,11 @@
   ;
   ; @return (vector)
   [n]
-  (letfn [(f [result x]
-             (if (contain/contains-item? result x)
-                 (->   result)
-                 (conj result x)))]
-         (reduce f [] n)))
+  (letfn [(f0 [result x]
+              (if (contain/contains-item? result x)
+                  (->   result)
+                  (conj result x)))]
+         (reduce f0 [] n)))
 
 (defn remove-first-occurence
   ; @param (vector) n
@@ -271,11 +270,11 @@
   ;
   ; @return (vector)
   [n xyz]
-  (letfn [(f [result x]
-             (if (contain/contains-item? xyz x)
-                 (conj result x)
-                 (->   result)))]
-         (reduce f [] n)))
+  (letfn [(f0 [result x]
+              (if (contain/contains-item? xyz x)
+                  (conj result x)
+                  (->   result)))]
+         (reduce f0 [] n)))
 
 (defn keep-items-by
   ; @param (vector) n

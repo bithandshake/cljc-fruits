@@ -18,8 +18,8 @@
   ;
   ; @return (string)
   [n]
-  (letfn [(f [style k v] (str style (name k) ": " (if (keyword? v) (name v) v) "; "))]
-         (string/trim (reduce-kv f "" n))))
+  (letfn [(f0 [style k v] (str style (name k) ": " (if (keyword? v) (name v) v) "; "))]
+         (string/trim (reduce-kv f0 "" n))))
 
 (defn parse
   ; @description

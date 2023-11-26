@@ -165,15 +165,16 @@
    (before-first-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (subs n 0 dex)
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (subs n 0 dex)
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn before-last-occurence
   ; @param (*) n
@@ -223,15 +224,16 @@
    (before-last-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (subs n 0 dex)
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/last-index-of o x)]
+                       (subs n 0 dex)
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn after-first-occurence
   ; @param (*) n
@@ -281,15 +283,16 @@
    (after-first-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (subs n (+ dex (count x)))
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (subs n (+ dex (count x)))
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn after-last-occurence
   ; @param (*) n
@@ -339,15 +342,16 @@
    (after-last-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (subs n (+ dex (count x)))
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/last-index-of o x)]
+                       (subs n (+ dex (count x)))
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn from-first-occurence
   ; @param (*) n
@@ -397,15 +401,16 @@
    (from-first-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (subs n dex)
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (subs n dex)
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn from-last-occurence
   ; @param (*) n
@@ -455,15 +460,16 @@
    (from-last-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (subs n dex)
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/last-index-of o x)]
+                       (subs n dex)
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn to-first-occurence
   ; @param (*) n
@@ -513,15 +519,16 @@
    (to-first-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (subs n 0 (+ dex (count x)))
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (subs n 0 (+ dex (count x)))
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn to-last-occurence
   ; @param (*) n
@@ -571,12 +578,13 @@
    (to-last-occurence n x {}))
 
   ([n x {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (subs n 0 (+ dex (count x)))
-                              (if return? n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/last-index-of o x)]
+                       (subs n 0 (+ dex (count x)))
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))

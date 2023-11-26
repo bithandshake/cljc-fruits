@@ -22,6 +22,7 @@
   ; @return (string)
   [n allowed-characters]
   (let [n (str n)]
-       (letfn [(f [result x] (if (some #(= x %) allowed-characters)
-                                 (str result x) result))]
-              (reduce f "" n))))
+       (letfn [(f0 [result x]
+                   (if (some #(= x %) allowed-characters)
+                       (str result x) result))]
+              (reduce f0 "" n))))

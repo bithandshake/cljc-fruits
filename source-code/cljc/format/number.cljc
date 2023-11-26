@@ -95,11 +95,11 @@
   ; TODO
   ; It doesn't handle the "-" and "+" signs!
   (let [n (str n)]
-       (letfn [(f [n]
-                  (if (->  n count (< length))
-                      (->> n (str "0") f)
-                      (->  n)))]
-              (f n))))
+       (letfn [(f0 [n]
+                   (if (->  n count (< length))
+                       (->> n (str "0") f0)
+                       (->  n)))]
+              (f0 n))))
 
 (defn remove-leading-zeros
   ; @param (number or string) n
@@ -120,11 +120,11 @@
   ; @return (string)
   [n]
   (let [n (str n)]
-       (letfn [(f [n]
-                  (if-not (-> n string/first-character (= "0"))
-                          (-> n)
-                          (-> n (subs 1) f)))]
-              (f n))))
+       (letfn [(f0 [n]
+                   (if-not (-> n string/first-character (= "0"))
+                           (-> n)
+                           (-> n (subs 1) f0)))]
+              (f0 n))))
 
 (defn trailing-zeros
   ; @param (integer or string) n
@@ -141,11 +141,11 @@
   ; @return (string)
   [n length]
   (let [n (str n)]
-       (letfn [(f [n]
-                  (if (-> n count (< length))
-                      (-> n (str "0") f)
-                      (-> n)))]
-              (f n))))
+       (letfn [(f0 [n]
+                   (if (-> n count (< length))
+                       (-> n (str "0") f0)
+                       (-> n)))]
+              (f0 n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -225,11 +225,11 @@
   ;
   ; @return (string)
   [n]
-  (letfn [(f [%]
-             (if (-> % string/last-character (= "0"))
-                 (-> % (string/keep-range 0 -1))
-                 (-> % (string/insert-part "." -1))))]
-         (cond (>= n 1000000000) (str (f (Math/round (/ n 100000000))) "B")
-               (>= n 1000000)    (str (f (Math/round (/ n    100000))) "M")
-               (>= n 1000)       (str (f (Math/round (/ n       100))) "K")
+  (letfn [(f0 [%]
+              (if (-> % string/last-character (= "0"))
+                  (-> % (string/keep-range 0 -1))
+                  (-> % (string/insert-part "." -1))))]
+         (cond (>= n 1000000000) (str (f0 (Math/round (/ n 100000000))) "B")
+               (>= n 1000000)    (str (f0 (Math/round (/ n    100000))) "M")
+               (>= n 1000)       (str (f0 (Math/round (/ n       100))) "K")
                :return           (str (Math/round n)))))

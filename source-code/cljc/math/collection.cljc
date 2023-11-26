@@ -24,10 +24,11 @@
   ;
   ; @return (nil or number)
   [n]
-  (letfn [(f [[sum count] x] (if (number? x)
-                                 [(+ sum x) (inc count)]
-                                 [sum count]))]
-         (let [[sum count] (reduce f [0 0] n)]
+  (letfn [(f0 [[sum count] x]
+              (if (number? x)
+                  [(+ sum x) (inc count)]
+                  [sum count]))]
+         (let [[sum count] (reduce f0 [0 0] n)]
               (/ sum count))))
 
 (defn collection-minimum

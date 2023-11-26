@@ -36,24 +36,24 @@
    (let [n      (str n)
          x      (str x)
          offset (seqable/normalize-cursor n offset)]
-        (letfn [(f [result cursor]
-                   (cond ; If the cursor exceeded the end of the given 'n' string...
-                         (-> n count (= cursor))
-                         (-> result)
-                         ; ...
-                         (< cursor offset)
-                         (f (str result (nth n cursor))
-                            (inc cursor))
-                         ; ...
-                         (-> x count (+ offset) (<= cursor))
-                         (f (str result (nth n cursor))
-                            (inc cursor))
-                         ; ...
-                         :else
-                         (f (str result (nth x (- cursor offset)))
-                            (inc cursor))))]
+        (letfn [(f0 [result cursor]
+                    (cond ; If the cursor exceeded the end of the given 'n' string...
+                          (-> n count (= cursor))
+                          (-> result)
+                          ; ...
+                          (< cursor offset)
+                          (f0 (str result (nth n cursor))
+                              (inc cursor))
+                          ; ...
+                          (-> x count (+ offset) (<= cursor))
+                          (f0 (str result (nth n cursor))
+                             (inc cursor))
+                          ; ...
+                          :else
+                          (f0 (str result (nth x (- cursor offset)))
+                             (inc cursor))))]
                ; ...
-               (f "" 0)))))
+               (f0 "" 0)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -95,21 +95,21 @@
   ([n x {:keys [separate-matches?]}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [result cursor]
-                   (cond ; ...
-                         (< (-> n count)
-                            (-> x count (+ cursor)))
-                         (-> result)
-                         ; ...
-                         (= x (subs n cursor (+ cursor (count x))))
-                         (f (inc result)
-                            (if separate-matches? (+ cursor (count x))
-                                                  (inc cursor)))
-                         ; ...
-                         :else
-                         (f result (inc cursor))))]
+        (letfn [(f0 [result cursor]
+                    (cond ; ...
+                          (< (-> n count)
+                             (-> x count (+ cursor)))
+                          (-> result)
+                          ; ...
+                          (= x (subs n cursor (+ cursor (count x))))
+                          (f0 (inc result)
+                             (if separate-matches? (+ cursor (count x))
+                                                   (inc cursor)))
+                          ; ...
+                          :else
+                          (f0 result (inc cursor))))]
                ; ...
-               (f 0 0)))))
+               (f0 0 0)))))
 
 (defn min-occurence?
   ; @param (*) n
@@ -222,10 +222,10 @@
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [n x] (clojure.string/starts-with? n x))]
-               (if case-sensitive? (f n x)
-                                   (f (clojure.string/lower-case n)
-                                      (clojure.string/lower-case x)))))))
+        (letfn [(f0 [n x] (clojure.string/starts-with? n x))]
+               (if case-sensitive? (f0 n x)
+                                   (f0 (clojure.string/lower-case n)
+                                       (clojure.string/lower-case x)))))))
 
 (defn ends-with?
   ; @param (*) n
@@ -259,10 +259,10 @@
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
    (let [n (str n)
          x (str x)]
-        (letfn [(f [n x] (clojure.string/ends-with? n x))]
-               (if case-sensitive? (f n x)
-                                   (f (clojure.string/lower-case n)
-                                      (clojure.string/lower-case x)))))))
+        (letfn [(f0 [n x] (clojure.string/ends-with? n x))]
+               (if case-sensitive? (f0 n x)
+                                   (f0 (clojure.string/lower-case n)
+                                       (clojure.string/lower-case x)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -582,13 +582,14 @@
    (let [n      (str n)
          x      (str x)
          cursor (seqable/normalize-cursor n cursor)]
-        (letfn [(f [n x] (let [end-cursor (-> x count (+ cursor))]
-                              (and (-> n (seqable/cursor-in-bounds? end-cursor))
-                                   (-> n (subs cursor end-cursor)
-                                         (= x)))))]
-               (if case-sensitive? (f n x)
-                                   (f (clojure.string/lower-case n)
-                                      (clojure.string/lower-case x)))))))
+        (letfn [(f0 [n x]
+                    (let [end-cursor (-> x count (+ cursor))]
+                         (and (-> n (seqable/cursor-in-bounds? end-cursor))
+                              (-> n (subs cursor end-cursor)
+                                    (= x)))))]
+               (if case-sensitive? (f0 n x)
+                                   (f0 (clojure.string/lower-case n)
+                                       (clojure.string/lower-case x)))))))
 
 (defn ends-at?
   ; @description
@@ -622,13 +623,14 @@
    (let [n      (str n)
          x      (str x)
          cursor (seqable/normalize-cursor n cursor)]
-        (letfn [(f [n x] (let [start-cursor (->> x count (- cursor))]
-                              (and (-> n (seqable/cursor-in-bounds? start-cursor))
-                                   (-> n (subs start-cursor cursor)
-                                         (= x)))))]
-               (if case-sensitive? (f n x)
-                                   (f (clojure.string/lower-case n)
-                                      (clojure.string/lower-case x)))))))
+        (letfn [(f0 [n x]
+                    (let [start-cursor (->> x count (- cursor))]
+                         (and (-> n (seqable/cursor-in-bounds? start-cursor))
+                              (-> n (subs start-cursor cursor)
+                                    (= x)))))]
+               (if case-sensitive? (f0 n x)
+                                   (f0 (clojure.string/lower-case n)
+                                       (clojure.string/lower-case x)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

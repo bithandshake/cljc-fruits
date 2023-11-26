@@ -35,8 +35,8 @@
   ;
   ; @return (boolean)
   [n test-f]
-  (letfn [(f [%] (-> % first test-f))]
-         (boolean (some f n))))
+  (letfn [(f0 [%] (-> % first test-f))]
+         (boolean (some f0 n))))
 
 (defn any-value-matches?
   ; @description
@@ -60,8 +60,8 @@
   ;
   ; @return (boolean)
   [n test-f]
-  (letfn [(f [%] (-> % second test-f))]
-         (boolean (some f n))))
+  (letfn [(f0 [%] (-> % second test-f))]
+         (boolean (some f0 n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -88,8 +88,8 @@
   ;
   ; @return (boolean)
   [n test-f]
-  (letfn [(f [%] (-> % first test-f))]
-         (every? f n)))
+  (letfn [(f0 [%] (-> % first test-f))]
+         (every? f0 n)))
 
 (defn all-values-match?
   ; @description
@@ -113,8 +113,8 @@
   ;
   ; @return (boolean)
   [n test-f]
-  (letfn [(f [%] (-> % second test-f))]
-         (every? f n)))
+  (letfn [(f0 [%] (-> % second test-f))]
+         (every? f0 n)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -144,9 +144,9 @@
   ;
   ; @return (*)
   [n test-f]
-  (letfn [(f [%] (if (-> % second test-f)
-                     (-> % first)))]
-         (some f n)))
+  (letfn [(f0 [%] (if (-> % second test-f)
+                      (-> % first)))]
+         (some f0 n)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -176,9 +176,9 @@
   ;
   ; @return (*)
   [n test-f]
-  (letfn [(f [%] (if (-> % first test-f)
-                     (-> % first)))]
-         (some f n)))
+  (letfn [(f0 [%] (if (-> % first test-f)
+                      (-> % first)))]
+         (some f0 n)))
 
 (defn first-matching-value
   ; @warning
@@ -210,9 +210,9 @@
   ;
   ; @return (*)
   [n test-f]
-  (letfn [(f [%] (if (-> % second test-f)
-                     (-> % second)))]
-         (some f n)))
+  (letfn [(f0 [%] (if (-> % second test-f)
+                      (-> % second)))]
+         (some f0 n)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

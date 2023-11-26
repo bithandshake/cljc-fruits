@@ -156,11 +156,11 @@
   [n dexes]
   (when (and (vector? n)
              (vector? dexes))
-        (letfn [(f [result dex]
-                   (if-let [item (nth/nth-item n dex)]
-                           (conj result item)
-                           (->   result)))]
-               (reduce f [] dexes))))
+        (letfn [(f0 [result dex]
+                    (if-let [item (nth/nth-item n dex)]
+                            (conj result item)
+                            (->   result)))]
+               (reduce f0 [] dexes))))
 
 (defn sorted-dexes
   ; @description
@@ -190,11 +190,11 @@
   [a b]
   (if (and (vector? a)
            (vector? b))
-      (letfn [(f [dexes x]
-                 (if-let [dex (dex/first-dex-of a x)]
-                         (conj dexes dex)
-                         (->   dexes)))]
-             (reduce f [] b))))
+      (letfn [(f0 [dexes x]
+                  (if-let [dex (dex/first-dex-of a x)]
+                          (conj dexes dex)
+                          (->   dexes)))]
+             (reduce f0 [] b))))
 
 (defn compared-items-sorted?
   ; @description
@@ -246,18 +246,18 @@
   ; @return (boolean)
   [a b comparator-f]
   (let [max-count (min (count a) (count b))]
-       (letfn [(f [dex]
-                  (let [x (get a dex)
-                        y (get b dex)]
-                       (if (= x y)
-                           ; If the compared items are equal ...
-                           (if (= (inc dex) max-count)
-                               ; If NO more items to compare (and NO difference found)...
-                               (<= (count a) (count b))
-                               ; If more items to compare ...
-                               (f (inc dex)))
-                           ; If the compared items are NOT equal ...
-                           (comparator-f x y))))]
-              ; Ha a max-count értéke 0, akkor mind a két vektor üres.
+       (letfn [(f0 [dex]
+                   (let [x (get a dex)
+                         y (get b dex)]
+                        (if (= x y)
+                            ; If the compared items are equal ...
+                            (if (= (inc dex) max-count)
+                                ; If NO more items to compare (and NO difference found)...
+                                (<= (count a) (count b))
+                                ; If more items to compare ...
+                                (f0 (inc dex)))
+                            ; If the compared items are NOT equal ...
+                            (comparator-f x y))))]
+              ; If the 'max-count' value is 0 that means both vectors are empty.
               (case max-count 0 (-> true)
-                                (f 0)))))
+                                (f0 0)))))

@@ -45,11 +45,11 @@
   ;
   ; @return (vector)
   [n delimiter]
-  (letfn [(f [result dex x]
-             (if (-> dex zero?)
-                 [x]
-                 (conj result delimiter x)))]
-         (reduce-kv f [] n)))
+  (letfn [(f0 [result dex x]
+              (if (-> dex zero?)
+                  [x]
+                  (conj result delimiter x)))]
+         (reduce-kv f0 [] n)))
 
 (defn repeat-item
   ; @param (*) n
@@ -81,8 +81,8 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (cons x result))]
-         (vec (reduce f n (vec xyz)))))
+  (letfn [(f0 [result x] (cons x result))]
+         (vec (reduce f0 n (vec xyz)))))
 
 (defn cons-item-once
   ; @param (vector) n
@@ -101,10 +101,11 @@
   ;
   ; @return (vector)
   [n & xyz]
-  (letfn [(f [result x] (if (-> result (contain/contains-item? x))
-                            (-> result)
-                            (-> x (cons result))))]
-         (vec (reduce f n (vec xyz)))))
+  (letfn [(f0 [result x]
+              (if (-> result (contain/contains-item? x))
+                  (-> result)
+                  (-> x (cons result))))]
+         (vec (reduce f0 n (vec xyz)))))
 
 (defn conj-item
   ; @param (vector) n
@@ -155,10 +156,11 @@
   ; @return (vector)
   [n & xyz]
   ; XXX#6799
-  (letfn [(f [result x] (if (-> result (contain/contains-item? x))
-                            (-> result)
-                            (-> result (conj x))))]
-         (vec (reduce f n (vec xyz)))))
+  (letfn [(f0 [result x]
+              (if (-> result (contain/contains-item? x))
+                  (-> result)
+                  (-> result (conj x))))]
+         (vec (reduce f0 n (vec xyz)))))
 
 (defn conj-some
   ; @description
@@ -181,9 +183,10 @@
   ; @return (vector)
   [n & xyz]
   ; XXX#6799
-  (letfn [(f [result x] (if x (-> result (conj x))
-                              (-> result)))]
-         (vec (reduce f n (vec xyz)))))
+  (letfn [(f0 [result x]
+              (if x (-> result (conj x))
+                    (-> result)))]
+         (vec (reduce f0 n (vec xyz)))))
 
 (defn concat-items
   ; @param (list of vectors) abc

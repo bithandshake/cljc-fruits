@@ -30,11 +30,12 @@
   ;
   ; @return (hiccup)
   [n]
-  (letfn [(f [element] (let [style (attributes/get-style element)]
-                            (if (-> style map?)
-                                (-> element (attributes/set-style (css/unparse style)))
-                                (-> element))))]
-         (walk/walk n f)))
+  (letfn [(f0 [element]
+              (let [style (attributes/get-style element)]
+                   (if (-> style map?)
+                       (-> element (attributes/set-style (css/unparse style)))
+                       (-> element))))]
+         (walk/walk n f0)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

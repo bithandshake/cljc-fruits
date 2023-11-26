@@ -30,7 +30,7 @@
    (to-map n (fn [dex x] [dex x])))
 
   ([n convert-f]
-   (letfn [(f [result dex x]
-              (let [[k v] (convert-f dex x)]
-                   (assoc result k v)))]
-          (reduce-kv f {} n))))
+   (letfn [(f0 [result dex x]
+               (let [[k v] (convert-f dex x)]
+                    (assoc result k v)))]
+          (reduce-kv f0 {} n))))

@@ -1,15 +1,14 @@
 
 (ns map.core
-    (:require [clojure.data :as data]
-              [loop.api     :refer [reduce-pairs]]))
+    (:require [loop.api    :refer [reduce-pairs]]
+              [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn swap
   ; @description
-  ; Swaps the keys and values in a map, generating a new map with the values
-  ; as keys and the keys as values.
+  ; Swaps the keys and values in a map, generating a new map with the values as keys and the keys as values.
   ;
   ; @param (map) n
   ;
@@ -26,14 +25,15 @@
   (zipmap (vals n)
           (keys n)))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn dissoc-in
+  ; @origin
+  ; re-frame.utils/dissoc-in
+  ;
   ; @description
-  ; - Original: re-frame.utils/dissoc-in
-  ; - Dissociates an entry from a nested associative structure returning a new
-  ;   nested structure. keys is a sequence of keys. Any empty maps that result
-  ;   will not be present in the new structure.
-  ;   The key thing is that 'm' remains identical? to istelf if the path was
-  ;   never present.
+  ; Dissociates a value at the given 'value-path' from the given 'n' map.
   ;
   ; @param (map) n
   ; @param (vector) value-path
@@ -124,3 +124,83 @@
   (if-let [_ (get-in n value-path)]
           (dissoc-in n value-path)
           (assoc-in  n value-path value)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn get-by
+  ; @description
+  ; Gets the value from the given 'n' map at the given 'value-path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) value-path
+  ;
+  ; @usage
+  ; (get-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex])
+  ;
+  ; @example
+  ; (get-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex])
+  ; =>
+  ; {:c "C"}
+  ;
+  ; @return (*)
+  [n value-path]
+  (get-in n (seqable/dynamic-path value-path)))
+
+(defn assoc-by
+  ; @description
+  ; Associates the given 'xyz' values to the given 'n' map at the given 'value-path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) value-path
+  ; @param (list of *) xyz
+  ;
+  ; @usage
+  ; (assoc-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] :x "X")
+  ;
+  ; @example
+  ; (assoc-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] :x "X")
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @return (map)
+  [n value-path & xyz]
+  (apply assoc-in n (seqable/dynamic-path n value-path) xyz))
+
+(defn update-by
+  ; @description
+  ; Updates the value in the given 'n' map at the given 'value-path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) value-path
+  ;
+  ; @usage
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
+  ;
+  ; @example
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @return (map)
+  [n value-path f & params]
+  (apply update-in n (seqable/dynamic-path n value-path) f params))
+
+(defn dissoc-by
+  ; @description
+  ; Dissociates the value from the given 'n' map at the given 'value-path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) value-path
+  ;
+  ; @usage
+  ; (dissoc-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex])
+  ;
+  ; @example
+  ; (dissoc-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex])
+  ; =>
+  ; {:a [{:b "B"}]}
+  ;
+  ; @return (map)
+  [n value-path]
+  (apply dissoc-in n (seqable/dynamic-path n value-path)))

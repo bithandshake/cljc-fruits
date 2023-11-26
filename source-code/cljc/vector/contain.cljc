@@ -23,8 +23,8 @@
   ;
   ; @return (boolean)
   [n x]
-  (letfn [(f [%] (= % x))]
-         (boolean (some f n))))
+  (letfn [(f0 [%] (= % x))]
+         (boolean (some f0 n))))
 
 (defn not-contains-item?
   ; @param (vector) n
@@ -45,5 +45,5 @@
   ;
   ; @return (boolean)
   [n x]
-  (letfn [(f [%] (not= % x))]
-         (every? f n)))
+  (letfn [(f0 [%] (not= % x))]
+         (every? f0 n)))

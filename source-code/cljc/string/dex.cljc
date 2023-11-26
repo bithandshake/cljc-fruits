@@ -139,12 +139,12 @@
   ([n x th offset]
    (let [n (str n)
          x (str x)]
-        (when (>= th 0)
-              (letfn [(f [cursor skip]
-                         (if-let [first-dex (-> n (subs cursor)
-                                                  (clojure.string/index-of x))]
-                                 (if (= skip th)
-                                     (+ cursor first-dex)
-                                     (f (+ first-dex cursor 1)
-                                        (inc skip)))))]
-                     (f offset 0))))))
+        (if (>= th 0)
+            (letfn [(f0 [cursor skip]
+                        (if-let [first-dex (-> n (subs cursor)
+                                                 (clojure.string/index-of x))]
+                                (if (= skip th)
+                                    (+ cursor first-dex)
+                                    (f0 (+ first-dex cursor 1)
+                                       (inc skip)))))]
+                   (f0 offset 0))))))

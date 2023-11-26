@@ -31,10 +31,11 @@
    (flat-items n return))
 
   ([n convert-f]
-   (letfn [(f [result x] (if (-> x vector?)
-                             (-> result (concat (flat-items x convert-f)))
-                             (-> result (conj   (convert-f  x)))))]
-          (->> n (reduce f []) vec))))
+   (letfn [(f0 [result x]
+               (if (-> x vector?)
+                   (-> result (concat (flat-items x convert-f)))
+                   (-> result (conj   (convert-f  x)))))]
+          (->> n (reduce f0 []) vec))))
 
 (defn sum-items-by
   ; @description
@@ -54,10 +55,11 @@
   ;
   ; @return (integer)
   [n f]
-  (letfn [(f0 [sum x] (let [v (f x)]
-                           (if (-> v integer?)
-                               (-> sum (+ v))
-                               (-> sum))))]
+  (letfn [(f0 [sum x]
+              (let [v (f x)]
+                   (if (-> v integer?)
+                       (-> sum (+ v))
+                       (-> sum))))]
          (reduce f0 0 n)))
 
 (defn gap-items
@@ -74,11 +76,11 @@
   ;
   ; @return (vector)
   [n delimiter]
-  (letfn [(f [result dex x]
-             (if (-> dex zero?)
-                 [x]
-                 (conj result delimiter x)))]
-         (reduce-kv f [] n)))
+  (letfn [(f0 [result dex x]
+              (if (-> dex zero?)
+                  [x]
+                  (conj result delimiter x)))]
+         (reduce-kv f0 [] n)))
 
 (defn repeat-item
   ; @param (*) n

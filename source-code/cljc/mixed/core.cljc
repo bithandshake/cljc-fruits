@@ -25,9 +25,8 @@
   ;
   ; @return (integer)
   [& abc]
-  (letfn [(f [result x]
-             (+ result (convert/to-number x)))]
-         (reduce f 0 abc)))
+  (letfn [(f0 [result x] (+ result (convert/to-number x)))]
+         (reduce f0 0 abc)))
 
 (defn subtract-numbers
   ; @description
@@ -47,9 +46,9 @@
   ;
   ; @return (integer)
   [& abc]
-  (letfn [(f [result x]
-             (- result (convert/to-number x)))]
-         (reduce f 0 abc)))
+  (letfn [(f0 [result x]
+              (- result (convert/to-number x)))]
+         (reduce f0 0 abc)))
 
 (defn multiply-numbers
   ; @description
@@ -69,9 +68,9 @@
   ;
   ; @return (integer)
   [& abc]
-  (letfn [(f [result x]
-             (* result (convert/to-number x)))]
-         (reduce f 1 abc)))
+  (letfn [(f0 [result x]
+              (* result (convert/to-number x)))]
+         (reduce f0 1 abc)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -106,9 +105,7 @@
    (update-whole-number n f nil))
 
   ([n f x]
-   (letfn [(update-f [n] (if x (f n x)
-                               (f n)))]
-          (cond (-> n           integer?)      (-> n update-f)
-                (-> n type/whole-number?) (let [integer (reader/read-edn n)]
-                                               (-> integer update-f))
-                (-> n              some?)      (-> n)))))
+   (letfn [(f0 [n] (if x (f n x) (f n)))]
+          (cond (-> n           integer?) (-> n f0)
+                (-> n type/whole-number?) (-> n reader/read-edn f0)
+                (-> n              some?) (-> n)))))

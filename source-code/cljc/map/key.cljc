@@ -41,8 +41,8 @@
   ;
   ; @return (vector)
   [n get-f]
-  (letfn [(f [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
-         (reduce-kv f [] n)))
+  (letfn [(f0 [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
+         (reduce-kv f0 [] n)))
 
 (defn first-key
   ; @warning
@@ -94,7 +94,7 @@
 
 (defn contains-any-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains any item of the given 'keys' vector.
+  ; Returns TRUE if the given 'n' map contains any value associated to a key from the given 'keys' vector.
   ;
   ; @param (map) n
   ; @param (* in vector) keys
@@ -119,13 +119,28 @@
   ;
   ; @return (boolean)
   [n keys]
-  (letfn [(f [%] (contains? n %))]
-         (boolean (some f keys))))
+  (letfn [(f0 [%] (contains? n %))]
+         (boolean (some f0 keys))))
 
 (defn contains-all-keys?
+  ; @description
+  ; Returns TRUE if the given 'n' map contains all values associated to a key from the given 'keys' vector.
+  ;
+  ; @param (map) n
+  ; @param (* in vector) keys
+  ;
+  ; @usage
+  ; (contains-all-keys? {:a "A" :b "B"} [:a :b])
+  ;
+  ; @example
+  ; (contains-all-keys? {:a "A" :b "B"} [:a :b])
+  ; =>
+  ; true
+  ;
+  ; @return (boolean)
   [n keys]
-  (letfn [(f [%] (contains? n %))]
-         (boolean (every? keys f))))
+  (letfn [(f0 [%] (contains? n %))]
+         (boolean (every? keys f0))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -180,7 +195,8 @@
   ;
   ; @return (map)
   [n & key-pairs]
-  (letfn [(f [n original-key renamed-key] (if (contains? n original-key)
-                                              (dissoc (assoc n renamed-key (get n original-key)) original-key)
-                                              (-> n)))]
-         (reduce-pairs f n key-pairs)))
+  (letfn [(f0 [n original-key renamed-key]
+              (if (contains? n original-key)
+                  (dissoc (assoc n renamed-key (get n original-key)) original-key)
+                  (-> n)))]
+         (reduce-pairs f0 n key-pairs)))

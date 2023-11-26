@@ -99,11 +99,12 @@
   [n & [flag]]
   (let [n (cond (keyword? n) (-> n keyword/to-string)
                 (string?  n) (-> n))]
-       (letfn [(f [result char] (case char "." (str result "--")
-                                           "/" (str result "--")
-                                           "?" result
-                                           "!" result
-                                           ">" result
-                                               (str result char)))]
-              (str (reduce f nil n)
+       (letfn [(f0 [result char]
+                   (case char "." (str result "--")
+                              "/" (str result "--")
+                              "?" result
+                              "!" result
+                              ">" result
+                                  (str result char)))]
+              (str (reduce f0 nil n)
                    (if flag (str "--" flag))))))

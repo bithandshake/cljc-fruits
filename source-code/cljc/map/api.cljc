@@ -36,6 +36,10 @@
 (def dissoc-in core/dissoc-in)
 (def toggle    core/toggle)
 (def toggle-in core/toggle-in)
+(def get-by    core/get-by)
+(def assoc-by  core/assoc-by)
+(def update-by core/update-by)
+(def dissoc-by core/dissoc-by)
 
 ; map.filter
 (def filter-values filter/filter-values)

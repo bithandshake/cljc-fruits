@@ -65,16 +65,17 @@
    (remove-first-occurence n x {}))
 
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/index-of o x)]
-                              (str (subs n 0 dex)
-                                   (subs n (+ dex (count x))))
-                              (-> n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (str (subs n 0 dex)
+                            (subs n (+ dex (count x))))
+                       (-> n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))
 
 (defn remove-last-occurence
   ; @param (*) n
@@ -104,13 +105,14 @@
    (remove-last-occurence n x {}))
 
   ([n x {:keys [case-sensitive?] :or {case-sensitive? true}}]
-   (letfn [(f [n o x] (if-let [dex (clojure.string/last-index-of o x)]
-                              (str (subs n 0 dex)
-                                   (subs n (+ dex (count x))))
-                              (-> n)))]
-          (if case-sensitive? (f (-> n str)
-                                 (-> n str)
-                                 (-> x str))
-                              (f (-> n str)
-                                 (-> n str clojure.string/lower-case)
-                                 (-> x str clojure.string/lower-case))))))
+   (letfn [(f0 [n o x]
+               (if-let [dex (clojure.string/last-index-of o x)]
+                       (str (subs n 0 dex)
+                            (subs n (+ dex (count x))))
+                       (-> n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case))))))

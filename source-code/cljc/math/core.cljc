@@ -26,10 +26,11 @@
   ;
   ; @return (number)
   [& abc]
-  (letfn [(f [total x] (if (-> x number?)
-                           (+  total x)
-                           (-> total)))]
-         (reduce f 0 (vec abc))))
+  (letfn [(f0 [total x]
+              (if (-> x number?)
+                  (+  total x)
+                  (-> total)))]
+         (reduce f0 0 (vec abc))))
 
 (defn subtract
   ; @description
@@ -52,10 +53,11 @@
   ;
   ; @return (number)
   [& abc]
-  (letfn [(f [total x] (if (-> x number?)
-                           (-  total x)
-                           (-> total)))]
-         (reduce f 0 (vec abc))))
+  (letfn [(f0 [total x]
+              (if (-> x number?)
+                  (-  total x)
+                  (-> total)))]
+         (reduce f0 0 (vec abc))))
 
 (defn multiply
   ; @description
@@ -78,10 +80,11 @@
   ;
   ; @return (number)
   [& abc]
-  (letfn [(f [total x] (if (-> x number?)
-                           (*  total x)
-                           (-> total)))]
-         (reduce f 0 (vec abc))))
+  (letfn [(f0 [total x]
+              (if (-> x number?)
+                  (*  total x)
+                  (-> total)))]
+         (reduce f0 0 (vec abc))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

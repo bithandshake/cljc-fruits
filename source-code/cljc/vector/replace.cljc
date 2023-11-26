@@ -28,11 +28,11 @@
   ; @return (vector)
   [n a b]
   ; XXX#6799 (source-code/cljc/vector/core.cljc)
-  (letfn [(f [result x]
-             (if (= x a)
-                 (conj result b)
-                 (conj result x)))]
-         (vec (reduce f [] n))))
+  (letfn [(f0 [result x]
+              (if (= x a)
+                  (conj result b)
+                  (conj result x)))]
+         (vec (reduce f0 [] n))))
 
 (defn replace-first-item
   ; @description
