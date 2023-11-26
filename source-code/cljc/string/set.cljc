@@ -1,7 +1,8 @@
 
 (ns string.set
     (:refer-clojure :exclude [repeat])
-    (:require [clojure.string]))
+    (:require [clojure.string]
+              [seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -59,17 +60,13 @@
 
   ([n separator {:keys [join-empty?] :or {join-empty? true}}]
    (letfn [(f [result dex]
-              (cond ; ...
-                    (-> n count (= dex))
-                    (-> result)
-                    ; ...
-                    (or join-empty? (-> n (nth dex) empty? not))
-                    (if (and (-> n count dec (not= dex))
+              (cond (seqable/dex-out-of-bounds? n dex) (-> result)
+                    (or join-empty? (-> (nth n dex) str empty? not))
+                    (if (and (-> (seqable/dex-last? n dex) not)
                              (-> (nth n (inc dex)) str empty? not))
-                        (str result (nth n dex) separator)
-                        (str result (nth n dex)))
-                    ; ...
-                    :return result))]
+                        (f (str result (nth n dex) separator) (inc dex))
+                        (f (str result (nth n dex))           (inc dex)))
+                    :return (f result (inc dex))))]
           ; ...
           (if (seqable? n)
               (f "" 0)))))
