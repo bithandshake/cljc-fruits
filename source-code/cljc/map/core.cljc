@@ -145,7 +145,7 @@
   ;
   ; @return (*)
   [n value-path]
-  (get-in n (seqable/dynamic-path value-path)))
+  (get-in n (seqable/dynamic-path n value-path)))
 
 (defn assoc-by
   ; @description

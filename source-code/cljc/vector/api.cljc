@@ -147,8 +147,11 @@
 
 ; vector.set
 (def flat-items   set/flat-items)
+(def sum-items    set/sum-items)
 (def sum-items-by set/sum-items-by)
 (def gap-items    set/gap-items)
+(def prefix-items set/prefix-items)
+(def suffix-items set/suffix-items)
 (def repeat-item  set/repeat-item)
 
 ; vector.sort

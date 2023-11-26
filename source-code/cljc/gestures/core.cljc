@@ -85,4 +85,4 @@
                     (number?          variable-value) (string/replace-part result variable-name variable-value)
                     (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
                     :return result))]
-         (reduce f text variables)))
+         (reduce f0 text variables)))

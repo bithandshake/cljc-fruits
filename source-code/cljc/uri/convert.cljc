@@ -562,11 +562,11 @@
                url-path-parts          (to-url-path-parts url-path)
                url-path-template-parts (to-url-path-parts url-path-template)]
               (letfn [(f0 [result dex x]
-                          (let [x (reader/read-edn x)
-                                  (if (keyword? x)
-                                      (let [url-path-part (nth url-path-parts dex)]
-                                           (assoc result x url-path-part))
-                                      (-> result))]))]
+                          (let [x (reader/read-edn x)]
+                               (if (keyword? x)
+                                   (let [url-path-part (nth url-path-parts dex)]
+                                        (assoc result x url-path-part))
+                                   (-> result))))]
                      (reduce-kv f0 {} url-path-template-parts)))))
 
 (defn to-url-fragment

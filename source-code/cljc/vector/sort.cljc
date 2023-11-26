@@ -73,7 +73,7 @@
 
   ([n comparator-f]
    ; XXX#0610
-   ; The return value of the comparator function has to be converted to boolean!
+   ; The return value of the given 'comparator-f' function has to be converted to boolean!
    (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
           (vec (sort compare-f n)))))
 
