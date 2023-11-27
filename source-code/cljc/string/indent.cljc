@@ -9,7 +9,7 @@
 
 (defn inline-position
   ; @description
-  ; Returns the given cursor position's inline position (distance from the nearest preceeding newline / break character).
+  ; Returns the given cursor position's inline position (distance from the nearest preceding newline / break character).
   ;
   ; @param (*) n
   ; @param (integer) cursor
@@ -45,7 +45,7 @@
 
 (defn position-indent-length
   ; @description
-  ; Returns the whitespace count preceeding the given cursor position whithin the actual line.
+  ; Returns the whitespace count preceding the given cursor position whithin the actual line.
   ;
   ; @param (*) n
   ; @param (integer) cursor

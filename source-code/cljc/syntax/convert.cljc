@@ -18,10 +18,10 @@
   ;
   ; @return (string)
   [n]
-  (letfn [; Returns TRUE if the observed character preceeded by a hyphen.
+  (letfn [; Returns TRUE if the observed character preceded by a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
-          ; Returns TRUE if the observed character preceeded by a whitespace.
+          ; Returns TRUE if the observed character preceded by a whitespace.
           (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
 
           ; - Updates the observed character if uppercase.
@@ -59,10 +59,10 @@
   ;
   ; @return (string)
   [n]
-  (letfn [; Returns TRUE if the observed character preceeded by a hyphen.
+  (letfn [; Returns TRUE if the observed character preceded by a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
-          ; Returns TRUE if the observed character preceeded by a whitespace.
+          ; Returns TRUE if the observed character preceded by a whitespace.
           (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
 
           ; - Updates the observed character if lowercase.
