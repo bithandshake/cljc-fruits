@@ -65,7 +65,7 @@
 
   ([n {:keys [inner-except-f outer-except-f keywordize? separator] :or {separator "."}}]
    (letfn [; @description
-           ; Converts the given key to string type.
+           ; Converts the given key into string type.
            ;
            ; @param (*) k
            ;
@@ -77,8 +77,7 @@
                                     (str k)))
 
            ; @description
-           ; Joins an outer and an inner key into one with the separator string
-           ; between each key.
+           ; Joins an outer and an inner key into one with the separator string between each key.
            ; The type of the return value depends on the 'keywordize?' option.
            ;
            ; @param (*) a

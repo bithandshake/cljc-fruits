@@ -7,7 +7,7 @@
 
 (defn to-integer
   ; @description
-  ; Converts the given 'n' string to an integer.
+  ; Converts the given 'n' string into an integer.
   ;
   ; @param (integer or string) n
   ;

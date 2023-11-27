@@ -28,7 +28,7 @@
   ;
   ; @return (integer)
   [a b]
-  (if (and (seqable? a)
-           (seqable? b))
-      (- (count a)
-         (count b))))
+  (if (and (-> a seqable?)
+           (-> b seqable?))
+      (- (-> a count)
+         (-> b count))))

@@ -143,6 +143,11 @@
   ; =>
   ; {:c "C"}
   ;
+  ; @example
+  ; (get-by {:a [{:b "B"} {:c "C"}]} [:a #(-> % count dec)])
+  ; =>
+  ; {:c "C"}
+  ;
   ; @return (*)
   [n value-path]
   (get-in n (seqable/dynamic-path n value-path)))
@@ -163,28 +168,14 @@
   ; =>
   ; {:a [{:b "B"} {:c "C" :x "X"}]}
   ;
-  ; @return (map)
-  [n value-path & xyz]
-  (apply assoc-in n (seqable/dynamic-path n value-path) xyz))
-
-(defn update-by
-  ; @description
-  ; Updates the value in the given 'n' map at the given 'value-path' dynamic path.
-  ;
-  ; @param (map) n
-  ; @param (vector) value-path
-  ;
-  ; @usage
-  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
-  ;
   ; @example
-  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
+  ; (assoc-by {:a [{:b "B"} {:c "C"}]} [:a #(-> % count dec)] :x "X")
   ; =>
   ; {:a [{:b "B"} {:c "C" :x "X"}]}
   ;
   ; @return (map)
-  [n value-path f & params]
-  (apply update-in n (seqable/dynamic-path n value-path) f params))
+  [n value-path & xyz]
+  (apply assoc-in n (seqable/dynamic-path n value-path) xyz))
 
 (defn dissoc-by
   ; @description
@@ -201,6 +192,35 @@
   ; =>
   ; {:a [{:b "B"}]}
   ;
+  ; @example
+  ; (dissoc-by {:a [{:b "B"} {:c "C"}]} [:a #(-> % count dec))])
+  ; =>
+  ; {:a [{:b "B"}]}
+  ;
   ; @return (map)
   [n value-path]
-  (apply dissoc-in n (seqable/dynamic-path n value-path)))
+  (dissoc-in n (seqable/dynamic-path n value-path)))
+
+(defn update-by
+  ; @description
+  ; Updates the value in the given 'n' map at the given 'value-path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) value-path
+  ;
+  ; @usage
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
+  ;
+  ; @example
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a seqable/last-dex] assoc :x "X")
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @example
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a #(-> % count dec)] assoc :x "X")
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @return (map)
+  [n value-path f & params]
+  (apply update-in n (seqable/dynamic-path n value-path) f params))

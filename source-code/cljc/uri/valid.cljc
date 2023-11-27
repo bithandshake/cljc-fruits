@@ -40,8 +40,8 @@
   ; @return (string)
   [n]
   ; The 'valid-url' function ...
-  ; ... checks if the 'n' string contains a valid domain.
-  ; ... converts the value to a lowercase string.
+  ; ... checks if the given 'n' string contains a valid domain.
+  ; ... converts the value into a lowercase string.
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol (if necessary).
   (if-let [domain (convert/to-domain n)]
@@ -79,7 +79,7 @@
   [n]
   ; The 'valid-url-path' function ...
   ; ... takes the path from the given 'n' string.
-  ; ... if given string not contains path, returns with the root path ("/").
+  ; ... if the given string does not contain any URL path, it returns the root path ("/").
   (if-let [url-path (convert/to-url-path n)]
           (-> url-path)
           (-> "/")))

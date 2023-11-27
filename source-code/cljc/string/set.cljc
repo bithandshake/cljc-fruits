@@ -31,7 +31,7 @@
 
 (defn join
   ; @param (collection) n
-  ; @param (*) separator
+  ; @param (*)(opt) separator
   ; @param (map)(opt) options
   ; {:join-empty? (boolean)(opt)
   ;   Default: true}
@@ -55,6 +55,9 @@
   ; "a.b"
   ;
   ; @return (string)
+  ([n]
+   (join n nil {}))
+
   ([n separator]
    (join n separator {}))
 
@@ -75,33 +78,26 @@
   ; @param (*) n
   ; @param (clj: regex, cljs: regex or string) delimiter
   ;
+  ; @usage
+  ; (split "a.b.c" #"\.")
+  ;
   ; @example
-  ; (split "a.b.c" ".")
+  ; (split "a.b.c" #"\.")
   ; =>
   ; ["a" "b" "c"]
   ;
   ; @example
-  ; (split "a.b.c" #".")
-  ; =>
-  ; []
-  ;
-  ; @example
-  ; (split "a.b.c" #"[.]")
-  ; =>
-  ; ["a" "b" "c"]
-  ;
-  ; @example
-  ; (split ".b.c" #"[.]")
+  ; (split ".b.c" #"\.")
   ; =>
   ; ["" "b" "c"]
   ;
   ; @example
-  ; (split "a.b.c" #"_")
+  ; (split "a.b.c" #"\_")
   ; =>
   ; ["a.b.c"]
   ;
   ; @example
-  ; (split "" #".")
+  ; (split "" #"\.")
   ; =>
   ; []
   ;

@@ -75,7 +75,7 @@
 
 (defn value
   ; @description
-  ; Converts the given 'n' keyword / string to a valid HICCUP attribute value.
+  ; Converts the given 'n' keyword / string into a valid HICCUP attribute value.
   ;
   ; @param (keyword or string) n
   ; @param (string)(opt) flag

@@ -172,12 +172,16 @@
   ;
   ; @return (vector)
   [n]
-  (-> n count range vec))
+  (if (seqable? n)
+      (-> n count range vec)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn dex-first?
+  ; @description
+  ; Returns TRUE if the given 'dex' value is the first item's index in the given 'n' value.
+  ;
   ; @param (seqable) n
   ; @param (integer) dex
   ;
@@ -195,10 +199,14 @@
   ; true
   ;
   ; @return (boolean)
-  [_ dex]
-  (= dex 0))
+  [n dex]
+  (if (seqable? n)
+      (= dex 0)))
 
 (defn dex-last?
+  ; @description
+  ; Returns TRUE if the given 'dex' value is the last item's index in the given 'n' value.
+  ;
   ; @param (seqable) n
   ; @param (integer) dex
   ;
@@ -217,9 +225,13 @@
   ;
   ; @return (boolean)
   [n dex]
-  (-> n count dec (= dex)))
+  (if (seqable? n)
+      (-> n count dec (= dex))))
 
 (defn first-dex
+  ; @description
+  ; Returns the first item's index in the given 'n' value.
+  ;
   ; @param (seqable) n
   ;
   ; @usage
@@ -241,6 +253,9 @@
       (-> 0)))
 
 (defn last-dex
+  ; @description
+  ; Returns the last item's index in the given 'n' value.
+  ;
   ; @param (seqable) n
   ;
   ; @usage
@@ -261,12 +276,36 @@
   (if (-> n seqable?)
       (-> n count dec)))
 
+(defn new-dex
+  ; @description
+  ; Returns the next index after last item's index in the given 'n' value.
+  ;
+  ; @param (seqable) n
+  ;
+  ; @usage
+  ; (new-dex [:a :b :c])
+  ;
+  ; @example
+  ; (new-dex [:a :b :c])
+  ; =>
+  ; 3
+  ;
+  ; @example
+  ; (new-dex "abc")
+  ; =>
+  ; 3
+  ;
+  ; @return (integer)
+  [n]
+  (if (-> n seqable?)
+      (-> n count)))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn inc-dex
   ; @description
-  ; Returns the next item's index after the given 'dex' value.
+  ; Increases the given 'dex' value except if the result would be out of bounds within the given 'n' value.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -286,9 +325,11 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (-> n (dex-last? dex))
-      (-> dex)
-      (-> dex inc)))
+  (if (-> n seqable?)
+      (cond (-> n count dec (= dex)) (-> dex)
+            (-> n count dec (< dex)) (-> n count dec)
+            (-> dex         (<   0)) (-> 0)
+            :else                    (-> dex inc))))
 
 (defn dec-dex
   ; @description
@@ -312,6 +353,7 @@
   ;
   ; @return (integer)
   [n dex]
-  (if (-> n (dex-first? dex))
-      (-> dex)
-      (-> dex dec)))
+  (if (-> n seqable?)
+      (cond (-> n count dec (< dex)) (-> n count dec)
+            (-> dex         (<   2)) (-> 0)
+            :else                    (-> dex dec))))

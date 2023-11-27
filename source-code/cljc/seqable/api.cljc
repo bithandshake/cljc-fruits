@@ -45,6 +45,7 @@
 (def dex-last?          dex/dex-last?)
 (def first-dex          dex/first-dex)
 (def last-dex           dex/last-dex)
+(def new-dex            dex/new-dex)
 (def inc-dex            dex/inc-dex)
 (def dec-dex            dex/dec-dex)
 

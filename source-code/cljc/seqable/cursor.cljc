@@ -34,12 +34,12 @@
   ;
   ; @return (integer)
   [n cursor]
-  (cond (-> cursor integer? not)  (-> 0)
-        (-> n seqable? not)       (-> cursor)
-        (-> n count   (< cursor)) (-> n count)
-        (-> n count - (> cursor)) (-> 0)
-        (< cursor 0)              (-> n count (+ cursor))
-        :return                   (-> cursor)))
+  (if (-> n seqable?)
+      (cond (-> cursor integer? not)  (-> 0)
+            (-> n count   (< cursor)) (-> n count)
+            (-> n count - (> cursor)) (-> 0)
+            (< cursor 0)              (-> n count (+ cursor))
+            :return                   (-> cursor))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -68,9 +68,9 @@
   ;
   ; @return (boolean)
   [n cursor]
-  (and (-> cursor nat-int?)
-       (-> n seqable?)
-       (-> n count (>= cursor))))
+  (if (-> n seqable?)
+      (and (-> cursor nat-int?)
+           (-> n count (>= cursor)))))
 
 (defn cursor-out-of-bounds?
   ; @description
@@ -96,9 +96,9 @@
   ;
   ; @return (boolean)
   [n cursor]
-  (or (-> cursor nat-int? not)
-      (-> n seqable? not)
-      (-> n count (< cursor))))
+  (if (-> n seqable?)
+      (or (-> cursor nat-int? not)
+          (-> n count (< cursor)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -125,10 +125,10 @@
   ;
   ; @return (integer)
   [n cursor]
-  (cond (-> n seqable? not)      (-> 0)
-        (-> n count (<= cursor)) (-> 0)
-        (-> cursor (< 0))        (-> 0)
-        :return                  (-> cursor inc)))
+  (if (-> n seqable?)
+      (cond (-> n count (<= cursor)) (-> 0)
+            (-> cursor (< 0))        (-> 0)
+            :return                  (-> cursor inc))))
 
 (defn prev-cursor
   ; @descripiton
@@ -152,10 +152,10 @@
   ;
   ; @return (integer)
   [n cursor]
-  (cond (-> n seqable? not)     (-> 0)
-        (-> cursor (<= 0))      (-> n count)
-        (-> n count (< cursor)) (-> n count)
-        :return                 (-> cursor dec)))
+  (if (-> n seqable?)
+      (cond (-> cursor (<= 0))      (-> n count)
+            (-> n count (< cursor)) (-> n count)
+            :return                 (-> cursor dec))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -173,7 +173,8 @@
   ;
   ; @return (vector)
   [n]
-  (-> n count inc range vec))
+  (if (-> n seqable?)
+      (-> n count inc range vec)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -196,8 +197,9 @@
   ; true
   ;
   ; @return (boolean)
-  [_ cursor]
-  (= cursor 0))
+  [n cursor]
+  (if (-> n seqable?)
+      (= cursor 0)))
 
 (defn cursor-last?
   ; @param (seqable) n
@@ -218,7 +220,8 @@
   ;
   ; @return (boolean)
   [n cursor]
-  (-> n count (= cursor)))
+  (if (-> n seqable?)
+      (-> n count (= cursor))))
 
 (defn first-cursor
   ; @param (seqable) n
@@ -267,7 +270,7 @@
 
 (defn inc-cursor
   ; @description
-  ; Returns the next cursor value after the given 'cursor' value.
+  ; Increases the given 'cursor' value except if the result would be out of bounds within the given 'n' value.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -287,13 +290,15 @@
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n (cursor-last? cursor))
-      (-> cursor)
-      (-> cursor inc)))
+  (if (-> n seqable?)
+      (cond (-> n count (= cursor)) (-> cursor)
+            (-> n count (< cursor)) (-> n count)
+            (-> cursor  (<      0)) (-> 0)
+            :else                   (-> cursor inc))))
 
 (defn dec-cursor
   ; @description
-  ; Returns the previous cursor value before the given 'cursor' value.
+  ; Decreases the given 'cursor' value except if the result would be out of bounds within the given 'n' value.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -313,6 +318,7 @@
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n (cursor-first? cursor))
-      (-> cursor)
-      (-> cursor dec)))
+  (if (-> n seqable?)
+      (cond (-> n count (< cursor)) (-> n count)
+            (-> cursor  (<      2)) (-> 0)
+            :else                   (-> cursor dec))))

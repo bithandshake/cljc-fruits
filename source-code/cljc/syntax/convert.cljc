@@ -7,7 +7,7 @@
 
 (defn to-snake-case
   ; @description
-  ; Converts the given 'n' string from CamelCase to snake-case.
+  ; Converts the given 'n' string from CamelCase into snake-case.
   ;
   ; @param (string) n
   ;
@@ -18,10 +18,10 @@
   ;
   ; @return (string)
   [n]
-  (letfn [; Returns TRUE if the observed character follows a hyphen.
+  (letfn [; Returns TRUE if the observed character preceeded by a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
-          ; Returns TRUE if the observed character follows a whitespace.
+          ; Returns TRUE if the observed character preceeded by a whitespace.
           (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
 
           ; - Updates the observed character if uppercase.
@@ -36,19 +36,19 @@
                              :else              (str (subs result 0 cursor) "-" (string/to-lowercase char) (subs result (inc cursor))))
                        (-> result))))
 
-          ; ...
+          ; Iterates over the given 'n' string and updates each character if necessary.
           (f3 [result cursor]
               (if (= (count result) cursor)
                   (-> result)
-                  (let [new-result (f2 result cursor)]
-                       (f3 new-result (+ (inc cursor) (- (count new-result) (count result)))))))]
+                  (let [updated-result (f2 result cursor)]
+                       (f3 updated-result (+ (inc cursor) (- (count updated-result) (count result)))))))]
 
          ; ...
          (f3 n 0)))
 
 (defn ToCamelCase
   ; @description
-  ; Converts the given 'n' string from snake-case to CamelCase.
+  ; Converts the given 'n' string from snake-case into CamelCase.
   ;
   ; @param (string) n
   ;
@@ -59,10 +59,10 @@
   ;
   ; @return (string)
   [n]
-  (letfn [; Returns TRUE if the observed character follows a hyphen.
+  (letfn [; Returns TRUE if the observed character preceeded by a hyphen.
           (f0 [result cursor] (= "-" (subs result (dec cursor) cursor)))
 
-          ; Returns TRUE if the observed character follows a whitespace.
+          ; Returns TRUE if the observed character preceeded by a whitespace.
           (f1 [result cursor] (= " " (subs result (dec cursor) cursor)))
 
           ; - Updates the observed character if lowercase.
@@ -77,12 +77,12 @@
                              :return result)
                        (-> result))))
 
-          ; ...
+          ; Iterates over the given 'n' string and updates each character if necessary.
           (f3 [result cursor]
               (if (= (count result) cursor)
                   (-> result)
-                  (let [new-result (f2 result cursor)]
-                       (f3 new-result (+ (inc cursor) (- (count new-result) (count result)))))))]
+                  (let [updated-result (f2 result cursor)]
+                       (f3 updated-result (+ (inc cursor) (- (count updated-result) (count result)))))))]
 
          ; ...
          (f3 n 0)))

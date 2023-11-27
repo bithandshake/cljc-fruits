@@ -63,7 +63,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn cursor?
-  ; @param (*) n
+  ; @param (*) x
   ;
   ; @usage
   ; (cursor? 42)
@@ -84,11 +84,11 @@
   ; false
   ;
   ; @return (boolean)
-  [n]
-  (nat-int? n))
+  [x]
+  (nat-int? x))
 
 (defn dex?
-  ; @param (*) n
+  ; @param (*) x
   ;
   ; @usage
   ; (dex? 42)
@@ -109,5 +109,5 @@
   ; false
   ;
   ; @return (boolean)
-  [n]
-  (nat-int? n))
+  [x]
+  (nat-int? x))

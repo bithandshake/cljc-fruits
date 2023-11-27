@@ -8,7 +8,7 @@
 (defn first-character
   ; @description
   ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ; - Converts the output character (Java char type) into string.
   ;
   ; @param (*) n
   ;
@@ -33,7 +33,7 @@
 (defn second-character
   ; @description
   ; - Returns the second character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ; - Converts the output character (Java char type) into string.
   ;
   ; @param (*) n
   ;
@@ -58,7 +58,7 @@
 (defn last-character
   ; @description
   ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because one character long strings (in Java language) could be character types!
+  ; - Converts the output character (Java char type) into string.
   ;
   ; @param (*) n
   ;
@@ -83,7 +83,7 @@
 (defn nth-character
   ; @description
   ; - Returns the nth character of the given 'n' value (converted to string.)
-  ; - Converts the output to string because in Java language one character long strings could be character types!
+  ; - Converts the output character (Java char type) into string.
   ;
   ; @param (*) n
   ; @param (integer) th
