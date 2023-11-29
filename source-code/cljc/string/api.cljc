@@ -115,6 +115,9 @@
 (def max-length      length/max-length)
 
 ; string.lines
+(def line-position          lines/line-position)
+(def prev-line-position     lines/prev-line-position)
+(def next-line-position     lines/next-line-position)
 (def containing-line        lines/containing-line)
 (def remove-containing-line lines/remove-containing-line)
 (def in-empty-line?         lines/in-empty-line?)

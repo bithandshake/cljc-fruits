@@ -7,7 +7,7 @@
 (defn param
   ; @description
   ; A simple noop function for wrapping parameters.
-  ; Returns the given n parameter.
+  ; Returns the given 'n' parameter.
   ;
   ; @param (*) n
   ;

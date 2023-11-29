@@ -6,10 +6,9 @@
 
 (defn <-walk
   ; @description
-  ; Takes the 'n' as initial value and iterates over the list of functions.
-  ; Every function takes the previous function's result as an only argument.
+  ; Iterates over the given functions and provides them the previous iteration's output as parameter.
   ;
-  ; @param (*) n
+  ; @param (*) initial
   ; @param (list of functions) fs
   ;
   ; @usage
@@ -31,10 +30,17 @@
   ; =>
   ; [:a :b :c]
   ;
+  ; @example
+  ; (<-walk {:a 0}
+  ;         (fn [%] (update % :a inc))
+  ;         (fn [%] (update % :a inc)))
+  ; =>
+  ; {:a 2}
+  ;
   ; @return (*)
-  [n & fs]
+  [initial & fs]
   (letfn [(f0 [result f] (f result))]
-         (reduce f0 n fs)))
+         (reduce f0 initial fs)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -158,7 +164,7 @@
   ;
   ; @example
   ; (do-while #(inc %)
-  ;            0
+  ;           0
   ;           #(> % 3))
   ; =>
   ; 4
@@ -199,7 +205,7 @@
                                               (f0 (f result a b)
                                                   (inc lap))))))]
 
-              ; Don't forget that 0 is even!
+              ; ...
               (cond (-> pairs-count (< 2)) initial
                     (-> pairs-count odd?)  initial
                     :recursion (f0 initial 1)))))

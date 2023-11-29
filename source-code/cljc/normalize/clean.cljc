@@ -1,80 +1,86 @@
 
 (ns normalize.clean
-    (:require #?(:cljs ["normalize-diacritics" :refer [normalize normalizeSync]])
-              [clojure.string :as string]))
+    (:require #?(:cljs ["normalize-diacritics" :refer [normalizeSync]])
+              [clojure.string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn deaccent
+  ; @description
+  ; Removes diacritical marks (accents) from the given 'n' string.
+  ;
   ; @param (string) n
   ;
+  ; @usage
+  ; (deaccent "aáAÁ")
+  ;
   ; @example
-  ; (deaccent "aá AÁ")
+  ; (deaccent "aáAÁ")
   ; =>
-  ; "aa AA"
+  ; "aaAA"
   ;
   ; @return (string)
   [n]
-  "Remove accent from string"
-  #?(:clj  (let [normalized (java.text.Normalizer/normalize n java.text.Normalizer$Form/NFD)]
-                (string/replace normalized #"\p{InCombiningDiacriticalMarks}+" ""))
-     :cljs (normalizeSync n)))
+  #?(:clj  (-> n (java.text.Normalizer/normalize java.text.Normalizer$Form/NFD)
+                 (clojure.string/replace #"\p{InCombiningDiacriticalMarks}+" ""))
+     :cljs (-> n (normalizeSync))))
 
-(defn soft-cut-special-chars
-  ; @param (string) n
+(defn remove-special-chars
+  ; @description
+  ; Removes special characters from the given 'n' string including accented characters.
   ;
-  ; @example
-  ; (soft-cut-special-chars "aá+-.")
-  ; =>
-  ; "aá"
-  ;
-  ; @return (string)
-  [n]
-  "Cut special chars, but keep accent characters"
-  (string/replace n #"[^a-zA-Z0-9\u00C0-\u017F\- ]" ""))
-
-(defn cut-special-chars
   ; @param (string) n
   ; @param (string)(opt) exceptions
   ; Default: "-"
   ;
+  ; @usage
+  ; (remove-special-chars "abc+-.")
+  ;
   ; @example
-  ; (cut-special-chars "abc+-.")
+  ; (remove-special-chars "abc+-.")
   ; =>
   ; "abc-"
   ;
   ; @example
-  ; (cut-special-chars "abc+-.?" "+")
+  ; (remove-special-chars "abc+-.?" "-+")
   ; =>
   ; "abc+-"
   ;
   ; @return (string)
   ([n]
-   (cut-special-chars n "-"))
+   (remove-special-chars n "-"))
 
   ([n exceptions]
-   "Cut special chars including accent characters"
    (let [pattern (re-pattern (str "[^\\w\\s"exceptions"]"))]
-        (string/replace n pattern ""))))
+        (clojure.string/replace n pattern ""))))
 
-(defn replace-white-chars
+(defn replace-blank-chars
+  ; @description
+  ; Replaces blank characters / blank character groups in the given 'n' string with single hyphens.
+  ;
   ; @param (string) n
   ;
+  ; @usage
+  ; (replace-blank-chars "a b  \n  c")
+  ;
   ; @example
-  ; (replace-white-chars "a b  c")
+  ; (replace-blank-chars "a b  \n  c")
   ; =>
   ; "a-b-c"
   ;
   ; @return (string)
   [n]
-  "Replace ' ' to '-'. Keep one '-' if more than one are next to each other."
-  (string/replace n #"[ |-]{1,}" "-"))
+  (clojure.string/replace n #"[ |-]{1,}" "-"))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn clean-text
+  ; @description
+  ; Normalizes the given 'n' string by removing diacritical marks, removing special characters,
+  ; and blank characters, and converts the string to lowercase.
+  ;
   ; @param (*) n
   ; @param (string)(opt) exceptions
   ; Default: "-"
@@ -109,6 +115,6 @@
   ([n exceptions]
    (-> n (str)
          (deaccent)
-         (cut-special-chars exceptions)
-         (replace-white-chars)
-         (string/lower-case))))
+         (remove-special-chars exceptions)
+         (replace-blank-chars)
+         (clojure.string/lower-case))))

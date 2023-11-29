@@ -8,9 +8,59 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn line-position
+  ; @description
+  ; Returns the first cursor position of the corresponding line of a specific cursor position in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (integer) cursor
+  ;
+  ; @return (integer)
+  [n cursor]
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (if-let [preceding-newline-position (clojure.string/last-index-of (subs n 0 cursor) "\n")]
+               (-> preceding-newline-position inc)
+               (-> 0))))
+
+(defn prev-line-position
+  ; @description
+  ; Returns the first cursor position of the previous line of a specific cursor position in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (integer) cursor
+  ;
+  ; @return (integer)
+  [n cursor]
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (if-let [preceding-newline-position (clojure.string/last-index-of (subs n 0 cursor) "\n")]
+               (if-let [antecedent-newline-position (clojure.string/last-index-of (subs n 0 preceding-newline-position) "\n")]
+                       (-> antecedent-newline-position inc)
+                       (-> 0))
+               (-> nil))))
+
+(defn next-line-position
+  ; @description
+  ; Returns the first cursor position of the next line of a specific cursor position in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (integer) cursor
+  ;
+  ; @return (integer)
+  [n cursor]
+  (let [n      (str n)
+        cursor (seqable/normalize-cursor n cursor)]
+       (if-let [following-newline-position (clojure.string/index-of (subs n cursor) "\n")]
+               (-> following-newline-position inc (+ cursor))
+               (-> nil))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn containing-line
   ; @description
-  ; Returns the containing line where the given cursor position falls within.
+  ; Returns the containing line where the given cursor position falls within the given 'n' value (converted to string).
   ;
   ; @param (*) n
   ; @param (integer) cursor

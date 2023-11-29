@@ -172,9 +172,11 @@
 (def update-first-item    update/update-first-item)
 (def update-last-item     update/update-last-item)
 (def update-nth-item      update/update-nth-item)
+(def update-all-items     update/update-all-items)
 (def update-first-item-by update/update-first-item-by)
 (def update-last-item-by  update/update-last-item-by)
 (def update-nth-item-by   update/update-nth-item-by)
+(def update-items-by      update/update-items-by)
 
 ; vector.walk
 (def ->items         walk/->items)
