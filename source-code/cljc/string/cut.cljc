@@ -3,7 +3,7 @@
     (:require [clojure.string]
               [math.api      :as math]
               [seqable.api   :as seqable]
-              [string.indent :as indent]
+              [string.inline :as inline]
               [string.set    :as set]))
 
 ;; ----------------------------------------------------------------------------
@@ -109,10 +109,10 @@
          end   (seqable/normalize-cursor n (-> end (or (count n))))]
         (if-not keep-inline-position? (str (subs n 0 (min start end))
                                            (subs n   (max start end)))
-                                      (indent/fix-inline-position (str (subs n 0 (min start end))
+                                      (inline/fix-inline-position (str (subs n 0 (min start end))
                                                                        (subs n   (max start end)))
                                                                   (min start end)
-                                                                  (indent/inline-position n (max start end)))))))
+                                                                  (inline/inline-position n (max start end)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

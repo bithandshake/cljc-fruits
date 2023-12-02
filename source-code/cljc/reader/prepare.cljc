@@ -20,11 +20,11 @@
   [n]
   (letfn [; Removes the first '#object[...]' part from the given string.
           ; Returns NIL in case of no part has been found and removed!
-          (remove-object-f [%] (if-let [open-pos (string/first-dex-of % "#object[")]
-                                       (if-let [close-pos (string/first-dex-of % "]" open-pos)]
-                                               (str (string/keep-range % 0 open-pos)
+          (remove-object-f [%] (if-let [open-position (string/first-dex-of % "#object[")]
+                                       (if-let [close-position (string/first-dex-of % "]" open-position)]
+                                               (str (string/keep-range % 0 open-position)
                                                     ":object-removed-by-reader"
-                                                    (string/keep-range % (inc close-pos))))))
+                                                    (string/keep-range % (inc close-position))))))
 
           ; Calls the 'remove-object-f' function recursivelly if an object has been removed (= the function returned the updated string).
           ; Returns the given string if the 'remove-object-f' returned NIL (= no part has been found and removed).

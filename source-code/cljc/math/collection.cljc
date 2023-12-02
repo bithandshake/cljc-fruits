@@ -22,7 +22,7 @@
   ; =>
   ; 0
   ;
-  ; @return (nil or number)
+  ; @return (number)
   [n]
   (letfn [(f0 [[sum count] x]
               (if (number? x)
@@ -49,7 +49,7 @@
   ; =>
   ; nil
   ;
-  ; @return (nil or number)
+  ; @return (number)
   [n]
   (apply min n))
 
@@ -71,7 +71,7 @@
   ; =>
   ; nil
   ;
-  ; @return (nil or number)
+  ; @return (number)
   [n]
   (apply max n))
 

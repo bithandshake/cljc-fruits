@@ -232,6 +232,9 @@
   [n]
   (clojure.string/replace (str n) #"[\r\n]" ""))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn line-count
   ; @description
   ; Returns the count of newlines in the given string.

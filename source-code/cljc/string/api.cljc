@@ -10,8 +10,8 @@
               [string.cut     :as cut]
               [string.dex     :as dex]
               [string.filter  :as filter]
+              [string.inline  :as inline]
               [string.insert  :as insert]
-              [string.indent  :as indent]
               [string.length  :as length]
               [string.lines   :as lines]
               [string.nth     :as nth]
@@ -93,10 +93,13 @@
 ; string.filter
 (def filter-characters filter/filter-characters)
 
-; string.indent
-(def inline-position        indent/inline-position)
-(def position-indent-length indent/position-indent-length)
-(def fix-inline-position    indent/fix-inline-position)
+; string.inline
+(def inline-position      inline/inline-position)
+(def left-spacing-length  inline/left-spacing-length)
+(def right-spacing-length inline/right-spacing-length)
+(def left-indent-length   inline/left-indent-length)
+(def right-indent-length  inline/right-indent-length)
+(def fix-inline-position  inline/fix-inline-position)
 
 ; string.insert
 (def prefix      insert/prefix)

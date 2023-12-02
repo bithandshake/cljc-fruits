@@ -29,7 +29,7 @@
 (def add                 core/add)
 (def subtract            core/subtract)
 (def multiply            core/multiply)
-(def avarage             core/avarage)
+(def average             core/average)
 (def circum              core/circum)
 (def power               core/power)
 (def floor               core/floor)

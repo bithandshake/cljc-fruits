@@ -1,10 +1,11 @@
 
 (ns layout.api
-    (:require [layout.columns :as columns]))
+    (:require [layout.table :as table]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; layout.columns
-(def column-count  columns/column-count)
-(def columns-width columns/columns-width)
+; layout.table
+(def column-count  table/column-count)
+(def columns-width table/columns-width)
+(def row-count     table/row-count)
