@@ -100,9 +100,9 @@
   ;
   ; @return (vector)
   [n th f & params]
-  (if (and (check/nonempty? n)
-           (seqable/dex-in-bounds? n th))
-      (apply update n th f params)
+  (if (check/nonempty? n)
+      (let [th (seqable/normalize-dex n th)]
+           (apply update n th f params))
       (-> n)))
 
 (defn update-all-items

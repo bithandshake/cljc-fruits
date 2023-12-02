@@ -106,7 +106,8 @@
   ;
   ; @return (*)
   [n f th]
-  (if (check/nonempty? n)
+  (if (and (check/nonempty? n)
+           (nat-int? th))
       (letfn [(f0 [dex match-count]
                   (if (-> n (nth dex) f)
                       (cond (-> th  (= match-count))

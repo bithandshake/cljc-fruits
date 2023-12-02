@@ -78,11 +78,13 @@
   ;
   ; @return (vector)
   [n th]
-  (letfn [(f0 [result dex item]
-              (if (= dex th)
-                  (conj result item item)
-                  (conj result item)))]
-         (reduce-kv f0 [] n)))
+  (if (vector? n)
+      (let [th (seqable/normalize-dex n th)]
+           (letfn [(f0 [result dex item]
+                       (if (= dex th)
+                           (conj result item item)
+                           (conj result item)))]
+                  (reduce-kv f0 [] n)))))
 
 (defn duplicate-nth-items
   ; @param (vector) n

@@ -53,12 +53,11 @@
   [n x th]
   (let [n (str n)
         x (re-pattern x)]
-       (when (>= th 0)
-             (letfn [(f0 [cursor skip]
-                         (if-let [first-dex (-> n (string/keep-range cursor)
-                                                  (first-dex-of x))]
-                                 (if (= skip th)
-                                     (+ cursor first-dex)
-                                     (f0 (+ first-dex cursor 1)
-                                         (inc skip)))))]
-                    (f0 0 0)))))
+       (if (nat-int? th)
+           (loop [cursor 0 skip 0]
+                 (if-let [first-dex (-> n (string/keep-range cursor)
+                                          (first-dex-of x))]
+                         (if (= skip th)
+                             (+ cursor first-dex)
+                             (recur (+ first-dex cursor 1)
+                                    (inc skip))))))))

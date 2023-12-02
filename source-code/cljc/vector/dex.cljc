@@ -63,7 +63,8 @@
   ;
   ; @return (integer)
   [n x th]
-  (if (check/nonempty? n)
+  (if (and (check/nonempty? n)
+           (nat-int? th))
       (letfn [(f0 [dex match-count]
                   (cond (seqable/dex-out-of-bounds? n dex) (-> nil)
                         (-> x (not= (nth n dex)))          (f0 (inc dex) match-count)
@@ -131,7 +132,8 @@
   ;
   ; @return (integer)
   [n test-f th]
-  (if (check/nonempty? n)
+  (if (and (check/nonempty? n)
+           (nat-int? th))
       (letfn [(f0 [dex match-count]
                   (cond (seqable/dex-out-of-bounds? n dex) (-> nil)
                         (-> n (nth dex) test-f not)        (f0 (inc dex) match-count)
