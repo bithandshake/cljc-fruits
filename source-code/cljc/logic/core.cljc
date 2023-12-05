@@ -6,7 +6,7 @@
 
 (defn =?
   ; @description
-  ; If 'a' is equal 'b', then returns 'c', else returns 'd'.
+  ; If 'a' is equal to 'b', then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -27,7 +27,7 @@
 
 (defn not=?
   ; @description
-  ; If 'a' is NOT equal 'b', then returns 'c', else returns 'd'.
+  ; If 'a' is NOT equal to 'b', then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -48,7 +48,7 @@
 
 (defn if-or
   ; @description
-  ; If 'a' or 'b' is true, then returns 'c', else returns 'd'.
+  ; If 'a' or 'b' is TRUE, then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -69,7 +69,7 @@
 
 (defn if-and
   ; @description
-  ; If 'a' and 'b' is true, then returns 'c', else returns 'd'.
+  ; If 'a' and 'b' is TRUE, then returns 'c', else returns 'd'.
   ;
   ; @param (*) a
   ; @param (*) b
@@ -90,7 +90,7 @@
 
 (defn nor
   ; @description
-  ; Returns true if all the parameters are false.
+  ; Returns TRUE if all the given parameters are FALSE.
   ;
   ; @param (list of *) abc
   ;
@@ -115,7 +115,7 @@
 
 (defn nor=
   ; @description
-  ; Returns true if 'a' is not equal to any other parameter, false otherwise.
+  ; Returns TRUE if 'a' is not equal to any other parameter, FALSE otherwise.
   ;
   ; @param (*) a
   ; @param (list of *) bcd
@@ -141,7 +141,7 @@
 
 (defn or=
   ; @description
-  ; Returns true if 'a' is equal to any other parameter, false otherwise.
+  ; Returns TRUE if 'a' is equal to any other parameter, FALSE otherwise.
   ;
   ; @param (*) a
   ; @param (list of *) bcd
