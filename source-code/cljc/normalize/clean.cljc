@@ -1,7 +1,8 @@
 
 (ns normalize.clean
-    (:require #?(:cljs ["normalize-diacritics" :refer [normalizeSync]])
-              [clojure.string]))
+    #?(:clj  (:require [clojure.string])
+       :cljs (:require [clojure.string]
+                       ["normalize-diacritics" :refer [normalizeSync]])))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

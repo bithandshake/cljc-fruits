@@ -1,9 +1,11 @@
 
 (ns reader.read
-    (:require #?(:cljs [cljs.reader :as reader])
-              #?(:clj  [clojure.edn :as edn])
-              [reader.prepare :as prepare]
-              [string.api     :as string]))
+    #?(:clj  (:require [clojure.edn    :as edn]
+                       [reader.prepare :as prepare]
+                       [string.api     :as string])
+       :cljs (:require [cljs.reader    :as reader]
+                       [reader.prepare :as prepare]
+                       [string.api     :as string])))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
