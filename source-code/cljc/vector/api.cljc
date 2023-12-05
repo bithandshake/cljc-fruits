@@ -179,6 +179,7 @@
 (def update-items-by      update/update-items-by)
 
 ; vector.walk
-(def ->items         walk/->items)
-(def ->items-indexed walk/->items-indexed)
-(def ->>items        walk/->>items)
+(def ->items          walk/->items)
+(def ->items-indexed  walk/->items-indexed)
+(def ->>items         walk/->>items)
+(def ->>items-indexed walk/->>items-indexed)

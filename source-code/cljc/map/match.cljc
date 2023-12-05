@@ -6,8 +6,24 @@
 ;; ----------------------------------------------------------------------------
 
 (defn every-key?
+  ; @description
+  ; Returns TRUE if the given 'f' function returns TRUE for every key in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (function) f
+  ;
+  ; @usage
+  ; (every-key? {:a "A" :b "B"} keyword?)
+  ;
+  ; @example
+  ; (every-key? {:a "A" :b "B"} keyword?)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (every-key? {:a "A" :b "B" "c" "C"} keyword?)
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n f]
@@ -15,7 +31,7 @@
 
 (defn any-key-matches?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE with any key of the given 'n' map as its parameter.
+  ; Returns TRUE if the given 'test-f' function returns TRUE for any key of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) test-f
@@ -40,7 +56,7 @@
 
 (defn any-value-matches?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE with any value of the given 'n' map as its parameter.
+  ; Returns TRUE if the given 'test-f' function returns TRUE for any value of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) test-f
@@ -68,7 +84,7 @@
 
 (defn all-keys-match?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE with all keys of the given 'n' map as its parameter.
+  ; Returns TRUE if the given 'test-f' function returns TRUE for all keys of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) test-f
@@ -93,7 +109,7 @@
 
 (defn all-values-match?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE with all values of the given 'n' map as its parameter.
+  ; Returns TRUE if the given 'test-f' function returns TRUE for all values of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) test-f
@@ -124,7 +140,7 @@
   ; Clojure maps are unordered data structures.
   ;
   ; @description
-  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied to the corresponding value of the key.
+  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied on the corresponding value of the key.
   ;
   ; @param (map) n
   ; @param (function) test-f
@@ -156,7 +172,7 @@
   ; Clojure maps are unordered data structures.
   ;
   ; @description
-  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied to all keys of the 'n' map.
+  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied on all keys of the 'n' map.
   ;
   ; @param (map) n
   ; @param (function) test-f

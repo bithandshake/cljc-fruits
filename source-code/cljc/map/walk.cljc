@@ -7,11 +7,15 @@
 
 (defn ->keys
   ; @description
-  ; - Applies the given 'update-f' function on each key of the given 'n' map.
-  ; - The 'update-f' function takes a key as parameter.
+  ; - Applies the given 'f' function on each key of the given 'n' map.
+  ; - The 'f' function takes a key and optionally the corresponding value as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->keys {"a" "A" "b" "B"} keyword)
@@ -22,17 +26,25 @@
   ; {"a" "A" "b" "B"}
   ;
   ; @return (map)
-  [n update-f]
-  (letfn [(f0 [%1 %2 %3] (assoc %1 (update-f %2) %3))]
-         (reduce-kv f0 {} n)))
+  ([n f]
+   (->keys n f {}))
+
+  ([n f {:keys [provide-value?]}]
+   (letfn [(f0 [  k v] (if provide-value? (f k v) (f k)))
+           (f1 [r k v] (assoc r (f0 k v) v))]
+          (reduce-kv f1 {} n))))
 
 (defn ->>keys
   ; @description
-  ; - Applies the given 'update-f' function on each key of the given 'n' map (recursivelly).
-  ; - The 'update-f' function takes a key as parameter.
+  ; - Applies the given 'f' function on each key of the given 'n' map (recursivelly).
+  ; - The 'f' function takes a key and optionally the corresponding value as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->>keys {:a "A" :b [{:c "C"}]} name)
@@ -43,21 +55,28 @@
   ; {"a" "A" "b" "B" "c" [{"d" "D"}]}
   ;
   ; @return (map)
-  [n update-f]
-  ; The recursion DOES NOT apply the 'update-f' function on vector items,
-  ; because vector items are equivalents with map values not with map keys!
-  (letfn [(f0 [n] (cond (vector? n) (reduce    #(conj  %1               (f0 %2)) [] n)
-                        (map?    n) (reduce-kv #(assoc %1 (update-f %2) (f0 %3)) {} n)
-                        :return  n))]
-         (f0 n)))
+  ([n f]
+   (->>keys n f {}))
+
+  ([n f {:keys [provide-value?]}]
+   ; DOES NOT apply the 'f' function on vector items, because vector items are equivalents to map values and NOT to map keys!
+   (letfn [(f0 [k v] (if provide-value? (f k v) (f v)))
+           (f1 [r]   (cond (vector? r) (reduce    #(conj  %1            (f1 %2)) [] r)
+                           (map?    r) (reduce-kv #(assoc %1 (f0 %2 %3) (f1 %3)) {} r)
+                           :return  r))]
+          (f1 n))))
 
 (defn ->values
   ; @description
-  ; - Applies the given 'update-f' function on each value of the given 'n' map.
-  ; - The 'update-f' function takes a value as parameter.
+  ; - Applies the given 'f' function on each value of the given 'n' map.
+  ; - The 'f' function takes a value and optionally the corresponding key as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @example
   ; (->values {:a "A" :b "B"} keyword)
@@ -65,17 +84,28 @@
   ; {:a :A :b :B}
   ;
   ; @return (map)
-  [n update-f]
-  (letfn [(f0 [result k v] (assoc result k (update-f v)))]
-         (reduce-kv f0 {} n)))
+  ([n f]
+   (->values n f {}))
+
+  ([n f {:keys [provide-key?]}]
+   (letfn [(f0 [  k v] (if provide-key? (f k v) (f v)))
+           (f1 [r k v] (assoc r k (f0 k v)))]
+          (reduce-kv f1 {} n))))
 
 (defn ->>values
   ; @description
-  ; - Applies the given 'update-f' function on each value of the given 'n' map (recursivelly).
-  ; - The 'update-f' function takes a value as parameter.
+  ; - Applies the given 'f' function on each value of the given 'n' map (recursivelly).
+  ; - The 'f' function takes a value and optionally the corresponding key or path as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   Default: false
+  ;  :provide-path? (boolean)(opt)
+  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->>values {:a "A" :b ["C"]} keyword)
@@ -86,23 +116,33 @@
   ; {:a :A :b :B :c [:d :e {:f :F}]}
   ;
   ; @return (map)
-  [n update-f]
-  ; The recursion applies the 'update-f' function on vector items as well,
-  ; because vector items are equivalents with map values!
-  (letfn [(f0 [n] (cond (map?    n) (reduce-kv #(assoc %1 %2 (f0 %3)) {} n)
-                        (vector? n) (reduce    #(conj  %1    (f0 %2)) [] n)
-                        :return     (update-f n)))]
-         (f0 n)))
+  ([n f]
+   (->>values n f {}))
+
+  ([n f {:keys [provide-key? provide-path?]}]
+   ; Applies the 'f' function on vector items as well, because vector items are equivalents to map values!
+   (letfn [(f0 [p v] (if provide-key? (f (last p) v) (if provide-path? (f p v) (f v))))
+           (f1 [p v] (cond (map?    v) (reduce-kv #(assoc %1 %2 (f1 (conj p %2) %3)) {} v)
+                           (vector? v) (reduce-kv #(conj  %1    (f1 (conj p %2) %3)) [] v)
+                           :return     (f0 p v)))]
+          (f1 [] n))))
 
 (defn ->kv
   ; @description
   ; - Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map.
-  ; - The 'k-f' function takes a key as parameter.
-  ;   The 'v-f' function takes a value as parameter.
+  ; - The 'k-f' function takes a key and optionally the corresponding value as parameter(s).
+  ;   The 'v-f' function takes a value and optionally the corresponding key as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) k-f
   ; @param (function) v-f
+  ; @param (map)(opt) options
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key also to the given 'v-f' function.
+  ;   Default: false
+  ;  :provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value also to the given 'k-f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->kv {:a 1} name inc)
@@ -113,19 +153,34 @@
   ; {"a" 2 "b" 3}
   ;
   ; @return (map)
-  [n k-f v-f]
-  (letfn [(f0 [%1 %2 %3] (assoc %1 (k-f %2) (v-f %3)))]
-         (reduce-kv f0 {} n)))
+  ([n k-f v-f]
+   (->kv n k-f v-f {}))
+
+  ([n k-f v-f {:keys [provide-key? provide-value?]}]
+   (letfn [(f0 [  k v] (if provide-value? (k-f k v) (k-f k)))
+           (f1 [  k v] (if provide-key?   (v-f k v) (v-f v)))
+           (f2 [r k v] (assoc r (f0 k v) (f1 k v)))]
+          (reduce-kv f2 {} n))))
 
 (defn ->>kv
   ; @description
   ; - Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map (recursivelly).
-  ; - The 'k-f' function takes a key as parameter.
-  ;   The 'v-f' function takes a value as parameter.
+  ; - The 'k-f' function takes a key and optionally the corresponding value as parameter(s).
+  ;   The 'v-f' function takes a value and optionally the corresponding key or path as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) k-f
   ; @param (function) v-f
+  ; @param (map)(opt) options
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key also to the given 'v-f' function.
+  ;   Default: false
+  ;  :provide-path? (boolean)(opt)
+  ;   If TRUE, provides the corresponding path also to the given 'v-f' function.
+  ;   Default: false
+  ;  :provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value also to the given 'k-f' function.
+  ;   Default: false}
   ;
   ; @example
   ; (->>kv {"a" "A" "b" ["C"]} keyword keyword)
@@ -136,13 +191,17 @@
   ; {:a :A :b :B :c [:D :E {:f :F}]}
   ;
   ; @return (map)
-  [n k-f v-f]
-  ; The recursion applies the 'v-f' function on vector items as well,
-  ; because vector items are equivalents with map values!
-  (letfn [(f0 [n] (cond (map?    n) (reduce-kv #(assoc %1 (k-f %2) (f0 %3)) {} n)
-                        (vector? n) (reduce    #(conj  %1          (f0 %2)) [] n)
-                        :return     (v-f n)))]
-         (f0 n)))
+  ([n k-f v-f]
+   (->>kv n k-f v-f {}))
+
+  ([n k-f v-f {:keys [provide-key? provide-path? provide-value?]}]
+   ; Applies the 'v-f' function on vector items as well, because vector items are equivalents to map values!
+   (letfn [(f0 [k v] (if provide-value? (k-f k v) (k-f k)))
+           (f1 [p v] (if provide-key?   (v-f (last p) v) (if provide-path? (v-f p v) (v-f v))))
+           (f2 [p v] (cond (map?    v) (reduce-kv #(assoc %1 (f0 %2 %3) (f2 (conj p %2) %3)) {} v)
+                           (vector? v) (reduce-kv #(conj  %1            (f2 (conj p %2) %3)) [] v)
+                           :return     (f1 p v)))]
+          (f2 [] n))))
 
 (defn ->remove-keys-by
   ; @description
@@ -229,8 +288,7 @@
   ;
   ; @return (map)
   [n r-f]
-  ; The recursion applies the 'f' function on vector items as well,
-  ; because vector items are equivalents with map values!
+  ; Applies the 'f' function on vector items as well, because vector items are equivalents to map values!
   (letfn [(f0 [n k x] (if   (r-f     x) n (assoc n k (f2 x))))
           (f1 [n   x] (if   (r-f     x) n (conj  n   (f2 x))))
           (f2 [n]     (cond (map?    n)   (reduce-kv f0 {} n)

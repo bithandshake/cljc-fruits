@@ -139,4 +139,4 @@
   ; @return (boolean)
   [n ks]
   (letfn [(f0 [%] (contains? n %))]
-         (boolean (every? ks f0))))
+         (every? ks f0)))

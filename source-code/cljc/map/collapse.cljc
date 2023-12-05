@@ -6,10 +6,9 @@
 
 (defn collapse
   ; @description
-  ; Flattens a nested map, converting its keys into separated strings,
-  ; optionally keywordizing keys, and providing options to control which keys
-  ; are collapsed. The result is a new map with flattened keys and their
-  ; associated values.
+  ; Flattens the given 'n' nested map, converting its paths into dot-separated keys,
+  ; optionally keywordizing keys, and providing options to control which paths
+  ; are collapsed.
   ;
   ; @param (*) n
   ; @param (map)(opt) options

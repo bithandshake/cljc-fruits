@@ -6,11 +6,15 @@
 
 (defn ->items
   ; @description
-  ; - Applies the given 'update-f' function on each item of the given 'n' vector.
-  ; - The 'update-f' function takes an item as parameter.
+  ; - Applies the given 'f' function on each item of the given 'n' vector.
+  ; - The 'f' function takes an item and optionally the corresponding index as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt)
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->items [0 1 2] inc)
@@ -21,17 +25,21 @@
   ; ["a" "b" "c"]
   ;
   ; @return (vector)
-  [n update-f]
-  (letfn [(f0 [%1 %2] (conj %1 (update-f %2)))]
-         (reduce f0 [] n)))
+  ([n f]
+   (->items n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (letfn [(f0 [  dex x] (if provide-dex? (f dex x) (f x)))
+           (f1 [r dex x] (conj r (f0 dex x)))]
+          (reduce-kv f1 [] n))))
 
 (defn ->items-indexed
   ; @description
-  ; - Applies the given 'update-f' function on each item of the given 'n' vector.
-  ; - The 'update-f' function takes an item and its index as parameters.
+  ; - Applies the given 'f' function on each item of the given 'n' vector.
+  ; - The 'f' function takes an item and the corresponding index as parameters.
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
   ;
   ; @usage
   ; (->items-indexed [0 1 2] (fn [dex %] (inc %)))
@@ -42,19 +50,26 @@
   ; ["a" "b" "c"]
   ;
   ; @return (vector)
-  [n update-f]
-  (letfn [(f0 [%1 %2 %3] (conj %1 (update-f %2 %3)))]
-         (reduce-kv f0 [] n)))
+  [n f]
+  (->items n f {:provide-dex? true}))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn ->>items
-  ; - Applies the given 'update-f' function on each item of the given 'n' vector (recursivelly).
-  ; - The 'update-f' function takes an item as parameter.
+  ; @description
+  ; - Applies the given 'f' function on each item of the given 'n' vector (recursivelly).
+  ; - The 'f' function takes an item and optionally the corresponding index or path as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ; @param (map)(opt)
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   Default: false
+  ;  :provide-path? (boolean)(opt)
+  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (->>items [0 1 2 [3 4 {:x 6}]] inc)
@@ -65,20 +80,33 @@
   ; ["a" "b" "c" ["d" "e" {:e "f"}]]
   ;
   ; @return (vector)
-  [n update-f]
-  ; The recursion applies the 'update-f' function on values of maps also,
-  ; because they are equivalents of items in vectors.
-  (letfn [(f0 [n] (cond (vector? n) (reduce    #(conj  %1    (f0 %2)) [] n)
-                        (map?    n) (reduce-kv #(assoc %1 %2 (f0 %3)) {} n)
-                        :return     (update-f n)))]
-         (f0 n)))
+  ([n f]
+   (->>items n f {}))
+
+  ([n f {:keys [provide-dex? provide-path?]}]
+   ; Applies the 'f' function on values of maps also, because they are equivalents to items in vectors.
+   (letfn [(f0 [p x] (if provide-dex? (f (last p) x) (if provide-path? (f p x) (f x))))
+           (f1 [p x] (cond (vector? x) (reduce-kv #(conj  %1    (f1 (conj p %2) %3)) [] x)
+                           (map?    x) (reduce-kv #(assoc %1 %2 (f1 (conj p %2) %3)) {} x)
+                           :return     (f0 p x)))]
+          (f1 [] n))))
 
 (defn ->>items-indexed
-  ; - Applies the given 'update-f' function on each item of the given 'n' vector (recursivelly).
-  ; - The 'update-f' function takes an item and its index as parameter.
+  ; @description
+  ; - Applies the given 'f' function on each item of the given 'n' vector (recursivelly).
+  ; - The 'f' function takes an item and the corresponding index as parameter(s).
   ;
   ; @param (map) n
-  ; @param (function) update-f
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (->>items-indexed [0 1 2 [3 4 {:x 6}]] (fn [dex %] (inc %)))
+  ;
+  ; @example
+  ; (->>items-indexed [:a :b :c [:d :e {:e :f}]] (fn [dex %] (name %)))
+  ; =>
+  ; ["a" "b" "c" ["d" "e" {:e "f"}]]
   ;
   ; @return (vector)
-  [n update-f])
+  [n f]
+  (->>items n f {:provide-dex? true}))

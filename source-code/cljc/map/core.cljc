@@ -8,7 +8,8 @@
 
 (defn swap
   ; @description
-  ; Swaps the keys and values in a map, generating a new map with the values as keys and the keys as values.
+  ; Swaps the keys and values in the given 'n' map.
+  ; Returns a new map with the values as keys and the keys as values.
   ;
   ; @param (map) n
   ;

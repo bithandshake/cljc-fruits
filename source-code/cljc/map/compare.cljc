@@ -7,8 +7,8 @@
 
 (defn difference
   ; @description
-  ; Computes the difference between two maps, returning key-value pairs that are
-  ; present in the first map but not in the second map.
+  ; Computes the difference between the given 'a' and 'b' maps, returning key-value
+  ; pairs that are present in the 'a' map but not in the 'b' map.
   ;
   ; @param (map) a
   ; @param (map) b
