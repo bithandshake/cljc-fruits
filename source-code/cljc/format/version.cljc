@@ -54,7 +54,7 @@
                                         (-> n number/remove-leading-zeros (mixed/update-whole-number inc)
                                                                           (number/leading-zeros (count n)))
                                         ; If the 'n' string contains only "9" digits before the increasing,
-                                        ; an offset has to be applied on the positions of delimiters,
+                                        ; an offset must be applied on the positions of delimiters,
                                         ; otherwise "9.9" might be followed by "1.00" instead of "10.0".
                                         (if (re-match? n #"^[9]{1,}$")
                                             (-> separators (vector/->items inc))

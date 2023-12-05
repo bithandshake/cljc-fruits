@@ -242,10 +242,10 @@
   ; @return (vector)
   [n x]
   ; BUG#1130
-  ; The shadow-cljs protects the 'inc' function from receiving nil as a parameter.
-  ; The 'first-dex-of' function returns through a when condition, therefore
-  ; without using the (if (number? item-dex) ...) condition, the shadow-cljs
-  ; throws the following error message:
+  ; The ShadowCLJS protects the 'inc' function from receiving a NIL value as parameter.
+  ; The 'first-dex-of' function returns through a when condition.
+  ; Therefore, without using the '(if (number? item-dex) ...)' condition, the ShadowCLJS
+  ; would throw the following error message:
   ; "cljs.core/+, all arguments must be numbers, got [#{nil clj-nil} number] instead"
   (if-let [item-dex (dex/first-dex-of n x)]
           (if (number? item-dex)

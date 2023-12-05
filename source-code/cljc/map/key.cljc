@@ -1,7 +1,6 @@
 
 (ns map.key
-    (:refer-clojure :exclude [keys])
-    (:require [loop.api :refer [reduce-pairs]]))
+    (:refer-clojure :exclude [keys]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -94,10 +93,10 @@
 
 (defn contains-any-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains any value associated to a key from the given 'keys' vector.
+  ; Returns TRUE if the given 'n' map contains any value associated to a key from the given 'ks' vector.
   ;
   ; @param (map) n
-  ; @param (* in vector) keys
+  ; @param (* in vector) ks
   ;
   ; @usage
   ; (contains-any-key? {:a "A" :b "B"} [:a])
@@ -118,16 +117,16 @@
   ; false
   ;
   ; @return (boolean)
-  [n keys]
+  [n ks]
   (letfn [(f0 [%] (contains? n %))]
-         (boolean (some f0 keys))))
+         (boolean (some f0 ks))))
 
 (defn contains-all-keys?
   ; @description
-  ; Returns TRUE if the given 'n' map contains all values associated to a key from the given 'keys' vector.
+  ; Returns TRUE if the given 'n' map contains all values associated to a key from the given 'ks' vector.
   ;
   ; @param (map) n
-  ; @param (* in vector) keys
+  ; @param (* in vector) ks
   ;
   ; @usage
   ; (contains-all-keys? {:a "A" :b "B"} [:a :b])
@@ -138,65 +137,6 @@
   ; true
   ;
   ; @return (boolean)
-  [n keys]
+  [n ks]
   (letfn [(f0 [%] (contains? n %))]
-         (boolean (every? keys f0))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn rekey-item
-  ; @description
-  ; Renames the given 'original-key' key in the given 'n' map to the 'renamed-key' value.
-  ;
-  ; @param (map) n
-  ; @param (*) original-key
-  ; @param (*) renamed-key
-  ;
-  ; @usage
-  ; (rekey-item {:a "A"} :a :b)
-  ;
-  ; @example
-  ; (rekey-item {:a "A"} :a :b)
-  ; =>
-  ; {:b "A"}
-  ;
-  ; @example
-  ; (rekey-item {:a "A"} :c :d)
-  ; =>
-  ; {:a "A"}
-  ;
-  ; @return (map)
-  [n original-key renamed-key]
-  (if (contains? n original-key)
-      (dissoc (assoc n renamed-key (get n original-key)) original-key)
-      (-> n)))
-
-(defn rekey-items
-  ; @description
-  ; Renames the given keys (odd items in the 'key-pairs' vector) in the given 'n' map
-  ; to their new names (even items in the 'key-pairs' vector).
-  ;
-  ; @param (map) n
-  ; @param (list of * pairs) key-pairs
-  ;
-  ; @usage
-  ; (rekey-items {:a "A" :b "B"} :a :x :b :y)
-  ;
-  ; @example
-  ; (rekey-items {:a "A" :b "B"} :a :x :b :y)
-  ; =>
-  ; {:x "A" :y "B"}
-  ;
-  ; @example
-  ; (rekey-items {:a "A" :b "B"} :c :z)
-  ; =>
-  ; {:a "A" :b "B"}
-  ;
-  ; @return (map)
-  [n & key-pairs]
-  (letfn [(f0 [n original-key renamed-key]
-              (if (contains? n original-key)
-                  (dissoc (assoc n renamed-key (get n original-key)) original-key)
-                  (-> n)))]
-         (reduce-pairs f0 n key-pairs)))
+         (boolean (every? ks f0))))

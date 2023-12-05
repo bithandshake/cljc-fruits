@@ -42,7 +42,7 @@
   ;
   ; @return (string)
   [phone-number]
-  ; The 'phone-number' has to be converted to a string (it might be an integer)!
+  ; The 'phone-number' must be converted to a string (it might be an integer)!
   (if (-> phone-number str string/nonempty?)
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 

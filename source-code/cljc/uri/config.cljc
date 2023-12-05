@@ -16,9 +16,9 @@
 ; @constant (regex pattern)
 ; BUG#6610
 ; If the scheme part is missing from the URI, the part before the first ":"
-; character might be a hostname, and the part right after the ":" character
+; character might be a hostname, and the part right after the ':' character
 ; might be a port!
-; To determine whether the part before the first ":" character is a scheme
+; To determine whether the part before the first ':' character is a scheme
 ; or a hostname the functions use a strict scheme pattern, which cannot be
 ; matched with a hostname.
 (def STRICT-SCHEME-PATTERN #"[a-zA-Z\-\d]{1,8}")
@@ -27,15 +27,15 @@
 ;
 ; The subdomain part ...
 ; ... is not necessary.
-; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
-; ... has to be min. 1 char long!
-; ... must end with a "." char!
+; ... can contains lowercase letters, uppercase letters and/or digits and the '-' char.
+; ... must be min. 1 char long!
+; ... must end with a '.' char!
 ; The domain part ...
-; ... can contains lowercase letters, uppercase letters and/or digits and the "-" char.
-; ... has to be min. 1 char long!
-; ... must end with a "." char!
+; ... can contains lowercase letters, uppercase letters and/or digits and the '-' char.
+; ... must be min. 1 char long!
+; ... must end with a '.' char!
 ; The TLD part ...
 ; ... can contains lowercase and/or uppercase letters
-; ... has to be min. 1 char long!
+; ... must be min. 1 char long!
 ; The trailing slash is allowed but not necessary!
 (def DOMAIN-PATTERN #"([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")

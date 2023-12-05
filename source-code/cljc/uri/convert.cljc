@@ -31,7 +31,7 @@
   ; Schemes and hostnames are case-insensitive.
   (cond
         ; If the URI contains a double-slash ("http://my-domain.com/my-path"),
-        ; the path part starts from the 3rd "/" character.
+        ; the path part starts from the 3rd '/' character.
         (and (string/contains-part? n "//")
              (string/nth-dex-of     n "/" 3))
         (let [dex (string/nth-dex-of n "/" 3)]
@@ -40,7 +40,7 @@
                   (-> n (string/keep-range dex))))
 
         ; If the URI does NOT contain a double-slash ("my-domain.com/my-path"),
-        ; the path part starts from the 1st "/" character.
+        ; the path part starts from the 1st '/' character.
         (string/contains-part? n "/")
         (str (-> n (string/before-first-occurence "/" {:return? false})
                    (string/to-lowercase))
@@ -127,8 +127,8 @@
   [n]
   ; The 'to-nonschemed' function removes the scheme part of the URI, the ":"
   ; character right after the scheme part and the "//" part (if necessary).
-  ; By removing the scheme part and its ":" character from the URI, it makes
-  ; easier to determine the meaning of the other ":" characters.
+  ; By removing the scheme part and its ':' character from the URI, it makes
+  ; easier to determine the meaning of the other ':' characters.
   ;
   ; BUG#6610 (source-code/cljc/uri/config.cljc)
   (if-let [scheme (to-scheme n)]
@@ -265,8 +265,8 @@
   ; or might be placed in the query part as a special character.
   ; "ftp://user@my-domain.com"
   ; "https://my-domain.com?my-query=@hello"
-  ; Cutting the part before the first "@" character has to happen after the
-  ; tail has been removed!
+  ; Cutting the part before the first '@' character must happen after the tail
+  ; has been removed!
   (-> (to-nonschemed n)
       (string/to-lowercase)
       (string/after-first-occurence  "www." {:return? true})

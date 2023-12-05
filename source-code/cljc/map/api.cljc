@@ -36,6 +36,8 @@
 (def dissoc-in core/dissoc-in)
 (def toggle    core/toggle)
 (def toggle-in core/toggle-in)
+(def move      core/move)
+(def move-in   core/move-in)
 (def get-by    core/get-by)
 (def assoc-by  core/assoc-by)
 (def dissoc-by core/dissoc-by)
@@ -50,8 +52,6 @@
 (def first-key         key/first-key)
 (def contains-key?     key/contains-key?)
 (def contains-any-key? key/contains-any-key?)
-(def rekey-item        key/rekey-item)
-(def rekey-items       key/rekey-items)
 
 ; map.match
 (def any-key-matches?     match/any-key-matches?)

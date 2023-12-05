@@ -62,12 +62,9 @@
   ; @return (*)
   [n f]
   (if (check/nonempty? n)
-      (letfn [(f0 [dex]
-                  (cond (-> n (nth dex) f)
-                        (-> n (nth dex))
-                        (-> dex (< (-> n count dec)))
-                        (-> dex inc f0)))]
-             (f0 0))))
+      (loop [dex 0]
+            (cond (-> n (nth dex) f)            (-> n (nth dex))
+                  (-> dex (< (-> n count dec))) (-> dex inc recur)))))
 
 (defn last-match
   ; @param (vector) n
@@ -84,12 +81,9 @@
   ; @return (*)
   [n f]
   (if (check/nonempty? n)
-      (letfn [(f0 [dex]
-                  (cond (-> n (nth dex) f)
-                        (-> n (nth dex))
-                        (-> dex (not= 0))
-                        (-> dex dec f0)))]
-             (f0 (-> n count dec)))))
+      (loop [dex (-> n count dec)]
+            (cond (-> n (nth dex) f) (-> n (nth dex))
+                  (-> dex (not= 0))  (-> dex dec recur)))))
 
 (defn nth-match
   ; @param (vector) n
@@ -108,16 +102,15 @@
   [n f th]
   (if (and (check/nonempty? n)
            (nat-int? th))
-      (letfn [(f0 [dex match-count]
-                  (if (-> n (nth dex) f)
-                      (cond (-> th  (= match-count))
-                            (-> n   (nth dex))
-                            (-> dex (< (-> n count dec)))
-                            (f0 (inc dex)
-                                (inc match-count)))
-                      (cond (-> dex (< (-> n count dec)))
-                            (f0 (inc dex) match-count))))]
-             (f0 0 0))))
+      (loop [dex 0 match-count 0]
+            (if (-> n (nth dex) f)
+                (cond (-> th  (= match-count))
+                      (-> n   (nth dex))
+                      (-> dex (< (-> n count dec)))
+                      (recur (inc dex)
+                             (inc match-count)))
+                (cond (-> dex (< (-> n count dec)))
+                      (recur (inc dex) match-count))))))
 
 (defn match-count
   ; @param (vector) n

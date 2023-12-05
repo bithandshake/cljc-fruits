@@ -122,7 +122,7 @@
   ; - Returns TRUE if the given value is a valid phone number.
   ; - A phone number is declared as valid if ...
   ;   ... its length is in a certain domain,
-  ;   ... its first character is a "+" character.
+  ;   ... its first character is a '+' character.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min

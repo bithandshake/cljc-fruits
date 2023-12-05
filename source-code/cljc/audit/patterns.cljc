@@ -118,7 +118,7 @@
   ; - Returns a regex pattern that matches valid phone numbers.
   ; - A phone number is declared as valid if ...
   ;   ... its length is in a certain domain,
-  ;   ... its first letter is a "+" character.
+  ;   ... its first letter is a '+' character.
   ;
   ; @param (integer)(opt) min
   ; Default: 4

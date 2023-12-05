@@ -273,7 +273,7 @@
   ; @return (*)
   [n]
   ; This function uses the 'unkeywordize-key' function that only changes keyword
-  ; type values, therefore no need to use further type-checking in this function.
+  ; type values. Therefore, no need to use further type-checking in this function.
   (cond (map?    n) (map/->>keys      n unkeywordize-keys)
         (vector? n) (vector/->items   n unkeywordize-keys)
         :return     (unkeywordize-key n)))
@@ -420,7 +420,7 @@
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
   ; This function uses the 'unkeywordize-value' function that only changes keyword
-  ; type values, therefore no need to use further type-checking in this function.
+  ; type values. Therefore, no need to use further type-checking in this function.
   (cond (map?    n) (map/->>values      n unkeywordize-values)
         (vector? n) (vector/->items     n unkeywordize-values)
         :return     (unkeywordize-value n)))
@@ -441,7 +441,7 @@
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
   ; This function uses the 'keywordize-value' function that only changes string
-  ; type values, therefore no need to use further type-checking in this function.
+  ; type values. Therefore, no need to use further type-checking in this function.
   (cond (map?    n) (map/->>values    n keywordize-values)
         (vector? n) (vector/->items   n keywordize-values)
         :return     (keywordize-value n)))

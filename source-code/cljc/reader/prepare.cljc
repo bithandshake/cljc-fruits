@@ -32,8 +32,8 @@
                                         (-> % remove-objects-f)
                                         (-> %)))]
 
-         ; The 'cljs.reader/read-string' function would throw the following error if the EDN contains an unknown object as tag,
-         ; therefore this function removes objects from the given EDN.
+         ; The 'cljs.reader/read-string' function would throw the following error if the EDN contained an unknown object as tag.
+         ; Therefore, this function removes the objects from the given EDN data.
          ; #error {:message No reader function for tag object., :data {:type :reader-exception, :ex-kind :reader-error}}
          (-> n remove-objects-f)))
 
