@@ -9,7 +9,6 @@
               [vector.count   :as count]
               [vector.cut     :as cut]
               [vector.dex     :as dex]
-              [vector.filter  :as filter]
               [vector.insert  :as insert]
               [vector.item    :as item]
               [vector.match   :as match]
@@ -88,9 +87,6 @@
 (def last-dex-by  dex/last-dex-by)
 (def nth-dex-by   dex/nth-dex-by)
 
-; vector.filter
-(def filter-items filter/filter-items)
-
 ; vector.insert
 (def insert-item insert/insert-item)
 
@@ -134,7 +130,6 @@
 (def remove-item-once       remove/remove-item-once)
 (def remove-items           remove/remove-items)
 (def remove-items-by        remove/remove-items-by)
-(def remove-items-kv        remove/remove-items-kv)
 (def remove-duplicates      remove/remove-duplicates)
 (def remove-first-occurence remove/remove-first-occurence)
 (def keep-items             remove/keep-items)
@@ -172,7 +167,7 @@
 (def update-first-item    update/update-first-item)
 (def update-last-item     update/update-last-item)
 (def update-nth-item      update/update-nth-item)
-(def update-all-items     update/update-all-items)
+(def update-all-item      update/update-all-item)
 (def update-first-item-by update/update-first-item-by)
 (def update-last-item-by  update/update-last-item-by)
 (def update-nth-item-by   update/update-nth-item-by)

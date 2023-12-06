@@ -29,8 +29,8 @@
    (->items n f {}))
 
   ([n f {:keys [provide-dex?]}]
-   (letfn [(f0 [  dex x] (if provide-dex? (f dex x) (f x)))
-           (f1 [r dex x] (conj r (f0 dex x)))]
+   (letfn [(f0 [       dex x] (if provide-dex? (f dex x) (f x)))
+           (f1 [result dex x] (conj result (f0 dex x)))]
           (reduce-kv f1 [] n))))
 
 (defn ->items-indexed
@@ -85,10 +85,10 @@
 
   ([n f {:keys [provide-dex? provide-path?]}]
    ; Applies the 'f' function on values of maps also, because they are equivalents to items in vectors.
-   (letfn [(f0 [p x] (if provide-dex? (f (last p) x) (if provide-path? (f p x) (f x))))
-           (f1 [p x] (cond (vector? x) (reduce-kv #(conj  %1    (f1 (conj p %2) %3)) [] x)
-                           (map?    x) (reduce-kv #(assoc %1 %2 (f1 (conj p %2) %3)) {} x)
-                           :return     (f0 p x)))]
+   (letfn [(f0 [path x] (if provide-dex? (f (last path) x) (if provide-path? (f path x) (f x))))
+           (f1 [path x] (cond (vector? x) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] x)
+                              (map?    x) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} x)
+                              :return     (f0 path x)))]
           (f1 [] n))))
 
 (defn ->>items-indexed

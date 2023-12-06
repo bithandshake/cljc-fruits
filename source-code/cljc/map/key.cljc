@@ -121,7 +121,7 @@
   (letfn [(f0 [%] (contains? n %))]
          (boolean (some f0 ks))))
 
-(defn contains-all-keys?
+(defn contains-all-key?
   ; @description
   ; Returns TRUE if the given 'n' map contains all values associated to a key from the given 'ks' vector.
   ;
@@ -129,10 +129,10 @@
   ; @param (* in vector) ks
   ;
   ; @usage
-  ; (contains-all-keys? {:a "A" :b "B"} [:a :b])
+  ; (contains-all-key? {:a "A" :b "B"} [:a :b])
   ;
   ; @example
-  ; (contains-all-keys? {:a "A" :b "B"} [:a :b])
+  ; (contains-all-key? {:a "A" :b "B"} [:a :b])
   ; =>
   ; true
   ;

@@ -38,6 +38,8 @@
 (def toggle-in core/toggle-in)
 (def move      core/move)
 (def move-in   core/move-in)
+(def copy      core/copy)
+(def copy-in   core/copy-in)
 (def get-by    core/get-by)
 (def assoc-by  core/assoc-by)
 (def dissoc-by core/dissoc-by)
@@ -52,6 +54,7 @@
 (def first-key         key/first-key)
 (def contains-key?     key/contains-key?)
 (def contains-any-key? key/contains-any-key?)
+(def contains-all-key? key/contains-all-key?)
 
 ; map.match
 (def any-key-matches?     match/any-key-matches?)
@@ -97,7 +100,3 @@
 (def ->>values           walk/->>values)
 (def ->kv                walk/->kv)
 (def ->>kv               walk/->>kv)
-(def ->remove-keys-by    walk/->remove-keys-by)
-(def ->>remove-keys-by   walk/->>remove-keys-by)
-(def ->remove-values-by  walk/->remove-values-by)
-(def ->>remove-values-by walk/->>remove-values-by)

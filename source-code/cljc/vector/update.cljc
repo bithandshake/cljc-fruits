@@ -105,7 +105,7 @@
            (apply update n th f params))
       (-> n)))
 
-(defn update-all-items
+(defn update-all-item
   ; @description
   ; Updates all items in the given 'n' vector with the given 'f' function and passes the given parameters to the applied function.
   ;
@@ -114,20 +114,20 @@
   ; @param (list of *)(opt) params
   ;
   ; @usage
-  ; (update-all-items [:a :b :c] name)
+  ; (update-all-item [:a :b :c] name)
   ;
   ; @example
-  ; (update-all-items [:a :b :c] name)
+  ; (update-all-item [:a :b :c] name)
   ; =>
   ; ["a" "b" "c"]
   ;
   ; @example
-  ; (update-all-items [:a :b :c] #(-> :x))
+  ; (update-all-item [:a :b :c] #(-> :x))
   ; =>
   ; [:x :x :x]
   ;
   ; @example
-  ; (update-all-items [1 2 3] + 10)
+  ; (update-all-item [1 2 3] + 10)
   ; =>
   ; [11 12 13]
   ;

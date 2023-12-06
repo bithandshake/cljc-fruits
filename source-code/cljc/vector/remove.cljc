@@ -1,6 +1,7 @@
 
 (ns vector.remove
-    (:require [vector.contain :as contain]
+    (:require [seqable.api :as seqable]
+              [vector.contain :as contain]
               [vector.dex     :as dex]))
 
 ;; ----------------------------------------------------------------------------
@@ -19,9 +20,6 @@
   ;
   ; @return (vector)
   [n]
-  ;(if (check/nonempty? n)
-  ;    (subvec          n 1)
-  ;    (->              [])])
   (vec (drop 1 n)))
 
 (defn remove-first-items
@@ -55,9 +53,6 @@
   ;
   ; @return (vector)
   [n]
-  ;(if (check/nonempty? n)
-  ;    (subvec          n 0 (-> n count dec))
-  ;    (->              [])])
   (-> n drop-last vec))
 
 (defn remove-last-items
@@ -122,30 +117,12 @@
   ;
   ; @return (vector)
   [n x]
-  (let [count (count n)]
-       (letfn [(f0 [dex]
-                   (cond ; If the dex is the highest index in the vector, and the element being examined
-                         ; matches the element to be deleted...
-                         (and (= dex count)
-                              (= x (nth n dex)))
-                         ; ... it deletes the last element from the vector.
-                         (subvec n 0 (-> n count dec))
-                         ; If the dex is the highest index in the vector, and the examined element
-                         ; does NOT match the element to be deleted...
-                         (= dex count)
-                         ; ... it returns the vector without making any changes.
-                         (-> n)
-                         ; If the dex is NOT the highest index in the vector and
-                         ; the examined element matches the element to be deleted...
-                         (= x (nth n dex))
-                         ; ... it deletes the element from the vector.
-                         (vec (concat (subvec n 0 dex)
-                                      (subvec n (inc dex))))
-                         ; If the dex is NOT the highest index in the vector and the examined
-                         ; element does NOT match the element to be deleted...
-                         :else
-                         (-> dex inc f0)))]
-              (f0 0))))
+  (loop [dex 0]
+        (cond (seqable/dex-out-of-bounds? n dex) (-> n)
+              (not= x (nth n dex))               (-> dex inc recur)
+              :return (vec (concat (subvec n 0 dex)
+                                   (if-not (seqable/dex-last? n dex)
+                                           (subvec n (inc dex))))))))
 
 (defn remove-items
   ; @param (vector) n
@@ -166,11 +143,6 @@
   ;
   ; @return (vector)
   [n xyz]
-  ;(letfn [(f0 [result x]
-  ;            (if (contain/contains-item? xyz x)
-  ;                (->                   result)
-  ;                (conj                 result x)))]
-  ;       (reduce f0 [] n))
   (vec (remove (set xyz) n)))
 
 (defn remove-items-by
@@ -193,21 +165,6 @@
                   (conj result x)))]
          (reduce f0 [] n)))
 
-(defn remove-items-kv
-  ; @param (maps in vector) n
-  ; @param (*) k
-  ; @param (*) v
-  ;
-  ; @example
-  ; (remove-items-kv [{:a "a"} {:b "b"} {:c "c"}] :b "b")
-  ; =>
-  ; [{:a "a"} {:c "c"}]
-  ;
-  ; @return (maps in vector)
-  [n k v]
-  (letfn [(f0 [%] (= (k %) v))]
-         (vec (remove f0 n))))
-
 (defn remove-duplicates
   ; @param (vector) n
   ;
@@ -222,9 +179,9 @@
   ; @return (vector)
   [n]
   (letfn [(f0 [result x]
-              (if (contain/contains-item? result x)
-                  (->   result)
-                  (conj result x)))]
+              (if (-> result (contain/contains-item? x))
+                  (-> result)
+                  (-> result (conj x))))]
          (reduce f0 [] n)))
 
 (defn remove-first-occurence
@@ -271,9 +228,9 @@
   ; @return (vector)
   [n xyz]
   (letfn [(f0 [result x]
-              (if (contain/contains-item? xyz x)
-                  (conj result x)
-                  (->   result)))]
+              (if (-> xyz    (contain/contains-item? x))
+                  (-> result (conj                   x))
+                  (-> result)))]
          (reduce f0 [] n)))
 
 (defn keep-items-by
@@ -291,7 +248,7 @@
   ; @return (vector)
   [n f]
   (letfn [(f0 [result x]
-              (if (f x)
-                  (conj result x)
-                  (->   result)))]
+              (if (-> x f)
+                  (-> result (conj x))
+                  (-> result)))]
          (reduce f0 [] n)))
