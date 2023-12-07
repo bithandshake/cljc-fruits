@@ -9,21 +9,21 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; keyword.check
+; @redirect (keyword.check)
 (def namespaced?    check/namespaced?)
 (def nonnamespaced? check/nonnamespaced?)
 
-; keyword.convert
+; @redirect (keyword.convert)
 (def to-string convert/to-string)
 
-; keyword.core
+; @redirect (keyword.core)
 (def join   core/join)
 (def append core/append)
 
-; keyword.name
+; @redirect (keyword.name)
 (def get-name name/get-name)
 
-; keyword.namespace
+; @redirect (keyword.namespace)
 (def add-namespace    namespace/add-namespace)
 (def get-namespace    namespace/get-namespace)
 (def remove-namespace namespace/remove-namespace)

@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; eql.core
+; @redirect (eql.core)
 (def id->document-link   core/id->document-link)
 (def document-link->id   core/document-link->id)
 (def id->document-entity core/id->document-entity)
@@ -14,6 +14,6 @@
 (def id->placeholder     core/id->placeholder)
 (def append-to-query     core/append-to-query)
 
-; eql.type
+; @redirect (eql.type)
 (def document-link?   type/document-link?)
 (def document-entity? type/document-entity?)

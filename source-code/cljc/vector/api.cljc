@@ -25,24 +25,24 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; vector.check
+; @redirect (vector.check)
 (def empty?    check/empty?)
 (def nonempty? check/nonempty?)
 
-; vector.compare
+; @redirect (vector.compare)
 (def similars           compare/similars)
 (def contains-similars? compare/contains-similars?)
 (def difference         compare/difference)
 
-; vector.contain
+; @redirect (vector.contain)
 (def contains-item?     contain/contains-item?)
 (def not-contains-item? contain/not-contains-item?)
 
-; vector.convert
+; @redirect (vector.convert)
 (def from-subvec convert/from-subvec)
 (def to-map      convert/to-map)
 
-; vector.core
+; @redirect (vector.core)
 (def cons-item         core/cons-item)
 (def cons-item-once    core/cons-item-once)
 (def conj-item         core/conj-item)
@@ -52,13 +52,13 @@
 (def concat-items-once core/concat-items-once)
 (def toggle-item       core/toggle-item)
 
-; vector.count
+; @redirect (vector.count)
 (def count-min? count/count-min?)
 (def count-max? count/count-max?)
 (def longer?    count/longer?)
 (def count?     count/count?)
 
-; vector.cut
+; @redirect (vector.cut)
 (def keep-range             cut/keep-range)
 (def cut-range              cut/cut-range)
 (def keep-last-items        cut/keep-last-items)
@@ -82,7 +82,7 @@
 (def to-last-occurence      cut/to-last-occurence)
 (def to-last-match          cut/to-last-match)
 
-; vector.dex
+; @redirect (vector.dex)
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
 (def nth-dex-of   dex/nth-dex-of)
@@ -90,17 +90,17 @@
 (def last-dex-by  dex/last-dex-by)
 (def nth-dex-by   dex/nth-dex-by)
 
-; vector.insert
+; @redirect (vector.insert)
 (def insert-item insert/insert-item)
 
-; vector.item
+; @redirect (vector.item)
 (def last-item   item/last-item)
 (def first-item  item/first-item)
 (def only-item?  item/only-item?)
 (def item-last?  item/item-last?)
 (def item-first? item/item-first?)
 
-; vector.match
+; @redirect (vector.match)
 (def any-item-matches? match/any-item-matches?)
 (def all-items-match?  match/all-items-match?)
 (def first-match       match/first-match)
@@ -108,7 +108,7 @@
 (def nth-match         match/nth-match)
 (def match-count       match/match-count)
 
-; vector.move
+; @redirect (vector.move)
 (def move-nth-item        move/move-nth-item)
 (def move-nth-item-bwd    move/move-nth-item-bwd)
 (def move-nth-item-fwd    move/move-nth-item-fwd)
@@ -116,7 +116,7 @@
 (def move-item-to-first   move/move-item-to-first)
 (def move-first-occurence move/move-first-occurence)
 
-; vector.nth
+; @redirect (vector.nth)
 (def nth-item            nth/nth-item)
 (def remove-nth-item     nth/remove-nth-item)
 (def remove-nth-items    nth/remove-nth-items)
@@ -124,7 +124,7 @@
 (def duplicate-nth-items nth/duplicate-nth-items)
 (def replace-nth-item    nth/replace-nth-item)
 
-; vector.remove
+; @redirect (vector.remove)
 (def remove-first-item      remove/remove-first-item)
 (def remove-first-items     remove/remove-first-items)
 (def remove-last-item       remove/remove-last-item)
@@ -138,12 +138,12 @@
 (def keep-items             remove/keep-items)
 (def keep-items-by          remove/keep-items-by)
 
-; vector.replace
+; @redirect (vector.replace)
 (def replace-item       replace/replace-item)
 (def replace-first-item replace/replace-first-item)
 (def replace-last-item  replace/replace-last-item)
 
-; vector.set
+; @redirect (vector.set)
 (def flat-items   set/flat-items)
 (def sum-items    set/sum-items)
 (def sum-items-by set/sum-items-by)
@@ -152,7 +152,7 @@
 (def suffix-items set/suffix-items)
 (def repeat-item  set/repeat-item)
 
-; vector.sort
+; @redirect (vector.sort)
 (def reverse-items          sort/reverse-items)
 (def abc-items              sort/abc-items)
 (def sort-items             sort/sort-items)
@@ -162,11 +162,11 @@
 (def sorted-dexes           sort/sorted-dexes)
 (def compared-items-sorted? sort/compared-items-sorted?)
 
-; vector.step
+; @redirect (vector.step)
 (def prev-item step/prev-item)
 (def next-item step/next-item)
 
-; vector.update
+; @redirect (vector.update)
 (def update-first-item    update/update-first-item)
 (def update-last-item     update/update-last-item)
 (def update-nth-item      update/update-nth-item)
@@ -176,7 +176,7 @@
 (def update-nth-item-by   update/update-nth-item-by)
 (def update-items-by      update/update-items-by)
 
-; vector.walk
+; @redirect (vector.walk)
 (def ->items          walk/->items)
 (def ->items-indexed  walk/->items-indexed)
 (def ->>items         walk/->>items)

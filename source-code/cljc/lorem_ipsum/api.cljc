@@ -5,6 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; lorem-ipsum.content
+; @redirect (lorem-ipsum.content)
 (def SHORT content/SHORT)
 (def LONG  content/LONG)

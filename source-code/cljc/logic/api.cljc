@@ -6,11 +6,11 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; logic.check
+; @redirect (logic.check)
 (def nontrue?  check/nontrue?)
 (def nonfalse? check/nonfalse?)
 
-; logic.core
+; @redirect (logic.core)
 (def =?     core/=?)
 (def not=?  core/not=?)
 (def if-or  core/if-or)

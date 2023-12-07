@@ -10,17 +10,17 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; seqable.check
+; @redirect (seqable.check)
 (def nonseqable? check/nonseqable?)
 (def empty?      check/empty?)
 (def nonempty?   check/nonempty?)
 (def cursor?     check/cursor?)
 (def dex?        check/dex?)
 
-; seqable.count
+; @redirect (seqable.count)
 (def count-difference count/count-difference)
 
-; seqable.cursor
+; @redirect (seqable.cursor)
 (def normalize-cursor      cursor/normalize-cursor)
 (def cursor-in-bounds?     cursor/cursor-in-bounds?)
 (def cursor-out-of-bounds? cursor/cursor-out-of-bounds?)
@@ -34,7 +34,7 @@
 (def inc-cursor            cursor/inc-cursor)
 (def dec-cursor            cursor/dec-cursor)
 
-; seqable.dex
+; @redirect (seqable.dex)
 (def normalize-dex      dex/normalize-dex)
 (def dex-in-bounds?     dex/dex-in-bounds?)
 (def dex-out-of-bounds? dex/dex-out-of-bounds?)
@@ -49,5 +49,5 @@
 (def inc-dex            dex/inc-dex)
 (def dec-dex            dex/dec-dex)
 
-; seqable.path
+; @redirect (seqable.path)
 (def dynamic-path path/dynamic-path)

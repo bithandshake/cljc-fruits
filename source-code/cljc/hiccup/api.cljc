@@ -10,30 +10,30 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; hiccup.attributes
+; @redirect (hiccup.attributes)
 (def get-attributes attributes/get-attributes)
 (def get-style      attributes/get-style)
 (def set-style      attributes/set-style)
 (def join-class     attributes/join-class)
 (def value          attributes/value)
 
-; hiccup.content
+; @redirect (hiccup.content)
 (def content-length content/content-length)
 
-; hiccup.convert
+; @redirect (hiccup.convert)
 (def to-string convert/to-string)
 
-; hiccup.parse
+; @redirect (hiccup.parse)
 (def parse-css        parse/parse-css)
 (def unparse-css      parse/unparse-css)
 (def parse-newlines   parse/parse-newlines)
 (def unparse-newlines parse/unparse-newlines)
 
-; hiccup.type
+; @redirect (hiccup.type)
 (def hiccup?   type/hiccup?)
 (def tag-name? type/tag-name?)
 
-; hiccup.walk
+; @redirect (hiccup.walk)
 (def walk             walk/walk)
 (def explode          walk/explode)
 (def put              walk/put)

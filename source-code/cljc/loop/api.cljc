@@ -5,7 +5,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; loop.core
+; @redirect (loop.core)
 (def <-walk            core/<-walk)
 (def reduce-kv-indexed core/reduce-kv-indexed)
 (def reduce-range      core/reduce-range)

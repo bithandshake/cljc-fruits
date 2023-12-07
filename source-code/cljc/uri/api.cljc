@@ -9,10 +9,10 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; uri.check
+; @redirect (uri.check)
 (def url-path-template-matches? check/url-path-template-matches?)
 
-; uri.convert
+; @redirect (uri.convert)
 (def to-lowercase        convert/to-lowercase)
 (def to-scheme           convert/to-scheme)
 (def to-nonschemed       convert/to-nonschemed)
@@ -32,13 +32,13 @@
 (def to-url-query-params convert/to-url-query-params)
 (def to-encoded-url      convert/to-encoded-url)
 
-; uri.core
+; @redirect (uri.core)
 (def use-url-query-string core/use-url-query-string)
 
-; uri.query
+; @redirect (uri.query)
 (def url-query-params->url-query-string query/url-query-params->url-query-string)
 (def url-query-string->url-query-params query/url-query-string->url-query-params)
 
-; uri.valid
+; @redirect (uri.valid)
 (def valid-url      valid/valid-url)
 (def valid-url-path valid/valid-url-path)

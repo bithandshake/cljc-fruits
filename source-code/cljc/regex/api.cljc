@@ -11,10 +11,10 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; regex.check
+; @redirect (regex.check)
 (def pattern? check/pattern?)
 
-; regex.core
+; @redirect (regex.core)
 (def starts-with?     core/starts-with?)
 (def ends-with?       core/ends-with?)
 (def not-starts-with? core/not-starts-with?)
@@ -26,7 +26,7 @@
 (def not-starts-at?   core/not-starts-at?)
 (def not-ends-at?     core/not-ends-at?)
 
-; regex.cut
+; @redirect (regex.cut)
 (def before-first-match cut/before-first-match)
 (def before-last-match  cut/before-last-match)
 (def after-first-match  cut/after-first-match)
@@ -36,12 +36,12 @@
 (def to-first-match     cut/to-first-match)
 (def to-last-match      cut/to-last-match)
 
-; regex.dex
+; @redirect (regex.dex)
 (def first-dex-of dex/first-dex-of)
 (def last-dex-of  dex/last-dex-of)
 (def nth-dex-of   dex/nth-dex-of)
 
-; regex.match
+; @redirect (regex.match)
 (def re-count     match/re-count)
 (def re-return    match/re-return)
 (def re-first     match/re-first)
@@ -51,9 +51,9 @@
 (def re-from      match/re-from)
 (def re-to        match/re-to)
 
-; regex.remove
+; @redirect (regex.remove)
 (def remove-first-match remove/remove-first-match)
 (def remove-last-match  remove/remove-last-match)
 
-; regex.replace
+; @redirect (regex.replace)
 (def replace-match replace/replace-match)

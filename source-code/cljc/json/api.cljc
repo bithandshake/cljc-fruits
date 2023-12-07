@@ -4,7 +4,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; json.core
+; @redirect (json.core)
 (def json->clj            core/json->clj)
 (def unkeywordize-key     core/unkeywordize-key)
 (def keywordize-key       core/keywordize-key)

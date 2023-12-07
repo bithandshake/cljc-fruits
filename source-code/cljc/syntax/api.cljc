@@ -6,11 +6,11 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; syntax.convert
+; @redirect (syntax.convert)
 (def to-snake-case convert/to-snake-case)
 (def ToCamelCase   convert/ToCamelCase)
 
-; syntax.core
+; @redirect (syntax.core)
 (def paren   core/paren)
 (def brace   core/brace)
 (def bracket core/bracket)

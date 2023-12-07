@@ -10,22 +10,22 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; math.check
+; @redirect (math.check)
 (def negative?    check/negative?)
 (def positive?    check/positive?)
 (def nonnegative? check/nonnegative?)
 
-; math.collection
+; @redirect (math.collection)
 (def collection-average collection/collection-average)
 (def collection-minimum collection/collection-minimum)
 (def collection-maximum collection/collection-maximum)
 (def minimum            collection/minimum)
 (def maximum            collection/maximum)
 
-; math.config
+; @redirect (math.config)
 (def PI config/PI)
 
-; math.core
+; @redirect (math.core)
 (def add                 core/add)
 (def subtract            core/subtract)
 (def multiply            core/multiply)
@@ -43,14 +43,14 @@
 (def between?            core/between?)
 (def between!            core/between!)
 
-; math.domain
+; @redirect (math.domain)
 (def domain-inchoate domain/domain-inchoate)
 (def domain-floor    domain/domain-floor)
 (def domain-ceil     domain/domain-ceil)
 (def choose          domain/choose)
 (def calc            domain/calc)
 
-; math.percent
+; @redirect (math.percent)
 (def percent->angle percent/percent->angle)
 (def percent        percent/percent)
 (def percent-result percent/percent-result)

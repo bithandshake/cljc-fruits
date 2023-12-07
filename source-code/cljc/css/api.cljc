@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; css.candy
+; @redirect (css.candy)
 (def calc               candy/calc)
 (def fr                 candy/fr)
 (def ms                 candy/ms)
@@ -33,6 +33,6 @@
 (def vertical-margin    candy/vertical-margin)
 (def linear-gradient    candy/linear-gradient)
 
-; css.parse
+; @redirect (css.parse)
 (def unparse parse/unparse)
 (def parse   parse/parse)

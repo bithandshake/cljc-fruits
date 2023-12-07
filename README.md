@@ -73,7 +73,7 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 - Mathematical constants and functions in the [`math.api`](documentation/cljc/math/API.md) namespace.
 
-- Utility functions for flexible types (e.g. integers in string, etc.) [`mixed.api`](documentation/cljc/mixed/API.md) namespace.
+- Utility functions for flexible types (e.g., integers in string, etc.) [`mixed.api`](documentation/cljc/mixed/API.md) namespace.
 
 - Clojure namespace functions in the [`namespace.api`](documentation/cljc/namespace/API.md) namespace.
 

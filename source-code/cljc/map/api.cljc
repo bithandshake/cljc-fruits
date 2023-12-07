@@ -19,20 +19,20 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; map.check
+; @redirect (map.check)
 (def empty?    check/empty?)
 (def nonempty? check/nonempty?)
 
-; map.collapse
+; @redirect (map.collapse)
 (def collapse collapse/collapse)
 
-; map.compare
+; @redirect (map.compare)
 (def difference compare/difference)
 
-; map.convert
+; @redirect (map.convert)
 (def to-vector convert/to-vector)
 
-; map.core
+; @redirect (map.core)
 (def swap      core/swap)
 (def dissoc-in core/dissoc-in)
 (def toggle    core/toggle)
@@ -46,10 +46,10 @@
 (def dissoc-by core/dissoc-by)
 (def update-by core/update-by)
 
-; map.filter
+; @redirect (map.filter)
 (def filter-values filter/filter-values)
 
-; map.key
+; @redirect (map.key)
 (def keys              key/keys)
 (def keys-by           key/keys-by)
 (def first-key         key/first-key)
@@ -57,7 +57,7 @@
 (def contains-any-key? key/contains-any-key?)
 (def contains-all-key? key/contains-all-key?)
 
-; map.match
+; @redirect (map.match)
 (def any-key-matches?     match/any-key-matches?)
 (def any-value-matches?   match/any-value-matches?)
 (def all-keys-match?      match/all-keys-match?)
@@ -67,12 +67,12 @@
 (def first-matching-value match/first-matching-value)
 (def matches-pattern?     match/matches-pattern?)
 
-; map.merge
+; @redirect (map.merge)
 (def deep-merge     merge/deep-merge)
 (def reversed-merge merge/reversed-merge)
 (def merge-some     merge/merge-some)
 
-; map.namespace
+; @redirect (map.namespace)
 (def namespace        namespace/namespace)
 (def namespaced?      namespace/namespaced?)
 (def add-namespace    namespace/add-namespace)
@@ -80,7 +80,7 @@
 (def assoc-ns         namespace/assoc-ns)
 (def get-ns           namespace/get-ns)
 
-; map.remove
+; @redirect (map.remove)
 (def remove-key       remove/remove-key)
 (def remove-keys      remove/remove-keys)
 (def remove-keys-by   remove/remove-keys-by)
@@ -94,19 +94,19 @@
 (def keep-values      remove/keep-values)
 (def keep-values-by   remove/keep-values-by)
 
-; map.update
+; @redirect (map.update)
 (def update-all-key   update/update-all-key)
 (def update-all-value update/update-all-value)
 (def update-keys-by   update/update-keys-by)
 (def update-values-by update/update-values-by)
 
-; map.value
+; @redirect (map.value)
 (def values          value/values)
 (def first-value     value/first-value)
 (def contains-value? value/contains-value?)
 (def values-equal?   value/values-equal?)
 
-; map.walk
+; @redirect (map.walk)
 (def ->keys              walk/->keys)
 (def ->>keys             walk/->>keys)
 (def ->values            walk/->values)

@@ -6,11 +6,11 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; alphabet.abc
+; @redirect (alphabet.abc)
 (def GREEK abc/GREEK)
 (def NATO  abc/NATO)
 (def EN    abc/EN)
 
-; alphabet.convert
+; @redirect (alphabet.convert)
 (def integer->lowercase convert/integer->lowercase)
 (def integer->uppercase convert/integer->uppercase)

@@ -7,7 +7,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; audit.check
+; @redirect (audit.check)
 (def email-address-valid? check/email-address-valid?)
 (def ip-address-valid?    check/ip-address-valid?)
 (def latin-name-valid?    check/latin-name-valid?)
@@ -18,12 +18,12 @@
 (def user-agent-valid?    check/user-agent-valid?)
 (def username-valid?      check/username-valid?)
 
-; audit.generate
+; @redirect (audit.generate)
 (def generate-password      generate/generate-password)
 (def generate-pin-code      generate/generate-pin-code)
 (def generate-security-code generate/generate-security-code)
 
-; audit.patterns
+; @redirect (audit.patterns)
 (def email-address-pattern patterns/email-address-pattern)
 (def ip-address-pattern    patterns/ip-address-pattern)
 (def latin-name-pattern    patterns/latin-name-pattern)
