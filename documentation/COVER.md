@@ -34,7 +34,7 @@ Functional documentation of the [cljc-fruits](https://github.com/bithandshake/cl
 * [layout.api](cljc/layout/API.md)
 * [logic.api](cljc/logic/API.md)
 * [loop.api](cljc/loop/API.md)
-* [map.api](cljc/map/API.md)
+* [fruits.map.api](cljc/map/API.md)
 * [math.api](cljc/math/API.md)
 * [mixed.api](cljc/mixed/API.md)
 * [namespace.api](cljc/namespace/API.md)
