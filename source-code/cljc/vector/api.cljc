@@ -39,7 +39,8 @@
 (def not-contains-item? contain/not-contains-item?)
 
 ; vector.convert
-(def to-map convert/to-map)
+(def from-subvec convert/from-subvec)
+(def to-map      convert/to-map)
 
 ; vector.core
 (def cons-item         core/cons-item)
@@ -60,8 +61,10 @@
 ; vector.cut
 (def keep-range             cut/keep-range)
 (def cut-range              cut/cut-range)
-(def last-items             cut/last-items)
-(def first-items            cut/first-items)
+(def keep-last-items        cut/keep-last-items)
+(def keep-last-item         cut/keep-last-item)
+(def keep-first-items       cut/keep-first-items)
+(def keep-first-item        cut/keep-first-item)
 (def before-first-occurence cut/before-first-occurence)
 (def before-first-match     cut/before-first-match)
 (def before-last-occurence  cut/before-last-occurence)

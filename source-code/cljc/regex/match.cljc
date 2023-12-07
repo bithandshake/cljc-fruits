@@ -31,6 +31,36 @@
         x (re-pattern x)]
        (->> n (re-seq x) count)))
 
+(defn re-return
+  ; @description
+  ; Returns the given 'n' value (converted to string) if any match of the given 'x' pattern is found within it.
+  ;
+  ; @param (*) n
+  ; @param (regex pattern or string) x
+  ;
+  ; @usage
+  ; (re-return "123" #"\d{1,}")
+  ;
+  ; @example
+  ; (re-return "123" #"^[\d]{1,}$")
+  ; =>
+  ; "123"
+  ;
+  ; @example
+  ; (re-return "abc" #"^[\d]{1,}$")
+  ; =>
+  ; nil
+  ;
+  ; @return (string)
+  [n x]
+  (let [n (str n)
+        x (re-pattern x)]
+       (if (->> n (re-find x))
+           (->  n))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn re-first
   ; @description
   ; Returns the first match of the given 'x' pattern in the given 'n' value (converted to string).
@@ -91,32 +121,8 @@
         x (re-pattern x)]
        (->> n (re-seq x) last)))
 
-(defn re-match
-  ; @description
-  ; Returns the given 'n' value (converted to string) if any match of the given 'x' pattern is found.
-  ;
-  ; @param (*) n
-  ; @param (regex pattern or string) x
-  ;
-  ; @usage
-  ; (re-match "123" #"\d{1,}")
-  ;
-  ; @example
-  ; (re-match "123" #"^[\d]{1,}$")
-  ; =>
-  ; "123"
-  ;
-  ; @example
-  ; (re-match "abc" #"^[\d]{1,}$")
-  ; =>
-  ; nil
-  ;
-  ; @return (string)
-  [n x]
-  (let [n (str n)
-        x (re-pattern x)]
-       (if (->> n (re-find x))
-           (->  n))))
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn re-match?
   ; @description

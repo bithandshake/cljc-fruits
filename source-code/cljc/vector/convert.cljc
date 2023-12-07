@@ -4,6 +4,23 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn from-subvec
+  ; @description
+  ; Converts the given 'n' subvector into a vector.
+  ;
+  ; @param (subvec) n
+  ;
+  ; @usage
+  ; (from-subvec (subvec [:a :b :c] 1))
+  ;
+  ; @example
+  ; (from-subvec (subvec [:a :b :c] 1))
+  ; [:b :c]
+  ;
+  ; @return (vector)
+  [n]
+  (into [] n))
+
 (defn to-map
   ; @description
   ; Converts the given 'n' vector into a map.

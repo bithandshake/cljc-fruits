@@ -24,11 +24,6 @@
   ; ["a" :b :c]
   ;
   ; @example
-  ; (update-first-item [:a :b :c] #(-> :x))
-  ; =>
-  ; [:x :b :c]
-  ;
-  ; @example
   ; (update-first-item [1 2 3] + 10)
   ; =>
   ; [11 2 3]
@@ -54,11 +49,6 @@
   ; (update-last-item [:a :b :c] name)
   ; =>
   ; [:a :b "c"]
-  ;
-  ; @example
-  ; (update-last-item [:a :b :c] #(-> :x))
-  ; =>
-  ; [:a :b :x]
   ;
   ; @example
   ; (update-last-item [1 2 3] + 10)
@@ -89,11 +79,6 @@
   ; [:a "b" :c]
   ;
   ; @example
-  ; (update-nth-item [:a :b :c] 1 #(-> :x))
-  ; =>
-  ; [:a :x :c]
-  ;
-  ; @example
   ; (update-nth-item [1 2 3] 1 + 10)
   ; =>
   ; [1 12 3]
@@ -107,7 +92,7 @@
 
 (defn update-all-item
   ; @description
-  ; Updates all items in the given 'n' vector with the given 'f' function and passes the given parameters to the applied function.
+  ; Updates all item in the given 'n' vector with the given 'f' function and passes the given parameters to the applied function.
   ;
   ; @param (vector) n
   ; @param (function) f
@@ -120,11 +105,6 @@
   ; (update-all-item [:a :b :c] name)
   ; =>
   ; ["a" "b" "c"]
-  ;
-  ; @example
-  ; (update-all-item [:a :b :c] #(-> :x))
-  ; =>
-  ; [:x :x :x]
   ;
   ; @example
   ; (update-all-item [1 2 3] + 10)
@@ -161,11 +141,6 @@
   ; ["a" "b" :c :d]
   ;
   ; @example
-  ; (update-first-item-by ["a" :b :c :d] keyword? #(-> :x))
-  ; =>
-  ; ["a" :x :c :d]
-  ;
-  ; @example
   ; (update-first-item-by [1 2 3 4] even? + 10)
   ; =>
   ; [1 12 3 4]
@@ -195,11 +170,6 @@
   ; (update-last-item-by [:a :b :c "d"] keyword? name)
   ; =>
   ; [:a :b "c" "d"]
-  ;
-  ; @example
-  ; (update-last-item-by [:a :b :c "d"] keyword? #(-> :x))
-  ; =>
-  ; [:a :b :x "d"]
   ;
   ; @example
   ; (update-last-item-by [1 2 3 4] odd? + 10)
@@ -234,11 +204,6 @@
   ; ["a" :b "c" :d]
   ;
   ; @example
-  ; (update-nth-item-by ["a" :b :c :d] keyword? 1 #(-> :x))
-  ; =>
-  ; ["a" :b :x :d]
-  ;
-  ; @example
   ; (update-nth-item-by [1 2 3 4] even? 1 + 10)
   ; =>
   ; [1 2 3 14]
@@ -268,11 +233,6 @@
   ; (update-items-by [:a :b :c "d"] keyword? name)
   ; =>
   ; ["a" "b" "c" "d"]
-  ;
-  ; @example
-  ; (update-items-by [:a :b :c "d"] keyword? #(-> :x))
-  ; =>
-  ; [:x :x :x "d"]
   ;
   ; @example
   ; (update-items-by [1 2 3 4] even? + 10)

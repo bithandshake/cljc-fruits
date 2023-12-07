@@ -43,9 +43,9 @@
 
 ; regex.match
 (def re-count     match/re-count)
+(def re-return    match/re-return)
 (def re-first     match/re-first)
 (def re-last      match/re-last)
-(def re-match     match/re-match)
 (def re-match?    match/re-match?)
 (def re-mismatch? match/re-mismatch?)
 (def re-from      match/re-from)

@@ -41,20 +41,65 @@
             (subvec n from to)))))
 
 (defn cut-range
-  [])
+  ; @param (vector) n
+  ; @param (integer) from
+  ; @param (integer)(opt) to
+  ;
+  ; @usage
+  ; (cut-range [:a :b :c] 1 3)
+  ;
+  ; @usage
+  ; (cut-range [:a :b :c] 1)
+  ;
+  ; @example
+  ; (cut-range [:a :b :c :d :e :f] 1 3)
+  ; =>
+  ; [:a :d :e :f]
+  ;
+  ; @example
+  ; (cut-range [:a :b :c :d :e :f] 2)
+  ; =>
+  ; [:a :b]
+  ;
+  ; @return (vector)
+  [n from to]
+  (if (vector? n)
+      (let [from (seqable/normalize-cursor n (-> from))
+            to   (seqable/normalize-cursor n (-> to (or (count n))))
+            from (min from to)
+            to   (max from to)]
+           (vec (concat (subvec n 0 from)
+                        (subvec n to))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn first-items
+(defn keep-first-item
+  ; @param (vector) n
+  ;
+  ; @usage
+  ; (keep-first-item [:a :b :c])
+  ;
+  ; @example
+  ; (keep-first-item [:a :b :c])
+  ; =>
+  ; [:a]
+  ;
+  ; @return (vector)
+  [n]
+  (if (vector? n)
+      (if-let [first-item (-> n first)]
+              [first-item] [])))
+
+(defn keep-first-items
   ; @param (vector) n
   ; @param (integer) length
   ;
   ; @usage
-  ; (first-items [:a :b :c] 2)
+  ; (keep-first-items [:a :b :c :d :e] 2)
   ;
   ; @example
-  ; (first-items [:a :b :c :d :e] 3)
+  ; (keep-first-items [:a :b :c :d :e] 3)
   ; =>
   ; [:a :b :c]
   ;
@@ -64,15 +109,32 @@
       (let [length (seqable/normalize-cursor n length)]
            (subvec n 0 length))))
 
-(defn last-items
+(defn keep-last-item
+  ; @param (vector) n
+  ;
+  ; @usage
+  ; (keep-last-item [:a :b :c])
+  ;
+  ; @example
+  ; (keep-last-item [:a :b :c])
+  ; =>
+  ; [:c]
+  ;
+  ; @return (vector)
+  [n]
+  (if (vector? n)
+      (if-let [last-item (-> n last)]
+              [last-item] [])))
+
+(defn keep-last-items
   ; @param (vector) n
   ; @param (integer) length
   ;
   ; @usage
-  ; (last-items [:a :b :c] 2)
+  ; (keep-last-items [:a :b :c :d :e] 2)
   ;
   ; @example
-  ; (last-items [:a :b :c :d :e] 2)
+  ; (keep-last-items [:a :b :c :d :e] 2)
   ; =>
   ; [:d :e]
   ;

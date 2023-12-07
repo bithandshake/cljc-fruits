@@ -177,8 +177,8 @@
   ; @return (boolean)
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
-  (and    (string? n)
-       (> (count   n) 2)
+  (and (-> n string?)
+       (-> n count (> 2))
        (= config/KEYWORD-PREFIX (str (nth n 0)))
        (= ":"                   (str (nth n 1)))))
 
@@ -272,8 +272,8 @@
   ;
   ; @return (*)
   [n]
-  ; This function uses the 'unkeywordize-key' function that only changes keyword
-  ; type values. Therefore, no need to use further type-checking in this function.
+  ; This function uses the 'unkeywordize-key' function that changes only keyword
+  ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>keys      n unkeywordize-keys)
         (vector? n) (vector/->items   n unkeywordize-keys)
         :return     (unkeywordize-key n)))
@@ -419,8 +419,8 @@
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
-  ; This function uses the 'unkeywordize-value' function that only changes keyword
-  ; type values. Therefore, no need to use further type-checking in this function.
+  ; This function uses the 'unkeywordize-value' function that changes only keyword
+  ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values      n unkeywordize-values)
         (vector? n) (vector/->items     n unkeywordize-values)
         :return     (unkeywordize-value n)))
@@ -440,8 +440,8 @@
   [n]
   ; XXX#5914 (source-code/cljc/json/config.cljc)
   ;
-  ; This function uses the 'keywordize-value' function that only changes string
-  ; type values. Therefore, no need to use further type-checking in this function.
+  ; This function uses the 'keywordize-value' function that changes only string
+  ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values    n keywordize-values)
         (vector? n) (vector/->items   n keywordize-values)
         :return     (keywordize-value n)))
@@ -503,14 +503,14 @@
   ; @return (*)
   [n]
   ; This function calls itself recursively after it removes the blank values
-  ; from the given data, until it can't find more blank values.
-  ; E.g. If the given 'n' parameter has an item that is a vector that contains
-  ;      an empty map, after the first call of this function only the empty map
-  ;      is removed because the containing vector was not empty, but after removing
-  ;      the empty map from the vector, the vector is now empty and the second
-  ;      call of this function will remove the just emptied vector as well.
-  (letfn [(r-f [x] (vector/contains-item? [{} [] () nil ""] x))]
-         (let [result (map/->>remove-values-by n r-f)]
+  ; from the given data, until it can't find more blank values within it.
+  ; E.g., If the given 'n' value has any item that is a vector that contains
+  ;       an empty map, after the first call of this function, only the empty map
+  ;       would be removed, because the containing vector was not empty.
+  ;       But after removing the empty map from the vector, the vector gets empty
+  ;       and the recursive call of this function can remove the emptied vector as well.
+  (letfn [(f [x] (vector/contains-item? [{} [] () nil ""] x))]
+         (let [result (map/remove-values-by n f {:recur? true})]
               (if (-> result (= n))
                   (-> result)
                   (-> result remove-blank-values)))))

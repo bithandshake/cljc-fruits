@@ -1,7 +1,7 @@
 
 (ns uri.convert
     (:require [reader.api :as reader]
-              [regex.api  :refer [re-match]]
+              [regex.api  :refer [re-return]]
               [string.api :as string]
               [uri.config :as config]
               [uri.query  :as query]))
@@ -94,7 +94,7 @@
   ; ... schemes are case-insensitive, the canonical form is lowercase and documents
   ;     that specify schemes must do so with lowercase letters.
   (-> (string/before-first-occurence n ":" {:return? false})
-      (re-match config/STRICT-SCHEME-PATTERN)
+      (re-return config/STRICT-SCHEME-PATTERN)
       (string/to-lowercase)))
 
 (defn to-nonschemed
@@ -210,7 +210,7 @@
       (string/before-first-occurence "/" {:return? true})
       (string/before-first-occurence "?" {:return? true})
       (string/before-first-occurence "#" {:return? true})
-      (re-match config/PORT-PATTERN)))
+      (re-return config/PORT-PATTERN)))
 
 (defn to-domain
   ; @param (string) n
@@ -274,7 +274,7 @@
       (string/before-first-occurence "?"    {:return? true})
       (string/before-first-occurence "#"    {:return? true})
       (string/after-first-occurence  "@"    {:return? true})
-      (re-match config/DOMAIN-PATTERN)))
+      (re-return config/DOMAIN-PATTERN)))
 
 (defn to-subdomain
   ; @param (string) n

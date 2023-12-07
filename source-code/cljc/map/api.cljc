@@ -12,6 +12,7 @@
               [map.merge     :as merge]
               [map.namespace :as namespace]
               [map.remove    :as remove]
+              [map.update    :as update]
               [map.value     :as value]
               [map.walk      :as walk]))
 
@@ -86,6 +87,18 @@
 (def remove-value     remove/remove-value)
 (def remove-values    remove/remove-values)
 (def remove-values-by remove/remove-values-by)
+(def keep-key         remove/keep-key)
+(def keep-keys        remove/keep-keys)
+(def keep-keys-by     remove/keep-keys-by)
+(def keep-value       remove/keep-value)
+(def keep-values      remove/keep-values)
+(def keep-values-by   remove/keep-values-by)
+
+; map.update
+(def update-all-key   update/update-all-key)
+(def update-all-value update/update-all-value)
+(def update-keys-by   update/update-keys-by)
+(def update-values-by update/update-values-by)
 
 ; map.value
 (def values          value/values)

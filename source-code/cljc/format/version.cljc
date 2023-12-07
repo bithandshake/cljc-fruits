@@ -50,7 +50,7 @@
                                         (conj separators separator))
                              (implode-f ; BUG#0080
                                         ; The leading zeros have to be removed to prevent the 'update-whole-number'
-                                        ; function from parsing the 'n' string (e.g. "008") using a non-decimal system.
+                                        ; function from parsing the 'n' string (e.g., "008") using a non-decimal system.
                                         (-> n number/remove-leading-zeros (mixed/update-whole-number inc)
                                                                           (number/leading-zeros (count n)))
                                         ; If the 'n' string contains only "9" digits before the increasing,
