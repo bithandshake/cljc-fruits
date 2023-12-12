@@ -121,6 +121,36 @@
         x (re-pattern x)]
        (->> n (re-seq x) last)))
 
+(defn re-all
+  ; @description
+  ; Returns all match of the given 'x' pattern in the given 'n' value (converted to string).
+  ;
+  ; @param (*) n
+  ; @param (regex pattern or string) x
+  ;
+  ; @usage
+  ; (re-all "123" #"\d")
+  ;
+  ; @example
+  ; (re-all "123" #"\d")
+  ; =>
+  ; ["1" "2" "3"]
+  ;
+  ; @example
+  ; (re-all "abc" #"\d")
+  ; =>
+  ; []
+  ;
+  ; @return (vector)
+  [n x]
+  ; The 're-seq' function returns a ...
+  ; ... sequence of strings if the pattern has no capturing groups.
+  ; ... sequence of vectors if the pattern has one or more capturing groups.
+  ; ... sequence of maps if the pattern has one ore more named capturing groups.
+  (let [n (str n)
+        x (re-pattern x)]
+       (->> n (re-seq x) vec)))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 

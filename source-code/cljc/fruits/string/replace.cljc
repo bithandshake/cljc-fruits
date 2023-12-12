@@ -137,28 +137,6 @@
        (clojure.string/replace (str n) "%"
                                (str replacement)))))
 
-(defn use-nil
-  ; @param (*) n
-  ;
-  ; @usage
-  ; (use-nil "")
-  ;
-  ; @example
-  ; (use-nil "")
-  ; =>
-  ; nil
-  ;
-  ; @example
-  ; (use-nil "abc")
-  ; =>
-  ; "abc"
-  ;
-  ; @return (boolean)
-  [n]
-  (if (-> n empty?)
-      (-> nil)
-      (-> n)))
-
 (defn use-placeholder
   ; @param (string) n
   ; @param (string) placeholder

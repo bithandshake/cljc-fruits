@@ -24,10 +24,11 @@
 (def to-string convert/to-string)
 
 ; @redirect (fruits.hiccup.parse)
-(def parse-css        parse/parse-css)
-(def unparse-css      parse/unparse-css)
-(def parse-newlines   parse/parse-newlines)
-(def unparse-newlines parse/unparse-newlines)
+(def parse-css             parse/parse-css)
+(def unparse-css           parse/unparse-css)
+(def unparse-class-vectors parse/unparse-class-vectors)
+(def parse-newlines        parse/parse-newlines)
+(def unparse-newlines      parse/unparse-newlines)
 
 ; @redirect (fruits.hiccup.type)
 (def hiccup?   type/hiccup?)

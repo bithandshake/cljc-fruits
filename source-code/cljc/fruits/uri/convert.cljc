@@ -88,7 +88,7 @@
   [n]
   ; ...
   ;
-  ; BUG#6610 (source-code/cljc/uri/config.cljc)
+  ; BUG#6610 (source-code/cljc/fruits/uri/config.cljc)
   ;
   ; https://www.rfc-editor.org/rfc/rfc3986
   ; ... schemes are case-insensitive, the canonical form is lowercase and documents
@@ -130,7 +130,7 @@
   ; By removing the scheme part and its ':' character from the URI, it makes
   ; easier to determine the meaning of the other ':' characters.
   ;
-  ; BUG#6610 (source-code/cljc/uri/config.cljc)
+  ; BUG#6610 (source-code/cljc/fruits/uri/config.cljc)
   (if-let [scheme (to-scheme n)]
           (-> n (string/after-first-occurence ":"  {:return? false})
                 (string/after-first-occurence "//" {:return? true}))
@@ -300,7 +300,7 @@
           (if (-> domain (string/min-occurence?         "." 2))
               (-> domain (string/before-first-occurence ".")
                          (string/to-lowercase)
-                         (string/use-nil)))))
+                         (string/to-nil {:if-empty? true})))))
 
 (defn to-tld
   ; @param (string) n
@@ -624,12 +624,12 @@
   ;
   ; @return (string)
   [n]
-  ; The {:return? true} setting of the second step cause that the result
-  ; of the step might be an empty string, so it is important to apply the 'use-nil'
-  ; function to prevent the function returns with an empty string!
+  ; The {:return? true} setting of the second step causes that the result
+  ; of the step might be an empty string, so it is important to apply the 'to-nil'
+  ; function to prevent the function returns an empty string!
   (-> n (string/after-first-occurence  "?" {:return? false})
         (string/before-first-occurence "#" {:return? true})
-        (string/use-nil)))
+        (string/to-nil {:if-empty? true})))
 
 (defn to-url-query-params
   ; @param (string) n

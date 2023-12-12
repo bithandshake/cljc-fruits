@@ -158,11 +158,11 @@
   ; []
   ;
   ; @return (vector)
-  [n test-f]
+  [n f]
   (letfn [(f0 [result x]
-              (if (-> x test-f)
-                  (->   result)
-                  (conj result x)))]
+              (if (-> x f)
+                  (-> result)
+                  (-> result (conj x))))]
          (reduce f0 [] n)))
 
 (defn remove-duplicates

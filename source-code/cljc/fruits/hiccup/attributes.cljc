@@ -9,6 +9,9 @@
 (defn get-attributes
   ; @param (hiccup) n
   ;
+  ; @usage
+  ; (get-attributes [:div {:style {:color "red"}} "Hello World!"])
+  ;
   ; @example
   ; (get-attributes [:div {:style {:color "red"}} "Hello World!"])
   ; =>
@@ -17,15 +20,18 @@
   ; @return (map)
   [n]
   (if (vector? n)
-      (if-let [attributes (vector/nth-item n 1)]
-              (if (-> attributes map?)
-                  (-> attributes)))))
+      (let [[_ x & _] n]
+           (if (-> x map?)
+               (-> x)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn get-style
   ; @param (hiccup) n
+  ;
+  ; @usage
+  ; (get-style [:div {:style {:color "red"}} "Hello World!"])
   ;
   ; @example
   ; (get-style [:div {:style {:color "red"}} "Hello World!"])
@@ -34,11 +40,15 @@
   ;
   ; @return (map)
   [n]
-  (if-let [attributes (get-attributes n)]
-          (:style attributes)))
+  (if (vector? n)
+      (if-let [attributes (get-attributes n)]
+              (:style attributes))))
 
 (defn set-style
   ; @param (hiccup) n
+  ;
+  ; @usage
+  ; (set-style [:div {:style {:color "red"}} "Hello World!"])
   ;
   ; @example
   ; (set-style [:div {:style {:color "red"}} "Hello World!"])
@@ -58,6 +68,9 @@
 (defn join-class
   ; @param (list of keywords or keywords in vectors) xyz
   ;
+  ; @usage
+  ; (join-class :my-class [:your-class] :our-class)
+  ;
   ; @example
   ; (join-class :my-class [:your-class] :our-class)
   ; =>
@@ -65,10 +78,10 @@
   ;
   ; @return (keywords in vector)
   [& xyz]
-  (letfn [(join-class-f [result x] (cond (vector?  x) (concat result x)
-                                         (keyword? x) (conj   result x)
-                                         :return result))]
-         (reduce join-class-f [] xyz)))
+  (letfn [(f0 [result x] (cond (vector?  x) (concat result x)
+                               (keyword? x) (conj   result x)
+                               :return result))]
+         (reduce f0 [] xyz)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -79,6 +92,9 @@
   ;
   ; @param (keyword or string) n
   ; @param (string)(opt) flag
+  ;
+  ; @usage
+  ; (value "my-namespace/my-value?")
   ;
   ; @example
   ; (value "my-namespace/my-value?")
@@ -97,14 +113,14 @@
   ;
   ; @return (string)
   [n & [flag]]
-  (let [n (cond (keyword? n) (-> n keyword/to-string)
-                (string?  n) (-> n))]
-       (letfn [(f0 [result char]
-                   (case char "." (str result "--")
-                              "/" (str result "--")
-                              "?" result
-                              "!" result
-                              ">" result
-                                  (str result char)))]
-              (str (reduce f0 nil n)
-                   (if flag (str "--" flag))))))
+  (letfn [(f0 [result char]
+              (case char "." (str result "--")
+                         "/" (str result "--")
+                         "?" (->  result)
+                         "!" (->  result)
+                         ">" (->  result)
+                             (str result char)))]
+         (let [n (cond (keyword? n) (-> n keyword/to-string)
+                       (string?  n) (-> n))]
+              (if flag (str (reduce f0 nil n) "--" flag)
+                       (str (reduce f0 nil n))))))

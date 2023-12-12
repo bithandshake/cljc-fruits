@@ -51,3 +51,31 @@
                (let [[k v] (convert-f dex x)]
                     (assoc result k v)))]
           (reduce-kv f0 {} n))))
+
+(defn to-nil
+  ; @param (vector) n
+  ; @param (map)(opt) options
+  ; {:if-empty? (boolean)(opt)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (to-nil [])
+  ;
+  ; @example
+  ; (to-nil [])
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (to-nil [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @return (nil or vector)
+  ([n]
+   (to-nil n {}))
+
+  ([n {:keys [if-empty?] :or {if-empty? true}}]
+   (cond (-> n empty?)      (-> nil)
+         (-> if-empty? not) (-> nil)
+         :return n)))

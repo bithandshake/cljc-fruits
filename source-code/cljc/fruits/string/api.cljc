@@ -55,6 +55,7 @@
 (def to-capitalized convert/to-capitalized)
 (def to-uppercase   convert/to-uppercase)
 (def to-lowercase   convert/to-lowercase)
+(def to-nil         convert/to-nil)
 
 ; @redirect (fruits.string.core)
 (def cover             core/cover)
@@ -150,7 +151,6 @@
 (def replace-part     replace/replace-part)
 (def use-replacements replace/use-replacements)
 (def use-replacement  replace/use-replacement)
-(def use-nil          replace/use-nil)
 (def use-placeholder  replace/use-placeholder)
 
 ; @redirect (fruits.string.search)

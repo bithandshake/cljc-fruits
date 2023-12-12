@@ -41,6 +41,7 @@
 ; @redirect (fruits.vector.convert)
 (def from-subvec convert/from-subvec)
 (def to-map      convert/to-map)
+(def to-nil      convert/to-nil)
 
 ; @redirect (fruits.vector.core)
 (def cons-item         core/cons-item)
@@ -177,7 +178,7 @@
 (def update-items-by      update/update-items-by)
 
 ; @redirect (fruits.vector.walk)
-(def ->items          walk/->items)
-(def ->items-indexed  walk/->items-indexed)
-(def ->>items         walk/->>items)
-(def ->>items-indexed walk/->>items-indexed)
+(def ->items     walk/->items)
+(def ->items-by  walk/->items-by)
+(def ->>items    walk/->>items)
+(def ->>items-by walk/->>items-by)

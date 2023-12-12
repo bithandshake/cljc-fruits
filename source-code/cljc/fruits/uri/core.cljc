@@ -36,8 +36,7 @@
   ;
   ; @return (string)
   [n url-query-string]
-  (letfn [
-          ; If the 'n' string already contains a query-string it will be
+  (letfn [; If the 'n' string already contains a query-string it will be
           ; prepended to the 'url-query-string' parameter and both query strings
           ; will be used up in the URL.
           (use-original [] (if-let [% (convert/to-url-query-string n)]

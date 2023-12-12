@@ -4,7 +4,8 @@
               [fruits.uri.convert :as convert]
               [fruits.uri.core    :as core]
               [fruits.uri.query   :as query]
-              [fruits.uri.valid   :as valid]))
+              [fruits.uri.valid   :as valid]
+              [fruits.uri.pretty  :as pretty]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -34,6 +35,9 @@
 
 ; @redirect (fruits.uri.core)
 (def use-url-query-string core/use-url-query-string)
+
+; @redirect (fruits.uri.pretty)
+(def pretty-url pretty/pretty-url)
 
 ; @redirect (fruits.uri.query)
 (def url-query-params->url-query-string query/url-query-params->url-query-string)

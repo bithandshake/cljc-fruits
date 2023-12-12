@@ -32,10 +32,11 @@
 
   ([n convert-f]
    (letfn [(f0 [result x]
-               (if (-> x vector?)
-                   (-> result (concat (flat-items x convert-f)))
-                   (-> result (conj   (convert-f  x)))))]
-          (->> n (reduce f0 []) vec))))
+               ; Without converting the result into a vector in every iteration, conjugating would work backwards.
+               (vec (if (-> x vector?)
+                        (-> result (concat (flat-items x convert-f)))
+                        (-> result (conj   (convert-f  x))))))]
+          (reduce f0 [] n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

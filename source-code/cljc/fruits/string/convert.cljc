@@ -84,3 +84,32 @@
   ; @return (string)
   [n]
   (-> n str clojure.string/lower-case))
+
+(defn to-nil
+  ; @param (*) n
+  ; @param (map)(opt) options
+  ; {:if-empty? (boolean)(opt)
+  ;   Default: true}
+  ;
+  ; @usage
+  ; (to-nil "")
+  ;
+  ; @example
+  ; (to-nil "")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (to-nil "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @return (nil or string)
+  ([n]
+   (to-nil n {}))
+
+  ([n {:keys [if-empty?] :or {if-empty? true}}]
+   (let [n (str n)]
+        (cond (-> n empty?)      (-> nil)
+              (-> if-empty? not) (-> nil)
+              :return n))))

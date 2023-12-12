@@ -46,6 +46,7 @@
 (def re-return    match/re-return)
 (def re-first     match/re-first)
 (def re-last      match/re-last)
+(def re-all       match/re-all)
 (def re-match?    match/re-match?)
 (def re-mismatch? match/re-mismatch?)
 (def re-from      match/re-from)

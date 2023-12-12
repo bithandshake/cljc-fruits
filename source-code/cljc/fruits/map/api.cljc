@@ -31,6 +31,7 @@
 
 ; @redirect (fruits.map.convert)
 (def to-vector convert/to-vector)
+(def to-nil    convert/to-nil)
 
 ; @redirect (fruits.map.core)
 (def swap      core/swap)
@@ -107,9 +108,13 @@
 (def values-equal?   value/values-equal?)
 
 ; @redirect (fruits.map.walk)
-(def ->keys    walk/->keys)
-(def ->>keys   walk/->>keys)
-(def ->values  walk/->values)
-(def ->>values walk/->>values)
-(def ->kv      walk/->kv)
-(def ->>kv     walk/->>kv)
+(def ->keys       walk/->keys)
+(def ->keys-by    walk/->keys-by)
+(def ->>keys      walk/->>keys)
+(def ->>keys-by   walk/->>keys-by)
+(def ->values     walk/->values)
+(def ->values-by  walk/->values-by)
+(def ->>values    walk/->>values)
+(def ->>values-by walk/->>values-by)
+(def ->kv         walk/->kv)
+(def ->>kv        walk/->>kv)

@@ -1,7 +1,6 @@
 
 (ns fruits.hiccup.walk
-    (:require [fruits.hiccup.type :as type]
-              [fruits.random.api  :as random]))
+    (:require [fruits.random.api :as random]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -9,6 +8,10 @@
 (defn walk
   ; @param (hiccup) n
   ; @param (function) f
+  ;
+  ; @usage
+  ; (walk [:td [:p {:style {:color "red"}}]]
+  ;       #(conj % "420"))
   ;
   ; @example
   ; (walk [:td [:p {:style {:color "red"}}]]
@@ -18,15 +21,20 @@
   ;
   ; @return (hiccup)
   [n f]
-  (if (type/hiccup? n)
-      (letfn [(walk-f [%1 %2] (conj %1 (walk %2 f)))]
-             (reduce walk-f [] (f n)))
+  (if (and (-> n vector?)
+           (-> f fn?))
+      (letfn [(f0 [result x]
+                  (conj result (walk x f)))]
+             (reduce f0 [] (f n)))
       (-> n)))
 
 (defn explode
   ; @param (hiccup)(opt) container
   ; Default: [:div]
   ; @param (string) n
+  ;
+  ; @usage
+  ; (explode [:div] "ab")
   ;
   ; @example
   ; (explode [:div] "ab")
@@ -39,10 +47,11 @@
    (explode [:div] n))
 
   ([container n]
-   (and (string? n)
-        (type/hiccup? container)
-        (letfn [(f0 [%1 %2] (conj %1 ^{:key (random/generate-uuid)} [:span %2]))]
-               (reduce f0 container n)))))
+   (if (and (-> container vector?)
+            (-> n         string?))
+       (letfn [(f0 [container x]
+                   (conj container ^{:key (random/generate-uuid)} [:span x]))]
+              (reduce f0 container n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -73,10 +82,11 @@
    (put [:div] n))
 
   ([container n]
-   (and (seqable? n)
-        (type/hiccup? container)
-        (letfn [(f0 [%1 %2] (conj %1 ^{:key (random/generate-uuid)} %2))]
-               (reduce f0 container (vec n))))))
+   (if (and (-> container vector?)
+            (-> n         seqable?))
+       (letfn [(f0 [container x]
+                   (conj container ^{:key (random/generate-uuid)} x))]
+              (reduce f0 container (vec n))))))
 
 (defn put-with
   ; @param (keyword)(opt) container
@@ -109,13 +119,13 @@
    (put-with [:div] n f))
 
   ([container n put-f]
-   (and (fn? put-f)
-        (seqable? n)
-        (type/hiccup? container)
-        (letfn [(f0 [%1 %2]
-                    (if %2 (conj %1 ^{:key (random/generate-uuid)} (put-f %2))
-                           (->   %1)))]
-               (reduce f0 container (vec n))))))
+   (if (and (-> container vector?)
+            (-> n         seqable?)
+            (-> put-f     fn?))
+       (letfn [(f0 [container x]
+                   (if x (conj container ^{:key (random/generate-uuid)} (put-f x))
+                         (->   container)))]
+              (reduce f0 container (vec n))))))
 
 (defn put-with-indexed
   ; @param (keyword)(opt) container
@@ -148,10 +158,10 @@
    (put-with-indexed [:div] n f))
 
   ([container n put-f]
-   (and (fn? put-f)
-        (seqable? n)
-        (type/hiccup? container)
-        (letfn [(f0 [%1 %2 %3]
-                    (if %3 (conj %1 ^{:key (random/generate-uuid)} (put-f %2 %3))
-                           (->   %1)))]
-               (reduce-kv f0 container (vec n))))))
+   (if (and (-> container vector?)
+            (-> n         seqable?)
+            (-> put-f     fn?))
+       (letfn [(f0 [container dex x]
+                   (if x (conj container ^{:key (random/generate-uuid)} (put-f dex x))
+                         (->   container)))]
+              (reduce-kv f0 container (vec n))))))

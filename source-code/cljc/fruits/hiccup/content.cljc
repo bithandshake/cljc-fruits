@@ -8,6 +8,9 @@
 (defn content-length
   ; @param (hiccup) n
   ;
+  ; @usage
+  ; (content-length [:div "Hello World!"])
+  ;
   ; @example
   ; (content-length [:div "Hello World!"])
   ; =>
@@ -15,4 +18,5 @@
   ;
   ; @return (integer)
   [n]
-  (-> n convert/to-string count))
+  (if (-> n vector?)
+      (-> n convert/to-string count)))

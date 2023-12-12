@@ -268,7 +268,7 @@
    (after-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-first-dex (dex/first-dex-of n x)]
            (if (number? item-first-dex)
                (subvec n (inc item-first-dex)))
@@ -295,7 +295,7 @@
    (after-first-match n f {}))
 
   ([n f {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-first-dex (dex/first-dex-by n f)]
            (if (number? item-first-dex)
                (subvec n (inc item-first-dex)))
@@ -322,7 +322,7 @@
    (after-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-last-dex (dex/last-dex-of n x)]
            (if (number? item-last-dex)
                (subvec n (inc item-last-dex)))
@@ -349,7 +349,7 @@
    (after-last-match n f {}))
 
   ([n f {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-last-dex (dex/last-dex-by n f)]
            (if (number? item-last-dex)
                (subvec n (inc item-last-dex)))
@@ -476,7 +476,7 @@
    (to-first-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-first-dex (dex/first-dex-of n x)]
            (if (number? item-first-dex)
                (subvec n 0 (inc item-first-dex)))
@@ -503,7 +503,7 @@
    (to-first-match n f {}))
 
   ([n f {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-first-dex (dex/first-dex-by n f)]
            (if (number? item-first-dex)
                (subvec n 0 (inc item-first-dex)))
@@ -530,7 +530,7 @@
    (to-last-occurence n x {}))
 
   ([n x {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-last-dex (dex/last-dex-of n x)]
            (if (number? item-last-dex)
                (subvec n 0 (inc item-last-dex)))
@@ -557,7 +557,7 @@
    (to-last-match n f {}))
 
   ([n f {:keys [return?]}]
-   ; BUG#1130 (source-code/cljc/vector/remove.cljc)
+   ; BUG#1130 (source-code/cljc/fruits/vector/remove.cljc)
    (if-let [item-last-dex (dex/last-dex-by n f)]
            (if (number? item-last-dex)
                (subvec n 0 (inc item-last-dex)))

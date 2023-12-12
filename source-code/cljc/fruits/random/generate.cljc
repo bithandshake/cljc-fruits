@@ -36,7 +36,7 @@
   ;
   ; @return (string)
   []
-  ; BUG#5570 (source-code/cljc/random/config.cljc)
+  ; BUG#5570 (source-code/cljc/fruits/random/config.cljc)
   #?(:cljs (str config/NAME-PREFIX (random-uuid))
      :clj  (str config/NAME-PREFIX (java.util.UUID/randomUUID))))
 
@@ -96,7 +96,7 @@
   ;
   ; @return (namespaced keyword)
   []
-  ; BUG#5570 (source-code/cljc/random/config.cljc)
+  ; BUG#5570 (source-code/cljc/fruits/random/config.cljc)
   (keyword (str (generate-uuid) "/" (str config/NAME-PREFIX (generate-uuid)))))
 
 (defn generate-number
