@@ -136,7 +136,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-match-key
-  ; @warning
+  ; @important
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -168,7 +168,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-matching-key
-  ; @warning
+  ; @important
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -197,7 +197,7 @@
          (some f0 n)))
 
 (defn first-matching-value
-  ; @warning
+  ; @important
   ; Clojure maps are unordered data structures.
   ;
   ; @description

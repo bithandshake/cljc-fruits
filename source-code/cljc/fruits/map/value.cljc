@@ -20,7 +20,7 @@
   (-> n vals vec))
 
 (defn first-value
-  ; @warning
+  ; @important
   ; Clojure maps are unordered data structures.
   ;
   ; @param (map) n

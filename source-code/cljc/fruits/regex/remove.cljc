@@ -7,7 +7,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn remove-first-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -37,7 +37,7 @@
                (-> n))))
 
 (defn remove-last-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n

@@ -210,7 +210,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn re-from
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
@@ -258,7 +258,7 @@
               (reduce f0 nil matches))))
 
 (defn re-to
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description

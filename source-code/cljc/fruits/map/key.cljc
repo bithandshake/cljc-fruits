@@ -44,7 +44,7 @@
          (reduce-kv f0 [] n)))
 
 (defn first-key
-  ; @warning
+  ; @important
   ; Clojure maps are unordered data structures.
   ;
   ; @description

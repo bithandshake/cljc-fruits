@@ -71,10 +71,12 @@
             (->  n)
             (str n separator x)))))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn prepend
   ; @param (*) n
-  ; @param (*) x
-  ; @param (*)(opt) separator
+  ; @param (list of *) xyz
   ;
   ; @usage
   ; (prepend "my-domain.com" "https://")
@@ -85,16 +87,13 @@
   ; "https://my-domain.com"
   ;
   ; @return (string)
-  ([n x]
-   (prepend n x nil))
-
-  ([n x separator]
-   (prefix n x)))
+  [n & xyz]
+  (letfn [(f0 [result x] (str result x))]
+         (str (reduce f0 nil (vec xyz)) n)))
 
 (defn append
   ; @param (*) n
-  ; @param (*) x
-  ; @param (*)(opt) separator
+  ; @param (list of *) xyz
   ;
   ; @usage
   ; (append "https://" "my-domain.com")
@@ -105,11 +104,12 @@
   ; "https://my-domain.com"
   ;
   ; @return (string)
-  ([n x]
-   (append n x nil))
+  [n & xyz]
+  (letfn [(f0 [result x] (str result x))]
+         (reduce f0 n (vec xyz))))
 
-  ([n x separator]
-   (suffix n x)))
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn insert-part
   ; @param (*) n

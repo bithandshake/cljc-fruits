@@ -8,7 +8,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn before-first-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -57,7 +57,7 @@
                 (if return? n)))))
 
 (defn before-last-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -106,7 +106,7 @@
                 (if return? n)))))
 
 (defn after-first-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -156,7 +156,7 @@
                 (if return? n)))))
 
 (defn after-last-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -206,7 +206,7 @@
                 (if return? n)))))
 
 (defn from-first-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -255,7 +255,7 @@
                 (if return? n)))))
 
 (defn from-last-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -304,7 +304,7 @@
                 (if return? n)))))
 
 (defn to-first-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -354,7 +354,7 @@
                 (if return? n)))))
 
 (defn to-last-match
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n

@@ -7,7 +7,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn starts-with?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -36,7 +36,7 @@
        (->> n (re-find x) some?)))
 
 (defn ends-with?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -70,7 +70,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-with?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -95,7 +95,7 @@
        (not starts-with?)))
 
 (defn not-ends-with?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -123,7 +123,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-with!
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -152,7 +152,7 @@
            (-> n))))
 
 (defn not-ends-with!
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @param (*) n
@@ -185,7 +185,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn starts-at?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
@@ -223,7 +223,7 @@
   (-> (match/re-from n x cursor) boolean))
 
 (defn ends-at?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
@@ -264,7 +264,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-at?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
@@ -303,7 +303,7 @@
        (not starts-at?)))
 
 (defn not-ends-at?
-  ; @warning
+  ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
   ; @description
