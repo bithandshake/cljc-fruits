@@ -1,9 +1,9 @@
 
 (ns fruits.uri.convert
     (:require [fruits.reader.api :as reader]
-              [fruits.regex.api  :refer [re-return]]
+              [fruits.regex.api  :as regex]
               [fruits.string.api :as string]
-              [fruits.uri.config :as config]
+              [fruits.uri.patterns :as patterns]
               [fruits.uri.query  :as query]))
 
 ;; -- URI functions -----------------------------------------------------------
@@ -29,8 +29,7 @@
   [n]
   ; https://www.rfc-editor.org/rfc/rfc3986
   ; Schemes and hostnames are case-insensitive.
-  (cond
-        ; If the URI contains a double-slash ("http://my-domain.com/my-path"),
+  (cond ; If the URI contains a double-slash (e.g., "http://my-domain.com/my-path"),
         ; the path part starts from the 3rd '/' character.
         (and (string/contains-part? n "//")
              (string/nth-dex-of     n "/" 3))
@@ -39,7 +38,7 @@
                         (string/to-lowercase))
                   (-> n (string/keep-range dex))))
 
-        ; If the URI does NOT contain a double-slash ("my-domain.com/my-path"),
+        ; If the URI does NOT contain a double-slash (e.g., "my-domain.com/my-path"),
         ; the path part starts from the 1st '/' character.
         (string/contains-part? n "/")
         (str (-> n (string/before-first-occurence "/" {:return? false})
@@ -70,32 +69,38 @@
   ; "https"
   ;
   ; @example
-  ; (to-scheme "mailto:johndoe@my-domain.com")
-  ; =>
-  ; "mailto"
-  ;
-  ; @example
   ; (to-scheme "ftp://user@my-domain.com")
   ; =>
   ; "ftp"
+  ;
+  ; @example
+  ; (to-scheme "mailto:johndoe@my-domain.com")
+  ; =>
+  ; "mailto"
   ;
   ; @example
   ; (to-scheme "my-domain.com:80")
   ; =>
   ; nil
   ;
+  ; @example
+  ; (to-scheme "localhost:80")
+  ; =>
+  ; nil
+  ;
   ; @return (string)
   [n]
-  ; ...
-  ;
-  ; BUG#6610 (source-code/cljc/fruits/uri/config.cljc)
-  ;
-  ; https://www.rfc-editor.org/rfc/rfc3986
-  ; ... schemes are case-insensitive, the canonical form is lowercase and documents
-  ;     that specify schemes must do so with lowercase letters.
-  (-> (string/before-first-occurence n ":" {:return? false})
-      (re-return config/STRICT-SCHEME-PATTERN)
-      (string/to-lowercase)))
+  ; - The scheme subcomponent is case-insensitive.
+  ;   https://www.rfc-editor.org/rfc/rfc3986
+  ; - If the scheme part is missing from the URI, the part before the first colon (:)
+  ;   character might be a hostname, and the part after the first colon character might be a port!
+  ;   E.g., "localhost:80"
+  ; - To prevent hostnames misread as a scheme, this function doesn't derive schemes that are followed
+  ;   by a colon and a digit. Therefore, it cannot read schemes in some edge cases:
+  ;   E.g., "mailto:1234user@my-domain.com"
+  (-> (regex/before-first-match n #"\:(?!\d)" {:return? false})
+      (string/to-lowercase)
+      (regex/re-return patterns/SCHEME-PATTERN)))
 
 (defn to-nonschemed
   ; @param (string) n
@@ -123,14 +128,15 @@
   ; =>
   ; "my-domain.com:80"
   ;
+  ; @example
+  ; (to-nonschemed "localhost:80")
+  ; =>
+  ; "localhost:80"
+  ;
   ; @return (string)
   [n]
-  ; The 'to-nonschemed' function removes the scheme part of the URI, the ":"
-  ; character right after the scheme part and the "//" part (if necessary).
-  ; By removing the scheme part and its ':' character from the URI, it makes
-  ; easier to determine the meaning of the other ':' characters.
-  ;
-  ; BUG#6610 (source-code/cljc/fruits/uri/config.cljc)
+  ; The scheme subcomponent is case-insensitive.
+  ; https://www.rfc-editor.org/rfc/rfc3986
   (if-let [scheme (to-scheme n)]
           (-> n (string/after-first-occurence ":"  {:return? false})
                 (string/after-first-occurence "//" {:return? true}))
@@ -168,23 +174,27 @@
   ; "192.0.2.16"
   ;
   ; @example
+  ; (to-hostname "localhost:80")
+  ; =>
+  ; "localhost"
+  ;
+  ; @example
   ; (to-hostname "/my-path?my-query#my-fragment")
   ; =>
   ; nil
   ;
   ; @return (string)
   [n]
-  ; ...
-  ;
-  ; https://www.rfc-editor.org/rfc/rfc3986
   ; The host subcomponent is case-insensitive.
+  ; https://www.rfc-editor.org/rfc/rfc3986
   (-> (to-nonschemed n)
       (string/after-first-occurence  "@"  {:return? true})
       (string/before-first-occurence ":"  {:return? true})
       (string/before-first-occurence "/"  {:return? true})
       (string/before-first-occurence "?"  {:return? true})
       (string/before-first-occurence "#"  {:return? true})
-      (string/to-lowercase)))
+      (string/to-lowercase)
+      (string/to-nil {:if-empty? true})))
 
 (defn to-port
   ; @param (string) n
@@ -204,13 +214,12 @@
   ;
   ; @return (string)
   [n]
-  ; ...
   (-> (to-nonschemed n)
       (string/after-first-occurence  ":" {:return? false})
       (string/before-first-occurence "/" {:return? true})
       (string/before-first-occurence "?" {:return? true})
       (string/before-first-occurence "#" {:return? true})
-      (re-return config/PORT-PATTERN)))
+      (regex/re-return patterns/PORT-PATTERN)))
 
 (defn to-domain
   ; @param (string) n
@@ -255,18 +264,15 @@
   ;
   ; @return (string)
   [n]
-  ; https://www.rfc-editor.org/rfc/rfc3986
-  ; The host subcomponent is case-insensitive.
-  ;
-  ; Converting to lowercase must done before cutting the "www." part, because
-  ; the 'n' string might contains an uppercase "WWW."!
-  ;
-  ; The '@' character might be placed before the domain as user information
-  ; or might be placed in the query part as a special character.
-  ; "ftp://user@my-domain.com"
-  ; "https://my-domain.com?my-query=@hello"
-  ; Cutting the part before the first '@' character must happen after the tail
-  ; has been removed!
+  ; - The host subcomponent is case-insensitive.
+  ;   https://www.rfc-editor.org/rfc/rfc3986
+  ; - Converting the string to lowercase must be done before cutting the "www." part off,
+  ;   because the 'n' string might contain an uppercase "WWW." part!
+  ; - The '@' character might be placed before the domain as a user information
+  ;   or might be placed in the query part as a special character.
+  ;   E.g., "ftp://user@my-domain.com"
+  ;   E.g., "https://my-domain.com?my-query=@hello"
+  ; - Cutting off the part before the first '@' character must be done after the tail has been removed!
   (-> (to-nonschemed n)
       (string/to-lowercase)
       (string/after-first-occurence  "www." {:return? true})
@@ -274,7 +280,7 @@
       (string/before-first-occurence "?"    {:return? true})
       (string/before-first-occurence "#"    {:return? true})
       (string/after-first-occurence  "@"    {:return? true})
-      (re-return config/DOMAIN-PATTERN)))
+      (regex/re-return patterns/DOMAIN-PATTERN)))
 
 (defn to-subdomain
   ; @param (string) n
@@ -294,8 +300,8 @@
   ;
   ; @return (string)
   [n]
-  ; https://www.rfc-editor.org/rfc/rfc3986
   ; The host subcomponent is case-insensitive.
+  ; https://www.rfc-editor.org/rfc/rfc3986
   (if-let [domain (to-domain n)]
           (if (-> domain (string/min-occurence?         "." 2))
               (-> domain (string/before-first-occurence ".")
@@ -315,8 +321,8 @@
   ;
   ; @return (string)
   [n]
-  ; https://www.rfc-editor.org/rfc/rfc3986
   ; The host subcomponent is case-insensitive.
+  ; https://www.rfc-editor.org/rfc/rfc3986
   (if-let [domain (to-domain n)]
           (string/after-last-occurence domain "." {:return? false})))
 
@@ -442,9 +448,9 @@
   ; @return (string)
   [n]
   ; The 'to-relative-url' function ...
-  ; ... cuts the leading part of the string including the domain (if necessary).
+  ; ... cuts off the leading part of the string including the domain (if necessary).
   ; ... removes the trailing slash (if necessary).
-  ; ... prepends the leading slash (if necessary) (it must be after the trailing slash removing!).
+  ; ... prepends the leading slash (if necessary) (it must be done after the trailing slash removing!).
   (if-let [domain (to-domain n)]
           (-> n (to-lowercase)
                 (string/after-first-occurence domain {:return? false})
@@ -554,13 +560,13 @@
   ;
   ; @return (map)
   [n url-path-template]
-  (letfn [(to-url-path-parts [n] (-> n (to-url-path)
-                                       (string/not-starts-with!  "/")
-                                       (string/not-ends-with!    "/")
-                                       (string/split            #"/")))]
-         (let [url-path                (to-url-path       n)
-               url-path-parts          (to-url-path-parts url-path)
-               url-path-template-parts (to-url-path-parts url-path-template)]
+  (letfn [(f0 [n] (-> n (to-url-path)
+                        (string/not-starts-with!  "/")
+                        (string/not-ends-with!    "/")
+                        (string/split            #"/")))]
+         (let [url-path                (to-url-path n)
+               url-path-parts          (f0 url-path)
+               url-path-template-parts (f0 url-path-template)]
               (letfn [(f0 [result dex x]
                           (let [x (reader/read-edn x)]
                                (if (keyword? x)
@@ -688,4 +694,4 @@
   ([n {:keys [strict?]}]
    #?(:cljs (if strict? (.encodeURIComponent js/window n)
                         (.encodeURI          js/window n)))))
-     ;:clj TODO
+      ;:clj TODO

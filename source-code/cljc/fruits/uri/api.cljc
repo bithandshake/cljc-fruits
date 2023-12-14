@@ -5,6 +5,7 @@
               [fruits.uri.core    :as core]
               [fruits.uri.query   :as query]
               [fruits.uri.valid   :as valid]
+              [fruits.uri.patterns :as patterns]
               [fruits.uri.pretty  :as pretty]))
 
 ;; ----------------------------------------------------------------------------
@@ -35,6 +36,11 @@
 
 ; @redirect (fruits.uri.core)
 (def use-url-query-string core/use-url-query-string)
+
+; @redirect (fruits.uri.patterns)
+(def PORT-PATTERN   patterns/PORT-PATTERN)
+(def SCHEME-PATTERN patterns/SCHEME-PATTERN)
+(def DOMAIN-PATTERN patterns/DOMAIN-PATTERN)
 
 ; @redirect (fruits.uri.pretty)
 (def pretty-url pretty/pretty-url)

@@ -37,6 +37,11 @@
   ; =>
   ; "/my-path"
   ;
+  ; @example
+  ; (valid-url "localhost:4200/my-path")
+  ; =>
+  ; "localhost:4200/my-path"
+  ;
   ; @return (string)
   [n]
   ; The 'valid-url' function ...
@@ -44,7 +49,7 @@
   ; ... converts the value into a lowercase string.
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol (if necessary).
-  (if-let [domain (convert/to-domain n)]
+  (if-let [hostname (convert/to-hostname n)]
           (if (string/contains-part? n "://")
               (-> n (convert/to-lowercase)
                     (string/not-ends-with! "/"))
