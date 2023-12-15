@@ -1,10 +1,10 @@
 
 (ns fruits.uri.convert
-    (:require [fruits.reader.api :as reader]
-              [fruits.regex.api  :as regex]
-              [fruits.string.api :as string]
+    (:require [fruits.reader.api   :as reader]
+              [fruits.regex.api    :as regex]
+              [fruits.string.api   :as string]
               [fruits.uri.patterns :as patterns]
-              [fruits.uri.query  :as query]))
+              [fruits.uri.query    :as query]))
 
 ;; -- URI functions -----------------------------------------------------------
 ;; ----------------------------------------------------------------------------

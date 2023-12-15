@@ -24,7 +24,28 @@
   ;
   ; @return (boolean)
   [n f]
-  (boolean (some f n)))
+  (-> (some f n) boolean))
+
+(defn no-item-matches?
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (no-item-matches? ["a" "b" :c] keyword?)
+  ;
+  ; @example
+  ; (no-item-matches? [:a :b :c] string?)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (no-item-matches? [:a "b" :c] string?)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n f]
+  (-> (any-item-matches? n f) not))
 
 (defn all-items-match?
   ; @param (vector) n
@@ -46,6 +67,9 @@
   ; @return (boolean)
   [n f]
   (every? f n))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn first-match
   ; @param (vector) n

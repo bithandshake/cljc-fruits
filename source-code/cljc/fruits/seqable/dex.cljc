@@ -172,7 +172,7 @@
   ;
   ; @return (vector)
   [n]
-  (if (seqable? n)
+  (if (-> n seqable?)
       (-> n count range vec)))
 
 ;; ----------------------------------------------------------------------------
@@ -200,8 +200,8 @@
   ;
   ; @return (boolean)
   [n dex]
-  (if (seqable? n)
-      (= dex 0)))
+  (if (-> n seqable?)
+      (-> dex zero?)))
 
 (defn dex-last?
   ; @description
@@ -225,8 +225,9 @@
   ;
   ; @return (boolean)
   [n dex]
-  (if (seqable? n)
-      (-> n count dec (= dex))))
+  (cond (-> n seqable? not) (-> nil)
+        (-> n empty?)       (-> nil)
+        :else               (-> n count dec (= dex))))
 
 (defn first-dex
   ; @description
@@ -249,8 +250,9 @@
   ;
   ; @return (integer)
   [n]
-  (if (-> n seqable?)
-      (-> 0)))
+  (cond (-> n seqable? not) (-> nil)
+        (-> n empty?)       (-> nil)
+        :return             (-> 0)))
 
 (defn last-dex
   ; @description
@@ -273,8 +275,9 @@
   ;
   ; @return (integer)
   [n]
-  (if (-> n seqable?)
-      (-> n count dec)))
+  (cond (-> n seqable? not) (-> nil)
+        (-> n empty?)       (-> nil)
+        :return             (-> n count dec)))
 
 (defn new-dex
   ; @description

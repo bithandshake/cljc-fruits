@@ -2,10 +2,10 @@
 (ns fruits.keyword.api
     (:require [fruits.keyword.check     :as check]
               [fruits.keyword.convert   :as convert]
-              [fruits.keyword.insert :as insert]
+              [fruits.keyword.insert    :as insert]
               [fruits.keyword.name      :as name]
               [fruits.keyword.namespace :as namespace]
-              [fruits.keyword.set :as set]))
+              [fruits.keyword.set       :as set]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

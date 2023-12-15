@@ -20,7 +20,8 @@
               [fruits.vector.sort    :as sort]
               [fruits.vector.step    :as step]
               [fruits.vector.update  :as update]
-              [fruits.vector.walk    :as walk]))
+              [fruits.vector.walk    :as walk]
+              [fruits.vector.result :as result]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -103,6 +104,7 @@
 
 ; @redirect (fruits.vector.match)
 (def any-item-matches? match/any-item-matches?)
+(def no-item-matches?  match/no-item-matches?)
 (def all-items-match?  match/all-items-match?)
 (def first-match       match/first-match)
 (def last-match        match/last-match)
@@ -143,6 +145,11 @@
 (def replace-item       replace/replace-item)
 (def replace-first-item replace/replace-first-item)
 (def replace-last-item  replace/replace-last-item)
+
+; @redirect (fruits.vector.result)
+(def first-result result/first-result)
+(def last-result  result/last-result)
+(def nth-result   result/nth-result)
 
 ; @redirect (fruits.vector.set)
 (def flat-items   set/flat-items)

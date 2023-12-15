@@ -6,7 +6,8 @@
               [fruits.regex.dex     :as dex]
               [fruits.regex.match   :as match]
               [fruits.regex.remove  :as remove]
-              [fruits.regex.replace :as replace]))
+              [fruits.regex.replace :as replace]
+              [fruits.regex.pattern :as pattern]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -51,6 +52,9 @@
 (def re-mismatch? match/re-mismatch?)
 (def re-from      match/re-from)
 (def re-to        match/re-to)
+
+; @redirect (fruits.regex.pattern)
+(def join-pattern pattern/join-pattern)
 
 ; @redirect (fruits.regex.remove)
 (def remove-first-match remove/remove-first-match)
