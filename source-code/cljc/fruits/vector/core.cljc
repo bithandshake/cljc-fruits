@@ -129,8 +129,8 @@
   ;
   ; @return (vector)
   [n & xyz]
-  ; XXX#6799
-  ; The 'vec' function converts the given 'n' value into a vector even if it wasn't when provided.
+  ; @NOTE (#6799)
+  ; The 'vec' function converts the given 'n' value into a vector even if it wasn't (when provided).
   ; E.g., (conj nil :a)       => (:a)
   ;       (vec (conj nil :a)) => [:a]
   (vec (apply conj n xyz)))
@@ -155,7 +155,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  ; XXX#6799
+  ; @NOTE (#6799)
   (letfn [(f0 [result x]
               (if (-> result (contain/contains-item? x))
                   (-> result)
@@ -182,7 +182,7 @@
   ;
   ; @return (vector)
   [n & xyz]
-  ; XXX#6799
+  ; @NOTE (#6799)
   (letfn [(f0 [result x]
               (if x (-> result (conj x))
                     (-> result)))]

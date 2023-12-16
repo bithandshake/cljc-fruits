@@ -176,7 +176,7 @@
   ;
   ; @return (boolean)
   [n]
-  ; XXX#5914 (source-code/cljc/fruits/json/config.cljc)
+  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
   (and (-> n string?)
        (-> n count (> 2))
        (= config/KEYWORD-PREFIX (str (nth n 0)))
@@ -195,7 +195,7 @@
   ;
   ; @return (*)
   [n]
-  ; XXX#5914 (source-code/cljc/fruits/json/config.cljc)
+  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
   (if (-> n unkeywordized-value?)
       (-> n (subs 2) keyword)
       (-> n)))
@@ -213,7 +213,7 @@
   ;
   ; @return (*)
   [n]
-  ; XXX#5914 (source-code/cljc/fruits/json/config.cljc)
+  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
   (if (-> n keyword?)
       (-> config/KEYWORD-PREFIX (str n))
       (-> n)))
@@ -272,6 +272,7 @@
   ;
   ; @return (*)
   [n]
+  ; @NOTE
   ; This function uses the 'unkeywordize-key' function that changes only keyword
   ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>keys      n unkeywordize-keys)
@@ -417,8 +418,9 @@
   ;
   ; @return (*)
   [n]
-  ; XXX#5914 (source-code/cljc/fruits/json/config.cljc)
+  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
   ;
+  ; @NOTE
   ; This function uses the 'unkeywordize-value' function that changes only keyword
   ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values      n unkeywordize-values)
@@ -438,8 +440,9 @@
   ;
   ; @return (*)
   [n]
-  ; XXX#5914 (source-code/cljc/fruits/json/config.cljc)
+  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
   ;
+  ; @NOTE
   ; This function uses the 'keywordize-value' function that changes only string
   ; type values. Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values    n keywordize-values)
@@ -502,8 +505,9 @@
   ;
   ; @return (*)
   [n]
+  ; @NOTE
   ; This function calls itself recursively after it removes the blank values
-  ; from the given data, until it can't find more blank values within it.
+  ; from the given data, until it cannot find more blank values within it.
   ; E.g., If the given 'n' value has any item that is a vector that contains
   ;       an empty map, after the first call of this function, only the empty map
   ;       would be removed, because the containing vector was not empty.

@@ -44,7 +44,7 @@
   ;
   ; @return (string)
   [n]
-  (string/replace-part n #"\r\n}" "}"))
+  (string/replace-part n #"\r\n\}" "}"))
 
 (defn key-tabs
   ; @ignore

@@ -16,6 +16,12 @@
   ;
   ; @return (integer)
   [n x]
+  ; @BUG (#9081)
+  ; Lookaround assertions can cause incorrect results!
+  ; E.g., In the example below, the given 'x' pattern only matches the second occurence of the number 42,
+  ;       but its result is simply the number (42) that can be found at first index also,
+  ;       because the 'string/first-dex-of' function doesn't take Lookaround assertions into account:
+  ;       (first-dex-of "a42 - b42" #"(?<=b)42") => 1
   (let [n (str n)
         x (re-pattern x)]
        (if-let [match (re-find x n)]
@@ -33,6 +39,7 @@
   ;
   ; @return (integer)
   [n x]
+  ; @BUG (#9081)
   (let [n (str n)
         x (re-pattern x)]
        (if-let [match (re-find x n)]
@@ -51,6 +58,7 @@
   ;
   ; @return (integer)
   [n x th]
+  ; @BUG (#9081)
   (let [n (str n)
         x (re-pattern x)]
        (if (nat-int? th)

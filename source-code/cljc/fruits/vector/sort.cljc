@@ -72,7 +72,7 @@
    (-> n sort vec))
 
   ([n comparator-f]
-   ; XXX#0610
+   ; @NOTE (#0610)
    ; The return value of the given 'comparator-f' function must be converted to boolean type!
    (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
           (vec (sort compare-f n)))))
@@ -99,7 +99,7 @@
   ;
   ; @return (boolean)
   [n comparator-f]
-  ; XXX#0610
+  ; @NOTE (#0610)
   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
          (= n (sort-items n compare-f))))
 
@@ -130,7 +130,7 @@
    (vec (sort-by convert-f n)))
 
   ([n comparator-f convert-f]
-   ; XXX#0610
+   ; @NOTE (#0610) 
    (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
           (vec (sort-by convert-f compare-f n)))))
 

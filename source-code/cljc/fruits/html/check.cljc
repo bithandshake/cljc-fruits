@@ -44,13 +44,8 @@
   ;
   ; @return (boolean)
   [n]
-  (-> n (string/remove-part #"<.*>")
-        (string/remove-part #"</.*>")
-        (string/remove-part #"<.*/>")
+  (-> n (string/remove-part #"\<[^\>]*\>")
         (string/remove-part #"\s")
-        (string/remove-part #"\r")
-        (string/remove-part #"\t")
-        (string/remove-part #"\n")
         (clojure.core/empty?)))
 
 (defn nonblank?
@@ -91,9 +86,7 @@
   ;
   ; @return (boolean)
   [n]
-  (-> n (string/remove-part #"<.*>")
-        (string/remove-part #"</.*>")
-        (string/remove-part #"<.*/>")
+  (-> n (string/remove-part #"\<[^\>]*\>")
         (clojure.core/empty?)))
 
 (defn nonempty?

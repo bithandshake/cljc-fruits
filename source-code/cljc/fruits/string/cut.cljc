@@ -128,35 +128,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (before-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
+  ; (before-first-occurence "abcabc" "b")
   ;
   ; @example
-  ; (before-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
+  ; (before-first-occurence "abcabc" "b")
   ; =>
-  ; "With insomnia, you're "
+  ; "a"
   ;
   ; @example
-  ; (before-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "abc")
+  ; (before-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "abc"
-  ;                         {:return? true})
+  ; (before-first-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (before-first-occurence nil "abc")
+  ; (before-first-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-first-occurence nil "abc" {:return? true})
+  ; (before-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -187,35 +182,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (before-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
+  ; (before-last-occurence "abcabc" "b")
   ;
   ; @example
-  ; (before-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
+  ; (before-last-occurence "abcabc" "b")
   ; =>
-  ; "With insomnia, you're never really awake; but you're "
+  ; "abca"
   ;
   ; @example
-  ; (before-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc")
+  ; (before-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc"
-  ;                        {:return? true})
+  ; (before-last-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (before-last-occurence nil "abc")
+  ; (before-last-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (before-last-occurence nil "abc" {:return? true})
+  ; (before-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -246,35 +236,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (after-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
+  ; (after-first-occurence "abcabc" "b")
   ;
   ; @example
-  ; (after-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
+  ; (after-first-occurence "abcabc" "b")
   ; =>
-  ; " really awake; but you're never really asleep."
+  ; "cabc"
   ;
   ; @example
-  ; (after-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc")
+  ; (after-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc"
-  ;                        {:return? true})
+  ; (after-first-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (after-first-occurence nil "abc")
+  ; (after-first-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-first-occurence nil "abc" {:return? true})
+  ; (after-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -305,35 +290,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (after-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "never")
+  ; (after-last-occurence "abcabc" "b")
   ;
   ; @example
-  ; (after-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "never")
+  ; (after-last-occurence "abcabc" "b")
   ; =>
-  ; "really asleep."
+  ; "c"
   ;
   ; @example
-  ; (after-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "abc")
+  ; (after-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "abc"
-  ;                       {:return? true})
+  ; (after-last-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (after-last-occurence nil "abc")
+  ; (after-last-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (after-last-occurence nil "abc" {:return? true})
+  ; (after-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -364,35 +344,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (from-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "never")
+  ; (from-first-occurence "abcabc" "b")
   ;
   ; @example
-  ; (from-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "never")
+  ; (from-first-occurence "abcabc" "b")
   ; =>
-  ; "never really awake; but you're never really asleep."
+  ; "bcabc"
   ;
   ; @example
-  ; (from-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "abc")
+  ; (from-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                       "abc"
-  ;                       {:return? true})
+  ; (from-first-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (from-first-occurence nil "abc")
+  ; (from-first-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-first-occurence nil "abc" {:return? true})
+  ; (from-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -423,35 +398,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (from-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                      "never")
+  ; (from-last-occurence "abcabc" "b")
   ;
   ; @example
-  ; (from-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                      "never")
+  ; (from-last-occurence "abcabc" "b")
   ; =>
-  ; "never really asleep."
+  ; "bc"
   ;
   ; @example
-  ; (from-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                      "abc")
+  ; (from-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                      "abc"
-  ;                      {:return? true})
+  ; (from-last-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (from-last-occurence nil "abc")
+  ; (from-last-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (from-last-occurence nil "abc" {:return? true})
+  ; (from-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -482,35 +452,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (to-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "never")
+  ; (to-first-occurence "abcabc" "b")
   ;
   ; @example
-  ; (to-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "never")
+  ; (to-first-occurence "abcabc" "b")
   ; =>
-  ; "With insomnia, you're never"
+  ; "ab"
   ;
   ; @example
-  ; (to-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "abc")
+  ; (to-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                     "abc"
-  ;                     {:return? true})
+  ; (to-first-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (to-first-occurence nil "abc")
+  ; (to-first-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-first-occurence nil "abc" {:return? true})
+  ; (to-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -541,35 +506,30 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (to-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                    "never")
+  ; (to-last-occurence "abcabc" "b")
   ;
   ; @example
-  ; (to-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                    "never")
+  ; (to-last-occurence "abcabc"  "b")
   ; =>
-  ; "With insomnia, you're never really awake; but you're never"
+  ; "abcab"
   ;
   ; @example
-  ; (to-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                    "abc")
+  ; (to-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                    "abc"
-  ;                    {:return? true})
+  ; (to-last-occurence "abcabc" "d" {:return? true})
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abcabc"
   ;
   ; @example
-  ; (to-last-occurence nil "abc")
+  ; (to-last-occurence nil "b")
   ; =>
   ; nil
   ;
   ; @example
-  ; (to-last-occurence nil "abc" {:return? true})
+  ; (to-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
   ;
@@ -588,3 +548,63 @@
                               (f0 (-> n str)
                                   (-> n str clojure.string/lower-case)
                                   (-> x str clojure.string/lower-case))))))
+
+(defn between-occurences
+  ; @param (*) n
+  ; @param (*) x
+  ; @param (*) y
+  ; @param (map)(opt) options
+  ; {:case-sensitive? (boolean)(opt)
+  ;   Default: true
+  ;  :return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' value in case of the occurences are not found.
+  ;   Default: false}
+  ;
+  ; @usage
+  ; (between-occurences "abcabc" "b" "a")
+  ;
+  ; @example
+  ; (between-occurences "abcabc" "b" "a")
+  ; =>
+  ; "c"
+  ;
+  ; @example
+  ; (between-occurences "abcabc" "b" "d")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (between-occurences "abcabc" "b" "d" {:return? true})
+  ; =>
+  ; "abcabc"
+  ;
+  ; @example
+  ; (between-occurences nil "b" "a")
+  ; =>
+  ; nil
+  ;
+  ; @example
+  ; (between-occurences nil "b" "a" {:return? true})
+  ; =>
+  ; ""
+  ;
+  ; @return (string)
+  ([n x y]
+   (between-occurences n x y {}))
+
+  ([n x y {:keys [case-sensitive? return?] :or {case-sensitive? true}}]
+   (letfn [(f0 [n o x y]
+               (if-let [dex (clojure.string/index-of o x)]
+                       (let [after-x (subs n (+ dex (count x)))]
+                            (if-let [dex (clojure.string/index-of after-x y)]
+                                    (subs after-x 0 dex)
+                                    (if return? n)))
+                       (if return? n)))]
+          (if case-sensitive? (f0 (-> n str)
+                                  (-> n str)
+                                  (-> x str)
+                                  (-> y str))
+                              (f0 (-> n str)
+                                  (-> n str clojure.string/lower-case)
+                                  (-> x str clojure.string/lower-case)
+                                  (-> y str clojure.string/lower-case))))))

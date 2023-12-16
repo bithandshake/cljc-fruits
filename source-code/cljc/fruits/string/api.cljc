@@ -85,6 +85,7 @@
 (def from-last-occurence    cut/from-last-occurence)
 (def to-first-occurence     cut/to-first-occurence)
 (def to-last-occurence      cut/to-last-occurence)
+(def between-occurences     cut/between-occurences)
 
 ; @redirect (fruits.string.dex)
 (def first-dex-of dex/first-dex-of)

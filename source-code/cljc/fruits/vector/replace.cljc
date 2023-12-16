@@ -27,7 +27,7 @@
   ;
   ; @return (vector)
   [n a b]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (letfn [(f0 [result x]
               (if (= x a)
                   (conj result b)
@@ -43,7 +43,7 @@
   ;
   ; @return (vector)
   [n x]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (if (-> n vector?)
       (-> n drop (cons x) vec)
       (-> [x])))
@@ -57,7 +57,7 @@
   ;
   ; @return (vector)
   [n x]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (if (-> n vector?)
       (-> n drop-last (conj x) vec)
       (-> [x])))

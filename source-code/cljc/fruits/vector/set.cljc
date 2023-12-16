@@ -108,7 +108,7 @@
   ;
   ; @return (vector)
   [n delimiter]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (letfn [(f0 [result dex x]
               (if (-> dex zero?)
                   [x]
@@ -132,7 +132,7 @@
   ;
   ; @return (vector)
   [n prefix]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (letfn [(f0 [result x] (conj result prefix x))]
          (vec (reduce f0 [] n))))
 
@@ -153,7 +153,7 @@
   ;
   ; @return (vector)
   [n suffix]
-  ; XXX#6799 (source-code/cljc/fruits/vector/core.cljc)
+  ; @NOTE (source-code/cljc/fruits/vector/core.cljc#6799)
   (letfn [(f0 [result x] (conj result x suffix))]
          (vec (reduce f0 [] n))))
 
