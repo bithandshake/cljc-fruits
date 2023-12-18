@@ -86,8 +86,7 @@
             (-> n         seqable?))
        (letfn [(f0 [container x]
                    (conj container ^{:key (random/generate-uuid)} x))]
-              (if (-> n empty? not)
-                  (reduce f0 container (vec n)))))))
+              (reduce f0 container (vec n))))))
 
 (defn put-with
   ; @param (keyword)(opt) container
@@ -126,8 +125,7 @@
        (letfn [(f0 [container x]
                    (if x (conj container ^{:key (random/generate-uuid)} (put-f x))
                          (->   container)))]
-              (if (-> n empty? not)
-                  (reduce f0 container (vec n)))))))
+              (reduce f0 container (vec n))))))
 
 (defn put-with-indexed
   ; @param (keyword)(opt) container
@@ -166,5 +164,4 @@
        (letfn [(f0 [container dex x]
                    (if x (conj container ^{:key (random/generate-uuid)} (put-f dex x))
                          (->   container)))]
-              (if (-> n empty? not)
-                  (reduce-kv f0 container (vec n)))))))
+              (reduce-kv f0 container (vec n))))))
