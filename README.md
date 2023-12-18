@@ -12,7 +12,7 @@ to a specific position or how to find the 42th occurrence of an expression in a 
 
 ```
 {:deps {bithandshake/cljc-fruits {:git/url "https://github.com/bithandshake/cljc-fruits"
-                                  :sha     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}}
+                                  :sha     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}}}
 ```
 
 ### Current version

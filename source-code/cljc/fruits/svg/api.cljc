@@ -5,6 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.svg.core)
+; @redirect (fruits.svg.core/*)
 (def view-box           core/view-box)
 (def wrapper-attributes core/wrapper-attributes)

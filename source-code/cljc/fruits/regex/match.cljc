@@ -210,6 +210,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn re-from
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
@@ -258,6 +261,9 @@
               (reduce f0 nil matches))))
 
 (defn re-to
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;

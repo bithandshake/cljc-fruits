@@ -8,7 +8,7 @@
   ; @param (px) width
   ; @param (px) height
   ;
-  ; @example
+  ; @usage
   ; (view-box 1024 1024)
   ; =>
   ; "0 0 1024 1024"
@@ -23,7 +23,7 @@
   ;  :style (map)(opt)
   ;  :width (px)}
   ;
-  ; @example
+  ; @usage
   ; (wrapper-attributes {:height 256 :width 256})
   ; =>
   ; {:style {:height "100%" :width "100%"}

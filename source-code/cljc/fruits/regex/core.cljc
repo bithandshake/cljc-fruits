@@ -185,6 +185,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn starts-at?
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
@@ -223,6 +226,9 @@
   (-> (match/re-from n x cursor) boolean))
 
 (defn ends-at?
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
@@ -264,6 +270,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-at?
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;
@@ -303,6 +312,9 @@
        (not starts-at?)))
 
 (defn not-ends-at?
+  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
   ;

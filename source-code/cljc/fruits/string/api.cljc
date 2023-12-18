@@ -165,11 +165,13 @@
 (def split  set/split)
 
 ; @redirect (fruits.string.trim)
-(def trim          trim/trim)
-(def trim-start    trim/trim-start)
-(def trim-end      trim/trim-end)
-(def trim-newlines trim/trim-newlines)
-(def trim-gaps     trim/trim-gaps)
+(def trim            trim/trim)
+(def horizontal-trim trim/horizontal-trim)
+(def vertical-trim   trim/vertical-trim)
+(def trim-start      trim/trim-start)
+(def trim-end        trim/trim-end)
+(def trim-newlines   trim/trim-newlines)
+(def trim-gaps       trim/trim-gaps)
 
 ; @redirect (fruits.string.walk)
 (def walk walk/walk)

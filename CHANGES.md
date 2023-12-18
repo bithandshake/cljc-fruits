@@ -1,14 +1,6 @@
 
-# Changelog
+### [0.9.3.8] - 2022-11-27
 
-## [0.9.3.8] - 2022-11-27
+- CHANGES.md [added]
 
-### Added
-
-- CHANGES.md
-
-### Removed
-
-- html.api
-
-- Unnecessary items in .gitignore
+- html.api [removed]

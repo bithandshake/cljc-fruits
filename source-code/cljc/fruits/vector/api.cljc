@@ -16,12 +16,12 @@
               [fruits.vector.nth     :as nth]
               [fruits.vector.remove  :as remove]
               [fruits.vector.replace :as replace]
+              [fruits.vector.result  :as result]
               [fruits.vector.set     :as set]
               [fruits.vector.sort    :as sort]
               [fruits.vector.step    :as step]
               [fruits.vector.update  :as update]
-              [fruits.vector.walk    :as walk]
-              [fruits.vector.result :as result]))
+              [fruits.vector.walk    :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

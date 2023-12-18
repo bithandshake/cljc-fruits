@@ -5,9 +5,9 @@
               [fruits.regex.cut     :as cut]
               [fruits.regex.dex     :as dex]
               [fruits.regex.match   :as match]
+              [fruits.regex.pattern :as pattern]
               [fruits.regex.remove  :as remove]
-              [fruits.regex.replace :as replace]
-              [fruits.regex.pattern :as pattern]))
+              [fruits.regex.replace :as replace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.normalize.clean)
+; @redirect (fruits.normalize.clean/*)
 (def deaccent             clean/deaccent)
 (def remove-special-chars clean/remove-special-chars)
 (def replace-blank-chars  clean/replace-blank-chars)

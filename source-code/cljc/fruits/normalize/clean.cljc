@@ -15,9 +15,6 @@
   ;
   ; @usage
   ; (deaccent "aáAÁ")
-  ;
-  ; @example
-  ; (deaccent "aáAÁ")
   ; =>
   ; "aaAA"
   ;
@@ -37,13 +34,10 @@
   ;
   ; @usage
   ; (remove-special-chars "abc+-.")
-  ;
-  ; @example
-  ; (remove-special-chars "abc+-.")
   ; =>
   ; "abc-"
   ;
-  ; @example
+  ; @usage
   ; (remove-special-chars "abc+-.?" "-+")
   ; =>
   ; "abc+-"
@@ -63,9 +57,6 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (replace-blank-chars "a b  \n  c")
-  ;
-  ; @example
   ; (replace-blank-chars "a b  \n  c")
   ; =>
   ; "a-b-c"
@@ -88,23 +79,20 @@
   ;
   ; @usage
   ; (clean-text "a b  c")
-  ;
-  ; @example
-  ; (clean-text "a b  c")
   ; =>
   ; "a-b-c"
   ;
-  ; @example
+  ; @usage
   ; (clean-text "aá AÁ")
   ; =>
   ; "aa-AA"
   ;
-  ; @example
+  ; @usage
   ; (clean-text "1+2")
   ; =>
   ; "12"
   ;
-  ; @example
+  ; @usage
   ; (clean-text "1+2-4" "+-")
   ; =>
   ; "1+2-4"

@@ -6,6 +6,14 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-dex-of
+  ; @bug (#9081)
+  ; - Lookaround assertions can cause incorrect result!
+  ; - E.g., In the example below, the given 'x' pattern only matches the second occurence of the number 42,
+  ;         but its result is simply the number (42) that can be found at the first index also.
+  ;         The 'regex.api/first-dex-of' function uses the 'string.api/first-dex-of' function to
+  ;         find the the first occurence of the match, and it doesn't take lookaround assertions into account:
+  ;         (string.api/first-dex-of "a42 - b42" #"(?<=b)42") => 1
+  ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ;
@@ -16,12 +24,6 @@
   ;
   ; @return (integer)
   [n x]
-  ; @BUG (#9081)
-  ; Lookaround assertions can cause incorrect results!
-  ; E.g., In the example below, the given 'x' pattern only matches the second occurence of the number 42,
-  ;       but its result is simply the number (42) that can be found at first index also,
-  ;       because the 'string/first-dex-of' function doesn't take Lookaround assertions into account:
-  ;       (first-dex-of "a42 - b42" #"(?<=b)42") => 1
   (let [n (str n)
         x (re-pattern x)]
        (if-let [match (re-find x n)]
@@ -29,6 +31,9 @@
                      (string? match) (string/first-dex-of n        match)))))
 
 (defn last-dex-of
+  ; @bug (#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ;
@@ -39,7 +44,6 @@
   ;
   ; @return (integer)
   [n x]
-  ; @BUG (#9081)
   (let [n (str n)
         x (re-pattern x)]
        (if-let [match (re-find x n)]
@@ -47,6 +51,9 @@
                      (string? match) (string/last-dex-of n        match)))))
 
 (defn nth-dex-of
+  ; @bug (#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @param (*) n
   ; @param (regex pattern or string) x
   ; @param (integer) th
@@ -58,7 +65,6 @@
   ;
   ; @return (integer)
   [n x th]
-  ; @BUG (#9081)
   (let [n (str n)
         x (re-pattern x)]
        (if (nat-int? th)
