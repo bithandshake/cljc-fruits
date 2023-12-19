@@ -56,7 +56,7 @@
   ; @return (map)
   [n]
   ; https://ask.clojure.org/index.php/2366/accept-and-ignore-colon-between-key-and-value-in-map-literals
-  ; In JSON syntax there is a colon between names and values, but the Clojure reader
-  ; cannot deal with that colon, therefore all delimiter colons have to be removed before reading a JSON data.
+  ; In the JSON syntax there is a colon between names and values, but the Clojure reader
+  ; cannot deal with that colon. Therefore, all delimiter colons have to be removed before reading a JSON data.
   (letfn [(remove-delimiter-colons-f [%] (string/replace-part % #"(?<=\"[a-zA-Z0-9\-\_]+\")\:" " "))]
          (-> n remove-delimiter-colons-f)))
