@@ -1,7 +1,8 @@
 
 (ns fruits.hiccup.attributes
     (:require [fruits.keyword.api :as keyword]
-              [fruits.vector.api  :as vector]))
+              [fruits.vector.api  :as vector]
+              [fruits.normalize.api :as normalize]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -113,14 +114,7 @@
   ;
   ; @return (string)
   [n & [flag]]
-  (letfn [(f0 [result char]
-              (case char "." (str result "--")
-                         "/" (str result "--")
-                         "?" (->  result)
-                         "!" (->  result)
-                         ">" (->  result)
-                             (str result char)))]
-         (let [n (cond (keyword? n) (-> n keyword/to-string)
-                       (string?  n) (-> n))]
-              (if flag (str (reduce f0 nil n) "--" flag)
-                       (str (reduce f0 nil n))))))
+  (letfn [(f0 [%] (if flag (str % "--" flag) %))]
+         (if (-> n keyword?)
+             (-> n keyword/to-string normalize/clean-text f0)
+             (-> n str               normalize/clean-text f0))))
