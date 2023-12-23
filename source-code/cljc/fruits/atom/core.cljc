@@ -36,17 +36,3 @@
   ; @return (atom)
   [n]
   (swap! n dec))
-
-(defn apply!
-  ; @param (atom) n
-  ; @param (function) f
-  ; @param (list of *)(opt) params
-  ;
-  ; @usage
-  ; (def my-atom (atom 42))
-  ; (defn my-f [x] (inc x))
-  ; (apply! my-atom my-f)
-  ;
-  ; @return (atom)
-  [n f & params])
-  ; TODO

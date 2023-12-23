@@ -26,7 +26,7 @@
 
           ; - Updates the observed character if uppercase.
           ; - Places a hyphen before the updated character if it does not follow a whitespace or a hyphen.
-          ; - The #"[A-Z]" pattern only matches with uppercase LETTERS!
+          ; - The #"[A-Z]" pattern only matches uppercase LETTERS!
           (f2 [result cursor]
               (let [char (subs result cursor (inc cursor))]
                    (if (re-find #"[A-Z]" char)
@@ -67,7 +67,7 @@
 
           ; - Updates the observed character if lowercase.
           ; - Removes the hyphen before the updated character if any.
-          ; - The #"[a-z]" pattern only matches with lowercase LETTERS!
+          ; - The #"[a-z]" pattern only matches lowercase LETTERS!
           (f2 [result cursor]
               (let [char (subs result cursor (inc cursor))]
                    (if (re-find #"[a-z]" char)

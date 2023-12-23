@@ -1,6 +1,6 @@
 
 (ns fruits.gestures.type
-    (:require [fruits.regex.api :refer [re-match?]]))
+    (:require [fruits.regex.api :as regex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -23,4 +23,4 @@
   ;
   ; @return (boolean)
   [n]
-  (re-match? n #".*\#\d$"))
+  (regex/re-match? n #".*\#\d+$"))

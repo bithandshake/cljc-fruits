@@ -1,7 +1,7 @@
 
 (ns fruits.audit.check
     (:require [fruits.audit.patterns :as patterns]
-              [fruits.regex.api      :refer [re-match?]]))
+              [fruits.regex.api      :as regex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@
   ; @return (boolean)
   [n]
   (let [pattern (patterns/email-address-pattern)]
-       (re-match? (str n) pattern)))
+       (regex/re-match? (str n) pattern)))
 
 (defn ip-address-valid?
   ; @description
@@ -42,7 +42,7 @@
   ; @return (boolean)
   [n]
   (let [pattern (patterns/ip-address-pattern)]
-       (re-match? (str n) pattern)))
+       (regex/re-match? (str n) pattern)))
 
 (defn latin-name-valid?
   ; @description
@@ -74,7 +74,7 @@
 
   ([n min max]
    (let [pattern (patterns/latin-name-pattern min max)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn password-valid?
   ; @description
@@ -115,7 +115,7 @@
 
   ([n min max]
    (let [pattern (patterns/password-pattern min max)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn phone-number-valid?
   ; @description
@@ -153,7 +153,7 @@
 
   ([n min max]
    (let [pattern (patterns/phone-number-pattern min max)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn pin-code-valid?
   ; @description
@@ -183,7 +183,7 @@
 
   ([n length]
    (let [pattern (patterns/pin-code-pattern length)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn security-code-valid?
   ; @description
@@ -213,7 +213,7 @@
 
   ([n length]
    (let [pattern (patterns/security-code-pattern length)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn user-agent-valid?
   ; @description
@@ -241,7 +241,7 @@
 
   ([n allowed-agents]
    (let [pattern (patterns/user-agent-pattern allowed-agents)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))
 
 (defn username-valid?
   ; @description
@@ -279,4 +279,4 @@
 
   ([n min max]
    (let [pattern (patterns/username-pattern min max)]
-        (re-match? (str n) pattern))))
+        (regex/re-match? (str n) pattern))))

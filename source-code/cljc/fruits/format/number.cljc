@@ -1,7 +1,8 @@
 
 (ns fruits.format.number
-    (:require [fruits.regex.api  :refer [re-match?]]
-              [fruits.string.api :as string]))
+    (:require [fruits.regex.api  :as regex]
+              [fruits.string.api :as string]
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -10,17 +11,17 @@
   ; @param (number or string) n
   ;
   ; @usage
-  ; (sign-number 4200.5)
+  ; (sign-number 123.456)
   ;
   ; @example
-  ; (sign-number 4200.5)
+  ; (sign-number 123.456)
   ; =>
-  ; "+4200.5"
+  ; "+123.456"
   ;
   ; @example
-  ; (sign-number -4200.5)
+  ; (sign-number -123.456)
   ; =>
-  ; "-4200.5"
+  ; "-123.456"
   ;
   ; @example
   ; (sign-number 0)
@@ -29,10 +30,10 @@
   ;
   ; @return (string)
   [n]
-  (let [n (str n)]
-       (cond (-> n string/first-character (= "-")) (->      n)
-             (-> n (re-match? #"^0+$"))            (->      n)
-             :else                                 (str "+" n))))
+  (letfn [(f0 [%] (cond (-> % string/first-character (= "-")) (->      %)
+                        (-> % (regex/re-match? #"^0+$"))      (->      %)
+                        :else                                 (str "+" %)))]
+         (mixed/update-number-part n f0)))
 
 (defn group-number
   ; @param (number or string) n
@@ -40,35 +41,34 @@
   ; Default: ","
   ;
   ; @usage
-  ; (group-number 4200.5)
+  ; (group-number 123456.789)
   ;
   ; @example
-  ; (group-number 4200.5)
+  ; (group-number 123456.789)
   ; =>
-  ; "4,200.5"
+  ; "123,456.789"
   ;
   ; @return (string)
   ([n]
    (group-number n ","))
 
   ([n delimiter]
-   ; groupable:   The first block of 'n' string that only contains digits.
-   ; group-count: How many three-character blocks is the 'groupable' string divisible by.
-   ; offset:      After dividing the 'groupable' string into three-character blocks,
-   ;              how many characters are left out (at the beginning of the 'groupable' string).
-   (let [n           (str n)
-         groupable   (re-find #"\d+" n)
-         group-count (quot (count groupable) 3)
-         offset      (-    (count groupable) (* 3 group-count))]
-        ; In case the 'offset' value is 0 (because the number of characters in the 'groupable' string is divisible by three),
-        ; it is necessary to remove the unnecessary separator character from the beginning of the loop's output.
-        (str (string/trim (reduce (fn [result dex]
-                                      (let [x (+ offset (* 3 dex))]
-                                           (str result delimiter (subs groupable x (+ x 3)))))
-                                  (subs groupable 0 offset)
-                                  (range group-count)))
-             ; It appends the non-grouped part of the original 'n' string (the part after the 'groupable' string).
-             (subs n (count groupable))))))
+   ; group-count: How many three-digit blocks is the 'whole-number' string divisible by.
+   ; offset:      After dividing the 'whole-number' string into three-digit blocks,
+   ;              how many digits are left out (at the beginning of the 'whole-number' string).
+   (letfn [; In case the 'offset' value is 0 (because the number of digits in the 'whole-number' string is divisible by three),
+           ; it removes the unnecessary separator character from the beginning of the output in every iteration.
+           (f0 [%] (let [whole-number (string/before-first-occurence % "." {:return? true})
+                         decimals     (string/from-first-occurence   % "." {:return? false})
+                         group-count  (quot (count whole-number) 3)
+                         offset       (-    (count whole-number) (* 3 group-count))]
+                        (str (string/trim (reduce (fn [result dex]
+                                                      (let [x (+ offset (* 3 dex))]
+                                                           (str result delimiter (subs whole-number x (+ x 3)))))
+                                                  (subs whole-number 0 offset)
+                                                  (range group-count)))
+                             (-> decimals))))]
+          (mixed/update-number-part n f0))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -78,74 +78,75 @@
   ; @param (integer) length
   ;
   ; @usage
-  ; (leading-zeros "420" 5)
+  ; (leading-zeros "123" 6)
   ;
   ; @example
-  ; (leading-zeros 7 3)
+  ; (leading-zeros "123" 6)
   ; =>
-  ; "007"
+  ; "000123"
   ;
   ; @example
-  ; (leading-zeros 420 3)
+  ; (leading-zeros 123 3)
   ; =>
-  ; "420"
+  ; "123"
   ;
   ; @return (string)
   [n length]
-  ; TODO
-  ; It doesn't handle the "-" and "+" signs!
-  (let [n (str n)]
-       (letfn [(f0 [n]
-                   (if (->  n count (< length))
-                       (->> n (str "0") f0)
-                       (->  n)))]
-              (f0 n))))
+  (letfn [(f0 [%] (if (->  % count (< length))
+                      (->> % (str "0") f0)
+                      (->  %)))
+          (f1 [%] (if (-> % string/first-character (= "-"))
+                      (str "-" (-> % str (subs 1) f0))
+                      (str     (-> % str f0))))]
+         (mixed/update-number-part n f1)))
 
 (defn remove-leading-zeros
   ; @param (number or string) n
   ;
   ; @usage
-  ; (remove-leading-zeros "042")
+  ; (remove-leading-zeros "000123")
   ;
   ; @example
-  ; (remove-leading-zeros 42)
+  ; (remove-leading-zeros "000123")
   ; =>
-  ; "42"
+  ; "123"
   ;
   ; @example
-  ; (remove-leading-zeros "0042")
+  ; (remove-leading-zeros "-000123")
   ; =>
-  ; "42"
+  ; "-123"
   ;
   ; @return (string)
   [n]
-  (let [n (str n)]
-       (letfn [(f0 [n]
-                   (if-not (-> n string/first-character (= "0"))
-                           (-> n)
-                           (-> n (subs 1) f0)))]
-              (f0 n))))
+  (letfn [(f0 [%] (if (-> % string/first-character (= "0"))
+                      (-> % (subs 1) f0)
+                      (-> %)))
+          (f1 [%] (if (-> % string/first-character (= "-"))
+                      (str "-" (-> % str (subs 1) f0))
+                      (str     (-> % str f0))))]
+         (mixed/update-number-part n f1)))
 
 (defn trailing-zeros
-  ; @param (integer or string) n
+  ; @param (number or string) n
   ; @param (integer)(opt) length
   ;
   ; @usage
-  ; (trailing-zeros "420" 5)
+  ; (trailing-zeros "123" 6)
   ;
   ; @example
-  ; (trailing-zeros 7 3)
+  ; (trailing-zeros "123" 6)
   ; =>
-  ; "700"
+  ; "123000"
   ;
   ; @return (string)
   [n length]
-  (let [n (str n)]
-       (letfn [(f0 [n]
-                   (if (-> n count (< length))
-                       (-> n (str "0") f0)
-                       (-> n)))]
-              (f0 n))))
+  (letfn [(f0 [%] (if (-> % count (< length))
+                      (-> % (str "0") f0)
+                      (-> %)))
+          (f1 [%] (if (-> % string/first-character (= "-"))
+                      (str "-" (-> % str (subs 1) f0))
+                      (str     (-> % str f0))))]
+         (mixed/update-number-part n f1)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -156,20 +157,20 @@
   ; Default: 2
   ;
   ; @usage
-  ; (decimals "420" 2)
+  ; (decimals "123" 3)
   ;
   ; @example
-  ; (decimals "1" 2)
+  ; (decimals "123" 3)
   ; =>
-  ; "1.00"
+  ; "123.000"
   ;
   ; @example
-  ; (decimals "11.0000" 3)
+  ; (decimals "123.0000" 3)
   ; =>
-  ; "11.000"
+  ; "123.000"
   ;
   ; @example
-  ; (decimals nil 2)
+  ; (decimals nil 3)
   ; =>
   ; ""
   ;
@@ -178,27 +179,17 @@
    (decimals n 2))
 
   ([n decimal-places]
-   (let [n (str n)]
-        (if ; If the 'n' string is empty ...
-            (-> n count (< 1)) (-> n)
-            ; If the 'n' string is NOT empty ...
-            (if-let [separator-position (string/first-dex-of n ".")]
-                    ; If the 'n' string contains a '.' character ...
-                    (let [diff (-> n count (- separator-position decimal-places 1))]
-                         (cond ; If the 'n' string is too long ...
-                               (> diff 0)
-                               (subs n 0 (+ separator-position decimal-places 1))
-                               ; If the 'n' string is too short ...
-                               (< diff 0)
-                               (str n (string/repeat "0" (- diff)))
-                               ; If the 'n' string is ...
-                               (= diff 0)
-                               (-> n)))
-                    ; If the 'n' string doesn't contain a '.' character ...
-                    (str n "." (string/repeat "0" decimal-places)))))))
+   (letfn [(f0 [%] (if (-> % str empty?) (-> %)
+                       (if-let [separator-position (string/first-dex-of % ".")]
+                               (let [diff (-> % str count (- separator-position decimal-places 1))]
+                                    (cond (> diff 0) (subs % 0 (+ separator-position decimal-places 1))
+                                          (< diff 0) (str  % (string/repeat "0" (- diff)))
+                                          (= diff 0) (->   %)))
+                               (str % "." (string/repeat "0" decimal-places)))))]
+          (mixed/update-number-part n f0))))
 
 (defn round
-  ; @param (number) n
+  ; @param (number or string) n
   ;
   ; @usage
   ; (round 1234)
@@ -225,11 +216,15 @@
   ;
   ; @return (string)
   [n]
-  (letfn [(f0 [%]
-              (if (-> % string/last-character (= "0"))
-                  (-> % (string/keep-range 0 -1))
-                  (-> % (string/insert-part "." -1))))]
-         (cond (>= n 1000000000) (str (f0 (Math/round (/ n 100000000))) "B")
-               (>= n 1000000)    (str (f0 (Math/round (/ n    100000))) "M")
-               (>= n 1000)       (str (f0 (Math/round (/ n       100))) "K")
-               :return           (str (Math/round n)))))
+  (letfn [(f0 [%] (if   (-> % string/last-character (= "0"))
+                        (-> % (string/keep-range 0 -1))
+                        (-> % (string/insert-part "." -1))))
+          ; A divided negative number can be 'ratio' type that cannot be rounded by the 'Math/round' function.
+          (f1 [%] (cond (>= %  1000000000) (str (-> % (/ 100000000)        Math/round f0) "B")
+                        (>= %  1000000)    (str (-> % (/    100000)        Math/round f0) "M")
+                        (>= %  1000)       (str (-> % (/       100)        Math/round f0) "K")
+                        (<= % -1000000000) (str (-> % (/ 100000000) double Math/round f0) "B")
+                        (<= % -1000000)    (str (-> % (/    100000) double Math/round f0) "M")
+                        (<= % -1000)       (str (-> % (/       100) double Math/round f0) "K")
+                        :return            (str (-> % Math/round))))]
+         (mixed/update-number-part n f1)))

@@ -3,8 +3,7 @@
 
 ### Overview
 
-The <strong>cljc-fruits</strong> is a set of Clojure/ClojureScript utility functions which
-help you to develop fast and easy.
+The <strong>cljc-fruits</strong> is a set of fundamental utility functions for Clojure projects.
 
 ### deps.edn
 

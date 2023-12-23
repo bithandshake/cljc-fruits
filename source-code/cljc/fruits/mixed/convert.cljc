@@ -3,6 +3,7 @@
     (:require [fruits.map.api    :as map]
               [fruits.mixed.type :as type]
               [fruits.reader.api :as reader]
+              [fruits.regex.api :as regex]
               [fruits.vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------
@@ -111,19 +112,24 @@
   ; 0
   ;
   ; @example
-  ; (to-number "-3")
+  ; (to-number "-123")
   ; =>
-  ; -3
+  ; -123
   ;
   ; @example
-  ; (to-number "1.1")
+  ; (to-number "123.456")
   ; =>
-  ; 1.1
+  ; 123.456
+  ;
+  ; @example
+  ; (to-number "abc-123.456def789")
+  ; =>
+  ; -123.456
   ;
   ; @return (number)
   [n]
-  (cond (nil?                  n) (-> 0)
-        (number?               n) (-> n)
-        (type/whole-number?    n) (-> n reader/read-edn)
-        (type/rational-number? n) (-> n reader/read-edn)
-        :return 0))
+  (cond (nil?    n) (-> 0)
+        (number? n) (-> n)
+        :else       (-> n (regex/re-first #"[\-]{0,1}[\d]{1,}[\.]{0,}[\d]{0,}")
+                          (or 0)
+                          (reader/read-edn))))

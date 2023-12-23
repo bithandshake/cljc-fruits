@@ -1,5 +1,5 @@
 
-(ns fruits.mixed.core
+(ns fruits.mixed.number
     (:require [fruits.mixed.convert :as convert]
               [fruits.mixed.type    :as type]
               [fruits.reader.api    :as reader]))
@@ -14,16 +14,16 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ; (add-numbers 1 "3")
+  ; (add-numbers 1 2 "3")
   ; =>
-  ; 4
+  ; 6
   ;
   ; @example
-  ; (add-numbers 1 "3" "a")
+  ; (add-numbers 1 2 "3" "a")
   ; =>
-  ; 4
+  ; 6
   ;
-  ; @return (integer)
+  ; @return (number)
   [& abc]
   (letfn [(f0 [result x] (+ result (convert/to-number x)))]
          (reduce f0 0 abc)))
@@ -35,16 +35,16 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ; (subtract-numbers 1 "3")
+  ; (subtract-numbers 1 2 "3")
   ; =>
-  ; -2
+  ; -4
   ;
   ; @example
-  ; (subtract-numbers 1 "3" "a")
+  ; (subtract-numbers 1 2 "3" "a")
   ; =>
-  ; -2
+  ; -4
   ;
-  ; @return (integer)
+  ; @return (number)
   [& abc]
   (letfn [(f0 [result x]
               (- result (convert/to-number x)))]
@@ -57,16 +57,16 @@
   ; @param (list of *) abc
   ;
   ; @example
-  ; (multiply-numbers 1 "3")
+  ; (multiply-numbers 1 2 "3")
   ; =>
-  ; 3
+  ; 6
   ;
   ; @example
-  ; (multiply-numbers 1 "3" "a")
+  ; (multiply-numbers 1 2 "3" "a")
   ; =>
   ; 0
   ;
-  ; @return (integer)
+  ; @return (number)
   [& abc]
   (letfn [(f0 [result x]
               (* result (convert/to-number x)))]
@@ -75,37 +75,67 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn update-whole-number
+(defn update-number
   ; @param (integer or string) n
   ; @param (function) f
-  ; @param (*)(opt) x
+  ; @param (list of *)(opt) params
   ;
   ; @example
-  ; (update-whole-number "12" inc)
+  ; (update-number "123" inc)
   ; =>
-  ; "13"
+  ; 124
   ;
   ; @example
-  ; (update-whole-number "12" + 3)
+  ; (update-number "123" + 1)
   ; =>
-  ; "15"
+  ; 124
   ;
   ; @example
-  ; (update-whole-number 12 + 3)
+  ; (update-number 123 + 1)
   ; =>
-  ; 15
+  ; 124
   ;
   ; @example
-  ; (update-whole-number "abCd12" + 3)
+  ; (update-number "abc-123.456def789" - 10)
   ; =>
-  ; "abCd12"
+  ; -133.456
   ;
-  ; @return (integer or string)
-  ([n f]
-   (update-whole-number n f nil))
+  ; @return (number)
+  [n f & params]
+  (letfn [(f0 [%] (apply f % params))]
+         (-> n convert/to-number f0)))
 
-  ([n f x]
-   (letfn [(f0 [n] (if x (f n x) (f n)))]
-          (cond (-> n           integer?) (-> n f0)
-                (-> n type/whole-number?) (-> n reader/read-edn f0)
-                (-> n              some?) (-> n)))))
+(defn update-number-part
+  ; @param (integer or string) n
+  ; @param (function) f
+  ; @param (list of *)(opt) params
+  ;
+  ; @example
+  ; (update-number-part "123" inc)
+  ; =>
+  ; "124"
+  ;
+  ; @example
+  ; (update-number-part "123" + 1)
+  ; =>
+  ; "124"
+  ;
+  ; @example
+  ; (update-number-part 123 + 1)
+  ; =>
+  ; "124"
+  ;
+  ; @example
+  ; (update-number-part "abc-123.456def789" - 10)
+  ; =>
+  ; "abc-133.456def789"
+  ;
+  ; @return (string)
+  [n f & params]
+  (let [n (str n)]
+       (if-let [number (re-find #"[\-]{0,1}[\d]{1,}[\.]{0,}[\d]{0,}" n)]
+               (let [number-starts-at (clojure.string/index-of n number)
+                     number-ends-at   (+ number-starts-at (count number))]
+                    (str (subs n 0 number-starts-at)
+                         (apply update-number number f params)
+                         (subs n number-ends-at))))))

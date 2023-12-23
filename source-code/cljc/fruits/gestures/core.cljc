@@ -54,7 +54,7 @@
            (f1 [n] (if (type/ordered-label? n)
                        (let [copy-dex      (string/after-last-occurence  n "#" {:return? false})
                              label-base    (string/before-last-occurence n "#" {:return? true})
-                             next-copy-dex (mixed/update-whole-number copy-dex inc)]
+                             next-copy-dex (mixed/update-number copy-dex inc)]
                             (str label-base "#" next-copy-dex))
                        (if (string/nonempty? n)
                            (str n " #2")

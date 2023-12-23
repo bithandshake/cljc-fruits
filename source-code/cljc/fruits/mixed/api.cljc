@@ -1,9 +1,9 @@
 
 (ns fruits.mixed.api
-    (:refer-clojure :exclude [empty?])
+    (:refer-clojure :exclude [empty? number?])
     (:require [fruits.mixed.check   :as check]
               [fruits.mixed.convert :as convert]
-              [fruits.mixed.core    :as core]
+              [fruits.mixed.number :as number]
               [fruits.mixed.parse   :as parse]
               [fruits.mixed.type    :as type]))
 
@@ -21,18 +21,18 @@
 (def to-map      convert/to-map)
 (def to-number   convert/to-number)
 
-; @redirect (fruits.mixed.core)
-(def add-numbers         core/add-numbers)
-(def subtract-numbers    core/subtract-numbers)
-(def multiply-numbers    core/multiply-numbers)
-(def update-whole-number core/update-whole-number)
+; @redirect (fruits.mixed.number)
+(def add-numbers        number/add-numbers)
+(def subtract-numbers   number/subtract-numbers)
+(def multiply-numbers   number/multiply-numbers)
+(def update-number      number/update-number)
+(def update-number-part number/update-number-part)
 
 ; @redirect (fruits.mixed.parse)
-(def parse-rational-number parse/parse-rational-number)
-(def parse-number          parse/parse-number)
-(def parse-whole-number    parse/parse-whole-number)
+(def parse-number parse/parse-number)
 
 ; @redirect (fruits.mixed.type)
+(def number?                type/number?)
 (def rational-number?       type/rational-number?)
 (def whole-number?          type/whole-number?)
 (def natural-whole-number?  type/natural-whole-number?)

@@ -93,7 +93,7 @@
 
 (defn gap-items
   ; @description
-  ; Inserts the given 'delimiter' value between each two items in the given 'n' vector.
+  ; Inserts the given 'delimiter' value between every two items in the given 'n' vector.
   ;
   ; @param (*) n
   ; @param (*) delimiter
@@ -117,7 +117,7 @@
 
 (defn prefix-items
   ; @description
-  ; Inserts the given 'prefix' item before each item in the given 'n' vector.
+  ; Inserts the given 'prefix' item before every item in the given 'n' vector.
   ;
   ; @param (*) n
   ; @param (*) prefix
@@ -138,7 +138,7 @@
 
 (defn suffix-items
   ; @description
-  ; Inserts the given 'suffix' item after each item in the given 'n' vector.
+  ; Inserts the given 'suffix' item after every item in the given 'n' vector.
   ;
   ; @param (*) n
   ; @param (*) suffix
