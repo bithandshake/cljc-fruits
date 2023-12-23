@@ -23,7 +23,7 @@
   ; "axc"
   ;
   ; @example
-  ; (replace-part "abc" #"[b]{0,}" "x")
+  ; (replace-part "abc" #"[b]*" "x")
   ; =>
   ; "axc"
   ;

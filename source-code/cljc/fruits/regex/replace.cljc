@@ -14,7 +14,7 @@
   ;   Default: false}
   ;
   ; @example
-  ; (replace-match "abc" #"[b]{0,}" "x")
+  ; (replace-match "abc" #"[b]*" "x")
   ; =>
   ; "axc"
   ;

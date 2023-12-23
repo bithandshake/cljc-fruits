@@ -42,12 +42,12 @@
   ; (re-return "123" #"\d{1,}")
   ;
   ; @example
-  ; (re-return "123" #"^[\d]{1,}$")
+  ; (re-return "123" #"^[\d]+$")
   ; =>
   ; "123"
   ;
   ; @example
-  ; (re-return "abc" #"^[\d]{1,}$")
+  ; (re-return "abc" #"^[\d]+$")
   ; =>
   ; nil
   ;
@@ -162,15 +162,15 @@
   ; @param (regex pattern or string) x
   ;
   ; @usage
-  ; (re-match? "123" #"^[\d]{1,}$")
+  ; (re-match? "123" #"^[\d]+$")
   ;
   ; @example
-  ; (re-match? "123" #"^[\d]{1,}$")
+  ; (re-match? "123" #"^[\d]+$")
   ; =>
   ; true
   ;
   ; @example
-  ; (re-match? "abc" #"^[\d]{1,}$")
+  ; (re-match? "abc" #"^[\d]+$")
   ; =>
   ; false
   ;
@@ -188,15 +188,15 @@
   ; @param (regex pattern or string) x
   ;
   ; @usage
-  ; (re-mismatch? "abc" #"^[\d]{1,}$")
+  ; (re-mismatch? "abc" #"^[\d]+$")
   ;
   ; @example
-  ; (re-mismatch? "abc" #"^[\d]{1,}$")
+  ; (re-mismatch? "abc" #"^[\d]+$")
   ; =>
   ; true
   ;
   ; @example
-  ; (re-mismatch? "123" #"^[\d]{1,}$")
+  ; (re-mismatch? "123" #"^[\d]+$")
   ; =>
   ; false
   ;

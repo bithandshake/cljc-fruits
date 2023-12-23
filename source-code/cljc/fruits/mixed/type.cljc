@@ -42,8 +42,8 @@
   ; @return (boolean)
   [n]
   (or (-> n number?)
-      (-> n (regex/re-match? #"^[\+\-]{0,1}[\d]{1,}$"))
-      (-> n (regex/re-match? #"^[\+\-]{0,1}[\d]{1,}[\.][\d]{1,}$"))))
+      (-> n (regex/re-match? #"^[\+\-]?[\d]+$"))
+      (-> n (regex/re-match? #"^[\+\-]?[\d]+[\.][\d]+$"))))
 
 (defn rational-number?
   ; @param (*) n
@@ -113,7 +113,7 @@
   ; @return (boolean)
   [n]
   (or (-> n integer?)
-      (-> n (regex/re-match? #"^[\+\-]{0,1}[\d]{1,}$"))))
+      (-> n (regex/re-match? #"^[\+\-]?[\d]+$"))))
 
 (defn natural-whole-number?
   ; @param (*) n
@@ -141,7 +141,7 @@
   ; @return (boolean)
   [n]
   (or (-> n nat-int?)
-      (-> n (regex/re-match? #"^[\+]{0,1}[\d]{1,}$"))))
+      (-> n (regex/re-match? #"^[\+]?[\d]+$"))))
 
 (defn positive-whole-number?
   ; @param (*) n
@@ -169,8 +169,8 @@
   ; @return (boolean)
   [n]
   (or (-> n pos-int?)
-      (and (-> n (regex/re-mismatch? #"^[\+]{0,1}[0]{1,}$"))
-           (-> n (regex/re-match?    #"^[\+]{0,1}[\d]{1,}$")))))
+      (and (-> n (regex/re-mismatch? #"^[\+]?[0]+$"))
+           (-> n (regex/re-match?    #"^[\+]?[\d]+$")))))
 
 (defn negative-whole-number?
   ; @param (*) n
@@ -193,5 +193,5 @@
   ; @return (boolean)
   [n]
   (or (-> n neg-int?)
-      (and (-> n (regex/re-mismatch? #"^[-][0]{1,}$"))
-           (-> n (regex/re-match?    #"^[-][\d]{1,}$")))))
+      (and (-> n (regex/re-mismatch? #"^[-][0]+$"))
+           (-> n (regex/re-match?    #"^[-][\d]+$")))))

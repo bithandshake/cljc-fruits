@@ -126,10 +126,17 @@
   ; =>
   ; -123.456
   ;
+  ; @example
+  ; (to-number "abc-008")
+  ; =>
+  ; 8
+  ;
   ; @return (number)
   [n]
+  ; The applied regex pattern asserts that the first digit of the number cannot be 0,
+  ; otherwise, the 'read-edn' function might read it as a non-decimal number (e.g., 008).
   (cond (nil?    n) (-> 0)
         (number? n) (-> n)
-        :else       (-> n (regex/re-first #"[\-]{0,1}[\d]{1,}[\.]{0,}[\d]{0,}")
+        :else       (-> n (regex/re-first #"[\-]?[1-9][\d]*[\.]*[\d]*")
                           (or 0)
                           (reader/read-edn))))

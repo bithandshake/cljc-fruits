@@ -150,4 +150,4 @@
   ; @return (string)
   [n]
   ; "\h" matches horizontal whitespace, which includes spaces and tabs but excludes newline.
-  (-> n str (clojure.string/replace #"[\h]{1,}" " ")))
+  (-> n str (clojure.string/replace #"[\h]+" " ")))

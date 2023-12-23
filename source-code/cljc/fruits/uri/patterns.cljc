@@ -31,4 +31,4 @@
 ; ... can contain lowercase and/or uppercase letters
 ; ... must be at least 1 character long!
 ; The trailing slash is allowed but not necessary!
-(def DOMAIN-PATTERN #"([a-zA-Z\d-]{1,}\.)?[a-zA-Z\d-]{1,}\.[a-zA-Z]{1,}/?")
+(def DOMAIN-PATTERN #"([a-zA-Z\d-]+\.)?[a-zA-Z\d-]+\.[a-zA-Z]+/?")

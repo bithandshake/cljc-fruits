@@ -37,22 +37,17 @@
                   (f0 (string/insert-part n "." (last delimiter-positions))
                       (vector/remove-last-item delimiter-positions))
                   (-> n)))]
-
          ; ...
          (if-let [version (-> n (regex/re-first #"\d(\.\d)*") first)]
                  (loop [version version delimiter-positions []]
                        (if-let [delimiter-position (string/first-dex-of version ".")]
                                (recur (string/remove-first-occurence version ".")
                                       (conj delimiter-positions delimiter-position))
-                               (f0 ; BUG#0080
-                                   ; The leading zeros have to be removed to prevent the 'update-number'
-                                   ; function from parsing the 'n' string using a non-decimal system (e.g., "008").
-                                   (-> version (number/remove-leading-zeros)
-                                               (mixed/update-number inc)
+                               (f0 (-> version (mixed/update-number inc)
                                                (number/leading-zeros (count version)))
                                    ; If the 'version' string contained only "9" digits before the increasing,
                                    ; an offset must be applied on the delimiter positions,
                                    ; otherwise "9.9" might be updated into "1.00" instead of "10.0".
-                                   (if (-> version             (regex/re-match? #"^[9]{1,}$"))
+                                   (if (-> version             (regex/re-match? #"^[9]+$"))
                                        (-> delimiter-positions (vector/->items inc))
                                        (-> delimiter-positions))))))))

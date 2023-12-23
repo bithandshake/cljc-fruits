@@ -133,7 +133,7 @@
   ; @return (string)
   [n f & params]
   (let [n (str n)]
-       (if-let [number (re-find #"[\-]{0,1}[\d]{1,}[\.]{0,}[\d]{0,}" n)]
+       (if-let [number (re-find #"[\-]?[\d]+[\.]*[\d]*" n)]
                (let [number-starts-at (clojure.string/index-of n number)
                      number-ends-at   (+ number-starts-at (count number))]
                     (str (subs n 0 number-starts-at)

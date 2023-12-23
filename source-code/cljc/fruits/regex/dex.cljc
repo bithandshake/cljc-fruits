@@ -18,7 +18,7 @@
   ; @param (regex pattern or string) x
   ;
   ; @example
-  ; (first-dex-of "abc 123" #"[\d]{1,}")
+  ; (first-dex-of "abc 123" #"[\d]+")
   ; =>
   ; 4
   ;
@@ -38,7 +38,7 @@
   ; @param (regex pattern or string) x
   ;
   ; @example
-  ; (last-dex-of "abc 123 def 456" #"[\d]{1,}")
+  ; (last-dex-of "abc 123 def 456" #"[\d]+")
   ; =>
   ; 12
   ;
