@@ -12,14 +12,14 @@
   ; (url-query-params->url-query-string {:my-param "my-value"})
   ;
   ; @example
-  ; (url-query-params->url-query-string {:my-param "my-value" :your-param nil})
+  ; (url-query-params->url-query-string {:my-param "my-value" :another-param nil})
   ; =>
-  ; "my-param=my-value&your-param"
+  ; "my-param=my-value&another-param"
   ;
   ; @example
-  ; (url-query-params->url-query-string {"my-param" "my-value" "your-param" nil})
+  ; (url-query-params->url-query-string {"my-param" "my-value" "another-param" nil})
   ; =>
-  ; "my-param=my-value&your-param"
+  ; "my-param=my-value&another-param"
   ;
   ; @return (string)
   [url-query-params]
@@ -38,9 +38,9 @@
   ; (url-query-string->url-query-params "my-param=my-value")
   ;
   ; @example
-  ; (url-query-string->url-query-params "my-param=my-value&your-param")
+  ; (url-query-string->url-query-params "my-param=my-value&another-param")
   ; =>
-  ; {:my-param "my-value" :your-param nil}
+  ; {:my-param "my-value" :another-param nil}
   ;
   ; @return (map)
   [url-query-string]

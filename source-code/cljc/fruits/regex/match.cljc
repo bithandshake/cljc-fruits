@@ -214,7 +214,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns the longest match of the given 'x' pattern that starts at the given 'cursor' position in the given 'n' value (converted to string).
@@ -265,7 +265,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns the longest match of the given 'x' pattern that ends at the given 'cursor' position in the given 'n' value (converted to string).

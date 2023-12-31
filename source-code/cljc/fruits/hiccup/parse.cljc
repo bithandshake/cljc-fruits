@@ -52,12 +52,12 @@
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (unparse-class-vectors [:div {:class [:my-class :your-class]}])
+  ; (unparse-class-vectors [:div {:class [:my-class :another-class]}])
   ;
   ; @example
-  ; (unparse-class-vectors [:div {:class [:my-class :your-class]}])
+  ; (unparse-class-vectors [:div {:class [:my-class :another-class]}])
   ; =>
-  ; [:div.my-class.your-class]
+  ; [:div.my-class.another-class]
   ;
   ; @return (hiccup)
   [n]

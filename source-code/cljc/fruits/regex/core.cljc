@@ -8,7 +8,7 @@
 
 (defn starts-with?
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -37,7 +37,7 @@
 
 (defn ends-with?
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -71,7 +71,7 @@
 
 (defn not-starts-with?
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -96,7 +96,7 @@
 
 (defn not-ends-with?
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -124,7 +124,7 @@
 
 (defn not-starts-with!
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -153,7 +153,7 @@
 
 (defn not-ends-with!
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -189,7 +189,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns TRUE if a match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
@@ -230,7 +230,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns TRUE if a match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).
@@ -274,7 +274,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns TRUE if NO match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
@@ -316,7 +316,7 @@
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
   ; Returns TRUE if NO match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).

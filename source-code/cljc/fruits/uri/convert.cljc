@@ -373,7 +373,7 @@
   ; "https://my-domain.com"
   ;
   ; @example
-  ; (to-parent-url "/my-path/your-path")
+  ; (to-parent-url "/my-path/another-path")
   ; =>
   ; "/my-path"
   ;
@@ -473,9 +473,9 @@
   ; "https://my-domain.com/my-path"
   ;
   ; @example
-  ; (to-absolute-url "your-domain.com/my-path" "my-domain.com")
+  ; (to-absolute-url "my-domain.com/my-path" "another-domain.com")
   ; =>
-  ; "https://your-domain.com/my-path"
+  ; "https://my-domain.com/my-path"
   ;
   ; @return (string)
   [n domain]
@@ -511,17 +511,17 @@
   ; "/"
   ;
   ; @example
-  ; (to-url-path "https://my-domain.com/my-path?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com/my-path?my-param=my-value&another-param")
   ; =>
   ; "/my-path"
   ;
   ; @example
-  ; (to-url-path "https://my-domain.com/?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com/?my-param=my-value&another-param")
   ; =>
   ; "/"
   ;
   ; @example
-  ; (to-url-path "https://my-domain.com?my-param=my-value&your-param")
+  ; (to-url-path "https://my-domain.com?my-param=my-value&another-param")
   ; =>
   ; "/"
   ;
@@ -544,17 +544,17 @@
   ; {:a "my-path"}
   ;
   ; @example
-  ; (to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/:b")
+  ; (to-url-path-params "https://my-domain.com/my-path/another-path" "/:a/:b")
   ; =>
-  ; {:a "my-path" :b "your-path"}
+  ; {:a "my-path" :b "another-path"}
   ;
   ; @example
-  ; (to-url-path-params "https://my-domain.com/my-path/your-path" "/:a/b")
+  ; (to-url-path-params "https://my-domain.com/my-path/another-path" "/:a/b")
   ; =>
   ; {:a "my-path"}
   ;
   ; @example
-  ; (to-url-path-params "/my-path/your-path" "/a/b")
+  ; (to-url-path-params "/my-path/another-path" "/a/b")
   ; =>
   ; {}
   ;
@@ -654,9 +654,9 @@
   ; {:my-param "my-value"}
   ;
   ; @example
-  ; (to-url-query-params "http://my-domain.com/my-path?my-param=my-value&your-param#my-fragment")
+  ; (to-url-query-params "http://my-domain.com/my-path?my-param=my-value&another-param#my-fragment")
   ; =>
-  ; {:my-param "my-value" :your-param nil}
+  ; {:my-param "my-value" :another-param nil}
   ;
   ; @example
   ; (to-url-query-params "http://my-domain.com/my-path#my-fragment")

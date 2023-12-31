@@ -8,7 +8,7 @@
 
 (defn remove-first-match
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x
@@ -38,7 +38,7 @@
 
 (defn remove-last-match
   ; @important
-  ; Do not use capturing groups in the given pattern, otherwise it generates multiple matches!
+  ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @param (*) n
   ; @param (regex pattern or string) x

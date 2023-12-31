@@ -26,7 +26,7 @@
   ; "My item #2"
   ;
   ; @example
-  ; (item-label->copy-label "My item" ["Your item" "Their item"])
+  ; (item-label->copy-label "My item" ["Another item"])
   ; =>
   ; "My item #2"
   ;
@@ -36,7 +36,7 @@
   ; "My item #3"
   ;
   ; @example
-  ; (item-label->copy-label "My item #2" ["Your item"])
+  ; (item-label->copy-label "My item #2" ["Another item"])
   ; =>
   ; "My item #3"
   ;

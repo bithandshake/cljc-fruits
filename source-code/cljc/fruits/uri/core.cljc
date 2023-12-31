@@ -30,9 +30,9 @@
   ; "my-domain.com/my-path?my-param#my-fragment"
   ;
   ; @example
-  ; (use-url-query-string "my-domain.com/my-path?my-param" "your-param=your-value")
+  ; (use-url-query-string "my-domain.com/my-path?my-param" "another-param=another-value")
   ; =>
-  ; "my-domain.com/my-path?my-param&your-param=your-value"
+  ; "my-domain.com/my-path?my-param&another-param=another-value"
   ;
   ; @return (string)
   [n url-query-string]

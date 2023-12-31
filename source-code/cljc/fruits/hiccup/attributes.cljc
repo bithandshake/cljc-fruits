@@ -2,6 +2,7 @@
 (ns fruits.hiccup.attributes
     (:require [fruits.keyword.api :as keyword]
               [fruits.vector.api  :as vector]
+              [fruits.string.api  :as string]
               [fruits.normalize.api :as normalize]))
 
 ;; ----------------------------------------------------------------------------
@@ -70,12 +71,12 @@
   ; @param (list of keywords or keywords in vectors) xyz
   ;
   ; @usage
-  ; (join-class :my-class [:your-class] :our-class)
+  ; (join-class :my-class [:another-class])
   ;
   ; @example
-  ; (join-class :my-class [:your-class] :our-class)
+  ; (join-class :my-class [:another-class])
   ; =>
-  ; [:my-class :your-class :our-class]
+  ; [:my-class :another-class]
   ;
   ; @return (keywords in vector)
   [& xyz]
@@ -103,18 +104,21 @@
   ; "my-namespace--my-value"
   ;
   ; @example
-  ; (value :your-namespace/your-value!)
+  ; (value :my-namespace/my-value!)
   ; =>
-  ; "your-namespace--your-value"
+  ; "my-namespace--my-value"
   ;
   ; @example
-  ; (value :our-namespace/our-value "420")
+  ; (value :my-namespace/my-value "420")
   ; =>
-  ; "our-namespace--our-value--420"
+  ; "my-namespace--my-value--420"
   ;
   ; @return (string)
   [n & [flag]]
-  (letfn [(f0 [%] (if flag (str % "--" flag) %))]
+  (letfn [(f0 [%] (string/replace-part % "." "-"))]
          (if (-> n keyword?)
-             (-> n keyword/to-string normalize/clean-text f0)
-             (-> n str               normalize/clean-text f0))))
+             (str (if-let [namespace (namespace n)] (str (-> namespace f0 normalize/clean-text) "--"))
+                  (let    [name      (name      n)]      (-> name      f0 normalize/clean-text))
+                  (if flag (str "--" flag)))
+             (str (-> n f0 normalize/clean-text)
+                  (if flag (str "--" flag))))))

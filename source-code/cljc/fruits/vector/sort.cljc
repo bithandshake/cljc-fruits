@@ -130,7 +130,7 @@
    (vec (sort-by convert-f n)))
 
   ([n comparator-f convert-f]
-   ; @NOTE (#0610) 
+   ; @NOTE (#0610)
    (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
           (vec (sort-by convert-f compare-f n)))))
 
@@ -204,7 +204,7 @@
   ; - If the elements in vectors 'a' and 'b' match in value and the number of elements is the same, it returns TRUE.
   ; - If the number of elements in vector 'a' is not equal to the number of elements in vector 'b', the comparison is
   ;   performed up to the lower number of elements (if the compared elements match if vector 'a' has the smaller number
-  ;   of elements it returns TRUE, otherwise it returns FALSE).
+  ;   of elements it returns TRUE; otherwise, it returns FALSE).
   ;
   ; @param (vector) a
   ; @param (vector) b

@@ -46,8 +46,8 @@
                                (f0 (-> version (mixed/update-number inc)
                                                (number/leading-zeros (count version)))
                                    ; If the 'version' string contained only "9" digits before the increasing,
-                                   ; an offset must be applied on the delimiter positions,
-                                   ; otherwise "9.9" might be updated into "1.00" instead of "10.0".
+                                   ; an offset must be applied on the delimiter positions.
+                                   ; Otherwise, "9.9" would be updated to "1.00" instead of "10.0".
                                    (if (-> version             (regex/re-match? #"^[9]+$"))
                                        (-> delimiter-positions (vector/->items inc))
                                        (-> delimiter-positions))))))))

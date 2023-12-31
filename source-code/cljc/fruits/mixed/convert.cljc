@@ -133,8 +133,8 @@
   ;
   ; @return (number)
   [n]
-  ; The applied regex pattern asserts that the first digit of the number cannot be 0,
-  ; otherwise, the 'read-edn' function might read it as a non-decimal number (e.g., 008).
+  ; The applied regex pattern asserts that the first digit of the number cannot be 0.
+  ; Otherwise, the 'read-edn' function would read it as a non-decimal number (e.g., 008).
   (cond (nil?    n) (-> 0)
         (number? n) (-> n)
         :else       (-> n (regex/re-first #"[\-]?[1-9][\d]*[\.]*[\d]*")
