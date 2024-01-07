@@ -88,3 +88,45 @@
                                  (inc match-count)))
                     (cond (-> dex (< (-> n count dec)))
                           (recur (inc dex) match-count))))))
+
+(defn all-results
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (all-results [:a :b :c "d"] keyword?)
+  ;
+  ; @example
+  ; (all-results [:a :b :c "d"] keyword?)
+  ; =>
+  ; [true true true]
+  ;
+  ; @example
+  ; (all-results [:a :b :c "d"] #(if (keyword? %) (name %)))
+  ; =>
+  ; ["a" "b" "c"]
+  ;
+  ; @return (vector)
+  [n f]
+  (if (check/nonempty? n)
+      (letfn [(f0 [results x]
+                  (if-let [result (f x)]
+                          (-> results conj result)
+                          (-> results)))]
+             (reduce f0 [] n))))
+
+(defn result-count
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (result-count [:a :b "c"] string?)
+  ;
+  ; @example
+  ; (result-count [:a :b "c"] keyword?)
+  ; =>
+  ; 2
+  ;
+  ; @return (integer)
+  [n f]
+  (count (filter f n)))

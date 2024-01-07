@@ -31,10 +31,10 @@
 
 (defn any-key-matches?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE for any key of the given 'n' map.
+  ; Returns TRUE if the given 'f' function returns TRUE for any key of the given 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (any-key-matches? {:a "A"} keyword?)
@@ -50,16 +50,16 @@
   ; false
   ;
   ; @return (boolean)
-  [n test-f]
-  (letfn [(f0 [%] (-> % first test-f))]
+  [n f]
+  (letfn [(f0 [%] (-> % first f))]
          (boolean (some f0 n))))
 
 (defn any-value-matches?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE for any value of the given 'n' map.
+  ; Returns TRUE if the given 'f' function returns TRUE for any value of the given 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (any-value-matches? {:a "A"} string?)
@@ -75,8 +75,8 @@
   ; false
   ;
   ; @return (boolean)
-  [n test-f]
-  (letfn [(f0 [%] (-> % second test-f))]
+  [n f]
+  (letfn [(f0 [%] (-> % second f))]
          (boolean (some f0 n))))
 
 ;; ----------------------------------------------------------------------------
@@ -84,12 +84,12 @@
 
 (defn all-keys-match?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE for all keys of the given 'n' map.
+  ; Returns TRUE if the given 'f' function returns TRUE for all keys of the given 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
-  ; @example
+  ; @usage
   ; (all-keys-match? {:a "A"} keyword?)
   ;
   ; @example
@@ -103,18 +103,18 @@
   ; false
   ;
   ; @return (boolean)
-  [n test-f]
-  (letfn [(f0 [%] (-> % first test-f))]
+  [n f]
+  (letfn [(f0 [%] (-> % first f))]
          (every? f0 n)))
 
 (defn all-values-match?
   ; @description
-  ; Returns TRUE if the given 'test-f' function returns TRUE for all values of the given 'n' map.
+  ; Returns TRUE if the given 'f' function returns TRUE for all values of the given 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
-  ; @example
+  ; @usage
   ; (all-values-match? {:a "A"} string?)
   ;
   ; @example
@@ -128,9 +128,60 @@
   ; false
   ;
   ; @return (boolean)
-  [n test-f]
-  (letfn [(f0 [%] (-> % second test-f))]
+  [n f]
+  (letfn [(f0 [%] (-> % second f))]
          (every? f0 n)))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn not-all-keys-match?
+  ; @description
+  ; Returns TRUE if the given 'f' function doesn't return TRUE for all keys of the given 'n' map.
+  ;
+  ; @param (map) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (not-all-keys-match? {:a "A" "b" "B"} keyword?)
+  ;
+  ; @example
+  ; (not-all-keys-match? {:a "A" "b" "B"} keyword?)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-all-keys-match? {:a "A" :b "B"} keyword?)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n f]
+  (-> (all-keys-match? n f) not))
+
+(defn not-all-values-match?
+  ; @description
+  ; Returns TRUE if the given 'f' function doesn't return TRUE for all values of the given 'n' map.
+  ;
+  ; @param (map) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (not-all-values-match? {:a "A" :b :B} string?)
+  ;
+  ; @example
+  ; (not-all-values-match? {:a "A" :b :B} string?)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-all-values-match? {:a "A" :b "B"} string?)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n f]
+  (-> (all-values-match? n f) not))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -140,10 +191,10 @@
   ; Clojure maps are unordered data structures.
   ;
   ; @description
-  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied on the corresponding value of the key.
+  ; Returns the first key of the given 'n' map for which the given 'f' function returns TRUE when applied on the corresponding value of the key.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (first-match-key {:a "A"} string?)
@@ -159,8 +210,8 @@
   ; nil
   ;
   ; @return (*)
-  [n test-f]
-  (letfn [(f0 [%] (if (-> % second test-f)
+  [n f]
+  (letfn [(f0 [%] (if (-> % second f)
                       (-> % first)))]
          (some f0 n)))
 
@@ -172,10 +223,10 @@
   ; Clojure maps are unordered data structures.
   ;
   ; @description
-  ; Returns the first key of the given 'n' map for which the given 'test-f' function returns TRUE when applied on all keys of the 'n' map.
+  ; Returns the first key of the given 'n' map for which the given 'f' function returns TRUE when applied on all keys of the 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (first-matching-key {:a "A"} keyword?)
@@ -191,8 +242,8 @@
   ; nil
   ;
   ; @return (*)
-  [n test-f]
-  (letfn [(f0 [%] (if (-> % first test-f)
+  [n f]
+  (letfn [(f0 [%] (if (-> % first f)
                       (-> % first)))]
          (some f0 n)))
 
@@ -201,10 +252,10 @@
   ; Clojure maps are unordered data structures.
   ;
   ; @description
-  ; Returns the first value of the given 'n' map for which the given 'test-f' function returns TRUE when applied to all values of the 'n' map.
+  ; Returns the first value of the given 'n' map for which the given 'f' function returns TRUE when applied to all values of the 'n' map.
   ;
   ; @param (map) n
-  ; @param (function) test-f
+  ; @param (function) f
   ;
   ; @usage
   ; (first-matching-value {:a "A"} string?)
@@ -225,8 +276,8 @@
   ; nil
   ;
   ; @return (*)
-  [n test-f]
-  (letfn [(f0 [%] (if (-> % second test-f)
+  [n f]
+  (letfn [(f0 [%] (if (-> % second f)
                       (-> % second)))]
          (some f0 n)))
 

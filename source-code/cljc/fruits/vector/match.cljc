@@ -68,6 +68,27 @@
   [n f]
   (every? f n))
 
+(defn not-all-items-match?
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (not-all-items-match? ["a" "b" "c"] string?)
+  ;
+  ; @example
+  ; (not-all-items-match? [:a "b" "c"] string?)
+  ; =>
+  ; true
+  ;
+  ; @example
+  ; (not-all-items-match? ["a" "b" "c"] string?)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n f]
+  (-> (all-items-match? n f) not))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -135,6 +156,27 @@
                              (inc match-count)))
                 (cond (-> dex (< (-> n count dec)))
                       (recur (inc dex) match-count))))))
+
+(defn all-matches
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
+  ; (all-matches [:a :b :c "d"] keyword?)
+  ;
+  ; @example
+  ; (all-matches [:a :b :c "d"] keyword?)
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @return (vector)
+  [n f]
+  (if (check/nonempty? n)
+      (letfn [(f0 [matches x]
+                  (if (-> x f)
+                      (-> matches conj x)
+                      (-> matches)))]
+             (reduce f0 [] n))))
 
 (defn match-count
   ; @param (vector) n
