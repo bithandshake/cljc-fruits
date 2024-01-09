@@ -58,8 +58,8 @@
   ;
   ; @return (vector)
   [n]
-  (cond (map?    n) (-> n map/to-vector)
-        (vector? n) (-> n)
+  (cond (vector? n) (-> n)
+        (map?    n) (-> n map/to-vector)
         (nil?    n) (-> [])
         :return     [n]))
 
@@ -88,8 +88,8 @@
   ;
   ; @return (map)
   [n]
-  (cond (vector? n) (-> n vector/to-map)
-        (map?    n) (-> n)
+  (cond (map?    n) (-> n)
+        (vector? n) (-> n vector/to-map)
         (nil?    n) (-> {})
         :return     {0 n}))
 
@@ -135,8 +135,8 @@
   [n]
   ; The applied regex pattern asserts that the first digit of the number cannot be 0.
   ; Otherwise, the 'read-edn' function would read it as a non-decimal number (e.g., 008).
-  (cond (nil?    n) (-> 0)
-        (number? n) (-> n)
+  (cond (number? n) (-> n)
+        (nil?    n) (-> 0)
         :else       (-> n (regex/re-first #"[\-]?[1-9][\d]*[\.]*[\d]*")
                           (or 0)
                           (reader/read-edn))))
