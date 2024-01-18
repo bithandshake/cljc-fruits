@@ -1,7 +1,7 @@
 
 (ns fruits.vector.insert
     (:require [fruits.seqable.api :as seqable]
-              [fruits.vector.core :as core]))
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -15,32 +15,29 @@
   ; @param (*) x
   ;
   ; @usage
-  ; (insert-item [:a :b :c] 0 :x)
-  ;
-  ; @example
   ; (insert-item [:a :b :c] 2 :d)
   ; =>
   ; [:a :b :d :c]
   ;
-  ; @example
+  ; @usage
   ; (insert-item [:a :b :c] 999 :d)
   ; =>
-  ; [:a :b :d :c]
+  ; [:a :b :c :d]
   ;
-  ; @example
+  ; @usage
   ; (insert-item nil 999 :d)
   ; =>
   ; [:d]
   ;
-  ; @example
+  ; @usage
   ; (insert-item {:a "b"} 1 :d)
   ; =>
-  ; {:a "b"}
+  ; [:d]
   ;
   ; @return (vector)
   [n cursor x]
-  (let [n      (if (vector? n) n [])
-        cursor (seqable/normalize-cursor n cursor)]
-       (core/concat-items (subvec n 0 cursor)
-                          [x]
-                          (subvec n cursor))))
+  (let [n      (mixed/to-vector n)
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
+       (vec (concat (subvec n 0 cursor)
+                    [x]
+                    (subvec n cursor)))))

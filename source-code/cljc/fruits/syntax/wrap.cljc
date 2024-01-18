@@ -1,16 +1,16 @@
 
-(ns fruits.syntax.core)
+(ns fruits.syntax.wrap)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn paren
   ; @description
-  ; Wraps the given 'n' string with a parenthesis pair.
+  ; Wraps the given 'n' value with a parenthesis pair.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (paren "420")
   ; =>
   ; "(420)"
@@ -21,11 +21,11 @@
 
 (defn brace
   ; @description
-  ; Wraps the given 'n' string with a brace pair.
+  ; Wraps the given 'n' value with a brace pair.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (brace ":x 420")
   ; =>
   ; "{:x 420}"
@@ -36,11 +36,11 @@
 
 (defn bracket
   ; @description
-  ; Wraps the given 'n' string with a bracket pair.
+  ; Wraps the given 'n' value with a bracket pair.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (bracket "420")
   ; =>
   ; "[420]"
@@ -51,11 +51,11 @@
 
 (defn percent
   ; @description
-  ; Appends a percentage symbol to the given 'n' string.
+  ; Appends a percentage symbol to the given 'n' value.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (percent "99.999")
   ; =>
   ; "99.999%"
@@ -66,11 +66,11 @@
 
 (defn quotes
   ; @description
-  ; Wraps the given 'n' string with a quote pair.
+  ; Wraps the given 'n' value with a quote pair.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (quotes "420")
   ; =>
   ; "\"420\""

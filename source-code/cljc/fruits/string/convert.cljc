@@ -86,9 +86,13 @@
   (-> n str clojure.string/lower-case))
 
 (defn to-nil
+  ; @description
+  ; Converts the given 'n' string into a NIL value.
+
   ; @param (*) n
   ; @param (map)(opt) options
   ; {:if-empty? (boolean)(opt)
+  ;   Converts only if the given 'n' string is empty.
   ;   Default: true}
   ;
   ; @usage
@@ -109,6 +113,8 @@
    (to-nil n {}))
 
   ([n {:keys [if-empty?] :or {if-empty? true}}]
+   ; Alternative: 'not-empty'
+   ; https://clojuredocs.org/clojure.core/not-empty
    (let [n (str n)]
         (cond (-> n empty?)      (-> nil)
               (-> if-empty? not) (-> nil)

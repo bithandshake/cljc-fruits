@@ -6,18 +6,23 @@
 ;; ----------------------------------------------------------------------------
 
 (defn empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is an empty vector.
+  ;
   ; @param (*) n
   ;
   ; @usage
   ; (empty? [])
-  ;
-  ; @example
-  ; (empty? [])
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (empty? [:a])
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (empty? {})
   ; =>
   ; false
   ;
@@ -26,19 +31,24 @@
   (and (-> n vector?)
        (-> n clojure.core/empty?)))
 
-(defn nonempty?
+(defn not-empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonempty vector.
+  ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nonempty? [:a])
-  ;
-  ; @example
-  ; (nonempty? [:a])
+  ; (not-empty? [:a])
   ; =>
   ; true
   ;
-  ; @example
-  ; (nonempty? [])
+  ; @usage
+  ; (not-empty? [])
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (not-empty? {:a "A"})
   ; =>
   ; false
   ;

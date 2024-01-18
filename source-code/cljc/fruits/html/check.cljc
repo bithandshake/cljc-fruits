@@ -48,19 +48,19 @@
         (string/remove-part #"\s")
         (clojure.core/empty?)))
 
-(defn nonblank?
+(defn not-blank?
   ; @param (string) n
   ;
   ; @usage
-  ; (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; (not-blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ;
   ; @example
-  ; (nonblank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; (not-blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; true
   ;
   ; @example
-  ; (nonblank? "<p> </p><p>\n</p>")
+  ; (not-blank? "<p> </p><p>\n</p>")
   ; =>
   ; false
   ;
@@ -89,19 +89,19 @@
   (-> n (string/remove-part #"\<[^\>]*\>")
         (clojure.core/empty?)))
 
-(defn nonempty?
+(defn not-empty?
   ; @param (string) n
   ;
   ; @usage
-  ; (nonempty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; (not-empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ;
   ; @example
-  ; (nonempty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
+  ; (not-empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; true
   ;
   ; @example
-  ; (nonempty? "<p></p><p></p>")
+  ; (not-empty? "<p></p><p></p>")
   ; =>
   ; false
   ;

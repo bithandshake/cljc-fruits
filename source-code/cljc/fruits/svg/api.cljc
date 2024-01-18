@@ -1,10 +1,10 @@
 
 (ns fruits.svg.api
-    (:require [fruits.svg.core :as core]))
+    (:require [fruits.svg.attributes :as attributes]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.svg.core/*)
-(def view-box           core/view-box)
-(def wrapper-attributes core/wrapper-attributes)
+; @redirect (fruits.svg.attributes/*)
+(def view-box-dimensions attributes/view-box-dimensions)
+(def wrapper-attributes  attributes/wrapper-attributes)

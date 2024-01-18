@@ -33,7 +33,7 @@
   ; @return (string)
   [n]
   (letfn [(f0 [n delimiter-positions]
-              (if (vector/nonempty? delimiter-positions)
+              (if (vector/not-empty? delimiter-positions)
                   (f0 (string/insert-part n "." (last delimiter-positions))
                       (vector/remove-last-item delimiter-positions))
                   (-> n)))]

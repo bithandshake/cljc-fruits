@@ -8,7 +8,7 @@
 ;
 ; @constant (string)
 ;
-; @NOTE (#5914)
+; @note (#5914)
 ; - The 'keywordize-value' and 'unkeywordize-value' functions convert strings to
 ;   keywords and vica versa, in JSON maps.
 ; - To avoid accidental convertings, the 'unkeywordize-value' function put a special

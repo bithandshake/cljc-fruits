@@ -1,44 +1,48 @@
 
 (ns fruits.vector.match
-    (:require [fruits.vector.check :as check]))
+    (:require [fruits.vector.check :as check]
+              [fruits.seqable.api :as seqable]
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn any-item-matches?
+  ; @description
+  ; Returns TRUE if any item in the given 'n' vector matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (any-item-matches? ["a" "b" :c] keyword?)
-  ;
-  ; @example
   ; (any-item-matches? [:a "b" :c] string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (any-item-matches? [:a :b :c] string?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (-> (some f n) boolean))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (-> (some f n) boolean)))
 
 (defn no-item-matches?
+  ; @description
+  ; Returns TRUE if no item in the given 'n' vector matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (no-item-matches? ["a" "b" :c] keyword?)
-  ;
-  ; @example
   ; (no-item-matches? [:a :b :c] string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (no-item-matches? [:a "b" :c] string?)
   ; =>
   ; false
@@ -48,39 +52,41 @@
   (-> (any-item-matches? n f) not))
 
 (defn all-items-match?
+  ; @description
+  ; Returns TRUE if every item in the given 'n' vector matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
   ; (all-items-match? ["a" "b" "c"] string?)
-  ;
-  ; @example
-  ; (all-items-match? ["a" "b" "c"] string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (all-items-match? [:a "b" "c"] string?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (every? f n))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (every? f n)))
 
 (defn not-all-items-match?
+  ; @description
+  ; Returns TRUE if not every item in the given 'n' vector matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (not-all-items-match? ["a" "b" "c"] string?)
-  ;
-  ; @example
   ; (not-all-items-match? [:a "b" "c"] string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-all-items-match? ["a" "b" "c"] string?)
   ; =>
   ; false
@@ -93,103 +99,129 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-match
+  ; @description
+  ; Returns the first item in the given 'n' vector that matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (first-match [:a :b :c "d"] keyword?)
-  ;
-  ; @example
   ; (first-match [:a :b :c "d"] keyword?)
   ; =>
   ; :a
   ;
   ; @return (*)
   [n f]
-  (if (check/nonempty? n)
-      (loop [dex 0]
-            (cond (-> n (nth dex) f)            (-> n (nth dex))
-                  (-> dex (< (-> n count dec))) (-> dex inc recur)))))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (loop [dex 0]
+             (if (seqable/dex-in-bounds? n dex)
+                 (cond (-> n (nth dex) f) (-> n (nth dex))
+                       :recur             (-> dex inc recur))))))
 
-(defn last-match
+(defn second-match
+  ; @description
+  ; Returns the second item in the given 'n' vector that matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (last-match [:a :b :c "d"] keyword?)
+  ; (second-match [:a :b :c "d"] keyword?)
+  ; =>
+  ; :b
   ;
-  ; @example
+  ; @return (*)
+  [n f]
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (loop [dex 0 match-count 0]
+             (if (seqable/dex-in-bounds? n dex)
+                 (cond (-> n (nth dex) f not) (-> dex inc (recur match-count))
+                       (-> 2 (= match-count)) (-> n (nth dex))
+                       :recur-after-match     (-> dex inc (recur (inc match-count))))))))
+
+(defn last-match
+  ; @description
+  ; Returns the last item in the given 'n' vector that matches the given 'f' predicate function.
+  ;
+  ; @param (vector) n
+  ; @param (function) f
+  ;
+  ; @usage
   ; (last-match [:a :b :c "d"] keyword?)
   ; =>
   ; :c
   ;
   ; @return (*)
   [n f]
-  (if (check/nonempty? n)
-      (loop [dex (-> n count dec)]
-            (cond (-> n (nth dex) f) (-> n (nth dex))
-                  (-> dex (not= 0))  (-> dex dec recur)))))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (loop [dex (-> n count dec)]
+             (if (seqable/dex-in-bounds? n dex)
+                 (cond (-> n (nth dex) f) (-> n (nth dex))
+                       :recur             (-> dex dec recur))))))
 
 (defn nth-match
+  ; @description
+  ; Returns the nth item in the given 'n' vector that matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ; @param (integer) th
   ;
   ; @usage
   ; (nth-match [:a :b :c "d"] keyword? 1)
-  ;
-  ; @example
-  ; (nth-match [:a :b :c "d"] keyword? 1)
   ; =>
   ; :b
   ;
   ; @return (*)
   [n f th]
-  (if (and (check/nonempty? n)
-           (nat-int? th))
-      (loop [dex 0 match-count 0]
-            (if (-> n (nth dex) f)
-                (cond (-> th  (= match-count))
-                      (-> n   (nth dex))
-                      (-> dex (< (-> n count dec)))
-                      (recur (inc dex)
-                             (inc match-count)))
-                (cond (-> dex (< (-> n count dec)))
-                      (recur (inc dex) match-count))))))
+  (let [n  (mixed/to-vector n)
+        f  (mixed/to-ifn f)
+        th (mixed/to-integer th)]
+       (loop [dex 0 match-count 0]
+             (if (seqable/dex-in-bounds? n dex)
+                 (cond (-> n (nth dex) f not)  (-> dex inc (recur match-count))
+                       (-> th (= match-count)) (-> n (nth dex))
+                       :recur-after-match      (-> dex inc (recur (inc match-count))))))))
 
 (defn all-matches
+  ; @description
+  ; Returns all items in the given 'n' vector that matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (all-matches [:a :b :c "d"] keyword?)
-  ;
-  ; @example
   ; (all-matches [:a :b :c "d"] keyword?)
   ; =>
   ; [:a :b :c]
   ;
   ; @return (vector)
   [n f]
-  (if (check/nonempty? n)
-      (letfn [(f0 [matches x]
-                  (if (-> x f)
-                      (-> matches conj x)
-                      (-> matches)))]
-             (reduce f0 [] n))))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [matches x]
+                   (if (-> x f)
+                       (-> matches conj x)
+                       (-> matches)))]
+              (reduce f0 [] n))))
 
 (defn match-count
+  ; @description
+  ; Returns how many items in the given 'n' vector matches the given 'f' predicate function.
+  ;
   ; @param (vector) n
   ; @param (function) f
   ;
   ; @usage
-  ; (match-count [:a :b "c"] string?)
-  ;
-  ; @example
   ; (match-count [:a :b "c"] keyword?)
   ; =>
   ; 2
   ;
   ; @return (integer)
   [n f]
-  (count (filter f n)))
+  (let [n (mixed/to-vector n)
+        f (mixed/to-ifn f)]
+       (count (filter f n))))

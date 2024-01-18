@@ -11,33 +11,30 @@
   ;
   ; @usage
   ; (valid-url "my-domain.com")
-  ;
-  ; @example
-  ; (valid-url "my-domain.com")
   ; =>
   ; "https://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (valid-url "my-domain.com/")
   ; =>
   ; "https://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (valid-url "http://my-domain.com")
   ; =>
   ; "http://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (valid-url "/my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (valid-url "my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (valid-url "localhost:4200/my-path")
   ; =>
   ; "localhost:4200/my-path"
@@ -63,19 +60,16 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (valid-url-path "/my-path")
-  ;
-  ; @example
   ; (valid-url-path "my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (valid-url-path "/my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (valid-url-path "/my-path/")
   ; =>
   ; "/my-path"

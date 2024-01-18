@@ -1,324 +1,386 @@
 
 (ns fruits.seqable.cursor
-    (:require [fruits.seqable.dex :as dex]))
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn normalize-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @description
-  ; - Normalizes the given cursor value for the given 'n' sequence.
-  ; - Negative cursor values are used backwards as they were distances from the end of the sequence (not from the beginning).
+  ; - Normalizes the given cursor value of the given 'n' sequence.
   ; - The output is a non-negative cursor value that is not less than 0 and not more than the maximum cursor value.
+  ; - The output could be NIL, in case the ':adjust?' parameter is not TRUE!
   ;
   ; @param (*) n
   ; @param (integer) cursor
+  ; @param (map)(opt) options
+  ; {:adjust? (boolean)(opt)
+  ;   If TRUE, adjusts out of bound cursor values, otherwise ignores them.
+  ;   Default: false
+  ;  :mirror? (boolean)(opt)
+  ;   If TRUE, mirrors negative cursor values, otherwise handles them as out of bound cursors.
+  ;   Default: false}
   ;
   ; @usage
-  ; (normalize-cursor [:a :b :c] -2)
-  ;
-  ; @example
-  ; (normalize-cursor [:a :b :c] -2)
+  ; (normalize-cursor [:a :b :c] 1)
   ; =>
   ; 1
   ;
-  ; @example
-  ; (normalize-cursor [:a :b :c] -5)
+  ; @usage
+  ; (normalize-cursor [:a :b :c] 5)
+  ; =>
+  ; nil
+  ;
+  ; @usage
+  ; (normalize-cursor [:a :b :c] 5 {:adjust? true})
   ; =>
   ; 0
   ;
-  ; @example
-  ; (normalize-cursor [:a :b :c] 5)
+  ; @usage
+  ; (normalize-cursor [:a :b :c] -1)
+  ; =>
+  ; nil
+  ;
+  ; @usage
+  ; (normalize-cursor [:a :b :c] -1 {:mirror? true})
   ; =>
   ; 3
   ;
   ; @return (integer)
-  [n cursor]
-  (if (-> n seqable?)
-      (cond (-> cursor integer? not)  (-> 0)
-            (-> n count   (< cursor)) (-> n count)
-            (-> n count - (> cursor)) (-> 0)
-            (< cursor 0)              (-> n count (+ cursor))
-            :return                   (-> cursor))))
+  ([n cursor]
+   (normalize-cursor n cursor {}))
+
+  ([n cursor {:keys [adjust? mirror?]}]
+   (let [n      (mixed/to-seqable n)
+         cursor (mixed/to-integer cursor)]
+        (letfn [(f0 [%] (-> n count inc (+ %)))
+                (f1 [%] (-> n count (>= %)))]
+               (if (-> cursor neg-int?)
+                   (cond (-> mirror?)   (-> n (normalize-cursor (f0 cursor) {:adjust? adjust?})) ; Negative cursor                    -> mirroring.
+                         (-> adjust?)   (-> 0))                                                  ; Negative cursor, possibly mirrored -> adjusting.
+                   (cond (-> cursor f1) (-> cursor)                                              ; Positive cursor, in bounds         -> returning.
+                         (-> adjust?)   (-> n count)))))))                                       ; Positive cursor, out of bounds     -> adjusting.
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn cursor-in-bounds?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @description
-  ; - Returns TRUE if the given 'cursor' value falls between 0 and the highest possible cursor value (= item count).
-  ; - Cursors are different from indexes!
-  ;   A cursor could point to the very end of a sequence while an index could only point before the last item.
+  ; Returns TRUE if the given 'cursor' value falls between 0 and the highest possible cursor value (= item count).
   ;
   ; @param (*) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (cursor-in-bounds? [:a :b :c] 3)
-  ;
-  ; @example
-  ; (cursor-in-bounds? [:a :b :c] 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor-in-bounds? [:a :b :c] 4)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n cursor]
-  (if (-> n seqable?)
-      (and (-> cursor nat-int?)
-           (-> n count (>= cursor)))))
+  (let [n (mixed/to-seqable n)]
+       (and (-> cursor nat-int?)
+            (-> n count (>= cursor)))))
 
 (defn cursor-out-of-bounds?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @description
-  ; - Returns TRUE if the given 'cursor' value doesn't fall between 0 and the highest possible cursor value (= item count).
-  ; - Cursors are different from indexes!
-  ;   A cursor could point to the very end of a sequence while an index could only point before the last item.
+  ; Returns TRUE if the given 'cursor' value doesn't fall between 0 and the highest possible cursor value (= item count).
   ;
   ; @param (*) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (cursor-out-of-bounds? [:a :b :c] 4)
-  ;
-  ; @example
-  ; (cursor-out-of-bounds? [:a :b :c] 4)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor-out-of-bounds? [:a :b :c] 3)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n cursor]
-  (if (-> n seqable?)
-      (or (-> cursor nat-int? not)
-          (-> n count (< cursor)))))
+  (let [n (mixed/to-seqable n)]
+       (or (-> cursor nat-int? not)
+           (-> n count (< cursor)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn next-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @descripiton
-  ; Returns the following cursor after the given 'cursor' value in the given 'n' value.
+  ; Returns the cursor that follows the given 'cursor' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (next-cursor [:a :b :c] 1)
-  ;
-  ; @example
-  ; (next-cursor [:a :b :c] 1)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (next-cursor [:a :b :c] 3)
   ; =>
   ; 0
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n seqable?)
-      (cond (-> n count (<= cursor)) (-> 0)
-            (-> cursor (< 0))        (-> 0)
-            :return                  (-> cursor inc))))
+  (let [n      (mixed/to-seqable n)
+        cursor (mixed/to-integer cursor)]
+       (cond (-> n count (<= cursor)) (-> 0)
+             (-> cursor (< 0))        (-> 0)
+             :return                  (-> cursor inc))))
 
 (defn prev-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @descripiton
-  ; Returns the previous cursor before the given 'cursor' value in the given 'n' value.
+  ; Returns the cursor that precedes the given 'cursor' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (prev-cursor [:a :b :c] 1)
-  ;
-  ; @example
-  ; (prev-cursor [:a :b :c] 1)
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (prev-cursor [:a :b :c] 0)
   ; =>
   ; 3
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n seqable?)
-      (cond (-> cursor (<= 0))      (-> n count)
-            (-> n count (< cursor)) (-> n count)
-            :return                 (-> cursor dec))))
+  (let [n      (mixed/to-seqable n)
+        cursor (mixed/to-integer cursor)]
+       (cond (-> cursor (<= 0))      (-> n count)
+             (-> n count (< cursor)) (-> n count)
+             :return                 (-> cursor dec))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn cursor-range
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns a vector of possible cursors of the given 'n' sequence.
+  ;
   ; @param (seqable) n
   ;
   ; @usage
-  ; (cursor-range [:a :b :c])
-  ;
-  ; @example
   ; (cursor-range [:a :b :c])
   ; =>
   ; [0 1 2 3]
   ;
   ; @return (vector)
   [n]
-  (if (-> n seqable?)
-      (-> n count inc range vec)))
+  (let [n (mixed/to-seqable n)]
+       (-> n count inc range vec)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn cursor-first?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns TRUE if the given 'cursor' value is the first cursor in the given 'n' sequence.
+  ;
   ; @param (seqable) n
-  ; @param (cursor) dex
+  ; @param (cursor) cursor
   ;
   ; @usage
-  ; (cursor-first? [:a :b :c] 1)
-  ;
-  ; @example
   ; (cursor-first? [:a :b :c] 1)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor-first? "abc" 1)
   ; =>
   ; true
   ;
   ; @return (boolean)
-  [n cursor]
-  (if (-> n seqable?)
-      (= cursor 0)))
+  [_ cursor]
+  (-> cursor (= 0)))
 
 (defn cursor-last?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns TRUE if the given 'cursor' value is the last cursor in the given 'n' sequence.
+  ;
   ; @param (seqable) n
-  ; @param (integer) dex
+  ; @param (integer) cursor
   ;
   ; @usage
-  ; (cursor-last? [:a :b :c] 3)
-  ;
-  ; @example
   ; (cursor-last? [:a :b :c] 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor-last? "abc" 3)
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n cursor]
-  (if (-> n seqable?)
-      (-> n count (= cursor))))
+  (let [n (mixed/to-seqable n)]
+       (-> n count (= cursor))))
 
 (defn first-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns the first cursor of the given 'n' sequence.
+  ;
   ; @param (seqable) n
   ;
-  ; @first
-  ; (last-cursor [:a :b :c])
-  ;
-  ; @example
+  ; @usage
   ; (first-cursor [:a :b :c])
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (first-cursor "abc")
   ; =>
   ; 0
   ;
   ; @return (integer)
   [n]
-  (if (-> n seqable?)
-      (-> 0)))
+  (-> 0))
 
 (defn last-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns the last cursor of the given 'n' sequence.
+  ;
   ; @param (seqable) n
   ;
   ; @usage
   ; (last-cursor [:a :b :c])
-  ;
-  ; @example
-  ; (last-cursor [:a :b :c])
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (last-cursor "abc")
   ; =>
   ; 3
   ;
   ; @return (integer)
   [n]
-  (if (-> n seqable?)
-      (-> n count)))
+  (let [n (mixed/to-seqable n)]
+       (-> n count)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn inc-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @description
-  ; Increases the given 'cursor' value except if the result would be out of bounds within the given 'n' value.
+  ; Increases the given 'cursor' value in case the result falls between the bounds of the given 'n' sequence,
+  ; otherwise returns the given 'cursor' value.
   ;
   ; @param (seqable) n
-  ; @param (integer) dex
+  ; @param (integer) cursor
   ;
   ; @usage
-  ; (inc-cursor [:a :b :c] 1)
-  ;
-  ; @example
   ; (inc-cursor [:a :b :c] 2)
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (inc-cursor [:a :b :c] 3)
   ; =>
   ; 3
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n seqable?)
-      (cond (-> n count (= cursor)) (-> cursor)
-            (-> n count (< cursor)) (-> n count)
-            (-> cursor  (<      0)) (-> 0)
-            :else                   (-> cursor inc))))
+  (let [n      (mixed/to-seqable n)
+        cursor (mixed/to-integer cursor)]
+       (cond (-> n count (= cursor)) (-> cursor)
+             (-> n count (< cursor)) (-> n count)
+             (-> cursor  (<      0)) (-> 0)
+             :else                   (-> cursor inc))))
 
 (defn dec-cursor
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
   ; @description
-  ; Decreases the given 'cursor' value except if the result would be out of bounds within the given 'n' value.
+  ; Decreases the given 'cursor' value in case the result falls between the bounds of the given 'n' sequence,
+  ; otherwise returns the given 'cursor' value.
   ;
   ; @param (seqable) n
-  ; @param (integer) dex
+  ; @param (integer) cursor
   ;
   ; @usage
-  ; (dec-cursor [:a :b :c] 3)
-  ;
-  ; @example
   ; (dec-cursor [:a :b :c] 3)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (dec-cursor [:a :b :c] 0)
   ; =>
   ; 0
   ;
   ; @return (integer)
   [n cursor]
-  (if (-> n seqable?)
-      (cond (-> n count (< cursor)) (-> n count)
-            (-> cursor  (<      2)) (-> 0)
-            :else                   (-> cursor dec))))
+  (let [n      (mixed/to-seqable n)
+        cursor (mixed/to-integer cursor)]
+       (cond (-> n count (< cursor)) (-> n count)
+             (-> cursor  (<      2)) (-> 0)
+             :else                   (-> cursor dec))))

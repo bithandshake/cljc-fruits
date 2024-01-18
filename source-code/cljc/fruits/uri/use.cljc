@@ -1,5 +1,5 @@
 
-(ns fruits.uri.core
+(ns fruits.uri.use
     (:require [fruits.string.api  :as string]
               [fruits.uri.convert :as convert]
               [fruits.uri.query   :as query]))
@@ -13,23 +13,20 @@
   ;
   ; @usage
   ; (use-url-query-string "my-domain.com/my-path" "my-param")
-  ;
-  ; @example
-  ; (use-url-query-string "my-domain.com/my-path" "my-param")
   ; =>
   ; "my-domain.com/my-path?my-param"
   ;
-  ; @example
+  ; @usage
   ; (use-url-query-string "my-domain.com/my-path" "my-param=my-value")
   ; =>
   ; "my-domain.com/my-path?my-param=my-value"
   ;
-  ; @example
+  ; @usage
   ; (use-url-query-string "my-domain.com/my-path#my-fragment" "my-param")
   ; =>
   ; "my-domain.com/my-path?my-param#my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (use-url-query-string "my-domain.com/my-path?my-param" "another-param=another-value")
   ; =>
   ; "my-domain.com/my-path?my-param&another-param=another-value"
@@ -56,5 +53,5 @@
                                     (remove-duplicates))]
               (str (-> n (string/before-first-occurence "?" {:return? true})
                          (string/before-first-occurence "#" {:return? true}))
-                   (if (string/nonempty? url-query-string) (str "?" url-query-string))
-                   (if (string/nonempty? url-fragment)     (str "#" url-fragment))))))
+                   (if (string/not-empty? url-query-string) (str "?" url-query-string))
+                   (if (string/not-empty? url-fragment)     (str "#" url-fragment))))))

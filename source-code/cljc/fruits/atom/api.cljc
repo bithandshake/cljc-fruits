@@ -1,12 +1,12 @@
 
 (ns fruits.atom.api
-    (:require [fruits.atom.core :as core]))
+    (:require [fruits.atom.update :as update]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.atom.core)
-(def not!   core/not!)
-(def inc!   core/inc!)
-(def dec!   core/dec!)
-(def apply! core/apply!)
+; @redirect (fruits.atom.update/*)
+(def not!   update/not!)
+(def inc!   update/inc!)
+(def dec!   update/dec!)
+(def apply! update/apply!)

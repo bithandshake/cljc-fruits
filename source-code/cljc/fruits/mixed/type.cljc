@@ -1,40 +1,42 @@
 
 (ns fruits.mixed.type
-    (:refer-clojure :exclude [number?])
-    (:require [fruits.regex.api :as regex]))
+    (:refer-clojure :exclude [number?]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a number or a string that contains only a number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (number? 123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (number? 123.456)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (number? "123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (number? "123.456")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (number? "+123.456")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (number? "-123.456")
   ; =>
   ; true
@@ -42,38 +44,41 @@
   ; @return (boolean)
   [n]
   (or (-> n number?)
-      (-> n (regex/re-match? #"^[\+\-]?[\d]+$"))
-      (-> n (regex/re-match? #"^[\+\-]?[\d]+[\.][\d]+$"))))
+      (-> (re-find #"^[\+\-]?[\d]+$"          (str n)) some?)
+      (-> (re-find #"^[\+\-]?[\d]+[\.][\d]+$" (str n)) some?)))
 
 (defn rational-number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a rational number or a string that contains only a rational number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (rational-number? 123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (rational-number? 123.456)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (rational-number? "123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (rational-number? "123.456")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (rational-number? "+123.456")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (rational-number? "-123.456")
   ; =>
   ; true
@@ -83,29 +88,32 @@
   (number? n))
 
 (defn whole-number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a whole number or a string that contains only a whole number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (whole-number? 123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (whole-number? "123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (whole-number? "+123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (whole-number? "-123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (whole-number? "123.456")
   ; =>
   ; false
@@ -113,27 +121,30 @@
   ; @return (boolean)
   [n]
   (or (-> n integer?)
-      (-> n (regex/re-match? #"^[\+\-]?[\d]+$"))))
+      (-> (re-find #"^[\+\-]?[\d]+$" (str n)) some?)))
 
 (defn natural-whole-number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a natural whole number or a string that contains only a natural whole number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (natural-whole-number? 123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (natural-whole-number? "123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (natural-whole-number? "+123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (natural-whole-number? "-123")
   ; =>
   ; false
@@ -141,27 +152,30 @@
   ; @return (boolean)
   [n]
   (or (-> n nat-int?)
-      (-> n (regex/re-match? #"^[\+]?[\d]+$"))))
+      (-> (re-find #"^[\+]?[\d]+$" (str n)) some?)))
 
 (defn positive-whole-number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a positive whole number or a string that contains only a positive whole number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (positive-whole-number? 123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (positive-whole-number? "123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (positive-whole-number? "+123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (positive-whole-number? "0")
   ; =>
   ; false
@@ -169,23 +183,26 @@
   ; @return (boolean)
   [n]
   (or (-> n pos-int?)
-      (and (-> n (regex/re-mismatch? #"^[\+]?[0]+$"))
-           (-> n (regex/re-match?    #"^[\+]?[\d]+$")))))
+      (and (-> (re-find #"^[\+]?[0]+$"  (str n)) nil?)
+           (-> (re-find #"^[\+]?[\d]+$" (str n)) some?))))
 
 (defn negative-whole-number?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a negative whole number or a string that contains only a negative whole number.
+  ;
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (negative-whole-number? -123)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (negative-whole-number? "-123")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (negative-whole-number? "123")
   ; =>
   ; false
@@ -193,5 +210,5 @@
   ; @return (boolean)
   [n]
   (or (-> n neg-int?)
-      (and (-> n (regex/re-mismatch? #"^[-][0]+$"))
-           (-> n (regex/re-match?    #"^[-][\d]+$")))))
+      (and (-> (re-find #"^[-][0]+$"  (str n)) nil?)
+           (-> (re-find #"^[-][\d]+$" (str n)) some?))))

@@ -20,8 +20,8 @@
 ;; ----------------------------------------------------------------------------
 
 ; @redirect (map.check)
-(def empty?    check/empty?)
-(def nonempty? check/nonempty?)
+(def empty?     check/empty?)
+(def not-empty? check/not-empty?)
 
 ; @redirect (fruits.map.collapse)
 (def collapse collapse/collapse)

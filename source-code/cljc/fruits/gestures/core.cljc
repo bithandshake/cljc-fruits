@@ -56,7 +56,7 @@
                              label-base    (string/before-last-occurence n "#" {:return? true})
                              next-copy-dex (mixed/update-number copy-dex inc)]
                             (str label-base "#" next-copy-dex))
-                       (if (string/nonempty? n)
+                       (if (string/not-empty? n)
                            (str n " #2")
                            (str    "#2"))))]
           (do-while f1 item-label f0))))
@@ -89,8 +89,8 @@
   ; @return (string)
   [text & [variables]]
   (letfn [(f0 [result [variable-value variable-name]]
-              (cond (nil?             variable-value) (->                  result)
-                    (number?          variable-value) (string/replace-part result variable-name variable-value)
-                    (string/nonempty? variable-value) (string/replace-part result variable-name variable-value)
+              (cond (nil?              variable-value) (->                  result)
+                    (number?           variable-value) (string/replace-part result variable-name variable-value)
+                    (string/not-empty? variable-value) (string/replace-part result variable-name variable-value)
                     :return result))]
          (reduce f0 text variables)))

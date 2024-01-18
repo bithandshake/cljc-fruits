@@ -9,14 +9,11 @@
   ; @param (map) url-query-params
   ;
   ; @usage
-  ; (url-query-params->url-query-string {:my-param "my-value"})
-  ;
-  ; @example
   ; (url-query-params->url-query-string {:my-param "my-value" :another-param nil})
   ; =>
   ; "my-param=my-value&another-param"
   ;
-  ; @example
+  ; @usage
   ; (url-query-params->url-query-string {"my-param" "my-value" "another-param" nil})
   ; =>
   ; "my-param=my-value&another-param"
@@ -35,9 +32,6 @@
   ; @param (string) url-query-string
   ;
   ; @usage
-  ; (url-query-string->url-query-params "my-param=my-value")
-  ;
-  ; @example
   ; (url-query-string->url-query-params "my-param=my-value&another-param")
   ; =>
   ; {:my-param "my-value" :another-param nil}

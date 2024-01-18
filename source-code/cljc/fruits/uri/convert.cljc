@@ -14,13 +14,10 @@
   ;
   ; @usage
   ; (to-lowercase "Https://My-domain.com")
-  ;
-  ; @example
-  ; (to-lowercase "Https://My-domain.com")
   ; =>
   ; "https://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-lowercase "Https://My-domain.com/My-path?My-query#My-fragment")
   ; =>
   ; "https://my-domain.com/My-path?My-query#My-fragment"
@@ -62,28 +59,25 @@
   ;
   ; @usage
   ; (to-scheme "https://my-domain.com")
-  ;
-  ; @example
-  ; (to-scheme "https://my-domain.com")
   ; =>
   ; "https"
   ;
-  ; @example
+  ; @usage
   ; (to-scheme "ftp://user@my-domain.com")
   ; =>
   ; "ftp"
   ;
-  ; @example
+  ; @usage
   ; (to-scheme "mailto:johndoe@my-domain.com")
   ; =>
   ; "mailto"
   ;
-  ; @example
+  ; @usage
   ; (to-scheme "my-domain.com:80")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-scheme "localhost:80")
   ; =>
   ; nil
@@ -107,28 +101,25 @@
   ;
   ; @usage
   ; (to-nonschemed "https://my-domain.com")
-  ;
-  ; @example
-  ; (to-nonschemed "https://my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-nonschemed "mailto:johndoe@my-domain.com")
   ; =>
   ; "johndoe@my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-nonschemed "ftp://user@my-domain.com")
   ; =>
   ; "user@my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-nonschemed "my-domain.com:80")
   ; =>
   ; "my-domain.com:80"
   ;
-  ; @example
+  ; @usage
   ; (to-nonschemed "localhost:80")
   ; =>
   ; "localhost:80"
@@ -147,38 +138,35 @@
   ;
   ; @usage
   ; (to-hostname "https://my-domain.com")
-  ;
-  ; @example
-  ; (to-hostname "https://my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "https://www.sub.my-domain.com:80/my-path")
   ; =>
   ; "www.sub.my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "mailto:johndoe@my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "ftp://user@my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "http://192.0.2.16:80/my-path")
   ; =>
   ; "192.0.2.16"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "localhost:80")
   ; =>
   ; "localhost"
   ;
-  ; @example
+  ; @usage
   ; (to-hostname "/my-path?my-query#my-fragment")
   ; =>
   ; nil
@@ -201,13 +189,10 @@
   ;
   ; @usage
   ; (to-port "https://my-domain.com:80")
-  ;
-  ; @example
-  ; (to-port "https://my-domain.com:80")
   ; =>
   ; "80"
   ;
-  ; @example
+  ; @usage
   ; (to-port "https://my-domain.com")
   ; =>
   ; nil
@@ -226,38 +211,35 @@
   ;
   ; @usage
   ; (to-domain "https://my-domain.com")
-  ;
-  ; @example
-  ; (to-domain "https://my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-domain "https://www.subs.my-domain.com:80/my-path")
   ; =>
   ; "sub.my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-domain "mailto:johndoe@my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-domain "ftp://user@my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-domain "my-domain.com:80")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-domain "192.0.2.16:80")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-domain "/my-path?my-query#my-fragment")
   ; =>
   ; nil
@@ -287,13 +269,10 @@
   ;
   ; @usage
   ; (to-subdomain "https://sub.my-domain.com")
-  ;
-  ; @example
-  ; (to-subdomain "https://sub.my-domain.com")
   ; =>
   ; "sub"
   ;
-  ; @example
+  ; @usage
   ; (to-subdomain "https://my-domain.com")
   ; =>
   ; nil
@@ -314,7 +293,7 @@
   ; @usage
   ; (to-tld "https://my-domain.com")
   ;
-  ; @example
+  ; @usage
   ; (to-tld "https://my-domain.com")
   ; =>
   ; "com"
@@ -333,19 +312,16 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (to-url-tail "https://my-domain.com?my-query")
-  ;
-  ; @example
   ; (to-url-tail "https://my-domain.com/my-path?my-query#my-fragment")
   ; =>
   ; "my-query#my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-url-tail "https://my-domain.com/my-path#my-fragment")
   ; =>
   ; "my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-url-tail "https://my-domain.com/my-path")
   ; =>
   ; nil
@@ -361,33 +337,30 @@
   ;
   ; @usage
   ; (to-parent-url "https://my-domain.com/my-path")
-  ;
-  ; @example
-  ; (to-parent-url "https://my-domain.com/my-path")
   ; =>
   ; "https://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-parent-url "https://my-domain.com")
   ; =>
   ; "https://my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (to-parent-url "/my-path/another-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-parent-url "/my-path")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-parent-url "/")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-parent-url "my-path")
   ; =>
   ; "/"
@@ -409,38 +382,35 @@
   ;
   ; @usage
   ; (to-relative-url "my-domain.com/my-path")
-  ;
-  ; @example
-  ; (to-relative-url "my-domain.com/my-path")
   ; =>
   ; "/my-path?my-param#my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "my-domain.com/my-path?my-query#my-fragment")
   ; =>
   ; "/my-path?my-query#my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "my-domain.com")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "/my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "/")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-relative-url "")
   ; =>
   ; "/"
@@ -466,13 +436,10 @@
   ;
   ; @usage
   ; (to-absolute-url "/my-path" "my-domain.com")
-  ;
-  ; @example
-  ; (to-absolute-url "/my-path" "my-domain.com")
   ; =>
   ; "https://my-domain.com/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-absolute-url "my-domain.com/my-path" "another-domain.com")
   ; =>
   ; "https://my-domain.com/my-path"
@@ -499,28 +466,25 @@
   ;
   ; @usage
   ; (to-url-path "https://my-domain.com/my-path")
-  ;
-  ; @example
-  ; (to-url-path "https://my-domain.com/my-path")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-url-path "https://my-domain.com")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-url-path "https://my-domain.com/my-path?my-param=my-value&another-param")
   ; =>
   ; "/my-path"
   ;
-  ; @example
+  ; @usage
   ; (to-url-path "https://my-domain.com/?my-param=my-value&another-param")
   ; =>
   ; "/"
   ;
-  ; @example
+  ; @usage
   ; (to-url-path "https://my-domain.com?my-param=my-value&another-param")
   ; =>
   ; "/"
@@ -537,23 +501,20 @@
   ;
   ; @usage
   ; (to-url-path-params "/my-path" "/:a")
-  ;
-  ; @example
-  ; (to-url-path-params "/my-path" "/:a")
   ; =>
   ; {:a "my-path"}
   ;
-  ; @example
+  ; @usage
   ; (to-url-path-params "https://my-domain.com/my-path/another-path" "/:a/:b")
   ; =>
   ; {:a "my-path" :b "another-path"}
   ;
-  ; @example
+  ; @usage
   ; (to-url-path-params "https://my-domain.com/my-path/another-path" "/:a/b")
   ; =>
   ; {:a "my-path"}
   ;
-  ; @example
+  ; @usage
   ; (to-url-path-params "/my-path/another-path" "/a/b")
   ; =>
   ; {}
@@ -580,23 +541,20 @@
   ;
   ; @usage
   ; (to-url-fragment "/my-path#my-fragment")
-  ;
-  ; @example
-  ; (to-url-fragment "/my-path#my-fragment")
   ; =>
   ; "my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-url-fragment "https://my-domain.com/my-path?my-query#my-fragment")
   ; =>
   ; "my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-url-fragment "/my-path#my-fragment")
   ; =>
   ; "my-fragment"
   ;
-  ; @example
+  ; @usage
   ; (to-url-fragment "https://my-domain.com/my-path?my-query")
   ; =>
   ; nil
@@ -612,18 +570,15 @@
   ;
   ; @usage
   ; (to-url-query-string "/my-path?my-query")
-  ;
-  ; @example
-  ; (to-url-query-string "/my-path?my-query")
   ; =>
   ; "my-query"
   ;
-  ; @example
+  ; @usage
   ; (to-url-query-string "https://my-domain.com/my-path?my-query#my-fragment")
   ; =>
   ; "my-query"
   ;
-  ; @example
+  ; @usage
   ; (to-url-query-string "https://my-domain.com/my-path#my-fragment")
   ; =>
   ; nil
@@ -632,7 +587,7 @@
   [n]
   ; The {:return? true} setting of the second step causes that the result
   ; of the step might be an empty string, so it is important to apply the 'to-nil'
-  ; function to prevent the function returns an empty string!
+  ; function to prevent the function from returning an empty string!
   (-> n (string/after-first-occurence  "?" {:return? false})
         (string/before-first-occurence "#" {:return? true})
         (string/to-nil {:if-empty? true})))
@@ -642,23 +597,20 @@
   ;
   ; @usage
   ; (to-url-query-params "/my-path?my-query")
-  ;
-  ; @example
-  ; (to-url-query-params "/my-path?my-query")
   ; =>
   ; {:my-query nil}
   ;
-  ; @example
+  ; @usage
   ; (to-url-query-params "/my-path?my-param=my-value")
   ; =>
   ; {:my-param "my-value"}
   ;
-  ; @example
+  ; @usage
   ; (to-url-query-params "http://my-domain.com/my-path?my-param=my-value&another-param#my-fragment")
   ; =>
   ; {:my-param "my-value" :another-param nil}
   ;
-  ; @example
+  ; @usage
   ; (to-url-query-params "http://my-domain.com/my-path#my-fragment")
   ; =>
   ; {}
@@ -675,14 +627,11 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (to-encoded-url "my-domain.com/my path")
-  ;
-  ; @example
   ; (to-encoded-url "my-domain.com/my path?my param")
   ; =>
   ; "my-domain.com/my%20path?my%20param"
   ;
-  ; @example
+  ; @usage
   ; (to-encoded-url "my-domain.com/my path?my param" {:strict? true})
   ; =>
   ; "my-domain.com%2Fmy%20path%3Fmy%20param"

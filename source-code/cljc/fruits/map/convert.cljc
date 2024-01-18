@@ -40,9 +40,13 @@
           (reduce f0 [] n))))
 
 (defn to-nil
+  ; @description
+  ; Converts the given 'n' map into a NIL value.
+  ;
   ; @param (vector) n
   ; @param (map)(opt) options
   ; {:if-empty? (boolean)(opt)
+  ;   Converts only if the given 'n' map is empty.
   ;   Default: true}
   ;
   ; @usage
@@ -63,6 +67,8 @@
    (to-nil n {}))
 
   ([n {:keys [if-empty?] :or {if-empty? true}}]
+   ; Alternative: 'not-empty'
+   ; https://clojuredocs.org/clojure.core/not-empty
    (cond (-> n empty?)      (-> nil)
          (-> if-empty? not) (-> nil)
          :return n)))

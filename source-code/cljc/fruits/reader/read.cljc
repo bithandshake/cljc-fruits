@@ -1,11 +1,9 @@
 
 (ns fruits.reader.read
-    #?(:clj  (:require [clojure.edn    :as edn]
-                       [fruits.reader.prepare :as prepare]
-                       [fruits.string.api     :as string])
-       :cljs (:require [cljs.reader    :as reader]
-                       [fruits.reader.prepare :as prepare]
-                       [fruits.string.api     :as string])))
+    #?(:clj  (:require [clojure.edn           :as edn]
+                       [fruits.reader.prepare :as prepare])
+       :cljs (:require [cljs.reader           :as reader]
+                       [fruits.reader.prepare :as prepare])))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

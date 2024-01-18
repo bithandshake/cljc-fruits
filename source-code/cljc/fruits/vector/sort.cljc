@@ -1,69 +1,63 @@
 
 (ns fruits.vector.sort
     (:require [fruits.vector.dex :as dex]
-              [fruits.vector.nth :as nth]))
+              [fruits.vector.get :as get]
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn reverse-items
   ; @description
-  ; Returns the given vector but its items are in reversed order.
+  ; Returns the given 'n' vector with its items in reversed order.
   ;
   ; @param (vector) n
   ;
   ; @usage
-  ; (reverse-items [:a :b :c])
-  ;
-  ; @example
   ; (reverse-items [:a :b :c])
   ; =>
   ; [:c :b :a]
   ;
   ; @return (vector)
   [n]
-  (-> n reverse vec))
+  (let [n (mixed/to-vector n)]
+       (-> n reverse vec)))
 
 (defn abc-items
   ; @description
-  ; Returns the given vector but its items are in alphabetical order.
+  ; Returns the given 'n' vector with its items in alphabetical order.
   ;
   ; @param (vector) n
   ;
   ; @usage
-  ; (abc-items [:a :d :c :b])
-  ;
-  ; @example
   ; (abc-items [:b "b" :a "a" nil])
   ; =>
   ; [nil "a" "b" :a :b]
   ;
   ; @return (vector)
   [n]
-  (letfn [(sort-item-f [result x] (cond (string?  x) (update result :string-items     conj x)
-                                        (keyword? x) (update result :keyword-items    conj x)
-                                        :return      (update result :unsortable-items conj x)))
-          (sort-items-f [n] (reduce sort-item-f {} n))]
-         (let [{:keys [string-items keyword-items unsortable-items]} (sort-items-f n)]
-              ; (sort) cannot compare string to keyword!
-              (vec (concat unsortable-items (sort string-items)
-                                            (sort keyword-items))))))
+  (let [n (mixed/to-vector n)]
+       (letfn [(sort-item-f [result x] (cond (string?  x) (update result :string-items     conj x)
+                                             (keyword? x) (update result :keyword-items    conj x)
+                                             :return      (update result :unsortable-items conj x)))
+               (sort-items-f [n] (reduce sort-item-f {} n))]
+              (let [{:keys [string-items keyword-items unsortable-items]} (sort-items-f n)]
+                   ; The 'sort' function cannot compare strings to keywords!
+                   (vec (concat unsortable-items (sort string-items)
+                                                 (sort keyword-items)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn sort-items
   ; @description
-  ; Returns the given vector but its items are ordered with the given comparator function.
+  ; Returns the given 'n' vector with its items ordered with the given comparator function.
   ;
   ; @param (vector) n
   ; @param (function)(opt) comparator-f
   ;
   ; @usage
-  ; (sort-items ["a" "c" "b"] string/abc?)
-  ;
-  ; @example
-  ; (sort-items ["a" "c" "b"] string/abc?)
+  ; (sort-items ["a" "c" "b"] fruits.string.api/abc?)
   ; =>
   ; ["a" "b" "c"]
   ;
@@ -72,10 +66,12 @@
    (-> n sort vec))
 
   ([n comparator-f]
-   ; @NOTE (#0610)
-   ; The return value of the given 'comparator-f' function must be converted to boolean type!
-   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
-          (vec (sort compare-f n)))))
+   ; @note (#0610)
+   ; The output of the given 'comparator-f' function must be converted to boolean type!
+   (let [n            (mixed/to-vector n)
+         comparator-f (mixed/to-ifn comparator-f)]
+        (letfn [(f0 [a b] (boolean (comparator-f a b)))]
+               (vec (sort f0 n))))))
 
 (defn items-sorted?
   ; @description
@@ -85,59 +81,60 @@
   ; @param (function) comparator-f
   ;
   ; @usage
-  ; (items-sorted? ["a" "c" "b"] string/abc?)
-  ;
-  ; @example
-  ; (items-sorted? ["a" "c" "b"] string/abc?)
+  ; (items-sorted? ["a" "c" "b"] fruits.string.api/abc?)
   ; =>
   ; false
   ;
-  ; @example
-  ; (items-sorted? ["a" "b" "c"] string/abc?)
+  ; @usage
+  ; (items-sorted? ["a" "b" "c"] fruits.string.api/abc?)
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n comparator-f]
-  ; @NOTE (#0610)
-  (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
-         (= n (sort-items n compare-f))))
+  ; @note (#0610)
+  (let [n            (mixed/to-vector n)
+        comparator-f (mixed/to-ifn comparator-f)]
+       (letfn [(f0 [a b] (boolean (comparator-f a b)))]
+              (= n (sort-items n f0)))))
 
 (defn sort-items-by
   ; @description
-  ; Returns the given vector but its items are ordered with the given comparator function
-  ; that compares not the items but their versions converted by the 'convert-f' function.
+  ; Returns the given 'n' vector with its items ordered with the given comparator function
+  ; that compares not the items but their derived values by the 'f' function.
   ;
   ; @param (vector) n
   ; @param (function)(opt) comparator-f
-  ; @param (function) convert-f
+  ; @param (function) f
   ;
   ; @usage
-  ; (sort-items-by [{:a 3} {:a 2} {:a 1}] :a)
-  ;
-  ; @example
   ; (sort-items-by [{:a 3} {:a 2} {:a 1}] :a)
   ; =>
   ; [{:a 1} {:a 2} {:a 3}]
   ;
-  ; @example
+  ; @usage
   ; (sort-items-by [[1 2] [2 2] [2 3]] > first)
   ; =>
   ; [[2 2] [2 3] [1 2]]
   ;
   ; @return (vector)
-  ([n convert-f]
-   (vec (sort-by convert-f n)))
+  ([n f]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (vec (sort-by f n))))
 
-  ([n comparator-f convert-f]
-   ; @NOTE (#0610)
-   (letfn [(compare-f [a b] (boolean (comparator-f a b)))]
-          (vec (sort-by convert-f compare-f n)))))
+  ([n comparator-f f]
+   ; @note (#0610)
+   (let [n            (mixed/to-vector n)
+         comparator-f (mixed/to-ifn f)
+         f            (mixed/to-ifn f)]
+        (letfn [(f0 [a b] (boolean (comparator-f a b)))]
+               (vec (sort-by f f0 n))))))
 
 (defn sort-items-by-dexes
   ; @description
-  ; Returns the given vector but its items are ordered by the given index vector
-  ; that tells the function which items to keep in what order.
+  ; Returns the given 'n' vector with its items ordered by the given index vector
+  ; that describes which items to keep and in what order.
   ;
   ; @param (vector) n
   ; @param (integers in vector) dexes
@@ -154,19 +151,21 @@
   ;
   ; @return (vector)
   [n dexes]
-  (when (and (vector? n)
-             (vector? dexes))
-        (letfn [(f0 [result dex]
-                    (if-let [item (nth/nth-item n dex)]
-                            (conj result item)
-                            (->   result)))]
-               (reduce f0 [] dexes))))
+  (let [n     (mixed/to-vector n)
+        dexes (mixed/to-vector dexes)
+        dexes (map mixed/to-integer dexes)]
+       (letfn [(f0 [result dex]
+                   (if-let [item (get/nth-item n dex)]
+                           (conj result item)
+                           (->   result)))]
+              (reduce f0 [] dexes))))
 
 (defn sorted-dexes
   ; @description
-  ; Takes two vectors and returns a new one that contains the positions of the second
-  ; vector's items in the first vector. If an item of the second vector is not represented
-  ; in the first vector, it's position won't be in the return vector.
+  ; - Takes two vectors and returns a new one that contains the positions of the second
+  ;   vector's items in the first vector.
+  ; - If an item of the second vector is not present in the first vector, it's position
+  ;   won't be in the return vector.
   ;
   ; @param (vector) a
   ; @param (vector) b
@@ -188,13 +187,13 @@
   ;
   ; @return (integers in vector)
   [a b]
-  (if (and (vector? a)
-           (vector? b))
-      (letfn [(f0 [dexes x]
-                  (if-let [dex (dex/first-dex-of a x)]
-                          (conj dexes dex)
-                          (->   dexes)))]
-             (reduce f0 [] b))))
+  (let [a (mixed/to-vector a)
+        b (mixed/to-vector b)]
+       (letfn [(f0 [dexes x]
+                   (if-let [dex (dex/first-dex-of a x)]
+                           (conj dexes dex)
+                           (->   dexes)))]
+              (reduce f0 [] b))))
 
 (defn compared-items-sorted?
   ; @description
@@ -212,40 +211,40 @@
   ;
   ; @usage
   ; (compared-items-sorted? [0 1 3] [0 1 2] <)
-  ;
-  ; @example
-  ; (compared-items-sorted? [0 1 3] [0 1 2] <)
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (compared-items-sorted? [0 1 3] [0 1 4] <)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (compared-items-sorted? [0 1 3] [0 1 3] <)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (compared-items-sorted? [] [] <)
   ; =>
   ; true
   ;
-  ; @example
-  ; (compared-items-sorted? ["a" "b" "c"] ["d" "a"] string/abc?)
+  ; @usage
+  ; (compared-items-sorted? ["a" "b" "c"] ["d" "a"] fruits.string.api/abc?)
   ; =>
   ; true
   ;
-  ; @example
-  ; (compared-items-sorted? ["a" "b" "c"] ["a" "b"] string/abc?)
+  ; @usage
+  ; (compared-items-sorted? ["a" "b" "c"] ["a" "b"] fruits.string.api/abc?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [a b comparator-f]
-  (let [max-count (min (count a) (count b))]
+  (let [a            (mixed/to-vector a)
+        b            (mixed/to-vector b) 
+        comparator-f (mixed/to-ifn comparator-f)
+        max-count    (min (count a) (count b))]
        (letfn [(f0 [dex]
                    (let [x (get a dex)
                          y (get b dex)]

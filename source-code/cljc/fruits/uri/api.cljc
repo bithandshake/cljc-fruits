@@ -2,7 +2,7 @@
 (ns fruits.uri.api
     (:require [fruits.uri.check    :as check]
               [fruits.uri.convert  :as convert]
-              [fruits.uri.core     :as core]
+              [fruits.uri.use     :as use]
               [fruits.uri.patterns :as patterns]
               [fruits.uri.pretty   :as pretty]
               [fruits.uri.query    :as query]
@@ -11,10 +11,10 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.uri.check)
+; @redirect (fruits.uri.check/*)
 (def url-path-template-matches? check/url-path-template-matches?)
 
-; @redirect (fruits.uri.convert)
+; @redirect (fruits.uri.convert/*)
 (def to-lowercase        convert/to-lowercase)
 (def to-scheme           convert/to-scheme)
 (def to-nonschemed       convert/to-nonschemed)
@@ -34,21 +34,21 @@
 (def to-url-query-params convert/to-url-query-params)
 (def to-encoded-url      convert/to-encoded-url)
 
-; @redirect (fruits.uri.core)
-(def use-url-query-string core/use-url-query-string)
-
-; @redirect (fruits.uri.patterns)
+; @redirect (fruits.uri.patterns/*)
 (def PORT-PATTERN   patterns/PORT-PATTERN)
 (def SCHEME-PATTERN patterns/SCHEME-PATTERN)
 (def DOMAIN-PATTERN patterns/DOMAIN-PATTERN)
 
-; @redirect (fruits.uri.pretty)
+; @redirect (fruits.uri.pretty/*)
 (def pretty-url pretty/pretty-url)
 
-; @redirect (fruits.uri.query)
+; @redirect (fruits.uri.query/*)
 (def url-query-params->url-query-string query/url-query-params->url-query-string)
 (def url-query-string->url-query-params query/url-query-string->url-query-params)
 
-; @redirect (fruits.uri.valid)
+; @redirect (fruits.uri.use/*)
+(def use-url-query-string use/use-url-query-string)
+
+; @redirect (fruits.uri.valid/*)
 (def valid-url      valid/valid-url)
 (def valid-url-path valid/valid-url-path)

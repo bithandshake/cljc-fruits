@@ -10,11 +10,11 @@
               [fruits.string.cut     :as cut]
               [fruits.string.dex     :as dex]
               [fruits.string.filter  :as filter]
+              [fruits.string.get     :as get]
               [fruits.string.inline  :as inline]
               [fruits.string.insert  :as insert]
               [fruits.string.length  :as length]
               [fruits.string.lines   :as lines]
-              [fruits.string.nth     :as nth]
               [fruits.string.order   :as order]
               [fruits.string.remove  :as remove]
               [fruits.string.replace :as replace]
@@ -30,12 +30,12 @@
 (def apply-on-range apply/apply-on-range)
 
 ; @redirect (fruits.string.check)
-(def empty?     check/empty?)
-(def nonempty?  check/nonempty?)
-(def blank?     check/blank?)
-(def nonblank?  check/nonblank?)
-(def lowercase? check/lowercase?)
-(def uppercase? check/uppercase?)
+(def empty?      check/empty?)
+(def not-empty?  check/not-empty?)
+(def blank?      check/blank?)
+(def not-blank?  check/not-blank?)
+(def lowercase?  check/lowercase?)
+(def uppercase?  check/uppercase?)
 
 ; @redirect (fruits.string.config)
 (def EMPTY-STRING config/EMPTY-STRING)
@@ -95,6 +95,12 @@
 ; @redirect (fruits.string.filter)
 (def filter-characters filter/filter-characters)
 
+; @redirect (fruits.string.get)
+(def first-character  get/first-character)
+(def second-character get/second-character)
+(def last-character   get/last-character)
+(def nth-character    get/nth-character)
+
 ; @redirect (fruits.string.inline)
 (def inline-position      inline/inline-position)
 (def left-spacing-length  inline/left-spacing-length)
@@ -126,18 +132,12 @@
 (def containing-line        lines/containing-line)
 (def remove-containing-line lines/remove-containing-line)
 (def in-empty-line?         lines/in-empty-line?)
-(def in-nonempty-line?      lines/in-nonempty-line?)
+(def not-in-empty-line?     lines/not-in-empty-line?)
 (def in-blank-line?         lines/in-blank-line?)
-(def in-nonblank-line?      lines/in-nonblank-line?)
+(def not-in-blank-line?     lines/not-in-blank-line?)
 (def remove-newlines        lines/remove-newlines)
 (def line-count             lines/line-count)
 (def max-lines              lines/max-lines)
-
-; @redirect (fruits.string.nth)
-(def first-character  nth/first-character)
-(def second-character nth/second-character)
-(def last-character   nth/last-character)
-(def nth-character    nth/nth-character)
 
 ; @redirect (fruits.string.order)
 (def abc? order/abc?)

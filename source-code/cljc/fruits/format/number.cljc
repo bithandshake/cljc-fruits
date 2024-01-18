@@ -1,8 +1,8 @@
 
 (ns fruits.format.number
-    (:require [fruits.regex.api  :as regex]
-              [fruits.string.api :as string]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api  :as mixed]
+              [fruits.regex.api  :as regex]
+              [fruits.string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

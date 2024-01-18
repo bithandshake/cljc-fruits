@@ -1,5 +1,5 @@
 
-(ns fruits.json.core
+(ns fruits.json.update
     (:require [fruits.json.config :as config]
               [fruits.keyword.api :as keyword]
               [fruits.map.api     :as map]
@@ -8,19 +8,6 @@
               [fruits.syntax.api  :as syntax]
               [fruits.vector.api  :as vector]))
 
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn json->clj
-  ; @param (json) n
-  ;
-  ; @example (json->clj ...)
-  ; {...}
-  ;
-  ; @return (map)
-  [n]
-  #?(:cljs (js->clj n :keywordize-keys true)))
-
 ;; -- Keywordize / unkeywordize key -------------------------------------------
 ;; ----------------------------------------------------------------------------
 
@@ -28,9 +15,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (unkeywordize-key :my-namespace/key)
-  ;
-  ; @example
   ; (unkeywordize-key :my-namespace/key)
   ; =>
   ; "my-namespace/key"
@@ -43,9 +27,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (keywordize-key "my-namespace/key")
-  ;
-  ; @example
   ; (keywordize-key "my-namespace/key")
   ; =>
   ; :my-namespace/key
@@ -62,16 +43,10 @@
   ;
   ; @usage
   ; (underscore-key :my-namespace/key)
-  ;
-  ; @usage
-  ; (underscore-key "my-namespace/key")
-  ;
-  ; @example
-  ; (underscore-key :my-namespace/key)
   ; =>
   ; :my_namespace/key
   ;
-  ; @example
+  ; @usage
   ; (underscore-key "my-namespace/key")
   ; =>
   ; "my_namespace/key"
@@ -87,16 +62,10 @@
   ;
   ; @usage
   ; (hyphenize-key :my_namespace/key)
-  ;
-  ; @usage
-  ; (hyphenize-key "my_namespace/key")
-  ;
-  ; @example
-  ; (hyphenize-key :my_namespace/key)
   ; =>
   ; :my-namespace/key
   ;
-  ; @example
+  ; @usage
   ; (hyphenize-key "my_namespace/key")
   ; =>
   ; "my-namespace/key"
@@ -107,7 +76,7 @@
         (keyword? n) (-> n name hyphenize-key keyword)
         :return   n))
 
-;; -- Snake-case / CamelCase key ----------------------------------------------
+;; -- kebab-case / CamelCase key ----------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn CamelCase-key
@@ -115,49 +84,56 @@
   ;
   ; @usage
   ; (CamelCase-key :my-key)
-  ;
-  ; @usage
-  ; (CamelCase-key "my-key")
-  ;
-  ; @example
-  ; (CamelCase-key :my-key)
   ; =>
   ; :myKey
   ;
-  ; @example
+  ; @usage
   ; (CamelCase-key "my-key")
   ; =>
   ; "myKey"
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (-> n syntax/ToCamelCase)
+  (cond (string?  n) (-> n syntax/to-CamelCase)
         (keyword? n) (-> n name CamelCase-key keyword)
         :return   n))
 
-(defn snake-case-key
+(defn kebab-case-key
   ; @param (*) n
   ;
   ; @usage
-  ; (snake-case-key :myKey)
-  ;
-  ; @usage
-  ; (snake-case-key "myKey")
-  ;
-  ; @example
-  ; (snake-case-key :myKey)
+  ; (kebab-case-key :myKey)
   ; =>
   ; :my-key
   ;
-  ; @example
-  ; (snake-case-key "myKey")
+  ; @usage
+  ; (kebab-case-key "myKey")
   ; =>
   ; "my-key"
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (-> n syntax/to-snake-case)
-        (keyword? n) (-> n name snake-case-key keyword)
+  (cond (string?  n) (-> n syntax/to-kebab-case)
+        (keyword? n) (-> n name kebab-case-key keyword)
+        :return   n))
+
+(defn snake_case-key
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (snake_case-key :myKey)
+  ; =>
+  ; :my_key
+  ;
+  ; @usage
+  ; (snake_case-key "myKey")
+  ; =>
+  ; "my_key"
+  ;
+  ; @return (*)
+  [n]
+  (cond (string?  n) (-> n syntax/to-snake_case)
+        (keyword? n) (-> n name snake_case-key keyword)
         :return   n))
 
 ;; -- Keywordize / unkeywordize value -----------------------------------------
@@ -168,15 +144,12 @@
   ;
   ; @usage
   ; (unkeywordized-value? "*:apple")
-  ;
-  ; @example
-  ; (unkeywordized-value? "*:apple")
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n]
-  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
+  ; @note (fruits.json.config#5914)
   (and (-> n string?)
        (-> n count (> 2))
        (= config/KEYWORD-PREFIX (str (nth n 0)))
@@ -187,15 +160,12 @@
   ;
   ; @usage
   ; (keywordize-value "*:my-value")
-  ;
-  ; @example
-  ; (keywordize-value "*:my-value")
   ; =>
   ; :my-value
   ;
   ; @return (*)
   [n]
-  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
+  ; @note (fruits.json.config#5914)
   (if (-> n unkeywordized-value?)
       (-> n (subs 2) keyword)
       (-> n)))
@@ -205,15 +175,12 @@
   ;
   ; @usage
   ; (unkeywordize-value :my-value)
-  ;
-  ; @example
-  ; (unkeywordize-value :my-value)
   ; =>
   ; "*:my-value"
   ;
   ; @return (*)
   [n]
-  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
+  ; @note (fruits.json.config#5914)
   (if (-> n keyword?)
       (-> config/KEYWORD-PREFIX (str n))
       (-> n)))
@@ -225,9 +192,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (trim-value " My value ")
-  ;
-  ; @example
   ; (trim-value " My value ")
   ; =>
   ; "My value"
@@ -246,9 +210,6 @@
   ;
   ; @usage
   ; (parse-number-value "89.420")
-  ;
-  ; @example
-  ; (parse-number-value "89.420")
   ; =>
   ; 89.420
   ;
@@ -264,17 +225,14 @@
   ;
   ; @usage
   ; (unkeywordize-keys {:my-namespace/key :my-value})
-  ;
-  ; @example
-  ; (unkeywordize-keys {:my-namespace/key :my-value})
   ; =>
   ; {"my-namespace/key" :my-value}
   ;
   ; @return (*)
   [n]
-  ; @NOTE
-  ; This function uses the 'unkeywordize-key' function that changes only keyword
-  ; type values. Therefore, no need to apply any other type-checking stage in this function.
+  ; @note
+  ; This function uses the 'unkeywordize-key' function that changes only keyword type values.
+  ; Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>keys      n unkeywordize-keys)
         (vector? n) (vector/->items   n unkeywordize-keys)
         :return     (unkeywordize-key n)))
@@ -283,9 +241,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (keywordize-keys {"my-namespace/key" :my-value})
-  ;
-  ; @example
   ; (keywordize-keys {"my-namespace/key" :my-value})
   ; =>
   ; {:my-namespace/key :my-value}
@@ -304,16 +259,10 @@
   ;
   ; @usage
   ; (underscore-keys {:my-namespace/key :my-value})
-  ;
-  ; @usage
-  ; (underscore-keys {"my-namespace/key" :my-value})
-  ;
-  ; @example
-  ; (underscore-keys {:my-namespace/key :my-value})
   ; =>
   ; {:my_namespace/key :my-value}
   ;
-  ; @example
+  ; @usage
   ; (underscore-keys {"my-namespace/key" :my-value})
   ; =>
   ; {"my_namespace/key" :my-value}
@@ -329,16 +278,10 @@
   ;
   ; @usage
   ; (hyphenize-keys {:my_namespace/key :my-value})
-  ;
-  ; @usage
-  ; (hyphenize-keys {"my_namespace/key" :my-value})
-  ;
-  ; @example
-  ; (hyphenize-keys {:my_namespace/key :my-value})
   ; =>
   ; {:my-namespace/key :my-value}
   ;
-  ; @example
+  ; @usage
   ; (hyphenize-keys {"my_namespace/key" :my-value})
   ; =>
   ; {"my-namespace/key" :my-value}
@@ -349,7 +292,7 @@
         (vector? n) (vector/->items n hyphenize-keys)
         :return     (hyphenize-key  n)))
 
-;; -- Snake-case / CamelCase keys ---------------------------------------------
+;; -- kebab-case / CamelCase keys ---------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn CamelCase-keys
@@ -357,16 +300,10 @@
   ;
   ; @usage
   ; (Case-keys {:my-key :my-value})
-  ;
-  ; @usage
-  ; (Case-keys {"my-key" :my-value})
-  ;
-  ; @example
-  ; (Case-keys {:my-key :my-value})
   ; =>
   ; {:myKey :my-value}
   ;
-  ; @example
+  ; @usage
   ; (CamelCase-keys {"my-key" :my-value})
   ; =>
   ; {"myKey" :my-value}
@@ -377,30 +314,43 @@
         (vector? n) (vector/->items n CamelCase-keys)
         :return     (CamelCase-key  n)))
 
-(defn snake-case-keys
+(defn kebab-case-keys
   ; @param (*) n
   ;
   ; @usage
-  ; (snake-case-keys {:myKey :my-value})
-  ;
-  ; @usage
-  ; (snake-case-keys {"myKey" :my-value})
-  ;
-  ; @example
-  ; (snake-case-keys {:myKey :my-value})
+  ; (kebab-case-keys {:myKey :my-value})
   ; =>
   ; {:my-key :my-value}
   ;
-  ; @example
-  ; (snake-case-keys {"myKey" :my-value})
+  ; @usage
+  ; (kebab-case-keys {"myKey" :my-value})
   ; =>
   ; {"my-key" :my-value}
   ;
   ; @return (*)
   [n]
-  (cond (map?    n) (map/->>keys     n snake-case-keys)
-        (vector? n) (vector/->items  n snake-case-keys)
-        :return     (snake-case-key  n)))
+  (cond (map?    n) (map/->>keys     n kebab-case-keys)
+        (vector? n) (vector/->items  n kebab-case-keys)
+        :return     (kebab-case-key  n)))
+
+(defn snake_case-keys
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (snake_case-keys {:myKey :my-value})
+  ; =>
+  ; {:my-key :my-value}
+  ;
+  ; @usage
+  ; (snake_case-keys {"myKey" :my-value})
+  ; =>
+  ; {"my-key" :my-value}
+  ;
+  ; @return (*)
+  [n]
+  (cond (map?    n) (map/->>keys     n snake_case-keys)
+        (vector? n) (vector/->items  n snake_case-keys)
+        :return     (snake_case-key  n)))
 
 ;; -- Keywordize / unkeywordize values ----------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -410,19 +360,16 @@
   ;
   ; @usage
   ; (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
-  ;
-  ; @example
-  ; (unkeywordize-values {:a :b :c [:d "e"] :f {:g "h" :i :j}})
   ; =>
   ; {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}}
   ;
   ; @return (*)
   [n]
-  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
+  ; @note (fruits.json.config#5914)
   ;
-  ; @NOTE
-  ; This function uses the 'unkeywordize-value' function that changes only keyword
-  ; type values. Therefore, no need to apply any other type-checking stage in this function.
+  ; @note
+  ; This function uses the 'unkeywordize-value' function that changes only keyword type values.
+  ; Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values      n unkeywordize-values)
         (vector? n) (vector/->items     n unkeywordize-values)
         :return     (unkeywordize-value n)))
@@ -432,19 +379,16 @@
   ;
   ; @usage
   ; (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
-  ;
-  ; @example
-  ; (keywordize-values {:a "*:b" :c ["*:d" "e"] :f {:g "*h" :i "*:j"}})
   ; =>
   ; {:a :b :c [:d "e"] :f {:g "h" :i :j}}
   ;
   ; @return (*)
   [n]
-  ; @NOTE (source-code/cljc/fruits/json/config.cljc#5914)
+  ; @note (fruits.json.config#5914)
   ;
-  ; @NOTE
-  ; This function uses the 'keywordize-value' function that changes only string
-  ; type values. Therefore, no need to apply any other type-checking stage in this function.
+  ; @note
+  ; This function uses the 'keywordize-value' function that changes only string type values.
+  ; Therefore, no need to apply any other type-checking stage in this function.
   (cond (map?    n) (map/->>values    n keywordize-values)
         (vector? n) (vector/->items   n keywordize-values)
         :return     (keywordize-value n)))
@@ -456,9 +400,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
-  ;
-  ; @example
   ; (trim-values {:a "b " :c [" d " "e"] :f {:g " h"}})
   ; =>
   ; {:a "b" :c ["d" "e"] :f {:g "h"}}
@@ -477,9 +418,6 @@
   ;
   ; @usage
   ; (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
-  ;
-  ; @example
-  ; (parse-number-values {:a "0" :c ["1"] :f {:g "2"}})
   ; =>
   ; {:a 0 :c [1] :f {:g 2}}
   ;
@@ -497,15 +435,12 @@
   ;
   ; @usage
   ; (remove-blank-values {:a "" :c [] :f {:g nil}})
-  ;
-  ; @example
-  ; (remove-blank-values {:a "" :c [] :f {:g nil}})
   ; =>
   ; {}
   ;
   ; @return (*)
   [n]
-  ; @NOTE
+  ; @note
   ; This function calls itself recursively after it removes the blank values
   ; from the given data, until it cannot find more blank values within it.
   ; E.g., If the given 'n' value has any item that is a vector that contains

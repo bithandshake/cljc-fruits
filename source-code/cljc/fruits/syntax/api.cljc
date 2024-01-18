@@ -1,18 +1,19 @@
 
 (ns fruits.syntax.api
     (:require [fruits.syntax.convert :as convert]
-              [fruits.syntax.core    :as core]))
+              [fruits.syntax.wrap    :as wrap]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.syntax.convert)
-(def to-snake-case convert/to-snake-case)
-(def ToCamelCase   convert/ToCamelCase)
+; @redirect (fruits.syntax.convert/*)
+(def to-kebab-case convert/to-kebab-case)
+(def to-snake_case convert/to-snake_case)
+(def to-CamelCase  convert/to-CamelCase)
 
-; @redirect (fruits.syntax.core)
-(def paren   core/paren)
-(def brace   core/brace)
-(def bracket core/bracket)
-(def percent core/percent)
-(def quotes  core/quotes)
+; @redirect (fruits.syntax.wrap/*)
+(def paren   wrap/paren)
+(def brace   wrap/brace)
+(def bracket wrap/bracket)
+(def percent wrap/percent)
+(def quotes  wrap/quotes)

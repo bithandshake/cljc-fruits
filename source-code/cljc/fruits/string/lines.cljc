@@ -136,7 +136,7 @@
         cursor (seqable/normalize-cursor n cursor)]
        (-> n (containing-line cursor) check/empty?)))
 
-(defn in-nonempty-line?
+(defn not-in-empty-line?
   ; @description
   ; Returns TRUE if the given cursor position falls within a nonempty line.
   ;
@@ -144,15 +144,15 @@
   ; @param (integer) cursor
   ;
   ; @usage
-  ; (in-nonempty-line? "abc\ndef\nghi" 4)
+  ; (not-in-empty-line? "abc\ndef\nghi" 4)
   ;
   ; @example
-  ; (in-nonempty-line? "abc\ndef\nghi" 4)
+  ; (not-in-empty-line?"abc\ndef\nghi" 4)
   ; =>
   ; true
   ;
   ; @example
-  ; (in-nonempty-line? "abc\n\ndef" 4)
+  ; (not-in-empty-line? "abc\n\ndef" 4)
   ; =>
   ; false
   ;
@@ -160,7 +160,7 @@
   [n cursor]
   (let [n      (str n)
         cursor (seqable/normalize-cursor n cursor)]
-       (-> n (containing-line cursor) check/nonempty?)))
+       (-> n (containing-line cursor) check/not-empty?)))
 
 (defn in-blank-line?
   ; @description
@@ -188,23 +188,23 @@
         cursor (seqable/normalize-cursor n cursor)]
        (-> n (containing-line cursor) check/blank?)))
 
-(defn in-nonblank-line?
+(defn not-in-blank-line?
   ; @description
-  ; Returns TRUE if the given cursor position falls within a blank line.
+  ; Returns TRUE if the given cursor position falls within a nonblank line.
   ;
   ; @param (*) n
   ; @param (integer) cursor
   ;
   ; @usage
-  ; (in-nonblank-line? "abc\ndef\nghi" 4)
+  ; (not-in-blank-line? "abc\ndef\nghi" 4)
   ;
   ; @example
-  ; (in-nonblank-line? "abc\ndef\nghi" 4)
+  ; (not-in-blank-line? "abc\ndef\nghi" 4)
   ; =>
   ; true
   ;
   ; @example
-  ; (in-nonblank-line? "abc\n   \nghi" 4)
+  ; (not-in-blank-line? "abc\n   \nghi" 4)
   ; =>
   ; false
   ;
@@ -212,7 +212,7 @@
   [n cursor]
   (let [n      (str n)
         cursor (seqable/normalize-cursor n cursor)]
-       (-> n (containing-line cursor) check/nonblank?)))
+       (-> n (containing-line cursor) check/not-blank?)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

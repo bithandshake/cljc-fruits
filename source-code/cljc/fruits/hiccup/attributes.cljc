@@ -1,9 +1,9 @@
 
 (ns fruits.hiccup.attributes
-    (:require [fruits.keyword.api :as keyword]
-              [fruits.vector.api  :as vector]
-              [fruits.string.api  :as string]
-              [fruits.normalize.api :as normalize]))
+    (:require [fruits.keyword.api   :as keyword]
+              [fruits.normalize.api :as normalize]
+              [fruits.string.api    :as string]
+              [fruits.vector.api    :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

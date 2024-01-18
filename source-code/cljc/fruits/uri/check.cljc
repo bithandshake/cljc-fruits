@@ -14,9 +14,6 @@
   ;
   ; @usage
   ; (url-path-template-matches? "/my-path/my-value" "/my-path/:my-param")
-  ;
-  ; @example
-  ; (url-path-template-matches? "/my-path/my-value" "/my-path/:my-param")
   ; =>
   ; true
   ;

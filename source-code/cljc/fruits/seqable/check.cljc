@@ -5,16 +5,19 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nonseqable?
+(defn not-seqable?
+  ; @description
+  ; Returns TRUE if the given 'n' value is not seqable.
+  ;
   ; @param (*) n
   ;
-  ; @example
-  ; (nonseqable? 420)
+  ; @usage
+  ; (not-seqable? 420)
   ; =>
   ; true
   ;
-  ; @example
-  ; (nonseqable? "420")
+  ; @usage
+  ; (not-seqable? "420")
   ; =>
   ; false
   ;
@@ -23,34 +26,49 @@
   (-> n seqable? not))
 
 (defn empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is an empty seqable value.
+  ;
   ; @param (*) n
   ;
   ; @usage
   ; (empty? "")
-  ;
-  ; @example
-  ; (empty? "")
   ; =>
   ; true
+  ;
+  ; @usage
+  ; (empty? "abc")
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (empty? :a)
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n]
   (and (-> n seqable?)
        (-> n clojure.core/empty?)))
 
-(defn nonempty?
+(defn not-empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonempty seqable value.
+  ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nonempty? "420")
-  ;
-  ; @example
-  ; (nonempty? "420")
+  ; (not-empty? "420")
   ; =>
   ; true
   ;
-  ; @example
-  ; (nonempty? 420)
+  ; @usage
+  ; (not-empty? 420)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (not-empty? "")
   ; =>
   ; false
   ;
@@ -63,51 +81,64 @@
 ;; ----------------------------------------------------------------------------
 
 (defn cursor?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @description
+  ; Returns TRUE if the given 'x' value is an integer.
+  ;
   ; @param (*) x
   ;
   ; @usage
   ; (cursor? 42)
-  ;
-  ; @example
-  ; (cursor? 42)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor? -3)
   ; =>
-  ; false
+  ; true
   ;
-  ; @example
+  ; @usage
   ; (cursor? :a)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [x]
-  (nat-int? x))
+  (integer? x))
 
 (defn dex?
+  ; @note
+  ; An N item long sequence has N+1 cursors and N indexes.
+  ; E.g., Indexes of "abc": 0, 1, 2
+  ;       Cursors of "abc": 0, 1, 2, 3
+  ;
+  ; @note
+  ; Negative index values are distances from the end of a sequence.
+  ;
+  ; @description
+  ; Returns TRUE if the given 'x' value is an integer.
+  ;
   ; @param (*) x
   ;
   ; @usage
   ; (dex? 42)
-  ;
-  ; @example
-  ; (dex? 42)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (dex? -3)
   ; =>
-  ; false
+  ; true
   ;
-  ; @example
+  ; @usage
   ; (dex? :a)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [x]
-  (nat-int? x))
+  (integer? x))

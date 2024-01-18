@@ -1,5 +1,5 @@
 
-(ns fruits.string.nth
+(ns fruits.string.get
     (:require [fruits.seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
@@ -103,6 +103,6 @@
   ;
   ; @param (string)
   [n th]
-  (let [n  (str n)
-        th (seqable/normalize-dex n th)]
-       (-> n (nth th) str)))
+  (let [n (str n)]
+       (if-let [th (seqable/normalize-dex n th)]
+               (-> n (nth th) str))))

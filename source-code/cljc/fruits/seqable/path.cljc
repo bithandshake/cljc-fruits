@@ -1,28 +1,27 @@
 
-(ns fruits.seqable.path)
+(ns fruits.seqable.path
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn dynamic-path
   ; @description
-  ; Converts the given 'path' dynamic path into a static path of the given 'n' value.
+  ; Converts the given dynamic path into a static path of a specific item in the given 'n' value.
   ;
-  ; @param (seqable) n
+  ; @param (map or vector) n
   ; @param (vector) path
   ;
   ; @usage
-  ; (dynamic-path [{:a [{:b "B"}]}] [seqable/last-dex :a seqable/last-dex :b])
-  ;
-  ; @example
-  ; (dynamic-path [{:a [{:b "B"}]}] [seqable/last-dex :a seqable/last-dex :b])
+  ; (dynamic-path [{:a [{:b "B"}]}] [last-dex :a last-dex :b])
   ; =>
   ; [0 :a 0 b]
   ;
   ; @return (vector)
   [n path]
-  (letfn [(f0 [result k]
-              (if (fn? k)
-                  (conj result (-> n (get-in result) k))
-                  (conj result (-> k))))]
-         (reduce f0 [] path)))
+  (let [path (mixed/to-vector path)]
+       (letfn [(f0 [result k]
+                   (if (fn? k)
+                       (conj result (-> n (get-in result) k))
+                       (conj result (-> k))))]
+              (reduce f0 [] path))))

@@ -1,15 +1,15 @@
 
-(ns fruits.svg.core)
+(ns fruits.svg.attributes)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn view-box
+(defn view-box-dimensions
   ; @param (px) width
   ; @param (px) height
   ;
   ; @usage
-  ; (view-box 1024 1024)
+  ; (view-box-dimensions 1024 1024)
   ; =>
   ; "0 0 1024 1024"
   ;
@@ -39,5 +39,5 @@
   [{:keys [height style width] :as attributes}]
   (merge (dissoc attributes :height :width)
          {:style    (merge {:height "100%" :width "100%"} style)
-          :view-box (view-box width height)
+          :view-box (view-box-dimensions width height)
           :xmlns    "http://www.w3.org/2000/svg"}))

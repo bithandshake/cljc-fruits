@@ -30,22 +30,22 @@
   (and (-> n string?)
        (-> n clojure.core/empty?)))
 
-(defn nonempty?
+(defn not-empty?
   ; @description
   ; Returns TRUE if the given 'n' value is a nonempty string.
   ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nonempty? "abc")
+  ; (not-empty? "abc")
   ;
   ; @example
-  ; (nonempty? "abc")
+  ; (not-empty? "abc")
   ; =>
   ; true
   ;
   ; @example
-  ; (nonempty? "")
+  ; (not-empty? "")
   ; =>
   ; false
   ;
@@ -78,22 +78,22 @@
   (and (-> n string?)
        (-> n clojure.string/trim empty?)))
 
-(defn nonblank?
+(defn not-blank?
   ; @description
   ; Returns TRUE if the given 'n' value is a string that contains more than whitespaces and newlines.
   ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nonblank? "abc")
+  ; (not-blank? "abc")
   ;
   ; @example
-  ; (nonblank? "abc")
+  ; (not-blank? "abc")
   ; =>
   ; true
   ;
   ; @example
-  ; (nonblank? " ")
+  ; (not-blank? " ")
   ; =>
   ; false
   ;

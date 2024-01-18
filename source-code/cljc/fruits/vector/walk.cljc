@@ -1,5 +1,6 @@
 
-(ns fruits.vector.walk)
+(ns fruits.vector.walk
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -18,9 +19,6 @@
   ;
   ; @usage
   ; (->items [:a :b :c] name)
-  ;
-  ; @example
-  ; (->items [:a :b :c] name)
   ; =>
   ; ["a" "b" "c"]
   ;
@@ -29,9 +27,11 @@
    (->items n f {}))
 
   ([n f {:keys [provide-dex?]}]
-   (letfn [(f0 [       dex x] (if provide-dex? (f dex x) (f x)))
-           (f1 [result dex x] (conj result (f0 dex x)))]
-          (reduce-kv f1 [] n))))
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [       dex x] (if provide-dex? (f dex x) (f x)))
+                (f1 [result dex x] (conj result (f0 dex x)))]
+               (reduce-kv f1 [] n)))))
 
 (defn ->items-by
   ; @description
@@ -48,9 +48,6 @@
   ;
   ; @usage
   ; (->items-by [0 1 2] even? inc)
-  ;
-  ; @example
-  ; (->items-by [0 1 2] even? inc)
   ; =>
   ; [1 1 3]
   ;
@@ -59,10 +56,13 @@
    (->items-by n test-f f {}))
 
   ([n test-f f {:keys [provide-dex?]}]
-   (letfn [(f0 [       dex x] (if provide-dex? (f  dex x) (f x)))
-           (f1 [       dex x] (if (test-f x) (f0 dex x) x))
-           (f2 [result dex x] (conj result (f1 dex x)))]
-          (reduce-kv f2 [] n))))
+   (let [n      (mixed/to-vector n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [       dex x] (if provide-dex? (f  dex x) (f x)))
+                (f1 [       dex x] (if (test-f x) (f0 dex x) x))
+                (f2 [result dex x] (conj result (f1 dex x)))]
+               (reduce-kv f2 [] n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -84,9 +84,6 @@
   ;
   ; @usage
   ; (->>items [:a :b :c [:d :e {:e :f}]] name)
-  ;
-  ; @example
-  ; (->>items [:a :b :c [:d :e {:e :f}]] name)
   ; =>
   ; ["a" "b" "c" ["d" "e" {:e "f"}]]
   ;
@@ -95,12 +92,14 @@
    (->>items n f {}))
 
   ([n f {:keys [provide-dex? provide-path?]}]
-   ; Applies the 'f' function on values of maps also, because they are equivalents to items in vectors.
-   (letfn [(f0 [path x] (if provide-dex? (f (last path) x) (if provide-path? (f path x) (f x))))
-           (f1 [path x] (cond (vector? x) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] x)
-                              (map?    x) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} x)
-                              :return     (f0 path x)))]
-          (f1 [] n))))
+   ; Applies the 'f' function on values of maps also, because they are equivalents to items of vectors.
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [path x] (if provide-dex? (f (last path) x) (if provide-path? (f path x) (f x))))
+                (f1 [path x] (cond (vector? x) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] x)
+                                   (map?    x) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} x)
+                                   :return     (f0 path x)))]
+               (f1 [] n)))))
 
 (defn ->>items-by
   ; @description
@@ -120,9 +119,6 @@
   ;
   ; @usage
   ; (->>items [0 1 2 [3 4 5]] integer? inc)
-  ;
-  ; @example
-  ; (->>items [0 1 2 [3 4 5]] integer? inc)
   ; =>
   ; [1 2 3 [4 5 6]]
   ;
@@ -131,11 +127,14 @@
    (->>items-by n test-f f {}))
 
   ([n test-f f {:keys [provide-dex? provide-path?]}]
-   ; Applies the 'f' function on values of maps also, because they are equivalents to items in vectors.
-   (letfn [(f0 [path x] (if provide-dex? (f (last path) x) (if provide-path? (f path x) (f x))))
-           (f1 [path x] (if (test-f x) (f0 path x) x))
-           (f2 [path x] (let [x (f1 path x)] ; <- Applies the given 'f' function (if needed) on vector and map items as well.
-                             (cond (vector? x) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] x)
-                                   (map?    x) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} x)
-                                   :return x)))]
-          (f2 [] n))))
+   ; Applies the 'f' function on values of maps also, because they are equivalents to items of vectors.
+   (let [n      (mixed/to-vector n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [path x] (if provide-dex? (f (last path) x) (if provide-path? (f path x) (f x))))
+                (f1 [path x] (if (test-f x) (f0 path x) x))
+                (f2 [path x] (let [x (f1 path x)] ; <- Applies the given 'f' function (if needed) on vector and map items also.
+                                  (cond (vector? x) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] x)
+                                        (map?    x) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} x)
+                                        :return x)))]
+               (f2 [] n)))))

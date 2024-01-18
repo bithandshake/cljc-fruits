@@ -227,7 +227,7 @@
    (->>values n f {}))
 
   ([n f {:keys [provide-key? provide-path?]}]
-   ; Applies the 'f' function on vector items as well, because vector items are equivalents to map values!
+   ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
    (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
            (f1 [path v] (cond (map?    v) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} v)
                               (vector? v) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] v)
@@ -263,10 +263,10 @@
    (->>values-by n test-f f {}))
 
   ([n test-f f {:keys [provide-key? provide-path?]}]
-   ; Applies the 'f' function on vector items as well, because vector items are equivalents to map values!
+   ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
    (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
            (f1 [path v] (if (test-f v) (f0 path v) v))
-           (f2 [path v] (let [v (f1 path v)] ; <- Applies the given 'f' function (if needed) on vector and map values as well.
+           (f2 [path v] (let [v (f1 path v)] ; <- Applies the given 'f' function (if needed) on vector and map values also.
                              (cond (map?    v) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} v)
                                    (vector? v) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] v)
                                    :return v)))]
@@ -346,7 +346,7 @@
    (->>kv n k-f v-f {}))
 
   ([n k-f v-f {:keys [provide-key? provide-path? provide-value?]}]
-   ; Applies the 'v-f' function on vector items as well, because vector items are equivalents to map values!
+   ; Applies the 'v-f' function on vector items also, because vector items are equivalents to map values!
    (letfn [(f0 [   k v] (if provide-value? (k-f k v) (k-f k)))
            (f1 [path v] (if provide-key?   (v-f (last path) v) (if provide-path? (v-f path v) (v-f v))))
            (f2 [path v] (cond (map?    v) (reduce-kv #(assoc %1 (f0 %2 %3) (f2 (conj path %2) %3)) {} v)

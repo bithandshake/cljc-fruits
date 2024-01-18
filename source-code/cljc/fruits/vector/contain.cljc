@@ -1,49 +1,52 @@
 
-(ns fruits.vector.contain)
+(ns fruits.vector.contain
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn contains-item?
+  ; @description
+  ; Returns TRUE if the given 'x' value is present in the given 'n' vector.
+  ;
   ; @param (vector) n
   ; @param (*) x
   ;
   ; @usage
   ; (contains-item? [:a :b] :a)
-  ;
-  ; @example
-  ; (contains-item? [:a :b] :a)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-item? [:a :b] :c)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n x]
-  (letfn [(f0 [%] (= % x))]
-         (boolean (some f0 n))))
+  (let [n (mixed/to-vector n)]
+       (letfn [(f0 [%] (= % x))]
+              (-> (some f0 n) boolean))))
 
 (defn not-contains-item?
+  ; @description
+  ; Returns TRUE if the given 'x' value is NOT present in the given 'n' vector.
+  ;
   ; @param (vector) n
   ; @param (*) x
   ;
   ; @usage
-  ; (not-contains-item? [:a :b] :a)
-  ;
-  ; @example
   ; (not-contains-item? [:a :b] :c)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-contains-item? [:a :b] :a)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n x]
-  (letfn [(f0 [%] (not= % x))]
-         (every? f0 n)))
+  (let [n (mixed/to-vector n)]
+       (letfn [(f0 [%] (not= % x))]
+              (every? f0 n))))

@@ -10,13 +10,10 @@
   ;
   ; @usage
   ; (pretty-url "https://my-domain.com")
-  ;
-  ; @example
-  ; (pretty-url "https://my-domain.com")
   ; =>
   ; "my-domain.com"
   ;
-  ; @example
+  ; @usage
   ; (pretty-url "https://my-domain.com/")
   ; =>
   ; "my-domain.com"

@@ -159,6 +159,6 @@
   ;
   ; @return (string)
   [n placeholder]
-  (if (-> n check/nonblank?)
+  (if (-> n check/not-blank?)
       (-> n)
       (-> placeholder)))

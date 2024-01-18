@@ -34,27 +34,27 @@
   (and (-> n map?)
        (-> n clojure.core/empty?)))
 
-(defn nonempty?
+(defn not-empty?
   ; @description
   ; Returns TRUE if the given 'n' value is a nonempty map.
   ;
   ; @param (map) n
   ;
   ; @usage
-  ; (nonempty? {})
+  ; (not-empty? {})
   ;
   ; @example
-  ; (nonempty? {})
+  ; (not-empty? {})
   ; =>
   ; false
   ;
   ; @example
-  ; (nonempty? {:a "A"})
+  ; (not-empty? {:a "A"})
   ; =>
   ; true
   ;
   ; @example
-  ; (nonempty? [:a])
+  ; (not-empty? [:a])
   ; =>
   ; false
   ;
