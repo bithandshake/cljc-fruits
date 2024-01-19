@@ -96,8 +96,7 @@
   ; @param (function) put-f
   ;
   ; @usage
-  ; (defn my-put-f [%] (conj % "X"))
-  ; (put-with [[:span "A"] [:span "B"]] my-put-f)
+  ; (put-with [{:value [:span "A"]} {:value [:span "B"]}] :value)
   ; =>
   ; [:div [:span "A" "X"] [:span "B" "X"]]
   ;

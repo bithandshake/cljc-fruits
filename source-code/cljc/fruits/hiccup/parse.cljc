@@ -13,7 +13,7 @@
 
 (defn parse-css
   ; @description
-  ; Parses the inline CSS styles within the given 'n' HICCUP value.
+  ; Parses the inline CSS styles within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;
@@ -34,7 +34,7 @@
 
 (defn unparse-css
   ; @description
-  ; Unparses the inline CSS styles within the given 'n' HICCUP value.
+  ; Unparses the inline CSS styles within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;
@@ -58,7 +58,7 @@
 
 (defn unparse-class-vectors
   ; @description
-  ; Unparses the CSS class vectors within the given 'n' HICCUP value.
+  ; Unparses the CSS class vectors within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;
@@ -90,7 +90,7 @@
 
 (defn parse-newlines
   ; @description
-  ; Parses the newline characters to '[:br]' tags within the given 'n' HICCUP value.
+  ; Parses the newline characters to '[:br]' tags within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;
@@ -112,7 +112,7 @@
 
 (defn unparse-newlines
   ; @description
-  ; Unparses the '[:br]' tags to newline characters within the given 'n' HICCUP value.
+  ; Unparses the '[:br]' tags to newline characters within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;

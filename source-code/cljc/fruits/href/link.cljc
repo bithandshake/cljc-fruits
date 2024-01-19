@@ -10,11 +10,23 @@
   ; Converts the given email address into 'mailto' link.
   ;
   ; @param (string) email-address
+  ; @param (string)(opt) subject
+  ; @param (string)(opt) body
   ;
   ; @usage
   ; (email-address "Hello@my-site.com")
   ; =>
   ; "mailto:hello@my-site.com"
+  ;
+  ; @usage
+  ; (email-address "Hello@my-site.com" "My subject")
+  ; =>
+  ; "mailto:hello@my-site.com?subject=My%20subject"
+  ;
+  ; @usage
+  ; (email-address "Hello@my-site.com" "My subject" "My body")
+  ; =>
+  ; "mailto:hello@my-site.com?subject=My%20subject&My%20body"
   ;
   ; @return (string)
   ([email-address]
@@ -22,12 +34,12 @@
 
   ([email-address subject]
    (str "mailto:"   (string/to-lowercase email-address)
-        "?subject=" subject))
+        "?subject=" (string/replace-part subject " " "%20")))
 
   ([email-address subject body]
    (str "mailto:"   (string/to-lowercase email-address)
-        "?subject=" subject
-        "&body="    body)))
+        "?subject=" (string/replace-part subject " " "%20")
+        "&body="    (string/replace-part body    " " "%20"))))
 
 (defn phone-number
   ; @description

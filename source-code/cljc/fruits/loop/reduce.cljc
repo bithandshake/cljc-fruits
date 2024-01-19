@@ -6,7 +6,7 @@
 
 (defn reduce-kv-indexed
   ; @description
-  ; The 'f' function gets the current item's index as its second parameter.
+  ; Works the same as the 'reduce-kv' function, but the 'f' function takes the index of the current item as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial
@@ -43,7 +43,7 @@
 
 (defn reduce-indexed
   ; @description
-  ; The 'f' function gets the current item's index as its second parameter.
+  ; Works the same as the 'reduce' function, but the 'f' function takes the index of the current item as its second parameter.
   ;
   ; @param (function) f
   ; @param (*) initial

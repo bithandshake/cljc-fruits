@@ -23,7 +23,7 @@
   ; @usage
   ; (resolve-variable "My favorite color is @color."
   ;                   ["red" "@color"]
-  ;                   ["red" "@szin"])
+  ;                   ["red" "@colour"])
   ; =>
   ; "My favorite color is red."
   ;

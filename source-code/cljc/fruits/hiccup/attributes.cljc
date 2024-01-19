@@ -110,10 +110,18 @@
   ;
   ; @return (string)
   [n & [flag]]
-  (letfn [(f0 [%] (string/replace-part % "." "-"))]
+  ; - It replaces special characters with dash characters instead of just simply removing
+  ;   them, in order to decrease identical outputs:
+  ;   (value :abc*) => :abc_
+  ;   (value :abc)  => :abc
+  ; - These two outputs would be identical if it would simply remove special characters:
+  ;   (value :abc*) => :abc
+  ;   (value :abc)  => :abc
+  (letfn [(f0 [%] (string/replace-part  % "." "-"))
+          (f1 [%] (normalize/clean-text % "-" "_"))]
          (if (-> n keyword?)
-             (str (if-let [namespace (namespace n)] (str (-> namespace f0 normalize/clean-text) "--"))
-                  (let    [name      (name      n)]      (-> name      f0 normalize/clean-text))
+             (str (if-let [namespace (namespace n)] (str (-> namespace f0 f1) "--"))
+                  (let    [name      (name      n)]      (-> name      f0 f1))
                   (if flag (str "--" flag)))
-             (str (-> n f0 normalize/clean-text)
+             (str (-> n f0 f1)
                   (if flag (str "--" flag))))))

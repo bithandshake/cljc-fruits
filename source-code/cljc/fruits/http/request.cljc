@@ -6,27 +6,42 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn request->headers
+  ; @description
+  ; Returns the headers of the given request map.
+  ;
+  ; @param (map) request
+  ;
+  ; @usage
+  ; (request->headers {:headers {:user-agent "My User Agent" ...} ...})
+  ; =>
+  ; {:headers {:user-agent "My User Agent" ...} ...}
+  ;
+  ; @return (map)
+  [request]
+  (:headers request))
+
 (defn request->header
   ; @description
-  ; Returns the header of the given request map.
+  ; Returns a specific header of the given request map.
   ;
   ; @param (map) request
   ; @param (keyword) header-key
   ;
   ; @usage
-  ; (request->header {:headers {:user-agent "My User Agent" ...} ...}
+  ; (request->header {:headers {:user-agent "My User Agent" ...} ...} ; <- :user-agent
   ;                  :user-agent)
   ; =>
   ; "My User Agent"
   ;
   ; @usage
-  ; (request->header {:headers {"user-agent" "My User Agent" ...} ...}
+  ; (request->header {:headers {"user-agent" "My User Agent" ...} ...} ; <- "user-agent"
   ;                  :user-agent)
   ; =>
   ; "My User Agent"
   ;
   ; @usage
-  ; (request->header {:headers {"User-Agent" "My User Agent" ...} ...}
+  ; (request->header {:headers {"User-Agent" "My User Agent" ...} ...} ; <- "User-Agent"
   ;                  :user-agent)
   ; =>
   ; "My User Agent"

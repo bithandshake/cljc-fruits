@@ -1,5 +1,6 @@
 
 (ns fruits.css.api
+    (:refer-clojure :exclude [repeat])
     (:require [fruits.css.candy :as candy]
               [fruits.css.parse :as parse]))
 
@@ -13,7 +14,7 @@
 (def s                  candy/s)
 (def percent            candy/percent)
 (def px                 candy/px)
-(def repeat-            candy/repeat-)
+(def repeat             candy/repeat)
 (def rotate             candy/rotate)
 (def rotate-x           candy/rotate-x)
 (def rotate-y           candy/rotate-y)

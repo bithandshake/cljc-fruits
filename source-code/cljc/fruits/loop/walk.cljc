@@ -6,7 +6,7 @@
 
 (defn <-walk
   ; @description
-  ; Iterates over the given functions and provides them the previous iteration's output as parameter.
+  ; Iterates over the given functions and provides them the output of the previous iteration as parameter.
   ;
   ; @param (*) initial
   ; @param (list of functions) fs

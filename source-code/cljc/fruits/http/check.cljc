@@ -6,7 +6,7 @@
 
 (defn local-request?
   ; @description
-  ; Returns TRUE if the given 'request' map is localhost (determined by the 'server-name' attribute).
+  ; Returns TRUE if the given 'request' map is local (determined by the 'server-name' attribute).
   ;
   ; @param (map) request
   ; {:server-name (string)}

@@ -10,14 +10,14 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (hiccup.attributes/*)
+; @redirect (fruits.hiccup.attributes/*)
 (def get-attributes attributes/get-attributes)
 (def get-style      attributes/get-style)
 (def set-style      attributes/set-style)
 (def join-class     attributes/join-class)
 (def value          attributes/value)
 
-; @redirect (hiccup.content/*)
+; @redirect (fruits.hiccup.content/*)
 (def content-length content/content-length)
 
 ; @redirect (fruits.hiccup.convert/*)

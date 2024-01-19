@@ -41,7 +41,7 @@
 (defn latin-name-valid?
   ; @description
   ; - Returns TRUE if the given value is a valid latin name.
-  ; - Latin name is declared as valid if ...
+  ; - A latin name is declared as valid if ...
   ;   ... its length is in a certain domain,
   ;   ... contains only latin characters, accented latin characters, digits,
   ;       underscrores, hyphens, apostrophes, periods and spaces.
@@ -70,7 +70,7 @@
 (defn password-valid?
   ; @description
   ; - Returns TRUE if the given value is a valid password.
-  ; - Password is declared as valid if ...
+  ; - A password is declared as valid if ...
   ;   ... its length is in a certain domain,
   ;   ... contains at least one uppercase letter,
   ;   ... contains at least one lowercase letter,

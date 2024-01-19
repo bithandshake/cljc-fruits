@@ -15,6 +15,7 @@
 (def remote-request? check/remote-request?)
 
 ; @redirect (fruits.http.request/*)
+(def request->headers          request/request->headers)
 (def request->header           request/request->header)
 (def request->cookies          request/request->cookies)
 (def request->cookie           request/request->cookie)

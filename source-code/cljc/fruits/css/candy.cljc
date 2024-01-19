@@ -1,5 +1,6 @@
 
 (ns fruits.css.candy
+    (:refer-clojure :exclude [repeat])
     (:require [fruits.string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
@@ -77,12 +78,12 @@
   [n]
   (str n "px"))
 
-(defn repeat-
+(defn repeat
   ; @param (integer) count
   ; @param (string) value
   ;
   ; @usage
-  ; (repeat- 3 "1fr")
+  ; (repeat 3 "1fr")
   ; =>
   ; "repeat(3, 1fr)"
   ;

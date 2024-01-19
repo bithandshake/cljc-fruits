@@ -339,12 +339,12 @@
   ; @usage
   ; (snake_case-keys {:myKey :my-value})
   ; =>
-  ; {:my-key :my-value}
+  ; {:my_key :my-value}
   ;
   ; @usage
   ; (snake_case-keys {"myKey" :my-value})
   ; =>
-  ; {"my-key" :my-value}
+  ; {"my_key" :my-value}
   ;
   ; @return (*)
   [n]

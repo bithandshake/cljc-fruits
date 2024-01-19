@@ -6,7 +6,6 @@
 ;; ----------------------------------------------------------------------------
 
 ; @redirect (fruits.atom.update/*)
-(def not!   update/not!)
-(def inc!   update/inc!)
-(def dec!   update/dec!)
-(def apply! update/apply!)
+(def not! update/not!)
+(def inc! update/inc!)
+(def dec! update/dec!)

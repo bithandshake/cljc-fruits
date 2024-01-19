@@ -10,7 +10,7 @@
 
 (defn undot-key
   ; @note
-  ; Dot characters are not allowed to presence in BSON keys:
+  ; Dot characters are not allowed to be present in BSON keys:
   ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
   ;
   ; @description
@@ -39,7 +39,7 @@
 
 (defn undot-keys
   ; @note
-  ; Dot characters are not allowed to presence in BSON keys:
+  ; Dot characters are not allowed to be present in BSON keys:
   ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
   ;
   ; @description

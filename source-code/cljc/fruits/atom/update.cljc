@@ -11,7 +11,7 @@
   ; (def my-atom (atom true))
   ; (not! my-atom)
   ;
-  ; @return (atom)
+  ; @return (boolean)
   [n]
   (swap! n not))
 
@@ -22,7 +22,7 @@
   ; (def my-atom (atom 42))
   ; (inc! my-atom)
   ;
-  ; @return (atom)
+  ; @return (number)
   [n]
   (swap! n inc))
 
@@ -33,6 +33,6 @@
   ; (def my-atom (atom 42))
   ; (dec! my-atom)
   ;
-  ; @return (atom)
+  ; @return (number)
   [n]
   (swap! n dec))
