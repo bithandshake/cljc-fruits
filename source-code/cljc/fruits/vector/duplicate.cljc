@@ -85,6 +85,9 @@
                (-> n))))
 
 (defn duplicate-nth-items
+  ; @important
+  ; This function is incomplete and may not behave as expected.
+  ;
   ; @description
   ; Duplicates the nth items in the given 'n' vector.
   ;

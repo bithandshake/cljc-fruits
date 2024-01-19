@@ -7,20 +7,17 @@
 
 (defn first-character
   ; @description
-  ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output character (Java char type) into string.
+  ; - Returns the first character of the given 'n' string.
+  ; - Converts the output character (Java char type) to a string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (first-character "abc")
-  ;
-  ; @example
   ; (first-character "abc")
   ; =>
   ; "a"
   ;
-  ; @example
+  ; @usage
   ; (first-character {:a "A"})
   ; =>
   ; "{"
@@ -32,20 +29,17 @@
 
 (defn second-character
   ; @description
-  ; - Returns the second character of the given 'n' value (converted to string.)
-  ; - Converts the output character (Java char type) into string.
+  ; - Returns the second character of the given 'n' string.
+  ; - Converts the output character (Java char type) to a string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (second-character "abc")
-  ;
-  ; @example
   ; (second-character "abc")
   ; =>
   ; "b"
   ;
-  ; @example
+  ; @usage
   ; (second-character {:a "A"})
   ; =>
   ; ":"
@@ -57,20 +51,17 @@
 
 (defn last-character
   ; @description
-  ; - Returns the first character of the given 'n' value (converted to string.)
-  ; - Converts the output character (Java char type) into string.
+  ; - Returns the first character of the given 'n' string.
+  ; - Converts the output character (Java char type) to a string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (last-character "abc")
-  ;
-  ; @example
   ; (last-character "abc")
   ; =>
   ; "c"
   ;
-  ; @example
+  ; @usage
   ; (last-character {:a "A"})
   ; =>
   ; "}"
@@ -82,21 +73,18 @@
 
 (defn nth-character
   ; @description
-  ; - Returns the nth character of the given 'n' value (converted to string.)
-  ; - Converts the output character (Java char type) into string.
+  ; - Returns the nth character of the given 'n' string.
+  ; - Converts the output character (Java char type) to a string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) th
   ;
   ; @usage
   ; (nth-character "abc" 2)
-  ;
-  ; @example
-  ; (nth-character "abc" 2)
   ; =>
   ; "c"
   ;
-  ; @example
+  ; @usage
   ; (nth-character {:a "A"} 1)
   ; =>
   ; ":"
@@ -104,5 +92,5 @@
   ; @param (string)
   [n th]
   (let [n (str n)]
-       (if-let [th (seqable/normalize-dex n th)]
+       (if-let [th (seqable/normalize-dex n th {:adjust? false :mirror? true})]
                (-> n (nth th) str))))

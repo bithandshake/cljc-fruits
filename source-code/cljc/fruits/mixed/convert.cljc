@@ -243,11 +243,11 @@
   [n]
   ; @bug (#0550)
   ; The applied regex pattern asserts that the first digit of the number cannot be 0.
-  ; Otherwise, the 'read-edn' function would read it as a non-decimal number (e.g., 008).
+  ; Otherwise, the 'parse-edn' function would read it as a non-decimal number (e.g., 008).
   (cond (integer? n) (-> n)
         (nil?     n) (-> 0)
         :else (if-let [x (-> (re-seq #"[\-]?[1-9][\d]*" (str n)) first)]
-                      (reader/read-edn x)
+                      (reader/parse-edn x)
                       (-> 0))))
 
 (defn to-number
@@ -297,8 +297,57 @@
   (cond (number? n) (-> n)
         (nil?    n) (-> 0)
         :else (if-let [x (-> (re-seq #"[\-]?[1-9][\d]*[\.]*[\d]*" (str n)) first)]
-                      (reader/read-edn x)
+                      (reader/parse-edn x)
                       (-> 0))))
+
+(defn to-keyword
+  ; @description
+  ; Converts the given 'n' value to a keyword.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-keyword :a)
+  ; =>
+  ; :a
+  ;
+  ; @usage
+  ; (to-keyword "abc")
+  ; =>
+  ; :abc
+  ;
+  ; @usage
+  ; (to-keyword 123)
+  ; =>
+  ; :123
+  ;
+  ; @usage
+  ; (to-keyword [:a :b :c])
+  ; =>
+  ; ::a
+  ;
+  ; @usage
+  ; (to-keyword {:a "A" :b "B"})
+  ; =>
+  ; ::a
+  ;
+  ; @usage
+  ; (to-keyword nil)
+  ; =>
+  ; :_
+  ;
+  ; @usage
+  ; (to-keyword [])
+  ; =>
+  ; :_
+  ;
+  ; @return (*)
+  [n]
+  (if (-> n keyword?)
+      (-> n)
+      (if-let [x (-> (re-seq #"[a-zA-Z\d\+\-\_\<\>\=\*\!\?\%\&\/\#\:\.\']+" (str n)) first)]
+              (-> x keyword)
+              (-> :_))))
 
 (defn to-fn
   ; @description

@@ -10,13 +10,10 @@
   ;
   ; @usage
   ; (cover-email-address "user@email.com")
-  ;
-  ; @example
-  ; (cover-email-address "user@email.com")
   ; =>
   ; "u**r@email.com"
   ;
-  ; @example
+  ; @usage
   ; (cover-email-address "username@email.com")
   ; =>
   ; "u******e@email.com"

@@ -1,27 +1,28 @@
 
 (ns fruits.map.namespace
-    (:refer-clojure :exclude [namespace]))
+    (:refer-clojure :exclude [namespace])
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn namespace
+  ; @description
+  ; Returns the namespace of the given 'n' map.
+  ;
   ; @param (map) n
   ;
   ; @usage
-  ; (namespace {:a/b "A"})
-  ;
-  ; @example
   ; (namespace {:a "A"})
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (namespace {:a/b "A"})
   ; =>
   ; :a
   ;
-  ; @example
+  ; @usage
   ; (namespace {:a   "A"
   ;             :b   "B"
   ;             :c/d "C"
@@ -29,119 +30,114 @@
   ; =>
   ; :c
   ;
-  ; @example
+  ; @usage
   ; (namespace {"a/b" "A"})
   ; =>
   ; :a
   ;
   ; @return (keyword)
   [n]
-  (letfn [(f0 [item-key]
-              (cond (string? item-key)
-                    (if-let [namespace (-> item-key keyword clojure.core/namespace)]
-                            (keyword namespace))
-                    (keyword? item-key)
-                    (if-let [namespace (-> item-key clojure.core/namespace)]
-                            (keyword namespace))))]
-         (some f0 (keys n))))
-
-(defn namespaced?
-  ; @param (map) n
-  ;
-  ; @usage
-  ; (namespaced? {:a/b "A"})
-  ;
-  ; @example
-  ; (namespaced? {:a "A"})
-  ; =>
-  ; false
-  ;
-  ; @example
-  ; (namespaced? {:a/b "A"})
-  ; =>
-  ; true
-  ;
-  ; @return (boolean)
-  [n]
-  (-> n namespace some?))
+  (let [n (mixed/to-map n)]
+       (letfn [(f0 [k]
+                   (cond (string? k)
+                         (if-let [ns (-> k keyword clojure.core/namespace)]
+                                 (keyword ns))
+                         (keyword? k)
+                         (if-let [ns (-> k clojure.core/namespace)]
+                                 (keyword ns))))]
+              (some f0 (keys n)))))
 
 (defn add-namespace
+  ; @description
+  ; Adds a specific namespace to the keys of the given 'n' map.
+  ;
   ; @param (map) n
-  ; @param (keyword) namespace
+  ; @param (keyword) ns
   ;
   ; @usage
-  ; (add-namespace {:a "A"} :b)
-  ;
-  ; @example
   ; (add-namespace {:a "A"} :b)
   ; =>
   ; {:a/b "A"}
   ;
-  ; @example
+  ; @usage
   ; (add-namespace {"a" "A"} :b)
   ; =>
   ; {"a/b" "A"}
   ;
   ; @return (map)
-  [n namespace]
-  (letfn [(f0 [n item-key item-value]
-              (cond (string?  item-key) (assoc n (str     (name namespace) "/"   item-key)  item-value)
-                    (keyword? item-key) (assoc n (keyword (name namespace) (name item-key)) item-value)
-                    :return n))]
-         (reduce-kv f0 {} n)))
+  [n ns]
+  (let [n  (mixed/to-map n)
+        ns (mixed/to-keyword ns)]
+       (letfn [(f0 [n k v]
+                   (cond (string?  k) (assoc n (str     (name ns) "/"   k)  v)
+                         (keyword? k) (assoc n (keyword (name ns) (name k)) v)
+                         :return n))]
+              (reduce-kv f0 {} n))))
 
 (defn remove-namespace
+  ; @description
+  ; Removes the namespace of the keys in the given 'n' map.
+  ;
   ; @param (map) n
   ;
   ; @usage
   ; (remove-namespace {:a/b "A"})
-  ;
-  ; @example
-  ; (remove-namespace {:a/b "A"})
   ; =>
   ; {:a "A"}
   ;
-  ; @example
+  ; @usage
   ; (remove-namespace {"a/b" "A"})
   ; =>
   ; {"a" "A"}
   ;
   ; @return (map)
   [n]
-  (letfn [(f0 [n item-key item-value]
-              (cond (string?  item-key) (assoc n (-> item-key keyword name)         item-value)
-                    (keyword? item-key) (assoc n (-> item-key         name keyword) item-value)
-                    :return n))]
-         (reduce-kv f0 {} n)))
+  (let [n (mixed/to-map n)]
+       (letfn [(f0 [n k v]
+                   (cond (string?  k) (assoc n (-> k keyword name)         v)
+                         (keyword? k) (assoc n (-> k         name keyword) v)
+                         :return n))]
+              (reduce-kv f0 {} n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn assoc-ns
-  ; @param (map) n
-  ; @param (keyword) key
-  ; @param (*) value
+  ; @important
+  ; This function is incomplete and may not behave as expected.
   ;
-  ; @example
+  ; @description
+  ; Associates the given key-value pair to given 'n' map adding the namespace of the map to the new key.
+  ;
+  ; @param (map) n
+  ; @param (keyword) k
+  ; @param (*) v
+  ;
+  ; @usage
   ; (assoc-ns {:fruit/apple "red"} :banana "yellow")
   ; =>
   ; {:fruit/apple "red" :fruit/banana "yellow"}
   ;
   ; @return (map)
-  [n key value])
+  [n k v])
   ; TODO
 
 (defn get-ns
-  ; @param (map) n
-  ; @param (keyword) key
+  ; @description
+  ; Returns a specific value from the given 'n' map using the given key as it had the same namespace as the map.
   ;
-  ; @example
+  ; @param (map) n
+  ; @param (keyword) k
+  ;
+  ; @usage
   ; (get-ns {:fruit/apple "red"} :apple)
   ; =>
   ; "red"
   ;
   ; @return (*)
-  [n key]
-  (if-let [namespace (namespace n)]
-          (let [key (keyword (name namespace) (name key))]
-               (get n key))))
+  [n k]
+  (let [n (mixed/to-map n)
+        k (mixed/to-keyword k)]
+       (if-let [namespace (namespace n)]
+               (let [k (keyword (name namespace) (name k))]
+                    (get n k)))))

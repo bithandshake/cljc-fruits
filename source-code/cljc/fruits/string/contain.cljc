@@ -7,30 +7,27 @@
 
 (defn contains-part?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) contains the given 'x' value (converted to string).
+  ; Returns TRUE if the given 'n' string contains the given 'x' string.
   ;
-  ; @param (*) n
-  ; @param (*) x
+  ; @param (string) n
+  ; @param (string) x
   ;
   ; @usage
-  ; (contains-part? "abc" "ab")
-  ;
-  ; @example
   ; (contains-part? "abc" "ab")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-part? "abc" "cd")
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (contains-part? "abc" "")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-part? "abc" nil)
   ; =>
   ; true
@@ -43,19 +40,16 @@
 
 (defn contains-digit?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) contains at least one digit.
+  ; Returns TRUE if the given 'n' string contains at least one digit.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (contains-digit? "abc1")
-  ;
-  ; @example
   ; (contains-digit? "abc1")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-digit? "abc")
   ; =>
   ; false
@@ -67,19 +61,16 @@
 
 (defn contains-lowercase-letter?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) contains at least one lowercase letter.
+  ; Returns TRUE if the given 'n' string contains at least one lowercase letter.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (contains-lowercase-letter? "abc")
-  ;
-  ; @example
   ; (contains-lowercase-letter? "abc")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-lowercase-letter? "ABC")
   ; =>
   ; false
@@ -91,19 +82,16 @@
 
 (defn contains-uppercase-letter?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) contains at least one uppercase letter.
+  ; Returns TRUE if the given 'n' string contains at least one uppercase letter.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (contains-uppercase-letter? "ABC")
-  ;
-  ; @example
   ; (contains-uppercase-letter? "ABC")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-uppercase-letter? "abc")
   ; =>
   ; false
@@ -115,35 +103,32 @@
 
 (defn if-contains-part
   ; @description
-  ; Returns the given 'n' value (converted to string) if it contains the given 'x' value (converted to string).
+  ; Returns the given 'n' string if it contains the given 'x' string.
   ;
-  ; @param (*) n
-  ; @param (*) x
+  ; @param (string) n
+  ; @param (string) x
   ;
   ; @usage
-  ; (if-contains-part "abc" "ab")
-  ;
-  ; @example
   ; (if-contains-part "abc" "ab")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (if-contains-part "abc" "cd")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (if-contains-part "abc" "")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (if-contains-part "abc" nil)
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (if-contains-part [:a] "[:")
   ; =>
   ; "[:a]"

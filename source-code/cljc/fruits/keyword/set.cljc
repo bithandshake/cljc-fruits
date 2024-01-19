@@ -5,23 +5,23 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join
+  ; @description
+  ; Joins the items of the given 'n' vector and converts the result to string.
+  ;
   ; @param (keywords or strings in vector) n
   ; @param (string)(opt) delimiter
   ;
   ; @usage
-  ; (join [:a :b "c"])
-  ;
-  ; @example
   ; (join [:a :b "c" :d])
   ; =>
   ; :abcd
   ;
-  ; @example
+  ; @usage
   ; (join [:x/a :x/b "c" :d])
   ; =>
   ; :abcd
   ;
-  ; @example
+  ; @usage
   ; (join [:a :b "c" :d] ".")
   ; =>
   ; :a.b.c.d

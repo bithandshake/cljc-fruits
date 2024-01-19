@@ -13,18 +13,15 @@
   ;
   ; @usage
   ; (empty? {})
-  ;
-  ; @example
-  ; (empty? {})
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (empty? {:a "A"})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (empty? [:a])
   ; =>
   ; false
@@ -42,18 +39,15 @@
   ;
   ; @usage
   ; (not-empty? {})
-  ;
-  ; @example
-  ; (not-empty? {})
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (not-empty? {:a "A"})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-empty? [:a])
   ; =>
   ; false
@@ -62,3 +56,24 @@
   [n]
   (and (-> n map?)
        (-> n clojure.core/empty? not)))
+
+(defn namespaced?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a namespaced map.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (namespaced? {:a/b "A"})
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (namespaced? {:a "A"})
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n map?)
+       (-> n namespace some?)))

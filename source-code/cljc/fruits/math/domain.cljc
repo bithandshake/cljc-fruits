@@ -1,6 +1,6 @@
 
 (ns fruits.math.domain
-    (:require [fruits.math.core :as core]))
+    (:require [fruits.math.polarity :as polarity]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -11,25 +11,25 @@
   ; - E.g., If 'n' is 3 and the 'domain' is 5, that means 'n' falls into the first domain of 5 (1 - 5).
   ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
   ;
-  ; @param (integer) n
-  ; @param (integer) domain
+  ; @param (number) n
+  ; @param (number) domain
   ;
-  ; @example
+  ; @usage
   ; (domain-inchoate 0 5)
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (domain-inchoate 9 5)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (domain-inchoate 10 5)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (domain-inchoate 11 5)
   ; =>
   ; 3
@@ -50,25 +50,25 @@
   ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
   ;         and it returns the floor value of the second domain: 6.
   ;
-  ; @param (integer) n
-  ; @param (integer) domain
+  ; @param (number) n
+  ; @param (number) domain
   ;
-  ; @example
+  ; @usage
   ; (domain-floor 9 5)
   ; =>
   ; 6
   ;
-  ; @example
+  ; @usage
   ; (domain-floor 10 5)
   ; =>
   ; 6
   ;
-  ; @example
+  ; @usage
   ; (domain-floor 11 5)
   ; =>
   ; 11
   ;
-  ; @example
+  ; @usage
   ; (domain-floor 0 5)
   ; =>
   ; -4
@@ -89,25 +89,25 @@
   ;         If 'n' is 8 and the 'domain' is 5, that means 'n' falls into the second domain of 5 (6 - 10).
   ;         and it returns the ceil value of the second domain: 10.
   ;
-  ; @param (integer) n
-  ; @param (integer) domain
+  ; @param (number) n
+  ; @param (number) domain
   ;
-  ; @example
+  ; @usage
   ; (domain-ceil 9 5)
   ; =>
   ; 10
   ;
-  ; @example
+  ; @usage
   ; (domain-ceil 10 5)
   ; =>
   ; 10
   ;
-  ; @example
+  ; @usage
   ; (domain-ceil 11 5)
   ; =>
   ; 15
   ;
-  ; @example
+  ; @usage
   ; (domain-ceil 0 5)
   ; =>
   ; 0
@@ -123,32 +123,15 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn choose
-  ; @param (integer) n
-  ; @param (integer) limit
-  ; @param (*) value-if-bigger
-  ; @param (*)(opt) value-if-smaller
-  ;
-  ; @example
-  ; (choose 4.20 42 "A" "B")
-  ; =>
-  ; "B"
-  ;
-  ; @example
-  ; (choose 42 4.20 "A" "B")
-  ; =>
-  ; "A"
-  ;
-  ; @return (*)
-  [n limit value-if-bigger & [value-if-smaller]]
-  (if (>= limit n) value-if-smaller value-if-bigger))
-
-(defn calc
+(defn domain-project
   ; @description
-  ; If 'n' is equal to or smaller than the input-min, returns the 'output-min'.
-  ; If 'n' is equal to or greater than the input-max, returns the 'output-max'.
-  ; If 'n' is in the input domain, takes the actual position of 'n' in the input
-  ; domain and projects the taken position to the output range.
+  ; If the given 'n' value ...
+  ; A) is equal to or smaller than the given 'input-min' value ...
+  ;    ... returns the given 'output-min' value.
+  ; B) is equal to or greater than the given 'input-max' value ...
+  ;    ... returns the given 'output-max' value.
+  ; C) is in the input domain ...
+  ;    takes the actual position of 'n' in the input domain and projects it to the output range.
   ;
   ; @param (number) n
   ; @param (vector) input-domain
@@ -158,10 +141,30 @@
   ; [(integer) output-min
   ;  (integer) output-max]
   ;
-  ; @example
-  ; (calc 42 [10 50] [100 500])
+  ; @usage
+  ; (project 42 [10 50] [100 500])
   ; =>
   ; 420
+  ;
+  ; @usage
+  ; (project 10 [10 50] [100 500])
+  ; =>
+  ; 100
+  ;
+  ; @usage
+  ; (project 5 [10 50] [100 500])
+  ; =>
+  ; 100
+  ;
+  ; @usage
+  ; (project 50 [10 50] [100 500])
+  ; =>
+  ; 500
+  ;
+  ; @usage
+  ; (project 55 [10 50] [100 500])
+  ; =>
+  ; 500
   ;
   ; @return (*)
   [n [input-min input-max :as input-domain] [output-min output-max :as output-range]]
@@ -172,7 +175,7 @@
         domain-length (- input-max input-min)
         domain-offset (- n input-min)
         range-length  (- output-max output-min)
-        range-offset  (core/absolute output-min)
+        range-offset  (polarity/absolute output-min)
         ratio         (/ range-length domain-length)]
        (if (< n input-min)
            (-> output-min)

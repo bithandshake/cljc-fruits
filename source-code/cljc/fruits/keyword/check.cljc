@@ -5,42 +5,43 @@
 ;; ----------------------------------------------------------------------------
 
 (defn namespaced?
-  ; @param (keyword) n
+  ; @description
+  ; Returns TRUE if the given 'n' value is a namespaced keyword.
+  ;
+  ; @param (*) n
   ;
   ; @usage
-  ; (namespaced? :a/b)
-  ;
-  ; @example
   ; (namespaced? :a/b)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (namespaced? :a)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n]
-  (and (keyword?  n)
-       (namespace n)))
+  (and (-> n keyword)
+       (-> n namespace some?)))
 
-(defn nonnamespaced?
-  ; @param (keyword) n
+(defn not-namespaced?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonnamespaced keyword.
+  ;
+  ; @param (*) n
   ;
   ; @usage
-  ; (nonnamespaced? :a)
-  ;
-  ; @example
-  ; (nonnamespaced? :a)
+  ; (not-namespaced? :a)
   ; =>
   ; true
   ;
-  ; @example
-  ; (nonnamespaced? :a/b)
+  ; @usage
+  ; (not-namespaced? :a/b)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n]
-  (-> n namespaced? not))
+  (and (-> n keyword)
+       (-> n namespace nil?)))

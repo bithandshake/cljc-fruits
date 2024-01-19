@@ -18,22 +18,18 @@
   ; @usage
   ; (let [my-string "My string"]
   ;      (walk my-string (fn [_ cursor] (println "Cursor:" cursor "Character:" (nth my-string cursor)))))
-  ;
-  ; @example
-  ; (let [my-string "My string"]
-  ;      (walk my-string (fn [_ cursor] (println "Cursor:" cursor "Character:" (nth my-string cursor)))))
   ; =>
-  ; > "Cursor: 0 Character: M"
-  ; > "Cursor: 1 Character: y"
-  ; > "Cursor: 2 Character:  "
-  ; > "Cursor: 3 Character: s"
-  ; > "Cursor: 4 Character: t"
-  ; > "Cursor: 5 Character: r"
-  ; > "Cursor: 6 Character: i"
-  ; > "Cursor: 7 Character: n"
-  ; > "Cursor: 8 Character: g"
+  ; (println "Cursor: 0 Character: M")
+  ; (println "Cursor: 1 Character: y")
+  ; (println "Cursor: 2 Character:  ")
+  ; (println "Cursor: 3 Character: s")
+  ; (println "Cursor: 4 Character: t")
+  ; (println "Cursor: 5 Character: r")
+  ; (println "Cursor: 6 Character: i")
+  ; (println "Cursor: 7 Character: n")
+  ; (println "Cursor: 8 Character: g")
   ;
-  ; @example
+  ; @usage
   ; (let [my-string "My string"]
   ;      (walk my-string (fn [result cursor] (str (nth my-string cursor) result))))
   ; =>

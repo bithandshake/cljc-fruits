@@ -11,9 +11,6 @@
   ;
   ; @usage
   ; (email-address-pattern)
-  ;
-  ; @example
-  ; (email-address-pattern)
   ; =>
   ; #"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
   ;
@@ -26,9 +23,6 @@
   ; Returns a regex pattern that matches valid IP addresses.
   ;
   ; @usage
-  ; (ip-address-pattern)
-  ;
-  ; @example
   ; (ip-address-pattern)
   ; =>
   ; #"^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$"
@@ -51,15 +45,6 @@
   ; Default: 32
   ;
   ; @usage
-  ; (latin-name-pattern)
-  ;
-  ; @usage
-  ; (latin-name-pattern 3)
-  ;
-  ; @usage
-  ; (latin-name-pattern 3 18)
-  ;
-  ; @example
   ; (latin-name-pattern 3 18)
   ; =>
   ; #"[A-Za-zÀ-Ýà-ý0-9_\-\']{3,18}"
@@ -90,15 +75,6 @@
   ; Default: 32
   ;
   ; @usage
-  ; (password-pattern)
-  ;
-  ; @usage
-  ; (password-pattern 6)
-  ;
-  ; @usage
-  ; (password-pattern 6 16)
-  ;
-  ; @example
   ; (password-pattern 6 16)
   ; =>
   ; #"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\.\-\_\!\?\#\*]{6,16}$"
@@ -126,15 +102,6 @@
   ; Default: 20
   ;
   ; @usage
-  ; (phone-number-pattern)
-  ;
-  ; @usage
-  ; (phone-number-pattern 6)
-  ;
-  ; @usage
-  ; (phone-number-pattern 6 24)
-  ;
-  ; @example
   ; (phone-number-pattern 6 24)
   ; =>
   ; #"\+\d{6,24}"
@@ -160,12 +127,6 @@
   ; Default: 4
   ;
   ; @usage
-  ; (pin-code-pattern)
-  ;
-  ; @usage
-  ; (pin-code-pattern 6)
-  ;
-  ; @example
   ; (pin-code-pattern 6)
   ; =>
   ; #"[\d]{6,6}"
@@ -188,12 +149,6 @@
   ; Default: 6
   ;
   ; @usage
-  ; (security-code-pattern)
-  ;
-  ; @usage
-  ; (security-code-pattern 8)
-  ;
-  ; @example
   ; (security-code-pattern 8)
   ; =>
   ; #"[\d]{8,8}"
@@ -213,12 +168,6 @@
   ; Default: ["Mozilla" "Chrome" "Safari"]
   ;
   ; @usage
-  ; (user-agent-pattern)
-  ;
-  ; @usage
-  ; (user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
-  ;
-  ; @example
   ; (user-agent-pattern ["Mozilla" "Chrome" "Safari" "My-agent"])
   ; =>
   ; #""
@@ -245,15 +194,6 @@
   ; Default: 16
   ;
   ; @usage
-  ; (username-pattern)
-  ;
-  ; @usage
-  ; (username-pattern 6)
-  ;
-  ; @usage
-  ; (username-pattern 6 24)
-  ;
-  ; @example
   ; (username-pattern 6 24)
   ; =>
   ; #"[A-Za-z0-9_\-]{6,24}"

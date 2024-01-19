@@ -13,14 +13,11 @@
   ; Min: 4
   ;
   ; @usage
-  ; (generate-password)
-  ;
-  ; @example
   ; (generate-password 4)
   ; =>
   ; "Yi4_"
   ;
-  ; @example
+  ; @usage
   ; (generate-password 5)
   ; =>
   ; "YQi4_"
@@ -49,13 +46,10 @@
   ;
   ; @usage
   ; (generate-pin-code)
-  ;
-  ; @example
-  ; (generate-pin-code)
   ; =>
   ; "0420"
   ;
-  ; @example
+  ; @usage
   ; (generate-pin-code 6)
   ; =>
   ; "042069"
@@ -73,13 +67,10 @@
   ;
   ; @usage
   ; (generate-security-code)
-  ;
-  ; @example
-  ; (generate-security-code)
   ; =>
   ; "042069"
   ;
-  ; @example
+  ; @usage
   ; (generate-security-code 8)
   ; =>
   ; "04206900"

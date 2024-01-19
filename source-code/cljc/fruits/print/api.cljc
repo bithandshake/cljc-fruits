@@ -5,6 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.print.table)
+; @redirect (fruits.print.table/*)
 (def table-line table/table-line)
 (def table-row  table/table-row)

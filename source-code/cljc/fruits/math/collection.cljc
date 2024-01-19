@@ -1,84 +1,120 @@
 
-(ns fruits.math.collection)
+(ns fruits.math.collection
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn collection-average
+  ; @description
+  ; Returns the average of the number type items in the given 'n' collection.
+  ;
   ; @param (seqable) n
   ;
-  ; @example
+  ; @usage
   ; (collection-average [100 14 3 55])
   ; =>
   ; 43
   ;
-  ; @example
+  ; @usage
   ; (collection-average ["0" 1 "a" nil])
   ; =>
   ; 0.5
   ;
-  ; @example
+  ; @usage
   ; (collection-average ["0" "a"])
   ; =>
   ; 0
   ;
   ; @return (number)
   [n]
-  (letfn [(f0 [[sum count] x]
-              (if (number? x)
-                  [(+ sum x) (inc count)]
-                  [sum count]))]
-         (let [[sum count] (reduce f0 [0 0] n)]
-              (/ sum count))))
+  (let [n (mixed/to-seqable n)]
+       (letfn [(f0 [[sum count] x]
+                   (if (number? x)
+                       [(+ sum x) (inc count)]
+                       [sum count]))]
+              (let [[sum count] (reduce f0 [0 0] n)]
+                   (/ sum count)))))
 
 (defn collection-minimum
+  ; @description
+  ; Returns the minimum of the number type items in the given 'n' collection.
+  ;
   ; @param (seqable) n
   ;
-  ; @example
+  ; @usage
   ; (collection-minimum [100 14 3 55])
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (collection-minimum ["0" 1 "a" nil])
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (collection-minimum ["0" "a"])
   ; =>
   ; nil
   ;
   ; @return (number)
   [n]
-  (apply min n))
+  (let [n (mixed/to-seqable n)]
+       (->> n (filter number?)
+              (apply min))))
 
 (defn collection-maximum
+  ; @description
+  ; Returns the maximum of the number type items in the given 'n' collection.
+  ;
   ; @param (seqable) n
   ;
-  ; @example
+  ; @usage
   ; (collection-maximum [100 14 3 55])
   ; =>
   ; 100
   ;
-  ; @example
+  ; @usage
   ; (collection-maximum ["0" 1 "a" nil])
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (collection-maximum ["0" "a"])
   ; =>
   ; nil
   ;
   ; @return (number)
   [n]
-  (apply max n))
+  (let [n (mixed/to-seqable n)]
+       (->> n (filter number?)
+              (apply max))))
 
-(defn minimum
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn average
+  ; @description
+  ; Returns the average of the given number type parameters.
+  ;
   ; @param (list of numbers) xyz
   ;
-  ; @example
+  ; @usage
+  ; (average 100 30 20)
+  ; =>
+  ; 50
+  ;
+  ; @return (number)
+  [& xyz]
+  (collection-average xyz))
+
+(defn minimum
+  ; @description
+  ; Returns the minimum of the given number type parameters.
+  ;
+  ; @param (list of numbers) xyz
+  ;
+  ; @usage
   ; (minimum -4.20 2 0)
   ; =>
   ; 2
@@ -88,9 +124,12 @@
   (collection-minimum xyz))
 
 (defn maximum
+  ; @description
+  ; Returns the maximum of the given number type parameters.
+  ;
   ; @param (list of numbers) xyz
   ;
-  ; @example
+  ; @usage
   ; (maximum -4.20 2 0)
   ; =>
   ; 2

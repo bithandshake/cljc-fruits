@@ -282,7 +282,7 @@
   ; The host subcomponent is case-insensitive.
   ; https://www.rfc-editor.org/rfc/rfc3986
   (if-let [domain (to-domain n)]
-          (if (-> domain (string/min-occurence?         "." 2))
+          (if (-> domain (string/occurence-min?         "." 2))
               (-> domain (string/before-first-occurence ".")
                          (string/to-lowercase)
                          (string/to-nil {:if-empty? true})))))
@@ -529,7 +529,7 @@
                url-path-parts          (f0 url-path)
                url-path-template-parts (f0 url-path-template)]
               (letfn [(f0 [result dex x]
-                          (let [x (reader/read-edn x)]
+                          (let [x (reader/parse-edn x)]
                                (if (keyword? x)
                                    (let [url-path-part (nth url-path-parts dex)]
                                         (assoc result x url-path-part))

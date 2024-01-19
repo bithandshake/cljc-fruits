@@ -1,5 +1,5 @@
 
-(ns fruits.eql.core)
+(ns fruits.eql.convert)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -8,12 +8,12 @@
   ; @param (string) id
   ; @param (keyword)(opt) namespace
   ;
-  ; @example
+  ; @usage
   ; (id->document-link "my-directory")
   ; =>
   ; {:id "my-directory"}
   ;
-  ; @example
+  ; @usage
   ; (id->document-link "my-directory" :directory)
   ; =>
   ; {:directory/id "my-directory"}
@@ -25,7 +25,7 @@
 (defn document-link->id
   ; @param (map) document-link
   ;
-  ; @example
+  ; @usage
   ; (document-link->id {:directory/id "my-directory"})
   ; =>
   ; "my-directory"
@@ -41,12 +41,12 @@
   ; @param (string) id
   ; @param (keyword)(opt) namespace
   ;
-  ; @example
+  ; @usage
   ; (id->document-entity "my-directory")
   ; =>
   ; [:id "my-directory"]
   ;
-  ; @example
+  ; @usage
   ; (id->document-entity "my-directory" :directory)
   ; =>
   ; [:directory/id "my-directory"]
@@ -58,7 +58,7 @@
 (defn document-entity->id
   ; @param (vector) document-entity
   ;
-  ; @example
+  ; @usage
   ; (document-entity->id [:directory/id "my-directory"])
   ; =>
   ; "my-directory"
@@ -73,7 +73,7 @@
 (defn id->placeholder
   ; @param (string) id
   ;
-  ; @example
+  ; @usage
   ; (id->placeholder "my-id")
   ; =>
   ; :>/my-id
@@ -81,32 +81,3 @@
   ; @return (keyword)
   [id]
   (keyword (str ">/" (name id))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn append-to-query
-  ; @param (nil or vector) query
-  ; @param (keyword, map, string or vector) query-parts
-  ;
-  ; @example
-  ; (append-to-query nil :all-users)
-  ; =>
-  ; [:all-users]
-  ;
-  ; @example
-  ; (append-to-query [] :all-users)
-  ; =>
-  ; [:all-users]
-  ;
-  ; @example
-  ; (append-to-query [:all-users]
-  ;                  [:directory/id :my-directory])
-  ; =>
-  ; [:all-users [:directory/id :my-directory]]
-  ;
-  ; @return (vector)
-  [query & query-parts]
-  (cond (vector?  query) (vec (concat query   query-parts))
-        (nil?     query) (vec (concat []      query-parts))
-        :return          (vec (concat [query] query-parts))))

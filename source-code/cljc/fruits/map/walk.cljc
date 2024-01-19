@@ -1,5 +1,6 @@
 
-(ns fruits.map.walk)
+(ns fruits.map.walk
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -18,9 +19,6 @@
   ;
   ; @usage
   ; (->keys {:a "A" :b "B"} name)
-  ;
-  ; @example
-  ; (->keys {:a "A" :b "B"} name)
   ; =>
   ; {"a" "A" "b" "B"}
   ;
@@ -29,9 +27,11 @@
    (->keys n f {}))
 
   ([n f {:keys [provide-value?]}]
-   (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
-           (f1 [result k v] (assoc result (f0 k v) v))]
-          (reduce-kv f1 {} n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
+                (f1 [result k v] (assoc result (f0 k v) v))]
+               (reduce-kv f1 {} n)))))
 
 (defn ->keys-by
   ; @description
@@ -48,9 +48,6 @@
   ;
   ; @usage
   ; (->keys-by {0 "A" 1 "B"} even? dec)
-  ;
-  ; @example
-  ; (->keys-by {0 "A" 1 "B"} even? dec)
   ; =>
   ; {-1 "A" 1 "B"}
   ;
@@ -59,10 +56,13 @@
    (->keys-by n test-f f {}))
 
   ([n test-f f {:keys [provide-value?]}]
-   (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
-           (f1 [       k v] (if (test-f k) (f0 k v) k))
-           (f2 [result k v] (assoc result (f1 k v) v))]
-          (reduce-kv f2 {} n))))
+   (let [n      (mixed/to-map n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
+                (f1 [       k v] (if (test-f k) (f0 k v) k))
+                (f2 [result k v] (assoc result (f1 k v) v))]
+               (reduce-kv f2 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -81,9 +81,6 @@
   ;
   ; @usage
   ; (->>keys {:a "A" :b "B" :c [{:d "D"}]} name)
-  ;
-  ; @example
-  ; (->>keys {:a "A" :b "B" :c [{:d "D"}]} name)
   ; =>
   ; {"a" "A" "b" "B" "c" [{"d" "D"}]}
   ;
@@ -93,11 +90,13 @@
 
   ([n f {:keys [provide-value?]}]
    ; DOES NOT apply the 'f' function on vector items, because vector items are equivalents to map values and NOT to map keys!
-   (letfn [(f0 [k v]    (if provide-value? (f k v) (f k)))
-           (f1 [result] (cond (vector? result) (reduce    #(conj  %1            (f1 %2)) [] result)
-                              (map?    result) (reduce-kv #(assoc %1 (f0 %2 %3) (f1 %3)) {} result)
-                              :return  result))]
-          (f1 n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [k v]    (if provide-value? (f k v) (f k)))
+                (f1 [result] (cond (vector? result) (reduce    #(conj  %1            (f1 %2)) [] result)
+                                   (map?    result) (reduce-kv #(assoc %1 (f0 %2 %3) (f1 %3)) {} result)
+                                   :return  result))]
+               (f1 n)))))
 
 (defn ->>keys-by
   ; @description
@@ -114,9 +113,6 @@
   ;
   ; @usage
   ; (->>keys-by {0 "A" 1 [{2 "B"}]} even? dec)
-  ;
-  ; @example
-  ; (->>keys-by {0 "A" 1 [{2 "B"}]} even? dec)
   ; =>
   ; {-1 "A" 1 [{1 "B"}]}
   ;
@@ -126,12 +122,15 @@
 
   ([n test-f f {:keys [provide-value?]}]
    ; DOES NOT apply the 'f' function on vector items, because vector items are equivalents to map values and NOT to map keys!
-   (letfn [(f0 [k v]    (if provide-value? (f k v) (f k)))
-           (f1 [k v]    (if (test-f k) (f0 k v) k))
-           (f2 [result] (cond (vector? result) (reduce    #(conj  %1            (f2 %2)) [] result)
-                              (map?    result) (reduce-kv #(assoc %1 (f1 %2 %3) (f2 %3)) {} result)
-                              :return  result))]
-          (f2 n))))
+   (let [n      (mixed/to-map n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [k v]    (if provide-value? (f k v) (f k)))
+                (f1 [k v]    (if (test-f k) (f0 k v) k))
+                (f2 [result] (cond (vector? result) (reduce    #(conj  %1            (f2 %2)) [] result)
+                                   (map?    result) (reduce-kv #(assoc %1 (f1 %2 %3) (f2 %3)) {} result)
+                                   :return  result))]
+               (f2 n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -150,9 +149,6 @@
   ;
   ; @usage
   ; (->values {:a "A" :b "B"} keyword)
-  ;
-  ; @example
-  ; (->values {:a "A" :b "B"} keyword)
   ; =>
   ; {:a :A :b :B}
   ;
@@ -161,9 +157,11 @@
    (->values n f {}))
 
   ([n f {:keys [provide-key?]}]
-   (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
-           (f1 [result k v] (assoc result k (f0 k v)))]
-          (reduce-kv f1 {} n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
+                (f1 [result k v] (assoc result k (f0 k v)))]
+               (reduce-kv f1 {} n)))))
 
 (defn ->values-by
   ; @description
@@ -180,9 +178,6 @@
   ;
   ; @usage
   ; (->values-by {:a 0 :b 1} even? inc)
-  ;
-  ; @example
-  ; (->values-by {:a 0 :b 1} even? inc)
   ; =>
   ; {:a 1 :b 1}
   ;
@@ -191,10 +186,13 @@
    (->values-by n test-f f {}))
 
   ([n test-f f {:keys [provide-key?]}]
-   (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
-           (f1 [       k v] (if (test-f v) (f0 k v) v))
-           (f2 [result k v] (assoc result k (f1 k v)))]
-          (reduce-kv f2 {} n))))
+   (let [n      (mixed/to-map n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
+                (f1 [       k v] (if (test-f v) (f0 k v) v))
+                (f2 [result k v] (assoc result k (f1 k v)))]
+               (reduce-kv f2 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -216,9 +214,6 @@
   ;
   ; @usage
   ; (->>values {:a "A" :b "B" :c [:d "E" {:f "F"}]} keyword)
-  ;
-  ; @example
-  ; (->>values {:a "A" :b "B" :c [:d "E" {:f "F"}]} keyword)
   ; =>
   ; {:a :A :b :B :c [:d :e {:f :F}]}
   ;
@@ -228,11 +223,13 @@
 
   ([n f {:keys [provide-key? provide-path?]}]
    ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
-   (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
-           (f1 [path v] (cond (map?    v) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} v)
-                              (vector? v) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] v)
-                              :return     (f0 path v)))]
-          (f1 [] n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
+                (f1 [path v] (cond (map?    v) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} v)
+                                   (vector? v) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] v)
+                                   :return     (f0 path v)))]
+               (f1 [] n)))))
 
 (defn ->>values-by
   ; @description
@@ -252,9 +249,6 @@
   ;
   ; @usage
   ; (->>values-by {:a 0 :b 1 :c [:d 2 {:f 3}]} integer? inc)
-  ;
-  ; @example
-  ; (->>values-by {:a 0 :b 1 :c [:d 2 {:f 3}]} integer? inc)
   ; =>
   ; {:a 1 :b 2 :c [:d 3 {:f 4}]}
   ;
@@ -264,13 +258,16 @@
 
   ([n test-f f {:keys [provide-key? provide-path?]}]
    ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
-   (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
-           (f1 [path v] (if (test-f v) (f0 path v) v))
-           (f2 [path v] (let [v (f1 path v)] ; <- Applies the given 'f' function (if needed) on vector and map values also.
-                             (cond (map?    v) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} v)
-                                   (vector? v) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] v)
-                                   :return v)))]
-          (f2 [] n))))
+   (let [n      (mixed/to-map n)
+         test-f (mixed/to-ifn test-f)
+         f      (mixed/to-ifn f)]
+        (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
+                (f1 [path v] (if (test-f v) (f0 path v) v))
+                (f2 [path v] (let [v (f1 path v)] ; <- Applies the given 'f' function (if needed) on vector and map values also.
+                                  (cond (map?    v) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} v)
+                                        (vector? v) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] v)
+                                        :return v)))]
+               (f2 [] n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -294,9 +291,6 @@
   ;
   ; @usage
   ; (->kv {:a 1 :b 2} name inc)
-  ;
-  ; @example
-  ; (->kv {:a 1 :b 2} name inc)
   ; =>
   ; {"a" 2 "b" 3}
   ;
@@ -305,10 +299,13 @@
    (->kv n k-f v-f {}))
 
   ([n k-f v-f {:keys [provide-key? provide-value?]}]
-   (letfn [(f0 [       k v] (if provide-value? (k-f k v) (k-f k)))
-           (f1 [       k v] (if provide-key?   (v-f k v) (v-f v)))
-           (f2 [result k v] (assoc result (f0 k v) (f1 k v)))]
-          (reduce-kv f2 {} n))))
+   (let [n   (mixed/to-map n)
+         k-f (mixed/to-ifn k-f)
+         v-f (mixed/to-ifn v-f)]
+        (letfn [(f0 [       k v] (if provide-value? (k-f k v) (k-f k)))
+                (f1 [       k v] (if provide-key?   (v-f k v) (v-f v)))
+                (f2 [result k v] (assoc result (f0 k v) (f1 k v)))]
+               (reduce-kv f2 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -333,10 +330,7 @@
   ;   If TRUE, provides the corresponding value also to the given 'k-f' function.
   ;   Default: false}
   ;
-  ; @example
-  ; (->>kv {"a" "A" "b" "B" "c" ["D" "E" {"f" "F"}]} keyword keyword)
-  ;
-  ; @example
+  ; @usage
   ; (->>kv {"a" "A" "b" "B" "c" ["D" "E" {"f" "F"}]} keyword keyword)
   ; =>
   ; {:a :A :b :B :c [:D :E {:f :F}]}
@@ -347,9 +341,12 @@
 
   ([n k-f v-f {:keys [provide-key? provide-path? provide-value?]}]
    ; Applies the 'v-f' function on vector items also, because vector items are equivalents to map values!
-   (letfn [(f0 [   k v] (if provide-value? (k-f k v) (k-f k)))
-           (f1 [path v] (if provide-key?   (v-f (last path) v) (if provide-path? (v-f path v) (v-f v))))
-           (f2 [path v] (cond (map?    v) (reduce-kv #(assoc %1 (f0 %2 %3) (f2 (conj path %2) %3)) {} v)
-                              (vector? v) (reduce-kv #(conj  %1            (f2 (conj path %2) %3)) [] v)
-                              :return     (f1 path v)))]
-          (f2 [] n))))
+   (let [n   (mixed/to-map n)
+         k-f (mixed/to-ifn k-f)
+         v-f (mixed/to-ifn v-f)]
+        (letfn [(f0 [   k v] (if provide-value? (k-f k v) (k-f k)))
+                (f1 [path v] (if provide-key?   (v-f (last path) v) (if provide-path? (v-f path v) (v-f v))))
+                (f2 [path v] (cond (map?    v) (reduce-kv #(assoc %1 (f0 %2 %3) (f2 (conj path %2) %3)) {} v)
+                                   (vector? v) (reduce-kv #(conj  %1            (f2 (conj path %2) %3)) [] v)
+                                   :return     (f1 path v)))]
+               (f2 [] n)))))

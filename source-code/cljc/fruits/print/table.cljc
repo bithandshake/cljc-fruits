@@ -10,7 +10,9 @@
   ; @param (integer) size
   ;
   ; @usage
-  ; (table-line 50)
+  ; (table-line 16)
+  ; =>
+  ; (println "|----------------|")
   [size]
   (as-> size % (string/repeat "-" %)
                (str "|" % "|")
@@ -25,7 +27,9 @@
   ;    Default: :center]]
   ;
   ; @usage
-  ; (table-row [[8 "..."] [...]])
+  ; (table-row [[16 "abc" :right] [8]])
+  ; =>
+  ; (println "|            abc |        |")
   [columns]
   (letfn [(f0 [[size content align]]
               (let [space (- size (-> content str count))]

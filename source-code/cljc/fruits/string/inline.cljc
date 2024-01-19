@@ -10,25 +10,22 @@
 (defn inline-position
   ; @description
   ; Returns the inline position of the given cursor position (distance from the nearest preceding
-  ; newline / break character) within the given 'n' value (converted to string).
+  ; newline / break character) within the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (inline-position "\nabc\ndef" 7)
-  ;
-  ; @example
-  ; (inline-position "\nabc\ndef" 7)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (inline-position "\nabc\rdef" 6)
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (inline-position "abc" 3)
   ; =>
   ; 3
@@ -36,7 +33,7 @@
   ; @return (integer)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (min (if-let [newline-position (clojure.string/last-index-of (subs n 0 cursor) "\n")]
                     (-> cursor (- newline-position 1))
                     (-> cursor))
@@ -46,26 +43,22 @@
 
 (defn left-spacing-length
   ; @description
-  ; Returns the preceding whitespace count of the given cursor position whithin the actual line
-  ; in the given 'n' value (converted to string).
+  ; Returns the whitespace length preceding a specific cursor position within a line in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (left-spacing-length " abc   def " 7)
-  ;
-  ; @example
-  ; (left-spacing-length " abc   def " 7)
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (left-spacing-length " abc   def " 6)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (left-spacing-length " abc   def " 8)
   ; =>
   ; 0
@@ -73,7 +66,7 @@
   ; @return (integer)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (loop [length 0]
              (cond (seqable/cursor-first? n (- cursor length))  (-> length)
                    (-> n (nth (- cursor length 1)) str (= " ")) (-> length inc recur)
@@ -81,26 +74,22 @@
 
 (defn right-spacing-length
   ; @description
-  ; Returns the following whitespace count of the given cursor position whithin the actual line
-  ; in the given 'n' value (converted to string).
+  ; Returns the whitespace length following a specific cursor position within a line in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (right-spacing-length " abc   def " 4)
-  ;
-  ; @example
-  ; (right-spacing-length " abc   def " 4)
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (right-spacing-length " abc   def " 3)
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (right-spacing-length " abc   def " 5)
   ; =>
   ; 2
@@ -108,7 +97,7 @@
   ; @return (integer)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (loop [length 0]
              (cond (seqable/cursor-last? n (+ cursor length)) (-> length)
                    (-> n (nth (+ cursor length)) str (= " ")) (-> length inc recur)
@@ -116,24 +105,22 @@
 
 (defn left-indent-length
   ; @description
+  ; Returns the leading whitespace length of a specific line where the given 'cursor' position falls within the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (left-indent-length " abc   def " 7)
-  ;
-  ; @example
-  ; (left-indent-length " abc   def " 7)
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (left-indent-length " abc   def " 6)
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (left-indent-length " abc   def " 8)
   ; =>
   ; 1
@@ -141,7 +128,7 @@
   ; @return (integer)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (loop [length 0 shift 0]
              (cond (seqable/cursor-first? n (- cursor shift))   (-> length)
                    (-> n (nth (- cursor shift 1)) str (= "\n")) (-> length)
@@ -151,24 +138,24 @@
 
 (defn right-indent-length
   ; @description
+  ; Returns the trailing whitespace length of a specific line where the given 'cursor' position falls within the given 'n' string.
   ;
-  ; @param (*) n
+  ; @description
+  ;
+  ; @param (string) n
   ; @param (integer) cursor
   ;
   ; @usage
   ; (right-indent-length " abc   def " 4)
-  ;
-  ; @example
-  ; (right-indent-length " abc   def " 4)
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (right-indent-length " abc   def " 3)
   ; =>
   ; 1
   ;
-  ; @example
+  ; @usage
   ; (right-indent-length " abc   def " 5)
   ; =>
   ; 1
@@ -176,7 +163,7 @@
   ; @return (integer)
   [n cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (loop [length 0 shift 0]
              (cond (seqable/cursor-last? n (+ cursor shift))  (-> length)
                    (-> n (nth (+ cursor shift)) str (= "\n")) (-> length)
@@ -192,24 +179,21 @@
   ; Ensures that the given cursor position has a specific inline position, by adding / removing
   ; extra whitespaces before the cursor position or even inserting a newline character if needed.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) cursor
   ; @param (integer) fixed-position
   ;
   ; @usage
   ; (fix-inline-position "abc" 0 2)
-  ;
-  ; @example
-  ; (fix-inline-position "abc" 0 2)
   ; =>
   ; "  abc"
   ;
-  ; @example
+  ; @usage
   ; (fix-inline-position "abcdef" 3 6)
   ; =>
   ; "abc   def"
   ;
-  ; @example
+  ; @usage
   ; (fix-inline-position "abcdef" 3 1)
   ; =>
   ; "abc\n def"
@@ -217,7 +201,7 @@
   ; @return (string)
   [n cursor fixed-position]
   (let [n       (str n)
-        cursor  (seqable/normalize-cursor n cursor)
+        cursor  (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})
         surplus (left-spacing-length      n cursor)
         shift   (- fixed-position (inline-position n cursor))]
        (cond (-> shift (= 0))          (-> n)

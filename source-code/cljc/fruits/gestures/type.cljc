@@ -10,13 +10,10 @@
   ;
   ; @usage
   ; (ordered-label? "My item #3")
-  ;
-  ; @example
-  ; (ordered-label? "My item #3")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (ordered-label? "My item")
   ; =>
   ; false

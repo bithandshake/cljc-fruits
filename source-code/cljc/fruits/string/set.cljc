@@ -8,13 +8,13 @@
 ;; ----------------------------------------------------------------------------
 
 (defn repeat
-  ; @param (*) n
+  ; @description
+  ; Returns the given 'x' string repeated as many times as the given 'x' value.
+  ;
+  ; @param (string) n
   ; @param (integer) x
   ;
   ; @usage
-  ; (repeat "a" 3)
-  ;
-  ; @example
   ; (repeat "a" 3)
   ; =>
   ; "aaa"
@@ -30,26 +30,26 @@
              (f0 ""))))
 
 (defn join
-  ; @param (collection) n
-  ; @param (*)(opt) separator
+  ; @description
+  ; Joins the items of the given 'n' collection into a string.
+  ;
+  ; @param (seqable) n
+  ; @param (string)(opt) separator
   ; @param (map)(opt) options
   ; {:join-empty? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (join ["a" "b"] ".")
-  ;
-  ; @example
   ; (join ["my-image" "png"] ".")
   ; =>
   ; "my-image.png"
   ;
-  ; @example
+  ; @usage
   ; (join ["a" "b" ""] ".")
   ; =>
   ; "a.b."
   ;
-  ; @example
+  ; @usage
   ; (join ["a" "b" ""] "." {:join-empty? false})
   ; =>
   ; "a.b"
@@ -75,28 +75,28 @@
               (f0 "" 0)))))
 
 (defn split
-  ; @param (*) n
+  ; @description
+  ; Splits the given 'n' string into a vector of chunks by the given delimiter value.
+  ;
+  ; @param (string) n
   ; @param (clj: regex, cljs: regex or string) delimiter
   ;
   ; @usage
   ; (split "a.b.c" #"\.")
-  ;
-  ; @example
-  ; (split "a.b.c" #"\.")
   ; =>
   ; ["a" "b" "c"]
   ;
-  ; @example
+  ; @usage
   ; (split ".b.c" #"\.")
   ; =>
   ; ["" "b" "c"]
   ;
-  ; @example
+  ; @usage
   ; (split "a.b.c" #"\_")
   ; =>
   ; ["a.b.c"]
   ;
-  ; @example
+  ; @usage
   ; (split "" #"\.")
   ; =>
   ; []

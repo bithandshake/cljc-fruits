@@ -1,17 +1,17 @@
 
-(ns fruits.href.core
+(ns fruits.href.link
     (:require [fruits.string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn email-address
+  ; @description
+  ; Converts the given email address to 'mailto' link.
+  ;
   ; @param (string) email-address
   ;
   ; @usage
-  ; (email-address "Hello@my-site.com")
-  ;
-  ; @example
   ; (email-address "Hello@my-site.com")
   ; =>
   ; "mailto:hello@my-site.com"
@@ -30,12 +30,12 @@
         "&body="    body)))
 
 (defn phone-number
+  ; @description
+  ; Converts the given phone number to 'tel' link.
+  ;
   ; @param (integer or string) phone-number
   ;
   ; @usage
-  ; (phone-number "+3630 / 123 - 4567")
-  ;
-  ; @example
   ; (phone-number "+3630 / 123 - 4567")
   ; =>
   ; "tel:+36301234567"
@@ -47,12 +47,12 @@
       (str "tel:" (string/filter-characters phone-number ["+" "1" "2" "3" "4" "5" "6" "7" "8" "9" "0"]))))
 
 (defn google-maps-address
+  ; @description
+  ; Converts the given address to Google Maps link.
+  ;
   ; @param (string) address
   ;
   ; @usage
-  ; (google-maps-address "My City, My Address street 42.")
-  ;
-  ; @example
   ; (google-maps-address "My City, My Address street 42.")
   ; =>
   ; "https://www.google.com/maps/search/?api=1&query=My%20City,%20My%20Address%20street%2042."
@@ -61,23 +61,65 @@
   [address]
   (str "https://www.google.com/maps/search/?api=1&query=" (string/replace-part address " " "%20")))
 
-(defn https-address
-  ; @param (string) address
+(defn ftp-uri
+  ; @description
+  ; Converts the given URI to FTP address.
+  ;
+  ; @param (string) uri
   ;
   ; @usage
-  ; (https-address "my-website.com")
+  ; (ftp-uri "my-website.com")
+  ; =>
+  ; "ftp://my-website.com"
   ;
-  ; @example
-  ; (https-address "my-website.com")
+  ; @usage
+  ; (ftp-uri "https://my-website.com")
+  ; =>
+  ; "ftp://my-website.com"
+  ;
+  ; @return (string)
+  [uri]
+  (as-> uri % (string/after-first-occurence % "://" {:return? true})
+              (str "ftp://"%)))
+
+(defn http-uri
+  ; @description
+  ; Converts the given URI to HTTP address.
+  ;
+  ; @param (string) uri
+  ;
+  ; @usage
+  ; (http-uri "my-website.com")
+  ; =>
+  ; "http://my-website.com"
+  ;
+  ; @usage
+  ; (http-uri "ftp://my-website.com")
+  ; =>
+  ; "http://my-website.com"
+  ;
+  ; @return (string)
+  [uri]
+  (as-> uri % (string/after-first-occurence % "://" {:return? true})
+              (str "http://"%)))
+
+(defn https-uri
+  ; @description
+  ; Converts the given URI to HTTPS address.
+  ;
+  ; @param (string) uri
+  ;
+  ; @usage
+  ; (https-uri "my-website.com")
   ; =>
   ; "https://my-website.com"
   ;
-  ; @example
-  ; (https-address "http://my-website.com")
+  ; @usage
+  ; (https-uri "ftp://my-website.com")
   ; =>
   ; "https://my-website.com"
   ;
   ; @return (string)
-  [address]
-  (as-> address % (string/after-first-occurence % "://" {:return? true})
-                  (str "https://"%)))
+  [uri]
+  (as-> uri % (string/after-first-occurence % "://" {:return? true})
+              (str "https://"%)))

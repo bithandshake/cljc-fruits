@@ -8,16 +8,16 @@
 (defn first-dex-of
   ; @bug (#9081)
   ; - Lookaround assertions can cause incorrect result!
-  ; - E.g., In the example below, the given 'x' pattern only matches the second occurence of the number 42,
+  ; - E.g., In the usage below, the given 'x' pattern only matches the second occurence of the number 42,
   ;         but its result is simply the number (42) that can be found at the first index also.
-  ;         The 'regex.api/first-dex-of' function uses the 'string.api/first-dex-of' function to
+  ;         The 'fruits.regex.api/first-dex-of' function uses the 'fruits.string.api/first-dex-of' function to
   ;         find the the first occurence of the match, and it doesn't take lookaround assertions into account:
-  ;         (string.api/first-dex-of "a42 - b42" #"(?<=b)42") => 1
+  ;         (fruits.string.api/first-dex-of "a42 - b42" #"(?<=b)42") => 1
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of "abc 123" #"[\d]+")
   ; =>
   ; 4
@@ -34,10 +34,10 @@
   ; @bug (#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of "abc 123 def 456" #"[\d]+")
   ; =>
   ; 12
@@ -54,11 +54,11 @@
   ; @bug (#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (integer) th
   ;
-  ; @example
+  ; @usage
   ; (nth-dex-of "abc 123 def 456" #"[\d]{3,}" 1)
   ; =>
   ; 12

@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.html.check)
+; @redirect (fruits.html.check/*)
 (def blank?     check/blank?)
 (def not-blank? check/not-blank?)
 (def empty?     check/empty?)

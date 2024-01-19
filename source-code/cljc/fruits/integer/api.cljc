@@ -5,5 +5,5 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.integer.convert)
+; @redirect (fruits.integer.convert/*)
 (def to-keyword convert/to-keyword)

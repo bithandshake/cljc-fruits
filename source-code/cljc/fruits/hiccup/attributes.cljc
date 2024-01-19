@@ -13,9 +13,6 @@
   ;
   ; @usage
   ; (get-attributes [:div {:style {:color "red"}} "Hello World!"])
-  ;
-  ; @example
-  ; (get-attributes [:div {:style {:color "red"}} "Hello World!"])
   ; =>
   ; {:style {:color "red"}}
   ;
@@ -34,9 +31,6 @@
   ;
   ; @usage
   ; (get-style [:div {:style {:color "red"}} "Hello World!"])
-  ;
-  ; @example
-  ; (get-style [:div {:style {:color "red"}} "Hello World!"])
   ; =>
   ; {:color "red"}
   ;
@@ -51,11 +45,8 @@
   ;
   ; @usage
   ; (set-style [:div {:style {:color "red"}} "Hello World!"])
-  ;
-  ; @example
-  ; (set-style [:div {:style {:color "red"}} "Hello World!"])
   ; =>
-  ; {:style {:color "red"}}
+  ; [:div {:style {:color "red"}} "Hello World!"]
   ;
   ; @return (map)
   [n style]
@@ -72,11 +63,13 @@
   ;
   ; @usage
   ; (join-class :my-class [:another-class])
-  ;
-  ; @example
-  ; (join-class :my-class [:another-class])
   ; =>
   ; [:my-class :another-class]
+  ;
+  ; @usage
+  ; [:div {:class (join-class :my-class [:another-class])}]
+  ; =>
+  ; [:div {:class [:my-class :another-class]}]
   ;
   ; @return (keywords in vector)
   [& xyz]
@@ -97,21 +90,23 @@
   ;
   ; @usage
   ; (value "my-namespace/my-value?")
-  ;
-  ; @example
-  ; (value "my-namespace/my-value?")
   ; =>
   ; "my-namespace--my-value"
   ;
-  ; @example
+  ; @usage
   ; (value :my-namespace/my-value!)
   ; =>
   ; "my-namespace--my-value"
   ;
-  ; @example
+  ; @usage
   ; (value :my-namespace/my-value "420")
   ; =>
   ; "my-namespace--my-value--420"
+  ;
+  ; @usage
+  ; [:div {:id (value :my-namespace/my-value)}]
+  ; =>
+  ; [:div {:id "my-namespace--my-value"}]
   ;
   ; @return (string)
   [n & [flag]]

@@ -10,9 +10,6 @@
   ;
   ; @usage
   ; (calc "100% - 100px")
-  ;
-  ; @example
-  ; (calc "100% - 100px")
   ; =>
   ; "calc(100% - 100px)"
   ;
@@ -24,9 +21,6 @@
   ; @param (ms) n
   ;
   ; @usage
-  ; (fr 420)
-  ;
-  ; @example
   ; (fr 420)
   ; =>
   ; "420fr"
@@ -40,9 +34,6 @@
   ;
   ; @usage
   ; (ms 420)
-  ;
-  ; @example
-  ; (ms 420)
   ; =>
   ; "420ms"
   ;
@@ -54,9 +45,6 @@
   ; @param (s) n
   ;
   ; @usage
-  ; (s 420)
-  ;
-  ; @example
   ; (s 420)
   ; =>
   ; "420s"
@@ -70,9 +58,6 @@
   ;
   ; @usage
   ; (percent 420)
-  ;
-  ; @example
-  ; (percent 420)
   ; =>
   ; "420%"
   ;
@@ -84,9 +69,6 @@
   ; @param (px) n
   ;
   ; @usage
-  ; (px 420)
-  ;
-  ; @example
   ; (px "420")
   ; =>
   ; "420px"
@@ -101,9 +83,6 @@
   ;
   ; @usage
   ; (repeat- 3 "1fr")
-  ;
-  ; @example
-  ; (repeat- 3 "1fr")
   ; =>
   ; "repeat(3, 1fr)"
   ;
@@ -115,9 +94,6 @@
   ; @param (deg) n
   ;
   ; @usage
-  ; (rotate 420)
-  ;
-  ; @example
   ; (rotate 420)
   ; =>
   ; "rotate(420deg)"
@@ -131,9 +107,6 @@
   ;
   ; @usage
   ; (rotate-x 420)
-  ;
-  ; @example
-  ; (rotate-x 420)
   ; =>
   ; "rotateX(420deg)"
   ;
@@ -145,9 +118,6 @@
   ; @param (deg) n
   ;
   ; @usage
-  ; (rotate-y 420)
-  ;
-  ; @example
   ; (rotate-y 420)
   ; =>
   ; "rotateY(420deg)"
@@ -161,9 +131,6 @@
   ;
   ; @usage
   ; (rotate-z 420)
-  ;
-  ; @example
-  ; (rotate-z 420)
   ; =>
   ; "rotateZ(420deg)"
   ;
@@ -175,9 +142,6 @@
   ; @param (number or string) n
   ;
   ; @usage
-  ; (scale 1.1)
-  ;
-  ; @example
   ; (scale 1.1)
   ; =>
   ; "scale(1.1)"
@@ -192,13 +156,10 @@
   ;
   ; @usage
   ; (translate 420 "px")
-  ;
-  ; @example
-  ; (translate 420 "px")
   ; =>
   ; "translate(420px)"
   ;
-  ; @example
+  ; @usage
   ; (translate "420px")
   ; =>
   ; "translate(420px)"
@@ -213,13 +174,10 @@
   ;
   ; @usage
   ; (translate-x 420 "px")
-  ;
-  ; @example
-  ; (translate-x 420 "px")
   ; =>
   ; "translateX(420px)"
   ;
-  ; @example
+  ; @usage
   ; (translate-x "420px")
   ; =>
   ; "translateX(120px)"
@@ -234,13 +192,10 @@
   ;
   ; @usage
   ; (translate-y 420 "px")
-  ;
-  ; @example
-  ; (translate-y 420 "px")
   ; =>
   ; "translateY(420px)"
   ;
-  ; @example
+  ; @usage
   ; (translate-y "420px")
   ; =>
   ; "translateY(420px)"
@@ -255,13 +210,10 @@
   ;
   ; @usage
   ; (translate-z 420 "px")
-  ;
-  ; @example
-  ; (translate-z 420 "px")
   ; =>
   ; "translateZ(420px)"
   ;
-  ; @example
+  ; @usage
   ; (translate-z "420px")
   ; =>
   ; "translateZ(420px)"
@@ -274,9 +226,6 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (url "/my-style.css")
-  ;
-  ; @example
   ; (url "/my-style.ext")
   ; =>
   ; "url(/my-style.ext)"
@@ -292,9 +241,6 @@
   ;
   ; @usage
   ; (value 420 "px")
-  ;
-  ; @example
-  ; (value 420 "px")
   ; =>
   ; "180px"
   ;
@@ -307,13 +253,10 @@
   ;
   ; @usage
   ; (var "my-var")
-  ;
-  ; @example
-  ; (var "my-var")
   ; =>
   ; "var( --my-var )"
   ;
-  ; @example
+  ; @usage
   ; (var :my-var)
   ; =>
   ; "var( --my-var )"
@@ -328,13 +271,10 @@
   ;
   ; @usage
   ; (var-key "my-key")
-  ;
-  ; @example
-  ; (var-key "my-key")
   ; =>
   ; "--my-key"
   ;
-  ; @example
+  ; @usage
   ; (var-key :my-key)
   ; =>
   ; "--my-key"
@@ -349,9 +289,6 @@
   ;
   ; @usage
   ; (horizontal-padding "420px")
-  ;
-  ; @example
-  ; (horizontal-padding "420px")
   ; =>
   ; "420px 0"
   ;
@@ -363,9 +300,6 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (vertical-padding "420px")
-  ;
-  ; @example
   ; (vertical-padding "420px")
   ; =>
   ; "0 420px"
@@ -379,9 +313,6 @@
   ;
   ; @usage
   ; (horizontal-margin "420px")
-  ;
-  ; @example
-  ; (horizontal-margin "420px")
   ; =>
   ; "420px 0"
   ;
@@ -394,9 +325,6 @@
   ;
   ; @usage
   ; (vertical-margin "420px")
-  ;
-  ; @example
-  ; (vertical-margin "420px")
   ; =>
   ; "0 420px"
   ;
@@ -408,7 +336,7 @@
   ; @param (string) direction
   ; @param (list of strings) color-stops
   ;
-  ; @example
+  ; @usage
   ; (linear-gradient "0deg" "red" "green" "blue")
   ; =>
   ; "linear-gradient(0deg, red, green, blue)"

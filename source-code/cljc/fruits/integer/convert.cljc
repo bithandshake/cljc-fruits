@@ -9,9 +9,6 @@
   ;
   ; @usage
   ; (to-keyword 2)
-  ;
-  ; @example
-  ; (to-keyword 2)
   ; =>
   ; :2
   ;

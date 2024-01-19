@@ -11,14 +11,11 @@
 
 (defn keep-range
   ; @description
-  ; Keeps a specific range from the given 'n' value (converted to string).
+  ; Keeps a specific range of the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) start
   ; @param (integer)(opt) end
-  ;
-  ; @usage
-  ; (keep-range "abc" 0 2)
   ;
   ; @example
   ; (keep-range "abcdef" 2 4)
@@ -42,29 +39,28 @@
   ;
   ; @return (string)
   ([n start]
-   (keep-range n start nil))
+   (let [n   (str n)
+         end (count n)]
+        (keep-range n start end)))
 
   ([n start end]
    (let [n     (-> n str)
-         start (-> n (seqable/normalize-cursor (-> start)))
-         end   (-> n (seqable/normalize-cursor (-> end (or (count n)))))]
+         start (-> n (seqable/normalize-cursor start {:adjust? true :mirror? true}))
+         end   (-> n (seqable/normalize-cursor end   {:adjust? true :mirror? true}))]
         (subs n (min start end)
                 (max start end)))))
 
 (defn cut-range
   ; @description
-  ; Removes a specific range from the given 'n' value (converted to string).
+  ; Removes a specific range from the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) start
   ; @param (integer)(opt) end
   ; @param (map)(opt) options
   ; {:keep-inline-position? (boolean)(opt)
   ;   Ensures that the following part has the same inline position before and after the cut.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (cut-range "abcdef" 2 4)
   ;
   ; @example
   ; (cut-range "abcdef" 2 4)
@@ -98,15 +94,17 @@
   ;
   ; @return (string)
   ([n start]
-   (cut-range n start nil))
+   (let [n   (str n)
+         end (count n)]
+        (cut-range n start end)))
 
   ([n start end]
    (cut-range n start end {}))
 
   ([n start end {:keys [keep-inline-position?]}]
    (let [n     (str n)
-         start (seqable/normalize-cursor n (-> start))
-         end   (seqable/normalize-cursor n (-> end (or (count n))))]
+         start (seqable/normalize-cursor n start {:adjust? true :mirror? true})
+         end   (seqable/normalize-cursor n end   {:adjust? true :mirror? true})]
         (if-not keep-inline-position? (str (subs n 0 (min start end))
                                            (subs n   (max start end)))
                                       (inline/fix-inline-position (str (subs n 0 (min start end))
@@ -118,17 +116,17 @@
 ;; ----------------------------------------------------------------------------
 
 (defn before-first-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the first occurence of the given 'x' string starts (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (before-first-occurence "abcabc" "b")
   ;
   ; @example
   ; (before-first-occurence "abcabc" "b")
@@ -172,17 +170,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn before-last-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the last occurence of the given 'x' string starts (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (before-last-occurence "abcabc" "b")
   ;
   ; @example
   ; (before-last-occurence "abcabc" "b")
@@ -226,17 +224,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn after-first-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the first occurence of the given 'x' string ends (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (after-first-occurence "abcabc" "b")
   ;
   ; @example
   ; (after-first-occurence "abcabc" "b")
@@ -280,17 +278,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn after-last-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the last occurence of the given 'x' string ends (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (after-last-occurence "abcabc" "b")
   ;
   ; @example
   ; (after-last-occurence "abcabc" "b")
@@ -334,17 +332,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn from-first-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the first occurence of the given 'x' string starts (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (from-first-occurence "abcabc" "b")
   ;
   ; @example
   ; (from-first-occurence "abcabc" "b")
@@ -388,17 +386,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn from-last-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the last occurence of the given 'x' string starts (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (from-last-occurence "abcabc" "b")
   ;
   ; @example
   ; (from-last-occurence "abcabc" "b")
@@ -442,17 +440,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn to-first-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the first occurence of the given 'x' string ends (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (to-first-occurence "abcabc" "b")
   ;
   ; @example
   ; (to-first-occurence "abcabc" "b")
@@ -496,17 +494,17 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn to-last-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the last occurence of the given 'x' string ends (if any).
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (to-last-occurence "abcabc" "b")
   ;
   ; @example
   ; (to-last-occurence "abcabc"  "b")
@@ -550,18 +548,18 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn between-occurences
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (*) y
+  ; @description
+  ; Returns the part of the given 'n' string that is surrounded by the given 'x' and 'y' strings.
+  ;
+  ; @param (string) n
+  ; @param (string) x
+  ; @param (string) y
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true
   ;  :return? (boolean)(opt)
   ;   If TRUE, returns the given 'n' value in case of the occurences are not found.
   ;   Default: false}
-  ;
-  ; @usage
-  ; (between-occurences "abcabc" "b" "a")
   ;
   ; @example
   ; (between-occurences "abcabc" "b" "a")

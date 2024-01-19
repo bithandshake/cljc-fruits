@@ -13,7 +13,8 @@
   ; @param (vector) path
   ;
   ; @usage
-  ; (dynamic-path [{:a [{:b "B"}]}] [last-dex :a last-dex :b])
+  ; (letfn [(last-dex [%] (-> % count dec))])
+  ;        (dynamic-path [{:a [{:b "B"}]}] [last-dex :a last-dex :b])
   ; =>
   ; [0 :a 0 b]
   ;

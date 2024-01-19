@@ -1,7 +1,6 @@
 
 (ns fruits.regex.cut
     (:require [clojure.string]
-              [fruits.math.api    :as math]
               [fruits.regex.match :as match]))
 
 ;; ----------------------------------------------------------------------------
@@ -11,36 +10,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the first match of the given 'x' pattern starts (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (before-first-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (before-first-match "abc123def" #"\d")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (before-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (before-first-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-first-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -60,36 +60,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the last match of the given 'x' pattern starts (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (before-last-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (before-last-match "abc123def" #"\d")
   ; =>
   ; "abc12"
   ;
-  ; @example
+  ; @usage
   ; (before-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (before-last-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-last-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -109,36 +110,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the first match of the given 'x' pattern ends (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (after-first-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (after-first-match "abc123def" #"\d")
   ; =>
   ; "23def"
   ;
-  ; @example
+  ; @usage
   ; (after-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (after-first-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-first-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -159,36 +161,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the last match of the given 'x' pattern ends (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (after-last-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (after-last-match "abc123def" #"\d")
   ; =>
   ; "def"
   ;
-  ; @example
+  ; @usage
   ; (after-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (after-last-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-last-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -209,36 +212,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the first match of the given 'x' pattern starts (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (from-first-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (from-first-match "abc123def" #"\d")
   ; =>
   ; "123def"
   ;
-  ; @example
+  ; @usage
   ; (from-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (from-first-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-first-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -258,36 +262,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that starts where the last match of the given 'x' pattern starts (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (from-last-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (from-last-match "abc123def" #"\d")
   ; =>
   ; "def"
   ;
-  ; @example
+  ; @usage
   ; (from-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (from-last-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-last-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -307,36 +312,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the first match of the given 'x' pattern ends (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (to-first-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (to-first-match "abc123def" #"\d")
   ; =>
   ; "abc1"
   ;
-  ; @example
+  ; @usage
   ; (to-first-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-first-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (to-first-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-first-match nil "\d" {:return? true})
   ; =>
   ; ""
@@ -357,36 +363,37 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns the part of the given 'n' string that ends where the last match of the given 'x' pattern ends (if any).
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (map) options
   ; {:return? (boolean)(opt)
+  ;   If TRUE, returns the given 'n' string in case of no match of the given 'x' pattern is found.
   ;   Default: false}
   ;
   ; @usage
   ; (to-last-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (to-last-match "abc123def" #"\d")
   ; =>
   ; "abc123"
   ;
-  ; @example
+  ; @usage
   ; (to-last-match "abcdef" #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-last-match "abcdef" #"\d" {:return? true})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (to-last-match nil #"\d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-last-match nil "\d" {:return? true})
   ; =>
   ; ""

@@ -3,6 +3,7 @@
     (:require [fruits.css.api           :as css]
               [fruits.hiccup.attributes :as attributes]
               [fruits.hiccup.walk       :as walk]
+              [fruits.hiccup.type       :as type]
               [fruits.keyword.api       :as keyword]
               [fruits.string.api        :as string]
               [fruits.vector.api        :as vector]))
@@ -11,26 +12,33 @@
 ;; ----------------------------------------------------------------------------
 
 (defn parse-css
+  ; @description
+  ; Parses the inline CSS styles within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (parse-css [:td [:p {:style "color: red;"}]])
-  ;
-  ; @example
   ; (parse-css [:td [:p {:style "color: red;"}]])
   ; =>
   ; [:td [:p {:style {:color "red"}}]]
   ;
   ; @return (hiccup)
-  [n])
+  [n]
+  (if (vector? n)
+      (letfn [(f0 [element]
+                  (let [style (attributes/get-style element)]
+                       (if (-> style string?) ; <- The style could be already a map.
+                           (-> element (attributes/set-style (css/parse style)))
+                           (-> element))))]
+             (walk/walk n f0))))
 
 (defn unparse-css
+  ; @description
+  ; Unparses the inline CSS styles within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (unparse-css [:td [:p {:style {:color "red"}}]])
-  ;
-  ; @example
   ; (unparse-css [:td [:p {:style {:color "red"}}]])
   ; =>
   ; [:td [:p {:style "color: red;"}]]
@@ -49,12 +57,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defn unparse-class-vectors
+  ; @description
+  ; Unparses the CSS class vectors within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (unparse-class-vectors [:div {:class [:my-class :another-class]}])
-  ;
-  ; @example
   ; (unparse-class-vectors [:div {:class [:my-class :another-class]}])
   ; =>
   ; [:div.my-class.another-class]
@@ -81,12 +89,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defn parse-newlines
+  ; @description
+  ; Parses the newline characters to '[:br]' tags within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (parse-newlines [:p "Hello world!\nIt's me!"])
-  ;
-  ; @example
   ; (parse-newlines [:p "Hello world!\nIt's me!"])
   ; =>
   ; [:p "Hello world!" [:br] "It's me!"]
@@ -95,23 +103,29 @@
   [n]
   (if (vector? n)
       (letfn [(f0 [element] (reduce f1 [] element))
-              (f1 [element content] (if (string/contains-part? content "\n")
-                                        (as-> content % (string/split        % #"\n")
-                                                        (vector/gap-items    % [:br])
-                                                        (vector/concat-items element %))
-                                        (vector/conj-item element content)))]
+              (f1 [result content] (if (string/contains-part? content "\n")
+                                       (as-> content % (string/split        % #"\n")
+                                                       (vector/gap-items    % [:br])
+                                                       (vector/concat-items result %))
+                                       (vector/conj-item result content)))]
              (walk/walk n f0))))
 
 (defn unparse-newlines
+  ; @description
+  ; Unparses the '[:br]' tags to newline characters within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (unparse-newlines [:p "Hello world! [:br] It's me!"])
-  ;
-  ; @example
   ; (unparse-newlines [:p "Hello world! [:br] It's me!"])
   ; =>
   ; [:p "Hello world!"\n"It's me!"]
   ;
   ; @return (hiccup)
-  [n])
+  [n]
+  (if (vector? n)
+      (letfn [(f0 [element] (reduce f1 [] element))
+              (f1 [result content] (if (type/tag-name? content :br)
+                                       (vector/conj-item result "\n")
+                                       (vector/conj-item result content)))]
+             (walk/walk n f0))))

@@ -7,25 +7,25 @@
 ;; ----------------------------------------------------------------------------
 
 (defn request->header
+  ; @description
+  ; Returns the header of the given request map.
+  ;
   ; @param (map) request
   ; @param (keyword) header-key
   ;
   ; @usage
-  ; (request->header {...} :user-agent)
-  ;
-  ; @example
   ; (request->header {:headers {:user-agent "My User Agent" ...} ...}
   ;                  :user-agent)
   ; =>
   ; "My User Agent"
   ;
-  ; @example
+  ; @usage
   ; (request->header {:headers {"user-agent" "My User Agent" ...} ...}
   ;                  :user-agent)
   ; =>
   ; "My User Agent"
   ;
-  ; @example
+  ; @usage
   ; (request->header {:headers {"User-Agent" "My User Agent" ...} ...}
   ;                  :user-agent)
   ; =>
@@ -44,6 +44,9 @@
       (->> header-key name utils/capitalize-header (get headers))))
 
 (defn request->cookies
+  ; @description
+  ; Returns the cookies of the given request map.
+  ;
   ; @param (map) request
   ; {:cookies (map)}
   ;
@@ -55,6 +58,9 @@
   (:cookies request))
 
 (defn request->cookie
+  ; @description
+  ; Returns a specific cookie of the given request map.
+  ;
   ; @param (map) request
   ; {:cookies (map)}
   ; @param (string) cookie-id
@@ -67,6 +73,9 @@
   (get-in request [:cookies cookie-id]))
 
 (defn request->ip-address
+  ; @description
+  ; Returns the IP address of the given request map.
+  ;
   ; @param (map) request
   ;
   ; @usage
@@ -91,6 +100,9 @@
                  (fallback-f))))
 
 (defn request->user-agent
+  ; @description
+  ; Returns the user agent of the given request map.
+  ;
   ; @param (map) request
   ;
   ; @usage
@@ -101,6 +113,9 @@
   (request->header request :user-agent))
 
 (defn request->query-string
+  ; @description
+  ; Returns the query string of the given request map.
+  ;
   ; @param (map) request
   ; {:query-string (string)}
   ;
@@ -112,6 +127,9 @@
   (:query-string request))
 
 (defn request->form-params
+  ; @description
+  ; Returns the form params of the given request map.
+  ;
   ; @param (map) request
   ; {:form-params (map)}
   ;
@@ -123,6 +141,9 @@
   (:form-params request))
 
 (defn request->form-param
+  ; @description
+  ; Returns a specific form param of the given request map.
+  ;
   ; @param (map) request
   ; {:form-params (map)}
   ; @param (string) element-name
@@ -135,6 +156,9 @@
   (-> request :form-params (get element-name)))
 
 (defn request->path-params
+  ; @description
+  ; Returns the path params of the given request map.
+  ;
   ; @param (map) request
   ; {:path-params (map)}
   ;
@@ -146,6 +170,9 @@
   (:path-params request))
 
 (defn request->path-param
+  ; @description
+  ; Returns a specific path param of the given request map.
+  ;
   ; @param (map) request
   ; @param (keyword) param-key
   ;
@@ -157,6 +184,9 @@
   (get-in request [:path-params param-key]))
 
 (defn request->params
+  ; @description
+  ; Returns the params of the given request map.
+  ;
   ; @param (map) request
   ; {:params (map)}
   ;
@@ -168,6 +198,9 @@
   (:params request))
 
 (defn request->param
+  ; @description
+  ; Returns a specific param of the given request map.
+  ;
   ; @param (map) request
   ; @param (keyword) param-key
   ;
@@ -179,6 +212,9 @@
   (get-in request [:params param-key]))
 
 (defn request->transit-params
+  ; @description
+  ; Returns the transit params of the given request map.
+  ;
   ; @param (map) request
   ; {:transit-params (map)}
   ;
@@ -190,6 +226,9 @@
   (:transit-params request))
 
 (defn request->transit-param
+  ; @description
+  ; Returns a specific transit param of the given request map.
+  ;
   ; @param (map) request
   ; @param (keyword) param-key
   ;
@@ -201,6 +240,9 @@
   (get-in request [:transit-params param-key]))
 
 (defn request->multipart-params
+  ; @description
+  ; Returns the multipart params of the given request map.
+  ;
   ; @param (map) request
   ; {:multipart-params (map)}
   ;
@@ -212,6 +254,9 @@
   (:multipart-params request))
 
 (defn request->multipart-param
+  ; @description
+  ; Returns a specific multipart param of the given request map.
+  ;
   ; @param (map) request
   ; {:multipart-params (map)}
   ; @param (keyword) param-key
@@ -224,6 +269,9 @@
   (get-in request [:multipart-params param-key]))
 
 (defn request->session
+  ; @description
+  ; Returns the session of the given request map.
+  ;
   ; @param (map) request
   ; {:session (map)}
   ;
@@ -235,6 +283,9 @@
   (:session request))
 
 (defn request->session-params
+  ; @description
+  ; Returns the session params of the given request map.
+  ;
   ; @param (map) request
   ; {:session (map)}
   ;
@@ -246,6 +297,9 @@
   (request->session request))
 
 (defn request->session-param
+  ; @description
+  ; Returns a specific session param of the given request map.
+  ;
   ; @param (map) request
   ; @param (keyword) param-key
   ;
@@ -257,6 +311,9 @@
   (get-in request [:session param-key]))
 
 (defn request->route-path
+  ; @description
+  ; Returns the route path of the given request map.
+  ;
   ; @param (map) request
   ; {:uri (string)}
   ;
@@ -268,6 +325,9 @@
   (str uri))
 
 (defn request->uri
+  ; @description
+  ; Returns the URI of the given request map.
+  ;
   ; @param (map) request
   ; {:server-name (string)
   ;  :uri (string)}

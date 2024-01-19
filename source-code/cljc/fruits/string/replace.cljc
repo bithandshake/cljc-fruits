@@ -7,37 +7,37 @@
 ;; ----------------------------------------------------------------------------
 
 (defn replace-part
-  ; @param (*) n
+  ; @description
+  ; Replaces the given 'x' value (optionally recursively) with the given 'y' string in the given 'n' string.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
-  ; @param (*) y
+  ; @param (string) y
   ; @param (map)(opt) options
   ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
   ; (replace-part "abc" "b" "x")
-  ;
-  ; @example
-  ; (replace-part "abc" "b" "x")
   ; =>
   ; "axc"
   ;
-  ; @example
+  ; @usage
   ; (replace-part "abc" #"[b]*" "x")
   ; =>
   ; "axc"
   ;
-  ; @example
+  ; @usage
   ; (replace-part "abc" "b" nil)
   ; =>
   ; "ac"
   ;
-  ; @example
+  ; @usage
   ; (replace-part "///" "//" "/")
   ; =>
   ; "//"
   ;
-  ; @example
+  ; @usage
   ; (replace-part "///" "//" "/" {:recur? true})
   ; =>
   ; "/"
@@ -56,11 +56,14 @@
                      (f0 n)))))
 
 (defn use-replacements
-  ; @description
-  ; Replacement markers only contain numbers in case of more than one replacement passed.
-  ; If only one replacement passed, its marker is a single percent character.
+  ; @note
+  ; Replacement markers contain numbers in case of more than one replacement passed.
+  ; If only one replacement passed, the marker is a single percent character.
   ;
-  ; @param (*) n
+  ; @description
+  ; Replaces the markers in the given 'n' string with the corresponding values from the given 'replacements' vector.
+  ;
+  ; @param (string) n
   ; @param (vector) replacements
   ; @param (map)(opt) options
   ; {:ignore? (boolean)(opt)
@@ -69,18 +72,15 @@
   ;
   ; @usage
   ; (use-replacements "Hi, my name is %" ["John"])
-  ;
-  ; @example
-  ; (use-replacements "Hi, my name is %" ["John"])
   ; =>
   ; "Hi, my name is John"
   ;
-  ; @example
+  ; @usage
   ; (use-replacements "My favorite colors are: %1, %2 and %3" ["red" "green" "blue"])
   ; =>
   ; "My favorite colors are: red, green and blue"
   ;
-  ; @example
+  ; @usage
   ; (use-replacements "%1 / %2 items downloaded" [nil 3])
   ; =>
   ; ""
@@ -96,7 +96,7 @@
               (letfn [(f? [] (= 1 (count replacements)))
                       ; ...
                       (f1 [n marker replacement]
-                          ; Replacement could be any type it will be converted to string!
+                          ; Replacement could be any type, it will be converted to string!
                           (if (or (-> replacement str empty? not)
                                   (not ignore?))
                               (clojure.string/replace n marker (str replacement))))
@@ -109,18 +109,17 @@
                               (reduce-kv f2 n replacements)))))))
 
 (defn use-replacement
-  ; @param (*) n
-  ; @param (*) replacement
+  ; @description
+  ; Replaces the marker in the given 'n' string with given 'replacement' string.
+  ;
+  ; @param (string) n
+  ; @param (string) replacement
   ; @param (map)(opt) options
   ; {:ignore? (boolean)(opt)
   ;   The function returns nil if the replacement is nil or empty.
   ;   Default: true}
   ;
   ; @usage
-  ; (use-replacement "Hi, my name is %"
-  ;                  "John")
-  ;
-  ; @example
   ; (use-replacement "Hi, my name is %"
   ;                  "John")
   ; =>
@@ -138,20 +137,19 @@
                                (str replacement)))))
 
 (defn use-placeholder
+  ; @description
+  ; Returns the given 'n' string in case it is not blank, otherwise returns the given 'placeholder' string.
+  ;
   ; @param (string) n
   ; @param (string) placeholder
   ;
   ; @usage
   ; (use-placeholder "My content"
   ;                  "My placeholder")
-  ;
-  ; @example
-  ; (use-placeholder "My content"
-  ;                  "My placeholder")
   ; =>
   ; "My content"
   ;
-  ; @example
+  ; @usage
   ; (use-placeholder ""
   ;                  "My placeholder")
   ; =>

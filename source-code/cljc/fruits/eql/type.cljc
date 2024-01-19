@@ -7,7 +7,7 @@
 (defn document-link?
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (document-link? {:directory/id "my-directory"})
   ; =>
   ; true
@@ -21,7 +21,7 @@
 (defn document-entity?
   ; @param (*) n
   ;
-  ; @example
+  ; @usage
   ; (document-entity? [:directory/id "my-directory"])
   ; =>
   ; true

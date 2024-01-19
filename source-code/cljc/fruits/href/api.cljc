@@ -1,12 +1,14 @@
 
 (ns fruits.href.api
-    (:require [fruits.href.core :as core]))
+    (:require [fruits.href.link :as link]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.href.core
-(def email-address       core/email-address)
-(def phone-number        core/phone-number)
-(def google-maps-address core/google-maps-address)
-(def https-address       core/https-address)
+; @redirect (fruits.href.link/*)
+(def email-address       link/email-address)
+(def phone-number        link/phone-number)
+(def google-maps-address link/google-maps-address)
+(def ftp-uri             link/ftp-uri)
+(def http-uri            link/http-uri)
+(def https-uri           link/https-uri)

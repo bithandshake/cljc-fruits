@@ -4,14 +4,14 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn nontrue?
+(defn not-true?
+  ; @description
+  ; Returns TRUE if the given 'n' value is not a TRUE boolean.
+  ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nontrue? :x)
-  ;
-  ; @example
-  ; (nontrue? nil)
+  ; (not-true? nil)
   ; =>
   ; true
   ;
@@ -19,14 +19,14 @@
   [n]
   (not= n true))
 
-(defn nonfalse?
+(defn not-false?
+  ; @description
+  ; Returns TRUE if the given 'n' value is not a FALSE boolean.
+  ;
   ; @param (*) n
   ;
   ; @usage
-  ; (nonfalse? nil)
-  ;
-  ; @example
-  ; (nonfalse? nil)
+  ; (not-false? nil)
   ; =>
   ; true
   ;

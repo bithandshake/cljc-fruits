@@ -5,17 +5,17 @@
 ;; ----------------------------------------------------------------------------
 
 (defn get-name
+  ; @description
+  ; Returns the name value of the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ;
   ; @usage
   ; (get-name :a)
-  ;
-  ; @example
-  ; (get-name :a)
   ; =>
   ; :a
   ;
-  ; @example
+  ; @usage
   ; (get-name :a/b)
   ; =>
   ; :b

@@ -6,18 +6,18 @@
 ;; ----------------------------------------------------------------------------
 
 (defn add-namespace
+  ; @description
+  ; Adds the given namespace value to the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ; @param (keyword)(opt) namespace
   ;
   ; @usage
   ; (add-namespace :b :a)
-  ;
-  ; @example
-  ; (add-namespace :b :a)
   ; =>
   ; :a/b
   ;
-  ; @example
+  ; @usage
   ; (add-namespace :a)
   ; =>
   ; :ko4983l3-i8790-j93l3-lk8385u591o2/a
@@ -30,17 +30,17 @@
    (keyword (name namespace) (name n))))
 
 (defn get-namespace
+  ; @description
+  ; Returns the namespace value of the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ;
   ; @usage
-  ; (get-namespace :a/b)
-  ;
-  ; @example
   ; (get-namespace :a)
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (get-namespace :a/b)
   ; =>
   ; :a
@@ -52,12 +52,12 @@
               (keyword namespace))))
 
 (defn remove-namespace
+  ; @description
+  ; Removes the namespace value from the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ;
   ; @usage
-  ; (remove-namespace :a/b)
-  ;
-  ; @example
   ; (remove-namespace :a/b)
   ; =>
   ; :b

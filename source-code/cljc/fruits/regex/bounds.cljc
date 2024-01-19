@@ -1,5 +1,5 @@
 
-(ns fruits.regex.core
+(ns fruits.regex.bounds
     (:require [clojure.string]
               [fruits.regex.match :as match]))
 
@@ -10,18 +10,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns TRUE if the given 'n' string starts with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (starts-with? "abcdef" #"[a-z]")
-  ;
-  ; @example
-  ; (starts-with? "abcdef" #"[a-z]")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (starts-with? "abcdef" #"[\d]")
   ; =>
   ; false
@@ -39,18 +39,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns TRUE if the given 'n' string ends with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (ends-with? "abcdef" #"[a-z]")
-  ;
-  ; @example
-  ; (ends-with? "abcdef" #"[a-z]")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (ends-with? "abcdef" #"[\d]")
   ; =>
   ; false
@@ -73,18 +73,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns TRUE if the given 'n' string not starts with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
-  ; (not-starts-with? "abcdef" #"[\d]")
-  ;
-  ; @example
   ; (not-starts-with? "abcdef" "[\d]")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-starts-with? "abcdef" "[a-z]")
   ; =>
   ; false
@@ -98,18 +98,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Returns TRUE if the given 'n' string not ends with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (not-ends-with? "abcdef" #"[\d]")
-  ;
-  ; @example
-  ; (not-ends-with? "abcdef" #"[\d]")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-ends-with? "abcdef" #"[a-z]")
   ; =>
   ; false
@@ -126,18 +126,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Ensures that the given 'n' string not starts with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (not-starts-with! "abcdef" #"[a-z]")
-  ;
-  ; @example
-  ; (not-starts-with! "abcdef" #"[a-z]")
   ; =>
   ; "bcdef"
   ;
-  ; @example
+  ; @usage
   ; (not-starts-with! "abcdef" #"[/d]")
   ; =>
   ; "abcdef"
@@ -155,18 +155,18 @@
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Ensures that the given 'n' string not ends with any match of the given 'x' pattern.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (not-ends-with! "abcdef" #"[a-z]")
-  ;
-  ; @example
-  ; (not-ends-with! "abcdef" #"[a-z]")
   ; =>
   ; "abcde"
   ;
-  ; @example
+  ; @usage
   ; (not-ends-with! "abcdef" #"[\d]")
   ; =>
   ; "abcdef"
@@ -185,38 +185,35 @@
 ;; ----------------------------------------------------------------------------
 
 (defn starts-at?
-  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; @bug (fruits.regex.dex#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
-  ; Returns TRUE if a match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns TRUE if a match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
   ;
   ; @usage
   ; (starts-at? "abc123" #"[/d]" 3)
-  ;
-  ; @example
-  ; (starts-at? "abc123" #"[/d]" 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (starts-at? "abc123" #"[/d]" 4)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (starts-at? "abc123" #"[/d]" 2)
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (starts-at? "abc123" #"(?<=c)[\d]" 3)
   ; =>
   ; true
@@ -226,38 +223,35 @@
   (-> (match/re-from n x cursor) boolean))
 
 (defn ends-at?
-  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; @bug (fruits.regex.dex#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
-  ; Returns TRUE if a match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns TRUE if a match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
   ;
   ; @usage
   ; (ends-at? "abc123" #"[a-z]" 3)
-  ;
-  ; @example
-  ; (ends-at? "abc123" #"[a-z]" 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (ends-at? "abc123" #"[a-z]" 2)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (ends-at? "abc123" #"[a-z]" 4)
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (ends-at? "abc123" #"abc(?=\d)" 3)
   ; =>
   ; true
@@ -270,38 +264,35 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not-starts-at?
-  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; @bug (fruits.regex.dex#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
-  ; Returns TRUE if NO match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns TRUE if NO match of the given 'x' pattern starts at the given 'cursor' position in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
   ;
   ; @usage
   ; (not-starts-at? "abc123" #"[/d]" 2)
-  ;
-  ; @example
-  ; (not-starts-at? "abc123" #"[/d]" 2)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-starts-at? "abc123" #"[/d]" 1)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-starts-at? "abc123" #"[/d]" 3)
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (not-starts-at? "abc123" #"(?<=c)[\d]" 3)
   ; =>
   ; false
@@ -312,38 +303,35 @@
        (not starts-at?)))
 
 (defn not-ends-at?
-  ; @bug (source-code/cljc/fruits/regex/dex.cljc#9081)
+  ; @bug (fruits.regex.dex#9081)
   ; Lookaround assertions can cause incorrect result!
   ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
   ; @description
-  ; Returns TRUE if NO match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' value (converted to string).
+  ; Returns TRUE if NO match of the given 'x' pattern ends at the given 'cursor' position in the given 'n' string.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ; @param (integer) cursor
   ;
   ; @usage
   ; (not-ends-at? "abc123" #"[a-z]" 5)
-  ;
-  ; @example
-  ; (not-ends-at? "abc123" #"[a-z]" 5)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-ends-at? "abc123" #"[a-z]" 4)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-ends-at? "abc123" #"[a-z]" 3)
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (not-ends-at? "abc123" #"abc(?=\d)" 3)
   ; =>
   ; false

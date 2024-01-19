@@ -1,6 +1,7 @@
 
 (ns fruits.map.match
-    (:require [fruits.map.compare :as compare]))
+    (:require [fruits.map.compare :as compare]
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -14,20 +15,19 @@
   ;
   ; @usage
   ; (every-key? {:a "A" :b "B"} keyword?)
-  ;
-  ; @example
-  ; (every-key? {:a "A" :b "B"} keyword?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (every-key? {:a "A" :b "B" "c" "C"} keyword?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (every? (fn [[k _]] (f k)) n))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (every? (fn [[k _]] (f k)) n)))
 
 (defn any-key-matches?
   ; @description
@@ -37,22 +37,21 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (any-key-matches? {:a "A"} keyword?)
-  ;
-  ; @example
   ; (any-key-matches? {:a "A" "b" "B"} string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (any-key-matches? {:a "A" :b "B"} string?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (letfn [(f0 [%] (-> % first f))]
-         (boolean (some f0 n))))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (-> % first f))]
+              (boolean (some f0 n)))))
 
 (defn any-value-matches?
   ; @description
@@ -62,22 +61,21 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (any-value-matches? {:a "A"} string?)
-  ;
-  ; @example
   ; (any-value-matches? {:a :A :b "B"} string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (any-value-matches? {:a "A" :b "B"} keyword?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (letfn [(f0 [%] (-> % second f))]
-         (boolean (some f0 n))))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (-> % second f))]
+              (boolean (some f0 n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -90,22 +88,21 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (all-keys-match? {:a "A"} keyword?)
-  ;
-  ; @example
   ; (all-keys-match? {:a "A" :b "B"} keyword?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (all-keys-match? {:a "A" "b" "B"} keyword?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (letfn [(f0 [%] (-> % first f))]
-         (every? f0 n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (-> % first f))]
+              (every? f0 n))))
 
 (defn all-values-match?
   ; @description
@@ -115,22 +112,21 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (all-values-match? {:a "A"} string?)
-  ;
-  ; @example
   ; (all-values-match? {:a "A" :b "B"} string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (all-values-match? {:a :A :b "B"} string?)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n f]
-  (letfn [(f0 [%] (-> % second f))]
-         (every? f0 n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (-> % second f))]
+              (every? f0 n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -144,13 +140,10 @@
   ;
   ; @usage
   ; (not-all-keys-match? {:a "A" "b" "B"} keyword?)
-  ;
-  ; @example
-  ; (not-all-keys-match? {:a "A" "b" "B"} keyword?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-all-keys-match? {:a "A" :b "B"} keyword?)
   ; =>
   ; false
@@ -168,13 +161,10 @@
   ;
   ; @usage
   ; (not-all-values-match? {:a "A" :b :B} string?)
-  ;
-  ; @example
-  ; (not-all-values-match? {:a "A" :b :B} string?)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-all-values-match? {:a "A" :b "B"} string?)
   ; =>
   ; false
@@ -187,7 +177,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn first-match-key
-  ; @important
+  ; @note
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -197,29 +187,28 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (first-match-key {:a "A"} string?)
-  ;
-  ; @example
   ; (first-match-key {:a "A" :b "B"} string?)
   ; =>
   ; :a
   ;
-  ; @example
+  ; @usage
   ; (first-match-key {:a "A" :b "B"} keyword?)
   ; =>
   ; nil
   ;
   ; @return (*)
   [n f]
-  (letfn [(f0 [%] (if (-> % second f)
-                      (-> % first)))]
-         (some f0 n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (if (-> % second f)
+                           (-> % first)))]
+              (some f0 n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn first-matching-key
-  ; @important
+  ; @note
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -229,26 +218,25 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (first-matching-key {:a "A"} keyword?)
-  ;
-  ; @example
   ; (first-matching-key {:a "A" "b" "B"} string?)
   ; =>
   ; "b"
   ;
-  ; @example
+  ; @usage
   ; (first-matching-key {:a "A" :b "B"} string?)
   ; =>
   ; nil
   ;
   ; @return (*)
   [n f]
-  (letfn [(f0 [%] (if (-> % first f)
-                      (-> % first)))]
-         (some f0 n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (if (-> % first f)
+                           (-> % first)))]
+              (some f0 n))))
 
 (defn first-matching-value
-  ; @important
+  ; @note
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -258,28 +246,27 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (first-matching-value {:a "A"} string?)
-  ;
-  ; @example
   ; (first-matching-value {:a :A :b "B"} string?)
   ; =>
   ; "B"
   ;
-  ; @example
+  ; @usage
   ; (first-matching-value {:a {:id "apple"} :b {:id "banana"}} #(= "apple" (:id %)))
   ; =>
   ; {:id "apple"}
   ;
-  ; @example
+  ; @usage
   ; (first-matching-value {:a "A" :b "B"} keyword?)
   ; =>
   ; nil
   ;
   ; @return (*)
   [n f]
-  (letfn [(f0 [%] (if (-> % second f)
-                      (-> % second)))]
-         (some f0 n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [%] (if (-> % second f)
+                           (-> % second)))]
+              (some f0 n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -296,23 +283,20 @@
   ;
   ; @usage
   ; (matches-pattern? {:a "A" :b "B"} {:a "A"})
-  ;
-  ; @example
-  ; (matches-pattern? {:a "A" :b "B"} {:a "A"})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (matches-pattern? {:a "A" :b "B"} {:a "A" :c "C"})
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (matches-pattern? {:a "A" :b "B"} {:a "A"} {:strict-matching? true})
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (matches-pattern? {:a "A" :b "B"} {:a "A" :b "B"} {:strict-matching? true})
   ; =>
   ; true

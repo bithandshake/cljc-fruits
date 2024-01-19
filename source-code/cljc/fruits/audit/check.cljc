@@ -14,9 +14,6 @@
   ;
   ; @usage
   ; (email-address-valid? "user@email.com")
-  ;
-  ; @example
-  ; (email-address-valid? "user@email.com")
   ; =>
   ; true
   ;
@@ -32,9 +29,6 @@
   ; @param (*) n
   ;
   ; @usage
-  ; (ip-address-valid? "0.0.0.0")
-  ;
-  ; @example
   ; (ip-address-valid? "0.0.0.0")
   ; =>
   ; true
@@ -58,9 +52,6 @@
   ; Default: 32
   ;
   ; @usage
-  ; (latin-name-valid? "John O'Reilly")
-  ;
-  ; @example
   ; (latin-name-valid? "John O'Reilly")
   ; =>
   ; true
@@ -93,15 +84,6 @@
   ; Default: 32
   ;
   ; @usage
-  ; (password-valid? "Password1")
-  ;
-  ; @usage
-  ; (password-valid? "Password1" 6)
-  ;
-  ; @usage
-  ; (password-valid? "Password1" 6 16)
-  ;
-  ; @example
   ; (password-valid? "Password1" 6 16)
   ; =>
   ; true
@@ -131,15 +113,6 @@
   ; Default: 20
   ;
   ; @usage
-  ; (phone-number-valid? "+36420001234")
-  ;
-  ; @usage
-  ; (phone-number-valid? "+36420001234" 6)
-  ;
-  ; @usage
-  ; (phone-number-valid? "+36420001234" 6 24)
-  ;
-  ; @example
   ; (phone-number-valid? "+36420001234" 6 24)
   ; =>
   ; true
@@ -167,12 +140,6 @@
   ; Default: 4
   ;
   ; @usage
-  ; (pin-code-valid? "0042")
-  ;
-  ; @usage
-  ; (pin-code-valid? "420069" 6)
-  ;
-  ; @example
   ; (pin-code-valid? "420069" 6)
   ; =>
   ; true
@@ -197,12 +164,6 @@
   ; Default: 6
   ;
   ; @usage
-  ; (security-code-valid? "004269")
-  ;
-  ; @usage
-  ; (security-code-valid? "420069" 6)
-  ;
-  ; @example
   ; (security-code-valid? "420069" 6)
   ; =>
   ; true
@@ -225,13 +186,12 @@
   ;
   ; @usage
   ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
+  ; =>
+  ; true
   ;
   ; @usage
   ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36"
   ;                    ["Mozilla" "Chrome" "Safari" "My-agent"])
-  ;
-  ; @example
-  ; (user-agent-valid? "Mozilla/5.0 (Linux; Android 10; SM-G960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36")
   ; =>
   ; true
   ;
@@ -257,15 +217,6 @@
   ; Default: 16
   ;
   ; @usage
-  ; (username-valid? "WinnieThePooh_69")
-  ;
-  ; @usage
-  ; (username-valid? "WinnieThePooh_69" 6)
-  ;
-  ; @usage
-  ; (username-valid? "WinnieThePooh_69" 6 32)
-  ;
-  ; @example
   ; (username-valid? "WinnieThePooh_69" 6 32)
   ; =>
   ; true

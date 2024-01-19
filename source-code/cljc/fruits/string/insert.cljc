@@ -6,24 +6,24 @@
 ;; ----------------------------------------------------------------------------
 
 (defn prefix
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (*)(opt) separator
+  ; @description
+  ; Prepends the given 'x' string to the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
+  ; @param (string)(opt) separator
   ;
   ; @usage
-  ; (prefix "420" "$")
-  ;
-  ; @example
   ; (prefix "420" "$")
   ; =>
   ; "$420"
   ;
-  ; @example
+  ; @usage
   ; (prefix 420 "$")
   ; =>
   ; "$420"
   ;
-  ; @example
+  ; @usage
   ; (prefix "" "$")
   ; =>
   ; ""
@@ -39,24 +39,24 @@
             (str x separator n)))))
 
 (defn suffix
-  ; @param (*) n
-  ; @param (*) x
-  ; @param (*)(opt) separator
+  ; @description
+  ; Appends the given 'x' string to the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
+  ; @param (string)(opt) separator
   ;
   ; @usage
-  ; (suffix "420" "px")
-  ;
-  ; @example
   ; (suffix "420" "px")
   ; =>
   ; "420px"
   ;
-  ; @example
+  ; @usage
   ; (suffix 420 "px")
   ; =>
   ; "420px"
   ;
-  ; @example
+  ; @usage
   ; (suffix "" "px")
   ; =>
   ; ""
@@ -75,13 +75,13 @@
 ;; ----------------------------------------------------------------------------
 
 (defn prepend
-  ; @param (*) n
-  ; @param (list of *) xyz
+  ; @description
+  ; Prepends the rest parameters to the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (list of string) xyz
   ;
   ; @usage
-  ; (prepend "my-domain.com" "https://")
-  ;
-  ; @example
   ; (prepend "my-domain.com" "https://")
   ; =>
   ; "https://my-domain.com"
@@ -92,13 +92,13 @@
          (str (reduce f0 nil (vec xyz)) n)))
 
 (defn append
-  ; @param (*) n
-  ; @param (list of *) xyz
+  ; @description
+  ; Appends the rest parameters to the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (list of string) xyz
   ;
   ; @usage
-  ; (append "https://" "my-domain.com")
-  ;
-  ; @example
   ; (append "https://" "my-domain.com")
   ; =>
   ; "https://my-domain.com"
@@ -112,14 +112,14 @@
 ;; ----------------------------------------------------------------------------
 
 (defn insert-part
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Inserts the given 'x' string into the given 'n' string at a specific cursor position.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer) cursor
   ;
   ; @usage
-  ; (insert-part "abcd" "xx" 2)
-  ;
-  ; @example
   ; (insert-part "abcd" "xx" 2)
   ; =>
   ; "abxxcd"
@@ -127,6 +127,6 @@
   ; @return (string)
   [n x cursor]
   (let [n      (str n)
-        cursor (seqable/normalize-cursor n cursor)]
+        cursor (seqable/normalize-cursor n cursor {:adjust? true :mirror? true})]
        (str (subs n 0 cursor) x
             (subs n   cursor))))

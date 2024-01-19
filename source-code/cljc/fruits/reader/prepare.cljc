@@ -6,12 +6,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defn prepare-edn
+  ; @description
+  ; Removes object tags from the given 'n' EDN string to prevent the reader throwing errors of unknown objects.
+  ;
   ; @param (string) n
   ;
   ; @usage
-  ; (prepare-edn "{:my-object #object[...]}")
-  ;
-  ; @example
   ; (prepare-edn "{:my-object #object[...]}")
   ; =>
   ; "{:my-object :object-removed-by-reader}"
@@ -39,17 +39,17 @@
               (-> n remove-objects-f))))
 
 (defn prepare-json
+  ; @description
+  ; Removes the delimiter colons from the given 'n' JSON string, to prevent the reader throwing errors.
+  ;
   ; @param (string) n
   ;
   ; @usage
   ; (prepare-json "{\"name\":\"value\"}")
-  ;
-  ; @example
-  ; (prepare-json "{\"name\":\"value\"}")
   ; =>
   ; "{\"name\" \"value\"}"
   ;
-  ; @example
+  ; @usage
   ; (prepare-json "{\"name\":[\"value\"]}")
   ; =>
   ; "{\"name\" [\"value\"]}"

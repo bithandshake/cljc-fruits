@@ -10,11 +10,11 @@
 
 (defn unparse
   ; @description
-  ; Converts the given inline style map into a CSS string.
+  ; Converts the given inline style map to a CSS string.
   ;
   ; @param (map) n
   ;
-  ; @example
+  ; @usage
   ; (unparse {:opacity 1 :width "100%"})
   ; =>
   ; "opacity: 1; width: 100%;"
@@ -30,11 +30,11 @@
 
 (defn parse
   ; @description
-  ; Converts the given CSS string into an inline style map.
+  ; Converts the given CSS string to an inline style map.
   ;
   ; @param (string) n
   ;
-  ; @example
+  ; @usage
   ; (parse "opacity: 1; width: 100%;")
   ; =>
   ; {:opacity 1 :width "100%"}

@@ -7,21 +7,24 @@
 ;; ----------------------------------------------------------------------------
 
 (defn remove-first-match
+  ; @bug (fruits.regex.dex#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Removes the first match of the given 'x' pattern from the given 'n' string.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-first-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (remove-first-match "abc123def" #"\d")
   ; =>
   ; "abc23def"
   ;
-  ; @example
+  ; @usage
   ; (remove-first-match "abcdef" #"\d")
   ; =>
   ; "abcdef"
@@ -37,21 +40,24 @@
                (-> n))))
 
 (defn remove-last-match
+  ; @bug (fruits.regex.dex#9081)
+  ; Lookaround assertions can cause incorrect result!
+  ;
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
-  ; @param (*) n
+  ; @description
+  ; Removes the last match of the given 'x' pattern from the given 'n' string.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-last-match "abc123def" #"\d")
-  ;
-  ; @example
-  ; (remove-last-match "abc123def" #"\d")
   ; =>
   ; "abc12def"
   ;
-  ; @example
+  ; @usage
   ; (remove-last-match "abcdef" #"\d")
   ; =>
   ; "abcdef"

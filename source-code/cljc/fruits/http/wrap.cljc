@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn default-wrap
+  ; @description
+  ; HTTP wrapper map.
+  ;
   ; @param (map) response-props
   ; {:body (string)
   ;  :headers (map)(opt)
@@ -23,14 +26,14 @@
   ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (default-wrap {:body "My text"})
   ; =>
   ; {:body    "My text"
   ;  :headers {"Content-Type" "text/plain"}
   ;  :status  200}
   ;
-  ; @example
+  ; @usage
   ; (default-wrap {:body      "My text"
   ;                :headers   {"Content-Disposition" "inline"}
   ;                :mime-type "text/plain"})
@@ -71,6 +74,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn text-wrap
+  ; @description
+  ; HTTP wrapper map for plain text content.
+  ;
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
@@ -85,7 +91,7 @@
   ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (text-wrap {:body "My text"})
   ; =>
   ; {:body    "My text"
@@ -107,6 +113,9 @@
                  options)))
 
 (defn error-wrap
+  ; @description
+  ; HTTP error wrapper map.
+  ;
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
@@ -121,7 +130,7 @@
   ;   in case of client error (4**) or server error (5**) status code is passed.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (error-wrap {:body   :file-not-found
   ;              :status 404})
   ; =>
@@ -147,13 +156,16 @@
 ;; ----------------------------------------------------------------------------
 
 (defn redirect-wrap
+  ; @description
+  ; HTTP wrapper map for redirections.
+  ;
   ; @param (map) response-props
   ; {:location (string)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 302}
   ;
-  ; @example
+  ; @usage
   ; (redirect-wrap {:location "/my-page"
   ;                 :status   303})
   ; =>
@@ -174,13 +186,16 @@
 ;; ----------------------------------------------------------------------------
 
 (defn html-wrap
+  ; @description
+  ; HTTP wrapper map for HTML data.
+  ;
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
-  ; @example
+  ; @usage
   ; (html-wrap {:body "<!DOCTYPE html> ..."})
   ; =>
   ; {:body    "<!DOCTYPE html> ..."
@@ -198,13 +213,16 @@
                                        (update % :body str))))
 
 (defn json-wrap
+  ; @description
+  ; HTTP wrapper map for JSON data.
+  ;
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
-  ; @example
+  ; @usage
   ; (json-wrap {:body "{...}"})
   ; =>
   ; {:body    "{...}"
@@ -222,6 +240,9 @@
                                        (update % :body str))))
 
 (defn media-wrap
+  ; @description
+  ; HTTP wrapper map for media files.
+  ;
   ; @param (map) response-props
   ; {:body (java.io.File object)
   ;  :filename (string)(opt)
@@ -230,7 +251,7 @@
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
-  ; @example
+  ; @usage
   ; (media-wrap {:body      #object[java.io.File 0x4571e67a "/my-file.png"
   ;              :mime-type "image/png"})
   ; =>
@@ -238,7 +259,7 @@
   ;  :headers {"Content-Type" "image/png"}
   ;  :status  200}
   ;
-  ; @example
+  ; @usage
   ; (media-wrap {:body      #object[java.io.File 0x4571e67a "/my-file.png"
   ;              :filename  "my-file.png"
   ;              :mime-type "image/png"})
@@ -262,13 +283,16 @@
                                             (merge {:headers headers :status 200} %)))))
 
 (defn xml-wrap
+  ; @description
+  ; HTTP wrapper map for XML data.
+  ;
   ; @param (map) response-props
   ; {:body (*)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
-  ; @example
+  ; @usage
   ; (xml-wrap {:body "<?xml version="1.0" ...?>"})
   ; =>
   ; {:body    "<?xml version="1.0" ...?>"
@@ -286,13 +310,16 @@
                                        (update % :body str))))
 
 (defn css-wrap
+  ; @description
+  ; HTTP wrapper map for CSS data.
+  ;
   ; @param (map) response-props
   ; {:body (string)
   ;  :session (map)(opt)
   ;  :status (integer)(opt)
   ;   Default: 200}
   ;
-  ; @example
+  ; @usage
   ; (css-wrap {:body ".class {}"})
   ; =>
   ; {:body    ".class {}"

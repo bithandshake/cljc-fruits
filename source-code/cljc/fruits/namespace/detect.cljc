@@ -1,6 +1,5 @@
 
-(ns fruits.namespace.core
-    (:require [fruits.keyword.api :as keyword]))
+(ns fruits.namespace.detect)
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -10,7 +9,15 @@
   ;
   ; @usage
   ; (detect ::this)
+  ; =>
+  ; :my-namespace
+  ;
+  ; @usage
+  ; (detect :my-namespace/this)
+  ; =>
+  ; :my-namespace
   ;
   ; @return (keyword)
   [sample]
-  (keyword/get-namespace sample))
+  (if (-> sample keyword?)
+      (-> sample namespace keyword)))

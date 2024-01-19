@@ -7,17 +7,20 @@
 ;; ----------------------------------------------------------------------------
 
 (defn html?
+  ; @important
+  ; This function is incomplete and may not behave as expected.
+  ;
+  ; @description
+  ; Returns TRUE if the given 'n' value is a HTML string.
+  ;
   ; @param (string) n
   ;
   ; @usage
-  ; (html? "<p>Paragraph #1</p>")
-  ;
-  ; @example
   ; (html? "Paragraph #1")
   ; =>
   ; false
   ;
-  ; @example
+  ; @usage
   ; (html? "<p>Paragraph #1</p>")
   ; =>
   ; true
@@ -27,17 +30,17 @@
   ; TODO
 
 (defn blank?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a blank HTML string.
+  ;
   ; @param (string) n
   ;
   ; @usage
   ; (blank? "<p> </p><p>\n</p>")
-  ;
-  ; @example
-  ; (blank? "<p> </p><p>\n</p>")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; false
@@ -49,17 +52,17 @@
         (clojure.core/empty?)))
 
 (defn not-blank?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonblank HTML string.
+  ;
   ; @param (string) n
   ;
   ; @usage
   ; (not-blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
-  ;
-  ; @example
-  ; (not-blank? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-blank? "<p> </p><p>\n</p>")
   ; =>
   ; false
@@ -69,17 +72,17 @@
   (-> n blank? not))
 
 (defn empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is an empty HTML string.
+  ;
   ; @param (string) n
   ;
   ; @usage
   ; (empty? "<p></p><p></p>")
-  ;
-  ; @example
-  ; (empty? "<p></p><p></p>")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; false
@@ -90,17 +93,17 @@
         (clojure.core/empty?)))
 
 (defn not-empty?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonempty HTML string.
+  ;
   ; @param (string) n
   ;
   ; @usage
   ; (not-empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
-  ;
-  ; @example
-  ; (not-empty? "<p>Paragraph #1</p><p>Paragraph #2</p>")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-empty? "<p></p><p></p>")
   ; =>
   ; false

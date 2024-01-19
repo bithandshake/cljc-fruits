@@ -1,5 +1,5 @@
 
-(ns fruits.bson.core
+(ns fruits.bson.update
     (:require [fruits.keyword.api :as keyword]
               [fruits.map.api     :as map]
               [fruits.string.api  :as string]
@@ -9,25 +9,21 @@
 ;; ----------------------------------------------------------------------------
 
 (defn undot-key
+  ; @note
+  ; Dot characters are not allowed to presence in BSON keys:
+  ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ;
   ; @description
-  ; - Replaces dot characters with hyphens in the given key.
-  ; - Dot characters are not allowed to presence in BSON keys:
-  ;   https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ; Replaces dot characters with hyphens in the given key.
   ;
   ; @param (*) n
   ;
   ; @usage
   ; (undot-key :my.keyword)
-  ;
-  ; @usage
-  ; (undot-key "my.string")
-  ;
-  ; @example
-  ; (undot-key :my.keyword)
   ; =>
   ; :my-keyword
   ;
-  ; @example
+  ; @usage
   ; (undot-key "my.string")
   ; =>
   ; "my-string"
@@ -42,30 +38,26 @@
 ;; ----------------------------------------------------------------------------
 
 (defn undot-keys
+  ; @note
+  ; Dot characters are not allowed to presence in BSON keys:
+  ; https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ;
   ; @description
-  ; - Recursively replaces dot characters with hyphens in keys found in the given data.
-  ; - Dot characters are not allowed to presence in BSON keys:
-  ;   https://www.mongodb.com/docs/manual/core/document/#dot-notation
+  ; Recursively replaces dot characters with hyphens in keys found in the given data.
   ;
   ; @param (*) n
   ;
   ; @usage
   ; (undot-keys {:my.keyword :my-value})
-  ;
-  ; @usage
-  ; (undot-keys {"my.string" "My value"})
-  ;
-  ; @example
-  ; (undot-keys {:my.keyword :my-value})
   ; =>
   ; {:my-keyword :my-value}
   ;
-  ; @example
+  ; @usage
   ; (undot-keys {"my.string" "My value"})
   ; =>
   ; {"my-string" "My value"}
   ;
-  ; @example
+  ; @usage
   ; (undot-keys [{"my.string" "My value"}
   ;              {:my.keyword :my-value}])
   ; =>

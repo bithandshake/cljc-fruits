@@ -1,5 +1,35 @@
 
-(ns fruits.map.update)
+(ns fruits.map.update
+    (:require [fruits.mixed.api :as mixed]
+              [fruits.seqable.api :as seqable]))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn update-by
+  ; @description
+  ; Updates the value in the given 'n' map at the given 'path' dynamic path.
+  ;
+  ; @param (map) n
+  ; @param (vector) path
+  ;
+  ; @usage
+  ; (letfn [(last-dex [%] (-> % count dec))]
+  ;        (update-by {:a [{:b "B"} {:c "C"}]} [:a last-dex] assoc :x "X"))
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @usage
+  ; (update-by {:a [{:b "B"} {:c "C"}]} [:a #(-> % count dec)] assoc :x "X")
+  ; =>
+  ; {:a [{:b "B"} {:c "C" :x "X"}]}
+  ;
+  ; @return (map)
+  [n path f & params]
+  (let [n    (mixed/to-map n)
+        path (mixed/to-vector path)
+        f    (mixed/to-ifn f)]
+       (apply update-in n (seqable/dynamic-path n path) f params)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -14,22 +44,21 @@
   ;
   ; @usage
   ; (update-all-key {:a "A" :b "B" :c "C"} name)
-  ;
-  ; @example
-  ; (update-all-key {:a "A" :b "B" :c "C"} name)
   ; =>
   ; {"a" "A" "b" "B" "c" "C"}
   ;
-  ; @example
+  ; @usage
   ; (update-all-key {0 "A" 1 "B" 2 "C"} + 10)
   ; =>
   ; {10 "A" 11 "B" 12 "C"}
   ;
   ; @return (map)
   [n f & params]
-  (letfn [(f0 [result k v]
-              (assoc result (apply f k params) v))]
-         (reduce-kv f0 {} n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [result k v]
+                   (assoc result (apply f k params) v))]
+              (reduce-kv f0 {} n))))
 
 (defn update-all-value
   ; @description
@@ -41,22 +70,21 @@
   ;
   ; @usage
   ; (update-all-value {:a "A" :b "B" :c "C"} keyword)
-  ;
-  ; @example
-  ; (update-all-value {:a "A" :b "B" :c "C"} keyword)
   ; =>
   ; {:a :A :b :B :c :C}
   ;
-  ; @example
+  ; @usage
   ; (update-all-value {:a 0 :b 1 :c 2} + 10)
   ; =>
   ; {:a 10 :b 11 :c 12}
   ;
   ; @return (map)
   [n f & params]
-  (letfn [(f0 [result k v]
-              (assoc result k (apply f v params)))]
-         (reduce-kv f0 {} n)))
+  (let [n (mixed/to-map n)
+        f (mixed/to-ifn f)]
+       (letfn [(f0 [result k v]
+                   (assoc result k (apply f v params)))]
+              (reduce-kv f0 {} n))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -73,19 +101,19 @@
   ;
   ; @usage
   ; (update-keys-by {0 "A" 1 "B" 2 "C"} even? + 10)
-  ;
-  ; @example
-  ; (update-keys-by {0 "A" 1 "B" 2 "C"} even? + 10)
   ; =>
   ; {10 "A" 1 "B" 12 "C"}
   ;
   ; @return (map)
   [n test-f f & params]
-  (letfn [(f0 [result k v]
-              (if (test-f k)
-                  (assoc result (apply f k params) v)
-                  (assoc result k v)))]
-         (reduce-kv f0 {} n)))
+  (let [n      (mixed/to-map n)
+        test-f (mixed/to-ifn test-f)
+        f      (mixed/to-ifn f)]
+       (letfn [(f0 [result k v]
+                   (if (test-f k)
+                       (assoc result (apply f k params) v)
+                       (assoc result k v)))]
+              (reduce-kv f0 {} n))))
 
 (defn update-values-by
   ; @description
@@ -99,16 +127,16 @@
   ;
   ; @usage
   ; (update-values-by {:a 0 :b 1 :c 2} even? + 10)
-  ;
-  ; @example
-  ; (update-values-by {:a 0 :b 1 :c 2} even? + 10)
   ; =>
   ; {:a 10 :b 1 :c 12}
   ;
   ; @return (map)
   [n test-f f & params]
-  (letfn [(f0 [result k v]
-              (if (test-f v)
-                  (assoc result k (apply f v params))
-                  (assoc result k v)))]
-         (reduce-kv f0 {} n)))
+  (let [n      (mixed/to-map n)
+        test-f (mixed/to-ifn test-f)
+        f      (mixed/to-ifn f)]
+       (letfn [(f0 [result k v]
+                   (if (test-f v)
+                       (assoc result k (apply f v params))
+                       (assoc result k v)))]
+              (reduce-kv f0 {} n))))

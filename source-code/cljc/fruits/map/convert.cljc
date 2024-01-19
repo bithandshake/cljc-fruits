@@ -1,30 +1,24 @@
 
-(ns fruits.map.convert)
+(ns fruits.map.convert
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn to-vector
   ; @description
-  ; Converts the given 'n' map into a vector.
+  ; Converts the given 'n' map to a vector.
   ;
   ; @param (map) n
   ; @param (function)(opt) convert-f
   ; Default: (fn [k v] v)
   ;
   ; @usage
-  ; (to-vector {:a "A" b "B"})
-  ;
-  ; @usage
-  ; (defn my-convert-f [k v] [k v])
-  ; (to-vector {:a "A" b "B"} my-convert-f)
-  ;
-  ; @example
   ; (to-vector {:a "A" b "B" :c "C"})
   ; =>
   ; ["A" "B" "C"]
   ;
-  ; @example
+  ; @usage
   ; (defn my-convert-f [k v] [k v])
   ; (to-vector {:a "A" b "B"} my-convert-f)
   ; =>
@@ -35,13 +29,15 @@
    (to-vector n (fn [k v] v)))
 
   ([n convert-f]
-   (letfn [(f0 [result [k v]]
-               (conj result (convert-f k v)))]
-          (reduce f0 [] n))))
+   (let [n         (mixed/to-map n)
+         convert-f (mixed/to-ifn convert-f)]
+        (letfn [(f0 [result [k v]]
+                    (conj result (convert-f k v)))]
+               (reduce f0 [] n)))))
 
 (defn to-nil
   ; @description
-  ; Converts the given 'n' map into a NIL value.
+  ; Converts the given 'n' map to a NIL value.
   ;
   ; @param (vector) n
   ; @param (map)(opt) options
@@ -51,13 +47,10 @@
   ;
   ; @usage
   ; (to-nil {})
-  ;
-  ; @example
-  ; (to-nil {})
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-nil {:a "A" :b "B" :c "C"})
   ; =>
   ; {:a "A" :b "B" :c "C"}
@@ -69,6 +62,7 @@
   ([n {:keys [if-empty?] :or {if-empty? true}}]
    ; Alternative: 'not-empty'
    ; https://clojuredocs.org/clojure.core/not-empty
-   (cond (-> n empty?)      (-> nil)
-         (-> if-empty? not) (-> nil)
-         :return n)))
+   (let [n (mixed/to-map n)]
+        (cond (-> n empty?)      (-> nil)
+              (-> if-empty? not) (-> nil)
+              :return n))))

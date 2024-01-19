@@ -10,31 +10,31 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (hiccup.attributes)
+; @redirect (hiccup.attributes/*)
 (def get-attributes attributes/get-attributes)
 (def get-style      attributes/get-style)
 (def set-style      attributes/set-style)
 (def join-class     attributes/join-class)
 (def value          attributes/value)
 
-; @redirect (hiccup.content)
+; @redirect (hiccup.content/*)
 (def content-length content/content-length)
 
-; @redirect (fruits.hiccup.convert)
+; @redirect (fruits.hiccup.convert/*)
 (def to-string convert/to-string)
 
-; @redirect (fruits.hiccup.parse)
+; @redirect (fruits.hiccup.parse/*)
 (def parse-css             parse/parse-css)
 (def unparse-css           parse/unparse-css)
 (def unparse-class-vectors parse/unparse-class-vectors)
 (def parse-newlines        parse/parse-newlines)
 (def unparse-newlines      parse/unparse-newlines)
 
-; @redirect (fruits.hiccup.type)
+; @redirect (fruits.hiccup.type/*)
 (def hiccup?   type/hiccup?)
 (def tag-name? type/tag-name?)
 
-; @redirect (fruits.hiccup.walk)
+; @redirect (fruits.hiccup.walk/*)
 (def walk             walk/walk)
 (def explode          walk/explode)
 (def put              walk/put)

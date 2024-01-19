@@ -25,6 +25,7 @@
 (def to-map      convert/to-map)
 (def to-integer  convert/to-integer)
 (def to-number   convert/to-number)
+(def to-keyword  convert/to-keyword)
 (def to-fn       convert/to-fn)
 (def to-ifn      convert/to-ifn)
 (def to-seqable  convert/to-seqable)

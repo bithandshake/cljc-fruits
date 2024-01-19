@@ -6,17 +6,17 @@
 ;; ----------------------------------------------------------------------------
 
 (defn status->info?
+  ; @description
+  ; Returns TRUE if the given status code is '1**'.
+  ;
   ; @param (integer or string) status
   ;
   ; @usage
   ; (status->info? 100)
-  ;
-  ; @example
-  ; (status->info? 100)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (status->info? 200)
   ; =>
   ; false
@@ -26,17 +26,17 @@
   (-> status string/first-character (= "1")))
 
 (defn status->success?
+  ; @description
+  ; Returns TRUE if the given status code is '2**'.
+  ;
   ; @param (integer or string) status
   ;
   ; @usage
   ; (status->success? 200)
-  ;
-  ; @example
-  ; (status->success? 200)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (status->success? 404)
   ; =>
   ; false
@@ -46,17 +46,17 @@
   (-> status string/first-character (= "2")))
 
 (defn status->redirected?
+  ; @description
+  ; Returns TRUE if the given status code is '3**'.
+  ;
   ; @param (integer or string) status
   ;
   ; @usage
   ; (status->redirected? 301)
-  ;
-  ; @example
-  ; (status->redirected? 301)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (status->redirected? 404)
   ; =>
   ; false
@@ -66,17 +66,17 @@
   (-> status string/first-character (= "3")))
 
 (defn status->client-error?
+  ; @description
+  ; Returns TRUE if the given status code is '4**'.
+  ;
   ; @param (integer or string) status
   ;
   ; @usage
   ; (status->client-error? 429)
-  ;
-  ; @example
-  ; (status->client-error? 429)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (status->client-error? 500)
   ; =>
   ; false
@@ -86,17 +86,17 @@
   (-> status string/first-character (= "4")))
 
 (defn status->server-error?
+  ; @description
+  ; Returns TRUE if the given status code is '5**'.
+  ;
   ; @param (integer or string) status
   ;
   ; @usage
   ; (status->server-error? 500)
-  ;
-  ; @example
-  ; (status->server-error? 500)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (status->server-error? 404)
   ; =>
   ; false

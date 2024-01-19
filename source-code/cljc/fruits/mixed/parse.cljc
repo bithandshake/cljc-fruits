@@ -47,4 +47,4 @@
    ; @bug (fruits.mixed.convert#0550)
    (if (-> n number?)
        (-> n)
-       (-> (re-seq #"^[\-]?[1-9][\d]*[\.]*[\d]*" (str n)) first reader/read-edn))))
+       (-> (re-seq #"^[\-]?[1-9][\d]*[\.]*[\d]*" (str n)) first reader/parse-edn))))

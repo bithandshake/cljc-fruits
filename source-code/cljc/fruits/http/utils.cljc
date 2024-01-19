@@ -7,20 +7,17 @@
 ;; ----------------------------------------------------------------------------
 
 (defn capitalize-header
+  ; @description
+  ; Returns the given 'header-key' value as a capitalized string.
+  ;
   ; @param (keyword or string) header-key
   ;
   ; @usage
   ; (capitalize-header :user-agent)
-  ;
-  ; @usage
-  ; (capitalize-header "user-agent")
-  ;
-  ; @example
-  ; (capitalize-header :user-agent)
   ; =>
   ; "User-Agent"
   ;
-  ; @example
+  ; @usage
   ; (capitalize-header "user-agent")
   ; =>
   ; "User-Agent"
@@ -50,20 +47,16 @@
   ; @usage
   ; (unsensitive-body {:body :file-not-found :status 404}
   ;                   {...})
-  ;
-  ; @example
-  ; (unsensitive-body {:body :file-not-found :status 404}
-  ;                   {...})
   ; =>
   ; ":client-error"
   ;
-  ; @example
+  ; @usage
   ; (unsensitive-body {:body :unable-to-save-uploaded-file :status 500}
   ;                   {...})
   ; =>
   ; ":server-error"
   ;
-  ; @example
+  ; @usage
   ; (unsensitive-body {:body :unable-to-save-uploaded-file :status 500}
   ;                   {:allowed-errors [:unable-to-save-uploaded-file]})
   ; =>
@@ -79,19 +72,17 @@
   ; @ignore
   ;
   ; @description
+  ; Returns TRUE if the given 'body' is an error value that is present in the given 'allowed-errors' vector.
   ;
   ; @param (*) body
   ; @param (vector) allowed-errors
   ;
   ; @usage
   ; (error-allowed? :file-not-found [:file-not-found :permission-denied])
-  ;
-  ; @example
-  ; (error-allowed? :file-not-found [:file-not-found :permission-denied])
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (error-allowed? :file-not-found [:permission-denied])
   ; =>
   ; false

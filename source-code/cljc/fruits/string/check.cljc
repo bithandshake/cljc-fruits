@@ -107,7 +107,7 @@
 
 (defn lowercase?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) is in lowercase format.
+  ; Returns TRUE if the given 'n' string is in lowercase format.
   ;
   ; @param (*) n
   ;
@@ -131,7 +131,7 @@
 
 (defn uppercase?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) is in uppercase format.
+  ; Returns TRUE if the given 'n' string is in uppercase format.
   ;
   ; @param (*) n
   ;

@@ -12,18 +12,15 @@
   ;
   ; @usage
   ; (sign-number 123.456)
-  ;
-  ; @example
-  ; (sign-number 123.456)
   ; =>
   ; "+123.456"
   ;
-  ; @example
+  ; @usage
   ; (sign-number -123.456)
   ; =>
   ; "-123.456"
   ;
-  ; @example
+  ; @usage
   ; (sign-number 0)
   ; =>
   ; "0"
@@ -41,9 +38,6 @@
   ; Default: ","
   ;
   ; @usage
-  ; (group-number 123456.789)
-  ;
-  ; @example
   ; (group-number 123456.789)
   ; =>
   ; "123,456.789"
@@ -79,13 +73,10 @@
   ;
   ; @usage
   ; (leading-zeros "123" 6)
-  ;
-  ; @example
-  ; (leading-zeros "123" 6)
   ; =>
   ; "000123"
   ;
-  ; @example
+  ; @usage
   ; (leading-zeros 123 3)
   ; =>
   ; "123"
@@ -105,13 +96,10 @@
   ;
   ; @usage
   ; (remove-leading-zeros "000123")
-  ;
-  ; @example
-  ; (remove-leading-zeros "000123")
   ; =>
   ; "123"
   ;
-  ; @example
+  ; @usage
   ; (remove-leading-zeros "-000123")
   ; =>
   ; "-123"
@@ -131,9 +119,6 @@
   ; @param (integer)(opt) length
   ;
   ; @usage
-  ; (trailing-zeros "123" 6)
-  ;
-  ; @example
   ; (trailing-zeros "123" 6)
   ; =>
   ; "123000"
@@ -158,18 +143,15 @@
   ;
   ; @usage
   ; (decimals "123" 3)
-  ;
-  ; @example
-  ; (decimals "123" 3)
   ; =>
   ; "123.000"
   ;
-  ; @example
+  ; @usage
   ; (decimals "123.0000" 3)
   ; =>
   ; "123.000"
   ;
-  ; @example
+  ; @usage
   ; (decimals nil 3)
   ; =>
   ; ""
@@ -192,24 +174,21 @@
   ; @param (number or string) n
   ;
   ; @usage
-  ; (round 1234)
-  ;
-  ; @example
   ; (round 1740)
   ; =>
   ; "1.7K"
   ;
-  ; @example
+  ; @usage
   ; (round 2023)
   ; =>
   ; "2K"
   ;
-  ; @example
+  ; @usage
   ; (round 1000420)
   ; =>
   ; "1M"
   ;
-  ; @example
+  ; @usage
   ; (round 1000420069)
   ; =>
   ; "1B"
@@ -220,6 +199,7 @@
                         (-> % (string/keep-range 0 -1))
                         (-> % (string/insert-part "." -1))))
           ; A divided negative number can be 'ratio' type that cannot be rounded by the 'Math/round' function.
+          ; Therefore, it has to be converted to double type.
           (f1 [%] (cond (>= %  1000000000) (str (-> % (/ 100000000)        Math/round f0) "B")
                         (>= %  1000000)    (str (-> % (/    100000)        Math/round f0) "M")
                         (>= %  1000)       (str (-> % (/       100)        Math/round f0) "K")

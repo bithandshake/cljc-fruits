@@ -5,21 +5,24 @@
 ;; ----------------------------------------------------------------------------
 
 (defn prepend
+  ; @description
+  ; Prepends the given 'x' keyword to the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ; @param (keyword) x
   ; @param (string)(opt) delimiter
   ;
-  ; @example
+  ; @usage
   ; (prepend :a :b)
   ; =>
   ; :ba
   ;
-  ; @example
+  ; @usage
   ; (prepend :a/b :c)
   ; =>
   ; :a/cb
   ;
-  ; @example
+  ; @usage
   ; (prepend :a/b :c "--")
   ; =>
   ; :a/c--b
@@ -40,21 +43,24 @@
            (keyword (str (name x) delimiter (name n))))))
 
 (defn append
+  ; @description
+  ; Appends the given 'x' keyword to the given 'n' keyword.
+  ;
   ; @param (keyword) n
   ; @param (keyword) x
   ; @param (string)(opt) delimiter
   ;
-  ; @example
+  ; @usage
   ; (append :a :b)
   ; =>
   ; :ab
   ;
-  ; @example
+  ; @usage
   ; (append :a/b :c)
   ; =>
   ; :a/bc
   ;
-  ; @example
+  ; @usage
   ; (append :a/b :c "--")
   ; =>
   ; :a/b--c

@@ -1,17 +1,29 @@
 
 (ns fruits.loop.api
-    (:require [fruits.loop.core :as core]))
+    (:require [fruits.loop.walk :as walk]
+              [fruits.loop.pairs :as pairs]
+              [fruits.loop.do :as do]
+              [fruits.loop.reduce :as reduce]
+              [fruits.loop.some :as some]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.loop.core)
-(def <-walk            core/<-walk)
-(def reduce-kv-indexed core/reduce-kv-indexed)
-(def reduce-range      core/reduce-range)
-(def reduce-indexed    core/reduce-indexed)
-(def some-indexed      core/some-indexed)
-(def do-indexed        core/do-indexed)
-(def do-while          core/do-while)
-(def reduce-pairs      core/reduce-pairs)
-(def apply-pairs       core/apply-pairs)
+; @redirect (fruits.loop.do/*)
+(def do-indexed do/do-indexed)
+(def do-while   do/do-while)
+
+; @redirect (fruits.loop.pairs/*)
+(def reduce-pairs pairs/reduce-pairs)
+(def apply-pairs  pairs/apply-pairs)
+
+; @redirect (fruits.loop.reduce/*)
+(def reduce-kv-indexed reduce/reduce-kv-indexed)
+(def reduce-range      reduce/reduce-range)
+(def reduce-indexed    reduce/reduce-indexed)
+
+; @redirect (fruits.loop.some/*)
+(def some-indexed some/some-indexed)
+
+; @redirect (fruits.loop.walk/*)
+(def <-walk walk/<-walk)

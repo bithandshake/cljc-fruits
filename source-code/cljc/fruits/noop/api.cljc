@@ -1,11 +1,14 @@
 
 (ns fruits.noop.api
-    (:require [fruits.noop.core :as core]))
+    (:require [fruits.noop.last :as last]
+              [fruits.noop.null :as null]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.noop.core)
-(def param  core/param)
-(def return core/return)
-(def none   core/none)
+; @redirect (fruits.noop.last/*)
+(def param  last/param)
+(def return last/return)
+
+; @redirect (fruits.noop.null/*)
+(def none null/none)

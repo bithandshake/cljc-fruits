@@ -5,14 +5,14 @@
 ;; ----------------------------------------------------------------------------
 
 (defn to-string
+  ; @description
+  ; Returns the content of the given 'n' HICCUP value as a string.
+  ;
   ; @param (hiccup) n
   ; @param (string)(opt) delimiter
   ; Default: " "
   ;
   ; @usage
-  ; (to-string [:div "Hello" [:strong "World!"]])
-  ;
-  ; @example
   ; (to-string [:div "Hello" [:strong "World!"]])
   ; =>
   ; "Hello World!"

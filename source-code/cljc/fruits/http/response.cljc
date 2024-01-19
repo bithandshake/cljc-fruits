@@ -10,13 +10,10 @@
   ;
   ; @usage
   ; (response->info? {:body "..." :status 100})
-  ;
-  ; @example
-  ; (response->info? {:body "..." :status 100})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (response->info? {:body "..." :status 200})
   ; =>
   ; false
@@ -30,13 +27,10 @@
   ;
   ; @usage
   ; (response->success? {:body "..." :status 200})
-  ;
-  ; @example
-  ; (response->success? {:body "..." :status 200})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (response->success? {:body "..." :status 404})
   ; =>
   ; false
@@ -50,13 +44,10 @@
   ;
   ; @usage
   ; (response->redirected? {:body "..." :status 301})
-  ;
-  ; @example
-  ; (response->redirected? {:body "..." :status 301})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (response->redirected? {:body "..." :status 404})
   ; =>
   ; false
@@ -70,13 +61,10 @@
   ;
   ; @usage
   ; (response->client-error? {:body "..." :status 429})
-  ;
-  ; @example
-  ; (response->client-error? {:body "..." :status 429})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (response->client-error? {:body "..." :status 500})
   ; =>
   ; false
@@ -90,13 +78,10 @@
   ;
   ; @usage
   ; (response->server-error? {:body "..." :status 500})
-  ;
-  ; @example
-  ; (response->server-error? {:body "..." :status 500})
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (response->server-error? {:body "..." :status 404})
   ; =>
   ; false

@@ -6,12 +6,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defn content-length
+  ; @description
+  ; Returns the length of content within the given 'n' HICCUP value.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (content-length [:div "Hello World!"])
-  ;
-  ; @example
   ; (content-length [:div "Hello World!"])
   ; =>
   ; 12

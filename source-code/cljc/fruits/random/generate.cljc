@@ -12,9 +12,6 @@
   ;
   ; @usage
   ; (generate-boolean)
-  ;
-  ; @example
-  ; (generate-boolean)
   ; =>
   ; true
   ;
@@ -24,30 +21,24 @@
 
 (defn generate-uuid
   ; @description
-  ; Returns a randomly generated UUID.
+  ; Returns a randomly generated UUID string.
   ;
   ; @usage
-  ; (generate-uuid)
-  ;
-  ; @example
   ; (generate-uuid)
   ; =>
   ; "ko4983l3-i8790-j93l3-lk8385u591o2"
   ;
   ; @return (string)
   []
-  ; BUG#5570 (source-code/cljc/fruits/random/config.cljc)
+  ; @bug (fruits.random.config#5570)
   #?(:cljs (str config/NAME-PREFIX (random-uuid))
      :clj  (str config/NAME-PREFIX (java.util.UUID/randomUUID))))
 
 (defn generate-string
   ; @description
-  ; Returns a randomly generated string UUID.
+  ; Returns a randomly generated UUID string.
   ;
   ; @usage
-  ; (generate-string)
-  ;
-  ; @example
   ; (generate-string)
   ; =>
   ; "ko4983l3-i8790-j93l3-lk8385u591o2"
@@ -58,19 +49,16 @@
 
 (defn generate-keyword
   ; @description
-  ; Returns a randomly generated keyword UUID.
+  ; Returns a randomly generated UUID keyword.
   ;
   ; @param (string)(opt) namespace
   ;
   ; @usage
   ; (generate-keyword)
-  ;
-  ; @example
-  ; (generate-keyword)
   ; =>
   ; :ko4983l3-i8790-j93l3-lk8385u591o2
   ;
-  ; @example
+  ; @usage
   ; (generate-keyword :my-namespace)
   ; =>
   ; :my-namespace/ko4983l3-i8790-j93l3-lk8385u591o2
@@ -84,31 +72,25 @@
 
 (defn generate-namespaced-keyword
   ; @description
-  ; Returns a randomly generated namespaced keyword UUID.
+  ; Returns a randomly generated namespaced UUID keyword.
   ;
   ; @usage
-  ; (generate-namespaced-keyword)
-  ;
-  ; @example
   ; (generate-namespaced-keyword)
   ; =>
   ; :ko4983l3-i8790-j93l3-lk8385u591o2/ab5069i3-z8700-l89z6-op4450p510p4
   ;
   ; @return (namespaced keyword)
   []
-  ; BUG#5570 (source-code/cljc/fruits/random/config.cljc)
+  ; @bug (fruits.random.config#5570)
   (keyword (str (generate-uuid) "/" (str config/NAME-PREFIX (generate-uuid)))))
 
 (defn generate-number
   ; @description
-  ; Returns a randomly generated integer with the given length
+  ; Returns a randomly generated integer.
   ;
   ; @param (integer) digits
   ;
   ; @usage
-  ; (generate-number 5)
-  ;
-  ; @example
   ; (generate-number 3)
   ; =>
   ; 420

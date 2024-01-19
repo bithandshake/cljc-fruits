@@ -1,9 +1,9 @@
 
 (ns fruits.namespace.api
-    (:require [fruits.namespace.core :as core]))
+    (:require [fruits.namespace.detect :as detect]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.namespace.core)
-(def detect core/detect)
+; @redirect (fruits.namespace.detect/*)
+(def detect detect/detect)

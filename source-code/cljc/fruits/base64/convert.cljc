@@ -10,9 +10,6 @@
   ;
   ; @usage
   ; (to-header "data:application/pdf;base64,...")
-  ;
-  ; @example
-  ; (to-header "data:application/pdf;base64,...")
   ; =>
   ; "data:application/pdf;base64,"
   ;
@@ -26,9 +23,6 @@
   ;
   ; @usage
   ; (to-body "data:application/pdf;base64,...")
-  ;
-  ; @example
-  ; (to-body "data:application/pdf;base64,...")
   ; =>
   ; "..."
   ;
@@ -41,9 +35,6 @@
   ; @param (string) base64
   ;
   ; @usage
-  ; (to-mime-type "data:application/pdf;base64,...")
-  ;
-  ; @example
   ; (to-mime-type "data:application/pdf;base64,...")
   ; =>
   ; "application/pdf"

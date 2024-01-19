@@ -7,7 +7,7 @@
 
 (defn column-count
   ; @description
-  ; Returns how many columns need to display the given amount of items
+  ; Returns how many columns needed to display the given amount of items
   ; considering the column width, the maximum column count and the maximum
   ; displaying width.
   ;
@@ -18,23 +18,20 @@
   ;
   ; @usage
   ; (column-count 13 200 8 1980)
-  ;
-  ; @example
-  ; (column-count 13 200 8 1980)
   ; =>
   ; 8
   ;
-  ; @example
+  ; @usage
   ; (column-count 13 200 8 1240)
   ; =>
   ; 6
   ;
-  ; @example
+  ; @usage
   ; (column-count 2 200 8 1980)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (column-count 0 200 8 1980)
   ; =>
   ; 0
@@ -47,7 +44,7 @@
 
 (defn columns-width
   ; @description
-  ; Uses the 'column-count' function to determine how many columns need to display
+  ; Uses the 'column-count' function to determine how many columns needed to display
   ; a certain amount of items and returns the total width of the columns.
   ;
   ; @param (integer) item-count
@@ -55,22 +52,22 @@
   ; @param (integer) max-column-count
   ; @param (px) max-width
   ;
-  ; @example
+  ; @usage
   ; (columns-width 13 200 8 1980)
   ; =>
   ; 1600
   ;
-  ; @example
+  ; @usage
   ; (columns-width 13 200 8 1240)
   ; =>
   ; 1200
   ;
-  ; @example
+  ; @usage
   ; (columns-width 2 200 8 1980)
   ; =>
   ; 400
   ;
-  ; @example
+  ; @usage
   ; (columns-width 0 200 8 1980)
   ; =>
   ; 0
@@ -85,7 +82,7 @@
 
 (defn row-count
   ; @description
-  ; Uses the 'column-count' function to determine how many rows need to display
+  ; Uses the 'column-count' function to determine how many rows needed to display
   ; a certain amount of items.
   ;
   ; @param (integer) item-count
@@ -95,23 +92,20 @@
   ;
   ; @usage
   ; (row-count 13 200 8 1980)
-  ;
-  ; @example
-  ; (row-count 13 200 8 1980)
   ; =>
   ; 8
   ;
-  ; @example
+  ; @usage
   ; (row-count 13 200 8 1240)
   ; =>
   ; 6
   ;
-  ; @example
+  ; @usage
   ; (row-count 2 200 8 1980)
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (row-count 0 200 8 1980)
   ; =>
   ; 0

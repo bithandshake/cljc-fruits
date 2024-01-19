@@ -6,28 +6,28 @@
 ;; ----------------------------------------------------------------------------
 
 (defn remove-part
-  ; @param (*) n
+  ; @description
+  ; Removes every occurence of the given 'x' value from the given 'n' string.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
   ;
   ; @usage
   ; (remove-part "abc" "b")
-  ;
-  ; @example
-  ; (remove-part "abc" "b")
   ; =>
   ; "ac"
   ;
-  ; @example
+  ; @usage
   ; (remove-part "abc abc" "b")
   ; =>
   ; "ac ac"
   ;
-  ; @example
+  ; @usage
   ; (remove-part "abc abc 123" #"\d")
   ; =>
   ; "abc abc "
   ;
-  ; @example
+  ; @usage
   ; (remove-part "///" "//")
   ; =>
   ; "/"
@@ -38,27 +38,24 @@
        (clojure.string/replace n x "")))
 
 (defn remove-first-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Removes the first occurence of the given 'x' string from the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
-  ;
-  ; @example
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "never")
+  ; (remove-first-occurence "abc abc 123" "abc")
   ; =>
-  ; "With insomnia, you're really awake; but you're never really asleep."
+  ; " abc 123"
   ;
-  ; @example
-  ; (remove-first-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                         "abc")
+  ; @usage
+  ; (remove-first-occurence "abc abc 123" "def")
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abc abc 123"
   ;
   ; @return (string)
   ([n x]
@@ -78,27 +75,24 @@
                                   (-> x str clojure.string/lower-case))))))
 
 (defn remove-last-occurence
-  ; @param (*) n
-  ; @param (*) x
+  ; @description
+  ; Removes the last occurence of the given 'x' string from the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:case-sensitive? (boolean)(opt)
   ;   Default: true}
   ;
   ; @usage
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
-  ;
-  ; @example
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "never")
+  ; (remove-last-occurence "abc abc 123" "abc")
   ; =>
-  ; "With insomnia, you're never really awake; but you're really asleep."
+  ; "abc  123"
   ;
-  ; @example
-  ; (remove-last-occurence "With insomnia, you're never really awake; but you're never really asleep."
-  ;                        "abc")
+  ; @usage
+  ; (remove-last-occurence "abc abc 123" "def")
   ; =>
-  ; "With insomnia, you're never really awake; but you're never really asleep."
+  ; "abc abc 123"
   ;
   ; @return (string)
   ([n x]

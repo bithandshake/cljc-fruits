@@ -13,13 +13,10 @@
   ;
   ; @usage
   ; (to-integer "420")
-  ;
-  ; @example
-  ; (to-integer "420")
   ; =>
   ; 420
   ;
-  ; @example
+  ; @usage
   ; (to-integer 420)
   ; =>
   ; 420
@@ -33,14 +30,11 @@
 
 (defn to-capitalized
   ; @description
-  ; Makes the given 'n' value (converted to string) capitalized.
+  ; Makes the given 'n' string capitalized.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (to-capitalized "abc")
-  ;
-  ; @example
   ; (to-capitalized "abc")
   ; =>
   ; "Abc"
@@ -51,14 +45,11 @@
 
 (defn to-uppercase
   ; @description
-  ; Makes the given 'n' value (converted to string) uppercase.
+  ; Makes the given 'n' string uppercase.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (to-uppercase "abc")
-  ;
-  ; @example
   ; (to-uppercase "abc")
   ; =>
   ; "ABC"
@@ -69,14 +60,11 @@
 
 (defn to-lowercase
   ; @description
-  ; Makes the given 'n' value (converted to string) lowercase.
+  ; Makes the given 'n' string lowercase.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (to-lowercase "ABC")
-  ;
-  ; @example
   ; (to-lowercase "ABC")
   ; =>
   ; "abc"
@@ -89,7 +77,7 @@
   ; @description
   ; Converts the given 'n' string into a NIL value.
 
-  ; @param (*) n
+  ; @param (string) n
   ; @param (map)(opt) options
   ; {:if-empty? (boolean)(opt)
   ;   Converts only if the given 'n' string is empty.
@@ -97,13 +85,10 @@
   ;
   ; @usage
   ; (to-nil "")
-  ;
-  ; @example
-  ; (to-nil "")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-nil "abc")
   ; =>
   ; "abc"

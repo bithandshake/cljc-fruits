@@ -4,39 +4,39 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn count-occurences
-  ; @param (*) n
-  ; @param (*) x
+(defn occurence-count
+  ; @description
+  ; Returns the occurence count of the given 'x' string in the given 'n' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (map)(opt) options
   ; {:separate-matches? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
-  ; (count-occurences "abc" "a")
-  ;
-  ; @example
-  ; (count-occurences "abca" "a")
+  ; (occurence-count "abca" "a")
   ; =>
   ; 2
   ;
-  ; @example
-  ; (count-occurences "abca" "ab")
+  ; @usage
+  ; (occurence-count "abca" "ab")
   ; =>
   ; 1
   ;
-  ; @example
-  ; (count-occurences "aaaa" "aa")
+  ; @usage
+  ; (occurence-count "aaaa" "aa")
   ; =>
   ; 3
   ;
-  ; @example
-  ; (count-occurences "aaaa" "aa" {:separate-matches? true})
+  ; @usage
+  ; (occurence-count "aaaa" "aa" {:separate-matches? true})
   ; =>
   ; 2
   ;
   ; @return (integer)
   ([n x]
-   (count-occurences n x {}))
+   (occurence-count n x {}))
 
   ([n x {:keys [separate-matches?]}]
    (let [n (str n)
@@ -57,78 +57,78 @@
                ; ...
                (f0 0 0)))))
 
-(defn min-occurence?
-  ; @param (*) n
-  ; @param (*) x
+(defn occurence-min?
+  ; @description
+  ; Returns TRUE, if the given 'x' string has at least many occurence in the given 'n' string as the given 'min' value.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer) min
   ; @param (map)(opt) options
   ; {:separate-matches? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
-  ; (min-occurence? "abc" "a" 1)
-  ;
-  ; @example
-  ; (min-occurence? "abc abc" "a" 2)
+  ; (occurence-min? "abc abc" "a" 2)
   ; =>
   ; true
   ;
-  ; @example
-  ; (min-occurence? "abc abc" "a" 3)
+  ; @usage
+  ; (occurence-min? "abc abc" "a" 3)
   ; =>
   ; false
   ;
-  ; @example
-  ; (min-occurence? "aaaa" "aa" 3)
+  ; @usage
+  ; (occurence-min? "aaaa" "aa" 3)
   ; =>
   ; true
   ;
-  ; @example
-  ; (min-occurence? "aaaa" "aa" 3 {:separate-matches? true})
+  ; @usage
+  ; (occurence-min? "aaaa" "aa" 3 {:separate-matches? true})
   ; =>
   ; false
   ;
   ; @return (boolean)
   ([n x min]
-   (min-occurence? n x min {}))
+   (occurence-min? n x min {}))
 
   ([n x min options]
-   (<= min (count-occurences n x options))))
+   (<= min (occurence-count n x options))))
 
-(defn max-occurence?
-  ; @param (*) n
-  ; @param (*) x
+(defn occurence-max?
+  ; @description
+  ; Returns TRUE, if the given 'x' string has at most many occurence in the given 'n' string as the given 'max' value.
+  ;
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer) max
   ; @param (map)(opt) options
   ; {:separate-matches? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
-  ; (max-occurence? "abc" "a" 1)
-  ;
-  ; @example
-  ; (max-occurence? "abc abc" "a" 2)
+  ; (occurence-max? "abc abc" "a" 2)
   ; =>
   ; true
   ;
-  ; @example
-  ; (max-occurence? "abc abc abc" "a" 2)
+  ; @usage
+  ; (occurence-max? "abc abc abc" "a" 2)
   ; =>
   ; false
   ;
-  ; @example
-  ; (max-occurence? "aaaa" "aa" 2)
+  ; @usage
+  ; (occurence-max? "aaaa" "aa" 2)
   ; =>
   ; false
   ;
-  ; @example
-  ; (max-occurence? "aaaa" "aa" 2 {:separate-matches? true})
+  ; @usage
+  ; (occurence-max? "aaaa" "aa" 2 {:separate-matches? true})
   ; =>
   ; true
   ;
   ; @return (boolean)
   ([n x max]
-   (max-occurence? n x max {}))
+   (occurence-max? n x max {}))
 
   ([n x max options]
-   (>= max (count-occurences n x options))))
+   (>= max (occurence-count n x options))))

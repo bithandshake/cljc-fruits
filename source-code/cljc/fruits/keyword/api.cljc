@@ -10,24 +10,24 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.keyword.check)
-(def namespaced?    check/namespaced?)
-(def nonnamespaced? check/nonnamespaced?)
+; @redirect (fruits.keyword.check/*)
+(def namespaced?     check/namespaced?)
+(def not-namespaced? check/not-namespaced?)
 
-; @redirect (fruits.keyword.convert)
+; @redirect (fruits.keyword.convert/*)
 (def to-string convert/to-string)
 
-; @redirect (fruits.keyword.insert)
+; @redirect (fruits.keyword.insert/*)
 (def prepend insert/prepend)
 (def append  insert/append)
 
-; @redirect (fruits.keyword.name)
+; @redirect (fruits.keyword.name/*)
 (def get-name name/get-name)
 
-; @redirect (fruits.keyword.namespace)
+; @redirect (fruits.keyword.namespace/*)
 (def add-namespace    namespace/add-namespace)
 (def get-namespace    namespace/get-namespace)
 (def remove-namespace namespace/remove-namespace)
 
-; @redirect (fruits.keyword.set)
+; @redirect (fruits.keyword.set/*)
 (def join set/join)

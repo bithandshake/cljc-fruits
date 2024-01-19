@@ -7,43 +7,39 @@
 
 (defn first-dex-of
   ; @description
-  ; Returns the index of the first occurence of the given 'x' value (converted to string)
-  ; in the given 'n' value (converted to string).
+  ; Returns the index of the first occurence of the given 'x' string in the given 'n' string.
   ;
-  ; @param (*) n
-  ; @param (*) x
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer)(opt) offset
   ; Default: 0
   ;
   ; @usage
   ; (first-dex-of "abc abc" "a")
-  ;
-  ; @example
-  ; (first-dex-of "abc abc" "a")
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of "abc abc" "")
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of "abc abc" nil)
   ; =>
   ; 0
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of "abc abc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of [[]] "]")
   ; =>
   ; 2
   ;
-  ; @example
+  ; @usage
   ; (first-dex-of "abc - abc" "a")
   ; =>
   ; 6
@@ -59,43 +55,39 @@
 
 (defn last-dex-of
   ; @description
-  ; Returns the index of the last occurence of the given 'x' value (converted to string)
-  ; in the given 'n' value (converted to string).
+  ; Returns the index of the last occurence of the given 'x' string in the given 'n' string.
   ;
-  ; @param (*) n
-  ; @param (*) x
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer)(opt) offset
   ; Default: 0
   ;
   ; @usage
   ; (last-dex-of "abc abc" "a")
-  ;
-  ; @example
-  ; (last-dex-of "abc abc" "a")
   ; =>
   ; 4
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of "abc abc" "")
   ; =>
   ; 7
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of "abc abc" nil)
   ; =>
   ; 7
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of "abc abc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of [[]] "]")
   ; =>
   ; 3
   ;
-  ; @example
+  ; @usage
   ; (last-dex-of "abc - abc" "a")
   ; =>
   ; 0
@@ -111,23 +103,20 @@
 
 (defn nth-dex-of
   ; @description
-  ; Returns the index of the nth occurence of the given 'x' value (converted to string) in the given 'n' value (converted to string).
+  ; Returns the index of the nth occurence of the given 'x' string in the given 'n' string.
   ;
-  ; @param (*) n
-  ; @param (*) x
+  ; @param (string) n
+  ; @param (string) x
   ; @param (integer) th
   ; @param (integer)(opt) offset
   ; Default: 0
   ;
   ; @usage
-  ; (nth-dex-of "abc abc" "a" 1)
-  ;
-  ; @example
   ; (nth-dex-of "abc abc abc" "a" 1)
   ; =>
   ; 4
   ;
-  ; @example
+  ; @usage
   ; (nth-dex-of "abc - abc - abc" "a" 2 3)
   ; =>
   ; 12

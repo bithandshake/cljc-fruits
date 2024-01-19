@@ -1,5 +1,5 @@
 
-(ns fruits.reader.read
+(ns fruits.reader.parse
     #?(:clj  (:require [clojure.edn           :as edn]
                        [fruits.reader.prepare :as prepare])
        :cljs (:require [cljs.reader           :as reader]
@@ -8,57 +8,59 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn read-edn
-  ; @description
-  ; Reads one object from the given 'n' string.
+(defn parse-edn
+  ; @note
   ; http://edn-format.org
+  ;
+  ; @description
+  ; Parses the given 'n' EDN string.
   ;
   ; @param (string) n
   ;
-  ; @example
-  ; (read-edn "")
+  ; @usage
+  ; (parse-edn "")
   ; =>
   ; nil
   ;
-  ; @example
-  ; (read-edn ":foo")
+  ; @usage
+  ; (parse-edn ":foo")
   ; =>
   ; :foo
   ;
-  ; @example
-  ; (read-edn "{:foo :bar}")
+  ; @usage
+  ; (parse-edn "{:foo :bar}")
   ; =>
   ; {:foo :bar}
   ;
-  ; @example
-  ; (read-edn "[:foo]")
+  ; @usage
+  ; (parse-edn "[:foo]")
   ; =>
   ; [:foo]
   ;
   ; @return (nil, keyword, map, number, seqable (e.g., string, vector, etc.))
   [n]
-  (letfn [(read-edn-f [%] #?(:cljs (try (-> % str reader/read-string) (catch :default  e (println e)))
-                             :clj  (try (-> % str edn/read-string)    (catch Exception e (println e)))))]
-         (let [output (-> n prepare/prepare-edn read-edn-f)]
+  (letfn [(parse-edn-f [%] #?(:cljs (try (-> % str reader/read-string) (catch :default  e (println e)))
+                              :clj  (try (-> % str edn/read-string)    (catch Exception e (println e)))))]
+         (let [output (-> n prepare/prepare-edn parse-edn-f)]
               (if (some #(% output) [boolean? keyword? map? number? seqable?]) ; <- Avoids returning error objects
                   (-> output)))))
 
-(defn read-json
+(defn parse-json
+  ; @description
+  ; Parses the given 'n' JSON string.
+  ;
   ; @param (string) n
   ;
   ; @usage
-  ; (read-json "{\"name\":\"value\"}")
-  ;
-  ; @example
-  ; (read-json "{\"name\":\"value\"}")
+  ; (parse-json "{\"name\":\"value\"}")
   ; =>
   ; {"name" "value"}
   ;
-  ; @example
-  ; (read-json "{\"name\":[\"value\"]}")
+  ; @usage
+  ; (parse-json "{\"name\":[\"value\"]}")
   ; =>
   ; {"name" ["value"]}
   ;
   ; @return (map)
   [n]
-  (-> n prepare/prepare-json read-edn))
+  (-> n prepare/prepare-json parse-edn))

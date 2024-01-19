@@ -1,9 +1,10 @@
 
 (ns fruits.bson.api
-    (:require [fruits.bson.core :as core]))
+    (:require [fruits.bson.update :as update]))
+
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.bson.core)
-(def undot-key  core/undot-key)
-(def undot-keys core/undot-keys)
+; @redirect (fruits.bson.update/*)
+(def undot-key  update/undot-key)
+(def undot-keys update/undot-keys)

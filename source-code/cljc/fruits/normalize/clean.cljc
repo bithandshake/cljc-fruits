@@ -9,7 +9,7 @@
 
 (defn deaccent
   ; @description
-  ; Removes diacritical marks (accents) from the given 'n' string.
+  ; Removes the diacritical marks (accents) from the given 'n' string.
   ;
   ; @param (string) n
   ;
@@ -26,7 +26,7 @@
 
 (defn remove-special-chars
   ; @description
-  ; Removes special characters from the given 'n' string including accented characters.
+  ; Removes the special characters from the given 'n' string including accented characters.
   ;
   ; @param (string) n
   ; @param (string)(opt) exceptions
@@ -52,7 +52,7 @@
 
 (defn replace-blank-chars
   ; @description
-  ; Replaces blank characters / blank character groups in the given 'n' string with single hyphens.
+  ; Replaces the blank characters / blank character groups in the given 'n' string with single hyphens.
   ;
   ; @param (string) n
   ;
@@ -70,8 +70,8 @@
 
 (defn clean-text
   ; @description
-  ; Normalizes the given 'n' string by removing diacritical marks, removing special characters,
-  ; and blank characters, and converts the string to lowercase.
+  ; Normalizes the given 'n' string by removing the diacritical marks, removing the special characters,
+  ; and blank characters, and converting the result to lowercase.
   ;
   ; @param (*) n
   ; @param (string)(opt) exceptions

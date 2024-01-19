@@ -6,17 +6,14 @@
 ;; ----------------------------------------------------------------------------
 
 (defn length
-  ; @param (*) n
+  ; @param (string) n
   ;
   ; @usage
-  ; (length "One Flew Over the Cuckoo's Nest")
-  ;
-  ; @example
   ; (length "One Flew Over the Cuckoo's Nest")
   ; =>
   ; 31
   ;
-  ; @example
+  ; @usage
   ; (length [])
   ; =>
   ; 2
@@ -33,20 +30,17 @@
 
 (defn same-length?
   ; @description
-  ; Returns TRUE if the given 'a' and 'b' values (converted to string) have a the same length.
+  ; Returns TRUE if the given 'a' and 'b' strings have a the same length.
   ;
-  ; @param (*) a
-  ; @param (*) b
+  ; @param (string) a
+  ; @param (string) b
   ;
   ; @usage
-  ; (same-length? "abc" "def")
-  ;
-  ; @example
   ; (same-length? "abc" "def")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (same-length? "abc" "defghi")
   ; =>
   ; false
@@ -58,20 +52,17 @@
 
 (defn length-min?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) has a length that is not smaller than the given 'min'.
+  ; Returns TRUE if the given 'n' string has a length that is not smaller than the given 'min'.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) min
   ;
   ; @usage
   ; (length-min? "abc" 3)
-  ;
-  ; @example
-  ; (length-min? "abc" 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (length-min? "abc" 4)
   ; =>
   ; false
@@ -84,20 +75,17 @@
 
 (defn length-max?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) has a length that is not greater than the given 'max'.
+  ; Returns TRUE if the given 'n' string has a length that is not greater than the given 'max'.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) max
   ;
   ; @usage
   ; (length-max? "abc" 3)
-  ;
-  ; @example
-  ; (length-max? "abc" 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (length-max? "abc" 2)
   ; =>
   ; false
@@ -110,18 +98,18 @@
 
 (defn length-between?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) has a length between the given 'min' and 'max' values.
+  ; Returns TRUE if the given 'n' string has a length between the given 'min' and 'max' values.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) min
   ; @param (integer) max
   ;
-  ; @example
+  ; @usage
   ; (length-between? "abc" 3 4)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (length-between? "abc" 2 4)
   ; =>
   ; true
@@ -134,17 +122,17 @@
 
 (defn length?
   ; @description
-  ; Returns TRUE if the given 'n' value (converted to string) has the exact same length as the given 'length' value.
+  ; Returns TRUE if the given 'n' string has the exact same length as the given 'length' value.
   ;
-  ; @param (*) n
+  ; @param (string) n
   ; @param (integer) length
   ;
-  ; @example
+  ; @usage
   ; (length? "abc" 3)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (length? "abc" 2)
   ; =>
   ; false
@@ -158,24 +146,24 @@
 ;; ----------------------------------------------------------------------------
 
 (defn max-length
-  ; @param (*) n
+  ; @description
+  ; Ensures that the given 'n' string is not longer than the given 'limit' value.
+  ;
+  ; @param (string) n
   ; @param (integer) limit
-  ; @param (*)(opt) suffix
+  ; @param (string)(opt) suffix
   ;
   ; @usage
-  ; (max-length "One Flew Over the Cuckoo's Nest" 5)
-  ;
-  ; @example
   ; (max-length "One Flew Over the Cuckoo's Nest" 10)
   ; =>
   ; "One Flew O"
   ;
-  ; @example
+  ; @usage
   ; (max-length "One Flew Over the Cuckoo's Nest" 10 " ...")
   ; =>
   ; "One Flew O ..."
   ;
-  ; @example
+  ; @usage
   ; (max-length nil 10)
   ; =>
   ; ""

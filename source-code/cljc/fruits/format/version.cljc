@@ -13,19 +13,16 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (inc-version "0.0.1")
-  ;
-  ; @example
   ; (inc-version "1.2.19")
   ; =>
   ; "1.2.20"
   ;
-  ; @example
+  ; @usage
   ; (inc-version "0.0.99")
   ; =>
   ; "0.1.00"
   ;
-  ; @example
+  ; @usage
   ; (inc-version "9.9")
   ; =>
   ; "10.0"

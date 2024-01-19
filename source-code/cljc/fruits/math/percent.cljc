@@ -7,7 +7,12 @@
 (defn percent->angle
   ; @param (number) n
   ;
-  ; @example
+  ; @usage
+  ; (percent->angle 100)
+  ; =>
+  ; 360
+  ;
+  ; @usage
   ; (percent->angle 50)
   ; =>
   ; 180
@@ -20,7 +25,12 @@
   ; @param (number) total
   ; @param (number) value
   ;
-  ; @example
+  ; @usage
+  ; (percent 100 40)
+  ; =>
+  ; 40
+  ;
+  ; @usage
   ; (percent 50 20)
   ; =>
   ; 40
@@ -29,13 +39,16 @@
   [total value]
   (/ value (/ total 100)))
 
-; TEMP
-; What's the real name of this?
 (defn percent-result
   ; @param (number) total
   ; @param (number) percentage
   ;
-  ; @example
+  ; @usage
+  ; (percent 100 20)
+  ; =>
+  ; 20
+  ;
+  ; @usage
   ; (percent 50 40)
   ; =>
   ; 20
@@ -48,7 +61,12 @@
   ; @param (number) total
   ; @param (number) percentage
   ;
-  ; @example
+  ; @usage
+  ; (percent-rest 100 70)
+  ; =>
+  ; 30
+  ;
+  ; @usage
   ; (percent-rest 50 40)
   ; =>
   ; 30
@@ -61,7 +79,12 @@
   ; @param (number) total
   ; @param (number) percentage
   ;
-  ; @example
+  ; @usage
+  ; (percent-add 100 40)
+  ; =>
+  ; 140
+  ;
+  ; @usage
   ; (percent-add 50 40)
   ; =>
   ; 70
@@ -74,22 +97,22 @@
   ; @param (number) a
   ; @param (number) b
   ;
-  ; @example
+  ; @usage
   ; (percent-diff 100 110)
   ; =>
   ; 10
   ;
-  ; @example
+  ; @usage
   ; (percent-diff 100 90)
   ; =>
   ; -10
   ;
-  ; @example
+  ; @usage
   ; (percent-diff 50 55)
   ; =>
   ; 10
   ;
-  ; @example
+  ; @usage
   ; (percent-diff 50 45)
   ; =>
   ; -10

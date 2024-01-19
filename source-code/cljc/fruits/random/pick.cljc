@@ -1,5 +1,6 @@
 
-(ns fruits.random.pick)
+(ns fruits.random.pick
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -11,19 +12,17 @@
   ; @param (vector) n
   ;
   ; @usage
-  ; (pick-vector-item [:a :b :c :d])
-  ;
-  ; @example
   ; (pick-vector-item [:a :b :c])
   ; =>
   ; :a
   ;
-  ; @example
+  ; @usage
   ; (pick-vector-item [:a :b :c])
   ; =>
   ; :c
   ;
   ; @return (*)
   [n]
-  ; Alternative: rand-nth
-  (nth n (-> n count rand-int)))
+  (let [n (mixed/to-vector n)]
+       ; Alternative: rand-nth
+       (nth n (-> n count rand-int))))

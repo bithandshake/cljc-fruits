@@ -9,9 +9,6 @@
   ;
   ; @usage
   ; (hiccup? [:div {:class :my-class}])
-  ;
-  ; @example
-  ; (hiccup? [:div {:class :my-class}])
   ; =>
   ; true
   ;
@@ -25,9 +22,6 @@
   ; @param (keyword) tag-name
   ;
   ; @usage
-  ; (tag-name? [:div "Hello World!"] :div)
-  ;
-  ; @example
   ; (tag-name? [:div "Hello World!"] :div)
   ; =>
   ; true

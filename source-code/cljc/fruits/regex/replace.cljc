@@ -6,14 +6,17 @@
 ;; ----------------------------------------------------------------------------
 
 (defn replace-match
-  ; @param (*) n
+  ; @description
+  ; Replaces matches of the given 'x' pattern in the given 'n' string with the given 'y' string.
+  ;
+  ; @param (string) n
   ; @param (regex pattern or string) x
-  ; @param (*) y
+  ; @param (string) y
   ; @param (map)(opt) options
   ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (replace-match "abc" #"[b]*" "x")
   ; =>
   ; "axc"

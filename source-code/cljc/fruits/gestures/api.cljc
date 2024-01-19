@@ -1,14 +1,17 @@
 
 (ns fruits.gestures.api
-    (:require [fruits.gestures.core :as core]
-              [fruits.gestures.type :as type]))
+    (:require [fruits.gestures.resolve :as resolve]
+              [fruits.gestures.type :as type]
+              [fruits.gestures.convert :as convert]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-; @redirect (fruits.gestures.core)
-(def item-label->copy-label core/item-label->copy-label)
-(def resolve-variable       core/resolve-variable)
+; @redirect (fruits.gestures.convert/*)
+(def item-label->copy-label convert/item-label->copy-label)
 
-; @redirect (fruits.gestures.type)
+; @redirect (fruits.gestures.resolve/*)
+(def resolve-variable resolve/resolve-variable)
+
+; @redirect (fruits.gestures.type/*)
 (def ordered-label? type/ordered-label?)

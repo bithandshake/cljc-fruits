@@ -6,30 +6,27 @@
 
 (defn abc?
   ; @description
-  ; Returns TRUE if the given 'a' and 'b' values (converted to string) are passed in alphabetical order.
+  ; Returns TRUE if the given 'a' and 'b' strings are passed in alphabetical order.
   ;
-  ; @param (*) a
-  ; @param (*) b
+  ; @param (string) a
+  ; @param (string) b
   ;
   ; @usage
-  ; (abc? "abc" "def")
-  ;
-  ; @example
   ; (abc? "abc" "def")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (abc? "abc" "abc")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (abc? 10 12)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (abc? "" "abc")
   ; =>
   ; true
@@ -42,36 +39,32 @@
 
 (defn abc
   ; @description
-  ; Takes the value 'a' (converted to string) and value 'b' (converted to string)
-  ; and returns the one that is less than in alphabetical order.
+  ; Takes the 'a' string and 'b' string and returns the one that is less than in alphabetical order.
   ;
-  ; @param (*) a
-  ; @param (*) b
+  ; @param (string) a
+  ; @param (string) b
   ;
   ; @usage
-  ; (abc "abc" "def")
-  ;
-  ; @example
   ; (abc "abc" "def")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (abc "def" "abc")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (abc "abc" "abc")
   ; =>
   ; "abc"
   ;
-  ; @example
+  ; @usage
   ; (abc 10 12)
   ; =>
   ; "10"
   ;
-  ; @example
+  ; @usage
   ; (abc "" "abc")
   ; =>
   ; ""

@@ -1,6 +1,7 @@
 
 (ns fruits.map.compare
-    (:require [clojure.data]))
+    (:require [clojure.data]
+              [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -15,13 +16,12 @@
   ;
   ; @usage
   ; (difference {:a "a" :b "b"} {:a "a"})
-  ;
-  ; @example
-  ; (difference {:a "a" :b "b"} {:a "a"})
   ; =>
   ; {:b "b"}
   ;
   ; @return (map)
   ; Key-value pairs present only in 'a' map.
   [a b]
-  (-> a (clojure.data/diff b) first))
+  (let [a (mixed/to-map a)
+        b (mixed/to-map b)]
+       (-> a (clojure.data/diff b) first)))

@@ -1,5 +1,5 @@
 
-(ns fruits.base64.core
+(ns fruits.base64.wrap
     (:require [fruits.string.api :as string]))
 
 ;; ----------------------------------------------------------------------------
@@ -11,18 +11,15 @@
   ;
   ; @usage
   ; (wrap "..." "application/pdf")
-  ;
-  ; @example
-  ; (wrap "..." "application/pdf")
   ; =>
   ; "data:application/pdf;base64,..."
   ;
-  ; @example
+  ; @usage
   ; (wrap "" "application/pdf")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (wrap nil "application/pdf")
   ; =>
   ; nil

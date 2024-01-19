@@ -1,6 +1,7 @@
 
 (ns fruits.map.key
-    (:refer-clojure :exclude [keys]))
+    (:refer-clojure :exclude [keys])
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -12,16 +13,14 @@
   ; @param (map) n
   ;
   ; @usage
-  ; (keys {:a "A" :b "B"})
-  ;
-  ; @example
   ; (keys {:a {:c "C"} :b "B"})
   ; =>
   ; [:a :b]
   ;
   ; @return (vector)
   [n]
-  (-> n clojure.core/keys vec))
+  (let [n (mixed/to-map n)]
+       (-> n clojure.core/keys vec)))
 
 (defn keys-by
   ; @description
@@ -31,20 +30,19 @@
   ; @param (function) f
   ;
   ; @usage
-  ; (keys-by {:a "A" :b :b} string?)
-  ;
-  ; @example
   ; (keys-by {:a "A" :b :b :c :c} string?)
   ; =>
   ; [:a]
   ;
   ; @return (vector)
   [n get-f]
-  (letfn [(f0 [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
-         (reduce-kv f0 [] n)))
+  (let [n     (mixed/to-map n)
+        get-f (mixed/to-ifn get-f)]
+       (letfn [(f0 [%1 %2 %3] (if (get-f %3) (conj %1 %2) %1))]
+              (reduce-kv f0 [] n))))
 
 (defn first-key
-  ; @important
+  ; @note
   ; Clojure maps are unordered data structures.
   ;
   ; @description
@@ -53,16 +51,14 @@
   ; @param (map) n
   ;
   ; @usage
-  ; (first-key {:a "A" :b "B"})
-  ;
-  ; @example
   ; (first-key {:a {:c "C"} :b "B"})
   ; =>
   ; :a
   ;
   ; @return (*)
   [n]
-  (-> n clojure.core/keys first))
+  (let [n (mixed/to-map n)]
+       (-> n clojure.core/keys first)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -75,68 +71,64 @@
   ; @param (*) k
   ;
   ; @usage
-  ; (contains-key? {:a "B" :b "B"} :a)
-  ;
-  ; @example
   ; (contains-key? {:a {:b "B"}} :a)
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-key? {:a {:b "B"}} :b)
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n k]
-  (contains? n k))
+  (let [n (mixed/to-map n)]
+       (contains? n k)))
 
 (defn contains-any-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains any value associated to a key from the given 'ks' vector.
+  ; Returns TRUE if the given 'n' map contains any value associated to any key from the given 'ks' vector.
   ;
   ; @param (map) n
   ; @param (* in vector) ks
   ;
   ; @usage
-  ; (contains-any-key? {:a "A" :b "B"} [:a])
-  ;
-  ; @example
   ; (contains-any-key? {:a {:b "B"} :c "C"} [:a])
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-any-key? {:a {:b "B"} :c "C"} [:a :b :c :d])
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (contains-any-key? {:a {:b "B"}} [:b :c :d])
   ; =>
   ; false
   ;
   ; @return (boolean)
   [n ks]
-  (letfn [(f0 [%] (contains? n %))]
-         (boolean (some f0 ks))))
+  (let [n  (mixed/to-map n)
+        ks (mixed/to-vector ks)]
+       (letfn [(f0 [%] (contains? n %))]
+              (boolean (some f0 ks)))))
 
 (defn contains-all-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains all values associated to a key from the given 'ks' vector.
+  ; Returns TRUE if the given 'n' map contains the values associated to all keys of the given 'ks' vector.
   ;
   ; @param (map) n
   ; @param (* in vector) ks
   ;
   ; @usage
   ; (contains-all-key? {:a "A" :b "B"} [:a :b])
-  ;
-  ; @example
-  ; (contains-all-key? {:a "A" :b "B"} [:a :b])
   ; =>
   ; true
   ;
   ; @return (boolean)
   [n ks]
-  (letfn [(f0 [%] (contains? n %))]
-         (every? ks f0)))
+  (let [n  (mixed/to-map n)
+        ks (mixed/to-vector ks)]
+       (letfn [(f0 [%] (contains? n %))]
+              (every? ks f0))))

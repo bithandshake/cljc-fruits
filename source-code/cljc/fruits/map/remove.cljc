@@ -1,10 +1,14 @@
 
-(ns fruits.map.remove)
+(ns fruits.map.remove
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn remove-key
+  ; @description
+  ; Removes a specific key (optionally recursively) from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (*) k
   ; @param (map)(opt) options
@@ -12,9 +16,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (remove-key {:a "A" :b "B"} :a)
-  ;
-  ; @example
   ; (remove-key {:a "A" :b "B"} :a)
   ; =>
   ; {:b "B"}
@@ -24,13 +25,17 @@
    (remove-key n k {}))
 
   ([n k {:keys [recur?] :as options}]
-   (letfn [(f0 [result ki v] (cond (-> ki (= k))   (-> result)
-                                   (-> recur? not) (-> result (assoc ki v))
-                                   (-> v map?)     (-> result (assoc ki (remove-key v k options)))
-                                   :else           (-> result (assoc ki v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)]
+        (letfn [(f0 [result ki v] (cond (-> ki (= k))   (-> result)
+                                        (-> recur? not) (-> result (assoc ki v))
+                                        (-> v map?)     (-> result (assoc ki (remove-key v k options)))
+                                        :else           (-> result (assoc ki v))))]
+               (reduce-kv f0 {} n)))))
 
 (defn remove-keys
+  ; @description
+  ; Removes specific keys (optionally recursively) from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (vector) ks
   ; @param (map)(opt) options
@@ -38,9 +43,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (remove-keys {:a "A" :b "B" :c "C"} [:a :c])
-  ;
-  ; @example
   ; (remove-keys {:a "A" :b "B" :c "C"} [:a :c])
   ; =>
   ; {:b "B"}
@@ -50,23 +52,26 @@
    (remove-keys n ks {}))
 
   ([n ks {:keys [recur?] :as options}]
-   (letfn [(f0 [k] (some (fn [%] (= k %)) ks))
-           (f1 [result k v] (cond (-> k f0)       (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (remove-keys v ks options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f1 {} n))))
+   (let [n  (mixed/to-map n)
+         ks (mixed/to-vector ks)]
+        (letfn [(f0 [k] (some (fn [%] (= k %)) ks))
+                (f1 [result k v] (cond (-> k f0)       (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (remove-keys v ks options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
 
 (defn remove-keys-by
+  ; @description
+  ; Removes keys (optionally recursively) that match the given 'f' function from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
-  ; (remove-keys-by {0 "A" 1 "B" 2 "C"} even?)
-  ;
-  ; @example
+  ; @usage
   ; (remove-keys-by {0 "A" 1 "B" 2 "C"} even?)
   ; =>
   ; {1 "1"}
@@ -76,16 +81,20 @@
    (remove-keys-by n f {}))
 
   ([n f {:keys [recur?] :as options}]
-   (letfn [(f0 [result k v] (cond (-> k f)        (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (remove-keys-by v f options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)]
+        (letfn [(f0 [result k v] (cond (-> k f)        (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (remove-keys-by v f options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f0 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn remove-value
+  ; @description
+  ; Removes a specific value (optionally recursively) from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (*) v
   ; @param (map)(opt) options
@@ -93,9 +102,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (remove-value {:a "A" :b "B"} "A")
-  ;
-  ; @example
   ; (remove-value {:a "A" :b "B"} "A")
   ; =>
   ; {:b "B"}
@@ -105,13 +111,17 @@
    (remove-value n v {}))
 
   ([n v {:keys [recur?] :as options}]
-   (letfn [(f0 [result k vi] (cond (-> vi (= v))   (-> result)
-                                   (-> recur? not) (-> result (assoc k vi))
-                                   (-> vi map?)    (-> result (assoc k (remove-value vi v options)))
-                                   :else           (-> result (assoc k vi))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)]
+        (letfn [(f0 [result k vi] (cond (-> vi (= v))   (-> result)
+                                        (-> recur? not) (-> result (assoc k vi))
+                                        (-> vi map?)    (-> result (assoc k (remove-value vi v options)))
+                                        :else           (-> result (assoc k vi))))]
+               (reduce-kv f0 {} n)))))
 
 (defn remove-values
+  ; @description
+  ; Removes specific values (optionally recursively) from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (vector) vs
   ; @param (map)(opt) options
@@ -119,9 +129,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (remove-values {:a "A" :b "B" :c "C"} ["A" "C"])
-  ;
-  ; @example
   ; (remove-values {:a "A" :b "B" :c "C"} ["A" "C"])
   ; =>
   ; {:b "B"}
@@ -131,24 +138,26 @@
    (remove-values n vs {}))
 
   ([n vs {:keys [recur?] :as options}]
-   (letfn [(f0 [v] (some (fn [%] (= v %)) vs))
-           (f1 [result k v] (cond (-> v f0)       (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (remove-values v vs options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f1 {} n))))
+   (let [n  (mixed/to-map n)
+         vs (mixed/to-vector vs)]
+        (letfn [(f0 [v] (some (fn [%] (= v %)) vs))
+                (f1 [result k v] (cond (-> v f0)       (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (remove-values v vs options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
 
 (defn remove-values-by
+  ; @description
+  ; Removes values (optionally recursively) that match the given 'f' function from the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
-  ; @example
-  ; (remove-values-by {:a 0 :b 1 :c 2} even?)
-  ;
-  ; @example
+  ; @usage
   ; (remove-values-by {:a 0 :b 1 :c 2} even?)
   ; =>
   ; {:b 1}
@@ -158,16 +167,21 @@
    (remove-values-by n f {}))
 
   ([n f {:keys [recur?] :as options}]
-   (letfn [(f0 [result k v] (cond (-> v f)        (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (remove-values-by v f options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [result k v] (cond (-> v f)        (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (remove-values-by v f options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f0 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn keep-key
+  ; @description
+  ; Keeps only a specific key (optionally recursively) in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (*) k
   ; @param (map)(opt) options
@@ -175,9 +189,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (keep-key {:a "A" :b "B"} :a)
-  ;
-  ; @example
   ; (keep-key {:a "A" :b "B"} :a)
   ; =>
   ; {:a "A"}
@@ -187,13 +198,17 @@
    (keep-key n k {}))
 
   ([n k {:keys [recur?] :as options}]
-   (letfn [(f0 [result ki v] (cond (-> ki (not= k)) (-> result)
-                                   (-> recur? not)  (-> result (assoc ki v))
-                                   (-> v map?)      (-> result (assoc ki (keep-key v k options)))
-                                   :else            (-> result (assoc ki v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)]
+        (letfn [(f0 [result ki v] (cond (-> ki (not= k)) (-> result)
+                                        (-> recur? not)  (-> result (assoc ki v))
+                                        (-> v map?)      (-> result (assoc ki (keep-key v k options)))
+                                        :else            (-> result (assoc ki v))))]
+               (reduce-kv f0 {} n)))))
 
 (defn keep-keys
+  ; @description
+  ; Keeps only the given keys (optionally recursively) in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (vector) ks
   ; @param (map)(opt) options
@@ -201,9 +216,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (keep-keys {:a "A" :b "B" :c "C"} [:a :c])
-  ;
-  ; @example
   ; (keep-keys {:a "A" :b "B" :c "C"} [:a :c])
   ; =>
   ; {:a "A" :c "C"}
@@ -213,14 +225,19 @@
    (keep-keys n ks {}))
 
   ([n ks {:keys [recur?] :as options}]
-   (letfn [(f0 [k] (some (fn [%] (not= k %)) ks))
-           (f1 [result k v] (cond (-> k f0)       (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (keep-keys v ks options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f1 {} n))))
+   (let [n  (mixed/to-map n)
+         ks (mixed/to-vector ks)]
+        (letfn [(f0 [k] (some (fn [%] (not= k %)) ks))
+                (f1 [result k v] (cond (-> k f0)       (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (keep-keys v ks options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
 
 (defn keep-keys-by
+  ; @description
+  ; Keeps only the keys (optionally recursively) that match the given 'f' function in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
@@ -228,9 +245,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (keep-keys-by {0 "0" 1 "1" 2 "2"} even?)
-  ;
-  ; @example
   ; (keep-keys-by {0 "0" 1 "1" 2 "2"} even?)
   ; =>
   ; {0 "0" 2 "2"}
@@ -240,16 +254,21 @@
    (keep-keys-by n f {}))
 
   ([n f {:keys [recur?] :as options}]
-   (letfn [(f0 [result k v] (cond (-> k f not)    (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (keep-keys-by v f options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [result k v] (cond (-> k f not)    (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (keep-keys-by v f options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f0 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn keep-value
+  ; @description
+  ; Keeps only a specific value (optionally recursively) in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (*) v
   ; @param (map)(opt) options
@@ -257,9 +276,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (keep-value {:a "A" :b "B"} "A")
-  ;
-  ; @example
   ; (keep-value {:a "A" :b "B"} "A")
   ; =>
   ; {:a "A"}
@@ -269,13 +285,17 @@
    (keep-value n v {}))
 
   ([n v {:keys [recur?] :as options}]
-   (letfn [(f0 [result k vi] (cond (-> vi (not= v)) (-> result)
-                                   (-> recur? not)  (-> result (assoc k vi))
-                                   (-> vi map?)     (-> result (assoc k (keep-value vi v options)))
-                                   :else            (-> result (assoc k vi))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)]
+        (letfn [(f0 [result k vi] (cond (-> vi (not= v)) (-> result)
+                                        (-> recur? not)  (-> result (assoc k vi))
+                                        (-> vi map?)     (-> result (assoc k (keep-value vi v options)))
+                                        :else            (-> result (assoc k vi))))]
+               (reduce-kv f0 {} n)))))
 
 (defn keep-values
+  ; @description
+  ; Keeps only the given values (optionally recursively) in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (vector) vs
   ; @param (map)(opt) options
@@ -283,9 +303,6 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (keep-values {:a "A" :b "B" :c "C"} ["A" "C"])
-  ;
-  ; @example
   ; (keep-values {:a "A" :b "B" :c "C"} ["A" "C"])
   ; =>
   ; {:a "A" :c "C"}
@@ -295,24 +312,26 @@
    (keep-values n vs {}))
 
   ([n vs {:keys [recur?] :as options}]
-   (letfn [(f0 [v] (some (fn [%] (not= v %)) vs))
-           (f1 [result k v] (cond (-> v f0)       (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (keep-values v vs options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f1 {} n))))
+   (let [n  (mixed/to-map n)
+         vs (mixed/to-vector vs)]
+        (letfn [(f0 [v] (some (fn [%] (not= v %)) vs))
+                (f1 [result k v] (cond (-> v f0)       (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (keep-values v vs options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
 
 (defn keep-values-by
+  ; @description
+  ; Keeps only the values (optionally recursively) that match the given 'f' function in the given 'n' map.
+  ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:recur? (boolean)(opt)
   ;   Default: false}
   ;
-  ; @example
-  ; (keep-values-by {:a 0 :b 1 :c 2} even?)
-  ;
-  ; @example
+  ; @usage
   ; (keep-values-by {:a 0 :b 1 :c 2} even?)
   ; =>
   ; {:a 0 :c 2}
@@ -322,8 +341,10 @@
    (keep-values-by n f {}))
 
   ([n f {:keys [recur?] :as options}]
-   (letfn [(f0 [result k v] (cond (-> v f not)    (-> result)
-                                  (-> recur? not) (-> result (assoc k v))
-                                  (-> v map?)     (-> result (assoc k (keep-values-by v f options)))
-                                  :else           (-> result (assoc k v))))]
-          (reduce-kv f0 {} n))))
+   (let [n (mixed/to-map n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [result k v] (cond (-> v f not)    (-> result)
+                                       (-> recur? not) (-> result (assoc k v))
+                                       (-> v map?)     (-> result (assoc k (keep-values-by v f options)))
+                                       :else           (-> result (assoc k v))))]
+               (reduce-kv f0 {} n)))))

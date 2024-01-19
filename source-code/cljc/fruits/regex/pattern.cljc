@@ -5,9 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join-pattern
-  ; @param (list of strings) xyz
+  ; @param (list of regex patterns and/or strings) xyz
   ;
-  ; @example
+  ; @usage
   ; (join-pattern "(?<=abc)" "def")
   ; =>
   ; #"(?<=abc)def"

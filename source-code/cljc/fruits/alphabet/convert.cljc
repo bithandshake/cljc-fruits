@@ -12,28 +12,25 @@
   ;
   ; @usage
   ; (integer->lowercase 3)
-  ;
-  ; @example
-  ; (integer->lowercase 3)
   ; =>
   ; "c"
   ;
-  ; @example
+  ; @usage
   ; (integer->lowercase 26)
   ; =>
   ; "z"
   ;
-  ; @example
+  ; @usage
   ; (integer->lowercase 27)
   ; =>
   ; "aa"
   ;
-  ; @example
+  ; @usage
   ; (integer->lowercase 702)
   ; =>
   ; "zz"
   ;
-  ; @example
+  ; @usage
   ; (integer->lowercase 703)
   ; =>
   ; "aaa"
@@ -55,28 +52,25 @@
   ;
   ; @usage
   ; (integer->uppercase 3)
-  ;
-  ; @example
-  ; (integer->uppercase 3)
   ; =>
   ; "C"
   ;
-  ; @example
+  ; @usage
   ; (integer->uppercase 26)
   ; =>
   ; "Z"
   ;
-  ; @example
+  ; @usage
   ; (integer->uppercase 27)
   ; =>
   ; "AA"
   ;
-  ; @example
+  ; @usage
   ; (integer->uppercase 702)
   ; =>
   ; "ZZ"
   ;
-  ; @example
+  ; @usage
   ; (integer->uppercase 703)
   ; =>
   ; "AAA"

@@ -48,7 +48,7 @@
 
   ([n convert-f]
    (let [n         (mixed/to-vector n)
-         convert-f (mixed/to-fn convert-f)]
+         convert-f (mixed/to-ifn convert-f)]
         (letfn [(f0 [result dex x]
                     (let [kv (convert-f dex x)]
                          (if (mixed/kv? kv)

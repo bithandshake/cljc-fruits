@@ -10,6 +10,11 @@
   ;
   ; @param (*) n
   ;
+  ; @usage
+  ; (pattern? #"[a-z]")
+  ; =>
+  ; true
+  ;
   ; @return (boolean)
   [n]
   (= (-> n     type)
