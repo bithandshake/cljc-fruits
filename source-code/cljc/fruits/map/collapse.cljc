@@ -63,7 +63,7 @@
   ([n {:keys [inner-except-f outer-except-f keywordize? separator] :or {separator "."}}]
    (let [n (mixed/to-map n)]
         (letfn [; @description
-                ; Converts the given key into string type.
+                ; Converts the given key into string.
                 ;
                 ; @param (*) k
                 ;

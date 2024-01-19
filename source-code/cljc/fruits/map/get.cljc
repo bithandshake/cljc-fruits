@@ -26,5 +26,6 @@
   ;
   ; @return (*)
   [n path]
-  (let [n (mixed/to-map n)]
-       (get-in n (seqable/dynamic-path n path))))
+  (let [n    (mixed/to-map n)
+        path (seqable/dynamic-path n path)]
+       (get-in n path)))

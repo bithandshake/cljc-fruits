@@ -7,7 +7,7 @@
 
 (defn to-vector
   ; @description
-  ; Converts the given 'n' map to a vector.
+  ; Converts the given 'n' map into vector.
   ;
   ; @param (map) n
   ; @param (function)(opt) convert-f
@@ -37,9 +37,9 @@
 
 (defn to-nil
   ; @description
-  ; Converts the given 'n' map to a NIL value.
+  ; Converts the given 'n' map into NIL.
   ;
-  ; @param (vector) n
+  ; @param (map) n
   ; @param (map)(opt) options
   ; {:if-empty? (boolean)(opt)
   ;   Converts only if the given 'n' map is empty.
@@ -66,3 +66,77 @@
         (cond (-> n empty?)      (-> nil)
               (-> if-empty? not) (-> nil)
               :return n))))
+
+(defn to-associative
+  ; @description
+  ; Converts the given 'n' value into map, in case it does not implement the IAssociative protocol.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-associative {:a "A"})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (to-associative [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @usage
+  ; (to-associative nil)
+  ; =>
+  ; {}
+  ;
+  ; @usage
+  ; (to-associative "abc")
+  ; =>
+  ; {0 "abc"}
+  ;
+  ; @usage
+  ; (to-associative 123)
+  ; =>
+  ; {0 123}
+  ;
+  ; @return (map or associative *)
+  [n]
+  (cond (-> n associative?) (-> n)
+        (-> n nil?)         (-> {})
+        :else               (-> {0 n})))
+
+(defn to-seqable
+  ; @description
+  ; Converts the given 'n' value into map, in case it does not implement the ISeqable protocol.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-seqable {:a "A"})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (to-seqable [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @usage
+  ; (to-seqable nil)
+  ; =>
+  ; {}
+  ;
+  ; @usage
+  ; (to-seqable "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (to-seqable 123)
+  ; =>
+  ; {0 123}
+  ;
+  ; @return (map or seqable *)
+  [n]
+  (if (-> n seqable?)
+      (-> n)
+      (-> {0 n})))

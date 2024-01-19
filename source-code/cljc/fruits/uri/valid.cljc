@@ -43,7 +43,7 @@
   [n]
   ; The 'valid-url' function ...
   ; ... checks if the given 'n' string contains a valid domain.
-  ; ... converts the value into a lowercase string.
+  ; ... converts the value into lowercase string.
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol (if necessary).
   (if-let [hostname (convert/to-hostname n)]

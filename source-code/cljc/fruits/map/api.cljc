@@ -40,8 +40,10 @@
 (def difference compare/difference)
 
 ; @redirect (fruits.map.convert/*)
-(def to-vector convert/to-vector)
-(def to-nil    convert/to-nil)
+(def to-vector      convert/to-vector)
+(def to-nil         convert/to-nil)
+(def to-associative convert/to-associative)
+(def to-seqable     convert/to-seqable)
 
 ; @redirect (fruits.map.copy/*)
 (def copy    copy/copy)

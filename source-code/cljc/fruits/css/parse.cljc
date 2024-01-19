@@ -10,7 +10,7 @@
 
 (defn unparse
   ; @description
-  ; Converts the given inline style map to a CSS string.
+  ; Converts the given inline style map into CSS string.
   ;
   ; @param (map) n
   ;
@@ -30,7 +30,7 @@
 
 (defn parse
   ; @description
-  ; Converts the given CSS string to an inline style map.
+  ; Converts the given CSS string into inline style map.
   ;
   ; @param (string) n
   ;

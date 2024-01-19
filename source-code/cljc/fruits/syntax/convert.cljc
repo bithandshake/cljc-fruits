@@ -8,7 +8,7 @@
 
 (defn to-kebab-case
   ; @description
-  ; Converts the given 'n' string to kebab-case.
+  ; Converts the given 'n' string into kebab-case form string.
   ;
   ; @param (string) n
   ;
@@ -71,7 +71,7 @@
 
 (defn to-snake_case
   ; @description
-  ; Converts the given 'n' string to snake_case.
+  ; Converts the given 'n' string into snake_case form string.
   ;
   ; @param (string) n
   ;
@@ -134,7 +134,7 @@
 
 (defn to-CamelCase
   ; @description
-  ; Converts the given 'n' string to CamelCase.
+  ; Converts the given 'n' string into CamelCase form string.
   ;
   ; @param (string) n
   ;

@@ -7,7 +7,7 @@
 
 (defn from-subvec
   ; @description
-  ; Converts the given 'n' subvector into a vector.
+  ; Converts the given 'n' subvector into vector.
   ;
   ; @param (subvec) n
   ;
@@ -24,7 +24,7 @@
 
 (defn to-map
   ; @description
-  ; Converts the given 'n' vector into a map.
+  ; Converts the given 'n' vector into map.
   ;
   ; @param (vector) n
   ; @param (function)(opt) convert-f
@@ -58,7 +58,7 @@
 
 (defn to-nil
   ; @description
-  ; Converts the given 'n' vector into a NIL value.
+  ; Converts the given 'n' vector into NIL.
   ;
   ; @param (vector) n
   ; @param (map)(opt) options
@@ -87,3 +87,77 @@
         (cond (-> n empty?)       (-> nil)
               (-> if-empty? not)  (-> nil)
               :return n))))
+
+(defn to-associative
+  ; @description
+  ; Converts the given 'n' value into vector, in case it does not implement the IAssociative protocol.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-associative {:a "A"})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (to-associative [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @usage
+  ; (to-associative nil)
+  ; =>
+  ; []
+  ;
+  ; @usage
+  ; (to-associative "abc")
+  ; =>
+  ; ["abc"]
+  ;
+  ; @usage
+  ; (to-associative 123)
+  ; =>
+  ; [123]
+  ;
+  ; @return (vector or associative *)
+  [n]
+  (cond (-> n associative?) (-> n)
+        (-> n nil?)         (-> [])
+        :else               (-> [n])))
+
+(defn to-seqable
+  ; @description
+  ; Converts the given 'n' value into vector, in case it does not implement the ISeqable protocol.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-seqable {:a "A"})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (to-seqable [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @usage
+  ; (to-seqable nil)
+  ; =>
+  ; {}
+  ;
+  ; @usage
+  ; (to-seqable "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (to-seqable 123)
+  ; =>
+  ; [123]
+  ;
+  ; @return (map or seqable *)
+  [n]
+  (if (-> n seqable?)
+      (-> n)
+      (-> [n])))

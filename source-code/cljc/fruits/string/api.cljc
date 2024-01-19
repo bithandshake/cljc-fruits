@@ -73,6 +73,7 @@
 (def to-uppercase   convert/to-uppercase)
 (def to-lowercase   convert/to-lowercase)
 (def to-nil         convert/to-nil)
+(def to-seqable     convert/to-seqable)
 
 ; @redirect (fruits.string.cover/*)
 (def cover cover/cover)

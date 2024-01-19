@@ -52,9 +52,11 @@
 (def not-contains-item? contain/not-contains-item?)
 
 ; @redirect (fruits.vector.convert/*)
-(def from-subvec convert/from-subvec)
-(def to-map      convert/to-map)
-(def to-nil      convert/to-nil)
+(def from-subvec    convert/from-subvec)
+(def to-map         convert/to-map)
+(def to-nil         convert/to-nil)
+(def to-associative convert/to-associative)
+(def to-seqable     convert/to-seqable)
 
 ; @redirect (fruits.vector.count/*)
 (def count?      count/count?)

@@ -7,7 +7,7 @@
 
 (defn email-address
   ; @description
-  ; Converts the given email address to 'mailto' link.
+  ; Converts the given email address into 'mailto' link.
   ;
   ; @param (string) email-address
   ;
@@ -31,7 +31,7 @@
 
 (defn phone-number
   ; @description
-  ; Converts the given phone number to 'tel' link.
+  ; Converts the given phone number into 'tel' link.
   ;
   ; @param (integer or string) phone-number
   ;
@@ -48,7 +48,7 @@
 
 (defn google-maps-address
   ; @description
-  ; Converts the given address to Google Maps link.
+  ; Converts the given address into Google Maps link.
   ;
   ; @param (string) address
   ;
@@ -63,7 +63,7 @@
 
 (defn ftp-uri
   ; @description
-  ; Converts the given URI to FTP address.
+  ; Converts the given URI into FTP address.
   ;
   ; @param (string) uri
   ;
@@ -84,7 +84,7 @@
 
 (defn http-uri
   ; @description
-  ; Converts the given URI to HTTP address.
+  ; Converts the given URI into HTTP address.
   ;
   ; @param (string) uri
   ;
@@ -105,7 +105,7 @@
 
 (defn https-uri
   ; @description
-  ; Converts the given URI to HTTPS address.
+  ; Converts the given URI into HTTPS address.
   ;
   ; @param (string) uri
   ;

@@ -6,7 +6,7 @@
 
 (defn join
   ; @description
-  ; Joins the items of the given 'n' vector and converts the result to string.
+  ; Joins the items of the given 'n' vector and converts the result into string.
   ;
   ; @param (keywords or strings in vector) n
   ; @param (string)(opt) delimiter

@@ -7,7 +7,7 @@
 
 (defn to-integer
   ; @description
-  ; Converts the given 'n' string into an integer.
+  ; Converts the given 'n' string into integer.
   ;
   ; @param (integer or string) n
   ;
@@ -30,9 +30,9 @@
 
 (defn to-capitalized
   ; @description
-  ; Makes the given 'n' string capitalized.
+  ; Converts the given 'n' value into capitalized string.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
   ; @usage
   ; (to-capitalized "abc")
@@ -45,9 +45,9 @@
 
 (defn to-uppercase
   ; @description
-  ; Makes the given 'n' string uppercase.
+  ; Converts the given 'n' value into uppercase string.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
   ; @usage
   ; (to-uppercase "abc")
@@ -60,9 +60,9 @@
 
 (defn to-lowercase
   ; @description
-  ; Makes the given 'n' string lowercase.
+  ; Converts the given 'n' value into lowercase string.
   ;
-  ; @param (string) n
+  ; @param (*) n
   ;
   ; @usage
   ; (to-lowercase "ABC")
@@ -75,7 +75,7 @@
 
 (defn to-nil
   ; @description
-  ; Converts the given 'n' string into a NIL value.
+  ; Converts the given 'n' string into NIL.
 
   ; @param (string) n
   ; @param (map)(opt) options
@@ -104,3 +104,40 @@
         (cond (-> n empty?)      (-> nil)
               (-> if-empty? not) (-> nil)
               :return n))))
+
+(defn to-seqable
+  ; @description
+  ; Converts the given 'n' value into string, in case it does not implement the ISeqable protocol.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (to-seqable {:a "A"})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (to-seqable [:a :b :c])
+  ; =>
+  ; [:a :b :c]
+  ;
+  ; @usage
+  ; (to-seqable nil)
+  ; =>
+  ; ""
+  ;
+  ; @usage
+  ; (to-seqable "abc")
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (to-seqable 123)
+  ; =>
+  ; "123"
+  ;
+  ; @return (string or seqable *)
+  [n]
+  (if (-> n seqable?)
+      (-> n)
+      (-> n str)))

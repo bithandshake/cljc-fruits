@@ -52,5 +52,6 @@
   ;
   ; @return (map)
   [n path]
-  (let [n (mixed/to-map n)]
-       (dissoc-in n (seqable/dynamic-path n path))))
+  (let [n    (mixed/to-map n)
+        path (seqable/dynamic-path n path)]
+       (dissoc-in n path)))

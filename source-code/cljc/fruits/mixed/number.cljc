@@ -75,7 +75,7 @@
 
 (defn update-number
   ; @description
-  ; Converts the given 'n' value to a number and applies the given 'f' function on it.
+  ; Converts the given 'n' value into number and applies the given 'f' function on it.
   ;
   ; @param (integer or string) n
   ; @param (function) f
@@ -108,7 +108,7 @@
 
 (defn update-number-part
   ; @description
-  ; - Converts the given 'n' value to a number and applies the given 'f' function on it.
+  ; - Converts the given 'n' value into number and applies the given 'f' function on it.
   ; - Keeps the parts of the given 'n' value that cannot be converted to a number
   ;   and returns the output as a string.
   ;

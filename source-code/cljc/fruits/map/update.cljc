@@ -27,9 +27,9 @@
   ; @return (map)
   [n path f & params]
   (let [n    (mixed/to-map n)
-        path (mixed/to-vector path)
-        f    (mixed/to-ifn f)]
-       (apply update-in n (seqable/dynamic-path n path) f params)))
+        f    (mixed/to-ifn f)
+        path (seqable/dynamic-path n path)]
+       (apply update-in n path f params)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

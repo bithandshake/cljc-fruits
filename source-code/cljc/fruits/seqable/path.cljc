@@ -7,7 +7,7 @@
 
 (defn dynamic-path
   ; @description
-  ; Converts the given dynamic path into a static path of a specific item in the given 'n' value.
+  ; Converts the given dynamic path into static path (of a specific item in the given 'n' value).
   ;
   ; @param (map or vector) n
   ; @param (vector) path

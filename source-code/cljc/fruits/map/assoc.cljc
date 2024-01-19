@@ -1,6 +1,6 @@
 
 (ns fruits.map.assoc
-    (:require [fruits.mixed.api   :as mixed]
+    (:require [fruits.map.convert :as convert]
               [fruits.seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
@@ -27,5 +27,6 @@
   ;
   ; @return (map)
   [n path & xyz]
-  (let [n (mixed/to-map n)]
-       (apply assoc-in n (seqable/dynamic-path n path) xyz)))
+  (let [n    (convert/to-associative n)
+        path (seqable/dynamic-path n path)]
+       (apply assoc-in n path xyz)))
