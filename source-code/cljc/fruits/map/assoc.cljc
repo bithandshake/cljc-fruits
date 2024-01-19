@@ -15,8 +15,8 @@
   ; @param (list of *) xyz
   ;
   ; @usage
-  ; (letfn [(last-dex [%] (-> % count dec))]
-  ;        (assoc-by {:a [{:b "B"} {:c "C"}]} [:a last-dex] :x "X"))
+  ; (defn last-dex [%] (-> % count dec))
+  ; (assoc-by {:a [{:b "B"} {:c "C"}]} [:a last-dex] :x "X")
   ; =>
   ; {:a [{:b "B"} {:c "C" :x "X"}]}
   ;

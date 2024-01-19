@@ -17,22 +17,22 @@
   ; @param (integer) start
   ; @param (integer)(opt) end
   ;
-  ; @example
+  ; @usage
   ; (keep-range "abcdef" 2 4)
   ; =>
   ; "cd"
   ;
-  ; @example
+  ; @usage
   ; (keep-range "abcdef" 4 2)
   ; =>
   ; "cd"
   ;
-  ; @example
+  ; @usage
   ; (keep-range 12345 2 4)
   ; =>
   ; "34"
   ;
-  ; @example
+  ; @usage
   ; (keep-range [:a :b] 0 6)
   ; =>
   ; "[:a, :"
@@ -62,32 +62,32 @@
   ;   Ensures that the following part has the same inline position before and after the cut.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (cut-range "abcdef" 2 4)
   ; =>
   ; "abef"
   ;
-  ; @example
+  ; @usage
   ; (cut-range "abcdef" 4 2)
   ; =>
   ; "abef"
   ;
-  ; @example
+  ; @usage
   ; (cut-range 12345 2 4)
   ; =>
   ; "125"
   ;
-  ; @example
+  ; @usage
   ; (cut-range [:a :b] 0 3)
   ; =>
   ; " :b]"
   ;
-  ; @example
+  ; @usage
   ; (cut-range "abc\n      def" 3 10 {:keep-inline-position? false})
   ; =>
   ; "abcdef"
   ;
-  ; @example
+  ; @usage
   ; (cut-range "abc\n      def" 3 10 {:keep-inline-position? true})
   ; =>
   ; "abc   def"
@@ -128,27 +128,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (before-first-occurence "abcabc" "b")
   ; =>
   ; "a"
   ;
-  ; @example
+  ; @usage
   ; (before-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-first-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (before-first-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -182,27 +182,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (before-last-occurence "abcabc" "b")
   ; =>
   ; "abca"
   ;
-  ; @example
+  ; @usage
   ; (before-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-last-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (before-last-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (before-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -236,27 +236,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (after-first-occurence "abcabc" "b")
   ; =>
   ; "cabc"
   ;
-  ; @example
+  ; @usage
   ; (after-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-first-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (after-first-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -290,27 +290,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (after-last-occurence "abcabc" "b")
   ; =>
   ; "c"
   ;
-  ; @example
+  ; @usage
   ; (after-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-last-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (after-last-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (after-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -344,27 +344,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (from-first-occurence "abcabc" "b")
   ; =>
   ; "bcabc"
   ;
-  ; @example
+  ; @usage
   ; (from-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-first-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (from-first-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -398,27 +398,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (from-last-occurence "abcabc" "b")
   ; =>
   ; "bc"
   ;
-  ; @example
+  ; @usage
   ; (from-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-last-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (from-last-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (from-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -452,27 +452,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (to-first-occurence "abcabc" "b")
   ; =>
   ; "ab"
   ;
-  ; @example
+  ; @usage
   ; (to-first-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-first-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (to-first-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-first-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -506,27 +506,27 @@
   ;   If TRUE, returns the given 'n' value in case of no occurence is found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (to-last-occurence "abcabc"  "b")
   ; =>
   ; "abcab"
   ;
-  ; @example
+  ; @usage
   ; (to-last-occurence "abcabc" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-last-occurence "abcabc" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (to-last-occurence nil "b")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (to-last-occurence nil "b" {:return? true})
   ; =>
   ; ""
@@ -561,27 +561,27 @@
   ;   If TRUE, returns the given 'n' value in case of the occurences are not found.
   ;   Default: false}
   ;
-  ; @example
+  ; @usage
   ; (between-occurences "abcabc" "b" "a")
   ; =>
   ; "c"
   ;
-  ; @example
+  ; @usage
   ; (between-occurences "abcabc" "b" "d")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (between-occurences "abcabc" "b" "d" {:return? true})
   ; =>
   ; "abcabc"
   ;
-  ; @example
+  ; @usage
   ; (between-occurences nil "b" "a")
   ; =>
   ; nil
   ;
-  ; @example
+  ; @usage
   ; (between-occurences nil "b" "a" {:return? true})
   ; =>
   ; ""

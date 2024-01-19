@@ -8,7 +8,7 @@
 (def EMPTY-STRING "")
 
 ; @constant (string)
-(def BREAK "\r\n")
+(def BREAK "\r")
 
 ; @constant (string)
 (def NEWLINE "\n")

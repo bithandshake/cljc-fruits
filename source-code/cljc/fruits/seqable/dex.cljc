@@ -123,7 +123,7 @@
   ; E.g., Indexes of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
-  ; @descripiton
+  ; @description
   ; Returns the index that follows the given 'dex' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
@@ -153,7 +153,7 @@
   ; E.g., Indexes of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
-  ; @descripiton
+  ; @description
   ; Returns the index that precedes the given 'dex' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
@@ -226,6 +226,16 @@
   ; =>
   ; true
   ;
+  ; @usage
+  ; (dex-first? "abc" 1)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (dex-first? [] 0)
+  ; =>
+  ; false
+  ;
   ; @return (boolean)
   [n dex]
   (let [n (mixed/to-seqable n)]
@@ -253,6 +263,16 @@
   ; (dex-last? "abc" 2)
   ; =>
   ; true
+  ;
+  ; @usage
+  ; (dex-last? "abc" 1)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (dex-last? [] 0)
+  ; =>
+  ; false
   ;
   ; @return (boolean)
   [n dex]

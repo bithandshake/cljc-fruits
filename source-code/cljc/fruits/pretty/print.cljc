@@ -8,8 +8,11 @@
 ;; ----------------------------------------------------------------------------
 
 (defn mixed->string
+  ; @note
+  ; The PRE HTML tag makes the output more readable.
+  ;
   ; @description
-  ; The <pre> HTML tag makes the output more human-readable.
+  ; Converts the given data structure into pretty printed string.
   ;
   ; @param (*) n
   ; @param (map) options

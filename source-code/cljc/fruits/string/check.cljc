@@ -14,13 +14,10 @@
   ;
   ; @usage
   ; (empty? "")
-  ;
-  ; @example
-  ; (empty? "")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (empty? "abc")
   ; =>
   ; false
@@ -38,13 +35,10 @@
   ;
   ; @usage
   ; (not-empty? "abc")
-  ;
-  ; @example
-  ; (not-empty? "abc")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-empty? "")
   ; =>
   ; false
@@ -62,13 +56,10 @@
   ;
   ; @usage
   ; (blank? " ")
-  ;
-  ; @example
-  ; (blank? " ")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (blank? "abc")
   ; =>
   ; false
@@ -86,13 +77,10 @@
   ;
   ; @usage
   ; (not-blank? "abc")
-  ;
-  ; @example
-  ; (not-blank? "abc")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (not-blank? " ")
   ; =>
   ; false
@@ -113,13 +101,10 @@
   ;
   ; @usage
   ; (lowercase? "abc")
-  ;
-  ; @example
-  ; (lowercase? "abc")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (lowercase? "Abc")
   ; =>
   ; false
@@ -137,13 +122,10 @@
   ;
   ; @usage
   ; (uppercase? "ABC")
-  ;
-  ; @example
-  ; (uppercase? "ABC")
   ; =>
   ; true
   ;
-  ; @example
+  ; @usage
   ; (uppercase? "Abc")
   ; =>
   ; false

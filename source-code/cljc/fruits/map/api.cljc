@@ -28,10 +28,11 @@
 ; @redirect (fruits.map.assoc/*)
 (def assoc-by  assoc/assoc-by)
 
-; @redirect (map.check/*)
-(def empty?      check/empty?)
-(def not-empty?  check/not-empty?)
-(def namespaced? check/namespaced?)
+; @redirect (fruits.map.check/*)
+(def empty?          check/empty?)
+(def not-empty?      check/not-empty?)
+(def namespaced?     check/namespaced?)
+(def not-namespaced? check/not-namespaced?)
 
 ; @redirect (fruits.map.collapse/*)
 (def collapse collapse/collapse)

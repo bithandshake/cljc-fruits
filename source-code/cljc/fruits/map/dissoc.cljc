@@ -40,8 +40,8 @@
   ; @param (vector) path
   ;
   ; @usage
-  ; (letfn [(last-dex [%] (-> % count dec))]
-  ;        (dissoc-by {:a [{:b "B"} {:c "C"}]} [:a last-dex]))
+  ; (defn last-dex [%] (-> % count dec))
+  ; (dissoc-by {:a [{:b "B"} {:c "C"}]} [:a last-dex])
   ; =>
   ; {:a [{:b "B"}]}
   ;

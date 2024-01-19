@@ -15,14 +15,11 @@
   ; @param (*) x
   ;
   ; @usage
-  ; (toggle-item [:a :b] :a)
-  ;
-  ; @example
   ; (toggle-item [:a :b] :c)
   ; =>
   ; [:a :b :c]
   ;
-  ; @example
+  ; @usage
   ; (toggle-item [:a :b :c] :c)
   ; =>
   ; [:a :b]

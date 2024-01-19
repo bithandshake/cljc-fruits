@@ -15,22 +15,19 @@
   ; Meta informations of the current change.
   ;
   ; @usage
-  ; (import-changes {...} {...})
-  ;
-  ; @example
   ; (import-changes {:a "A" :b "B"}
   ;                 {:a "A" :b "B" :c "C"})
   ; =>
   ; {:a "A" :b "B" :c "C" :history [{:changes {:c nil}}]}
   ;
-  ; @example
+  ; @usage
   ; (let [original {:a "A" :b "B"}
   ;       updated  (assoc original :c "C")])
   ;      (import-changes original updated)
   ; =>
   ; {:a "A" :b "B" :c "C" :history [{:changes {:c nil}}]}
   ;
-  ; @example
+  ; @usage
   ; (let [original {:a "A" :b "B" :c "C" :history [{:changes {:c nil}}]}
   ;       updated  (dissoc original :c)])
   ;      (import-changes original updated)

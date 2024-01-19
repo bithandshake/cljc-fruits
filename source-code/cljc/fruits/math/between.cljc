@@ -5,6 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn between?
+  ; @description
+  ; Returns TRUE if the given 'n' number falls within the given 'x' and 'y' numbers.
+  ;
   ; @param (number) n
   ; @param (number) x
   ; @param (number) y
@@ -28,6 +31,9 @@
            (>= n (min x y)))))
 
 (defn between!
+  ; @description
+  ; Ensures that the given 'n' number falls within the given 'x' and 'y' numbers.
+  ;
   ; @param (number) n
   ; @param (number) x
   ; @param (number) y

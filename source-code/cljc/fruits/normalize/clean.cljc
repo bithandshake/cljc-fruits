@@ -78,8 +78,8 @@
 
 (defn clean-text
   ; @description
-  ; Normalizes the given 'n' string by removing the diacritical marks, removing the special characters,
-  ; and blank characters, and converting the result to lowercase.
+  ; Normalizes the given 'n' string by removing the diacritical marks, special characters,
+  ; and blank characters, and converting the result into lowercase string.
   ;
   ; @param (*) n
   ; @param (string)(opt) exceptions

@@ -134,7 +134,7 @@
   ; E.g., Indexes of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
-  ; @descripiton
+  ; @description
   ; Returns the cursor that follows the given 'cursor' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
@@ -164,7 +164,7 @@
   ; E.g., Indexes of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
-  ; @descripiton
+  ; @description
   ; Returns the cursor that precedes the given 'cursor' value in the given 'n' sequence.
   ;
   ; @param (seqable) n
@@ -228,12 +228,22 @@
   ; @param (cursor) cursor
   ;
   ; @usage
-  ; (cursor-first? [:a :b :c] 1)
+  ; (cursor-first? [:a :b :c] 0)
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (cursor-first? "abc" 0)
   ; =>
   ; true
   ;
   ; @usage
   ; (cursor-first? "abc" 1)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (cursor-first? [] 0)
   ; =>
   ; true
   ;
@@ -260,6 +270,16 @@
   ;
   ; @usage
   ; (cursor-last? "abc" 3)
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (cursor-last? "abc" 2)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (cursor-last? [] 0)
   ; =>
   ; true
   ;

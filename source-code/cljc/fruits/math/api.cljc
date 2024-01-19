@@ -26,7 +26,15 @@
 (def not-positive? check/not-positive?)
 
 ; @redirect (fruits.math.circle/*)
-(def circum circle/circum)
+(def diameter->area   circle/diameter->area)
+(def diameter->circum circle/diameter->circum)
+(def diameter->radius circle/diameter->radius)
+(def radius->area     circle/radius->area)
+(def radius->circum   circle/radius->circum)
+(def radius->diameter circle/radius->diameter)
+(def circum->area     circle/circum->area)
+(def circum->diameter circle/circum->diameter)
+(def circum->radius   circle/circum->radius)
 
 ; @redirect (fruits.math.collection/*)
 (def collection-average collection/collection-average)
@@ -60,7 +68,7 @@
 (def absolute-difference polarity/absolute-difference)
 (def opposite            polarity/opposite)
 
-; @redirect (fruits.math.polarity/*)
+; @redirect (fruits.math.round/*)
 (def floor round/floor)
 (def ceil  round/ceil)
 (def round round/round)

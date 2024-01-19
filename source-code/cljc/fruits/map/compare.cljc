@@ -20,7 +20,6 @@
   ; {:b "b"}
   ;
   ; @return (map)
-  ; Key-value pairs present only in 'a' map.
   [a b]
   (let [a (mixed/to-map a)
         b (mixed/to-map b)]

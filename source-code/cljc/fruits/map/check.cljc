@@ -77,3 +77,24 @@
   [n]
   (and (-> n map?)
        (-> n namespace some?)))
+
+(defn not-namespaced?
+  ; @description
+  ; Returns TRUE if the given 'n' value is a nonnamespaced map.
+  ;
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (not-namespaced? {:a "A"})
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (not-namespaced? {:a/b "A"})
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n]
+  (and (-> n map?)
+       (-> n namespace nil?)))

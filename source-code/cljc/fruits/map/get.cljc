@@ -14,8 +14,8 @@
   ; @param (vector) path
   ;
   ; @usage
-  ; (letfn [(last-dex [%] (-> % count dec))]
-  ;        (get-by {:a [{:b "B"} {:c "C"}]} [:a last-dex]))
+  ; (defn last-dex [%] (-> % count dec))
+  ; (get-by {:a [{:b "B"} {:c "C"}]} [:a last-dex])
   ; =>
   ; {:c "C"}
   ;
