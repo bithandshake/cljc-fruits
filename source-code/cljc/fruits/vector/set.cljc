@@ -1,7 +1,7 @@
 
 (ns fruits.vector.set
-    (:require [fruits.noop.api :refer [return]]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api :as mixed]
+              [fruits.noop.api  :refer [return]]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

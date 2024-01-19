@@ -1,7 +1,7 @@
 
 (ns fruits.map.move
-    (:require [fruits.mixed.api :as mixed]
-              [fruits.map.dissoc :as dissoc]))
+    (:require [fruits.map.dissoc :as dissoc]
+              [fruits.mixed.api  :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

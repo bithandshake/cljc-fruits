@@ -1,8 +1,8 @@
 
 (ns fruits.eql.api
-    (:require [fruits.eql.convert :as convert]
-              [fruits.eql.type :as type]
-              [fruits.eql.append :as append]))
+    (:require [fruits.eql.append  :as append]
+              [fruits.eql.convert :as convert]
+              [fruits.eql.type    :as type]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

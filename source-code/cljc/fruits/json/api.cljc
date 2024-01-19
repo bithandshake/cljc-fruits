@@ -1,7 +1,7 @@
 
 (ns fruits.json.api
-    (:require [fruits.json.update :as update]
-              [fruits.json.convert :as convert]))
+    (:require [fruits.json.convert :as convert]
+              [fruits.json.update  :as update]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

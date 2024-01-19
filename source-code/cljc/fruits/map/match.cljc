@@ -1,7 +1,7 @@
 
 (ns fruits.map.match
     (:require [fruits.map.compare :as compare]
-              [fruits.mixed.api :as mixed]))
+              [fruits.mixed.api   :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

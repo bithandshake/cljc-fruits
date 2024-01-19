@@ -1,8 +1,8 @@
 
 (ns fruits.gestures.api
-    (:require [fruits.gestures.resolve :as resolve]
-              [fruits.gestures.type :as type]
-              [fruits.gestures.convert :as convert]))
+    (:require [fruits.gestures.convert :as convert]
+              [fruits.gestures.resolve :as resolve]
+              [fruits.gestures.type    :as type]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

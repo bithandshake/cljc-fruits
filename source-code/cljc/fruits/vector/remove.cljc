@@ -1,9 +1,9 @@
 
 (ns fruits.vector.remove
-    (:require [fruits.seqable.api    :as seqable]
+    (:require [fruits.mixed.api      :as mixed]
+              [fruits.seqable.api    :as seqable]
               [fruits.vector.contain :as contain]
-              [fruits.vector.dex     :as dex]
-              [fruits.mixed.api :as mixed]))
+              [fruits.vector.dex     :as dex]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

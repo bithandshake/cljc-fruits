@@ -1,7 +1,7 @@
 
 (ns fruits.syntax.convert
-    (:require [fruits.string.api :as string]
-              [fruits.seqable.api :as seqable]))
+    (:require [fruits.seqable.api :as seqable]
+              [fruits.string.api  :as string]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

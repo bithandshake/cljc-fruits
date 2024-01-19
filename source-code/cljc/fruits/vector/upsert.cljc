@@ -1,7 +1,7 @@
 
 (ns fruits.vector.upsert
-    (:require [fruits.mixed.api :as mixed]
-              [fruits.seqable.api :as seqable]
+    (:require [fruits.mixed.api      :as mixed]
+              [fruits.seqable.api    :as seqable]
               [fruits.vector.replace :as replace]))
 
 ;; ----------------------------------------------------------------------------

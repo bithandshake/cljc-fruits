@@ -1,8 +1,8 @@
 
 (ns fruits.vector.sort
-    (:require [fruits.vector.dex :as dex]
-              [fruits.vector.get :as get]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api  :as mixed]
+              [fruits.vector.dex :as dex]
+              [fruits.vector.get :as get]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

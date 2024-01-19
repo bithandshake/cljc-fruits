@@ -1,16 +1,16 @@
 
 (ns fruits.math.api
-    (:require [fruits.math.check      :as check]
+    (:require [fruits.math.between    :as between]
+              [fruits.math.check      :as check]
+              [fruits.math.circle     :as circle]
               [fruits.math.collection :as collection]
               [fruits.math.config     :as config]
-              [fruits.math.set :as set]
               [fruits.math.domain     :as domain]
               [fruits.math.percent    :as percent]
-              [fruits.math.polarity :as polarity]
-              [fruits.math.round :as round]
-              [fruits.math.between :as between]
-              [fruits.math.power :as power]
-              [fruits.math.circle :as circle]))
+              [fruits.math.polarity   :as polarity]
+              [fruits.math.power      :as power]
+              [fruits.math.round      :as round]
+              [fruits.math.set        :as set]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

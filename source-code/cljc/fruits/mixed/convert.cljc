@@ -1,7 +1,7 @@
 
 (ns fruits.mixed.convert
-    (:require [fruits.reader.api :as reader]
-              [fruits.mixed.check :as check]))
+    (:require [fruits.mixed.check :as check]
+              [fruits.reader.api  :as reader]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

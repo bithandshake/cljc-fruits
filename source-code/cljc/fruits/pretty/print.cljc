@@ -1,8 +1,8 @@
 
 (ns fruits.pretty.print
-    (:require [fruits.loop.api   :refer [reduce-indexed reduce-kv-indexed]]
-              [fruits.vector.api :as vector]
-              [fruits.pretty.utils :as utils]))
+    (:require [fruits.loop.api     :refer [reduce-indexed reduce-kv-indexed]]
+              [fruits.pretty.utils :as utils]
+              [fruits.vector.api   :as vector]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

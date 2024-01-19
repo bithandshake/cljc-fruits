@@ -2,12 +2,12 @@
 (ns fruits.string.api
     (:refer-clojure :exclude [empty? repeat])
     (:require [fruits.string.apply   :as apply]
+              [fruits.string.bounds  :as bounds]
               [fruits.string.check   :as check]
               [fruits.string.config  :as config]
               [fruits.string.contain :as contain]
               [fruits.string.convert :as convert]
-              [fruits.string.cover :as cover]
-              [fruits.string.bounds :as bounds]
+              [fruits.string.cover   :as cover]
               [fruits.string.cut     :as cut]
               [fruits.string.dex     :as dex]
               [fruits.string.filter  :as filter]

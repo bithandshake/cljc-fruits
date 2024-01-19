@@ -1,10 +1,10 @@
 
 (ns fruits.loop.api
-    (:require [fruits.loop.walk :as walk]
-              [fruits.loop.pairs :as pairs]
-              [fruits.loop.do :as do]
+    (:require [fruits.loop.do     :as do]
+              [fruits.loop.pairs  :as pairs]
               [fruits.loop.reduce :as reduce]
-              [fruits.loop.some :as some]))
+              [fruits.loop.some   :as some]
+              [fruits.loop.walk   :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

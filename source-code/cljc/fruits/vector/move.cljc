@@ -1,10 +1,10 @@
 
 (ns fruits.vector.move
-    (:require [fruits.seqable.api   :as seqable]
-              [fruits.vector.dex    :as dex]
-              [fruits.vector.insert    :as insert]
+    (:require [fruits.mixed.api     :as mixed]
+              [fruits.seqable.api   :as seqable]
               [fruits.vector.add    :as add]
-              [fruits.mixed.api :as mixed]))
+              [fruits.vector.dex    :as dex]
+              [fruits.vector.insert :as insert]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

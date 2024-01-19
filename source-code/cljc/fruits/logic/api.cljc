@@ -1,10 +1,10 @@
 
 (ns fruits.logic.api
-    (:require [fruits.logic.check :as check]
-              [fruits.logic.swap :as swap]
+    (:require [fruits.logic.check     :as check]
               [fruits.logic.condition :as condition]
-              [fruits.logic.equal :as equal]
-              [fruits.logic.gates :as gates]))
+              [fruits.logic.equal     :as equal]
+              [fruits.logic.gates     :as gates]
+              [fruits.logic.swap      :as swap]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

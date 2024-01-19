@@ -1,8 +1,8 @@
 
 (ns fruits.vector.toggle
-    (:require [fruits.vector.contain :as contain]
-              [fruits.vector.remove  :as remove]
-              [fruits.vector.add  :as add]))
+    (:require [fruits.vector.add     :as add]
+              [fruits.vector.contain :as contain]
+              [fruits.vector.remove  :as remove]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

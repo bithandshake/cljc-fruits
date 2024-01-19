@@ -1,7 +1,7 @@
 
 (ns fruits.reader.api
-    (:require [fruits.reader.prepare :as prepare]
-              [fruits.reader.parse :as parse]))
+    (:require [fruits.reader.parse   :as parse]
+              [fruits.reader.prepare :as prepare]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

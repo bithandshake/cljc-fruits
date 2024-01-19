@@ -1,8 +1,8 @@
 
 (ns fruits.vector.dex
-    (:require [fruits.seqable.api  :as seqable]
-              [fruits.vector.check :as check]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api    :as mixed]
+              [fruits.seqable.api  :as seqable]
+              [fruits.vector.check :as check]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

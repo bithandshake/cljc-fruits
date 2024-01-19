@@ -1,26 +1,26 @@
 
 (ns fruits.map.api
     (:refer-clojure :exclude [empty? keys namespace])
-    (:require [fruits.map.check     :as check]
+    (:require [fruits.map.assoc     :as assoc]
+              [fruits.map.check     :as check]
               [fruits.map.collapse  :as collapse]
               [fruits.map.compare   :as compare]
               [fruits.map.convert   :as convert]
+              [fruits.map.copy      :as copy]
+              [fruits.map.dissoc    :as dissoc]
               [fruits.map.filter    :as filter]
+              [fruits.map.get       :as get]
               [fruits.map.key       :as key]
               [fruits.map.match     :as match]
               [fruits.map.merge     :as merge]
+              [fruits.map.move      :as move]
               [fruits.map.namespace :as namespace]
               [fruits.map.remove    :as remove]
+              [fruits.map.swap      :as swap]
+              [fruits.map.toggle    :as toggle]
               [fruits.map.update    :as update]
               [fruits.map.value     :as value]
-              [fruits.map.walk      :as walk]
-              [fruits.map.swap :as swap]
-              [fruits.map.dissoc :as dissoc]
-              [fruits.map.toggle :as toggle]
-              [fruits.map.copy :as copy]
-              [fruits.map.move :as move]
-              [fruits.map.get :as get]
-              [fruits.map.assoc :as assoc]))
+              [fruits.map.walk      :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

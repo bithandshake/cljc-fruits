@@ -1,7 +1,7 @@
 
 (ns fruits.regex.api
-    (:require [fruits.regex.check   :as check]
-              [fruits.regex.bounds :as bounds]
+    (:require [fruits.regex.bounds  :as bounds]
+              [fruits.regex.check   :as check]
               [fruits.regex.cut     :as cut]
               [fruits.regex.dex     :as dex]
               [fruits.regex.match   :as match]

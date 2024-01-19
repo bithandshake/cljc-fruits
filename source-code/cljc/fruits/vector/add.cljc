@@ -1,7 +1,7 @@
 
 (ns fruits.vector.add
-    (:require [fruits.vector.contain :as contain]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api      :as mixed]
+              [fruits.vector.contain :as contain]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

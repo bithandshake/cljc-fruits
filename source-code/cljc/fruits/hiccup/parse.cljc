@@ -2,8 +2,8 @@
 (ns fruits.hiccup.parse
     (:require [fruits.css.api           :as css]
               [fruits.hiccup.attributes :as attributes]
-              [fruits.hiccup.walk       :as walk]
               [fruits.hiccup.type       :as type]
+              [fruits.hiccup.walk       :as walk]
               [fruits.keyword.api       :as keyword]
               [fruits.string.api        :as string]
               [fruits.vector.api        :as vector]))

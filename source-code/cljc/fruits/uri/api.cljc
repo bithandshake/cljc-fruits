@@ -2,10 +2,10 @@
 (ns fruits.uri.api
     (:require [fruits.uri.check    :as check]
               [fruits.uri.convert  :as convert]
-              [fruits.uri.use     :as use]
               [fruits.uri.patterns :as patterns]
               [fruits.uri.pretty   :as pretty]
               [fruits.uri.query    :as query]
+              [fruits.uri.use      :as use]
               [fruits.uri.valid    :as valid]))
 
 ;; ----------------------------------------------------------------------------

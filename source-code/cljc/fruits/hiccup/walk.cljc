@@ -1,7 +1,7 @@
 
 (ns fruits.hiccup.walk
-    (:require [fruits.random.api :as random]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api  :as mixed]
+              [fruits.random.api :as random]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

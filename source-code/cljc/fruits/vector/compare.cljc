@@ -1,8 +1,8 @@
 
 (ns fruits.vector.compare
-    (:require [fruits.vector.contain :as contain]
-              [fruits.vector.remove  :as remove]
-              [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api      :as mixed]
+              [fruits.vector.contain :as contain]
+              [fruits.vector.remove  :as remove]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

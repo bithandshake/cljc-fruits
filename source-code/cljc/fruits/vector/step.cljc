@@ -1,9 +1,9 @@
 
 (ns fruits.vector.step
-    (:require [fruits.seqable.api :as seqable]
+    (:require [fruits.mixed.api   :as mixed]
+              [fruits.seqable.api :as seqable]
               [fruits.vector.dex  :as dex]
-              [fruits.vector.get  :as get]
-              [fruits.mixed.api :as mixed]))
+              [fruits.vector.get  :as get]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
