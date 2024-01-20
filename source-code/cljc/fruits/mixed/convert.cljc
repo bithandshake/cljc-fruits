@@ -253,11 +253,11 @@
   ; @bug (#0550)
   ; The applied regex pattern asserts that the first digit of the number cannot be 0.
   ; Otherwise, the 'parse-edn' function would read it as a non-decimal number (e.g., 008).
-  (cond (integer? n) (-> n) ; 8   -> 8
-        (nil?     n) (-> 0) ; nil -> 0
-        :else (if-let [x (-> (re-seq #"[\-]?[1-9][\d]*" (str n)) first)] ; "abc123" -> "123"
-                      (reader/parse-edn x) ; "123" -> 123
-                      (-> 0))))            ; nil   -> 0
+  (cond (integer? n) (-> n)                                        ; 8        -> 8
+        (nil?     n) (-> 0)                                        ; nil      -> 0
+        :else (if-let [x (->> n str (re-find #"[\-]?[1-9][\d]*"))] ; "abc123" -> "123"
+                      (reader/parse-edn x)                         ; "123"    -> 123
+                      (-> 0))))                                    ; nil      -> 0
 
 (defn to-number
   ; @description
@@ -303,11 +303,11 @@
   ; @return (number)
   [n]
   ; @bug (#0550)
-  (cond (number? n) (-> n) ; 4.2 -> 4.2
-        (nil?    n) (-> 0) ; nil -> 0
-        :else (if-let [x (-> (re-seq #"[\-]?[1-9][\d]*[\.]*[\d]*" (str n)) first)] ; "abc123.456" -> "123.456"
-                      (reader/parse-edn x) ; "123.456" -> 123.456
-                      (-> 0))))            ; nil       -> 0
+  (cond (number? n) (-> n)                                                   ; 4.2          -> 4.2
+        (nil?    n) (-> 0)                                                   ; nil          -> 0
+        :else (if-let [x (->> n str (re-find #"[\-]?[1-9][\d]*[\.]*[\d]*"))] ; "abc123.456" -> "123.456"
+                      (reader/parse-edn x)                                   ; "123.456"    -> 123.456
+                      (-> 0))))                                              ; nil          -> 0
 
 (defn to-keyword
   ; @description
@@ -352,10 +352,10 @@
   ;
   ; @return (*)
   [n]
-  (if (-> n keyword?) (-> n) ; :a -> :a
-      (if-let [x (-> (re-seq #"[a-zA-Z\d\+\-\_\<\>\=\*\!\?\%\&\/\#\:\.\']+" (str n)) first)] ; "[a]" -> "a"
-              (-> x keyword) ; "a" -> :a
-              (-> :_))))     ; nil -> :_
+  (if (-> n keyword?) (-> n)                                                           ; :a    -> :a
+      (if-let [x (->> n str (re-find #"[a-zA-Z\d\+\-\_\<\>\=\*\!\?\%\&\/\#\:\.\']+"))] ; "[a]" -> "a"
+              (-> x keyword)                                                           ; "a"    -> :a
+              (-> :_))))                                                               ; nil    -> :_
 
 (defn to-fn
   ; @description
