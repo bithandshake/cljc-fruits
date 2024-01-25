@@ -9,7 +9,7 @@
   ; Performs an exponentiation on the given 'n' number.
   ;
   ; @param (number) n
-  ; @param (number) exp
+  ; @param (integer) exp
   ;
   ; @usage
   ; (power 2 3)
@@ -18,8 +18,8 @@
   ;
   ; @return (number)
   [n exp]
-  (if (and (number? n)
-           (number? exp))
+  (if (and (-> n number?)
+           (-> exp integer?))
       (loop [result 1 exp exp]
             (if (-> exp zero?)
                 (-> result)

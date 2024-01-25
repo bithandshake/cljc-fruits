@@ -12,7 +12,7 @@
 (def generate-string             generate/generate-string)
 (def generate-keyword            generate/generate-keyword)
 (def generate-namespaced-keyword generate/generate-namespaced-keyword)
-(def generate-number             generate/generate-number)
+(def generate-integer            generate/generate-integer)
 
 ; @redirect (fruits.random.pick/*)
 (def pick-vector-item pick/pick-vector-item)

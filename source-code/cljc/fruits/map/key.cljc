@@ -1,7 +1,8 @@
 
 (ns fruits.map.key
     (:refer-clojure :exclude [keys])
-    (:require [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api :as mixed]
+              [fruits.seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -87,10 +88,10 @@
 
 (defn contains-any-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains any value associated to any key from the given 'ks' vector.
+  ; Returns TRUE if the given 'n' map contains any value associated to a key from the given 'ks' vector.
   ;
   ; @param (map) n
-  ; @param (* in vector) ks
+  ; @param (vector) ks
   ;
   ; @usage
   ; (contains-any-key? {:a {:b "B"} :c "C"} [:a])
@@ -116,10 +117,10 @@
 
 (defn contains-all-key?
   ; @description
-  ; Returns TRUE if the given 'n' map contains the values associated to all keys of the given 'ks' vector.
+  ; Returns TRUE if the given 'n' map contains all values associated to the keys from the given 'ks' vector.
   ;
   ; @param (map) n
-  ; @param (* in vector) ks
+  ; @param (vector) ks
   ;
   ; @usage
   ; (contains-all-key? {:a "A" :b "B"} [:a :b])
@@ -132,3 +133,29 @@
         ks (mixed/to-vector ks)]
        (letfn [(f0 [%] (contains? n %))]
               (every? ks f0))))
+
+(defn has-same-keys?
+  ; @description
+  ; Returns TRUE if any of the given maps has a key that is present in any other provided map.
+  ;
+  ; @param (list of maps) xyz
+  ;
+  ; @usage
+  ; (has-same-keys? {:a "A"} {:b "B"} {:a "A"})
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (has-same-keys? {:a "A"} {:b "B"} {:c "C"})
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [& xyz]
+  (loop [ks [] dex 0]
+        (if (seqable/dex-in-bounds? xyz dex)
+            (let [n (nth xyz dex)]
+                 (if (contains-any-key? n ks)
+                     (-> true)
+                     (recur (-> n keys (concat ks))
+                            (-> dex inc)))))))

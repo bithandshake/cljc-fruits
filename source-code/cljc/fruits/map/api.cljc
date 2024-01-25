@@ -26,7 +26,9 @@
 ;; ----------------------------------------------------------------------------
 
 ; @redirect (fruits.map.assoc/*)
-(def assoc-by  assoc/assoc-by)
+(def assoc-by      assoc/assoc-by)
+(def assoc-some    assoc/assoc-some)
+(def assoc-in-some assoc/assoc-in-some)
 
 ; @redirect (fruits.map.check/*)
 (def empty?          check/empty?)
@@ -64,6 +66,7 @@
 (def contains-key?     key/contains-key?)
 (def contains-any-key? key/contains-any-key?)
 (def contains-all-key? key/contains-all-key?)
+(def has-same-keys?    key/has-same-keys?)
 
 ; @redirect (fruits.map.get/*)
 (def get-by get/get-by)
@@ -119,6 +122,8 @@
 
 ; @redirect (fruits.map.update/*)
 (def update-by        update/update-by)
+(def update-some      update/update-some)
+(def update-in-some   update/update-in-some)
 (def update-all-key   update/update-all-key)
 (def update-all-value update/update-all-value)
 (def update-keys-by   update/update-keys-by)

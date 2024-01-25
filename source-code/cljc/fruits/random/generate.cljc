@@ -84,32 +84,37 @@
   ; @bug (fruits.random.config#5570)
   (keyword (str (generate-uuid) "/" (str config/NAME-PREFIX (generate-uuid)))))
 
-(defn generate-number
+(defn generate-integer
   ; @description
   ; Returns a randomly generated integer.
   ;
-  ; @param (integer) digits
+  ; @param (integer)(opt) digits
+  ; Default: 4
   ;
   ; @usage
-  ; (generate-number 3)
+  ; (generate-integer 3)
   ; =>
   ; 420
   ;
   ; @return (integer)
-  [digits]
-  ; Warning! Decimal points (.) and decimal commas (,) are different in the following text! Don't mix them up!
-  ;
-  ; Step 1: Generating a random float number from 0.000' to 9.000' | (-> 9 rand)
-  ; Step 2: Increasing the result by one (1.000' to 10.000')       | (-> 9 rand inc)
-  ; Step 3: Multiplying the result by 10 to the power of (n - 1)   | (* (math/power 10 (dec digits)) ...)
-  ; Step 4: Setting a limit for the result to its maximum minus 1  | (min (...) (dec (math/power 10 digits)))
-  ; Step 5: Converting the result to integer type.                 | (int ...)
-  ;
-  ; E.g., The expected digit count is 5
-  ;       10 to the power of (5 - 1) is 10,000
-  ;       Step 1: 0.000' to 9.000'
-  ;       Step 2: 1.000' to 10.000'
-  ;       Step 3: 10,000 to 100,000
-  ;       Step 4: 10,000 to 99,999
-  (int (min (*   (math/power 10 (dec digits)) (-> 9 rand inc))
-            (dec (math/power 10 digits)))))
+  ([]
+   (generate-integer 4))
+
+  ([digits]
+   ; Warning! Decimal points (.) and decimal commas (,) are different in the following text! Don't mix them up!
+   ;
+   ; Step 1: Generating a random float number from 0.000' to 9.000' | (-> 9 rand)
+   ; Step 2: Increasing the result by one (1.000' to 10.000')       | (-> 9 rand inc)
+   ; Step 3: Multiplying the result by 10 to the power of (n - 1)   | (* (math/power 10 (dec digits)) ...)
+   ; Step 4: Setting a limit for the result to its maximum minus 1  | (min (...) (dec (math/power 10 digits)))
+   ; Step 5: Converting the result to integer type.                 | (int ...)
+   ;
+   ; E.g., The expected digit count is 5
+   ;       10 to the power of (5 - 1) is 10,000
+   ;       Step 1: 0.000' to 9.000'
+   ;       Step 2: 1.000' to 10.000'
+   ;       Step 3: 10,000 to 100,000
+   ;       Step 4: 10,000 to 99,999
+   (if (integer? digits)
+       (int (min (*   (math/power 10 (-> digits dec)) (-> 9 rand inc))
+                 (dec (math/power 10 (-> digits))))))))

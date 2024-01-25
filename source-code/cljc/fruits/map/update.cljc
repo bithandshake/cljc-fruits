@@ -8,10 +8,12 @@
 
 (defn update-by
   ; @description
-  ; Updates the value in the given 'n' map at the given 'path' dynamic path.
+  ; Updates a specific nested value in the given 'n' map at the given 'path' dynamic path.
   ;
   ; @param (map) n
   ; @param (vector) path
+  ; @param (function) f
+  ; @param (list of *)(opt) params
   ;
   ; @usage
   ; (defn last-dex [%] (-> % count dec))
@@ -30,6 +32,56 @@
         f    (mixed/to-ifn f)
         path (seqable/dynamic-path n path)]
        (apply update-in n path f params)))
+
+(defn update-some
+  ; @description
+  ; Updates a specific value in the given 'n' map, in case the value is not NIL.
+  ;
+  ; @param (map) n
+  ; @param (*) k
+  ; @param (function) f
+  ; @param (list of *)(opt) params
+  ;
+  ; @usage
+  ; (update-some {:a "A"} :a str "0")
+  ; =>
+  ; {:a "A0"}
+  ;
+  ; @usage
+  ; (update-some {} :a str "0")
+  ; =>
+  ; {}
+  ;
+  ; @return (map)
+  [n k f & params]
+  (if (-> n (get k) nil?)
+      (-> n)
+      (apply update n k f params)))
+
+(defn update-in-some
+  ; @description
+  ; Updates a specific nested value in the given 'n' map, in case the value is not NIL.
+  ;
+  ; @param (map) n
+  ; @param (vector) path
+  ; @param (function) f
+  ; @param (list of *)(opt) params
+  ;
+  ; @usage
+  ; (update-in-some {:a "A"} [:a] str "0")
+  ; =>
+  ; {:a "A0"}
+  ;
+  ; @usage
+  ; (update-in-some {} [:a] str "0")
+  ; =>
+  ; {}
+  ;
+  ; @return (map)
+  [n path f & params]
+  (if (-> n (get-in path) nil?)
+      (-> n)
+      (apply update-in n path f params)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

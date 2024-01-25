@@ -1,7 +1,7 @@
 
 (ns fruits.math.circle
     (:require [fruits.math.config :as config]
-              [fruits.math.power :as power]))
+              [fruits.math.power  :as power]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

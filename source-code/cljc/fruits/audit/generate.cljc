@@ -59,7 +59,7 @@
    (generate-pin-code 4))
 
   ([length]
-   (-> length random/generate-number str)))
+   (-> length random/generate-integer str)))
 
 (defn generate-security-code
   ; @param (integer)(opt) length
@@ -80,4 +80,4 @@
    (generate-security-code 6))
 
   ([length]
-   (-> length random/generate-number str)))
+   (-> length random/generate-integer str)))
