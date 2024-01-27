@@ -16,7 +16,7 @@
   ;
   ; @return (string)
   [n]
-  (str "calc(" n ")"))
+  (if n (str "calc(" n ")")))
 
 (defn fr
   ; @param (ms) n
@@ -28,7 +28,7 @@
   ;
   ; @return (string)
   [n]
-  (str n "fr"))
+  (if n (str n "fr")))
 
 (defn ms
   ; @param (ms) n
@@ -40,7 +40,7 @@
   ;
   ; @return (string)
   [n]
-  (str n "ms"))
+  (if n (str n "ms")))
 
 (defn s
   ; @param (s) n
@@ -52,7 +52,7 @@
   ;
   ; @return (string)
   [n]
-  (str n "s"))
+  (if n (str n "s")))
 
 (defn percent
   ; @param (percent) n
@@ -64,7 +64,7 @@
   ;
   ; @return (string)
   [n]
-  (str n "%"))
+  (if n (str n "%")))
 
 (defn px
   ; @param (px) n
@@ -76,11 +76,11 @@
   ;
   ; @return (string)
   [n]
-  (str n "px"))
+  (if n (str n "px")))
 
 (defn repeat
   ; @param (integer) count
-  ; @param (string) value
+  ; @param (string) n
   ;
   ; @usage
   ; (repeat 3 "1fr")
@@ -88,8 +88,8 @@
   ; "repeat(3, 1fr)"
   ;
   ; @return (string)
-  [count value]
-  (str "repeat("count", "value")"))
+  [count n]
+  (if n (str "repeat("count", "n")")))
 
 (defn rotate
   ; @param (deg) n
@@ -101,7 +101,7 @@
   ;
   ; @return (string)
   [n]
-  (str "rotate(" n "deg)"))
+  (if n (str "rotate(" n "deg)")))
 
 (defn rotate-x
   ; @param (deg) n
@@ -113,7 +113,7 @@
   ;
   ; @return (string)
   [n]
-  (str "rotateX(" n "deg)"))
+  (if n (str "rotateX(" n "deg)")))
 
 (defn rotate-y
   ; @param (deg) n
@@ -125,7 +125,7 @@
   ;
   ; @return (string)
   [n]
-  (str "rotateY(" n "deg)"))
+  (if n (str "rotateY(" n "deg)")))
 
 (defn rotate-z
   ; @param (deg) n
@@ -137,7 +137,7 @@
   ;
   ; @return (string)
   [n]
-  (str "rotateZ(" n "deg)"))
+  (if n (str "rotateZ(" n "deg)")))
 
 (defn scale
   ; @param (number or string) n
@@ -149,7 +149,7 @@
   ;
   ; @return (string)
   [n]
-  (str "scale(" n ")"))
+  (if n (str "scale(" n ")")))
 
 (defn translate
   ; @param (number or string) n
@@ -167,7 +167,7 @@
   ;
   ; @return (string)
   [n & [suffix]]
-  (str "translate(" n suffix ")"))
+  (if n (str "translate(" n suffix ")")))
 
 (defn translate-x
   ; @param (number or string) n
@@ -185,7 +185,7 @@
   ;
   ; @return (string)
   [n & [suffix]]
-  (str "translateX(" n suffix ")"))
+  (if n (str "translateX(" n suffix ")")))
 
 (defn translate-y
   ; @param (number or string) n
@@ -203,7 +203,7 @@
   ;
   ; @return (string)
   [n & [suffix]]
-  (str "translateY(" n suffix ")"))
+  (if n (str "translateY(" n suffix ")")))
 
 (defn translate-z
   ; @param (number or string) n
@@ -221,7 +221,7 @@
   ;
   ; @return (string)
   [n & [suffix]]
-  (str "translateZ(" n suffix ")"))
+  (if n (str "translateZ(" n suffix ")")))
 
 (defn url
   ; @param (string) n
@@ -233,7 +233,7 @@
   ;
   ; @return (string)
   [n]
-  (str "url(" n ")"))
+  (if n (str "url(" n ")")))
 
 (defn value
   ; @param (number or string) n
@@ -247,7 +247,7 @@
   ;
   ; @return (string)
   [n unit]
-  (str n unit))
+  (if n (str n unit)))
 
 (defn var
   ; @param (keyword or string) n
@@ -295,7 +295,7 @@
   ;
   ; @return (string)
   [n]
-  (str n " 0"))
+  (if n (str n " 0")))
 
 (defn vertical-padding
   ; @param (string) n
@@ -307,7 +307,7 @@
   ;
   ; @return (string)
   [n]
-  (str "0 " n))
+  (if n (str "0 " n)))
 
 (defn horizontal-margin
   ; @param (string) n
@@ -319,7 +319,7 @@
   ;
   ; @return (string)
   [n]
-  (str n " 0"))
+  (if n (str n " 0")))
 
 (defn vertical-margin
   ; @param (string) n
@@ -331,7 +331,7 @@
   ;
   ; @return (string)
   [n]
-  (str "0 " n))
+  (if n (str "0 " n)))
 
 (defn linear-gradient
   ; @param (string) direction
@@ -344,5 +344,6 @@
   ;
   ; @return (string)
   [direction & color-stops]
-  (let [color-stops (string/join color-stops ", ")]
-       (str "linear-gradient("direction", "color-stops")")))
+  (if (-> color-stops empty? not)
+      (let [color-stops (string/join color-stops ", ")]
+           (str "linear-gradient("direction", "color-stops")"))))

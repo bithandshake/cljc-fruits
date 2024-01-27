@@ -57,7 +57,7 @@
 
 (defn use-replacements
   ; @note
-  ; Replacement markers contain numbers in case of more than one replacement passed.
+  ; Replacement markers contain numbers in case of multiple replacement passed.
   ; If only one replacement passed, the marker is a single percent character.
   ;
   ; @description
