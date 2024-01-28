@@ -1,7 +1,7 @@
 
 (ns fruits.map.key
     (:refer-clojure :exclude [keys])
-    (:require [fruits.mixed.api :as mixed]
+    (:require [fruits.mixed.api   :as mixed]
               [fruits.seqable.api :as seqable]))
 
 ;; ----------------------------------------------------------------------------
