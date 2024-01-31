@@ -5,6 +5,7 @@
               [fruits.hiccup.convert    :as convert]
               [fruits.hiccup.parse      :as parse]
               [fruits.hiccup.type       :as type]
+              [fruits.hiccup.put        :as put]
               [fruits.hiccup.walk       :as walk]))
 
 ;; ----------------------------------------------------------------------------
@@ -34,9 +35,10 @@
 (def hiccup?   type/hiccup?)
 (def tag-name? type/tag-name?)
 
+; @redirect (fruits.hiccup.put/*)
+(def put              put/put)
+(def put-with         put/put-with)
+(def put-with-indexed put/put-with-indexed)
+
 ; @redirect (fruits.hiccup.walk/*)
-(def walk             walk/walk)
-(def explode          walk/explode)
-(def put              walk/put)
-(def put-with         walk/put-with)
-(def put-with-indexed walk/put-with-indexed)
+(def walk walk/walk)

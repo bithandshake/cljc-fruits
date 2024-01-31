@@ -89,10 +89,10 @@
   ; @return (vector)
   [n]
   (let [n (mixed/to-vector n)]
-       (if (-> n count (= 1))
-           (-> n)
-           (if-let [first-item (-> n first)]
-                   [first-item] []))))
+       (cond (-> n count (= 1)) (-> n)
+             (-> n count (= 0)) (-> [])
+             :else (let [first-item (-> n first)]
+                        [first-item]))))
 
 (defn keep-first-items
   ; @description
@@ -123,18 +123,13 @@
   ; =>
   ; [:c]
   ;
-  ; @usage
-  ; (keep-last-item [nil nil nil])
-  ; =>
-  ; [nil]
-  ;
   ; @return (vector)
   [n]
   (let [n (mixed/to-vector n)]
-       (if (-> n count (= 1))
-           (-> n)
-           (if-let [last-item (-> n last)]
-                   [last-item] []))))
+       (cond (-> n count (= 1)) (-> n)
+             (-> n count (= 0)) (-> [])
+             :else (let [last-item (-> n last)]
+                        [last-item]))))
 
 (defn keep-last-items
   ; @description
