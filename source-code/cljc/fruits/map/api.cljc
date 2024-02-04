@@ -20,7 +20,8 @@
               [fruits.map.toggle    :as toggle]
               [fruits.map.update    :as update]
               [fruits.map.value     :as value]
-              [fruits.map.walk      :as walk]))
+              [fruits.map.walk      :as walk]
+              [fruits.map.default :as default]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -51,6 +52,11 @@
 ; @redirect (fruits.map.copy/*)
 (def copy    copy/copy)
 (def copy-in copy/copy-in)
+
+; @redirect (fruits.map.default/*)
+(def use-default-value       default/use-default-value)
+(def use-default-values      default/use-default-values)
+(def use-default-value-group default/use-default-value-group)
 
 ; @redirect (fruits.map.dissoc/*)
 (def dissoc-in dissoc/dissoc-in)
@@ -84,9 +90,9 @@
 (def matches-pattern?      match/matches-pattern?)
 
 ; @redirect (fruits.map.merge/*)
+(def merge-some     merge/merge-some)
 (def deep-merge     merge/deep-merge)
 (def reversed-merge merge/reversed-merge)
-(def merge-some     merge/merge-some)
 
 ; @redirect (fruits.map.move/*)
 (def move    move/move)

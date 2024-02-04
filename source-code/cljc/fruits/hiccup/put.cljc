@@ -7,6 +7,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn put
+  ; @note
+  ; Attaches React key to each element if applied in a ClojureScript namespace.
+  ;
   ; @description
   ; Conjugates the items of the given 'n' collection to the given 'container' tag.
   ;
@@ -24,10 +27,15 @@
   (if (vector? container)
       (let [n (mixed/to-seqable n)]
            (letfn [(f0 [container x]
-                       (conj container ^{:key (random/generate-uuid)} [:<> x]))]
+                       (if x (-> container #?(:cljs (conj ^{:key (random/generate-uuid)} [:<> x])
+                                              :clj  (conj                                     x)))
+                             (-> container)))]
                   (reduce f0 container (vec n))))))
 
 (defn put-with
+  ; @note
+  ; Attaches React key to each element if applied in a ClojureScript namespace.
+  ;
   ; @description
   ; Conjugates the items of the given 'n' collection to the given 'container' tag while applying
   ; the given 'put-f' function on each item.
@@ -65,11 +73,15 @@
              put-f (mixed/to-ifn put-f)
              key-f (mixed/to-ifn key-f)]
             (letfn [(f0 [container x]
-                        (if x (conj container ^{:key (key-f x)} [:<> (put-f x)])
-                              (->   container)))]
+                        (if x (-> container #?(:cljs (conj ^{:key (key-f x)} [:<> (put-f x)])
+                                               :clj  (conj                        (put-f x))))
+                              (-> container)))]
                    (reduce f0 container (vec n)))))))
 
 (defn put-with-indexed
+  ; @note
+  ; Attaches React key to each element if applied in a ClojureScript namespace.
+  ;
   ; @description
   ; Conjugates the items of the given 'n' collection to the given 'container' tag while applying
   ; the given 'put-f' function on each item and providing the item index to the function.
@@ -108,6 +120,7 @@
              put-f (mixed/to-ifn put-f)
              key-f (mixed/to-ifn key-f)]
             (letfn [(f0 [container dex x]
-                        (if x (conj container ^{:key (key-f x)} [:<> (put-f dex x)])
-                              (->   container)))]
+                        (if x (-> container #?(:cljs (conj ^{:key (key-f x)} [:<> (put-f dex x)])
+                                               :clj  (conj                        (put-f dex x))))
+                              (-> container)))]
                    (reduce-kv f0 container (vec n)))))))

@@ -110,11 +110,11 @@
   ;
   ; @return (string)
   [n & [flag]]
-  ; - It replaces special characters with dash characters instead of just simply removing
-  ;   them, in order to decrease identical outputs:
+  ; - It replaces special characters with dash characters instead of just simply removing them,
+  ;   to decrease the possibilty of identical outputs:
   ;   (value :abc*) => :abc_
   ;   (value :abc)  => :abc
-  ; - These two outputs would be identical if it would simply remove special characters:
+  ; - Otherwise, these outputs would be identical:
   ;   (value :abc*) => :abc
   ;   (value :abc)  => :abc
   (letfn [(f0 [%] (string/replace-part  % "." "-"))

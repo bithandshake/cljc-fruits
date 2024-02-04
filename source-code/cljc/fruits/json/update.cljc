@@ -442,7 +442,7 @@
   [n]
   ; @note
   ; This function calls itself recursively after it removes the blank values
-  ; from the given data, until it cannot find more blank values within it.
+  ; from the given data, until it cannot find more blank values.
   ; E.g., If the given 'n' value has any item that is a vector that contains
   ;       an empty map, after the first call of this function, only the empty map
   ;       would be removed, because the containing vector was not empty.

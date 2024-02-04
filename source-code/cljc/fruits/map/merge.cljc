@@ -5,9 +5,37 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn merge-some
+  ; @description
+  ; Merges values of the given maps that are not NIL.
+  ;
+  ; @param (list of maps) xyz
+  ;
+  ; @usage
+  ; (merge-some {:a "A"} {:a nil})
+  ; =>
+  ; {:a "A"}
+  ;
+  ; @usage
+  ; (merge-some {:a "A"} {:a nil} {:a "C"})
+  ; =>
+  ; {:a "C"}
+  ;
+  ; @return (map)
+  [& xyz]
+  (let [xyz (map mixed/to-map xyz)]
+       (letfn [(f0 [result x]   (reduce-kv f1 result x))
+               (f1 [result k v] (if (-> v some?)
+                                    (-> result (assoc k v))
+                                    (-> result)))]
+              (reduce f0 {} xyz))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn deep-merge
   ; @description
-  ; Merges the given nested maps.
+  ; Deep merges the given nested maps.
   ;
   ; @param (map) n
   ; @param (list of maps) xyz
@@ -50,28 +78,3 @@
   [& xyz]
   (let [xyz (map mixed/to-map xyz)]
        (apply merge (reverse xyz))))
-
-(defn merge-some
-  ; @description
-  ; Merges values of the given maps that are not NIL.
-  ;
-  ; @param (list of maps) xyz
-  ;
-  ; @usage
-  ; (merge-some {:a "A"} {:a nil})
-  ; =>
-  ; {:a "A"}
-  ;
-  ; @usage
-  ; (merge-some {:a "A"} {:a nil} {:a "C"})
-  ; =>
-  ; {:a "C"}
-  ;
-  ; @return (map)
-  [& xyz]
-  (let [xyz (map mixed/to-map xyz)]
-       (letfn [(f0 [result x]   (reduce-kv f1 result x))
-               (f1 [result k v] (if (-> v some?)
-                                    (-> result (assoc k v))
-                                    (-> result)))]
-              (reduce f0 {} xyz))))
