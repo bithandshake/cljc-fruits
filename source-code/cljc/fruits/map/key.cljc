@@ -138,7 +138,7 @@
   ; @description
   ; Returns TRUE if any of the given maps has a key that is present in any other provided map.
   ;
-  ; @param (list of maps) xyz
+  ; @param (list of maps) abc
   ;
   ; @usage
   ; (has-same-keys? {:a "A"} {:b "B"} {:a "A"})
@@ -151,10 +151,10 @@
   ; false
   ;
   ; @return (boolean)
-  [& xyz]
+  [& abc]
   (loop [ks [] dex 0]
-        (if (seqable/dex-in-bounds? xyz dex)
-            (let [n (nth xyz dex)]
+        (if (seqable/dex-in-bounds? abc dex)
+            (let [n (nth abc dex)]
                  (if (contains-any-key? n ks)
                      (-> true)
                      (recur (-> n keys (concat ks))

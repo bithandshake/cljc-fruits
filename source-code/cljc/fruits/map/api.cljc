@@ -90,9 +90,12 @@
 (def matches-pattern?      match/matches-pattern?)
 
 ; @redirect (fruits.map.merge/*)
-(def merge-some     merge/merge-some)
-(def deep-merge     merge/deep-merge)
-(def reversed-merge merge/reversed-merge)
+(def merge-some          merge/merge-some)
+(def deep-merge          merge/deep-merge)
+(def deep-merge-some     merge/deep-merge-some)
+(def reversed-merge      merge/reversed-merge)
+(def reversed-deep-merge merge/reversed-deep-merge)
+(def reversed-merge-some merge/reversed-merge-some)
 
 ; @redirect (fruits.map.move/*)
 (def move    move/move)

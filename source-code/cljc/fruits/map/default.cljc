@@ -39,10 +39,18 @@
   ;
   ; @return (map)
   [n k & xyz]
-  (let [xyz (apply merge/deep-merge xyz)]
-       (if (-> n (get k) nil?)
-           (-> n (assoc/assoc-some k (get xyz k)))
-           (-> n))))
+
+  ; DEPRECATED (previous version)
+  ; (let [xyz (apply merge/deep-merge xyz)]
+  ;      (if (-> n (get k) nil?)
+  ;          (-> n (assoc/assoc-some k (get xyz k)))
+  ;          (-> n))))
+  ; DEPRECATED (previous version)
+
+  (letfn [(f0 [%] (get % k))]
+         (if (-> n (get k) nil?)
+             (-> n (assoc/assoc-some k (some f0 xyz)))
+             (-> n))))
 
 (defn use-default-values
   ; @description
@@ -77,7 +85,7 @@
   ; @return (map)
   [n & xyz]
   (let [xyz (apply merge/deep-merge xyz)]
-       (merge/deep-merge xyz n)))
+       (merge/deep-merge-some xyz n)))
 
 (defn use-default-value-group
   ; @description
@@ -111,6 +119,6 @@
   ; @return (map)
   [n & xyz]
   (let [xyz (apply merge/deep-merge xyz)]
-       (if (key/has-same-keys? xyz n)
-           (merge/deep-merge   xyz n)
+       (if (key/has-same-keys?    xyz n)
+           (merge/deep-merge-some xyz n)
            (-> n))))

@@ -97,7 +97,7 @@
   ; @description
   ; Returns the average of the given number type parameters.
   ;
-  ; @param (list of numbers) xyz
+  ; @param (list of numbers) abc
   ;
   ; @usage
   ; (average 100 30 20)
@@ -105,14 +105,14 @@
   ; 50
   ;
   ; @return (number)
-  [& xyz]
-  (collection-average xyz))
+  [& abc]
+  (collection-average abc))
 
 (defn minimum
   ; @description
   ; Returns the minimum of the given number type parameters.
   ;
-  ; @param (list of numbers) xyz
+  ; @param (list of numbers) abc
   ;
   ; @usage
   ; (minimum -4.20 2 0)
@@ -120,14 +120,14 @@
   ; 2
   ;
   ; @return (number)
-  [& xyz]
-  (collection-minimum xyz))
+  [& abc]
+  (collection-minimum abc))
 
 (defn maximum
   ; @description
   ; Returns the maximum of the given number type parameters.
   ;
-  ; @param (list of numbers) xyz
+  ; @param (list of numbers) abc
   ;
   ; @usage
   ; (maximum -4.20 2 0)
@@ -135,5 +135,5 @@
   ; 2
   ;
   ; @return (number)
-  [& xyz]
-  (collection-maximum xyz))
+  [& abc]
+  (collection-maximum abc))

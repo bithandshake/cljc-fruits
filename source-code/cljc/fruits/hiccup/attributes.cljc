@@ -59,7 +59,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join-class
-  ; @param (list of keywords or keywords in vectors) xyz
+  ; @param (list of keywords or keywords in vectors) abc
   ;
   ; @usage
   ; (join-class :my-class [:another-class])
@@ -72,11 +72,11 @@
   ; [:div {:class [:my-class :another-class]}]
   ;
   ; @return (keywords in vector)
-  [& xyz]
+  [& abc]
   (letfn [(f0 [result x] (cond (vector?  x) (concat result x)
                                (keyword? x) (conj   result x)
                                :return result))]
-         (reduce f0 [] xyz)))
+         (reduce f0 [] abc)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

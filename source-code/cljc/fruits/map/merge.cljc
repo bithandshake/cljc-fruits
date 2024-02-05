@@ -1,15 +1,32 @@
 
 (ns fruits.map.merge
-    (:require [fruits.mixed.api :as mixed]))
+    (:require [fruits.mixed.api :as mixed]
+              [fruits.map.remove :as remove]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
+
+(defn reversed-merge
+  ; @description
+  ; Merges the given maps in a reversed order.
+  ;
+  ; @param (list of maps) abc
+  ;
+  ; @usage
+  ; (reversed-merge {:a "A1"} {:a "A2"} {:a "A3"})
+  ; =>
+  ; {:a "A1"}
+  ;
+  ; @return (map)
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
+       (apply merge (reverse abc))))
 
 (defn merge-some
   ; @description
-  ; Merges values of the given maps that are not NIL.
+  ; Merges the given maps and filters the result for non-NIL values.
   ;
-  ; @param (list of maps) xyz
+  ; @param (list of maps) abc
   ;
   ; @usage
   ; (merge-some {:a "A"} {:a nil})
@@ -22,13 +39,13 @@
   ; {:a "C"}
   ;
   ; @return (map)
-  [& xyz]
-  (let [xyz (map mixed/to-map xyz)]
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
        (letfn [(f0 [result x]   (reduce-kv f1 result x))
                (f1 [result k v] (if (-> v some?)
                                     (-> result (assoc k v))
                                     (-> result)))]
-              (reduce f0 {} xyz))))
+              (reduce f0 {} abc))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -37,44 +54,78 @@
   ; @description
   ; Deep merges the given nested maps.
   ;
-  ; @param (map) n
-  ; @param (list of maps) xyz
+  ; @param (list of maps) abc
   ;
   ; @usage
-  ; (deep-merge {:a {:b "a/b"}} {:a {:c "a/c"}})
+  ; (deep-merge {:x {:a "A1"}} {:x {:b "B2"}})
   ; =>
-  ; {:a {:b "a/b" :c "a/c"}}
+  ; {:x {:a "A1" :b "B2"}}
   ;
   ; @return (*)
-  [n & xyz]
-  (let [n   (mixed/to-map n)
-        xyz (map mixed/to-map xyz)]
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
        (letfn [(f0 [result x]
-                   (if (and (map? result)
-                            (map? x))
-                       (merge-with f0 result x)
-                       (-> x)))]
-              (if (some identity xyz)
-                  (reduce f0 n xyz)
-                  (-> n)))))
+                   (if (->> x map?)
+                       (->> x (merge-with f0 result))
+                       (->> x)))]
+              (reduce f0 {} abc))))
 
-(defn reversed-merge
+(defn deep-merge-some
   ; @description
-  ; Merges the given maps in a reversed order.
+  ; Deep merges the given nested maps and filters the result for non-NIL values.
   ;
-  ; @param (list of maps) xyz
-  ;
-  ; @usage
-  ; (reversed-merge {:a "A"} {:a "B"})
-  ; =>
-  ; {:a "A"}
+  ; @param (list of maps) abc
   ;
   ; @usage
-  ; (reversed-merge {:a "A"} {:a "B"} {:a "C"})
+  ; (deep-merge-some {:x {:a "A1" :b nil}} {:x {:c "C2" :d NIL}})
   ; =>
-  ; {:a "A"}
+  ; {:x {:a "A1" :b nil :c "C2"}}
+  ;
+  ; @return (*)
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
+       (letfn [(f0 [result x] (reduce-kv f1 result x))
+               (f1 [result k v]
+                   (cond (-> v nil?)              (-> result)             ; <- The primary value is NIL.
+                         (-> v map? not)          (-> result (assoc k v)) ; <- The primary value is not NIL, but not map.
+                         (-> result (get k) map?) (-> result (assoc k (f0 (-> result (get k)) v))) ; <- The both values are maps.
+                         :else ; <- Only the primary value is a map.
+                         (let [v (f0 (-> {}) v)] ; <- Reapplying the 'f0' function ereases NIL values.
+                              (if (-> v empty?)  ; <- If only an empty map left after ereasing NIL values.
+                                  (-> result)
+                                  (-> result (assoc k v))))))]
+              (reduce f0 {} abc))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn reversed-deep-merge
+  ; @description
+  ; Deep merges the given nested maps in a reversed order.
+  ;
+  ; @param (list of maps) abc
+  ;
+  ; (reversed-deep-merge {:x {:a "A1"}} {:x {:a "A2" :b "B2"}})
+  ; =>
+  ; {:x {:a "A1" :b "B2"}}
   ;
   ; @return (map)
-  [& xyz]
-  (let [xyz (map mixed/to-map xyz)]
-       (apply merge (reverse xyz))))
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
+       (apply deep-merge (reverse abc))))
+
+(defn reversed-merge-some
+  ; @description
+  ; Merges non-NIL values in the given maps in a reversed order.
+  ;
+  ; @param (list of maps) abc
+  ;
+  ; @usage
+  ; (reversed-merge-some {:a nil} {:a "A1"} {:a "A2"})
+  ; =>
+  ; {:a "A1"}
+  ;
+  ; @return (map)
+  [& abc]
+  (let [abc (map mixed/to-map abc)]
+       (apply merge-some (reverse abc))))
