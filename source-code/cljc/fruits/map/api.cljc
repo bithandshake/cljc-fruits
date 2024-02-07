@@ -7,6 +7,7 @@
               [fruits.map.compare   :as compare]
               [fruits.map.convert   :as convert]
               [fruits.map.copy      :as copy]
+              [fruits.map.default   :as default]
               [fruits.map.dissoc    :as dissoc]
               [fruits.map.filter    :as filter]
               [fruits.map.get       :as get]
@@ -20,8 +21,7 @@
               [fruits.map.toggle    :as toggle]
               [fruits.map.update    :as update]
               [fruits.map.value     :as value]
-              [fruits.map.walk      :as walk]
-              [fruits.map.default :as default]))
+              [fruits.map.walk      :as walk]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

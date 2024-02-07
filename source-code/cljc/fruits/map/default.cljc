@@ -1,8 +1,8 @@
 
 (ns fruits.map.default
-    (:require [fruits.map.merge :as merge]
-              [fruits.map.key :as key]
-              [fruits.map.assoc :as assoc]))
+    (:require [fruits.map.assoc :as assoc]
+              [fruits.map.key   :as key]
+              [fruits.map.merge :as merge]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

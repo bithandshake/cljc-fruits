@@ -4,8 +4,8 @@
               [fruits.hiccup.content    :as content]
               [fruits.hiccup.convert    :as convert]
               [fruits.hiccup.parse      :as parse]
-              [fruits.hiccup.type       :as type]
               [fruits.hiccup.put        :as put]
+              [fruits.hiccup.type       :as type]
               [fruits.hiccup.walk       :as walk]))
 
 ;; ----------------------------------------------------------------------------

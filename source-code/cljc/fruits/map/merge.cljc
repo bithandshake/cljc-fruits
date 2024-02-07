@@ -1,7 +1,7 @@
 
 (ns fruits.map.merge
-    (:require [fruits.mixed.api :as mixed]
-              [fruits.map.remove :as remove]))
+    (:require [fruits.map.remove :as remove]
+              [fruits.mixed.api  :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
