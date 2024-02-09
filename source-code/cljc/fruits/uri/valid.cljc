@@ -49,12 +49,12 @@
   (if-let [hostname (convert/to-hostname n)]
           (if (string/contains-part? n "://")
               (-> n (convert/to-lowercase)
-                    (string/not-ends-with! "/"))
+                    (string/not-end-with "/"))
               (-> n (convert/to-lowercase)
-                    (string/not-ends-with! "/")
-                    (string/starts-with!   "https://")))
-          (-> n (string/not-ends-with! "/")
-                (string/starts-with!   "/"))))
+                    (string/not-end-with "/")
+                    (string/start-with "https://")))
+          (-> n (string/not-end-with "/")
+                (string/start-with "/"))))
 
 (defn valid-url-path
   ; @param (string) n

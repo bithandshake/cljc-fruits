@@ -30,7 +30,7 @@
       (and (<= n (max x y))
            (>= n (min x y)))))
 
-(defn between!
+(defn between
   ; @description
   ; Ensures that the given 'n' number falls within the given 'x' and 'y' numbers.
   ;
@@ -39,12 +39,12 @@
   ; @param (number) y
   ;
   ; @usage
-  ; (between! 2 0 5)
+  ; (between 2 0 5)
   ; =>
   ; 2
   ;
   ; @usage
-  ; (between! 7 0 5)
+  ; (between 7 0 5)
   ; =>
   ; 5
   ;

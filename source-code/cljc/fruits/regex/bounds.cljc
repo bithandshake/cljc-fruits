@@ -122,7 +122,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn not-starts-with!
+(defn not-start-with
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
@@ -133,12 +133,12 @@
   ; @param (regex pattern or string) x
   ;
   ; @usage
-  ; (not-starts-with! "abcdef" #"[a-z]")
+  ; (not-start-with "abcdef" #"[a-z]")
   ; =>
   ; "bcdef"
   ;
   ; @usage
-  ; (not-starts-with! "abcdef" #"[/d]")
+  ; (not-start-with "abcdef" #"[/d]")
   ; =>
   ; "abcdef"
   ;
@@ -151,7 +151,7 @@
                        (subs n (-> first-match count))))
            (-> n))))
 
-(defn not-ends-with!
+(defn not-end-with
   ; @important
   ; Do not use capturing groups in the given pattern. Otherwise, it generates multiple matches!
   ;
@@ -162,12 +162,12 @@
   ; @param (regex pattern or string) x
   ;
   ; @usage
-  ; (not-ends-with! "abcdef" #"[a-z]")
+  ; (not-end-with "abcdef" #"[a-z]")
   ; =>
   ; "abcde"
   ;
   ; @usage
-  ; (not-ends-with! "abcdef" #"[\d]")
+  ; (not-end-with "abcdef" #"[\d]")
   ; =>
   ; "abcdef"
   ;

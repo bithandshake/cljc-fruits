@@ -40,7 +40,7 @@
   [item-count column-width max-column-count max-width]
   (let [max-columns-fit  (math/floor (/ max-width column-width))
         max-column-count (math/minimum max-column-count max-columns-fit)]
-       (math/between! item-count 0 max-column-count)))
+       (math/between item-count 0 max-column-count)))
 
 (defn columns-width
   ; @description

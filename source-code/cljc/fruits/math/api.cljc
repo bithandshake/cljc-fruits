@@ -17,7 +17,7 @@
 
 ; @redirect (fruits.math.between/*)
 (def between? between/between?)
-(def between! between/between!)
+(def between  between/between)
 
 ; @redirect (fruits.math.check/*)
 (def negative?     check/negative?)

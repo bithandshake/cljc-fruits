@@ -371,11 +371,11 @@
   ; It might be useful if the domain, scheme and other case-insensitive parts
   ; would be converted to lowercase like in other functions.
   (if-let [domain (to-domain n)]
-          (-> n (string/not-ends-with!        "/")
+          (-> n (string/not-end-with          "/")
                 (string/before-last-occurence "/" {:return? true}))
-          (-> n (string/not-ends-with!        "/")
+          (-> n (string/not-end-with          "/")
                 (string/before-last-occurence "/" {:return? false})
-                (string/starts-with!          "/"))))
+                (string/start-with            "/"))))
 
 (defn to-relative-url
   ; @param (string) n
@@ -424,11 +424,11 @@
   (if-let [domain (to-domain n)]
           (-> n (to-lowercase)
                 (string/after-first-occurence domain {:return? false})
-                (string/not-ends-with! "/")
-                (string/starts-with!   "/"))
+                (string/not-end-with "/")
+                (string/start-with   "/"))
           (-> n (to-lowercase)
-                (string/not-ends-with! "/")
-                (string/starts-with!   "/"))))
+                (string/not-end-with "/")
+                (string/start-with   "/"))))
 
 (defn to-absolute-url
   ; @param (string) n
@@ -452,14 +452,14 @@
   ; ... removes the trailing slash (if necessary).
   ; ... prepends the protocol part (if necessary).
   (if-let [absolute-url? (to-domain n)]
-          (-> n (string/not-ends-with! "/")
+          (-> n (string/not-end-with "/")
                 (to-lowercase)
-                (string/starts-with!   "https://"))
-          (-> n (string/starts-with!   "/")
-                (string/prepend        domain)
+                (string/start-with   "https://"))
+          (-> n (string/start-with   "/")
+                (string/prepend      domain)
                 (to-lowercase)
-                (string/not-ends-with! "/")
-                (string/starts-with!   "https://"))))
+                (string/not-end-with "/")
+                (string/start-with   "https://"))))
 
 (defn to-url-path
   ; @param (string) n
@@ -522,9 +522,9 @@
   ; @return (map)
   [n url-path-template]
   (letfn [(f0 [n] (-> n (to-url-path)
-                        (string/not-starts-with!  "/")
-                        (string/not-ends-with!    "/")
-                        (string/split            #"/")))]
+                        (string/not-start-with "/")
+                        (string/not-end-with   "/")
+                        (string/split         #"/")))]
          (let [url-path                (to-url-path n)
                url-path-parts          (f0 url-path)
                url-path-template-parts (f0 url-path-template)]

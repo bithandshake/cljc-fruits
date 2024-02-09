@@ -153,7 +153,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn starts-with!
+(defn start-with
   ; @description
   ; Ensures that the given 'n' string starts with the given 'x' string.
   ;
@@ -164,25 +164,25 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (starts-with! "abcdef" "ab")
+  ; (start-with "abcdef" "ab")
   ; =>
   ; "abcdef"
   ;
   ; @usage
-  ; (starts-with! "cdef" "ab")
+  ; (start-with "cdef" "ab")
   ; =>
   ; "abcdef"
   ;
   ; @return (string)
   ([n x]
-   (starts-with! n x {}))
+   (start-with n x {}))
 
   ([n x options]
    (if (starts-with? n x options)
        (->  n)
        (str x n))))
 
-(defn ends-with!
+(defn end-with
   ; @description
   ; Ensures that the given 'n' string ends with the given 'x' string.
   ;
@@ -193,18 +193,18 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (ends-with! "abcdef" "ef")
+  ; (end-with "abcdef" "ef")
   ; =>
   ; "abcdef"
   ;
   ; @usage
-  ; (ends-with! "abcd" "ef")
+  ; (end-with "abcd" "ef")
   ; =>
   ; "abcdef"
   ;
   ; @return (string)
   ([n x]
-   (ends-with! n x {}))
+   (end-with n x {}))
 
   ([n x options]
    (if (ends-with? n x options)
@@ -214,7 +214,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn not-starts-with!
+(defn not-start-with
   ; @description
   ; Ensures that the given 'n' string not starts with the given 'x' string.
   ;
@@ -225,30 +225,30 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (not-starts-with! "abcdef" "ab")
+  ; (not-start-with "abcdef" "ab")
   ; =>
   ; "cdef"
   ;
   ; @usage
-  ; (not-starts-with! "cdef" "ab")
+  ; (not-start-with "cdef" "ab")
   ; =>
   ; "cdef"
   ;
   ; @usage
-  ; (not-starts-with! nil "ab")
+  ; (not-start-with nil "ab")
   ; =>
   ; nil
   ;
   ; @return (string)
   ([n x]
-   (not-starts-with! n x {}))
+   (not-start-with n x {}))
 
   ([n x options]
    (if (starts-with?              n x options)
        (cut/after-first-occurence n x)
        (-> n))))
 
-(defn not-ends-with!
+(defn not-end-with
   ; @description
   ; Ensures that the given 'n' string not ends with the given 'x' string.
   ;
@@ -259,23 +259,23 @@
   ;   Default: true}
   ;
   ; @usage
-  ; (not-ends-with! "abcdef" "ef")
+  ; (not-end-with "abcdef" "ef")
   ; =>
   ; "abcd"
   ;
   ; @usage
-  ; (not-ends-with! "abcd" "ef")
+  ; (not-end-with "abcd" "ef")
   ; =>
   ; "abcd"
   ;
   ; @usage
-  ; (not-ends-with! nil ".")
+  ; (not-end-with nil ".")
   ; =>
   ; nil
   ;
   ; @return (string)
   ([n x]
-   (not-ends-with! n x {}))
+   (not-end-with n x {}))
 
   ([n x options]
    (if (ends-with?                n x options)

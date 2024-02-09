@@ -20,5 +20,5 @@
   ;
   ; @return (string)
   [n]
-  (-> n (string/not-ends-with!        "/")
+  (-> n (string/not-end-with          "/")
         (string/after-first-occurence "://" {:return? true})))
