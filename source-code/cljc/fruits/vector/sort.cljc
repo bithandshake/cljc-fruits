@@ -2,7 +2,61 @@
 (ns fruits.vector.sort
     (:require [fruits.mixed.api  :as mixed]
               [fruits.vector.dex :as dex]
-              [fruits.vector.get :as get]))
+              [fruits.seqable.api :as seqable]
+              [fruits.vector.get :as get]
+              [fruits.vector.walk :as walk]))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn order-comparator
+  ; @description
+  ; Returns TRUE if the rest of the arguments are present in the given 'n' vector
+  ; in the same same order as they provided.
+  ;
+  ; @param (vector) n
+  ; @param (list of *) abc
+  ;
+  ; @usage
+  ; (order-comparator [:a :b :c] :a :b)
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (order-comparator [:a :b :c] :c :b)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (order-comparator [:a :b :c] :a :x)
+  ; =>
+  ; true
+  ;
+  ; @usage
+  ; (order-comparator [:a :b :c] :x :a)
+  ; =>
+  ; false
+  ;
+  ; @usage
+  ; (order-comparator [:a :b :c] :a :a)
+  ; =>
+  ; false
+  ;
+  ; @return (boolean)
+  [n & abc]
+  ; Same items aren't considerd as they are sorted, to keep their original position stable.
+  ; For example, the '<' comparator function also returns false on same items.
+  (let [n (mixed/to-vector n)]
+       (loop [dex 0 a nil]
+             (if (seqable/dex-out-of-bounds? abc dex)
+                 (-> true)
+                 (if-let [b (dex/first-dex-of n (nth abc dex))]
+                         (cond (= dex 0) (recur (inc dex) b)
+                               (< a b)   (recur (inc dex) b)
+                              ;(= a b)   (recur (inc dex) b)
+                               (= a b)   (-> false)
+                               (> a b)   (-> false))
+                         (-> a some?)))))) ; <- Sorts unknown items to the end of the order.
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -23,11 +77,19 @@
   (let [n (mixed/to-vector n)]
        (-> n reverse vec)))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn abc-items
   ; @description
   ; Returns the given 'n' vector with its items in alphabetical order.
   ;
   ; @param (vector) n
+  ;
+  ; @usage
+  ; (abc-items [:e :c :a :b :d])
+  ; =>
+  ; [:a :b :c :d :e]
   ;
   ; @usage
   ; (abc-items [:b "b" :a "a" nil])
@@ -105,7 +167,7 @@
   ;
   ; @param (vector) n
   ; @param (function)(opt) comparator-f
-  ; @param (function) f
+  ; @param (function) value-f
   ;
   ; @usage
   ; (sort-items-by [{:a 3} {:a 2} {:a 1}] :a)
@@ -118,18 +180,21 @@
   ; [[2 2] [2 3] [1 2]]
   ;
   ; @return (vector)
-  ([n f]
-   (let [n (mixed/to-vector n)
-         f (mixed/to-ifn f)]
-        (vec (sort-by f n))))
+  ([n value-f]
+   (let [n       (mixed/to-vector n)
+         value-f (mixed/to-ifn value-f)]
+        (vec (sort-by value-f n))))
 
-  ([n comparator-f f]
+  ([n comparator-f value-f]
    ; @note (#0610)
    (let [n            (mixed/to-vector n)
-         comparator-f (mixed/to-ifn f)
-         f            (mixed/to-ifn f)]
+         comparator-f (mixed/to-ifn comparator-f)
+         value-f      (mixed/to-ifn value-f)]
         (letfn [(f0 [a b] (boolean (comparator-f a b)))]
-               (vec (sort-by f f0 n))))))
+               (vec (sort-by value-f f0 n))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 
 (defn sort-items-by-dexes
   ; @description
@@ -156,8 +221,8 @@
         dexes (map mixed/to-integer dexes)]
        (letfn [(f0 [result dex]
                    (if-let [item (get/nth-item n dex)]
-                           (conj result item)
-                           (->   result)))]
+                           (-> result (conj item))
+                           (-> result)))]
               (reduce f0 [] dexes))))
 
 (defn sorted-dexes
@@ -242,7 +307,7 @@
   ; @return (boolean)
   [a b comparator-f]
   (let [a            (mixed/to-vector a)
-        b            (mixed/to-vector b) 
+        b            (mixed/to-vector b)
         comparator-f (mixed/to-ifn comparator-f)
         max-count    (min (count a) (count b))]
        (letfn [(f0 [dex]

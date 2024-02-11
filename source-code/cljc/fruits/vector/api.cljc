@@ -187,6 +187,7 @@
 (def repeat-item  set/repeat-item)
 
 ; @redirect (fruits.vector.sort/*)
+(def order-comparator       sort/order-comparator)
 (def reverse-items          sort/reverse-items)
 (def abc-items              sort/abc-items)
 (def sort-items             sort/sort-items)

@@ -19,11 +19,10 @@
   ;   Default: 200}
   ; @param (map)(opt) options
   ; {:allowed-errors (vector)(opt)
-  ;   If the {:hide-errors? true} setting is passed, values in the 'allowed-errors'
-  ;   vector are allowed as response body.
+  ;   If the {:hide-errors? true} setting is provided, values in the 'allowed-errors' vector are allowed as response body.
   ;  :hide-errors? (boolean)(opt)
   ;   Replaces the body with an unsensitive value ('":client-error"' or '":server-error"')
-  ;   in case of client error (4**) or server error (5**) status code is passed.
+  ;   in case of client error (4**) or server error (5**) status code is provided.
   ;   Default: false}
   ;
   ; @usage
@@ -60,8 +59,8 @@
 
                                  ; Replaces the body with an unsensitive value ('":client-error"', '":server-error"')
                                  ; in case of ...
-                                 ; ... the {:hide-error? true} setting is passed,
-                                 ; ... client error (4**) or server error (5**) status code is passed,
+                                 ; ... the ':hide-error?' property is provided as TRUE,
+                                 ; ... client error (4**) or server error (5**) status code is property,
                                  ; ... the 'allowed-errors' vector doesn't contain the body value.
                                  (and hide-errors? (not (utils/error-allowed? body allowed-errors))) (utils/unsensitive-body)
 
@@ -84,11 +83,10 @@
   ;   Default: 200}
   ; @param (map)(opt) options
   ; {:allowed-errors (vector)(opt)
-  ;   If the {:hide-errors? true} setting is passed, values in the 'allowed-errors'
-  ;   vector are allowed as response body.
+  ;   If the {:hide-errors? true} setting is provided, values in the 'allowed-errors' vector are allowed as response body.
   ;  :hide-errors? (boolean)(opt)
   ;   Replaces the body with an unsensitive value ('":client-error"' or '":server-error"')
-  ;   in case of client error (4**) or server error (5**) status code is passed.
+  ;   in case of client error (4**) or server error (5**) status code is provided.
   ;   Default: false}
   ;
   ; @usage
@@ -123,11 +121,10 @@
   ;   Default: 500}
   ; @param (map)(opt) options
   ; {:allowed-errors (vector)(opt)
-  ;   If the {:hide-errors? true} setting is passed, values in the 'allowed-errors'
-  ;   vector are allowed as response body.
+  ;   If the {:hide-errors? true} setting is provided, values in the 'allowed-errors' vector are allowed as response body.
   ;  :hide-errors? (boolean)(opt)
   ;   Replaces the body with an unsensitive value ('":client-error"' or '":server-error"')
-  ;   in case of client error (4**) or server error (5**) status code is passed.
+  ;   in case of client error (4**) or server error (5**) status code is provided.
   ;   Default: false}
   ;
   ; @usage

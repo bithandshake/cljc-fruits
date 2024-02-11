@@ -7,8 +7,8 @@
 
 (defn normalize-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -22,7 +22,7 @@
   ;   If TRUE, adjusts out of bound index values, otherwise ignores them.
   ;   Default: false
   ;  :mirror? (boolean)(opt)
-  ;   If TRUE, mirrors negative index values, otherwise handles them as out of bound indexes.
+  ;   If TRUE, mirrors negative index values, otherwise handles them as out of bound indices.
   ;   Default: false}
   ;
   ; @usage
@@ -60,8 +60,8 @@
 
 (defn dex-in-bounds?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -88,8 +88,8 @@
 
 (defn dex-out-of-bounds?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -119,8 +119,8 @@
 
 (defn next-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -149,8 +149,8 @@
 
 (defn prev-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -182,12 +182,12 @@
 
 (defn dex-range
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns a vector of possible indexes of the given 'n' sequence.
+  ; Returns a vector of possible indices of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ;
@@ -206,8 +206,8 @@
 
 (defn dex-first?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -244,8 +244,8 @@
 
 (defn dex-last?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -282,8 +282,8 @@
 
 (defn first-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -309,8 +309,8 @@
 
 (defn last-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -336,8 +336,8 @@
 
 (defn new-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -370,8 +370,8 @@
 
 (defn inc-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -402,8 +402,8 @@
 
 (defn dec-dex
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description

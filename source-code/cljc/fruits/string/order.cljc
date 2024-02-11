@@ -6,7 +6,7 @@
 
 (defn abc?
   ; @description
-  ; Returns TRUE if the given 'a' and 'b' strings are passed in alphabetical order.
+  ; Returns TRUE if the given 'a' and 'b' strings are provided in alphabetical order.
   ;
   ; @param (string) a
   ; @param (string) b

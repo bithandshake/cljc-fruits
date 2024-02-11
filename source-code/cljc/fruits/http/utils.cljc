@@ -38,8 +38,8 @@
   ; @ignore
   ;
   ; @description
-  ; Replaces the body value with an unsensitive keyword such as ':client-error'
-  ; or ':server-error' in case of client or server error status code passed.
+  ; Replaces the body value with an unsensitive keyword such as ':client-error' or ':server-error'
+  ; in case of client or server error status code is provided.
   ;
   ; @param (map) response-props
   ; {:status (integer)}

@@ -57,8 +57,8 @@
 
 (defn use-replacements
   ; @note
-  ; Replacement markers contain numbers in case of multiple replacement passed.
-  ; If only one replacement passed, the marker is a single percent character.
+  ; Replacement markers contain numbers in case of multiple replacement is provided.
+  ; If only one replacement is provided, the marker is a single percent sign character ('%').
   ;
   ; @description
   ; Replaces the markers in the given 'n' string with the corresponding values from the given 'replacements' vector.

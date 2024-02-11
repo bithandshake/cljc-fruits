@@ -7,8 +7,8 @@
 
 (defn normalize-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -71,8 +71,8 @@
 
 (defn cursor-in-bounds?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -99,8 +99,8 @@
 
 (defn cursor-out-of-bounds?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -130,8 +130,8 @@
 
 (defn next-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -160,8 +160,8 @@
 
 (defn prev-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -193,8 +193,8 @@
 
 (defn cursor-range
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -217,8 +217,8 @@
 
 (defn cursor-first?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -253,8 +253,8 @@
 
 (defn cursor-last?
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -290,8 +290,8 @@
 
 (defn first-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -315,8 +315,8 @@
 
 (defn last-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -344,8 +344,8 @@
 
 (defn inc-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
@@ -376,8 +376,8 @@
 
 (defn dec-cursor
   ; @note
-  ; An N item long sequence has N+1 cursors and N indexes.
-  ; E.g., Indexes of "abc": 0, 1, 2
+  ; An N item long sequence has N+1 cursors and N indices.
+  ; E.g., Indices of "abc": 0, 1, 2
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
