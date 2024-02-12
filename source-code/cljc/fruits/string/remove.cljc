@@ -37,6 +37,48 @@
   (let [n (str n)]
        (clojure.string/replace n x "")))
 
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn remove-first-character
+  ; @description
+  ; Removes the first character of the given 'n' string.
+  ;
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (remove-first-character "abcdef")
+  ; =>
+  ; "bcdef"
+  ;
+  ; @return (string)
+  [n]
+  (let [n (str n)]
+       (if (-> n count pos?)
+           (-> n (subs 1))
+           (-> n))))
+
+(defn remove-last-character
+  ; @description
+  ; Removes the last character of the given 'n' string.
+  ;
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (remove-last-character "abcdef")
+  ; =>
+  ; "abcde"
+  ;
+  ; @return (string)
+  [n]
+  (let [n (str n)]
+       (if (-> n count pos?)
+           (-> n (subs 0 (-> n count dec)))
+           (-> n))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn remove-first-occurence
   ; @description
   ; Removes the first occurence of the given 'x' string from the given 'n' string.

@@ -149,6 +149,8 @@
 
 ; @redirect (fruits.string.remove/*)
 (def remove-part            remove/remove-part)
+(def remove-first-character remove/remove-first-character)
+(def remove-last-character  remove/remove-last-character)
 (def remove-first-occurence remove/remove-first-occurence)
 (def remove-last-occurence  remove/remove-last-occurence)
 
