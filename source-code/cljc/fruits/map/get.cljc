@@ -12,6 +12,7 @@
   ;
   ; @param (map) n
   ; @param (vector) path
+  ; @param (*)(opt) default-value
   ;
   ; @usage
   ; (defn last-dex [%] (-> % count dec))
@@ -25,7 +26,7 @@
   ; {:c "C"}
   ;
   ; @return (*)
-  [n path]
+  [n path & [default-value]]
   (let [n    (mixed/to-map n)
         path (seqable/dynamic-path n path)]
-       (get-in n path)))
+       (get-in n path default-value)))
