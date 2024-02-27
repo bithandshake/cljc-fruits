@@ -6,7 +6,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn count?
+(defn item-count?
   ; @description
   ; Returns TRUE if the given 'n' vector has as many items as the given 'x' value.
   ;
@@ -14,7 +14,7 @@
   ; @param (integer) x
   ;
   ; @usage
-  ; (count? [:a :b :c] 3)
+  ; (item-count? [:a :b :c] 3)
   ; =>
   ; true
   ;
@@ -23,7 +23,7 @@
   (let [n (mixed/to-vector n)]
        (-> n count (= x))))
 
-(defn count-min?
+(defn item-count-min?
   ; @description
   ; Returns TRUE if the given 'n' vector has at least as many items as the given 'x' value.
   ;
@@ -31,12 +31,12 @@
   ; @param (integer) x
   ;
   ; @usage
-  ; (count-min? [:a :b :c] 3)
+  ; (item-count-min? [:a :b :c] 3)
   ; =>
   ; true
   ;
   ; @usage
-  ; (count-min? [:a :b] 3)
+  ; (item-count-min? [:a :b] 3)
   ; =>
   ; false
   ;
@@ -45,7 +45,7 @@
   (let [n (mixed/to-vector n)]
        (-> n count (>= x))))
 
-(defn count-max?
+(defn item-count-max?
   ; @description
   ; Returns TRUE if the given 'n' vector has at most as many items as the given 'x' value.
   ;
@@ -53,12 +53,12 @@
   ; @param (integer) x
   ;
   ; @usage
-  ; (count-max? [:a :b :c] 3)
+  ; (item-count-max? [:a :b :c] 3)
   ; =>
   ; true
   ;
   ; @usage
-  ; (count-max? [:a :b :c :d] 3)
+  ; (item-count-max? [:a :b :c :d] 3)
   ; =>
   ; false
   ;
@@ -70,19 +70,19 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn count-same?
+(defn item-count-same?
   ; @description
   ; Returns TRUE if the given vectors have the same item count.
   ;
   ; @param (list of vectors) abc
   ;
   ; @usage
-  ; (count-same? [:a :b :c] [:a :b :c])
+  ; (item-count-same? [:a :b :c] [:a :b :c])
   ; =>
   ; true
   ;
   ; @usage
-  ; (count-same? [:a :b :c] [:a :b :c :d])
+  ; (item-count-same? [:a :b :c] [:a :b :c :d])
   ; =>
   ; false
   ;
@@ -95,19 +95,19 @@
                    (-> abc (nth dex) count (= sample))  (recur (-> abc (nth dex) count) (inc dex))
                    :else false))))
 
-(defn count-inc?
+(defn item-count-inc?
   ; @description
   ; Returns TRUE if the given vectors are provided in increasing order of their item count.
   ;
   ; @param (list of vectors) abc
   ;
   ; @usage
-  ; (count-inc? [:a :b :c] [:a :b :c :d])
+  ; (item-count-inc? [:a :b :c] [:a :b :c :d])
   ; =>
   ; true
   ;
   ; @usage
-  ; (count-inc? [:a :b :c :d] [:a :b :c])
+  ; (item-count-inc? [:a :b :c :d] [:a :b :c])
   ; =>
   ; false
   ;
@@ -120,19 +120,19 @@
                    (-> abc (nth dex) count (> sample))  (recur (-> abc (nth dex) count) (inc dex))
                    :else false))))
 
-(defn count-dec?
+(defn item-count-dec?
   ; @description
   ; Returns TRUE if the given vectors are provided in decreasing order of their item count.
   ;
   ; @param (list of vectors) abc
   ;
   ; @usage
-  ; (count-dec? [:a :b :c :d] [:a :b :c])
+  ; (item-count-dec? [:a :b :c :d] [:a :b :c])
   ; =>
   ; true
   ;
   ; @usage
-  ; (count-dec? [:a :b :c] [:a :b :c :d])
+  ; (item-count-dec? [:a :b :c] [:a :b :c :d])
   ; =>
   ; false
   ;

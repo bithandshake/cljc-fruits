@@ -33,9 +33,9 @@
   ; {:a "A3"}
   ;
   ; @usage
-  ; (use-default-value {...} ; <- The first given map is the PRIMARY source of the value.
-  ;                    {...} ; <- The rest of the given maps is the SECONDARY source of the value.
-  ;                    {...} ; <- The later argument is a map; the higher its priority among the rest of the given maps.)
+  ; (use-default-value {...}  ;; <- The first given map is the PRIMARY source of the value.
+  ;                    {...}  ;; <- The rest of the given maps is the SECONDARY source of the value.
+  ;                    {...}) ;; <- The later argument is a map; the higher its priority among the rest of the given maps.
   ;
   ; @return (map)
   [n k & xyz]
@@ -78,9 +78,9 @@
   ;      :c "C2"}}
   ;
   ; @usage
-  ; (use-default-values {...} ; <- The first given map is the PRIMARY source of values.
-  ;                     {...} ; <- The rest of the given maps is the SECONDARY source of values.
-  ;                     {...} ; <- The later argument is a map; the higher its priority among the rest of the given maps.)
+  ; (use-default-values {...}  ;; <- The first given map is the PRIMARY source of values.
+  ;                     {...}  ;; <- The rest of the given maps is the SECONDARY source of values.
+  ;                     {...}) ;; <- The later argument is a map; the higher its priority among the rest of the given maps.
   ;
   ; @return (map)
   [n & xyz]
@@ -112,9 +112,9 @@
   ; {:a "A1"}
   ;
   ; @usage
-  ; (use-default-value-group {...} ; <- The first given map is the PRIMARY source of values.
-  ;                          {...} ; <- The rest of the given maps is the SECONDARY source of values.
-  ;                          {...} ; <- The later argument is a map; the higher its priority among the rest of the given maps.)
+  ; (use-default-value-group {...}  ;; <- The first given map is the PRIMARY source of values.
+  ;                          {...}  ;; <- The rest of the given maps is the SECONDARY source of values.
+  ;                          {...}) ;; <- The later argument is a map; the higher its priority among the rest of the given maps.
   ;
   ; @return (map)
   [n & xyz]

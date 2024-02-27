@@ -59,12 +59,12 @@
 (def to-seqable     convert/to-seqable)
 
 ; @redirect (fruits.vector.count/*)
-(def count?      count/count?)
-(def count-min?  count/count-min?)
-(def count-max?  count/count-max?)
-(def count-same? count/count-same?)
-(def count-inc?  count/count-inc?)
-(def count-dec?  count/count-dec?)
+(def item-count?      count/item-count?)
+(def item-count-min?  count/item-count-min?)
+(def item-count-max?  count/item-count-max?)
+(def item-count-same? count/item-count-same?)
+(def item-count-inc?  count/item-count-inc?)
+(def item-count-dec?  count/item-count-dec?)
 
 ; @redirect (fruits.vector.cut/*)
 (def keep-range             cut/keep-range)

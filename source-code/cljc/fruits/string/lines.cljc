@@ -277,19 +277,19 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn line-count
+(defn newline-count
   ; @description
   ; Returns the count of newline characters in the given 'n' string.
   ;
   ; @param (string) n
   ;
   ; @usage
-  ; (line-count "abc\n")
+  ; (newline-count "abc\ndef")
   ; =>
   ; 1
   ;
   ; @usage
-  ; (line-count "abc")
+  ; (newline-count "abc")
   ; =>
   ; 0
   ;
@@ -297,7 +297,27 @@
   [n]
   (get (-> n str frequencies) \newline))
 
-(defn max-lines
+(defn line-count
+  ; @description
+  ; Returns the count of lines within the given 'n' string.
+  ;
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (line-count "abc\ndef")
+  ; =>
+  ; 2
+  ;
+  ; @usage
+  ; (line-count "abc")
+  ; =>
+  ; 1
+  ;
+  ; @return (integer)
+  [n]
+  (-> n newline-count inc))
+
+(defn limit-lines
   ; @description
   ; - Limits the line count of the given 'n' string.
   ; - With the '{:reverse? true}' setting it removes the beginning of the given string instead of removing the end.
@@ -309,18 +329,18 @@
   ;   Default: false}
   ;
   ; @usage
-  ; (max-lines "abc\ndef\nghi" 2)
+  ; (limit-lines "abc\ndef\nghi" 2)
   ; =>
   ; "abc\ndef"
   ;
   ; @usage
-  ; (max-lines "abc\ndef\nghi" 2 {:reverse? true})
+  ; (limit-lines "abc\ndef\nghi" 2 {:reverse? true})
   ; =>
   ; "def\nghi"
   ;
   ; @return (string)
   ([n limit]
-   (max-lines n limit {}))
+   (limit-lines n limit {}))
 
   ([n limit {:keys [reverse?]}]
    (let [n     (str       n)

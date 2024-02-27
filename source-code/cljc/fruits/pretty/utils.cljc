@@ -42,7 +42,7 @@
   ;
   ; @return (string)
   [n]
-  (string/replace-part n #"\r\n\}" "}"))
+  (string/replace-part n #"\n\}" "}"))
 
 (defn key-tabs
   ; @ignore
@@ -67,12 +67,12 @@
   ; @usage
   ; (break "{:foo "bar"}" 2)
   ; =>
-  ; "\r\n  "
+  ; "\n  "
   ;
   ; @return (string)
   [n depth]
   (let [key-tabs (key-tabs depth)]
-       (str string/BREAK key-tabs n)))
+       (str string/NEWLINE key-tabs n)))
 
 (defn map-wrap
   ; @ignore

@@ -140,8 +140,9 @@
 (def in-blank-line?         lines/in-blank-line?)
 (def not-in-blank-line?     lines/not-in-blank-line?)
 (def remove-newlines        lines/remove-newlines)
+(def newline-count          lines/newline-count)
 (def line-count             lines/line-count)
-(def max-lines              lines/max-lines)
+(def limit-lines            lines/limit-lines)
 
 ; @redirect (fruits.string.order/*)
 (def abc? order/abc?)

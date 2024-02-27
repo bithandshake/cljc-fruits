@@ -87,13 +87,13 @@
        (letfn [(f0 [result x] (reduce-kv f1 result x))
                (f1 [result k v]
                    (cond (-> v nil?)              (-> result)             ; <- The primary value is NIL.
-                         (-> v map? not)          (-> result (assoc k v)) ; <- The primary value is not NIL, but not map.
-                         (-> result (get k) map?) (-> result (assoc k (f0 (-> result (get k)) v))) ; <- The both values are maps.
-                         :else ; <- Only the primary value is a map.
-                         (let [v (f0 (-> {}) v)] ; <- Reapplying the 'f0' function ereases NIL values.
-                              (if (-> v empty?)  ; <- If only an empty map left after ereasing NIL values.
-                                  (-> result)
-                                  (-> result (assoc k v))))))]
+                         (-> v map? not)          (-> result (assoc k v)) ; <- The primary value is not NIL, but also not map.
+                         (-> result (get k) map?) (-> result (assoc k (f0 (-> result (get k)) v))) ; <- Both values are maps.
+                         :else                    ; <- Only the primary value is a map.
+                         (let [vf (f0 (-> {}) v)] ; <- Reapplying the 'f0' function ereases NIL values from the primary value.
+                              (cond (-> vf empty? not) (-> result (assoc k vf)) ; <- The filtered primary value is not empty.
+                                    (-> v  empty?)     (-> result (assoc k vf)) ; <- The filtered primary value is empty, but it was also empty before the filtering.
+                                    :return result))))]                         ; <- The filtered primary value is empty because of the filtering.
               (reduce f0 {} abc))))
 
 ;; ----------------------------------------------------------------------------
