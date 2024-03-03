@@ -204,7 +204,7 @@
         f (mixed/to-ifn f)]
        (letfn [(f0 [matches x]
                    (if (-> x f)
-                       (-> matches conj x)
+                       (-> matches (conj x))
                        (-> matches)))]
               (reduce f0 [] n))))
 

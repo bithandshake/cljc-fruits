@@ -39,12 +39,8 @@
   [n]
   (let [n (mixed/to-map n)]
        (letfn [(f0 [k]
-                   (cond (string? k)
-                         (if-let [ns (-> k keyword clojure.core/namespace)]
-                                 (keyword ns))
-                         (keyword? k)
-                         (if-let [ns (-> k clojure.core/namespace)]
-                                 (keyword ns))))]
+                   (cond (string?  k) (if-let [ns (-> k keyword clojure.core/namespace)] (keyword ns))
+                         (keyword? k) (if-let [ns (-> k clojure.core/namespace)]         (keyword ns))))]
               (some f0 (keys n)))))
 
 (defn add-namespace
@@ -103,9 +99,6 @@
 ;; ----------------------------------------------------------------------------
 
 (defn assoc-ns
-  ; @important
-  ; This function is incomplete and may not behave as expected.
-  ;
   ; @description
   ; Associates the given key-value pair to given 'n' map adding the namespace of the map to the new key.
   ;
@@ -119,8 +112,12 @@
   ; {:fruit/apple "red" :fruit/banana "yellow"}
   ;
   ; @return (map)
-  [n k v])
-  ; TODO
+  [n k v]
+  (let [n (mixed/to-map n)
+        k (mixed/to-keyword k)]
+       (if-let [namespace (namespace n)]
+               (let [k (keyword (name namespace) (name k))] (assoc n k v))
+               (let [k (-> k)]                              (assoc n k v)))))
 
 (defn get-ns
   ; @description
@@ -139,5 +136,5 @@
   (let [n (mixed/to-map n)
         k (mixed/to-keyword k)]
        (if-let [namespace (namespace n)]
-               (let [k (keyword (name namespace) (name k))]
-                    (get n k)))))
+               (let [k (keyword (name namespace) (name k))] (get n k))
+               (let [k (-> k)]                              (get n k)))))
