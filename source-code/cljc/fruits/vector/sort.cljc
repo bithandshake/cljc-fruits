@@ -1,9 +1,9 @@
 
 (ns fruits.vector.sort
-    (:require [fruits.mixed.api  :as mixed]
-              [fruits.vector.dex :as dex]
+    (:require [fruits.mixed.api   :as mixed]
               [fruits.seqable.api :as seqable]
-              [fruits.vector.get :as get]
+              [fruits.vector.dex  :as dex]
+              [fruits.vector.get  :as get]
               [fruits.vector.walk :as walk]))
 
 ;; ----------------------------------------------------------------------------
