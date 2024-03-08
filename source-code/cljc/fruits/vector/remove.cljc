@@ -197,6 +197,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (remove-items-by [:a :b :c] keyword?)
@@ -204,14 +208,17 @@
   ; []
   ;
   ; @return (vector)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (letfn [(f0 [result x]
-                   (if (-> x f)
-                       (-> result)
-                       (-> result (conj x))))]
-              (reduce f0 [] n))))
+  ([n f]
+   (remove-items-by n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [       dex x] (if provide-dex? (f dex x) (f x)))
+                (f1 [result dex x] (if (-> dex (f0 x))
+                                       (-> result)
+                                       (-> result (conj x))))]
+               (reduce-kv f1 [] n)))))
 
 (defn remove-duplicates
   ; @description
@@ -291,6 +298,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (keep-items-by [:a :b "c" "d"] keyword?)
@@ -298,11 +309,14 @@
   ; [:a :b]
   ;
   ; @return (vector)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (letfn [(f0 [result x]
-                   (if (-> x f)
-                       (-> result (conj x))
-                       (-> result)))]
-              (reduce f0 [] n))))
+  ([n f]
+   (keep-items-by n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [       dex x] (if provide-dex? (f dex x) (f x)))
+                (f1 [result dex x] (if (-> dex    (f0   x))
+                                       (-> result (conj x))
+                                       (-> result)))]
+               (reduce-kv f1 [] n)))))

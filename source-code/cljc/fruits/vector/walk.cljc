@@ -14,7 +14,7 @@
   ; @param (function) f
   ; @param (map)(opt)
   ; {:provide-dex? (boolean)(opt)
-  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -43,7 +43,7 @@
   ; @param (function) f
   ; @param (map)(opt)
   ; {:provide-dex? (boolean)(opt)
-  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -76,10 +76,10 @@
   ; @param (function) f
   ; @param (map)(opt)
   ; {:provide-dex? (boolean)(opt)
-  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
-  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   If TRUE, provides the corresponding path to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -111,10 +111,10 @@
   ; @param (function) f
   ; @param (map)(opt)
   ; {:provide-dex? (boolean)(opt)
-  ;   If TRUE, provides the corresponding index also to the given 'f' function.
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
-  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   If TRUE, provides the corresponding path to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage

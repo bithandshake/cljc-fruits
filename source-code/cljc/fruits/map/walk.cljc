@@ -14,7 +14,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -43,7 +43,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -76,7 +76,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -108,7 +108,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'f' function.
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -144,7 +144,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -173,7 +173,7 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -206,10 +206,10 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
-  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   If TRUE, provides the corresponding path to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -241,10 +241,10 @@
   ; @param (function) f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'f' function.
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
-  ;   If TRUE, provides the corresponding path also to the given 'f' function.
+  ;   If TRUE, provides the corresponding path to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -283,10 +283,10 @@
   ; @param (function) v-f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'v-f' function.
+  ;   If TRUE, provides the corresponding key to the given 'v-f' function.
   ;   Default: false
   ;  :provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'k-f' function.
+  ;   If TRUE, provides the corresponding value to the given 'k-f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -321,13 +321,13 @@
   ; @param (function) v-f
   ; @param (map)(opt) options
   ; {:provide-key? (boolean)(opt)
-  ;   If TRUE, provides the corresponding key also to the given 'v-f' function.
+  ;   If TRUE, provides the corresponding key to the given 'v-f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
-  ;   If TRUE, provides the corresponding path also to the given 'v-f' function.
+  ;   If TRUE, provides the corresponding path to the given 'v-f' function.
   ;   Default: false
   ;  :provide-value? (boolean)(opt)
-  ;   If TRUE, provides the corresponding value also to the given 'k-f' function.
+  ;   If TRUE, provides the corresponding value to the given 'k-f' function.
   ;   Default: false}
   ;
   ; @usage
