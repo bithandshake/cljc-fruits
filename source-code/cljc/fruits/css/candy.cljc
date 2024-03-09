@@ -55,7 +55,7 @@
   (if n (str n "s")))
 
 (defn percent
-  ; @param (percentage) n
+  ; @param (percent) n
   ;
   ; @usage
   ; (percent 420)
