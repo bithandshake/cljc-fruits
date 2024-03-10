@@ -135,7 +135,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the cursor that follows the given 'cursor' value in the given 'n' sequence.
+  ; Returns the cursor that follows the given 'cursor' value of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) cursor
@@ -165,7 +165,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the cursor that precedes the given 'cursor' value in the given 'n' sequence.
+  ; Returns the cursor that precedes the given 'cursor' value of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) cursor
@@ -222,7 +222,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'cursor' value is the first cursor in the given 'n' sequence.
+  ; Returns TRUE if the given 'cursor' value is the first cursor of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (cursor) cursor
@@ -258,7 +258,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'cursor' value is the last cursor in the given 'n' sequence.
+  ; Returns TRUE if the given 'cursor' value is the last cursor of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) cursor

@@ -7,7 +7,7 @@
 
 (defn to-longhand
   ; @description
-  ; Converts the given 'n' value into a value of a specific key within the result in case it is not a map already.
+  ; Converts the given 'n' value into a value of a specific key within the result only in case it is not a map already.
   ;
   ; @param (*) n
   ; @param (*) k

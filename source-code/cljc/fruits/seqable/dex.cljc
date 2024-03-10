@@ -124,7 +124,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the index that follows the given 'dex' value in the given 'n' sequence.
+  ; Returns the index that follows the given 'dex' value of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -143,7 +143,8 @@
   [n dex]
   (let [n   (mixed/to-seqable n)
         dex (mixed/to-integer dex)]
-       (cond (-> n count dec (<= dex)) (-> 0)
+       (cond (-> n count zero?)        (-> nil)
+             (-> n count dec (<= dex)) (-> 0)
              (-> dex (< 0))            (-> 0)
              :return                   (-> dex inc))))
 
@@ -154,7 +155,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the index that precedes the given 'dex' value in the given 'n' sequence.
+  ; Returns the index that precedes the given 'dex' value of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -173,7 +174,8 @@
   [n dex]
   (let [n   (mixed/to-seqable n)
         dex (mixed/to-integer dex)]
-       (cond (-> dex (<= 0))          (-> n count dec)
+       (cond (-> n count zero?)       (-> nil)
+             (-> dex (<= 0))          (-> n count dec)
              (-> n count dec (< dex)) (-> n count dec)
              :return                  (-> dex dec))))
 
@@ -211,7 +213,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'dex' value is the index of the first item (if any) in the given 'n' sequence.
+  ; Returns TRUE if the given 'dex' value is the index of the first item (if any) of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -249,7 +251,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'dex' value is the index of the last item (if any) in the given 'n' sequence.
+  ; Returns TRUE if the given 'dex' value is the index of the last item (if any) of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ; @param (integer) dex
@@ -287,7 +289,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the first index of the first item (if any) in the given 'n' sequence.
+  ; Returns the first index of the first item (if any) of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ;
@@ -314,7 +316,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the index of the last item (if any) in the given 'n' sequence.
+  ; Returns the index of the last item (if any) of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ;
@@ -341,7 +343,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns the next index that follows the index of the last item (if any) in the given 'n' sequence.
+  ; Returns the next index that follows the index of the last item (if any) of the given 'n' sequence.
   ;
   ; @param (seqable) n
   ;
@@ -395,7 +397,8 @@
   [n dex]
   (let [n   (mixed/to-seqable n)
         dex (mixed/to-integer dex)]
-       (cond (-> n count dec (= dex)) (-> dex)
+       (cond (-> n count zero?)       (-> nil)
+             (-> n count dec (= dex)) (-> dex)
              (-> n count dec (< dex)) (-> n count dec)
              (-> dex         (<   0)) (-> 0)
              :else                    (-> dex inc))))
@@ -427,6 +430,7 @@
   [n dex]
   (let [n   (mixed/to-seqable n)
         dex (mixed/to-integer dex)]
-       (cond (-> n count dec (< dex)) (-> n count dec)
+       (cond (-> n count zero?)       (-> nil)
+             (-> n count dec (< dex)) (-> n count dec)
              (-> dex         (<   2)) (-> 0)
              :else                    (-> dex dec))))

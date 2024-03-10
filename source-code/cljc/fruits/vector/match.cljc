@@ -13,6 +13,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (any-item-matches? [:a "b" :c] string?)
@@ -25,10 +29,19 @@
   ; false
   ;
   ; @return (boolean)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (-> (some f n) boolean)))
+  ([n f]
+   (any-item-matches? n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if (-> dex (f0 x))
+                                  (-> true)
+                                  (-> dex inc recur)))))))))
 
 (defn no-item-matches?
   ; @description
@@ -36,6 +49,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (no-item-matches? [:a :b :c] string?)
@@ -48,8 +65,11 @@
   ; false
   ;
   ; @return (boolean)
-  [n f]
-  (-> (any-item-matches? n f) not))
+  ([n f]
+   (no-item-matches? n f {}))
+
+  ([n f options]
+   (-> (any-item-matches? n f options) not)))
 
 (defn all-items-match?
   ; @description
@@ -57,6 +77,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (all-items-match? ["a" "b" "c"] string?)
@@ -69,10 +93,19 @@
   ; false
   ;
   ; @return (boolean)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (every? f n)))
+  ([n f]
+   (all-items-match? n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0]
+                     (or (seqable/dex-out-of-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if (-> dex (f0 x) not)
+                                  (-> false)
+                                  (-> dex inc recur)))))))))
 
 (defn not-all-items-match?
   ; @description
@@ -80,6 +113,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (not-all-items-match? [:a "b" "c"] string?)
@@ -92,8 +129,11 @@
   ; false
   ;
   ; @return (boolean)
-  [n f]
-  (-> (all-items-match? n f) not))
+  ([n f]
+   (not-all-items-match? n f {}))
+
+  ([n f options]
+   (-> (all-items-match? n f options) not)))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -104,6 +144,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (first-match [:a :b :c "d"] keyword?)
@@ -111,13 +155,18 @@
   ; :a
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (cond (-> n (nth dex) f) (-> n (nth dex))
-                       :recur             (-> dex inc recur))))))
+  ([n f]
+   (first-match n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (cond (-> dex (f0 x)) (-> x)
+                                    :recur          (-> dex inc recur)))))))))
 
 (defn second-match
   ; @description
@@ -125,6 +174,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (second-match [:a :b :c "d"] keyword?)
@@ -132,14 +185,19 @@
   ; :b
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex 0 match-count 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (cond (-> n (nth dex) f not) (-> dex inc (recur match-count))
-                       (-> 2 (= match-count)) (-> n (nth dex))
-                       :recur-after-match     (-> dex inc (recur (inc match-count))))))))
+  ([n f]
+   (second-match n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0 match-count 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (cond (-> dex (f0 x) not)    (-> dex inc (recur match-count))
+                                    (-> 2 (= match-count)) (-> x)
+                                    :recur-after-match     (-> dex inc (recur (inc match-count)))))))))))
 
 (defn last-match
   ; @description
@@ -147,6 +205,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (last-match [:a :b :c "d"] keyword?)
@@ -154,13 +216,18 @@
   ; :c
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex (-> n count dec)]
-             (if (seqable/dex-in-bounds? n dex)
-                 (cond (-> n (nth dex) f) (-> n (nth dex))
-                       :recur             (-> dex dec recur))))))
+  ([n f]
+   (last-match n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex (-> n count dec)]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (cond (-> dex (f0 x)) (-> x)
+                                    :recur          (-> dex dec recur)))))))))
 
 (defn nth-match
   ; @description
@@ -169,6 +236,10 @@
   ; @param (vector) n
   ; @param (function) f
   ; @param (integer) th
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (nth-match [:a :b :c "d"] keyword? 1)
@@ -176,15 +247,20 @@
   ; :b
   ;
   ; @return (*)
-  [n f th]
-  (let [n  (mixed/to-vector n)
-        f  (mixed/to-ifn f)
-        th (mixed/to-integer th)]
-       (loop [dex 0 match-count 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (cond (-> n (nth dex) f not)  (-> dex inc (recur match-count))
-                       (-> th (= match-count)) (-> n (nth dex))
-                       :recur-after-match      (-> dex inc (recur (inc match-count))))))))
+  ([n f th]
+   (nth-match n f th {}))
+
+  ([n f th {:keys [provide-dex?]}]
+   (let [n  (mixed/to-vector n)
+         f  (mixed/to-ifn f)
+         th (mixed/to-integer th)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0 match-count 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (cond (-> dex (f0 x) not)     (-> dex inc (recur match-count))
+                                    (-> th (= match-count)) (-> x)
+                                    :recur-after-match      (-> dex inc (recur (inc match-count)))))))))))
 
 (defn all-matches
   ; @description
@@ -192,6 +268,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (all-matches [:a :b :c "d"] keyword?)
@@ -199,14 +279,17 @@
   ; [:a :b :c]
   ;
   ; @return (vector)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (letfn [(f0 [matches x]
-                   (if (-> x f)
-                       (-> matches (conj x))
-                       (-> matches)))]
-              (reduce f0 [] n))))
+  ([n f]
+   (all-matches n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [        dex x] (if provide-dex? (f dex x) (f x)))
+                (f1 [matches dex x] (if (-> dex (f0 x))
+                                        (-> matches (conj x))
+                                        (-> matches)))]
+               (reduce-kv f1 [] n)))))
 
 (defn match-count
   ; @description
@@ -214,6 +297,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (match-count [:a :b "c"] keyword?)
@@ -221,7 +308,10 @@
   ; 2
   ;
   ; @return (integer)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (count (filter f n))))
+  ([n f]
+   (match-count n f {}))
+
+  ([n f options]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (-> (all-matches n f options) count))))

@@ -87,7 +87,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'x' value is an integer.
+  ; Returns TRUE if the given 'x' value is a cursor (integer).
   ;
   ; @param (*) x
   ;
@@ -120,7 +120,7 @@
   ; Negative index values are distances from the end of a sequence.
   ;
   ; @description
-  ; Returns TRUE if the given 'x' value is an integer.
+  ; Returns TRUE if the given 'x' value is an index (integer).
   ;
   ; @param (*) x
   ;

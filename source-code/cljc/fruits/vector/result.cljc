@@ -13,6 +13,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (first-result [:a :b :c "d"] keyword?)
@@ -25,14 +29,19 @@
   ; "a"
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (if-let [result (-> n (nth dex) f)]
-                         (-> result)
-                         (-> dex inc recur))))))
+  ([n f]
+   (first-result n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if-let [result (-> dex (f0 x))]
+                                      (-> result)
+                                      (-> dex inc recur)))))))))
 
 (defn second-result
   ; @description
@@ -40,6 +49,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (second-result [:a :b :c "d"] keyword?)
@@ -52,17 +65,22 @@
   ; "b"
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex 0 match-count 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (if-let [result (-> n (nth dex) f)]
-                         (if (-> 1 (= match-count))
-                             (-> result)
-                             (recur (inc dex)
-                                    (inc match-count)))
-                         (recur (inc dex) match-count))))))
+  ([n f]
+   (second-result n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0 match-count 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if-let [result (-> dex (f0 x))]
+                                      (if (-> 1 (= match-count))
+                                          (-> result)
+                                          (recur (inc dex)
+                                                 (inc match-count)))
+                                      (recur (inc dex) match-count)))))))))
 
 (defn last-result
   ; @description
@@ -70,6 +88,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (last-result [:a :b :c "d"] keyword?)
@@ -82,14 +104,19 @@
   ; "c"
   ;
   ; @return (*)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (loop [dex (-> n count dec)]
-             (if (seqable/dex-in-bounds? n dex)
-                 (if-let [result (-> n (nth dex) f)]
-                         (-> result)
-                         (-> dex dec recur))))))
+  ([n f]
+   (last-result n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex (-> n count dec)]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if-let [result (-> dex (f0 x))]
+                                      (-> result)
+                                      (-> dex dec recur)))))))))
 
 (defn nth-result
   ; @description
@@ -98,6 +125,10 @@
   ; @param (vector) n
   ; @param (function) f
   ; @param (integer) th
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (nth-result [:a :b :c "d"] keyword? 1)
@@ -110,18 +141,23 @@
   ; "b"
   ;
   ; @return (*)
-  [n f th]
-  (let [n  (mixed/to-vector n)
-        f  (mixed/to-ifn f)
-        th (mixed/to-integer th)]
-       (loop [dex 0 match-count 0]
-             (if (seqable/dex-in-bounds? n dex)
-                 (if-let [result (-> n (nth dex) f)]
-                         (if (-> th (= match-count))
-                             (-> result)
-                             (recur (inc dex)
-                                    (inc match-count)))
-                         (recur (inc dex) match-count))))))
+  ([n f th]
+   (nth-result n f th {}))
+
+  ([n f th {:keys [provide-dex?]}]
+   (let [n  (mixed/to-vector n)
+         f  (mixed/to-ifn f)
+         th (mixed/to-integer th)]
+        (letfn [(f0 [dex x] (if provide-dex? (f dex x) (f x)))]
+               (loop [dex 0 match-count 0]
+                     (if (seqable/dex-in-bounds? n dex)
+                         (let [x (nth n dex)]
+                              (if-let [result (-> dex (f0 x))]
+                                      (if (-> th (= match-count))
+                                          (-> result)
+                                          (recur (inc dex)
+                                                 (inc match-count)))
+                                      (recur (inc dex) match-count)))))))))
 
 (defn all-results
   ; @description
@@ -129,6 +165,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (all-results [:a :b :c "d"] keyword?)
@@ -141,14 +181,17 @@
   ; ["a" "b" "c"]
   ;
   ; @return (vector)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (letfn [(f0 [results x]
-                   (if-let [result (f x)]
-                           (-> results conj result)
-                           (-> results)))]
-              (reduce f0 [] n))))
+  ([n f]
+   (all-results n f {}))
+
+  ([n f {:keys [provide-dex?]}]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (letfn [(f0 [        dex x] (if provide-dex? (f dex x) (f x)))
+                (f1 [results dex x] (if-let [result (f0 dex x)]
+                                            (-> results conj result)
+                                            (-> results)))]
+               (reduce-kv f1 [] n)))))
 
 (defn result-count
   ; @description
@@ -156,6 +199,10 @@
   ;
   ; @param (vector) n
   ; @param (function) f
+  ; @param (map)(opt) options
+  ; {:provide-dex? (boolean)(opt)
+  ;   If TRUE, provides the corresponding index to the given 'f' function.
+  ;   Default: false}
   ;
   ; @usage
   ; (result-count [:a :b "c"] keyword?)
@@ -163,7 +210,10 @@
   ; 2
   ;
   ; @return (integer)
-  [n f]
-  (let [n (mixed/to-vector n)
-        f (mixed/to-ifn f)]
-       (count (filter f n))))
+  ([n f]
+   (result-count n f {}))
+
+  ([n f options]
+   (let [n (mixed/to-vector n)
+         f (mixed/to-ifn f)]
+        (-> (all-results n f options) count))))

@@ -1,12 +1,13 @@
 
-(ns fruits.keyword.insert)
+(ns fruits.keyword.insert
+    (:require [fruits.mixed.api :as mixed]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
 (defn prepend
   ; @description
-  ; Prepends the given 'x' keyword to the given 'n' keyword.
+  ; Prepends the given 'x' value to the given 'n' value.
   ;
   ; @param (keyword) n
   ; @param (keyword) x
@@ -29,22 +30,23 @@
   ;
   ; @return (keyword)
   ([n x]
-   (if-let [namespace (namespace n)]
-           ; If 'n' is namespaced ...
-           (keyword namespace (str (name x) (name n)))
-           ; If 'n' is NOT namespaced ...
-           (keyword (str (name x) (name n)))))
+   (let [n (mixed/to-keyword n)
+         x (mixed/to-keyword x)]
+        (if-let [namespace (namespace n)]
+                (keyword namespace (str (name x) (name x)))
+                (keyword           (str (name x) (name x))))))
 
   ([n x delimiter]
-   (if-let [namespace (namespace n)]
-           ; If 'n' is namespaced ...
-           (keyword namespace (str (name x) delimiter (name n)))
-           ; If 'n' is NOT namespaced ...
-           (keyword (str (name x) delimiter (name n))))))
+   (let [n (mixed/to-keyword n)
+         x (mixed/to-keyword x)
+         delimiter (str delimiter)]
+        (if-let [namespace (namespace n)]
+                (keyword namespace (str (name x) delimiter (name x)))
+                (keyword           (str (name x) delimiter (name x)))))))
 
 (defn append
   ; @description
-  ; Appends the given 'x' keyword to the given 'n' keyword.
+  ; Appends the given 'x' value to the given 'n' value.
   ;
   ; @param (keyword) n
   ; @param (keyword) x
@@ -67,15 +69,16 @@
   ;
   ; @return (keyword)
   ([n x]
-   (if-let [namespace (namespace n)]
-           ; If 'n' is namespaced ...
-           (keyword namespace (str (name n) (name x)))
-           ; If 'n' is NOT namespaced ...
-           (keyword (str (name n) (name x)))))
+   (let [n (mixed/to-keyword n)
+         x (mixed/to-keyword x)]
+        (if-let [namespace (namespace n)]
+                (keyword namespace (str (name n) (name x)))
+                (keyword           (str (name n) (name x))))))
 
   ([n x delimiter]
-   (if-let [namespace (namespace n)]
-           ; If 'n' is namespaced ...
-           (keyword namespace (str (name n) delimiter (name x)))
-           ; If 'n' is NOT namespaced ...
-           (keyword (str (name n) delimiter (name x))))))
+   (let [n (mixed/to-keyword n)
+         x (mixed/to-keyword x)
+         delimiter (str delimiter)]
+        (if-let [namespace (namespace n)]
+                (keyword namespace (str (name n) delimiter (name x)))
+                (keyword           (str (name n) delimiter (name x)))))))
