@@ -9,7 +9,7 @@
 
 (defn apply-shorthand-key
   ; @description
-  ; Converts the given 'n' value into longhand form (map) in case it is provided in shorthand form (not map).
+  ; Converts the given 'n' value into longhand form (map) in case it is provided in shorthand form (not as a map).
   ;
   ; @param (* or map) n
   ; @param (*) shorthand-key
