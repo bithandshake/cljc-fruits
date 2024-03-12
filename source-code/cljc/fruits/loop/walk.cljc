@@ -9,7 +9,7 @@
   ; Iterates over the given functions and provides them the output of the previous iteration as parameter.
   ;
   ; @param (*) initial
-  ; @param (list of functions) fs
+  ; @param (list of functions) fns
   ;
   ; @usage
   ; (<-walk {:a "A"}
@@ -33,6 +33,6 @@
   ; {:a 2}
   ;
   ; @return (*)
-  [initial & fs]
+  [initial & fns]
   (letfn [(f0 [result f] (f result))]
-         (reduce f0 initial fs)))
+         (reduce f0 initial fns)))

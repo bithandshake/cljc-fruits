@@ -6,21 +6,21 @@
 
 (defn reduce-kv-indexed
   ; @description
-  ; Works the same as the 'reduce-kv' function, but the 'f' function takes the index of the current item as its second parameter.
+  ; Extends the 'reduce-kv' function with providing the actual index to the applied function.
   ;
   ; @param (function) f
   ; @param (*) initial
-  ; @param (map) map
+  ; @param (map) n
   ;
   ; @usage
   ; (reduce-kv-indexed (fn [result dex k v]) nil {})
   ;
   ; @return (*)
-  [f initial map]
+  [f initial n]
   (letfn [(f0 [[result dex] k v]
               [(f result dex k v)
                (inc dex)])]
-         (first (reduce-kv f0 [initial 0] map))))
+         (-> (reduce-kv f0 [initial 0] n) first)))
 
 (defn reduce-range
   ; @param (function) f
