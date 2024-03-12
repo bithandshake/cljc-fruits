@@ -5,29 +5,6 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn to-longhand
-  ; @description
-  ; Converts the given 'n' value into a value of a specific key within the result only in case it is not a map already.
-  ;
-  ; @param (*) n
-  ; @param (*) k
-  ;
-  ; @usage
-  ; (to-longhand "A" :a)
-  ; =>
-  ; {:a "A"}
-  ;
-  ; @usage
-  ; (to-longhand {:a "A"} :a)
-  ; =>
-  ; {:a "A"}
-  ;
-  ; @return (map)
-  [n k]
-  (if (-> n map?)
-      (-> n)
-      {k n}))
-
 (defn to-vector
   ; @description
   ; Converts the given 'n' map into vector.

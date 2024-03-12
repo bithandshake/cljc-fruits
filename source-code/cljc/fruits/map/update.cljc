@@ -35,7 +35,7 @@
 
 (defn update-some
   ; @description
-  ; Updates a specific value in the given 'n' map, in case the value is not NIL.
+  ; Updates a specific value in the given 'n' map, in case it is not NIL.
   ;
   ; @param (map) n
   ; @param (*) k
@@ -60,7 +60,7 @@
 
 (defn update-in-some
   ; @description
-  ; Updates a specific nested value in the given 'n' map, in case the value is not NIL.
+  ; Updates a specific nested value in the given 'n' map, in case it is not NIL.
   ;
   ; @param (map) n
   ; @param (vector) path

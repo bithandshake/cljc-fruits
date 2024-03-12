@@ -44,7 +44,6 @@
 (def difference compare/difference)
 
 ; @redirect (fruits.map.convert/*)
-(def to-longhand    convert/to-longhand)
 (def to-vector      convert/to-vector)
 (def to-nil         convert/to-nil)
 (def to-associative convert/to-associative)
