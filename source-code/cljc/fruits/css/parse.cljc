@@ -15,7 +15,7 @@
   ; @param (map) n
   ;
   ; @usage
-  ; (unparse {:opacity 1 :width "100%"})
+  ; (unparse {:opacity "1" :width "100%"})
   ; =>
   ; "opacity: 1; width: 100%;"
   ;
@@ -37,7 +37,7 @@
   ; @usage
   ; (parse "opacity: 1; width: 100%;")
   ; =>
-  ; {:opacity 1 :width "100%"}
+  ; {:opacity "1" :width "100%"}
   ;
   ; @return (map)
   [n]
