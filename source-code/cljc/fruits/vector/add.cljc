@@ -30,7 +30,7 @@
 
 (defn conj-item-once
   ; @description
-  ; Conjoins the given items to the given 'n' vector in case it doesn't contain them already.
+  ; Conjoins the given items to the given 'n' vector in case it does not contain them already.
   ;
   ; @param (vector) n
   ; @param (list of *) xyz
@@ -93,7 +93,7 @@
 (defn cons-item-once
   ; @description
   ; Constructs a new vector where the given items are the first and the items of the given 'n' vector are the rest
-  ; in case the 'n' vector doesn't contain them already.
+  ; in case the 'n' vector does not contain them already.
   ;
   ; @param (vector) n
   ; @param (list of *) xyz

@@ -93,7 +93,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'dex' value doesn't fall between 0 and the highest possible index value (= item count minus one).
+  ; Returns TRUE if the given 'dex' value does not fall between 0 and the highest possible index value (= item count minus one).
   ;
   ; @param (*) n
   ; @param (integer) dex

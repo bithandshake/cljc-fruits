@@ -11,7 +11,7 @@
   ; - E.g., In the usage below, the given 'x' pattern only matches the second occurence of the number 42,
   ;         but its result is simply the number (42) that can be found at the first index also.
   ;         The 'fruits.regex.api/first-dex-of' function uses the 'fruits.string.api/first-dex-of' function to
-  ;         find the the first occurence of the match, and it doesn't take lookaround assertions into account:
+  ;         find the the first occurence of the match, and it does not take lookaround assertions into account:
   ;         (fruits.string.api/first-dex-of "a42 - b42" #"(?<=b)42") => 1
   ;
   ; @param (string) n

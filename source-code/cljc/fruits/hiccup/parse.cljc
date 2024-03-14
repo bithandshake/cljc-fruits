@@ -71,7 +71,7 @@
   [n]
   ; - Accepting vectors as a class is a feature in hiccup released in version 2.0.0-alpha2.
   ;   https://github.com/weavejester/hiccup/pull/139/commits/2e7481e3630e3e8f669840d0ffede7fa97e42f0c
-  ; - Unfortunatelly the hiccup interpreter doesn't accept keyword type class names:
+  ; - Unfortunatelly the hiccup interpreter does not accept keyword type class names:
   ;   [:div {:class ["my-class"]}] <- Good :)
   ;   [:div {:class [:my-class]}]  <- Bad  :(
   (if (vector? n)

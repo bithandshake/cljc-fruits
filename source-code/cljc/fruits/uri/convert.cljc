@@ -89,7 +89,7 @@
   ; - If the scheme part is missing from the URI, the part before the first colon (:)
   ;   character might be a hostname, and the part after the first colon character might be a port!
   ;   E.g., "localhost:80"
-  ; - To prevent hostnames misread as a scheme, this function doesn't derive schemes that are followed
+  ; - To prevent hostnames misread as a scheme, this function does not derive schemes that are followed
   ;   by a colon and a digit. Therefore, it cannot read schemes in some edge cases:
   ;   E.g., "mailto:1234user@my-domain.com"
   (-> (regex/before-first-match n #"\:(?!\d)" {:return? false})

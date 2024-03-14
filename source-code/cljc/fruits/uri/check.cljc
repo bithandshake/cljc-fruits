@@ -47,7 +47,7 @@
                                                 (get url-path-template-parts dex))
                                             (f0 (inc dex))
 
-                                            ; If the parts aren't matching, the function returns
+                                            ; If the parts are not matching, the function returns
                                             ; with nil.
                                             :unmatching-parts nil))]
 

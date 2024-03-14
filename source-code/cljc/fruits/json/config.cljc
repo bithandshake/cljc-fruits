@@ -17,7 +17,7 @@
 ;   converted to a string or it was a string originally.
 ; - Without this prefix character, keywords that converted to a string would look like this:
 ;   ":i-was-a-keyword-before-i-get-converted-to-a-string"
-; - If a string starts with the character ":" that doesn't mean it was a keyword.
+; - If a string starts with the character ":" that does not mean it was a keyword.
 ;   For usage, here is a password that starts with ":" and it was never a keyword:
 ;   ":?-pw123__"
 ; - So that's why we should mark all keywords that converted to a string with a prefix character.

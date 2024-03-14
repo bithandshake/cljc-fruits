@@ -133,7 +133,7 @@
 
 (defn not-all-keys-match?
   ; @description
-  ; Returns TRUE if the given 'f' function doesn't return TRUE for all keys of the given 'n' map.
+  ; Returns TRUE if the given 'f' function does not return TRUE for all keys of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) f
@@ -154,7 +154,7 @@
 
 (defn not-all-values-match?
   ; @description
-  ; Returns TRUE if the given 'f' function doesn't return TRUE for all values of the given 'n' map.
+  ; Returns TRUE if the given 'f' function does not return TRUE for all values of the given 'n' map.
   ;
   ; @param (map) n
   ; @param (function) f

@@ -101,7 +101,7 @@
    (generate-integer 4))
 
   ([digits]
-   ; Warning! Decimal points (.) and decimal commas (,) are different in the following text! Don't mix them up!
+   ; Warning! Decimal points (.) and decimal commas (,) are different in the following text! Do not mix them up!
    ;
    ; Step 1: Generating a random float number from 0.000' to 9.000' | (-> 9 rand)
    ; Step 2: Increasing the result by one (1.000' to 10.000')       | (-> 9 rand inc)

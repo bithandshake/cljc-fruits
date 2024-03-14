@@ -104,7 +104,7 @@
   ;       Cursors of "abc": 0, 1, 2, 3
   ;
   ; @description
-  ; Returns TRUE if the given 'cursor' value doesn't fall between 0 and the highest possible cursor value (= item count).
+  ; Returns TRUE if the given 'cursor' value does not fall between 0 and the highest possible cursor value (= item count).
   ;
   ; @param (*) n
   ; @param (integer) cursor

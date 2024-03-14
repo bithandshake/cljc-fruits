@@ -61,7 +61,7 @@
                                  ; in case of ...
                                  ; ... the ':hide-error?' property is provided as TRUE,
                                  ; ... client error (4**) or server error (5**) status code is property,
-                                 ; ... the 'allowed-errors' vector doesn't contain the body value.
+                                 ; ... the 'allowed-errors' vector does not contain the body value.
                                  (and hide-errors? (not (utils/error-allowed? body allowed-errors))) (utils/unsensitive-body)
 
                                  ; If the session value is NIL, this function removes it from the response in order to avoid

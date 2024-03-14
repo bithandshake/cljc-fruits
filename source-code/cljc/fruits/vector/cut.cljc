@@ -39,7 +39,7 @@
 
 (defn cut-range
   ; @description
-  ; Removes the items of the given 'n' vector that don't fall into the given range.
+  ; Removes the items of the given 'n' vector that do not fall into the given range.
   ;
   ; @param (vector) n
   ; @param (integer) from

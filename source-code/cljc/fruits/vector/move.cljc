@@ -207,7 +207,7 @@
   ; @param (*) x
   ; @param (map)(opt) options
   ; {:insert? (boolean)(opt)
-  ;   Inserts the item in case the given 'n' vector doesn't contain it.
+  ;   Inserts the item in case the given 'n' vector does not contain it.
   ;   Default: false}
   ;
   ; @usage
@@ -234,7 +234,7 @@
   ; @param (*) x
   ; @param (map)(opt) options
   ; {:insert? (boolean)(opt)
-  ;   Inserts the item in case the given 'n' vector doesn't contain it.
+  ;   Inserts the item in case the given 'n' vector does not contain it.
   ;   Default: false}
   ;
   ; @usage
@@ -261,7 +261,7 @@
   ; @param (*) x
   ; @param (map)(opt) options
   ; {:insert? (boolean)(opt)
-  ;   Inserts the item in case the given 'n' vector doesn't contain it.
+  ;   Inserts the item in case the given 'n' vector does not contain it.
   ;   Default: false}
   ;
   ; @usage
@@ -289,7 +289,7 @@
   ; @param (integer) th
   ; @param (map)(opt) options
   ; {:insert? (boolean)(opt)
-  ;   Inserts the item in case the given 'n' vector doesn't contain it.
+  ;   Inserts the item in case the given 'n' vector does not contain it.
   ;   Default: false}
   ;
   ; @usage

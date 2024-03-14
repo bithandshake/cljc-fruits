@@ -44,7 +44,7 @@
   ;
   ; @return (boolean)
   [n & abc]
-  ; Same items aren't considerd as they are sorted, to keep their original position stable.
+  ; Same items are not considerd as they are sorted, to keep their original position stable.
   ; For example, the '<' comparator function also returns false on same items.
   (let [n (mixed/to-vector n)]
        (loop [dex 0 a nil]
