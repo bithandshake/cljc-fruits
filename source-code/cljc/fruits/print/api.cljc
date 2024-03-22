@@ -1,7 +1,7 @@
 
 (ns fruits.print.api
-    (:require [fruits.print.table :as table]
-              [fruits.print.data :as data]))
+    (:require [fruits.print.data  :as data]
+              [fruits.print.table :as table]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------

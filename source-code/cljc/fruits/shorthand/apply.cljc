@@ -1,6 +1,6 @@
 
 (ns fruits.shorthand.apply
-    (:require [fruits.map.api :as map]
+    (:require [fruits.map.api    :as map]
               [fruits.vector.api :as vector]))
 
 ;; ----------------------------------------------------------------------------
