@@ -30,7 +30,7 @@
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (string/replace-part n "." "-")
+  (cond (string?  n) (-> n (string/replace-part "." "-"))
         (keyword? n) (-> n keyword/to-string undot-key keyword)
         :return   n))
 

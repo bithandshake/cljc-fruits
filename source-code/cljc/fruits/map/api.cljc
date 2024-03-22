@@ -7,6 +7,7 @@
               [fruits.map.compare   :as compare]
               [fruits.map.convert   :as convert]
               [fruits.map.copy      :as copy]
+              [fruits.map.collect :as collect]
               [fruits.map.default   :as default]
               [fruits.map.dissoc    :as dissoc]
               [fruits.map.filter    :as filter]
@@ -39,6 +40,9 @@
 
 ; @redirect (fruits.map.collapse/*)
 (def collapse collapse/collapse)
+
+; @redirect (fruits.map.collect/*)
+(def collect-values collect/collect-values)
 
 ; @redirect (fruits.map.compare/*)
 (def difference compare/difference)
@@ -73,6 +77,7 @@
 (def contains-any-key? key/contains-any-key?)
 (def contains-all-key? key/contains-all-key?)
 (def has-same-keys?    key/has-same-keys?)
+(def specify-key       key/specify-key)
 
 ; @redirect (fruits.map.get/*)
 (def get-by get/get-by)
@@ -98,8 +103,10 @@
 (def reversed-merge-some merge/reversed-merge-some)
 
 ; @redirect (fruits.map.move/*)
-(def move    move/move)
-(def move-in move/move-in)
+(def move         move/move)
+(def move-some    move/move-some)
+(def move-in      move/move-in)
+(def move-in-some move/move-in-some)
 
 ; @redirect (fruits.map.namespace/*)
 (def namespace        namespace/namespace)

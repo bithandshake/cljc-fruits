@@ -8,13 +8,13 @@ The <strong>cljc-fruits</strong> is a set of utility functions for Clojure proje
 ### deps.edn
 
 ```
-{:deps {mt-utilities/cljc-fruits {:git/url "https://github.com/mt-utilities/cljc-fruits"
+{:deps {bithandshake/cljc-fruits {:git/url "https://github.com/bithandshake/cljc-fruits"
                                   :sha     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}}}
 ```
 
 ### Current version
 
-Check out the latest commit on the [release branch](https://github.com/mt-utilities/cljc-fruits/tree/release).
+Check out the latest commit on the [release branch](https://github.com/bithandshake/cljc-fruits/tree/release).
 
 ### Changelog
 
@@ -22,4 +22,4 @@ You can track the changes of the <strong>cljc-fruits</strong> library [here](CHA
 
 # Documentation
 
-The <strong>cljc-fruits</strong> functional documentation is [available here](https://mt-utilities.github.io/cljc-fruits).
+The <strong>cljc-fruits</strong> functional documentation is [available here](https://bithandshake.github.io/cljc-fruits).

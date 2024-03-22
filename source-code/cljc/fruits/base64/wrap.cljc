@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn wrap
+  ; @description
+  ; Prepends a Base64 header to the given Base64 body.
+  ;
   ; @param (string) n
   ; @param (string) mime-type
   ;

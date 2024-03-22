@@ -79,23 +79,23 @@
 ;; -- kebab-case / CamelCase key ----------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn CamelCase-key
+(defn camelCase-key
   ; @param (*) n
   ;
   ; @usage
-  ; (CamelCase-key :my-key)
+  ; (camelCase-key :my-key)
   ; =>
   ; :myKey
   ;
   ; @usage
-  ; (CamelCase-key "my-key")
+  ; (camelCase-key "my-key")
   ; =>
   ; "myKey"
   ;
   ; @return (*)
   [n]
-  (cond (string?  n) (-> n syntax/to-CamelCase)
-        (keyword? n) (-> n name CamelCase-key keyword)
+  (cond (string?  n) (-> n syntax/to-camelCase)
+        (keyword? n) (-> n name camelCase-key keyword)
         :return   n))
 
 (defn kebab-case-key
@@ -115,6 +115,25 @@
   [n]
   (cond (string?  n) (-> n syntax/to-kebab-case)
         (keyword? n) (-> n name kebab-case-key keyword)
+        :return   n))
+
+(defn PascalCase-key
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (PascalCase-key :my-key)
+  ; =>
+  ; :MyKey
+  ;
+  ; @usage
+  ; (PascalCase-key "my-key")
+  ; =>
+  ; "MyKey"
+  ;
+  ; @return (*)
+  [n]
+  (cond (string?  n) (-> n syntax/to-PascalCase)
+        (keyword? n) (-> n name PascalCase-key keyword)
         :return   n))
 
 (defn snake_case-key
@@ -295,24 +314,24 @@
 ;; -- kebab-case / CamelCase keys ---------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn CamelCase-keys
+(defn camelCase-keys
   ; @param (*) n
   ;
   ; @usage
-  ; (Case-keys {:my-key :my-value})
+  ; (camelCase-keys {:my-key :my-value})
   ; =>
   ; {:myKey :my-value}
   ;
   ; @usage
-  ; (CamelCase-keys {"my-key" :my-value})
+  ; (camelCase-keys {"my-key" :my-value})
   ; =>
   ; {"myKey" :my-value}
   ;
   ; @return (*)
   [n]
-  (cond (map?    n) (map/->>keys    n CamelCase-keys)
-        (vector? n) (vector/->items n CamelCase-keys)
-        :return     (CamelCase-key  n)))
+  (cond (map?    n) (map/->>keys    n camelCase-keys)
+        (vector? n) (vector/->items n camelCase-keys)
+        :return     (camelCase-key  n)))
 
 (defn kebab-case-keys
   ; @param (*) n
@@ -332,6 +351,25 @@
   (cond (map?    n) (map/->>keys     n kebab-case-keys)
         (vector? n) (vector/->items  n kebab-case-keys)
         :return     (kebab-case-key  n)))
+
+(defn PascalCase-keys
+  ; @param (*) n
+  ;
+  ; @usage
+  ; (PascalCase-keys {:my-key :my-value})
+  ; =>
+  ; {:MyKey :my-value}
+  ;
+  ; @usage
+  ; (PascalCase-keys {"my-key" :my-value})
+  ; =>
+  ; {"MyKey" :my-value}
+  ;
+  ; @return (*)
+  [n]
+  (cond (map?    n) (map/->>keys    n PascalCase-keys)
+        (vector? n) (vector/->items n PascalCase-keys)
+        :return     (PascalCase-key  n)))
 
 (defn snake_case-keys
   ; @param (*) n

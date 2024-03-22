@@ -7,9 +7,10 @@
 ;; ----------------------------------------------------------------------------
 
 ; @redirect (fruits.syntax.convert/*)
+(def to-camelCase  convert/to-camelCase)
 (def to-kebab-case convert/to-kebab-case)
+(def to-PascalCase convert/to-PascalCase)
 (def to-snake_case convert/to-snake_case)
-(def to-CamelCase  convert/to-CamelCase)
 
 ; @redirect (fruits.syntax.wrap/*)
 (def paren   wrap/paren)

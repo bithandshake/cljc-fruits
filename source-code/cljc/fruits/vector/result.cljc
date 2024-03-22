@@ -189,7 +189,7 @@
          f (mixed/to-ifn f)]
         (letfn [(f0 [        dex x] (if provide-dex? (f dex x) (f x)))
                 (f1 [results dex x] (if-let [result (f0 dex x)]
-                                            (-> results conj result)
+                                            (-> results (conj result))
                                             (-> results)))]
                (reduce-kv f1 [] n)))))
 

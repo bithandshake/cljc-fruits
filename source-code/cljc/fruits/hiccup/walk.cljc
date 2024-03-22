@@ -7,7 +7,7 @@
 
 (defn walk
   ; @description
-  ; Iterates over the given 'n' HICCUP value and applies the given 'f' function each element.
+  ; Iterates over the given 'n' HICCUP value and applies the given 'f' function on each element.
   ;
   ; @param (hiccup) n
   ; @param (function) f

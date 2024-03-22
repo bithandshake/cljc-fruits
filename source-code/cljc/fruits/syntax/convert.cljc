@@ -6,9 +6,29 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn to-camelCase
+  ; @important
+  ; This function is incomplete and may not behave as expected.
+  ;
+  ; @description
+  ; Converts the given 'n' string into camelCase form.
+  ;
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-camelCase "my-value")
+  ; =>
+  ; "myValue"
+  ;
+  ; @return (string)
+  [n])
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn to-kebab-case
   ; @description
-  ; Converts the given 'n' string into kebab-case form string.
+  ; Converts the given 'n' string into kebab-case form.
   ;
   ; @param (string) n
   ;
@@ -53,9 +73,9 @@
                     (f2 result dex) (cond (-> dex zero?)  (str                 "-"                 (f6 result dex))  ; Dash, first index.
                                           (f0 result dex) (str (f5 result dex)                     (f6 result dex))  ; Dash, preceded by a hyphen.
                                           :else           (str (f5 result dex) "-"                 (f6 result dex))) ; Dash, not preceded by a hyphen.
-                    (f3 result dex) (cond (-> dex zero?)  (str                     (f4 result dex) (f6 result dex))  ; Uppercase character, first index.
-                                          (f0 result dex) (str (f5 result dex)     (f4 result dex) (f6 result dex))  ; Uppercase character, preceded by a hyphen.
-                                          :else           (str (f5 result dex) "-" (f4 result dex) (f6 result dex))) ; Uppercase character, not preceded by a hyphen.
+                    (f3 result dex) (cond (-> dex zero?)  (str                     (f4 result dex) (f6 result dex))  ; Uppercase letter, first index.
+                                          (f0 result dex) (str (f5 result dex)     (f4 result dex) (f6 result dex))  ; Uppercase letter, preceded by a hyphen.
+                                          :else           (str (f5 result dex) "-" (f4 result dex) (f6 result dex))) ; Uppercase letter, not preceded by a hyphen.
                     :return result))]
 
          ; Iterates over the given 'n' string and updates each character (if necessary).
@@ -69,77 +89,14 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
-(defn to-snake_case
+(defn to-PascalCase
   ; @description
-  ; Converts the given 'n' string into snake_case form string.
+  ; Converts the given 'n' string into PascalCase form.
   ;
   ; @param (string) n
   ;
   ; @usage
-  ; (to-snake_case "MyValue")
-  ; =>
-  ; "my_value"
-  ;
-  ; @usage
-  ; (to-snake_case "my-value")
-  ; =>
-  ; "my_value"
-  ;
-  ; @return (string)
-  [n]
-  (letfn [; Returns TRUE if the observed character preceded by a dash.
-          (f0 [result dex] (= "_" (subs result (dec dex) dex)))
-
-          ; Returns TRUE if the observed character is a whitespace.
-          (f1 [result dex] (= " " (subs result dex (inc dex))))
-
-          ; Returns TRUE if the observed character is a hyphen.
-          (f2 [result dex] (= "-" (subs result dex (inc dex))))
-
-          ; Returns TRUE if the observer character is an uppercase LETTER.
-          (f3 [result dex] (->> (subs result dex) first str (re-find #"[A-Z]")))
-
-          ; Returns the observed character converted to lowercase.
-          (f4 [result dex] (-> (subs result dex) first string/to-lowercase))
-
-          ; Returns the part preceding the observed character.
-          (f5 [result dex] (subs result 0 dex))
-
-          ; Returns the part following the observed character.
-          (f6 [result dex] (subs result (inc dex)))
-
-          ; Updates the observed character.
-          (f7 [result dex]
-              (cond (f1 result dex) (cond (-> dex zero?)  (str                                     (f6 result dex))  ; Whitespace, first index.
-                                          (f0 result dex) (str (f5 result dex)                     (f6 result dex))  ; Whitespace, preceded by a dash.
-                                          :else           (str (f5 result dex) "_"                 (f6 result dex))) ; Whitespace, not preceded by a dash.
-                    (f2 result dex) (cond (-> dex zero?)  (str                 "_"                 (f6 result dex))  ; Hyphen, first index.
-                                          (f0 result dex) (str (f5 result dex)                     (f6 result dex))  ; Hyphen, preceded by a dash.
-                                          :else           (str (f5 result dex) "_"                 (f6 result dex))) ; Hyphen, not preceded by a dash.
-                    (f3 result dex) (cond (-> dex zero?)  (str                     (f4 result dex) (f6 result dex))  ; Uppercase character, first index.
-                                          (f0 result dex) (str (f5 result dex)     (f4 result dex) (f6 result dex))  ; Uppercase character, preceded by a dash.
-                                          :else           (str (f5 result dex) "_" (f4 result dex) (f6 result dex))) ; Uppercase character no preceded by a dash.
-                    :return result))]
-
-         ; Iterates over the given 'n' string and updates each character (if necessary).
-         (loop [result (str n) dex 0]
-               (if (seqable/dex-out-of-bounds? n dex)
-                   (-> result)
-                   (let [updated-result (f7 result dex)
-                         next-dex (+ (inc dex) (seqable/count-difference updated-result result))]
-                        (recur updated-result next-dex))))))
-
-;; ----------------------------------------------------------------------------
-;; ----------------------------------------------------------------------------
-
-(defn to-CamelCase
-  ; @description
-  ; Converts the given 'n' string into CamelCase form string.
-  ;
-  ; @param (string) n
-  ;
-  ; @usage
-  ; (to-CamelCase "my-value")
+  ; (to-PascalCase "my-value")
   ; =>
   ; "MyValue"
   ;
@@ -185,7 +142,7 @@
                     (f2 result dex) (cond (-> dex zero?)  (str                                 (f7 result dex))  ; Dash, first index.
                                           (f4 result dex) (str (f6 result dex)                 (f8 result dex))  ; Dash, followed by a lowercase LETTER.
                                           :else           (str (f6 result dex)                 (f7 result dex))) ; Dash, not followed by a lowercase LETTER.
-                    (f3 result dex) (cond (-> dex zero?)  (str                 (f5 result dex) (f7 result dex))  ; Lowercase character, first index.
+                    (f3 result dex) (cond (-> dex zero?)  (str                 (f5 result dex) (f7 result dex))  ; Lowercase letter, first index.
                                           :return result)
                     :return result))]
 
@@ -195,4 +152,67 @@
                    (-> result)
                    (let [updated-result (f9 result dex)
                          next-dex (+ (inc dex) (- (count updated-result) (count result)))]
+                        (recur updated-result next-dex))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn to-snake_case
+  ; @description
+  ; Converts the given 'n' string into snake_case form.
+  ;
+  ; @param (string) n
+  ;
+  ; @usage
+  ; (to-snake_case "MyValue")
+  ; =>
+  ; "my_value"
+  ;
+  ; @usage
+  ; (to-snake_case "my-value")
+  ; =>
+  ; "my_value"
+  ;
+  ; @return (string)
+  [n]
+  (letfn [; Returns TRUE if the observed character preceded by a dash.
+          (f0 [result dex] (= "_" (subs result (dec dex) dex)))
+
+          ; Returns TRUE if the observed character is a whitespace.
+          (f1 [result dex] (= " " (subs result dex (inc dex))))
+
+          ; Returns TRUE if the observed character is a hyphen.
+          (f2 [result dex] (= "-" (subs result dex (inc dex))))
+
+          ; Returns TRUE if the observer character is an uppercase LETTER.
+          (f3 [result dex] (->> (subs result dex) first str (re-find #"[A-Z]")))
+
+          ; Returns the observed character converted to lowercase.
+          (f4 [result dex] (-> (subs result dex) first string/to-lowercase))
+
+          ; Returns the part preceding the observed character.
+          (f5 [result dex] (subs result 0 dex))
+
+          ; Returns the part following the observed character.
+          (f6 [result dex] (subs result (inc dex)))
+
+          ; Updates the observed character.
+          (f7 [result dex]
+              (cond (f1 result dex) (cond (-> dex zero?)  (str                                     (f6 result dex))  ; Whitespace, first index.
+                                          (f0 result dex) (str (f5 result dex)                     (f6 result dex))  ; Whitespace, preceded by a dash.
+                                          :else           (str (f5 result dex) "_"                 (f6 result dex))) ; Whitespace, not preceded by a dash.
+                    (f2 result dex) (cond (-> dex zero?)  (str                 "_"                 (f6 result dex))  ; Hyphen, first index.
+                                          (f0 result dex) (str (f5 result dex)                     (f6 result dex))  ; Hyphen, preceded by a dash.
+                                          :else           (str (f5 result dex) "_"                 (f6 result dex))) ; Hyphen, not preceded by a dash.
+                    (f3 result dex) (cond (-> dex zero?)  (str                     (f4 result dex) (f6 result dex))  ; Uppercase letter, first index.
+                                          (f0 result dex) (str (f5 result dex)     (f4 result dex) (f6 result dex))  ; Uppercase letter, preceded by a dash.
+                                          :else           (str (f5 result dex) "_" (f4 result dex) (f6 result dex))) ; Uppercase letter no preceded by a dash.
+                    :return result))]
+
+         ; Iterates over the given 'n' string and updates each character (if necessary).
+         (loop [result (str n) dex 0]
+               (if (seqable/dex-out-of-bounds? n dex)
+                   (-> result)
+                   (let [updated-result (f7 result dex)
+                         next-dex (+ (inc dex) (seqable/count-difference updated-result result))]
                         (recur updated-result next-dex))))))

@@ -6,6 +6,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn to-header
+  ; @description
+  ; Returns the header of the given Base64 string.
+  ;
   ; @param (string) base64
   ;
   ; @usage
@@ -19,6 +22,9 @@
              (string/if-contains-part   "data:")))
 
 (defn to-body
+  ; @description
+  ; Returns the body of the given Base64 string.
+  ;
   ; @param (string) base64
   ;
   ; @usage
@@ -32,6 +38,9 @@
              (string/after-first-occurence "," {:return? false})))
 
 (defn to-mime-type
+  ; @description
+  ; Returns the MIME type of the given Base64 string.
+  ;
   ; @param (string) base64
   ;
   ; @usage

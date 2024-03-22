@@ -42,8 +42,8 @@
   ; @description
   ; - Returns TRUE if the given value is a valid latin name.
   ; - A latin name is declared as valid if ...
-  ;   ... its length is in a certain domain,
-  ;   ... contains only latin characters, accented latin characters, digits,
+  ;   ... its length is within a certain domain,
+  ;   ... it contains only latin characters, accented latin characters, digits,
   ;       underscrores, hyphens, apostrophes, periods and spaces.
   ;
   ; @param (integer)(opt) min
@@ -71,10 +71,10 @@
   ; @description
   ; - Returns TRUE if the given value is a valid password.
   ; - A password is declared as valid if ...
-  ;   ... its length is in a certain domain,
-  ;   ... contains at least one uppercase letter,
-  ;   ... contains at least one lowercase letter,
-  ;   ... contains at least one digit.
+  ;   ... its length is within a certain domain,
+  ;   ... it contains at least one uppercase letter,
+  ;   ... it contains at least one lowercase letter,
+  ;   ... it contains at least one digit.
   ; - Accented characters and the following special characters are allowed: .-_!?#*
   ;
   ; @param (*) n
@@ -103,7 +103,7 @@
   ; @description
   ; - Returns TRUE if the given value is a valid phone number.
   ; - A phone number is declared as valid if ...
-  ;   ... its length is in a certain domain,
+  ;   ... its length is within a certain domain,
   ;   ... its first character is a '+' character.
   ;
   ; @param (*) n
@@ -132,7 +132,7 @@
   ; @description
   ; - Returns TRUE if the given value is a valid PIN code.
   ; - A PIN code is declared as valid if ...
-  ;   ... only contains digits,
+  ;   ... it only contains digits,
   ;   ... it has a certain length.
   ;
   ; @param (*) n
@@ -156,7 +156,7 @@
   ; @description
   ; - Returns TRUE if the given value is a valid security code.
   ; - A security code is declared as valid if ...
-  ;   ... only contains digits,
+  ;   ... it only contains digits,
   ;   ... it has a certain length.
   ;
   ; @param (*) n
@@ -207,8 +207,8 @@
   ; @description
   ; - Returns TRUE if the given value is a valid username.
   ; - A username is declared as valid if ...
-  ;   ... its length is in a certain domain,
-  ;   ... contains only latin characters, digits, underscrores and hyphens.
+  ;   ... its length is within a certain domain,
+  ;   ... it contains only latin characters, digits, underscrores and hyphens.
   ;
   ; @param (*) n
   ; @param (integer)(opt) min

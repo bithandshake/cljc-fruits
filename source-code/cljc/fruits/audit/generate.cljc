@@ -8,6 +8,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn generate-password
+  ; @description
+  ; Returns a randomly generated password containing uppercase letter(s), lowercase letter(s), special character(s), and digit(s).
+  ;
   ; @param (integer)(opt) length
   ; Default: 8
   ; Min: 4
@@ -30,7 +33,7 @@
    (let [length (max 4 length)]
         (letfn [(set-f  [from to]    (map char (range (int from) (inc (int to)))))
                 (part-f [set length] (reduce-range (fn [%1 _] (str %1 (rand-nth set))) nil length))
-                (rem-f  [pos] (if (<= pos (rem length 4)) 1 0))]
+                (rem-f  [pos]        (if (<= pos (rem length 4)) 1 0))]
                (let [lower-chars (set-f \a \z)
                      upper-chars (set-f \A \Z)
                      digits      (set-f \0 \9)

@@ -5,6 +5,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn not!
+  ; @description
+  ; Performs a negation on the value of the given atom.
+  ;
   ; @param (atom) n
   ;
   ; @usage
@@ -16,6 +19,9 @@
   (swap! n not))
 
 (defn inc!
+  ; @description
+  ; Increases the value of the given atom.
+  ;
   ; @param (atom) n
   ;
   ; @usage
@@ -27,6 +33,9 @@
   (swap! n inc))
 
 (defn dec!
+  ; @description
+  ; Decreases the value of the given atom.
+  ;
   ; @param (atom) n
   ;
   ; @usage

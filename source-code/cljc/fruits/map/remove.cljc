@@ -7,7 +7,7 @@
 
 (defn remove-key
   ; @description
-  ; Removes a specific key (optionally recursively) from the given 'n' map.
+  ; Removes a specific key from the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (*) k
@@ -34,7 +34,7 @@
 
 (defn remove-keys
   ; @description
-  ; Removes specific keys (optionally recursively) from the given 'n' map.
+  ; Removes specific keys from the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (vector) ks
@@ -63,7 +63,7 @@
 
 (defn remove-keys-by
   ; @description
-  ; Removes keys (optionally recursively) that match the given 'f' function from the given 'n' map.
+  ; Removes keys from the given 'n' map that match the given 'f' function (optionally recursively).
   ;
   ; @param (map) n
   ; @param (function) f
@@ -93,7 +93,7 @@
 
 (defn remove-value
   ; @description
-  ; Removes a specific value (optionally recursively) from the given 'n' map.
+  ; Removes a specific value from the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (*) v
@@ -120,7 +120,7 @@
 
 (defn remove-values
   ; @description
-  ; Removes specific values (optionally recursively) from the given 'n' map.
+  ; Removes specific values from the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (vector) vs
@@ -149,7 +149,7 @@
 
 (defn remove-values-by
   ; @description
-  ; Removes values (optionally recursively) that match the given 'f' function from the given 'n' map.
+  ; Removes values from the given 'n' map that match the given 'f' function (optionally recursively).
   ;
   ; @param (map) n
   ; @param (function) f
@@ -180,7 +180,7 @@
 
 (defn keep-key
   ; @description
-  ; Keeps only a specific key (optionally recursively) in the given 'n' map.
+  ; Keeps only a specific key in the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (*) k
@@ -207,7 +207,7 @@
 
 (defn keep-keys
   ; @description
-  ; Keeps only the given keys (optionally recursively) in the given 'n' map.
+  ; Keeps only the given keys in the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (vector) ks
@@ -236,7 +236,7 @@
 
 (defn keep-keys-by
   ; @description
-  ; Keeps only the keys (optionally recursively) that match the given 'f' function in the given 'n' map.
+  ; Keeps only the keys in the given 'n' map that match the given 'f' function (optionally recursively).
   ;
   ; @param (map) n
   ; @param (function) f
@@ -267,7 +267,7 @@
 
 (defn keep-value
   ; @description
-  ; Keeps only a specific value (optionally recursively) in the given 'n' map.
+  ; Keeps only a specific value in the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (*) v
@@ -294,7 +294,7 @@
 
 (defn keep-values
   ; @description
-  ; Keeps only the given values (optionally recursively) in the given 'n' map.
+  ; Keeps only the given values in the given 'n' map (optionally recursively).
   ;
   ; @param (map) n
   ; @param (vector) vs
@@ -323,7 +323,7 @@
 
 (defn keep-values-by
   ; @description
-  ; Keeps only the values (optionally recursively) that match the given 'f' function in the given 'n' map.
+  ; Keeps only the values in the given 'n' map that match the given 'f' function (optionally recursively).
   ;
   ; @param (map) n
   ; @param (function) f

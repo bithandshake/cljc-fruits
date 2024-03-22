@@ -1,6 +1,7 @@
 
 (ns fruits.map.check
-    (:refer-clojure :exclude [empty?]))
+    (:refer-clojure :exclude [empty?])
+    (:require [fruits.map.namespace :as namespace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -76,7 +77,7 @@
   ; @return (boolean)
   [n]
   (and (-> n map?)
-       (-> n namespace some?)))
+       (-> n namespace/namespace some?)))
 
 (defn not-namespaced?
   ; @description
@@ -97,4 +98,4 @@
   ; @return (boolean)
   [n]
   (and (-> n map?)
-       (-> n namespace nil?)))
+       (-> n namespace/namespace nil?)))

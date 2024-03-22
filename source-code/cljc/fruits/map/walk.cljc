@@ -138,13 +138,18 @@
 (defn ->values
   ; @description
   ; - Applies the given 'f' function on each value of the given 'n' map.
-  ; - The 'f' function takes a value and optionally the corresponding key as parameter(s).
+  ; - The 'f' function takes a value and optionally the current result and/or the corresponding key as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'f' function on the given 'n' value also.
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'f' function.
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -156,24 +161,31 @@
   ([n f]
    (->values n f {}))
 
-  ([n f {:keys [provide-key?]}]
+  ([n f {:keys [on-self? provide-key? provide-result?]}]
    (let [n (mixed/to-map n)
          f (mixed/to-ifn f)]
-        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
-                (f1 [result k v] (assoc result k (f0 k v)))]
-               (reduce-kv f1 {} n)))))
+        (letfn [(f0 [result k v] (if provide-result? (if provide-key? (f result k v) (f result v))
+                                                     (if provide-key? (f        k v) (f        v))))
+                (f1 [result k v] (assoc result k (f0 result k v)))]
+               (reduce-kv f1 {} (if on-self? (f0 nil nil n)
+                                             (->         n)))))))
 
 (defn ->values-by
   ; @description
   ; - Applies the given 'f' function on values of the given 'n' map that for the given 'test-f' function returns TRUE.
-  ; - The 'f' function takes a value and optionally the corresponding key as parameter(s).
+  ; - The 'f' function takes a value and optionally the current result and/or the corresponding key as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) test-f
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'f' function on the given 'n' value also.
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'f' function.
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -185,14 +197,16 @@
   ([n test-f f]
    (->values-by n test-f f {}))
 
-  ([n test-f f {:keys [provide-key?]}]
+  ([n test-f f {:keys [on-self? provide-key? provide-result?]}]
    (let [n      (mixed/to-map n)
          test-f (mixed/to-ifn test-f)
          f      (mixed/to-ifn f)]
-        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
-                (f1 [       k v] (if (test-f v) (f0 k v) v))
-                (f2 [result k v] (assoc result k (f1 k v)))]
-               (reduce-kv f2 {} n)))))
+        (letfn [(f0 [result k v] (if provide-result? (if provide-key? (f result k v) (f result v))
+                                                     (if provide-key? (f        k v) (f        v))))
+                (f1 [result k v] (if (test-f v) (f0 result k v) v))
+                (f2 [result k v] (assoc result k (f1 result k v)))]
+               (reduce-kv f2 {} (if on-self? (f1 nil nil n)
+                                             (->         n)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -200,17 +214,22 @@
 (defn ->>values
   ; @description
   ; - Applies the given 'f' function on each value of the given 'n' map (recursivelly).
-  ; - The 'f' function takes a value and optionally the corresponding key or path as parameter(s).
+  ; - The 'f' function takes a value and optionally the current result and/or the corresponding key or path as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'f' function on the given 'n' value also.
+  ;   Default: false
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
   ;   If TRUE, provides the corresponding path to the given 'f' function.
-  ;   Default: false}
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'f' function.}
   ;
   ; @usage
   ; (->>values {:a "A" :b "B" :c [:d "E" {:f "F"}]} keyword)
@@ -221,30 +240,39 @@
   ([n f]
    (->>values n f {}))
 
-  ([n f {:keys [provide-key? provide-path?]}]
+  ([n f {:keys [on-self? provide-key? provide-path? provide-result?]}]
    ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
    (let [n (mixed/to-map n)
          f (mixed/to-ifn f)]
-        (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
-                (f1 [path v] (cond (map?    v) (reduce-kv #(assoc %1 %2 (f1 (conj path %2) %3)) {} v)
-                                   (vector? v) (reduce-kv #(conj  %1    (f1 (conj path %2) %3)) [] v)
-                                   :return     (f0 path v)))]
-               (f1 [] n)))))
+        (letfn [(f0 [result path v] (if provide-result? (if provide-key? (f result (last path) v) (if provide-path? (f result path v) (f result v)))
+                                                        (if provide-key? (f        (last path) v) (if provide-path? (f        path v) (f        v)))))
+                (f1 [result path v] (cond (-> on-self?)        (f0 result path v)
+                                          (-> path empty? not) (f0 result path v)
+                                          :return              (->             v)))
+                (f2 [result path v] (cond (-> v map?)          (reduce-kv #(assoc %1 %2 (f2 %1 (conj path %2) %3)) {} (f1 result path v))
+                                          (-> v vector?)       (reduce-kv #(conj  %1    (f2 %1 (conj path %2) %3)) [] (f1 result path v))
+                                          :return                                                                     (f1 result path v)))]
+               (f2 {} [] n)))))
 
 (defn ->>values-by
   ; @description
   ; - Applies the given 'f' function on values of the given 'n' map (recursivelly) that for the given 'test-f' function returns TRUE.
-  ; - The 'f' function takes a value and optionally the corresponding key or path as parameter(s).
+  ; - The 'f' function takes a value and optionally the current result and/or the corresponding key or path as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) test-f
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'f' function on the given 'n' value also.
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
   ;   If TRUE, provides the corresponding path to the given 'f' function.
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'f' function.
   ;   Default: false}
   ;
   ; @usage
@@ -256,18 +284,21 @@
   ([n test-f f]
    (->>values-by n test-f f {}))
 
-  ([n test-f f {:keys [provide-key? provide-path?]}]
+  ([n test-f f {:keys [on-self? provide-key? provide-path? provide-result?]}]
    ; Applies the 'f' function on vector items also, because vector items are equivalents to map values!
    (let [n      (mixed/to-map n)
          test-f (mixed/to-ifn test-f)
          f      (mixed/to-ifn f)]
-        (letfn [(f0 [path v] (if provide-key? (f (last path) v) (if provide-path? (f path v) (f v))))
-                (f1 [path v] (if (test-f v) (f0 path v) v))
-                (f2 [path v] (let [v (f1 path v)] ; <- Applies the given 'f' function (if needed) on vector and map values also.
-                                  (cond (map?    v) (reduce-kv #(assoc %1 %2 (f2 (conj path %2) %3)) {} v)
-                                        (vector? v) (reduce-kv #(conj  %1    (f2 (conj path %2) %3)) [] v)
-                                        :return v)))]
-               (f2 [] n)))))
+        (letfn [(f0 [result path v] (if provide-result? (if provide-key? (f result (last path) v) (if provide-path? (f result path v) (f result v)))
+                                                        (if provide-key? (f        (last path) v) (if provide-path? (f        path v) (f        v)))))
+                (f1 [result path v] (if   (-> v test-f)        (f0 result path v) v))
+                (f2 [result path v] (cond (-> on-self?)        (f1 result path v)
+                                          (-> path empty? not) (f1 result path v)
+                                          :return              (->             v)))
+                (f3 [result path v] (cond (-> v map?)          (reduce-kv #(assoc %1 %2 (f3 %1 (conj path %2) %3)) {} (f2 result path v))
+                                          (-> v vector?)       (reduce-kv #(conj  %1    (f3 %1 (conj path %2) %3)) [] (f2 result path v))
+                                          :return                                                                     (f2 result path v)))]
+               (f3 {} [] n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -276,14 +307,19 @@
   ; @description
   ; - Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map.
   ; - The 'k-f' function takes a key and optionally the corresponding value as parameter(s).
-  ;   The 'v-f' function takes a value and optionally the corresponding key as parameter(s).
+  ;   The 'v-f' function takes a value and optionally the current result and/or the corresponding key as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) k-f
   ; @param (function) v-f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'v-f' function on the given 'n' value also.
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'v-f' function.
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'v-f' function.
   ;   Default: false
   ;  :provide-value? (boolean)(opt)
   ;   If TRUE, provides the corresponding value to the given 'k-f' function.
@@ -298,14 +334,16 @@
   ([n k-f v-f]
    (->kv n k-f v-f {}))
 
-  ([n k-f v-f {:keys [provide-key? provide-value?]}]
+  ([n k-f v-f {:keys [on-self? provide-key? provide-result? provide-value?]}]
    (let [n   (mixed/to-map n)
          k-f (mixed/to-ifn k-f)
          v-f (mixed/to-ifn v-f)]
         (letfn [(f0 [       k v] (if provide-value? (k-f k v) (k-f k)))
-                (f1 [       k v] (if provide-key?   (v-f k v) (v-f v)))
-                (f2 [result k v] (assoc result (f0 k v) (f1 k v)))]
-               (reduce-kv f2 {} n)))))
+                (f1 [result k v] (if provide-result? (if provide-key? (v-f result k v) (v-f result v))
+                                                     (if provide-key? (v-f        k v) (v-f        v))))
+                (f2 [result k v] (assoc result (f0 k v) (f1 result k v)))]
+               (reduce-kv f2 {} (if on-self? (f1 nil nil n)
+                                             (->         n)))))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -314,17 +352,22 @@
   ; @description
   ; - Applies the given 'k-f' function on each key and the given 'v-f' function on each value of the given 'n' map (recursivelly).
   ; - The 'k-f' function takes a key and optionally the corresponding value as parameter(s).
-  ;   The 'v-f' function takes a value and optionally the corresponding key or path as parameter(s).
+  ;   The 'v-f' function takes a value and optionally the current result and/or the corresponding key or path as parameter(s).
   ;
   ; @param (map) n
   ; @param (function) k-f
   ; @param (function) v-f
   ; @param (map)(opt) options
-  ; {:provide-key? (boolean)(opt)
+  ; {:on-self? (boolean)(opt)
+  ;   If TRUE, applies the given 'v-f' function on the given 'n' value also.
+  ;  :provide-key? (boolean)(opt)
   ;   If TRUE, provides the corresponding key to the given 'v-f' function.
   ;   Default: false
   ;  :provide-path? (boolean)(opt)
   ;   If TRUE, provides the corresponding path to the given 'v-f' function.
+  ;   Default: false
+  ;  :provide-result? (boolean)(opt)
+  ;   If TRUE, provides the current result to the given 'v-f' function.
   ;   Default: false
   ;  :provide-value? (boolean)(opt)
   ;   If TRUE, provides the corresponding value to the given 'k-f' function.
@@ -339,14 +382,18 @@
   ([n k-f v-f]
    (->>kv n k-f v-f {}))
 
-  ([n k-f v-f {:keys [provide-key? provide-path? provide-value?]}]
+  ([n k-f v-f {:keys [on-self? provide-key? provide-path? provide-result? provide-value?]}]
    ; Applies the 'v-f' function on vector items also, because vector items are equivalents to map values!
    (let [n   (mixed/to-map n)
          k-f (mixed/to-ifn k-f)
          v-f (mixed/to-ifn v-f)]
-        (letfn [(f0 [   k v] (if provide-value? (k-f k v) (k-f k)))
-                (f1 [path v] (if provide-key?   (v-f (last path) v) (if provide-path? (v-f path v) (v-f v))))
-                (f2 [path v] (cond (map?    v) (reduce-kv #(assoc %1 (f0 %2 %3) (f2 (conj path %2) %3)) {} v)
-                                   (vector? v) (reduce-kv #(conj  %1            (f2 (conj path %2) %3)) [] v)
-                                   :return     (f1 path v)))]
-               (f2 [] n)))))
+        (letfn [(f0 [          k v] (if provide-value? (k-f k v) (k-f k)))
+                (f1 [result path v] (if provide-result? (if provide-key? (v-f result (last path) v) (if provide-path? (v-f result path v) (v-f result v)))
+                                                        (if provide-key? (v-f        (last path) v) (if provide-path? (v-f        path v) (v-f        v)))))
+                (f2 [result path v] (cond (-> on-self?)        (f1 result path v)
+                                          (-> path empty? not) (f1 result path v)
+                                          :return              (->             v)))
+                (f3 [result path v] (cond (-> v map?)          (reduce-kv #(assoc %1 (f0 %2 %3) (f3 %1 (conj path %2) %3)) {} (f2 result path v))
+                                          (-> v vector?)       (reduce-kv #(conj  %1            (f3 %1 (conj path %2) %3)) [] (f2 result path v))
+                                          :return                                                                             (f2 result path v)))]
+               (f3 {} [] n)))))

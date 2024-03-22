@@ -2,7 +2,8 @@
 (ns fruits.map.key
     (:refer-clojure :exclude [keys])
     (:require [fruits.mixed.api   :as mixed]
-              [fruits.seqable.api :as seqable]))
+              [fruits.seqable.api :as seqable]
+              [fruits.map.namespace :as namespace]))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -159,3 +160,26 @@
                      (-> true)
                      (recur (-> n keys (concat ks))
                             (-> dex inc)))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
+(defn specify-key
+  ; @description
+  ; Returns the given key associated with the namespace of the given map.
+  ;
+  ; @param (map) n
+  ; @param (keyword or string) k
+  ;
+  ; @usage
+  ; (specify-key {:a/b "A/B"} :c)
+  ; =>
+  ; :a/c
+  ;
+  ; @return (keyword or string)
+  [n k]
+  (if-let [namespace (namespace/namespace n)]
+          (cond (-> k string?)  (str     (name namespace) (->   k))
+                (-> k keyword?) (keyword (name namespace) (name k))
+                :return k)
+          (-> k)))
