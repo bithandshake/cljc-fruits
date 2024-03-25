@@ -11,14 +11,14 @@
   ; @param (integer)(opt) offset
   ;
   ; @usage
-  ; (cover "user@email.com" "**")
+  ; (cover "user@provider.com" "**")
   ; =>
-  ; "**er@email.com"
+  ; "**er@provider.com"
   ;
   ; @usage
-  ; (cover "user@email.com" "**" 2)
+  ; (cover "user@provider.com" "**" 2)
   ; =>
-  ; "us**@email.com"
+  ; "us**@provider.com"
   ;
   ; @return (string)
   ([n x]

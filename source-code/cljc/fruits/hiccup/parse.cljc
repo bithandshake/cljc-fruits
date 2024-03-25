@@ -90,7 +90,7 @@
 
 (defn parse-newlines
   ; @description
-  ; Parses the newline characters to '[:br]' tags within the given 'n' HICCUP value (recursively).
+  ; Parses the newline characters of strings to '[:br]' tags within the given 'n' HICCUP value (recursively).
   ;
   ; @param (hiccup) n
   ;
@@ -103,11 +103,11 @@
   [n]
   (if (vector? n)
       (letfn [(f0 [element] (reduce f1 [] element))
-              (f1 [result content] (if (string/contains-part? content "\n")
-                                       (as-> content % (string/split        % #"\n")
-                                                       (vector/gap-items    % [:br])
-                                                       (vector/concat-items result %))
-                                       (vector/conj-item result content)))]
+              (f1 [result content] (cond (-> content string? not)                      (vector/conj-item result content)
+                                         (-> content (string/contains-part? "\n") not) (vector/conj-item result content)
+                                         :parse-newlines (as-> content % (string/split        % #"\n")
+                                                                         (vector/gap-items    % [:br])
+                                                                         (vector/concat-items result %))))]
              (walk/walk n f0))))
 
 (defn unparse-newlines

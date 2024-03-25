@@ -9,6 +9,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn get-attributes
+  ; @description
+  ; Returns the attributes map (if any) of the given HICCUP element.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
@@ -27,6 +30,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn get-style
+  ; @description
+  ; Returns the inline style map (if any) of the given HICCUP element.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
@@ -41,10 +47,13 @@
               (:style attributes))))
 
 (defn set-style
+  ; @description
+  ; Associates the given inline style map to the given HICCUP element.
+  ;
   ; @param (hiccup) n
   ;
   ; @usage
-  ; (set-style [:div {:style {:color "red"}} "Hello World!"])
+  ; (set-style [:div "Hello World!"] {:color "red"})
   ; =>
   ; [:div {:style {:color "red"}} "Hello World!"]
   ;
@@ -59,6 +68,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defn join-class
+  ; @description
+  ; Returns the given CSS classes merged into a single vector.
+  ;
   ; @param (list of keywords or keywords in vectors) abc
   ;
   ; @usage
@@ -110,8 +122,7 @@
   ;
   ; @return (string)
   [n & [flag]]
-  ; - It replaces special characters with dash characters instead of just simply removing them,
-  ;   to decrease the possibilty of identical outputs:
+  ; - Replaces special characters with dash characters instead of just simply removing them, to decrease the possibilty of identical outputs:
   ;   (value :abc*) => :abc_
   ;   (value :abc)  => :abc
   ; - Otherwise, these outputs would be identical:

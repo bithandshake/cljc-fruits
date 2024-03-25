@@ -10,7 +10,7 @@
 
 (defn unparse
   ; @description
-  ; Converts the given inline style map into CSS string.
+  ; Converts the given inline style map into a CSS string.
   ;
   ; @param (map) n
   ;
@@ -21,16 +21,16 @@
   ;
   ; @return (string)
   [n]
-  (-> n (map/to-vector   (fn [k v] [k v]))
-        (vector/->>items (fn [x] (keyword/to-string x)))
-        (vector/->items  (fn [x] (string/join x ": ")))
+  (-> n (map/to-vector               (fn [k v] [k v]))
+        (vector/->>items-by keyword? (fn [x] (keyword/to-string x)))
+        (vector/->items              (fn [x] (string/join x ": ")))
         (vector/suffix-items "; ")
         (string/join)
         (string/trim)))
 
 (defn parse
   ; @description
-  ; Converts the given CSS string into inline style map.
+  ; Converts the given CSS string into an inline style map.
   ;
   ; @param (string) n
   ;

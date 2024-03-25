@@ -9,14 +9,9 @@
   ; @param (string) n
   ;
   ; @usage
-  ; (cover-email-address "user@email.com")
+  ; (cover-email-address "user@provider.com")
   ; =>
-  ; "u**r@email.com"
-  ;
-  ; @usage
-  ; (cover-email-address "username@email.com")
-  ; =>
-  ; "u******e@email.com"
+  ; "u**r@provider.com"
   ;
   ; @return (string)
   [n]
