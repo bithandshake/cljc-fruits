@@ -38,6 +38,48 @@
         x (str x)]
        (clojure.string/includes? n x)))
 
+(defn if-contains-part
+  ; @description
+  ; Returns the given 'n' string if it contains the given 'x' string.
+  ;
+  ; @param (string) n
+  ; @param (string) x
+  ;
+  ; @usage
+  ; (if-contains-part "abc" "ab")
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (if-contains-part "abc" "cd")
+  ; =>
+  ; nil
+  ;
+  ; @usage
+  ; (if-contains-part "abc" "")
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (if-contains-part "abc" nil)
+  ; =>
+  ; "abc"
+  ;
+  ; @usage
+  ; (if-contains-part [:a] "[:")
+  ; =>
+  ; "[:a]"
+  ;
+  ; @return (string)
+  [n x]
+  (let [n (str n)
+        x (str x)]
+       (if (-> n (clojure.string/includes? x))
+           (-> n))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn contains-digit?
   ; @description
   ; Returns TRUE if the given 'n' string contains at least one digit.
@@ -101,41 +143,30 @@
   (let [n (str n)]
        (not= n (clojure.string/lower-case n))))
 
-(defn if-contains-part
+(defn contains-special-character?
+  ; @important
+  ; This function is incomplete and may not behave as expected.
+  ;
   ; @description
-  ; Returns the given 'n' string if it contains the given 'x' string.
+  ; Returns TRUE if the given 'n' string contains at least one special character.
   ;
   ; @param (string) n
-  ; @param (string) x
+  ; @param (?) special-characters
+  ; Default: ?
   ;
   ; @usage
-  ; (if-contains-part "abc" "ab")
+  ; (contains-special-character? "?")
   ; =>
-  ; "abc"
+  ; true
   ;
   ; @usage
-  ; (if-contains-part "abc" "cd")
+  ; (contains-special-character? "?")
   ; =>
-  ; nil
+  ; false
   ;
-  ; @usage
-  ; (if-contains-part "abc" "")
-  ; =>
-  ; "abc"
-  ;
-  ; @usage
-  ; (if-contains-part "abc" nil)
-  ; =>
-  ; "abc"
-  ;
-  ; @usage
-  ; (if-contains-part [:a] "[:")
-  ; =>
-  ; "[:a]"
-  ;
-  ; @return (string)
-  [n x]
-  (let [n (str n)
-        x (str x)]
-       (if (-> n (clojure.string/includes? x))
-           (-> n))))
+  ; @return (boolean)
+  ([n]
+   (contains-special-character? n "..."))
+
+  ([n special-characters]
+   (let [n (str n)])))
