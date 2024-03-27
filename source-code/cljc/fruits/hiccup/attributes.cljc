@@ -93,6 +93,34 @@
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
 
+(defn merge-event-fn
+  ; @description
+  ; - Associates the given 'event-f' function to a specific key within the given attribute map.
+  ; - In case the attribute map already contains a function associated to the key, it merges the two functions.
+  ;
+  ; @param (map) attributes
+  ; @param (keyword) event-key
+  ; @param (map) event-f
+  ;
+  ; @usage
+  ; (merge-event-fn {:on-click (fn [_] (println "Function #1")) ...}
+  ;                 :on-click
+  ;                 (fn [_] (println "Function #2")))
+  ; =>
+  ; {:on-click (fn [& params] (apply (fn [_] (println "Function #1"))  params)
+  ;                           (apply (fn [_] (println "Function #2"))  params))
+  ;  ...}
+  ;
+  ; @return (map)
+  [attributes event-key event-f]
+  (cond (-> event-f              ifn? not) (-> attributes)
+        (-> attributes event-key ifn? not) (-> attributes (assoc event-key (fn [& params] (-> event-f              (apply params)))))
+        :merge-event-fn                    (-> attributes (assoc event-key (fn [& params] (-> event-f              (apply params))
+                                                                                          (-> attributes event-key (apply params)))))))
+
+;; ----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
+
 (defn value
   ; @description
   ; Converts the given 'n' keyword / string into HICCUP attribute value.

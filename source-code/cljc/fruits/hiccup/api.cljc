@@ -16,6 +16,7 @@
 (def get-style      attributes/get-style)
 (def set-style      attributes/set-style)
 (def join-class     attributes/join-class)
+(def merge-event-fn attributes/merge-event-fn)
 (def value          attributes/value)
 
 ; @redirect (fruits.hiccup.content/*)
