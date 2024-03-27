@@ -89,7 +89,6 @@
 (def all-values-match?     match/all-values-match?)
 (def not-all-keys-match?   match/not-all-keys-match?)
 (def not-all-values-match? match/not-all-values-match?)
-(def first-match-key       match/first-match-key)
 (def first-matching-key    match/first-matching-key)
 (def first-matching-value  match/first-matching-value)
 (def matches-pattern?      match/matches-pattern?)

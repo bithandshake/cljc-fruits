@@ -68,7 +68,10 @@
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:recur? (boolean)(opt)
+  ; {:provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
+  ;   Default: false
+  ;  :recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
@@ -80,13 +83,14 @@
   ([n f]
    (remove-keys-by n f {}))
 
-  ([n f {:keys [recur?] :as options}]
+  ([n f {:keys [provide-value? recur?] :as options}]
    (let [n (mixed/to-map n)]
-        (letfn [(f0 [result k v] (cond (-> k f)        (-> result)
+        (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
+                (f1 [result k v] (cond (f0 k v)        (-> result)
                                        (-> recur? not) (-> result (assoc k v))
                                        (-> v map?)     (-> result (assoc k (remove-keys-by v f options)))
                                        :else           (-> result (assoc k v))))]
-               (reduce-kv f0 {} n)))))
+               (reduce-kv f1 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -154,7 +158,10 @@
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:recur? (boolean)(opt)
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
+  ;   Default: false
+  ;  :recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
@@ -166,14 +173,15 @@
   ([n f]
    (remove-values-by n f {}))
 
-  ([n f {:keys [recur?] :as options}]
+  ([n f {:keys [provide-key? recur?] :as options}]
    (let [n (mixed/to-map n)
          f (mixed/to-ifn f)]
-        (letfn [(f0 [result k v] (cond (-> v f)        (-> result)
+        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
+                (f1 [result k v] (cond (f0 k v)        (-> result)
                                        (-> recur? not) (-> result (assoc k v))
                                        (-> v map?)     (-> result (assoc k (remove-values-by v f options)))
                                        :else           (-> result (assoc k v))))]
-               (reduce-kv f0 {} n)))))
+               (reduce-kv f1 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -241,7 +249,10 @@
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:recur? (boolean)(opt)
+  ; {:provide-value? (boolean)(opt)
+  ;   If TRUE, provides the corresponding value to the given 'f' function.
+  ;   Default: false
+  ;  :recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
@@ -253,14 +264,15 @@
   ([n f]
    (keep-keys-by n f {}))
 
-  ([n f {:keys [recur?] :as options}]
+  ([n f {:keys [provide-value? recur?] :as options}]
    (let [n (mixed/to-map n)
          f (mixed/to-ifn f)]
-        (letfn [(f0 [result k v] (cond (-> k f not)    (-> result)
-                                       (-> recur? not) (-> result (assoc k v))
-                                       (-> v map?)     (-> result (assoc k (keep-keys-by v f options)))
-                                       :else           (-> result (assoc k v))))]
-               (reduce-kv f0 {} n)))))
+        (letfn [(f0 [       k v] (if provide-value? (f k v) (f k)))
+                (f1 [result k v] (cond (-> (f0 k v) not) (-> result)
+                                       (-> recur? not)   (-> result (assoc k v))
+                                       (-> v map?)       (-> result (assoc k (keep-keys-by v f options)))
+                                       :else             (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
@@ -328,7 +340,10 @@
   ; @param (map) n
   ; @param (function) f
   ; @param (map)(opt) options
-  ; {:recur? (boolean)(opt)
+  ; {:provide-key? (boolean)(opt)
+  ;   If TRUE, provides the corresponding key to the given 'f' function.
+  ;   Default: false
+  ;  :recur? (boolean)(opt)
   ;   Default: false}
   ;
   ; @usage
@@ -340,11 +355,12 @@
   ([n f]
    (keep-values-by n f {}))
 
-  ([n f {:keys [recur?] :as options}]
+  ([n f {:keys [provide-key? recur?] :as options}]
    (let [n (mixed/to-map n)
          f (mixed/to-ifn f)]
-        (letfn [(f0 [result k v] (cond (-> v f not)    (-> result)
-                                       (-> recur? not) (-> result (assoc k v))
-                                       (-> v map?)     (-> result (assoc k (keep-values-by v f options)))
-                                       :else           (-> result (assoc k v))))]
-               (reduce-kv f0 {} n)))))
+        (letfn [(f0 [       k v] (if provide-key? (f k v) (f v)))
+                (f1 [result k v] (cond (-> (f0 k v) not) (-> result)
+                                       (-> recur? not)   (-> result (assoc k v))
+                                       (-> v map?)       (-> result (assoc k (keep-values-by v f options)))
+                                       :else             (-> result (assoc k v))))]
+               (reduce-kv f1 {} n)))))
