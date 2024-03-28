@@ -10,9 +10,9 @@
 
 ;; ----------------------------------------------------------------------------
 ;; ----------------------------------------------------------------------------
-
+ 
 ; @redirect (fruits.hiccup.attributes/*)
-(def get-attributes attributes/get-attributes) 
+(def get-attributes attributes/get-attributes)
 (def get-style      attributes/get-style)
 (def set-style      attributes/set-style)
 (def join-class     attributes/join-class)
